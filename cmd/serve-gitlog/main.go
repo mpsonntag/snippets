@@ -23,12 +23,21 @@ type CommitListItem struct {
 	Changes      []string `json:"changes"`
 }
 
-// parseCommitList executes a custom git log command from a
-// specified git repository and parses the results to json.
-func parseCommitList(repoPath string) {
+// parseCommitList executes a custom git log command from a specified git repository,
+// parses the results to json and writes it to a provided io.Writer.
+func parseCommitList(repoPath string, w io.Writer) {
 	// execute log command for repo at repoPath
-	gdir := "--git-dir=" + repoPath
-	usefmt := "--pretty=format:Commit:=%H%nCommitter:=%cn%nAuthor:=%an%nDate-iso:=%ai%nDate-rel:=%ar%nSubject:=%s%nChanges:="
+	gdir := fmt.Sprintf("--git-dir=%s", repoPath)
+
+	usefmt := "--pretty=format:"
+	usefmt += "Commit:=%H%n"
+	usefmt += "Committer:=%cn%n"
+	usefmt += "Author:=%an%n"
+	usefmt += "Date-iso:=%ai%n"
+	usefmt += "Date-rel:=%ar%n"
+	usefmt += "Subject:=%s%n"
+	usefmt += "Changes:="
+
 	cmd := exec.Command("git", gdir, "log", usefmt, "--name-status")
 	body, err := cmd.Output()
 	if err != nil {
@@ -72,33 +81,29 @@ func parseCommitList(repoPath string) {
 			default:
 				fmt.Printf("Encountered unexpected key: '%s', value: '%s'\n", key, strings.Trim(val, "\n"))
 			}
-
 		} else if changesFlag && strings.Contains(l, "\t") {
 			comList[len(comList)-1].Changes = append(comList[len(comList)-1].Changes, l)
 		}
 
-		// Breaks latest when EOF err is raised
+		// Breaks at the latest when EOF err is raised
 		if err != nil {
 			break
 		}
 	}
-
 	if err != io.EOF && err != nil {
 		fmt.Printf("Encountered error: %v\n", err)
 		return
 	}
+	fmt.Printf("Done parsing. There where %d commits\n", len(comList))
 
-	fmt.Printf("Done parsing. There where '%d' commits\n", len(comList))
-
-	enc := json.NewEncoder(os.Stdout)
+	enc := json.NewEncoder(w)
 	err = enc.Encode(comList)
 	if err != nil {
 		fmt.Printf("Error encoding struct: %v\n", err)
 	}
-	//fmt.Printf("Done encoding. This is the result: '%v'\n", len(comList), comList)
 }
 
 func main() {
 	repoPath := "/home/msonntag/Chaos/work/spielwiese/gin-repo-test/repos/git/alice/auth.git"
-	parseCommitList(repoPath)
+	parseCommitList(repoPath, os.Stdout)
 }
