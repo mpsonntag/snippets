@@ -23,9 +23,9 @@ type CommitListItem struct {
 	Changes      []string `json:"changes"`
 }
 
-// parseCommitList executes a custom git log command from a specified git repository,
-// parses the results to json and writes it to a provided io.Writer.
-func parseCommitList(repoPath string, w io.Writer) {
+// parseCommitList executes a custom git log command from the branch of a
+// specified git repository, parses the results to json and writes it to a provided io.Writer.
+func parseCommitList(repoPath, branch string, w io.Writer) {
 	// execute log command for repo at repoPath
 	gdir := fmt.Sprintf("--git-dir=%s", repoPath)
 
@@ -38,7 +38,7 @@ func parseCommitList(repoPath string, w io.Writer) {
 	usefmt += "Subject:=%s%n"
 	usefmt += "Changes:="
 
-	cmd := exec.Command("git", gdir, "log", usefmt, "--name-status")
+	cmd := exec.Command("git", gdir, "log", branch, usefmt, "--name-status")
 	body, err := cmd.Output()
 	if err != nil {
 		fmt.Printf("Failed running git log: %v\n", err)
@@ -105,5 +105,7 @@ func parseCommitList(repoPath string, w io.Writer) {
 
 func main() {
 	repoPath := "/home/msonntag/Chaos/work/spielwiese/gin-repo-test/repos/git/alice/auth.git"
-	parseCommitList(repoPath, os.Stdout)
+	//repoPath := "/home/msonntag/Chaos/work/go-packages/src/github.com/mpsonntag/snippets/.git"
+	branch := "master"
+	parseCommitList(repoPath, branch, os.Stdout)
 }
