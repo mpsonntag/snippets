@@ -27,3 +27,8 @@ _cgo_export.*
 
 # Temp
 *~
+
+# jupyter notebook checkpoints
+*.ipynb_checkpoints*
+
+
