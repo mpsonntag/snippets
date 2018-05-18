@@ -9,6 +9,11 @@ echo "Trying to pip uninstall odml"
 pip uninstall odml-ui
 pip uninstall odml
 
+echo "Uninstalling dependencies"
+pip uninstall lxml
+pip uninstall pyyaml
+pip uninstall rdflib
+
 deactivate
 
 echo "Activating pyenv3"
@@ -17,6 +22,11 @@ source $PYENV"py3main/bin/activate"
 echo "Trying to pip uninstall odml"
 pip uninstall odml-ui
 pip uninstall odml
+
+echo "Uninstalling dependencies"
+pip uninstall lxml
+pip uninstall pyyaml
+pip uninstall rdflib
 
 deactivate
 
