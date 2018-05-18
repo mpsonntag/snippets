@@ -70,18 +70,18 @@ print("\nTest format conversion from XML\n")
 conv_file = conv_fn_base % "xml"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
-    os.path.join(workdir, convdir, "1.4_%s" % conv_file))
+    os.path.join(workdir, convdir, "1.4__%s" % conv_file))
 
 print("\nTest format conversion from JSON\n")
 conv_file = conv_fn_base % "json"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
-    os.path.join(workdir, convdir, "1.4_%s" % conv_file), 'JSON')
+    os.path.join(workdir, convdir, "1.4__%s" % conv_file), 'JSON')
 
 print("\nTest format conversion from YAML\n")
 conv_file = conv_fn_base % "yaml"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
-    os.path.join(workdir, convdir, "1.4_%s" % conv_file), 'YAML')
+    os.path.join(workdir, convdir, "1.4__%s" % conv_file), 'YAML')
 
 print("\nDone...\n")
