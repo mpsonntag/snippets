@@ -13,30 +13,33 @@ conv_fn_base = "1.3_convert.%s"
 compdir = "complex"
 comp_fn_base = "1.4_example.%s"
 
-print("Version '%s'\nInstalled at '%s'\n" % (odml.__version__, odml.__file__))
+print("Testing odML version\t'%s'" % odml.__version__)
+print("Installed at\t\t'%s'" % odml.__file__)
+print("Working in directory\t'%s'" % workdir)
 
-print("Working in directory '%s'\n" % workdir)
-
-print("\nCreate document\n")
+print("\n\n-- Create document")
 doc = odml.Document(author="HPL")
 sec = odml.Section(name="sec", parent=doc)
 prop = odml.Property(name="prop", parent=sec)
 subsec1 = odml.Section(name="subsec", parent=sec)
 subsec2 = odml.Section(parent=sec)
+print(doc)
 
-print("\nSaving document\n%s\n" % doc)
+print("\n\n-- Saving document ...")
 odml.save(doc, os.path.join(workdir, slf, (new_fn_base % 'x')))
 odml.save(doc, os.path.join(workdir, slf, (new_fn_base % 'j')), 'JSON')
 odml.save(doc, os.path.join(workdir, slf, (new_fn_base % 'r')), 'RDF')
 odml.save(doc, os.path.join(workdir, slf, (new_fn_base % 'y')), 'YAML')
+print("-- Done...")
 
-print("\nLoading document\n")
+print("\n-- Loading document ...")
 xdoc = odml.load(os.path.join(workdir, slf, (new_fn_base % 'x')))
 jdoc = odml.load(os.path.join(workdir, slf, (new_fn_base % 'j')), 'JSON')
 ydoc = odml.load(os.path.join(workdir, slf, (new_fn_base % 'y')), 'YAML')
 rdoc = odml.tools.odmlparser.ODMLReader('RDF').from_file(os.path.join(workdir, slf, (new_fn_base % 'r')), 'turtle')[0]
+print("-- Done...")
 
-print("\nTesting equality\n")
+print("\n\n-- Testing equality ...")
 assert(doc == xdoc)
 assert(doc == jdoc)
 #assert(doc == rdoc)
@@ -56,32 +59,29 @@ assert(prop == xdoc[0].properties[0])
 assert(prop == jdoc[0].properties[0])
 assert(prop == rdoc[0].properties[0])
 assert(prop == ydoc[0].properties[0])
+print("-- Done...")
 
-print("\nTest complex file load from XML\n")
-print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'xml'))))
+print("\n\n-- Test complex file loading ...")
+print("XML:\t%s" % odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'xml'))))
+print("JSON:\t%s" % odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'json')), 'JSON'))
+print("YAML:\t%s" % odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'yaml')), 'YAML'))
 
-print("\nTest complex file load from JSON\n")
-print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'json')), 'JSON'))
-
-print("\nTest complex file load from YAML\n")
-print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'yaml')), 'YAML'))
-
-print("\nTest format conversion from XML\n")
+print("\n\n-- Test format conversion from XML ...")
 conv_file = conv_fn_base % "xml"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
     os.path.join(workdir, convdir, "1.4__%s" % conv_file))
 
-print("\nTest format conversion from JSON\n")
+print("\n-- Test format conversion from JSON ...")
 conv_file = conv_fn_base % "json"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
     os.path.join(workdir, convdir, "1.4__%s" % conv_file), 'JSON')
 
-print("\nTest format conversion from YAML\n")
+print("\n-- Test format conversion from YAML ...")
 conv_file = conv_fn_base % "yaml"
 _ = VersionConverter(
     os.path.join(workdir, convdir, conv_file)).write_to_file(
     os.path.join(workdir, convdir, "1.4__%s" % conv_file), 'YAML')
 
-print("\nDone...\n")
+print("\n-- Done ...\n")
