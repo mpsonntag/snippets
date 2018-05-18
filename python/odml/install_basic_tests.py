@@ -1,5 +1,6 @@
-import os
 import odml
+import os
+import sys
 
 from odml.tools.version_converter import VersionConverter
 
@@ -16,6 +17,7 @@ comp_fn_base = "1.4_example.%s"
 print("Testing odML version\t'%s'" % odml.__version__)
 print("Installed at\t\t'%s'" % odml.__file__)
 print("Working in directory\t'%s'" % workdir)
+print("Python version:\t\t'%s.%s.%s'" % (sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
 
 print("\n\n-- Create document")
 doc = odml.Document(author="HPL")
