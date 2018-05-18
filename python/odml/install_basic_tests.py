@@ -57,6 +57,15 @@ assert(prop == jdoc[0].properties[0])
 assert(prop == rdoc[0].properties[0])
 assert(prop == ydoc[0].properties[0])
 
+print("\nTest complex file load from XML\n")
+print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'xml'))))
+
+print("\nTest complex file load from JSON\n")
+print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'json')), 'JSON'))
+
+print("\nTest complex file load from YAML\n")
+print(odml.load(os.path.join(workdir, compdir, (comp_fn_base % 'yaml')), 'YAML'))
+
 print("\nTest format conversion from XML\n")
 conv_file = conv_fn_base % "xml"
 _ = VersionConverter(
