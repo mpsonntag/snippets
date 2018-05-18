@@ -1,4 +1,8 @@
 import odml
+import os
+
+wdir = "/home/msonntag/Chaos/work/x_odml/tmp"
+fn_base = "1.3.3_example.%s"
 
 doc = odml.Document(author="author", date="2018-02-02", version="v1.13",
                     repository="http://portal.g-node.org/odml/terminologies/v1.0/terminologies.xml")
@@ -73,6 +77,6 @@ val = odml.Value(value=2, uncertainty=12, unit="arbitrary", dtype=odml.DType.int
                  reference="ref val 1", filename="filename val 1", encoder="enc val 1", comment="comment val 1")
 doc.sections[0].sections[0].properties[1].append(val)
 
-odml.fileio.save(doc, '/home/msonntag/Chaos/work/1.3.3_example.xml')
-odml.fileio.save(doc, '/home/msonntag/Chaos/work/1.3.3_example.yaml', "YAML")
-odml.fileio.save(doc, '/home/msonntag/Chaos/work/1.3.3_example.json', "JSON")
+odml.fileio.save(doc, os.path.join(wdir, (fn_base % "xml")))
+odml.fileio.save(doc, os.path.join(wdir, (fn_base % "yaml")), "YAML")
+odml.fileio.save(doc, os.path.join(wdir, (fn_base % "json")), "JSON")
