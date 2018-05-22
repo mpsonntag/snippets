@@ -7,6 +7,13 @@ from odml.tools.version_converter import VersionConverter
 curr_path = os.path.dirname(os.path.realpath(__file__))
 workdir = os.path.join(curr_path, "resources")
 
+if len(sys.argv) == 2:
+    print("Using base path '%s'\n" % sys.argv[1])
+    workdir = sys.argv[1]
+
+else:
+    print("Using default path '%s'\n" % workdir)
+
 slf = "save_load"
 new_fn_base = "1.4_testfile.%s"
 
