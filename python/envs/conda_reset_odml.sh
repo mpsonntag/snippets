@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-CONDABIN='/home/msonntag/Chaos/software/mconda2/bin'
+CONDABIN=$HOME'/Chaos/software/mconda2/bin'
+if [ $(which conda) ]; then
+    CONDABIN=$(which conda)"/bin"
+fi
 
 echo -- Running odml_conda_deps_reset.sh
 echo -- make sure we are clean and not in an environment.
