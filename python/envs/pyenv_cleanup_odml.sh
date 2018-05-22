@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-PYENV='/home/msonntag/Chaos/software/pyvirtualenv/'
-PYLOCAL='/home/msonntag/.local/'
+PYLOCAL=$HOME'/.local/'
+PYENV=$HOME'/Chaos/software/pyvirtualenv/'
 
 echo "Removing local install"
 pip uninstall odml-ui
