@@ -9,7 +9,7 @@ echo "-- Running odml_conda_deps_reset.sh"
 echo "-- Using conda at $CONDABIN"
 
 echo "-- make sure we are clean and not in an environment."
-deactivate
+source deactivate
 
 echo "-- Cleanup previous environments"
 
