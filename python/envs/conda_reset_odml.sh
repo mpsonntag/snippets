@@ -5,7 +5,6 @@ if [ $(which conda) ]; then
     CONDA=$(which conda)
 fi
 CONDABIN=${CONDA/"bin/conda"/"bin"}
-exit
 
 echo "-- Running odml_conda_deps_reset.sh"
 echo "-- Using conda at $CONDA"
