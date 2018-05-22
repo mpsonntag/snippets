@@ -8,6 +8,10 @@ curr_path = os.path.dirname(os.path.realpath(__file__))
 workdir = os.path.join(curr_path, "resources")
 
 if len(sys.argv) == 2:
+    if not os.path.isdir(sys.argv[1]):
+        print("Cannot access directory '%s'\n" % sys.argv[1])
+        quit()
+
     print("Using base path '%s'\n" % sys.argv[1])
     workdir = sys.argv[1]
 
