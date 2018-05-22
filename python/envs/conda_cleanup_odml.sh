@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 
-CONDABIN='$CONDABIN'
+CONDABIN=$HOME'/Chaos/software/mconda2/bin'
+if [ $(which conda) ]; then
+    CONDABIN=$(which conda)"/bin"
+fi
 
 echo -- Running odml_conda_deps_reset.sh
 echo -- make sure we are clean and not in an environment.
 source deactivate
 
 echo -- Cleanup previous environments
+deactivate
 
 $CONDABIN/conda remove -n o2 --all -y
 $CONDABIN/conda remove -n ot2 --all -y
