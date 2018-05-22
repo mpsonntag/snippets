@@ -4,7 +4,9 @@ import sys
 
 from odml.tools.version_converter import VersionConverter
 
-workdir = "/home/msonntag/Chaos/work/x_odml"
+curr_path = os.path.dirname(os.path.realpath(__file__))
+workdir = os.path.join(curr_path, "resources")
+
 slf = "save_load"
 new_fn_base = "1.4_testfile.%s"
 
