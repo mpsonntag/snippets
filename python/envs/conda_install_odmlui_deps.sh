@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo Running odml_conda_deps.sh
+echo "-- Running conda_install_odmlui_deps.sh"
 
 conda install -c pkgw/label/superseded gtk3 -y
 conda install -c conda-forge pygobject -y
