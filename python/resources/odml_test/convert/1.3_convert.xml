@@ -1,0 +1,34 @@
+<odML version="1">
+  <date>2018-01-18</date>
+  <section>
+    <definition>Section for short annotations that are taken during an experiment to describe certain events.</definition>
+    <property>
+      <value><type>string</type></value>
+      <name>Unnamed Property</name>
+    </property>
+    <property>
+      <definition>Unnamed and ignored</definition>
+    </property>
+    <property>
+      <value><type>string</type><unknownValueTag>Ignore me</unknownValueTag></value>
+      <name>UnknownValueTag</name>
+    </property>
+    <property>
+      <value><type>string</type></value>
+      <name>Unnamed Property 1</name>
+      <unknownPropTag>I shall be ignored</unknownPropTag>
+    </property>
+    <name>Event</name>
+    <section>
+      <name>1</name>
+      <type>undefined</type>
+      <unknownSecTag>I shall be ignored</unknownSecTag>
+      <repository>Iamsobroken</repository>
+    </section>
+    <include>http://portal.g-node.org/odml/terminologies/v1.0/event/event.xml</include>
+    <type>event</type>
+  </section>
+  <version>1.0</version>
+  <repository>http://portal.g-node.org/odml/terminologies/v1.0/terminologies.xml</repository>
+  <author>Michael Sonntag</author>
+</odML>
