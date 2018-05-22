@@ -1,0 +1,66 @@
+Document:
+  author: Michael Sonntag
+  date: 2018-05-09
+  id: 18b139ac-9711-442e-a504-e2e70c17146d
+  repository: http://portal.g-node.org/odml/terminologies/v1.1/terminologies.xml
+  sections:
+  - definition: "Section for grouping short annotations that are taken during\n  \
+      \    an experiment, preparation etc..."
+    id: 41cd603d-cac9-40ac-87e6-fd44316e9080
+    include: http://portal.g-node.org/odml/terminologies/v1.1/collection/event_list.xml
+    name: EventList
+    properties:
+    - definition: The local datetime entry of the moment the event was taken (YYYY-MM-DD
+        hh:mm:ss format).
+      id: 4eb0e8e6-213f-4f99-ba9f-510878ca931c
+      name: Timestamp
+      type: datetime
+      value:
+      - 2018-05-09 15:31:33
+    - definition: A description of the event.
+      id: f3aee5d0-437b-49d6-9bb6-b168cba45ca4
+      name: Description
+      type: text
+      value:
+      - ''
+    sections: []
+    type: event_list
+  - id: 6632fc6a-7bfb-4a08-84e5-7c7bf1d01396
+    name: Unnamed Section
+    properties: []
+    sections:
+    - id: dc0ee2b6-1cbd-4799-ae47-9fc4c1960052
+      name: Unnamed Section
+      properties:
+      - id: 074bdfc5-c1c3-4448-aa9e-8f65457aefb3
+        name: Unnamed Property
+        type: string
+        value:
+        - ''
+      - id: b856101b-267f-4109-8216-d5f6db620f37
+        name: Unnamed Property 1
+        type: string
+        value:
+        - ''
+      - id: a1b16dcd-8eb2-4f22-9c7a-fd7158a2cc9e
+        name: Unnamed Property 2
+        type: string
+        value:
+        - ''
+      - id: f0e0814c-bf18-4b87-b3c7-84acd7765dfc
+        name: Unnamed Property 3
+        type: string
+        value:
+        - ''
+      - id: c2abb1ad-3753-48c9-92fc-712b7048b23b
+        name: Unnamed Property 4
+        type: string
+        value:
+        - ''
+      sections: []
+  - id: cbb091b3-2d61-4bd9-b1df-f87ff0c61501
+    name: Unnamed Section 1
+    properties: []
+    sections: []
+  version: '1.0'
+odml-version: '1.1'

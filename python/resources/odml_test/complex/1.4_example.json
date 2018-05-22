@@ -1,0 +1,564 @@
+{
+    "odml-version": "1.1",
+    "Document": {
+        "author": "Michael Sonntag",
+        "sections": [
+            {
+                "sections": [],
+                "definition": "sec1 def",
+                "reference": "secRef1",
+                "properties": [
+                    {
+                        "uncertainty": "1",
+                        "unit": "Hz",
+                        "value": [
+                            "a"
+                        ],
+                        "definition": "propDef1",
+                        "dtype": "string",
+                        "name": "prop1",
+                        "id": "b96d2133-8022-4f42-b717-9e96c5254323"
+                    },
+                    {
+                        "uncertainty": "2",
+                        "unit": "mHz",
+                        "value": [
+                            "b"
+                        ],
+                        "definition": "propDef2",
+                        "dtype": "string",
+                        "name": "prop2",
+                        "id": "bf83c2ba-8dee-46d0-8dfa-c79129155ca4"
+                    },
+                    {
+                        "uncertainty": "3",
+                        "unit": "MHz",
+                        "value": [
+                            "c"
+                        ],
+                        "definition": "propDef3",
+                        "dtype": "string",
+                        "name": "prop3",
+                        "id": "0f596c56-2bc2-4198-94b8-3a198ac443f0"
+                    },
+                    {
+                        "uncertainty": "4",
+                        "unit": "GHz",
+                        "value": [
+                            "d"
+                        ],
+                        "definition": "propDef4",
+                        "dtype": "string",
+                        "name": "prop4",
+                        "id": "401e4c3c-2497-4d65-8cc8-1468dbf29ccb"
+                    },
+                    {
+                        "uncertainty": "5",
+                        "dependency": "someDep",
+                        "unit": "pHz",
+                        "value": [
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5"
+                        ],
+                        "definition": "propDef5",
+                        "value_origin": "comes from a textfile",
+                        "dtype": "string",
+                        "name": "prop5",
+                        "reference": "somePropRef",
+                        "dependency_value": "someDepVal",
+                        "id": "94ad58fa-f805-4a2b-9ecf-39f7fcce11b8"
+                    }
+                ],
+                "name": "sec1",
+                "type": "hurraSection",
+                "id": "593cfc63-c102-4a39-a937-bbe7790b14ca"
+            },
+            {
+                "sections": [],
+                "definition": "sec2 def",
+                "reference": "secRef2",
+                "properties": [
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property",
+                        "value": [
+                            "asf"
+                        ],
+                        "id": "e39a30bf-f741-4410-99e9-7a7a007d4847"
+                    },
+                    {
+                        "uncertainty": "asdf",
+                        "dependency": "asdf",
+                        "unit": "asdf",
+                        "value": [
+                            "",
+                            "asdf",
+                            "",
+                            "asdf"
+                        ],
+                        "definition": "asdf",
+                        "value_origin": "asdf",
+                        "dtype": "string",
+                        "name": "Unnamed Property 1",
+                        "reference": "asdf",
+                        "dependency_value": "asdf",
+                        "id": "3fb4546b-a593-40e8-a414-dc5a9d3c1c61"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 2",
+                        "value": [
+                            "",
+                            "asdf",
+                            ""
+                        ],
+                        "id": "b0f7d0f7-7064-405f-a5f3-25c09d45ec40"
+                    }
+                ],
+                "name": "sec2",
+                "type": "hurraSection",
+                "id": "09acc966-2304-4d1d-9362-ab3cf63deda8"
+            },
+            {
+                "sections": [
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section",
+                        "properties": [],
+                        "id": "26c9434d-5e8f-4c04-bf46-d3fe10085319"
+                    },
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section 1",
+                        "properties": [
+                            {
+                                "dtype": "string",
+                                "name": "asdf",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "dc1748a1-f51b-4642-9b7c-f36ed4b5a7e2"
+                            },
+                            {
+                                "dtype": "string",
+                                "name": "blargh \u26a0",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "87bb3356-22c7-43b3-984f-6ae71a9a9209"
+                            }
+                        ],
+                        "id": "116234cf-f5c4-4dd1-a845-ef0f586e102b"
+                    },
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section 2",
+                        "properties": [],
+                        "id": "3b4dfb05-cc9a-43af-b278-73206310332f"
+                    }
+                ],
+                "definition": "sec3 def",
+                "reference": "secRef3",
+                "properties": [
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property",
+                        "value": [
+                            ""
+                        ],
+                        "id": "3dc36be1-a37c-4e03-9a32-11053a12b280"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 1",
+                        "value": [
+                            ""
+                        ],
+                        "id": "bce7dfa4-c459-44c4-906c-cefb7ab1ad20"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 2",
+                        "value": [
+                            ""
+                        ],
+                        "id": "d46a1bb2-1613-4a3e-827f-7e827d14d314"
+                    }
+                ],
+                "name": "sec3",
+                "type": "hurraSection",
+                "id": "1abe9e04-0fff-4001-868a-0e843b91cfd4"
+            },
+            {
+                "include": "http://portal.g-node.org/odml/terminologies/v1.1/collection/event_list.xml",
+                "sections": [],
+                "definition": "Section for grouping short annotations that are taken during\n      an experiment, preparation etc...",
+                "properties": [
+                    {
+                        "dtype": "datetime",
+                        "name": "Timestamp",
+                        "value": [
+                            "2018-04-18 17:11:23"
+                        ],
+                        "definition": "The local datetime entry of the moment the event was taken (YYYY-MM-DD hh:mm:ss format).",
+                        "id": "d6186ab6-305f-4b13-afcc-6cf6e8ef8bb1"
+                    },
+                    {
+                        "dtype": "text",
+                        "name": "Description",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "A description of the event.",
+                        "id": "27e47d52-56c7-4d90-b44d-6dee4c4b114c"
+                    }
+                ],
+                "name": "EventList",
+                "type": "event_list",
+                "id": "e5cdb7df-6a8e-46f0-8dd4-9f83976930bf"
+            },
+            {
+                "include": "http://portal.g-node.org/odml/terminologies/v1.1/hardware/stimulus_isolator.xml",
+                "sections": [],
+                "definition": "Properties of a stimulus Isolator device.",
+                "properties": [
+                    {
+                        "dtype": "string",
+                        "name": "SerialNo",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The device's serial number.",
+                        "id": "b3c43ec9-6cec-4b17-b80a-85a4fd75a358"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "InventoryNo",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The inventory number of the device.",
+                        "id": "8eff0ce1-5e82-42b2-af2f-b916c71ff7c0"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Model",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The model name of this hardware item.",
+                        "id": "f8e96736-49f1-4c66-817e-6f48e9d57d8b"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Manufacturer",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The Manufacturer of this hardware item.",
+                        "id": "42710ea8-2da3-4805-b9be-05b1d40466c6"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Owner",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "Who's the owner of the device.",
+                        "id": "582a8095-f29e-4df1-8be1-05c894f48cb2"
+                    },
+                    {
+                        "unit": "V",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The minimal input voltage.",
+                        "dtype": "float",
+                        "name": "InputRangeMinVoltage",
+                        "id": "283e86c0-9f80-49b5-9e8e-c013e5aebb22"
+                    },
+                    {
+                        "unit": "V",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The maximal input voltage.",
+                        "dtype": "float",
+                        "name": "InputRangeMaxVoltage",
+                        "id": "819652ad-12ca-4abe-91f0-fcffadae7113"
+                    },
+                    {
+                        "unit": "V",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The minimal output voltage.",
+                        "dtype": "float",
+                        "name": "OutputRangeMinVolatge",
+                        "id": "153ab41b-88f2-4b96-a9e5-f1ae7296ef4a"
+                    },
+                    {
+                        "unit": "V",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The maximal output voltage.",
+                        "dtype": "float",
+                        "name": "OutputRangeMaxVoltage",
+                        "id": "80abbf6d-38ec-4538-9331-35e7b7ca136c"
+                    },
+                    {
+                        "unit": "A",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The minimal output current.",
+                        "dtype": "float",
+                        "name": "OutputRangeMinCurrent",
+                        "id": "0418c8e2-bbb7-4e51-8048-f7bdf3a93a04"
+                    },
+                    {
+                        "unit": "A",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The maximal output current.",
+                        "dtype": "float",
+                        "name": "OutputRangeMaxCurrent",
+                        "id": "6ce01dcc-10c7-4d0c-b1d3-cb000334cff4"
+                    },
+                    {
+                        "dtype": "float",
+                        "name": "MaximumGain",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The maximum gain of the device.",
+                        "id": "729cf6ac-b1e0-4d9d-9c38-abec5e08a8ef"
+                    },
+                    {
+                        "dtype": "float",
+                        "name": "MinimumGain",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The minimum gain of the device.",
+                        "id": "61795ce8-25a3-4a57-824e-e91aec7bc772"
+                    },
+                    {
+                        "dtype": "float",
+                        "name": "GainStepSize",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The size of the gain steps between minimum and maximum.",
+                        "id": "89bb15e1-e494-4dc3-9ed4-ac5014090015"
+                    },
+                    {
+                        "dtype": "float",
+                        "name": "Gain",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The gain of the device.",
+                        "id": "7a73a4bd-b0fc-42b7-82c1-23b5a6874d2e"
+                    },
+                    {
+                        "unit": "db",
+                        "value": [
+                            0.0
+                        ],
+                        "definition": "The gain of the device given in db.",
+                        "dtype": "float",
+                        "name": "GainDb",
+                        "id": "09e8858c-c602-4091-bb71-8856bb0c2f1a"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Description",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "A description of this hardware item.",
+                        "id": "8ff06c2d-82f3-4a75-9bf7-3a23af391bab"
+                    }
+                ],
+                "name": "StimulusIsolator",
+                "type": "hardware/stimulus_isolator",
+                "id": "bae7c9a4-3a3e-41b1-95fc-fba44548211a"
+            },
+            {
+                "include": "http://portal.g-node.org/odml/terminologies/v1.1/setup/setup.xml",
+                "sections": [
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section",
+                        "properties": [
+                            {
+                                "dtype": "string",
+                                "name": "Unnamed Property",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "5eb42cd5-cc9f-4137-a77c-8cc625b7b199"
+                            },
+                            {
+                                "dtype": "string",
+                                "name": "Unnamed Property 1",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "def5ca88-e2ab-47a2-b43c-81e38ebf43fb"
+                            },
+                            {
+                                "dtype": "string",
+                                "name": "Unnamed Property 2",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "a298a5e5-426f-4519-9e2e-1eb6b990f355"
+                            },
+                            {
+                                "dtype": "string",
+                                "name": "Unnamed Property 3",
+                                "value": [
+                                    ""
+                                ],
+                                "id": "f44fc927-844b-4219-a9c4-9ec95e7a82bc"
+                            }
+                        ],
+                        "id": "d6699a0c-1e0a-44d4-90f5-f7c222409bf1"
+                    },
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section 1",
+                        "properties": [],
+                        "id": "4921e58e-e5f6-4ba4-ab19-2fab5342645f"
+                    },
+                    {
+                        "sections": [],
+                        "name": "Unnamed Section 2",
+                        "properties": [],
+                        "id": "e01357e7-97ae-4781-a55c-6dfb99326c2f"
+                    }
+                ],
+                "definition": "The experimental setup used in the recordings. By using HardwareProperties as a subsection, a very\n      detailed description of the setup can be given.",
+                "properties": [
+                    {
+                        "dtype": "text",
+                        "name": "Description",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "A description of the setup.",
+                        "id": "e9b01287-2ab7-46ec-b394-c91dce63d7b5"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Location",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The location of the setup (e.g. room).",
+                        "id": "e2a309f3-d49b-4044-956b-32faaabbe4ec"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Department",
+                        "value": [
+                            "asfd"
+                        ],
+                        "definition": "The department where the setup is located.",
+                        "id": "52c9c7ac-d81f-4b31-b4fe-2d52c843d1e4"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Creator",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The person who built the setup.",
+                        "id": "2f64c413-5960-4ed1-b667-3c95fb93bd21"
+                    },
+                    {
+                        "dtype": "person",
+                        "name": "Maintainer",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The person who is responsible for the setup maintenance.",
+                        "id": "2d1e8d64-fff1-4709-b23d-4ef0f5a591f5"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Config",
+                        "value": [
+                            "asdf"
+                        ],
+                        "definition": "An identifier of the used setup configuration, e.g. if variations of the same setup are used.",
+                        "id": "7e34345f-f084-49f3-886f-56e7c1a43f7a"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "ConfigID",
+                        "value": [
+                            ""
+                        ],
+                        "definition": "The ID of a setup configuration stored e.g. in a database.",
+                        "id": "79a93f4c-172b-4498-a742-deaf4a5b295d"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property",
+                        "value": [
+                            ""
+                        ],
+                        "id": "3fbe1963-f9e2-41b8-aeed-b3051fde779b"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 1",
+                        "value": [
+                            ""
+                        ],
+                        "id": "4d37c45e-4233-454d-8547-94e959331ab1"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 2",
+                        "value": [
+                            ""
+                        ],
+                        "id": "e826a3fa-464d-4487-ae38-8dcab82c5b2a"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 3",
+                        "value": [
+                            ""
+                        ],
+                        "id": "d396f79b-ea8c-42ea-a346-5fb77716d403"
+                    },
+                    {
+                        "dtype": "string",
+                        "name": "Unnamed Property 4",
+                        "value": [
+                            ""
+                        ],
+                        "id": "36f703a2-2172-48e7-a11c-48779f01095c"
+                    }
+                ],
+                "name": "Setup",
+                "type": "setup",
+                "id": "2e7c578a-e376-4306-b44c-465724d6a708"
+            }
+        ],
+        "version": "1.0",
+        "repository": "http://portal.g-node.org/odml/terminologies/v1.1/terminologies.xml",
+        "date": "2018-01-19",
+        "id": "ab5dafcb-bd4b-471d-81c6-bd6ef0fbffed"
+    }
+}
