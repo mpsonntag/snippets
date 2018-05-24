@@ -35,12 +35,32 @@ conda install -c conda-forge pygobject -y
 conda install -c conda-forge gdk-pixbuf -y
 conda install -c pkgw-forge adwaita-icon-theme -y
 
+if [ $(uname) == "Darwin" ]; then
+    echo "-- Setting up conda environment activation script"
+    mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+    touch $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo '#!/bin/sh' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo 'export GSETTINGS_SCHEMA_DIR=$CONDA_PREFIX/share/glib-2.0/schemas' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+fi
+
 source $CONDABIN/activate ot3
 
 conda install -c pkgw/label/superseded gtk3 -y
 conda install -c conda-forge pygobject -y
 conda install -c conda-forge gdk-pixbuf -y
 conda install -c pkgw-forge adwaita-icon-theme -y
+
+if [ $(uname) == "Darwin" ]; then
+    echo "-- Setting up conda environment activation script"
+    mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+    touch $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo '#!/bin/sh' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo 'export GSETTINGS_SCHEMA_DIR=$CONDA_PREFIX/share/glib-2.0/schemas' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+fi
 
 echo "-- List current environments"
 
