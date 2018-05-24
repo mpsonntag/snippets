@@ -4,7 +4,7 @@ CONDA=$HOME'/Chaos/software/mconda2/bin/conda'
 if [ $(which conda) ]; then
     CONDA=$(which conda)
 fi
-CONDABIN=${CONDA/"bin/conda"/"bin"}
+CONDABIN=$(echo $CONDA | sed 's/bin\/conda/bin/g')
 
 echo "-- Running odml_conda_deps_reset.sh"
 echo "-- Using conda at $CONDA"
