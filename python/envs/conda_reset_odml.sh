@@ -43,6 +43,13 @@ if [ $(uname) == "Darwin" ]; then
     echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     echo 'export GSETTINGS_SCHEMA_DIR=$CONDA_PREFIX/share/glib-2.0/schemas' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+
+    mkdir -p $CONDA_PREFIX/etc/conda/deactivate.d
+    touch $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo '#!/bin/sh' > $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "unset GSETTINGS_SCHEMA_DIR" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
 fi
 
 source $CONDABIN/activate ot3
@@ -60,6 +67,13 @@ if [ $(uname) == "Darwin" ]; then
     echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     echo 'export GSETTINGS_SCHEMA_DIR=$CONDA_PREFIX/share/glib-2.0/schemas' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
     echo "" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+
+    mkdir -p $CONDA_PREFIX/etc/conda/deactivate.d
+    touch $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo '#!/bin/sh' > $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "unset GSETTINGS_SCHEMA_DIR" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
+    echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
 fi
 
 echo "-- List current environments"
