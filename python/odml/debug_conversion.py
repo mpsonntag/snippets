@@ -47,9 +47,9 @@ props = tdoc.sections[0].properties
 for p in props:
     print("%s \n\t--- '%s'" % (p.value, p.value[0]))
 
-odml.Property(name="3", value="d, e, f", parent=tdoc.sections[0])
-odml.Property(name="4", value=["sfasdf","asdffgh"], parent=tdoc.sections[0])
-odml.Property(name="5", value=[1,2,3], parent=tdoc.sections[0])
+odml.Property(name="testAddSingleStringValue", value="d, e, f", parent=tdoc.sections[0])
+odml.Property(name="testAddStringListWS", value=[" some ", " more ", " strings "], parent=tdoc.sections[0])
+odml.Property(name="testAddIntList", value=[1, 2, 3], parent=tdoc.sections[0])
 
 odml.save(tdoc, out_tiny)
 
