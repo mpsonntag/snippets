@@ -23,3 +23,45 @@ conv = VC(conv_utf8)
 conv.write_to_file(out_utf8)
 
 vudoc = odml.load(out_utf8)
+
+tiny = os.path.join(root, '1.3_tiny.xml')
+out_tiny = os.path.join(root, '1.4_tiny.xml')
+
+conv = VC(tiny)
+conv.write_to_file(out_tiny)
+
+tdoc = odml.load(out_tiny)
+
+print("---- converted values -----")
+print(tdoc.sections[0].properties[0].value)
+print(tdoc.sections[0].properties[0].value[0])
+print(tdoc.sections[0].properties[1].value)
+print(tdoc.sections[0].properties[1].value[0])
+
+odml.save(tdoc, out_tiny)
+tdoc = odml.load(out_tiny)
+
+print("---- saved and loaded values -----")
+print(tdoc.sections[0].properties[0].value)
+print(tdoc.sections[0].properties[0].value[0])
+print(tdoc.sections[0].properties[1].value)
+print(tdoc.sections[0].properties[1].value[0])
+
+odml.Property(name="3", value="d, e, f", parent=tdoc.sections[0])
+odml.Property(name="4", value=["sfasdf","asdffgh"], parent=tdoc.sections[0])
+odml.Property(name="5", value=[1,2,3], parent=tdoc.sections[0])
+
+odml.save(tdoc, out_tiny)
+
+
+"""
+doc = odml.Document()
+sec = odml.Section(name='bla')
+sec = odml.Section(name='bla', parent=doc)
+prop = odml.Property(name="1", value="a", parent=sec)
+prop = odml.Property(name="2", value=["b", "c"], parent=sec)
+odml.save(doc, out_tiny)
+prop = odml.Property(name="3", value="d, e, f", parent=sec)
+odml.save(doc, out_tiny)
+blargh = odml.load(out_tiny)
+"""
