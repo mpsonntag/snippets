@@ -53,6 +53,35 @@ odml.Property(name="5", value=[1,2,3], parent=tdoc.sections[0])
 
 odml.save(tdoc, out_tiny)
 
+odml.save(tdoc, ("%s.json" % out_tiny), "JSON")
+odml.save(tdoc, ("%s.yaml" % out_tiny), "YAML")
+
+xdoc = odml.load(out_tiny)
+jdoc = odml.load(("%s.json" % out_tiny), "JSON")
+ydoc = odml.load(("%s.yaml" % out_tiny), "YAML")
+
+print("---- saved and loaded values -----")
+print("\nJSON equal: %s" % (tdoc == jdoc))
+print(jdoc.sections[0].properties[0].value)
+print(jdoc.sections[0].properties[1].value)
+print(jdoc.sections[0].properties[2].value)
+print(jdoc.sections[0].properties[3].value)
+print(jdoc.sections[0].properties[4].value)
+
+print("\nXML equal: %s" % (tdoc == xdoc))
+print(xdoc.sections[0].properties[0].value)
+print(xdoc.sections[0].properties[1].value)
+print(xdoc.sections[0].properties[2].value)
+print(xdoc.sections[0].properties[3].value)
+print(xdoc.sections[0].properties[4].value)
+
+print("\nYAML equal: %s" % (tdoc == ydoc))
+print(ydoc.sections[0].properties[0].value)
+print(ydoc.sections[0].properties[1].value)
+print(ydoc.sections[0].properties[2].value)
+print(ydoc.sections[0].properties[3].value)
+print(ydoc.sections[0].properties[4].value)
+
 
 """
 doc = odml.Document()
