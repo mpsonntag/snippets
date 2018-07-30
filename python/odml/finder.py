@@ -4,14 +4,13 @@ odmlFindConvert searches for odml files within a provided SEARCHDIR
 and converts them a) to the newest odML format version and
 exports all found and resulting newest odML version files to RDF.
 
-Usage: odmlconv [-r] [-o OUT] SEARCHDIR
+Usage: odmlconv [-r] SEARCHDIR
 
 Arguments:
     SEARCHDIR       Directory to search for odML files.
 
 Options:
     -r              search recursively.
-    -o OUT          output directory root.
     -h --help       show this screen.
     --version       show version.
 """
@@ -22,6 +21,14 @@ import sys
 import tempfile
 
 from docopt import docopt
+from odml.tools.odmlparser import ODMLReader, ODMLWriter
+
+
+def run_rdf_conversion(infile, dir):
+    outname = os.path.splitext(os.path.basename(infile))[0]
+    outfile = os.path.join(dir, "%s.rdf" % outname)
+    doc = ODMLReader().from_file(infile)
+    ODMLWriter("RDF").write_file(doc, outfile)
 
 
 def main(args=None):
