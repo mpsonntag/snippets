@@ -25,6 +25,10 @@ class FindConvert(object):
         parser = docopt(__doc__, argv=args, version="1.0.0")
         print("%s, %s" % (parser['-r'], parser['SEARCHDIR']))
 
+        root = parser['SEARCHDIR']
+        ofiles = list(filter(lambda f: f.endswith('.odml'), os.listdir(root)))
+        print(ofiles)
+
 
 if __name__ == "__main__":
     FindConvert.cli(sys.argv[1:])
