@@ -18,7 +18,8 @@ import sys
 from docopt import docopt
 
 
-class FindConvert(object):
+def main(args=None):
+    parser = docopt(__doc__, argv=args, version="0.1.0")
 
     @classmethod
     def cli(cls, args=None):
@@ -31,5 +32,5 @@ class FindConvert(object):
 
 
 if __name__ == "__main__":
-    FindConvert.cli(sys.argv[1:])
+    main(sys.argv[1:])
 
