@@ -4,13 +4,14 @@ odmlFindConvert searches for odml files within a provided SEARCHDIR
 and converts them a) to the newest odML format version and
 exports all found and resulting newest odML version files to RDF.
 
-Usage: odmlconv [-r] SEARCHDIR
+Usage: odmlconv [-r] [-o OUT] SEARCHDIR
 
 Arguments:
     SEARCHDIR       Directory to search for odML files.
 
 Options:
     -r              search recursively.
+    -o OUT          output directory root.
     -h --help       show this screen.
     --version       show version.
 """
@@ -43,9 +44,11 @@ def main(args=None):
         jfiles = list(pathlib.Path(root).glob('*.json'))
         yfiles = list(pathlib.Path(root).glob('*.yaml'))
 
-    # Convert odml to latest version
-    tdir = tempfile.mkdtemp(prefix="odmlconv", dir="/home/msonntag/Chaos/DL/odmlconvdir")
-    rdir = tempfile.mkdtemp(prefix="odmlrdf", dir=tdir)
+    root = None
+    if parser["-o"] and os.path.isdir(parser["-o"]):
+        root = parser["-o"]
+    tdir = tempfile.mkdtemp(prefix="odmlconv_", dir=root)
+    rdir = tempfile.mkdtemp(prefix="odmlrdf_", dir=tdir)
 
     print("Files will be saved to '%s'" % tdir)
 
