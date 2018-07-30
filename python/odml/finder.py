@@ -21,14 +21,11 @@ from docopt import docopt
 def main(args=None):
     parser = docopt(__doc__, argv=args, version="0.1.0")
 
-    @classmethod
-    def cli(cls, args=None):
-        parser = docopt(__doc__, argv=args, version="1.0.0")
-        print("%s, %s" % (parser['-r'], parser['SEARCHDIR']))
+    root = parser['SEARCHDIR']
+    if not os.path.isdir(root):
+        print(docopt(__doc__, "-h"))
+        exit(1)
 
-        root = parser['SEARCHDIR']
-        ofiles = list(filter(lambda f: f.endswith('.odml'), os.listdir(root)))
-        print(ofiles)
 
 
 if __name__ == "__main__":
