@@ -4,12 +4,13 @@ odmlFindConvert searches for odml files within a provided SEARCHDIR
 and converts them a) to the newest odML format version and
 exports all found and resulting newest odML version files to RDF.
 
-Usage: odmlconv [-r] SEARCHDIR
+Usage: odmlconv [-r] [-o OUT] SEARCHDIR
 
 Arguments:
     SEARCHDIR       Directory to search for odML files.
 
 Options:
+    -o OUT          output directory.
     -r              search recursively.
     -h --help       show this screen.
     --version       show version.
