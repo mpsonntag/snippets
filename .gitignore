@@ -33,4 +33,5 @@ _cgo_export.*
 # jupyter notebook checkpoints
 *.ipynb_checkpoints*
 
-
+# Mac specifics
+.DS_Store
