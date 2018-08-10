@@ -62,3 +62,12 @@ https://scicrunch.org/scicrunch/Resources/record/nlx_144509-1/SCR_001376/resolve
 
 
 
+[C]
+https://github.com/INCF/neuroshapes
+https://bbp-nexus.epfl.ch/dev/schema-documentation/documentation/shacl-schemas.html#nexus-kg-schemas
+http://nidm.nidash.org/
+
+bids.neuro.io
+bids mailing list to stay in the loop?
+
+
