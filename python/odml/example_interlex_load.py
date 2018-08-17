@@ -16,29 +16,30 @@ Options:
 import sys
 
 from docopt import docopt
-from urllib import request
+
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
 
 def main(args=None):
-
-    print("bla")
 
     parser = docopt(__doc__, argv=args, version="0.1.0")
 
     searchterm = parser['SEARCHTERM']
     usrkey = "ZRt6argPOzoqCwk8ULK5N7agk731VsZy"
-
     requ = "https://scicrunch.org/api/1/ilx/search/term/%s?key=%s" % (searchterm, usrkey)
 
-    print("Running '%s'" % requ)
+    print("Running interlex query '%s'" % requ)
 
-    resp = request.urlopen(requ)
+    resp = urllib2.urlopen(requ)
 
-    print("Status response: '%s'; length: %s" % (resp.msg, resp.status))
+    print("Status response: '%s'; length: %s" % (resp.msg, resp.getcode()))
 
     content = resp.read()
 
-    print("Content:\n%s\n" % content)
+    print("Result:\n%s\n" % content)
 
 
 if __name__ == "__main__":
