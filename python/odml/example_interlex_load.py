@@ -47,7 +47,27 @@ def main(args=None):
 
     content = json.load(resp)
 
-    print("Result:\n%s\n" % content)
+    print("Result: '%s'" % content)
+
+    data = None
+    try:
+        data = content["data"]
+    except KeyError:
+        print("Received invalid response '%s'" % content)
+        exit(-1)
+
+    if not data["id"]:
+        print("Search returned no result")
+        exit(0)
+
+    print("InterlexID: '%s'" % data["ilx"])
+    print("Label: '%s'" % data["label"])
+    print("Type: '%s'" % data["type"])
+    print("definition: '%s'" % data["definition"])
+    print("Number of available ids: '%s'" % len(data["existing_ids"]))
+
+    for res in data["existing_ids"]:
+        print("Current item: '%s'" % res)
 
 
 if __name__ == "__main__":
