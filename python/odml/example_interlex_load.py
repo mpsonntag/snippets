@@ -13,6 +13,7 @@ Options:
     --version       show version.
 """
 
+import json
 import sys
 
 from docopt import docopt
@@ -37,7 +38,7 @@ def main(args=None):
 
     print("Status response: '%s'; length: %s" % (resp.msg, resp.getcode()))
 
-    content = resp.read()
+    content = json.load(resp)
 
     print("Result:\n%s\n" % content)
 
