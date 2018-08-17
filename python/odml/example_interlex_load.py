@@ -23,6 +23,11 @@ try:
 except ImportError:
     import urllib2
 
+try:
+    from http import HTTPStatus as httplib
+except ImportError:
+    import httplib
+
 
 def main(args=None):
 
@@ -36,7 +41,9 @@ def main(args=None):
 
     resp = urllib2.urlopen(requ)
 
-    print("Status response: '%s'; length: %s" % (resp.msg, resp.getcode()))
+    if resp.getcode() != httplib.OK:
+        print("Could not resolve query, exit with '%s/%s'" % (resp.msg, resp.getcode()))
+        exit(-1)
 
     content = json.load(resp)
 
