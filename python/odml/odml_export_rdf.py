@@ -2,7 +2,8 @@
 
 odmlExportRDF searches for odML files within a provided SEARCHDIR
 and converts them to the newest odML format version and
-exports all found and resulting odML files to XML flavored RDF.
+exports all found and resulting odML files to XML formatted RDF.
+Original files will never be overwritten.
 
 Usage: odmlexportrdf [-r] [-o OUT] SEARCHDIR
 
@@ -10,21 +11,24 @@ Arguments:
     SEARCHDIR       Directory to search for odML files.
 
 Options:
-    -o OUT          output directory.
-    -r              search recursively.
-    -h --help       show this screen.
-    --version       show version.
+    -o OUT          Output directory. Must exist if specified.
+                    If not specified, output files will be
+                    written to the current directory.
+    -r              Search recursively.
+    -h --help       Show this screen.
+    --version       Show version.
 """
 
 import os
-import odml
 import pathlib
 import sys
 import tempfile
 
+import odml
+
 from docopt import docopt
-from odml.tools.version_converter import VersionConverter as VerConf
 from odml.tools.odmlparser import ODMLReader, ODMLWriter
+from odml.tools.version_converter import VersionConverter as VerConf
 
 try:
     unicode = unicode
@@ -32,34 +36,42 @@ except NameError:
     unicode = str
 
 
-def run_rdf_conversion(infile, convdir):
-    outname = os.path.splitext(os.path.basename(infile))[0]
-    outfile = os.path.join(convdir, "%s.rdf" % outname)
-    doc = ODMLReader().from_file(infile)
-    ODMLWriter("RDF").write_file(doc, outfile)
+def run_rdf_export(odml_file, export_dir):
+    out_name = os.path.splitext(os.path.basename(odml_file))[0]
+    out_file = os.path.join(export_dir, "%s.rdf" % out_name)
+    doc = ODMLReader().from_file(odml_file)
+    ODMLWriter("RDF").write_file(doc, out_file)
 
 
-def run_version_conversion(flist, convdir, rdir, source_backend="XML"):
-    for f in flist:
-        infile = unicode(f.absolute())
-        print("Handling file '%s'" % infile)
+def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
+    # Exceptions are kept as broad as possible to ignore any non-odML or
+    # invalid odML files and ensuring everything that can be will be converted.
+    for curr_file in file_list:
+        file_path = unicode(curr_file.absolute())
+        print("Handling file '%s'" % file_path)
+        # When loading the current file succeeds, it is
+        # a recent odML format file and can be exported
+        # to RDF right away. Otherwise it needs to be
+        # converted to the latest odML version first.
         try:
-            odml.load(infile, source_backend)
-            print("RDF conversion of '%s'" % infile)
-            run_rdf_conversion(infile, rdir)
-        except Exception:
-            outname = os.path.splitext(os.path.basename(infile))[0]
-            outfile = os.path.join(convdir, "%s_conv.xml" % outname)
+            odml.load(file_path, source_format)
+            print("RDF conversion of '%s'" % file_path)
+            run_rdf_export(file_path, rdf_dir)
+        except Exception as exc:
+            out_name = os.path.splitext(os.path.basename(file_path))[0]
+            outfile = os.path.join(output_dir, "%s_conv.xml" % out_name)
             try:
-                _ = VerConf(infile).write_to_file(outfile, source_backend)
+                VerConf(file_path).write_to_file(outfile, source_format)
                 try:
                     print("RDF conversion of '%s'" % outfile)
-                    run_rdf_conversion(outfile, rdir)
-                except Exception as e:
-                    print("[Error] converting '%s' to RDF: '%s'" % (infile, unicode(e)))
-            except Exception as e:
+                    run_rdf_export(outfile, rdf_dir)
+                except Exception as exc:
+                    print("[Error] converting '%s' to RDF: '%s'" %
+                          (file_path, unicode(exc)))
+            except Exception as exc:
                 # Ignore files we cannot parse or convert
-                print("[Error] version converting file '%s': '%s'" % (infile, unicode(e)))
+                print("[Error] version converting file '%s': '%s'" %
+                      (file_path, unicode(exc)))
 
 
 def main(args=None):
@@ -70,7 +82,7 @@ def main(args=None):
         print(docopt(__doc__, "-h"))
         exit(1)
 
-    # Handle various odML file endings
+    # Handle all supported odML file formats.
     if parser['-r']:
         xfiles = list(pathlib.Path(root).rglob('*.odml'))
         xfiles.extend(list(pathlib.Path(root).rglob('*.xml')))
@@ -82,19 +94,23 @@ def main(args=None):
         jfiles = list(pathlib.Path(root).glob('*.json'))
         yfiles = list(pathlib.Path(root).glob('*.yaml'))
 
-    root = None
-    if parser["-o"] and os.path.isdir(parser["-o"]):
-        root = parser["-o"]
-    tdir = tempfile.mkdtemp(prefix="odmlconv_", dir=root)
-    rdir = tempfile.mkdtemp(prefix="odmlrdf_", dir=tdir)
+    out_root = None
+    if parser["-o"]:
+        if not os.path.isdir(parser["-o"]):
+            print("Could not find output directory '%s'" % parser["-o"])
+            exit(1)
 
-    print("Files will be saved to '%s'" % tdir)
+        out_root = parser["-o"]
 
-    run_version_conversion(xfiles, tdir, rdir)
-    run_version_conversion(jfiles, tdir, rdir, "JSON")
-    run_version_conversion(yfiles, tdir, rdir, "YAML")
+    out_dir = tempfile.mkdtemp(prefix="odmlconv_", dir=out_root)
+    rdf_dir = tempfile.mkdtemp(prefix="odmlrdf_", dir=out_dir)
+
+    print("Files will be saved to '%s'" % out_dir)
+
+    run_conversion(xfiles, out_dir, rdf_dir)
+    run_conversion(jfiles, out_dir, rdf_dir, "JSON")
+    run_conversion(yfiles, out_dir, rdf_dir, "YAML")
 
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
