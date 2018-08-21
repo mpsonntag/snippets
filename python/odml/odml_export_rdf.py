@@ -37,6 +37,14 @@ except NameError:
 
 
 def run_rdf_export(odml_file, export_dir):
+    """
+    Convert an odML file to an XML RDF file and
+    export it to an export directory with the
+    same name as the original file and a '.rdf' file
+    ending.
+    :param odml_file: odML file to be converted to RDF.
+    :param export_dir:
+    """
     out_name = os.path.splitext(os.path.basename(odml_file))[0]
     out_file = os.path.join(export_dir, "%s.rdf" % out_name)
     doc = ODMLReader().from_file(odml_file)
@@ -44,6 +52,16 @@ def run_rdf_export(odml_file, export_dir):
 
 
 def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
+    """
+    Convert a list of odML files to the latest odML version if required
+    and export all files to XML RDF files in a specified output directory.
+    :param file_list: list of files to be exported to RDF.
+    :param output_dir: Directory where odML files converted to
+                       the latest odML version will be saved.
+    :param rdf_dir: Directory where exported RDF files will be saved.
+    :param source_format: Original file format of the odML source files.
+                          XML, JSON and YAML are supported, default is XML.
+    """
     # Exceptions are kept as broad as possible to ignore any non-odML or
     # invalid odML files and ensuring everything that can be will be converted.
     for curr_file in file_list:
@@ -75,6 +93,12 @@ def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
 
 
 def main(args=None):
+    """
+    Convenience script to automatically convert odML files
+    within a directory (tree) to RDF. Check the cli help
+    for details.
+    :param args: Command line arguments
+    """
     parser = docopt(__doc__, argv=args, version="0.1.0")
 
     root = parser['SEARCHDIR']
