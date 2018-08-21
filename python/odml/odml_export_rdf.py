@@ -85,11 +85,11 @@ def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
                     run_rdf_export(outfile, rdf_dir)
                 except Exception as exc:
                     print("[Error] converting '%s' to RDF: '%s'" %
-                          (file_path, unicode(exc)))
+                          (file_path, exc))
             except Exception as exc:
                 # Ignore files we cannot parse or convert
                 print("[Error] version converting file '%s': '%s'" %
-                      (file_path, unicode(exc)))
+                      (file_path, exc))
 
 
 def main(args=None):
@@ -118,7 +118,7 @@ def main(args=None):
         jfiles = list(pathlib.Path(root).glob('*.json'))
         yfiles = list(pathlib.Path(root).glob('*.yaml'))
 
-    out_root = None
+    out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
             print("Could not find output directory '%s'" % parser["-o"])
