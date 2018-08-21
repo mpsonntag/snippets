@@ -26,6 +26,10 @@ from docopt import docopt
 from odml.tools.version_converter import VersionConverter as VerConf
 from odml.tools.odmlparser import ODMLReader, ODMLWriter
 
+try:
+    unicode = unicode
+except NameError:
+    unicode = str
 
 def run_rdf_conversion(infile, dir):
     outname = os.path.splitext(os.path.basename(infile))[0]
@@ -36,7 +40,7 @@ def run_rdf_conversion(infile, dir):
 
 def run_version_conversion(flist, convdir, rdir, source_backend="XML"):
     for f in flist:
-        infile = str(f.absolute())
+        infile = unicode(f.absolute())
         print("Handling file '%s'" % infile)
         try:
             odml.load(infile, source_backend)
@@ -51,10 +55,10 @@ def run_version_conversion(flist, convdir, rdir, source_backend="XML"):
                     print("RDF conversion of '%s'" % outfile)
                     run_rdf_conversion(outfile, rdir)
                 except Exception as e:
-                    print("[Error] converting '%s' to RDF: '%s'" % (infile, str(e)))
+                    print("[Error] converting '%s' to RDF: '%s'" % (infile, unicode(e)))
             except Exception as e:
                 # Ignore files we cannot parse or convert
-                print("[Error] version converting file '%s': '%s'" % (infile, str(e)))
+                print("[Error] version converting file '%s': '%s'" % (infile, unicode(e)))
 
 
 def main(args=None):
