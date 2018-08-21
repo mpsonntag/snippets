@@ -24,6 +24,11 @@ import pathlib
 import sys
 import tempfile
 
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
 import odml
 
 from docopt import docopt
@@ -51,7 +56,7 @@ def run_rdf_export(odml_file, export_dir):
     ODMLWriter("RDF").write_file(doc, out_file)
 
 
-def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
+def run_conversion(file_list, output_dir, rdf_dir, report, source_format="XML"):
     """
     Convert a list of odML files to the latest odML version if required
     and export all files to XML RDF files in a specified output directory.
@@ -59,6 +64,7 @@ def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
     :param output_dir: Directory where odML files converted to
                        the latest odML version will be saved.
     :param rdf_dir: Directory where exported RDF files will be saved.
+    :param report: Reporting StringIO.
     :param source_format: Original file format of the odML source files.
                           XML, JSON and YAML are supported, default is XML.
     """
@@ -66,14 +72,14 @@ def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
     # invalid odML files and ensuring everything that can be will be converted.
     for curr_file in file_list:
         file_path = unicode(curr_file.absolute())
-        print("Handling file '%s'" % file_path)
+        report.write("[Info] Handling file '%s'\n" % file_path)
         # When loading the current file succeeds, it is
         # a recent odML format file and can be exported
         # to RDF right away. Otherwise it needs to be
         # converted to the latest odML version first.
         try:
             odml.load(file_path, source_format)
-            print("RDF conversion of '%s'" % file_path)
+            report.write("[Info] RDF conversion of '%s'\n" % file_path)
             run_rdf_export(file_path, rdf_dir)
         except Exception as exc:
             out_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -81,15 +87,15 @@ def run_conversion(file_list, output_dir, rdf_dir, source_format="XML"):
             try:
                 VerConf(file_path).write_to_file(outfile, source_format)
                 try:
-                    print("RDF conversion of '%s'" % outfile)
+                    report.write("[Info] RDF conversion of '%s'\n" % outfile)
                     run_rdf_export(outfile, rdf_dir)
                 except Exception as exc:
-                    print("[Error] converting '%s' to RDF: '%s'" %
-                          (file_path, exc))
+                    report.write("[Error] converting '%s' to RDF: '%s'\n" %
+                                 (file_path, exc))
             except Exception as exc:
                 # Ignore files we cannot parse or convert
-                print("[Error] version converting file '%s': '%s'" %
-                      (file_path, exc))
+                report.write("[Error] version converting file '%s': '%s'\n" %
+                             (file_path, exc))
 
 
 def main(args=None):
@@ -121,7 +127,7 @@ def main(args=None):
     out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
-            print("Could not find output directory '%s'" % parser["-o"])
+            print("[Error] Could not find output directory '%s'" % parser["-o"])
             exit(1)
 
         out_root = parser["-o"]
@@ -129,11 +135,17 @@ def main(args=None):
     out_dir = tempfile.mkdtemp(prefix="odmlconv_", dir=out_root)
     rdf_dir = tempfile.mkdtemp(prefix="odmlrdf_", dir=out_dir)
 
-    print("Files will be saved to '%s'" % out_dir)
+    # Use this monkeypatch reporter until there is a way
+    # to run the converters silently.
+    report = StringIO()
+    report.write("[Info] Files will be saved to '%s'\n" % out_dir)
 
-    run_conversion(xfiles, out_dir, rdf_dir)
-    run_conversion(jfiles, out_dir, rdf_dir, "JSON")
-    run_conversion(yfiles, out_dir, rdf_dir, "YAML")
+    run_conversion(xfiles, out_dir, rdf_dir, report)
+    run_conversion(jfiles, out_dir, rdf_dir, report, "JSON")
+    run_conversion(yfiles, out_dir, rdf_dir, report, "YAML")
+
+    print(report.getvalue())
+    report.close()
 
 
 if __name__ == "__main__":
