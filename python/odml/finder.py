@@ -31,9 +31,10 @@ try:
 except NameError:
     unicode = str
 
-def run_rdf_conversion(infile, dir):
+
+def run_rdf_conversion(infile, convdir):
     outname = os.path.splitext(os.path.basename(infile))[0]
-    outfile = os.path.join(dir, "%s.rdf" % outname)
+    outfile = os.path.join(convdir, "%s.rdf" % outname)
     doc = ODMLReader().from_file(infile)
     ODMLWriter("RDF").write_file(doc, outfile)
 
