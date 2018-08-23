@@ -11,15 +11,15 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/G-Node/gin-valid/helpers"
 	"github.com/docopt/docopt-go"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/mpsonntag/snippets/cmd/graphpush/config"
-	"github.com/G-Node/gin-valid/helpers"
-	"github.com/G-Node/gin-valid/log"
+	"github.com/mpsonntag/snippets/cmd/graphpush/log"
 )
 
-const usage = `Server pushing rdf files to a defined fuseki server
+const usage = `Server pushing RDF files to a specific fuseki server graph
 
 Usage:
   graphpush [--listen=<port>] [--config=<path>]
@@ -64,7 +64,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 
 func registerRoutes(r *mux.Router) {
 	r.HandleFunc("/", root)
-	r.HandleFunc("/rdfupload", postrdf)
+	r.HandleFunc("/fileup", postrdf)
 }
 
 func main() {
@@ -97,7 +97,7 @@ func main() {
 		config.Set(srvcfg)
 	}
 
-	err = log.Init()
+	err = log.Init(srvcfg.Dir.Log, srvcfg.Settings.LogFile, srvcfg.Settings.LogSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "[Error] opening logfile '%s'\n", err.Error())
 		os.Exit(-1)
