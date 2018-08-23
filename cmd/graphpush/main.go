@@ -115,11 +115,15 @@ func main() {
 	log.ShowWrite("[Warmup] using source directory: '%s'\n", srvcfg.Dir.Source)
 
 	// Use port if provided.
-	port := fmt.Sprintf(":%s", srvcfg.Settings.Port)
-	if helpers.IsValidPort(args["--listen"]) {
-		p := args["--listen"]
-		port = fmt.Sprintf(":%s", p.(string))
+	var port string
+	if argport := args["--listen"]; argport != nil {
+		port = argport.(string)
+	}
+
+	if helpers.IsValidPort(port) {
+		port = fmt.Sprintf(":%s", port)
 	} else {
+		port = fmt.Sprintf(":%s", srvcfg.Settings.Port)
 		log.ShowWrite("[Warning] could not parse a valid port number, using default\n")
 	}
 	log.ShowWrite("[Warmup] using port: '%s'\n", port)
