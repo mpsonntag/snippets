@@ -15,8 +15,8 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/mpsonntag/snippets/cmd/graphpush/config"
-	"github.com/mpsonntag/snippets/cmd/graphpush/helpers"
-	"github.com/mpsonntag/snippets/cmd/graphpush/log"
+	"github.com/G-Node/gin-valid/helpers"
+	"github.com/G-Node/gin-valid/log"
 )
 
 const usage = `Server pushing rdf files to a defined fuseki server
