@@ -45,18 +45,18 @@ def run():
     jdoc = odml.load(os.path.join(WORKDIR, slf, (new_fn_base % 'j')), 'JSON')
     ydoc = odml.load(os.path.join(WORKDIR, slf, (new_fn_base % 'y')), 'YAML')
     rdoc = odml.tools.odmlparser.ODMLReader('RDF').from_file(
-        os.path.join(WORKDIR, slf, (new_fn_base % 'r')), 'turtle')[0]
+        os.path.join(WORKDIR, slf, (new_fn_base % 'r')), 'xml')[0]
     print("-- Done...")
 
     print("\n\n-- Testing equality ...")
     assert doc == xdoc
     assert doc == jdoc
-    #assert doc == rdoc
+    assert doc == rdoc
     assert doc == ydoc
 
     assert sec == xdoc[0]
     assert sec == jdoc[0]
-    #assert sec == rdoc[0]
+    assert sec == rdoc[0]
     assert sec == ydoc[0]
 
     assert subsec == xdoc[0][0]
