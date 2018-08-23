@@ -59,6 +59,13 @@ func postrdf(w http.ResponseWriter, r *http.Request) {
 	log.ShowWrite("[Info] RDF file post status: '%s', \n", resp.Status)
 }
 
+func convertup(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	graph := vars["graph"]
+
+	log.ShowWrite("[Info] Handling conversion and upload to graph '%s'", graph)
+}
+
 func root(w http.ResponseWriter, r *http.Request) {
 	http.ServeContent(w, r, "root", time.Now(), bytes.NewReader([]byte("alive")))
 }
@@ -66,6 +73,7 @@ func root(w http.ResponseWriter, r *http.Request) {
 func registerRoutes(r *mux.Router) {
 	r.HandleFunc("/", root)
 	r.HandleFunc("/fileup", postrdf)
+	r.HandleFunc("/convertup/{graph}", convertup)
 }
 
 func main() {
