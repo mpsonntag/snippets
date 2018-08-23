@@ -14,11 +14,12 @@ type Directories struct {
 
 // Settings provide the default server settings.
 type Settings struct {
-	Port     string `json:"port"`
-	LogSize  int    `json:"logsize"`
-	LogFile  string `json:"logfile"`
-	MetaUser string `json:"metauser"`
-	MetaPW   string `json:"metapw"`
+	Port      string `json:"port"`
+	LogSize   int    `json:"logsize"`
+	LogFile   string `json:"logfile"`
+	MetaUser  string `json:"metauser"`
+	MetaPW    string `json:"metapw"`
+	FusekiURI string `json:"fusekiuri"`
 }
 
 // ServerCfg holds the config used to setup the gin validation server and
@@ -30,9 +31,10 @@ type ServerCfg struct {
 
 var defaultServer = ServerCfg{
 	Settings{
-		Port:    "6066",
-		LogSize: 1048576,
-		LogFile: "graphpush.log",
+		Port:      "6066",
+		LogSize:   1048576,
+		LogFile:   "graphpush.log",
+		FusekiURI: "http://meta.g-node.org:3030/odml-gen/data",
 	},
 	Directories{
 		Source: filepath.Join(os.Getenv("GRAPHPUSHSOURCE")),

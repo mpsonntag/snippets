@@ -46,7 +46,7 @@ func postrdf(w http.ResponseWriter, r *http.Request) {
 
 	client := &http.Client{}
 
-	request, _ := http.NewRequest("POST", "http://meta.g-node.org:3030/odml-gen/data", bytes.NewReader(content))
+	request, _ := http.NewRequest("POST", srvcfg.Settings.FusekiURI, bytes.NewReader(content))
 	request.SetBasicAuth(srvcfg.Settings.MetaUser, srvcfg.Settings.MetaPW)
 	request.Header.Add("Content-Type", "application/rdf+xml")
 
