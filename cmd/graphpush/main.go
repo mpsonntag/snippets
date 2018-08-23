@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"time"
 
 	"github.com/G-Node/gin-valid/helpers"
@@ -68,7 +69,6 @@ func registerRoutes(r *mux.Router) {
 }
 
 func main() {
-
 	// Initialize and read the default server config
 	srvcfg := config.Read()
 
@@ -111,8 +111,15 @@ func main() {
 	if !helpers.ValidDirectory(srvcfg.Dir.Source) {
 		os.Exit(-1)
 	}
-
 	log.ShowWrite("[Warmup] using source directory: '%s'\n", srvcfg.Dir.Source)
+
+	// Check that the odmltordf script is available
+	outstr, err := helpers.AppVersionCheck("odmltordf")
+	if err != nil {
+		log.ShowWrite("[Error] checking odmltordf '%s'", err.Error())
+		os.Exit(-1)
+	}
+	log.ShowWrite("[Warmup] using odmltordf v%s", strings.TrimSpace(outstr))
 
 	// Use port if provided.
 	var port string
