@@ -52,11 +52,11 @@ func postrdf(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := client.Do(request)
 	if err != nil {
-		log.ShowWrite("[Error] posting RDF file: %v\n", err.Error())
+		log.ShowWrite("[Error] posting RDF file: %v", err.Error())
 		os.Exit(-1)
 	}
 
-	log.ShowWrite("[Info] RDF file post status: '%s', \n", resp.Status)
+	log.ShowWrite("[Info] RDF file post status: '%s'", resp.Status)
 }
 
 func convertup(w http.ResponseWriter, r *http.Request) {
@@ -113,13 +113,13 @@ func main() {
 	defer log.Close()
 
 	// Log cli arguments
-	log.Write("[Warmup] cli arguments: %v\n", args)
+	log.Write("[Warmup] cli arguments: %v", args)
 
 	// Check whether the required directories are available and accessible
 	if !helpers.ValidDirectory(srvcfg.Dir.Source) {
 		os.Exit(-1)
 	}
-	log.ShowWrite("[Warmup] using source directory: '%s'\n", srvcfg.Dir.Source)
+	log.ShowWrite("[Warmup] using source directory: '%s'", srvcfg.Dir.Source)
 
 	// Check that the odmltordf script is available
 	outstr, err := helpers.AppVersionCheck("odmltordf")
@@ -139,11 +139,11 @@ func main() {
 		port = fmt.Sprintf(":%s", port)
 	} else {
 		port = fmt.Sprintf(":%s", srvcfg.Settings.Port)
-		log.ShowWrite("[Warning] could not parse a valid port number, using default\n")
+		log.ShowWrite("[Warning] could not parse a valid port number, using default")
 	}
-	log.ShowWrite("[Warmup] using port: '%s'\n", port)
+	log.ShowWrite("[Warmup] using port: '%s'", port)
 
-	log.ShowWrite("[Warmup] registering routes\n")
+	log.ShowWrite("[Warmup] registering routes")
 	router := mux.NewRouter()
 	registerRoutes(router)
 
@@ -167,17 +167,17 @@ func main() {
 		log.ShowWrite("[Info] System interrupt, shutting down server\n")
 		err := server.Shutdown(context.Background())
 		if err != nil {
-			log.ShowWrite("[Error] on server shutdown: %v\n", err)
+			log.ShowWrite("[Error] on server shutdown: '%v'", err)
 		}
 	}()
 
-	log.ShowWrite("[Start] Listen and serve\n")
+	log.ShowWrite("[Start] Listen and serve")
 	err = server.ListenAndServe()
 	if err == http.ErrServerClosed {
 		log.Close()
 		os.Exit(0)
 	} else if err != nil {
-		log.ShowWrite("[Error] Server startup: '%v', abort...\n\n", err)
+		log.ShowWrite("[Error] Server startup: '%v', abort...\n", err)
 		log.Close()
 		os.Exit(-1)
 	}
