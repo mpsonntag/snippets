@@ -60,10 +60,22 @@ func postrdf(w http.ResponseWriter, r *http.Request) {
 }
 
 func convertup(w http.ResponseWriter, r *http.Request) {
+	// Initialize and read the default server config
+	srvcfg := config.Read()
+
 	vars := mux.Vars(r)
 	graph := vars["graph"]
+	log.ShowWrite("[Info] handling conversion and upload to graph '%s'", graph)
 
-	log.ShowWrite("[Info] Handling conversion and upload to graph '%s'", graph)
+	log.ShowWrite("[Info] making sure server is there and alive")
+	client := &http.Client{}
+	request, _ := http.NewRequest("GET", fmt.Sprintf("%s/$/ping", srvcfg.Settings.FusekiURI), nil)
+	resp, err := client.Do(request)
+	if err != nil {
+		log.ShowWrite("[Error] pinging Fuseki: '%s'", err.Error())
+		return
+	}
+	log.ShowWrite("[Info] Fuseki ping response: '%s'", resp.Status)
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
