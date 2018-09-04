@@ -34,7 +34,7 @@ var defaultServer = ServerCfg{
 		Port:      "6066",
 		LogSize:   1048576,
 		LogFile:   "graphpush.log",
-		FusekiURI: "http://meta.g-node.org:3030/odml-gen/data",
+		FusekiURI: "http://meta.g-node.org:3030",
 	},
 	Directories{
 		Source: filepath.Join(os.Getenv("GRAPHPUSHSOURCE")),
