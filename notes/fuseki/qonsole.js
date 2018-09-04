@@ -1,4 +1,5 @@
 /** Standalone configuration for qonsole on index page */
+/** Prefixes and example queries have been modified from the original version of the Fuseki distribution. */
 
 define( [], function() {
   return {
