@@ -98,6 +98,12 @@ Hands on session
 
 ## Outline
 
+-------------------
+
+Thanks to you!
+
+-------------------
+
 - Introduction to data management
   - consumer level
   - user level
@@ -130,8 +136,25 @@ Hands on session
     the big picture!
     
     Reproducibility crisis!
+    Glimpse it at https://en.wikipedia.org/wiki/Replication_crisis
 
-    the awareness arrived in the scientific community that
+    1,500 scientists lift the lid on reproducibility
+    Nature News Feature, 25.05.2016, ISSN: 0028-0836
+    https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970
+
+    "More than 70% of researchers have tried and failed to reproduce another scientist's 
+    experiments, and more than half have failed to reproduce their own experiments. 
+    Those are some of the telling figures that emerged from Nature's survey of 1,576 
+    researchers who took a brief online questionnaire on reproducibility in research."
+
+
+    Challenges in irreproducible research
+    Nature special, 06.07.2018, ISSN 1476-4687 (online)
+    https://www.nature.com/collections/prbfkwmwvz
+
+    Collection of key articles about the topic from 2016 until now.
+
+    The awareness arrived in the scientific community that
     many many studies cannot be reproduced
     - missing raw data (from not public to lost)
     - missing information to interpret the raw or processed data or the analysis steps involved
@@ -139,75 +162,131 @@ Hands on session
 
 -------------------
 
-    e.g.
+    We know we should do sthg about it, lets make it less visceral!
 
-    Reuse of public genome-wide gene expression data
-    Nature Reviews Genetics, 27.12.2012, https://doi.org/10.1038/nrg3394
-    
-    "The authors replicated two studies ‘in principle’ and six ‘partially’, whereas ten were not reproduced,
-    ...
-    The main reason for the lack of reproducibility was the unavailability of all relevant data or metadata:"
-
-
-    Sorting out the FACS: A devil in the details
-    Cell Reports, 13.03.2014, https://doi.org/10.1016/j.celrep.2014.02.021
-
-    “... our two laboratories quite reproducibly were unable to replicate each other’s 
-    fluorescence-activated cell sorting (FACS) profiles of primary breast cells.“
-
--------------------
-
-    We know we should do sthg about it, lets make it less visceral
-
-    make it a bit more concrete what we actually need to do
+    Make it a bit less abstract what we actually need to do:
 
     data, data about experiments (metadata), analysis scripts and pipelines
     should be
-    - easy to find / easy to search
-    - accessible / available
-    - 
-    - reproducible
+    - easy to find or easy to search and understand
+    - accessible and available
+    - repeatable, replicable, reproducible
+    - reusable
+
+-------------------
 
     There already are a couple of initiatives dealing with this problem
-    read up here
-    
+    read up here, e.g.
+
         FAIR
         The FAIR Guiding Principles for scientific data management and stewardship
         Nature Scientific Data, 15.03.2016, https://doi.org/10.1038/sdata.2016.18
-        
-        
+
         ReScience
         Sustainable computational science: the ReScience initiative
         PeerJ Computer Science, 18.12.2017, https://doi.org/10.7717/peerj-cs.142
-
-
-        OpenAccess Journals, etc
+        https://rescience.github.io
 
 -------------------
 
-Cool, that was the big picture. I'll keep it in mind, when I'm a PI in two years.
+    Cool, that was the big picture. I'll keep it in mind, when I'm a PI in two years.
 
-Again, why should I care when there is so much science to do?
+    Again, why should I care when there is so much science to do?
+
+-------------------
+
+    Be nice to your future self!
+
+    In a year from now
+    - where did I put project Awesome2017?
+    - which script did I use to create figure something_12b?
+    - oh my, 12 different stimuli, was it the one labeled O215Co245_Ramp_12?
 
 -------------------
 
-Be nice to your future self!
+    How does the above translate into our own everyday work:
 
-In a year from now
-- where did I put project awesome 2017?
-- which script did I use to create figure something12B?
-- oh my, 12 different stimuli, was it number 3?
+1) add a readme for every project. Take a moment to describe
+ - the folder structure - describe which folder contains which kind of files and if there is any specificity to naming or structure of thf files and folders
+   - which folder contains which files
+   - what do the names mean
+   - is there anything important about how the project is structured
+- the workflow
+   - which is raw data, which is processed data
+   - how do you get from raw to processed
+
+2) Make sure everything required is in the project or properly referenced
+  - hardware information
+  - software used
+  - scripts used to analyze
+  - description of any abbreviations used
+
+3) Document everyday analysis work
+  - copy the history of your commands - already helpful
+  - if you have time move the relevant commands to a working script - cool
+  - add explanatory comments to the script - awesome
+
+4) Collect additional information about the experiments and add them to the project
+  - organism
+  - experimental setup
+  - software used
+  - experimental settings
+  - analysis scripts used
+  - analysis settings
+  
+  - if you have to do any of the above steps more than once, write a template and reuse
+
+5) Develop a habit
+
+    in case of fire
+    git commit
+    git push
+    leave
+
+  - add and update readme
+  - use abbreviations that make sense
+  - use templates where-ever you can
+  - put in scripts whatever makes sense
+  - backup your stuff
+-------------------
+
+Be nice to others! Help getting the scientific community get back on track
+
+    - use open source tools
+    - fill in the blanks on data submission
+    - open source your datasets
 
 -------------------
+
+Questions and comments so far?
+
+-------------------
+
+How can we make your life easier:
+
+- gin (data hosting)
+  - versioning
+  - workflow / scripting integration
+  - backup
+  - indexed search
+  - publication
+  - data sharing (public and private)
+
+- nix (expressive data format)
+  - store data, processed data, analysed data and metadata in the same file
+  - 
+
+- odML (metadata format)
+  - 
+
+
+
 
 Investigator problem sets
 
     - keep all information about a dataset available
     - share data sets with other people
-
--------------------
-
-
+    - 
 
 
     -> FAIR
