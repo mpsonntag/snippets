@@ -133,9 +133,9 @@ Thanks to you!
 
 -------------------
 
-    the big picture!
-    
-    Reproducibility crisis!
+    The big picture!
+
+    Replication / reroducibility crisis!
     Glimpse it at https://en.wikipedia.org/wiki/Replication_crisis
 
     1,500 scientists lift the lid on reproducibility
@@ -147,6 +147,9 @@ Thanks to you!
     Those are some of the telling figures that emerged from Nature's survey of 1,576 
     researchers who took a brief online questionnaire on reproducibility in research."
 
+    [image about factors that prohibit reproducibility]
+
+-------------------
 
     Challenges in irreproducible research
     Nature special, 06.07.2018, ISSN 1476-4687 (online)
@@ -157,26 +160,26 @@ Thanks to you!
     The awareness arrived in the scientific community that
     many many studies cannot be reproduced
     - missing raw data (from not public to lost)
-    - missing information to interpret the raw or processed data or the analysis steps involved
+    - missing information to interpret the raw/processed data or the analysis steps involved
     - different results when employing the analysis pipelines from raw data to final figures
 
 -------------------
 
-    We know we should do sthg about it, lets make it less visceral!
+    We know we should do sthg about it, but lets make it less abstract and a bit more concrete!
 
-    Make it a bit less abstract what we actually need to do:
-
-    data, data about experiments (metadata), analysis scripts and pipelines
+    Data, data about experiments (metadata), analysis scripts and pipelines
     should be
-    - easy to find or easy to search and understand
+    - easy to find or easy to search and interpret
     - accessible and available
     - repeatable, replicable, reproducible
     - reusable
 
+    Put like this, this is already a lot of work and knowledge to do properly!
+
 -------------------
 
-    There already are a couple of initiatives dealing with this problem
-    read up here, e.g.
+    There are a couple of initiatives that have invested more time and effort in 
+    thinking about these issues. For their conclusions and proposals read up here, e.g.
 
         FAIR
         The FAIR Guiding Principles for scientific data management and stewardship
@@ -189,44 +192,83 @@ Thanks to you!
 
 -------------------
 
-    Cool, that was the big picture. I'll keep it in mind, when I'm a PI in two years.
-
+    Cool, that was the big picture.
+    
+    I'll keep it in mind, when I'm a PI in two years.
     Again, why should I care when there is so much science to do?
 
 -------------------
 
     Be nice to your future self!
 
-    In a year from now
+    In a year from now:
     - where did I put project Awesome2017?
     - which script did I use to create figure something_12b?
     - oh my, 12 different stimuli, was it the one labeled O215Co245_Ramp_12?
 
 -------------------
 
-    How does the above translate into our own everyday work:
+    How does the above translate into everyday work?
+
+    There are a couple of easy, low maintainance things
+    that you can do to make a lot of things easier for you 
+    and others.
 
 1) add a readme for every project. Take a moment to describe
- - the folder structure - describe which folder contains which kind of files and if there is any specificity to naming or structure of thf files and folders
+ - the folder structure
+   - describe which folder contains which kind of files and 
+   if there is any specificity to naming or structure of thf files and folders
    - which folder contains which files
    - what do the names mean
    - is there anything important about how the project is structured
 - the workflow
    - which is raw data, which is processed data
-   - how do you get from raw to processed
+   - how do you get from raw to processed in general terms + scripts involved
+
+- waaah, my workflow has changed, I don't want to rewrite the whole readme:
+  - like in a labbook just add the changes with a date at the top and you're good!
+
+-------------------
+
+    If you want to be through, take a half day and make sure the following
+    is true for every project, also add it directly to the project folder.
 
 2) Make sure everything required is in the project or properly referenced
+  - scripts used for processing and analysis
+  - description of any abbreviations used
   - hardware information
   - software used
-  - scripts used to analyze
-  - description of any abbreviations used
 
-3) Document everyday analysis work
+-------------------
+
+    This part is best done and decided at the beginning of a project.
+    Can be done later as well but will take a lot of effort then.
+
+3) Store your data in an intuitive way
+  - use existing data models if available - these usually already have documentation how to read the data
+    e.g. neo (Ephys), nifti or bids (fMRI), MNE (eeg & meg) [xxx] check here
+  - When using your own data model
+    - have units and labels unambiguously attached to your data
+    - don't nest too deep
+    - keep (field)names expressive
+    - when possible add descriptions of names and relations directly to the data structure
+
+-------------------
+
+    This part takes some effort once, but pays off in the long run
+    and is a good habit to evolve.
+
+4) Document everyday scripting analysis work, keep marked as journal next to your data
   - copy the history of your commands - already helpful
   - if you have time move the relevant commands to a working script - cool
   - add explanatory comments to the script - awesome
 
-4) Collect additional information about the experiments and add them to the project
+-------------------
+
+    This part takes a lot of effort once and bit of upkeep in evolving
+    projects. This will help a lot in years to come.
+
+5) Collect additional information about the experiments and add them to the project
   - organism
   - experimental setup
   - software used
@@ -236,7 +278,9 @@ Thanks to you!
   
   - if you have to do any of the above steps more than once, write a template and reuse
 
-5) Develop a habit
+-------------------
+
+6) Develop a habit
 
     in case of fire
     git commit
@@ -248,6 +292,19 @@ Thanks to you!
   - use templates where-ever you can
   - put in scripts whatever makes sense
   - backup your stuff
+
+-------------------
+
+    In general terms:
+    – Make information explicit and unambiguous (avoid hidden knowledge)
+    – Try to save all information (avoid information loss)
+    – Store similar things in similar ways, sticking to established procedures and organization (avoid ad hoc solutions)
+
+    How to make things easier?
+    - Starting even before the data is recorded: Planning data management in advance
+    - Automating (meta)data collection procedures as much as possible, storing information in machine-readable ways
+    - Using tools, conventions, formats that facilitate data organization
+
 -------------------
 
 Be nice to others! Help getting the scientific community get back on track
@@ -273,28 +330,19 @@ How can we make your life easier:
   - data sharing (public and private)
 
 - nix (expressive data format)
+
+    [disclaimer] using nix takes a bit of effort but pays way off
+
   - store data, processed data, analysed data and metadata in the same file
-  - 
+  - store all labels and units alongside the data
+  - adding dimensionality of the data is required - making data sets easy to interpret without knowledge about the oroject.
+  - store raw data and data from any subsequent processing step in the same file
+  - logically link analysed to the corresponding raw data e.g. spikes to their original traces 
+  - since all labels and units are there and the data is linked, you can easily plot both side by side. automatic si unit conversion makes this even easier.
+  - attach any metadata directly to the corresponding raw, processed or analysed data
+  - search and retrieve data via the easier searchable metadata part.
+  - export metadata only for indexing and searching on a larger scale
 
 - odML (metadata format)
-  - 
-
-
-
-
-Investigator problem sets
-
-    - keep all information about a dataset available
-    - share data sets with other people
-    - 
-
-
-    -> FAIR
-
-    We are not taught what good data managements is all about
-    if not imposed by external factors (Journal, PI, Peers) everyone figures it out by themselves
-    -> standards in analysis and formats
-
-
-
+  - same features as in nix but standalone when used with other data formats.
 
