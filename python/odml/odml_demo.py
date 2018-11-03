@@ -84,6 +84,54 @@ prop.values = "Animals are picked from a bacterial lawn to an agar plate contain
               "for 5 hours until a maximum of 7 hours after they have been removed from" \
               "a food source."
 
+# add information about experiments
+sec = odml.Section(name="experiments", parent=doc)
+
+subsec = odml.Section(name="trial", type="ramp/ca-imaging", parent=sec)
+
+prop = odml.Property(name="date", dtype=odml.dtypes.DType.date, parent=subsec)
+prop.values = "2012-10-23"
+
+prop = odml.Property(name="strain", parent=subsec)
+prop.values = "N2"
+
+prop = odml.Property(name="protocol", parent=subsec)
+prop.value = "ramp1/oxygen_ramps"
+
+prop = odml.Property(name="condition", parent=subsec)
+prop.values = 90
+prop.unit = 'minute'
+
+prop = odml.Property(name="resting_time", parent=subsec)
+prop.values = 5
+prop.unit = "minute"
+
+prop = odml.Property(name="tracked", parent=subsec)
+prop.values = "URX"
+
+prop = odml.Property(name="frames", parent=subsec)
+prop.values = "6100"
+
+prop = odml.Property(name="paralytic", parent=subsec)
+prop.values = "Tetramisol"
+
+prop = odml.Property(name="comment", parent=subsec)
+prop.value = "reflector changer not none, nose not in correct position"
+
+subsub = odml.Section(name="setup", type="hardware", parent=subsec)
+prop = odml.Property(name="microscope 1", parent=subsub)
+prop = odml.Property(name="EM_gain", parent=subsub)
+prop.values = 1500
+prop = odml.Property(name="LED_I", parent=subsub)
+prop.values = 20
+prop = odml.Property(name="gray_`filter", parent=subsub)
+prop.values = 20
+prop.unit = "%"
+prop = odml.Property(name="exposure", parent=subsub)
+prop.values = 100
+prop.unit = "ms"
+
+
 
 odml.save(doc, filename)
 
