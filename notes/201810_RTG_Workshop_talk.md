@@ -151,10 +151,6 @@ Thanks to you!
 
 -------------------
 
-    Challenges in irreproducible research
-    Nature special, 06.07.2018, ISSN 1476-4687 (online)
-    https://www.nature.com/collections/prbfkwmwvz
-
     Collection of key articles about the topic from 2016 until now.
 
     The awareness arrived in the scientific community that
@@ -230,7 +226,7 @@ Thanks to you!
 
 -------------------
 
-    If you want to be through, take a half day and make sure the following
+    If you want to be thorough, take a half day and make sure the following
     is true for every project, also add it directly to the project folder.
 
 2) Make sure everything required is in the project or properly referenced
