@@ -35,3 +35,9 @@ da.label = "dF/F"
 dim = da.append_sampled_dimension(steps[1] - steps[0])
 dim.label = "frames"
 
+# plot figure from file
+fig, ax = plt.subplots()
+ax.plot(da[:])
+ax.set(xlabel=da.dimensions[0].label, ylabel=da.label,
+       title="URX oxygen shift trial (21-04-21)")
+plt.show()
