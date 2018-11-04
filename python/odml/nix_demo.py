@@ -22,18 +22,24 @@ tdata = data.transpose()
 
 # get df/f column as array
 steps = tdata.values[0]
-col = tdata.values[5]
+dff = tdata.values[5]
 
 # load data into nix
 nixfile = nix.File.open(nixfn, nix.FileMode.Overwrite)
 b = nixfile.create_block(name="oxygen_shift_trials", type_="calcium_imaging")
-da = b.create_data_array(name="N2_URX_shift_210421_20120705",
-                         array_type="df_over_f", data=col)
+
+g = b.create_group(name="N2_URX_shift_210421_20120705", type_="trial.datacollection")
+
+da = b.create_data_array(name="df_over_f",
+                         array_type="trial.column", data=dff)
 da.label = "dF/F"
 
 # Add the second dimension to the data array
 dim = da.append_sampled_dimension(steps[1] - steps[0])
 dim.label = "frames"
+
+# Structuring our data
+g.data_arrays.append(da)
 
 # plot figure from file
 fig, ax = plt.subplots()
@@ -41,3 +47,5 @@ ax.plot(da[:])
 ax.set(xlabel=da.dimensions[0].label, ylabel=da.label,
        title="URX oxygen shift trial (21-04-21)")
 plt.show()
+
+nixfile.close()
