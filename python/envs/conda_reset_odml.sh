@@ -20,6 +20,11 @@ if [ ! -d $CONDA ]; then
     fi
 fi
 
+if [ ! $CONDA ]; then
+    echo "-- Could not find conda executable"
+    exit
+fi
+
 CONDABIN=$(echo $CONDA | sed 's/bin\/conda/bin/g')
 
 echo "-- Running odml_conda_deps_reset.sh"
