@@ -13,7 +13,7 @@ if [ ! $CONDA ]; then
     fi
 fi
 
-if [ ! -d $CONDA ]; then
+if [ ! -d "$CONDA" ]; then
     CONDA=$(find $HOME -type d -path '*/miniconda2/bin')
     if [ -d "$CONDA" ]; then
         CONDA=$(echo "$CONDA/conda")
