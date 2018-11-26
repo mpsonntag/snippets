@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 CONDA=$HOME'/Chaos/software/miniconda2/bin/conda'
+if [ -d "$HOME/software/conda/bin" ]; then
+    CONDA=$HOME/software/conda/bin/conda
+fi
+
 if [ $(which conda) ]; then
     CONDA=$(which conda)
 fi
