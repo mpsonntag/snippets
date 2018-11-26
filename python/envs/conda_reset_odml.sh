@@ -32,7 +32,7 @@ echo "-- Using conda at $CONDA"
 
 echo "-- make sure we are clean and not in an environment."
 deactivate
-conda deactivate
+$CONDA deactivate
 
 echo "-- Cleanup previous environments"
 
@@ -54,10 +54,10 @@ echo "-- Install dependencies"
 
 source $CONDABIN/activate ot2
 
-conda install -c pkgw/label/superseded gtk3 -y
-conda install -c conda-forge pygobject -y
-conda install -c conda-forge gdk-pixbuf -y
-conda install -c pkgw-forge adwaita-icon-theme -y
+$CONDA install -c pkgw/label/superseded gtk3 -y
+$CONDA install -c conda-forge pygobject -y
+$CONDA install -c conda-forge gdk-pixbuf -y
+$CONDA install -c pkgw-forge adwaita-icon-theme -y
 
 if [ $(uname) == "Darwin" ]; then
     echo "-- Setting up conda environment activation script"
@@ -76,14 +76,14 @@ if [ $(uname) == "Darwin" ]; then
     echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
 fi
 
-conda deactivate
+$CONDA deactivate
 
 source $CONDABIN/activate ot3
 
-conda install -c pkgw/label/superseded gtk3 -y
-conda install -c conda-forge pygobject -y
-conda install -c conda-forge gdk-pixbuf -y
-conda install -c pkgw-forge adwaita-icon-theme -y
+$CONDA install -c pkgw/label/superseded gtk3 -y
+$CONDA install -c conda-forge pygobject -y
+$CONDA install -c conda-forge gdk-pixbuf -y
+$CONDA install -c pkgw-forge adwaita-icon-theme -y
 
 if [ $(uname) == "Darwin" ]; then
     echo "-- Setting up conda environment activation script"
@@ -102,14 +102,14 @@ if [ $(uname) == "Darwin" ]; then
     echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
 fi
 
-conda deactivate
+$CONDA deactivate
 
 source $CONDABIN/activate ot36
 
-conda install -c pkgw/label/superseded gtk3 -y
-conda install -c conda-forge pygobject -y
-conda install -c conda-forge gdk-pixbuf -y
-conda install -c pkgw-forge adwaita-icon-theme -y
+$CONDA install -c pkgw/label/superseded gtk3 -y
+$CONDA install -c conda-forge pygobject -y
+$CONDA install -c conda-forge gdk-pixbuf -y
+$CONDA install -c pkgw-forge adwaita-icon-theme -y
 
 if [ $(uname) == "Darwin" ]; then
     echo "-- Setting up conda environment activation script"
@@ -128,7 +128,7 @@ if [ $(uname) == "Darwin" ]; then
     echo "" >> $CONDA_PREFIX/etc/conda/deactivate.d/env_vars.sh
 fi
 
-conda deactivate
+$CONDA deactivate
 
 echo "-- List current environments"
 
