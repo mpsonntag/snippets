@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo "-- Running conda_reset_odml.sh"
 echo "-- Searching for conda"
 
 if [ $(which conda) ]; then
@@ -27,8 +28,8 @@ fi
 
 CONDABIN=$(echo $CONDA | sed 's/bin\/conda/bin/g')
 
-echo "-- Running odml_conda_deps_reset.sh"
 echo "-- Using conda at $CONDA"
+echo "-- Using condabin at $CONDABIN"
 
 echo "-- make sure we are clean and not in an environment."
 deactivate
