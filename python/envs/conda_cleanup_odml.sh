@@ -1,22 +1,41 @@
 #!/usr/bin/env bash
 
-CONDA=$HOME'/Chaos/software/miniconda2/bin/conda'
+echo "-- Running conda_cleanup_odml.sh"
+echo "-- Searching for conda"
+
 if [ $(which conda) ]; then
     CONDA=$(which conda)
 fi
 
-echo "-- Running conda_cleanup_odml.sh"
+if [ ! $CONDA ]; then
+    CONDA=$(find $HOME -type d -path '*/conda/bin')
+    if [ -d "$CONDA" ]; then
+        CONDA=$(echo "$CONDA/conda")
+    fi
+fi
+
+if [ ! -d "$CONDA" ]; then
+    CONDA=$(find $HOME -type d -path '*/miniconda2/bin')
+    if [ -d "$CONDA" ]; then
+        CONDA=$(echo "$CONDA/conda")
+    fi
+fi
+
+if [ ! $CONDA ]; then
+    echo "-- Could not find conda executable"
+    exit
+fi
+
 echo "-- Using conda at $CONDA"
 
 echo "-- make sure we are clean and not in an environment."
 deactivate
-conda deactivate
+$CONDA deactivate
 
 echo "-- Cleanup previous environments"
 
 $CONDA remove -n o2 --all -y
 $CONDA remove -n ot2 --all -y
-$CONDA remove -n ot22 --all -y
 $CONDA remove -n o3 --all -y
 $CONDA remove -n ot3 --all -y
 $CONDA remove -n ot36 --all -y
