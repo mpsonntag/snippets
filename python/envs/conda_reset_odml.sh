@@ -7,21 +7,21 @@ if [ $(which conda) ]; then
     CONDA=$(which conda)
 fi
 
-if [ ! $CONDA ]; then
+if [ ! -e "$CONDA" ]; then
     CONDA=$(find $HOME -type d -path '*/conda/bin')
     if [ -d "$CONDA" ]; then
         CONDA=$(echo "$CONDA/conda")
     fi
 fi
 
-if [ ! -d "$CONDA" ]; then
+if [ ! -e "$CONDA" ]; then
     CONDA=$(find $HOME -type d -path '*/miniconda2/bin')
     if [ -d "$CONDA" ]; then
         CONDA=$(echo "$CONDA/conda")
     fi
 fi
 
-if [ ! $CONDA ]; then
+if [ ! -e "$CONDA" ]; then
     echo "-- Could not find conda executable"
     exit
 fi
