@@ -25,3 +25,10 @@
 - exit the database and reconnect as user play; run the database dump file.
     psql -U play
     \i /docker-entrypoint-initdb.d/[dumpfile]
+
+- exit and stop the container
+
+- now we start and link the gca-web container to the pgres container
+
+    GCAPGRES=pgres_gca_bee
+    docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
