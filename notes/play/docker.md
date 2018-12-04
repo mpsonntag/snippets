@@ -32,3 +32,6 @@
 
     GCAPGRES=pgres_gca_bee
     docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
+
+    GCAIMAGE=latest
+    docker run -dit --rm --link $GCAPGRES:pgres --name gca_bee -v $GCAHOME/conf_dev_pgres/:/srv/gca/conf/ -v $GCAHOME/fig_gca/:/srv/gca/figures/ -v $GCAHOME/fig_m_gca/:/srv/gca/figures_mobile/ -p 9000:9000 gnode/gca:$GCAIMAGE
