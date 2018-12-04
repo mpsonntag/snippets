@@ -9,3 +9,19 @@
 
     GCAHOME=/dmp/gca-web
     docker run -dit --rm --name pgres_gca_bee -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -v $GCAHOME/db_pgres/:/docker-entrypoint-initdb.d -p 5432:5432 postgres:latest
+
+- connect to the postgres db as user postgres in the running container
+
+    docker exec -it pgres /bin/bash
+    psql -U postgres -d postgres
+
+- connect to database postgres and create the roles we will need, play and roplay as well as a database, that shall contain our data
+
+    \c postgres
+    CREATE ROLE play WITH LOGIN PASSWORD '';
+    CREATE ROLE roplay WITH LOGIN PASSWORD '';
+    CREATE DATABASE play OWNER play;
+
+- exit the database and reconnect as user play; run the database dump file.
+    psql -U play
+    \i /docker-entrypoint-initdb.d/[dumpfile]
