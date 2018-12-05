@@ -33,11 +33,11 @@
 
 - now we start and link the gca-web container to the postgres container
 
-    docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
+    docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
 
     GCA=gca_bee
     GCAIMAGE=latest
-    docker run -dit --rm --link $GCAPGRES:pgres --name $GCA -v $GCAHOME/conf_dev_pgres/:/srv/gca/conf/ -v $GCAHOME/fig_gca/:/srv/gca/figures/ -v $GCAHOME/fig_m_gca/:/srv/gca/figures_mobile/ -p 9000:9000 mpsonntag/gca-web:$GCAIMAGE
+    docker run -dit --rm --name $GCA --network=$GCANET -v $GCAHOME/conf_dev_pgres/:/srv/gca/conf/ -v $GCAHOME/fig_gca/:/srv/gca/figures/ -v $GCAHOME/fig_m_gca/:/srv/gca/figures_mobile/ -p 9000:9000 mpsonntag/gca-web:$GCAIMAGE
 
 - NOTES:
     - make the play framework config file has the proper IP address of the postgres docker container set
