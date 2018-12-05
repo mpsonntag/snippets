@@ -8,14 +8,16 @@
   make sure it has a mounted docker-entrypoint folder containing the database dump as a plain sql file
 
     GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCAPGRESDB=$GCAHOME/db_pgres_test/
+    GCAPGRESSCRIPTS=$GCAHOME/db_pgres/
     GCAPGRES=pgres_gca_bee
-    docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -v $GCAHOME/db_pgres/:/docker-entrypoint-initdb.d -p 5432:5432 postgres:latest
+    docker run -dit --rm --name $GCAPGRES -v $GCAPGRESDB:/var/lib/postgresql/data -v $GCAPGRESSCRIPTS:/docker-entrypoint-initdb.d -p 5432:5432 postgres:latest
 
 - connect to database postgres and create the roles we will need, play and roplay as well as a database,
   that shall contain our data.
 
-    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE play WITH LOGIN PASSWORD 'play';"
-    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE roplay WITH LOGIN PASSWORD 'play';"
+    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE play WITH LOGIN PASSWORD '';"
+    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE roplay WITH LOGIN PASSWORD '';"
     docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE DATABASE play OWNER play;"
 
 - run the database dump file as user play within the new database play.
@@ -33,11 +35,14 @@
 
 - now we start and link the gca-web container to the postgres container
 
-    docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
+    docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 postgres:latest
 
+    GCACONF=$GCAHOME/conf_dev_pgres/
+    GCAFIG=$GCAHOME/fig_gca/
+    GCAFIGMOBILE=$GCAHOME/fig_m_gca/
     GCA=gca_bee
-    GCAIMAGE=latest
-    docker run -dit --rm --name $GCA --network=$GCANET -v $GCAHOME/conf_dev_pgres/:/srv/gca/conf/ -v $GCAHOME/fig_gca/:/srv/gca/figures/ -v $GCAHOME/fig_m_gca/:/srv/gca/figures_mobile/ -p 9000:9000 mpsonntag/gca-web:$GCAIMAGE
+    GCAIMAGE=mpsonntag/gca-web:latest
+    docker run -dit --rm --name $GCA --network=$GCANET -v $GCACONF:/srv/gca/conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMAGE
 
 - NOTES:
     - make the play framework config file has the proper IP address or name of the postgres docker container set
@@ -49,6 +54,6 @@
 ## Create and fetch database dumps
 
     docker exec -it pgres_gca_bee pg_dump -d play -U play -f /tmp/dump.sql
-    GCADUMP=/home/msonntag/Chaos/dmp/gca-web/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
+    GCADUMP=$GCAHOME/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
     docker cp pgres_gca_bee:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
