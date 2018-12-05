@@ -45,3 +45,10 @@
         or  `db.default.url="jdbc:postgresql://pgres_gca_bee:5432/play"`
     - when an update of the DB schema is required, make sure the play framework config file 
         has the persistence setting `jpa.default=defaultPersistenceUnit`.
+
+## Create and fetch database dumps
+
+    docker exec -it pgres_gca_bee pg_dump -d play -U play -f /tmp/dump.sql
+    GCADUMP=/home/msonntag/Chaos/dmp/gca-web/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
+    docker cp pgres_gca_bee:/tmp/dump.sql $GCADUMP
+    gzip $GCADUMP
