@@ -59,3 +59,7 @@
     GCADUMP=$GCAHOME/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
     docker cp pgres_gca_bee:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
+
+- and backup the figures as well
+
+    tar -zcvf $GCAHOME/gcafig_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAFIG
