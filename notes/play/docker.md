@@ -24,6 +24,13 @@
 
 - stop the container
 
+    docker stop $GCAPGRES
+
+- create a common network for our containers
+
+    GCANET=gcanet
+    docker network create $GCANET
+
 - now we start and link the gca-web container to the postgres container
 
     docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -p 5432:5432 postgres:latest
