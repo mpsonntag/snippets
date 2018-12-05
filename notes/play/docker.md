@@ -11,23 +11,18 @@
     GCAPGRES=pgres_gca_bee
     docker run -dit --rm --name $GCAPGRES -v $GCAHOME/db_pgres_test/:/var/lib/postgresql/data -v $GCAHOME/db_pgres/:/docker-entrypoint-initdb.d -p 5432:5432 postgres:latest
 
-- connect to the postgres db as user postgres in the running container
-
-    docker exec -it $GCAPGRES /bin/bash
-    psql -U postgres -d postgres
-
 - connect to database postgres and create the roles we will need, play and roplay as well as a database,
   that shall contain our data.
 
-    CREATE ROLE play WITH LOGIN PASSWORD 'play';
-    CREATE ROLE roplay WITH LOGIN PASSWORD 'play';
-    CREATE DATABASE play OWNER play;
+    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE play WITH LOGIN PASSWORD 'play';"
+    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE roplay WITH LOGIN PASSWORD 'play';"
+    docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE DATABASE play OWNER play;"
 
-- exit the database and reconnect as user play; run the database dump file.
-    psql -U play
-    \i /docker-entrypoint-initdb.d/dump.sql
+- run the database dump file as user play within the new database play.
 
-- exit and stop the container
+    docker exec -it $GCAPGRES psql -dplay -a -f /docker-entrypoint-initdb.d/dump.sql
+
+- stop the container
 
 - now we start and link the gca-web container to the postgres container
 
