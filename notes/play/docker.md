@@ -40,7 +40,8 @@
     docker run -dit --rm --name $GCA --network=$GCANET -v $GCAHOME/conf_dev_pgres/:/srv/gca/conf/ -v $GCAHOME/fig_gca/:/srv/gca/figures/ -v $GCAHOME/fig_m_gca/:/srv/gca/figures_mobile/ -p 9000:9000 mpsonntag/gca-web:$GCAIMAGE
 
 - NOTES:
-    - make the play framework config file has the proper IP address of the postgres docker container set
-        e.g. `db.default.url="jdbc:postgresql://172.17.0.2:5432/play"`.
+    - make the play framework config file has the proper IP address or name of the postgres docker container set
+        e.g. `db.default.url="jdbc:postgresql://172.17.0.2:5432/play"`
+        or  `db.default.url="jdbc:postgresql://pgres_gca_bee:5432/play"`
     - when an update of the DB schema is required, make sure the play framework config file 
         has the persistence setting `jpa.default=defaultPersistenceUnit`.
