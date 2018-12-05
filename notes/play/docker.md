@@ -25,7 +25,7 @@
 
 - run the database dump file as user play within the new database play.
 
-    docker exec -it $GCAPGRES psql -dplay -a -f /docker-entrypoint-initdb.d/dump.sql
+    docker exec -it $GCAPGRES psql -Uplay -dplay -a -f /docker-entrypoint-initdb.d/dump.sql
 
 - stop the container
 
