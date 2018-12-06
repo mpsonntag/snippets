@@ -9,11 +9,13 @@
 
 - start docker container w/o mounting docker-entrypoint folder
   make sure it has a mounted docker-entrypoint folder containing the database dump as a plain sql file
+  The docker command needs to be run twice, the first one sets up the postgres db, the second one starts it properly.
 
     GCAHOME=/home/msonntag/Chaos/dmp/gca-web
     GCAPGRESDB=$GCAHOME/db_pgres_test/
     GCAPGRESSCRIPTS=$GCAHOME/db_pgres/
     GCAPGRES=pgres_gca_bee
+    docker run -dit --rm --name $GCAPGRES -v $GCAPGRESDB:/var/lib/postgresql/data -v $GCAPGRESSCRIPTS:/docker-entrypoint-initdb.d -p 5432:5432 $GCAPGRESIMG
     docker run -dit --rm --name $GCAPGRES -v $GCAPGRESDB:/var/lib/postgresql/data -v $GCAPGRESSCRIPTS:/docker-entrypoint-initdb.d -p 5432:5432 $GCAPGRESIMG
 
 - connect to database postgres and create the roles we will need, play and roplay as well as a database,
