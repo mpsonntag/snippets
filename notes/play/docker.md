@@ -55,6 +55,7 @@
     - when an update of the DB schema is required, make sure the play framework config file 
         has the persistence setting `jpa.default=defaultPersistenceUnit`.
 
+
 ## Create and fetch database dumps
 
     docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
@@ -65,3 +66,44 @@
 - and backup the figures as well
 
     tar -zcvf $GCAHOME/gcafig_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAFIG
+
+
+# Fetching conference and abstract information
+
+- Use the python gca-client script; NOTE: the client currently only works with Python 2.
+- For fetching conferences login is not required.
+
+        ./gca-client http://abstracts.g-node.org conference [conferenceShort] > [output].json
+        # example for local tests
+        ./gca-client http://127.0.0.1:9000 conference BC17 > conf.dev.bc17.json
+
+- When fetching abstracts, login is required. It needs to be provided via a netrc file:
+
+        # Create .netrc file if it does not exist yet
+        touch /home/[user]/.netrc
+        # Add entry to the netrc file in the following manner:
+        vim /home/[user]/.netrc
+        
+        machine [IP address or DNS]
+        user [username]
+        login [password]
+        
+        # example for local tests
+        machine 127.0.0.1:9000
+        user ms@bio.lmu.de
+        password somethingSecret
+
+        # This file must only be accessible to the logged in user; chmod if required.
+        sudo chmod 600 /home/[user]/.netrc
+
+- Now everything is set up to fetch abstracts
+
+        ./gca-client http://abstracts.g-node.org abstracts [conferenceShort] > [output].json
+        # example for local tests
+        ./gca-client http://127.0.0.1:9000 abstracts BC17 > abs.dev.bc17.json
+
+- Fetch figures dependent on the abstract of a conference
+
+        ./gca-select [output].json figures.uuid | xargs ./gca-client http://abstracts.g-node.org image --path=[someLocalPath]
+        # example for local tests
+        ./gca-select abs.dev.bc17.json figures.uuid | xargs ./gca-client http://127.0.0.1:9000 image --path=gca-web/fig_bc17/
