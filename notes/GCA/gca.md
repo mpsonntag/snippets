@@ -156,3 +156,25 @@ sure, that also the data saving is disabled since this seems to be an extra cach
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
+
+Issues GCA-Web:
+- make fav abstracts star button white when unfavorite and yellow when favorite
+- favorite abstracts: link back to the main page within abstracts, not to the off site conference page.
+- Rename "Favorite Abstracts" to "Favorites"
+- Add the "Favorites" option to the main page as well since it is anyway not dependent on conference
+- Move the email address of a logged in user to the next line to increase readability in the header
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+Felix ToDo
+
+(1) #414 - Move routes file from config folder
+
+(2) #383 - Required fields for conference creation
+(2) #412 - Minimum abstract length on conference settings save
+(2) #318 - Admin create/update Conference: Error when using improper Groups value
+(3) #411 - Update figure tests
+
+Based on and built against 'master' branch
