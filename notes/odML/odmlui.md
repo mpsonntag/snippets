@@ -168,3 +168,74 @@ This PR
 - Fixes various occasions where the "Add Property" and "Add Value" icons were not 
     properly deactivated. Closes #90.
 
+-----------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+Issues
+
+- odml-ui: make datatype default values user defineable
+- odml-ui: remove encoder, filename, etc.
+- odml-ui: are shortcuts documented somewhere? how do they work under mac?
+
+- [ui|import] error when importing an 1.1 version file.
+
+- [ui|import] No proper error message when an import fails due to e.g. link and include in the same section
+
+- [ui|main] check odml version on startup and give intelligible error message on old version.
+
+- [ui|Editor] File menu "Open recent" does not display errors compared to opening from the dashboard.
+
+- [ui|Editor] Add info texts for section and property attributes in the attributes view.
+
+- [ui|Editor] Attribute frame: info icons + text for include, link and dependency value
+
+- [ui|Editor] Change the window size to show all potential section/property attributes w/o manual resizing
+
+- [ui|Editor] If possible add shortcut F2 to edit something
+
+- [ui|terminology] Handle terminology loading fails
+    Repositories of an open odml document are loaded in the background. If a repository link 
+    fails to be loaded, it will try again. And again and again and again and again and again 
+    and again and again and again and again and again and again...
+
+- [ui|TreeIters] Should some of the content of get_value:L57 not better be moved to
+        ValueModel#get_display() ?
+
+- [ui|AttributeView:L66] cgi.escape deprecated, use html.escape instead
+
+- [ui|Info Bar] Message display times:
+    - the message display times are too short.
+    - some messages e.g. errors should not go away without a user action.
+
+- [ui|1.3 only?] When loading a file using the FileChooser and the loading fails, it fails in the background
+    w/o closing the FileChooser and w/o providing an error message.
+
+- [ui|text.py|1.4] xmlparser.XMLReader.fromString is used in text.py and needs to be replaced with from_string.
+
+- [ui|PropertyView] Uncertainty should maybe only be available for entry, if the value is numeric.
+
+- [ui|Wizard] Terminology usage
+    - Use terminology repo url from odml-core as default url
+    - Properly use Terminology class and clean up after the wizard is done before it closes. (but that does not help, because
+        the core lib does deferred load of whichever instance every time a repository is touched.)
+
+- [ui|wizard] One can actually rename terminology section names in the select list - is that what we want?
+
+- [ui|wizard/validation] the standalone functions could be removed, 
+    ... since they are not functional with the relative imports anyway.
+
+- [ui|wizard] Terminology section save info
+    Add info that only sections that are modified will be saved to file when loading sections from a terminology.
+
+- [ui|version 1.4.0] Update version number of odmltables requirement to 1.0.0 for release 1.4.0
+
+- [ui|version 1.3.1] update version number of odmltables requirement to 0.1.1 and make release 1.3.1; 
+    release needs to contain single monitor fix as well
+
+- [ui] check PyPI release for PyGObject
+    https://pygobject.readthedocs.io/en/latest/getting_started.html#pypi
+    https://lazka.github.io/pgi-docs/
+
+- [ui] for windows: prerequisites
+    https://sourceforge.net/projects/pygobjectwin32/
