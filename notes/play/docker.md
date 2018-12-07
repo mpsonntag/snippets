@@ -137,3 +137,36 @@ Test backup every five minutes
 
     */5 * * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
 
+
+## Systemctl for postgres and play reboot startup
+
+https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
+https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
+
+`gca_pgres_start.sh` file
+
+    #!/usr/bin/env bash
+
+    GCANET=gcanet
+    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCAPGRES=pgres_gca_bee
+    GCAPGRESIMG=postgres:11
+    GCAPGRESDB=$GCAHOME/db_pgres_test/
+
+    docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
+
+`gca_pgres.service` file
+
+    [Unit]
+    Description=Postgres service for the GCA-Web website
+    After=network.target
+    StartLimitIntervalSec=0
+    
+    [Service]
+    Type=simple
+    Restart=always
+    RestartSec=5
+    ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_pgres_start.sh
+    
+    [Install]
+    WantedBy=multi-user.target
