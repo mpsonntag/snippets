@@ -107,3 +107,33 @@
         ./gca-select [output].json figures.uuid | xargs ./gca-client http://abstracts.g-node.org image --path=[someLocalPath]
         # example for local tests
         ./gca-select abs.dev.bc17.json figures.uuid | xargs ./gca-client http://127.0.0.1:9000 image --path=gca-web/fig_bc17/
+
+# Backup Cronjobs
+
+https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
+
+`gca_backup.sh` file
+
+    #!/usr/bin/env bash
+
+    GCAPGRES=pgres_gca_bee
+    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCAFIG=$GCAHOME/fig_gca/
+    GCABACKUP=$GCAHOME/backup
+    GCABACKDATE=$(date +"%Y%m%dT%H%M%S")
+    GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
+
+    mkdir -p $GCABACKUP
+    docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
+    docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
+    gzip $GCADUMP
+    tar -zcvf $GCABACKUP/gcafig_$GCABACKDATE.tar.gz $GCAFIG
+
+Daily backup cronjob at 4am:
+
+    0 4 * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
+
+Test backup every five minutes
+
+    */5 * * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
+
