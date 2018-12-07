@@ -198,12 +198,18 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
 `gca_env.sh` file
     #!/usr/bin/env bash
 
+    # Docker network
     GCANET=gcanet
+
+    # Home folder containing data base, config files and figures
     GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+
+    # Postgres database setup
+    GCAPGRESDB=$GCAHOME/db_pgres_test/
     GCAPGRES=pgres_gca_bee
     GCAPGRESIMG=postgres:11
-    GCAPGRESDB=$GCAHOME/db_pgres_test/
 
+    # Play framework setup
     GCACONF=$GCAHOME/conf_dev_pgres/
     GCAFIG=$GCAHOME/fig_gca/
     GCAFIGMOBILE=$GCAHOME/fig_m_gca/
