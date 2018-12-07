@@ -201,3 +201,21 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     
     [Install]
     WantedBy=multi-user.target
+
+
+### General environment variable script
+
+`gca_env.sh` file
+    #!/usr/bin/env bash
+
+    GCANET=gcanet
+    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCAPGRES=pgres_gca_bee
+    GCAPGRESIMG=postgres:11
+    GCAPGRESDB=$GCAHOME/db_pgres_test/
+
+    GCACONF=$GCAHOME/conf_dev_pgres/
+    GCAFIG=$GCAHOME/fig_gca/
+    GCAFIGMOBILE=$GCAHOME/fig_m_gca/
+    GCA=gca_bee
+    GCAIMG=mpsonntag/gca-web:latest
