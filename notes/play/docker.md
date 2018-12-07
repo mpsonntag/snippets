@@ -160,7 +160,7 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     
     [Service]
     Type=simple
-    Restart=always
+    Restart=on-failure
     RestartSec=5
     ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/pgres_gca_start.sh
     
@@ -185,7 +185,7 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     
     [Service]
     Type=simple
-    Restart=always
+    Restart=on-failure
     RestartSec=5
     ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_start.sh
     
