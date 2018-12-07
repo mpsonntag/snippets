@@ -170,3 +170,34 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     
     [Install]
     WantedBy=multi-user.target
+
+`gca_start.sh` file
+
+    #!/usr/bin/env bash
+
+    GCANET=gcanet
+    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCACONF=$GCAHOME/conf_dev_pgres/
+    GCAFIG=$GCAHOME/fig_gca/
+    GCAFIGMOBILE=$GCAHOME/fig_m_gca/
+    GCA=gca_bee
+    GCAIMG=mpsonntag/gca-web:latest
+
+    docker run -dit --rm --name $GCA --network=$GCANET -v $GCACONF:/srv/gca/conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+
+`gca.service` file
+
+    [Unit]
+    Description=Play server for the GCA-Web website
+    After=network.target
+    After=gca_pgres.service
+    StartLimitIntervalSec=0
+    
+    [Service]
+    Type=simple
+    Restart=always
+    RestartSec=5
+    ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_start.sh
+    
+    [Install]
+    WantedBy=multi-user.target
