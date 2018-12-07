@@ -162,7 +162,7 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     Type=simple
     Restart=always
     RestartSec=5
-    ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_pgres_start.sh
+    ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/pgres_gca_start.sh
     
     [Install]
     WantedBy=multi-user.target
@@ -215,3 +215,15 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     GCAFIGMOBILE=$GCAHOME/fig_m_gca/
     GCA=gca_bee
     GCAIMG=mpsonntag/gca-web:latest
+
+
+## Setting up the required systemd files for restart
+
+    sudo vim /etc/systemd/system/pgres_gca.service
+    # paste unit from above and save
+    # check if the service works
+    sudo systemctl start pgres_gca.service
+    # check the status
+    systemctl status pgres_gca.service
+    # Startup the service on restart
+    sudo systemctl enable pgres_gca.service
