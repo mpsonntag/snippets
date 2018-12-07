@@ -227,3 +227,10 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     systemctl status pgres_gca.service
     # Startup the service on restart
     sudo systemctl enable pgres_gca.service
+
+    # And the same for gca
+    sudo vim /etc/systemd/system/gca.service
+    sudo systemctl start gca.service
+    systemctl status gca.service
+    sudo systemctl enable gca.service
+
