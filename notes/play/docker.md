@@ -2,14 +2,14 @@
 
 - preparation: set up required folders, copy backup database sql, figures and play config folder
 
-        # Set up project root
+        # Home folder containing data base, config files and figures
         GCAHOME=/web/gca
 
         # Set up project data base folders 
         GCAPGRESDB=$GCAHOME/postgres/
         GCAPGRESSCRIPTS=$GCAHOME/scripts/
 
-        # Set up project play folders
+        # Play framework setup
         GCACONF=$GCAHOME/conf/
         GCAFIG=$GCAHOME/figures/
         GCAFIGMOBILE=$GCAHOME/figures_mobile/
@@ -23,7 +23,7 @@
         mkdir -p $GCAFIGMOBILE
         mkdir -p $GCAHOME/backup
 
-        # MANUAL 
+        # MANUAL PART
         # copy the GCA backup script as `backup.sql` into folder `/web/gca/scripts`
         # copy figures into folder `/web/gca/figures`
         # Add the file `application.prod.conf` with all required settings to `/web/gca/conf`;
@@ -141,9 +141,19 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
 
     #!/usr/bin/env bash
 
+    # Home folder containing data base, config files and figures
+    GCAHOME=/web/gca
+
+    # Project data base folders 
+    GCAPGRESDB=$GCAHOME/postgres/
+
+    # Play framework setup
+    GCACONF=$GCAHOME/conf/
+    GCAFIG=$GCAHOME/figures/
+    GCAFIGMOBILE=$GCAHOME/figures_mobile/
+
     GCAPGRES=pgres_gca_bee
-    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
-    GCAFIG=$GCAHOME/fig_gca/
+
     GCABACKUP=$GCAHOME/backup
     GCABACKDATE=$(date +"%Y%m%dT%H%M%S")
     GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
@@ -172,7 +182,9 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
 
     #!/usr/bin/env bash
 
-    . /home/msonntag/Chaos/dmp/gca-web/scripts/gca_env.sh
+    GCAHOME=/web/gca
+    GCAPGRESSCRIPTS=$GCAHOME/scripts
+    . $GCAPGRESSCRIPTS/gca_env.sh
 
     docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
 
@@ -196,7 +208,9 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
 
     #!/usr/bin/env bash
 
-    . /home/msonntag/Chaos/dmp/gca-web/scripts/gca_env.sh
+    GCAHOME=/web/gca
+    GCAPGRESSCRIPTS=$GCAHOME/scripts
+    . $GCAPGRESSCRIPTS/gca_env.sh
 
     docker run -dit --rm --name $GCA --network=$GCANET -v $GCACONF:/srv/gca/conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
 
@@ -227,17 +241,17 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     GCANET=gcanet
 
     # Home folder containing data base, config files and figures
-    GCAHOME=/home/msonntag/Chaos/dmp/gca-web
+    GCAHOME=/web/gca
 
-    # Postgres database setup
-    GCAPGRESDB=$GCAHOME/db_pgres_test/
+    # Project data base folders 
+    GCAPGRESDB=$GCAHOME/postgres/
     GCAPGRES=pgres_gca_bee
     GCAPGRESIMG=postgres:11
 
     # Play framework setup
-    GCACONF=$GCAHOME/conf_dev_pgres/
-    GCAFIG=$GCAHOME/fig_gca/
-    GCAFIGMOBILE=$GCAHOME/fig_m_gca/
+    GCACONF=$GCAHOME/conf/
+    GCAFIG=$GCAHOME/figures/
+    GCAFIGMOBILE=$GCAHOME/figures_mobile/
     GCA=gca_bee
     GCAIMG=mpsonntag/gca-web:latest
 
