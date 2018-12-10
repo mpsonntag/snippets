@@ -186,7 +186,7 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     GCAPGRESSCRIPTS=$GCAHOME/scripts
     . $GCAPGRESSCRIPTS/gca_env.sh
 
-    docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
+    docker run -i --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
 
 `gca_pgres.service` file
 
@@ -197,7 +197,7 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     
     [Service]
     Type=simple
-    Restart=on-failure
+    Restart=always
     RestartSec=5
     ExecStart=/bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/pgres_gca_start.sh
     
