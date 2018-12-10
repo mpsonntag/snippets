@@ -1,4 +1,33 @@
-### Set up gcaweb postgres container from scratch and load DB dump
+### GCA-Web setup script
+
+- preparation: set up required folders, copy backup database sql, figures and play config folder
+
+        # Set up project root
+        GCAHOME=/web/gca
+
+        # Set up project data base folders 
+        GCAPGRESDB=$GCAHOME/postgres/
+        GCAPGRESSCRIPTS=$GCAHOME/scripts/
+
+        # Set up project play folders
+        GCACONF=$GCAHOME/conf/
+        GCAFIG=$GCAHOME/figures/
+        GCAFIGMOBILE=$GCAHOME/figures_mobile/
+
+        # Create all required directories
+        mkdir -p $GCAPGRESDB
+        mkdir -p $GCAPGRESSCRIPTS
+
+        mkdir -p $GCACONF
+        mkdir -p $GCAFIG
+        mkdir -p $GCAFIGMOBILE
+        mkdir -p $GCAHOME/backup
+
+        # MANUAL 
+        # copy the GCA backup script as `backup.sql` into folder `/web/gca/scripts`
+        # copy figures into folder `/web/gca/figures`
+        # Add the file `application.prod.conf` with all required settings to `/web/gca/conf`;
+        #   see notes for details and get it from the gca gin repository.
 
 - define and fetch the proper docker containers
     GCAPGRESIMG=postgres:11
