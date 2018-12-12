@@ -1,4 +1,4 @@
-### GCA-Web setup script
+### GCA-Web initial setup script
 
 - preparation: set up required folders, copy backup database sql, figures and play config folder
 
@@ -11,8 +11,9 @@
 
         # Play framework setup
         GCACONF=$GCAHOME/conf/
-        GCAFIG=$GCAHOME/figures/
-        GCAFIGMOBILE=$GCAHOME/figures_mobile/
+        GCAIMAGES=$GCAHOME/images
+        GCAFIG=$GCAIMAGES/figures/
+        GCAFIGMOBILE=$GCAIMAGES/figures_mobile/
 
         # Create all required directories
         mkdir -p $GCAPGRESDB
@@ -25,9 +26,12 @@
 
         # MANUAL PART
         # copy the GCA backup script as `backup.sql` into folder `/web/gca/scripts`
+        #   e.g. sudo su gca -c 'cp /home/backup/gca/postgres/dump.sql /web/gca/scripts/backup.sql'
         # copy figures into folder `/web/gca/figures`
+        #   e.g. sudo su gca -c 'cp /home/backup/gca/figures/* /web/gca/images/figures/'
         # Add the file `application.prod.conf` with all required settings to `/web/gca/conf`;
         #   see notes for details and get it from the gca gin repository.
+        #   e.g. sudo su gca -c 'cp /home/backup/gca/conf/application.prod.conf /web/gca/conf/application.prod.conf'
 
 - define and fetch the proper docker containers
 
@@ -37,7 +41,7 @@
         sudo docker pull $GCAPGRESIMG
         sudo docker pull $GCAIMG
 
-- Make sure the folder `$GCAPGRESSCRIPTS` it has a mounted docker-entrypoint folder containing the database dump 
+- Make sure the folder `$GCAPGRESSCRIPTS` has a mounted docker-entrypoint folder containing the database dump 
   as a plain sql file named `backup.sql`.
   The docker command needs to be run twice, the first one sets up an empty postgres db, the second one starts it properly.
 
@@ -149,8 +153,7 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
 
     # Play framework setup
     GCACONF=$GCAHOME/conf/
-    GCAFIG=$GCAHOME/figures/
-    GCAFIGMOBILE=$GCAHOME/figures_mobile/
+    GCAIMAGES=$GCAHOME/images/
 
     GCAPGRES=pgres_gca_bee
 
@@ -159,10 +162,14 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
     GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
 
     mkdir -p $GCABACKUP
+
+    # Database backup
     docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
     docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
-    tar -zcvf $GCABACKUP/gcafig_$GCABACKDATE.tar.gz $GCAFIG
+
+    # Image folder backup
+    tar -zcvf $GCABACKUP/gcaimages_$GCABACKDATE.tar.gz $GCAIMAGES
 
 Daily backup cronjob at 4am:
 
