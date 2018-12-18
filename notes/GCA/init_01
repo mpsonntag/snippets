@@ -11,6 +11,7 @@ GCACONF=$GCAHOME/conf/
 GCAIMAGES=$GCAHOME/images
 GCAFIG=$GCAIMAGES/figures/
 GCAFIGMOBILE=$GCAIMAGES/figures_mobile/
+GCABANNER=$GCAIMAGES/banners/
 
 # Create all required directories
 sudo mkdir -p $GCAHOME
@@ -21,12 +22,11 @@ sudo mkdir -p $GCAPGRESSCRIPTS
 sudo mkdir -p $GCACONF
 sudo mkdir -p $GCAFIG
 sudo mkdir -p $GCAFIGMOBILE
+sudo mkdir -p $GCABANNER
 sudo mkdir -p $GCAHOME/backup
 
-# Create dedicated "gca" user, add it to the
-# "docker" group to enable this user starting
-# docker w/o sudo and create all required
-# directories with this user.
+# Create dedicated "gca" user and add it to the "docker"
+# group; create all required directories with this user.
 sudo useradd -M -G docker gca
 sudo chown -R gca:gca $GCAHOME
 # Disable login for user gca
