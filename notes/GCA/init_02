@@ -23,14 +23,19 @@ sudo docker pull $GCAIMG
 GCAPGRES=pgres_gca_bee
 
 sudo docker run -dit --rm --name $GCAPGRES -v $GCAPGRESDB:/var/lib/postgresql/data -v $GCAPGRESSCRIPTS:/docker-entrypoint-initdb.d -p 5432:5432 $GCAPGRESIMG
-
+sleep 2
 sudo docker run -dit --rm --name $GCAPGRES -v $GCAPGRESDB:/var/lib/postgresql/data -v $GCAPGRESSCRIPTS:/docker-entrypoint-initdb.d -p 5432:5432 $GCAPGRESIMG
+sleep 2
 
 # Set up required database and roles; load the database; make sure to set the appropriate password.
 sudo docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE play WITH LOGIN PASSWORD '';"
+sleep 2
 sudo docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE ROLE roplay WITH LOGIN PASSWORD '';"
+sleep 2
 sudo docker exec -it $GCAPGRES psql -Upostgres -dpostgres -c "CREATE DATABASE play OWNER play;"
+sleep 2
 sudo docker exec -it $GCAPGRES psql -Uplay -dplay -a -f /docker-entrypoint-initdb.d/backup.sql
+sleep 2
 sudo docker stop $GCAPGRES
 
 # Set up the common docker container bridge
@@ -39,6 +44,7 @@ sudo docker network create $GCANET
 
 # Start postgres database container
 sudo docker run -dit --restart always --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
+sleep 2
 
 # Start play framework container
 GCA=gca_bee
