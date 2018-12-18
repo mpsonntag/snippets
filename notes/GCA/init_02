@@ -13,7 +13,7 @@ GCAFIG=$GCAIMAGES/figures/
 GCAFIGMOBILE=$GCAIMAGES/figures_mobile/
 
 GCAPGRESIMG=postgres:11
-GCAIMG=mpsonntag/gca-web:latest
+GCAIMG=gnode/gca:latest
 
 # Pull all required docker containers
 sudo docker pull $GCAPGRESIMG
