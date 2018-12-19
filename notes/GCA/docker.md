@@ -32,6 +32,8 @@
         # Add the file `application.prod.conf` with all required settings to `/web/gca/conf`;
         #   see notes for details and get it from the gca gin repository.
         #   e.g. sudo su gca -c 'cp /home/backup/gca/conf/application.prod.conf /web/gca/conf/application.prod.conf'
+        # Make sure that `docker` restart via `systemctl` is enabled
+        #   e.g. sudo systemctl enable docker
 
 - define and fetch the proper docker containers
 
@@ -97,46 +99,6 @@
         tar -zcvf $GCAHOME/gcafig_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAFIG
 
 
-# Fetching conference and abstract information
-
-- Use the python gca-client script; NOTE: the client currently only works with Python 2.
-- For fetching conferences login is not required.
-
-        ./gca-client http://abstracts.g-node.org conference [conferenceShort] > [output].json
-        # example for local tests
-        ./gca-client http://127.0.0.1:9000 conference BC17 > conf.dev.bc17.json
-
-- When fetching abstracts, login is required. It needs to be provided via a netrc file:
-
-        # Create .netrc file if it does not exist yet
-        touch /home/[user]/.netrc
-        # Add entry to the netrc file in the following manner:
-        vim /home/[user]/.netrc
-        
-        machine [IP address or DNS]
-        user [username]
-        login [password]
-        
-        # example for local tests
-        machine 127.0.0.1:9000
-        user ms@bio.lmu.de
-        password somethingSecret
-
-        # This file must only be accessible to the logged in user; chmod if required.
-        sudo chmod 600 /home/[user]/.netrc
-
-- Now everything is set up to fetch abstracts
-
-        ./gca-client http://abstracts.g-node.org abstracts [conferenceShort] > [output].json
-        # example for local tests
-        ./gca-client http://127.0.0.1:9000 abstracts BC17 > abs.dev.bc17.json
-
-- Fetch figures dependent on the abstract of a conference
-
-        ./gca-select [output].json figures.uuid | xargs ./gca-client http://abstracts.g-node.org image --path=[someLocalPath]
-        # example for local tests
-        ./gca-select abs.dev.bc17.json figures.uuid | xargs ./gca-client http://127.0.0.1:9000 image --path=gca-web/fig_bc17/
-
 # Backup Cronjobs
 
 https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
@@ -179,6 +141,48 @@ Test backup every five minutes
 
     */5 * * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
 
+
+# Fetching conference and abstract information
+
+- Use the python gca-client script; NOTE: the client currently only works with Python 2.
+- For fetching conferences login is not required.
+
+        ./gca-client http://abstracts.g-node.org conference [conferenceShort] > [output].json
+        # example for local tests
+        ./gca-client http://127.0.0.1:9000 conference BC17 > conf.dev.bc17.json
+
+- When fetching abstracts, login is required. It needs to be provided via a netrc file:
+
+        # Create .netrc file if it does not exist yet
+        touch /home/[user]/.netrc
+        # Add entry to the netrc file in the following manner:
+        vim /home/[user]/.netrc
+        
+        machine [IP address or DNS]
+        user [username]
+        login [password]
+        
+        # example for local tests
+        machine 127.0.0.1:9000
+        user ms@bio.lmu.de
+        password somethingSecret
+
+        # This file must only be accessible to the logged in user; chmod if required.
+        sudo chmod 600 /home/[user]/.netrc
+
+- Now everything is set up to fetch abstracts
+
+        ./gca-client http://abstracts.g-node.org abstracts [conferenceShort] > [output].json
+        # example for local tests
+        ./gca-client http://127.0.0.1:9000 abstracts BC17 > abs.dev.bc17.json
+
+- Fetch figures dependent on the abstract of a conference
+
+        ./gca-select [output].json figures.uuid | xargs ./gca-client http://abstracts.g-node.org image --path=[someLocalPath]
+        # example for local tests
+        ./gca-select abs.dev.bc17.json figures.uuid | xargs ./gca-client http://127.0.0.1:9000 image --path=gca-web/fig_bc17/
+
+# Legacy scripts
 
 ## Systemctl for postgres and play reboot startup
 
