@@ -102,17 +102,21 @@
 ## Create and fetch database dumps
 
     GCAHOME=/web/gca
+    GCAIMAGES=$GCAHOME/images/
+    GCABACKUP=$GCAHOME/backup
+
     GCAPGRES=pgres_gca_bee
-    GCADUMP=$GCAHOME/backup/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
-    GCAIMAGES=$GCAHOME/images
+
+    GCABACKDATE=$(date +"%Y%m%dT%H%M%S")
+    GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
 
     # Create database dump and copy to backup folder outside the docker container
     sudo docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
     sudo docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
 
-    # Backup all figures and banners as well
-    tar -zcvf $GCAHOME/gcaimg_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAIMAGES
+    # Backup figures and banners
+    tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
 
 
 # Backup Cronjobs
@@ -125,21 +129,13 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
 
     # Home folder containing data base, config files and figures
     GCAHOME=/web/gca
-
-    # Project data base folders 
-    GCAPGRESDB=$GCAHOME/postgres/
-
-    # Play framework setup
-    GCACONF=$GCAHOME/conf/
     GCAIMAGES=$GCAHOME/images/
+    GCABACKUP=$GCAHOME/backup
 
     GCAPGRES=pgres_gca_bee
 
-    GCABACKUP=$GCAHOME/backup
     GCABACKDATE=$(date +"%Y%m%dT%H%M%S")
     GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
-
-    mkdir -p $GCABACKUP
 
     # Database backup
     docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
@@ -147,15 +143,15 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
     gzip $GCADUMP
 
     # Image folder backup
-    tar -zcvf $GCABACKUP/gcaimages_$GCABACKDATE.tar.gz $GCAIMAGES
+    tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
 
 Daily backup cronjob at 4am:
 
-    0 4 * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
+    0 4 * * * /bin/bash /web/gca/scripts/gca_backup.sh
 
 Test backup every five minutes
 
-    */5 * * * * /bin/bash /home/msonntag/Chaos/dmp/gca-web/scripts/gca_backup.sh
+    */5 * * * * /bin/bash /web/gca/scripts/gca_backup.sh
 
 
 # Fetching conference and abstract information
