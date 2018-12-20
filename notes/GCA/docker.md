@@ -4,25 +4,36 @@
 
         # Home folder containing data base, config files and figures
         GCAHOME=/web/gca
-
-        # Set up project data base folders 
+        
+        # Set up project data base folders
         GCAPGRESDB=$GCAHOME/postgres/
         GCAPGRESSCRIPTS=$GCAHOME/scripts/
-
+        
         # Play framework setup
         GCACONF=$GCAHOME/conf/
         GCAIMAGES=$GCAHOME/images
         GCAFIG=$GCAIMAGES/figures/
         GCAFIGMOBILE=$GCAIMAGES/figures_mobile/
-
+        GCABANNER=$GCAIMAGES/banners/
+        
         # Create all required directories
-        mkdir -p $GCAPGRESDB
-        mkdir -p $GCAPGRESSCRIPTS
-
-        mkdir -p $GCACONF
-        mkdir -p $GCAFIG
-        mkdir -p $GCAFIGMOBILE
-        mkdir -p $GCAHOME/backup
+        sudo mkdir -p $GCAHOME
+        
+        sudo mkdir -p $GCAPGRESDB
+        sudo mkdir -p $GCAPGRESSCRIPTS
+        
+        sudo mkdir -p $GCACONF
+        sudo mkdir -p $GCAFIG
+        sudo mkdir -p $GCAFIGMOBILE
+        sudo mkdir -p $GCABANNER
+        sudo mkdir -p $GCAHOME/backup
+        
+        # Create dedicated "gca" user and add it to the "docker"
+        # group; create all required directories with this user.
+        sudo useradd -M -G docker gca
+        sudo chown -R gca:gca $GCAHOME
+        # Disable login for user gca
+        sudo usermod -L gca
 
         # MANUAL PART
         # copy the GCA backup script as `backup.sql` into folder `/web/gca/scripts`
@@ -38,8 +49,9 @@
 - define and fetch the proper docker containers
 
         GCAPGRESIMG=postgres:11
-        GCAIMG=mpsonntag/gca-web:latest
-    
+        GCAIMG=gnode/gca:latest
+        
+        # Pull all required docker containers
         sudo docker pull $GCAPGRESIMG
         sudo docker pull $GCAIMG
 
@@ -74,13 +86,13 @@
 
 - now we start and link the gca-web container to the postgres container
 
-        sudo docker run -dit --rm --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
+        sudo docker run -dit --restart always --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
 
         GCA=gca_bee
-        sudo docker run -dit --rm --name $GCA --network=$GCANET -v $GCACONF:/srv/gca/conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+        sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
 
 - NOTES:
-    - make the play framework config file has the proper IP address or name of the postgres docker container set
+    - make sure the play framework config file has the proper IP address or name of the postgres docker container set
         e.g. `db.default.url="jdbc:postgresql://172.17.0.2:5432/play"`
         or  `db.default.url="jdbc:postgresql://pgres_gca_bee:5432/play"`
     - when an update of the DB schema is required, make sure the play framework config file 
