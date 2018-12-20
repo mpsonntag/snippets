@@ -89,7 +89,19 @@
         sudo docker run -dit --restart always --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
 
         GCA=gca_bee
-        sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+        sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ $GCAIMG
+
+- make sure the appropriate apache2 configuration exists and is enables. It might be necessary
+    to update the apache2 configuration to the current IP of the running GCA docker container.
+    
+        # Check IP address of the current running docker container:
+        sudo docker inspect -f "{{ .NetworkSettings.Networks.gcanet.IPAddress }}" $GCA
+
+        # Check "ProxyPass" and "ProxPassReverse" IPs in apache config file and change if required
+        cat /etc/apache2/sites-enabled/abstracts.g-node.org.conf
+
+        # If the IP was changed, reload the apache service
+        sudo systemctl reload apache2
 
 - NOTES:
     - make sure the play framework config file has the proper IP address or name of the postgres docker container set
