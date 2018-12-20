@@ -101,14 +101,18 @@
 
 ## Create and fetch database dumps
 
-    docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
-    GCADUMP=$GCAHOME/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
-    docker cp pgres_gca_bee:/tmp/dump.sql $GCADUMP
+    GCAHOME=/web/gca
+    GCAPGRES=pgres_gca_bee
+    GCADUMP=$GCAHOME/backup/gca_dump_$(date +"%Y%m%dT%H%M%S").sql
+    GCAIMAGES=$GCAHOME/images
+
+    # Create database dump and copy to backup folder outside the docker container
+    sudo docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
+    sudo docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
 
-- and backup the figures as well
-
-        tar -zcvf $GCAHOME/gcafig_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAFIG
+    # Backup all figures and banners as well
+    tar -zcvf $GCAHOME/gcaimg_$(date +"%Y%m%dT%H%M%S").tar.gz $GCAIMAGES
 
 
 # Backup Cronjobs
