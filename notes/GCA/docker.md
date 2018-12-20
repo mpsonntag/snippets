@@ -109,6 +109,27 @@
         or  `db.default.url="jdbc:postgresql://pgres_gca_bee:5432/play"`
     - when an update of the DB schema is required, make sure the play framework config file 
         has the persistence setting `jpa.default=defaultPersistenceUnit`.
+    - when a server certificate needs to be renewed, use `certbot`:
+
+            sudo certbot
+            # Select domain name to create the certificate for e.g. abstracts.g-node.org
+            # Use option "Secure".
+            # This creates certificate files in `/etc/letsencrypt/live/abstracts.g-node.org/` 
+            # and adds an apache2 sites available entry in /etc/apache2/sites-available/000-default-le-ssl.conf
+            # and also enables this configuration for apache2.
+
+            # Unload this certificate from the apache sites enabled
+            sudo a2dissite 000-default-le-ssl.conf
+
+            # Make sure the paths to the "SSLCertificateFile" and "SSLCertificateKeyFile" in
+            # /etc/apache2/sites-enabled/abstracts.g-node.org.conf point to the correct letsencrypt files
+            # e.g. /etc/letsencrypt/live/abstracts.g-node.org/fullchain.pem.
+
+            # Then reload apache2 to make the encryption available. If this does not help yet, restart the apache
+            # service and close and restart the browser.
+            sudo systemctl reload apache2
+            # or
+            sudo systemctl restart apache2
 
 
 ## Create and fetch database dumps
