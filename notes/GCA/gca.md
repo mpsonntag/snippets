@@ -164,6 +164,12 @@ Issues GCA-Web:
 - Add the "Favorites" option to the main page as well since it is anyway not dependent on conference
 - Move the email address of a logged in user to the next line to increase readability in the header
 
+- when resetting a password and the password is too short, the message reads 'Minimum length is {0}'
+- when submitting (?) an abstract, the last line of the successful submission message in the info box reads: 
+'To register please go to: null'; where null is a link to some myabstracts page 
+e.g.: http://localhost:9000/myabstracts/8a7573cf-5fbb-4871-ac90-0a9079e4e27b/null
+
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
