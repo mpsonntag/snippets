@@ -164,10 +164,14 @@ Issues GCA-Web:
 - Add the "Favorites" option to the main page as well since it is anyway not dependent on conference
 - Move the email address of a logged in user to the next line to increase readability in the header
 
-- when resetting a password and the password is too short, the message reads 'Minimum length is {0}'
 - when submitting (?) an abstract, the last line of the successful submission message in the info box reads: 
 'To register please go to: null'; where null is a link to some myabstracts page 
 e.g.: http://localhost:9000/myabstracts/8a7573cf-5fbb-4871-ac90-0a9079e4e27b/null
+This happens if a conference provides no link to the conference page / registration site.
+
+- [Q] Issue states that owner management should be the default one... but this is only available
+        as long as an abstract is in the submission process. Once it has been submitted, the owner management
+        is replaced by a withdraw tab. the state log tab is the only one that is permanently available.
 
 
 ------------------------------------------------------------------------------------------
