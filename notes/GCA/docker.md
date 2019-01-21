@@ -91,6 +91,28 @@
         GCA=gca_bee
         sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ $GCAIMG
 
+
+- make sure all required apache2 modules are enabled:
+
+        sudo a2enmod proxy
+        sudo a2enmod proxy_http
+        sudo a2enmod proxy_html
+        sudo systemctl restart apache2
+
+- if there is a problem determine the servers domain:
+
+    - edit /etc/hosts and add the domain name to the first localhost line, e.g.:
+
+            127.0.0.1  localhost.localdomain  localhost irods.g-node.org
+
+    - edit /etc/apache2/apache2.conf and add the domain to the very end of the file as line:
+
+            sudo vim /etc/apache2/apache2.conf
+            ServerName irods.g-node.org
+
+            // restart apache2
+            sudo systemctl restart apache2
+
 - make sure the appropriate apache2 configuration exists and is enables. It might be necessary
     to update the apache2 configuration to the current IP of the running GCA docker container.
     
