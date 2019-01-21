@@ -201,6 +201,14 @@
     rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCADUMP.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/postgres/
     rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/figures/
 
+- copy file to 
+
+        sudo su gca -c 'cp /home/backup/gca/scripts/gca_backup.sh /web/gca/scripts/gca_backup.sh'
+
+- add a crontab job for gca_web as the root user
+
+        sudo crontab -e
+
 Daily backup cronjob at 4am:
 
     0 4 * * * /bin/bash /web/gca/scripts/gca_backup.sh
@@ -208,6 +216,10 @@ Daily backup cronjob at 4am:
 Test backup every five minutes
 
     */5 * * * * /bin/bash /web/gca/scripts/gca_backup.sh
+
+- logs about cronjobs can be checked via:
+
+        grep CRON /var/log/syslog
 
 
 # Fetching conference and abstract information
