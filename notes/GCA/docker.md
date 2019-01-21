@@ -133,6 +133,8 @@
         has the persistence setting `jpa.default=defaultPersistenceUnit`.
     - when a server certificate needs to be renewed, use `certbot`:
 
+- set up letsencrypt certificates for the server
+
             sudo certbot
             # Select domain name to create the certificate for e.g. abstracts.g-node.org
             # Use option "Secure".
@@ -157,33 +159,25 @@
     - chrome needs a restart to properly accept renewed certificates.
 
 
-## Create and fetch database dumps
+### Prepare for backups to another server
 
-    GCAHOME=/web/gca
-    GCAIMAGES=$GCAHOME/images/
-    GCABACKUP=$GCAHOME/backup
+- on the abtracts server create a passwordless ssh key-pair in the root home dir
 
-    GCAPGRES=pgres_gca_bee
+        // switch to the root user home directory and work as root
+        sudo -i
+        // create the keypair with an appropriate name and an empty password
+        ssh-keygen
 
-    GCABACKDATE=$(date +"%Y%m%dT%H%M%S")
-    GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
-
-    # Create database dump and copy to backup folder outside the docker container
-    sudo docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
-    sudo docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
-    gzip $GCADUMP
-
-    # Backup figures and banners
-    tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
+- manually copy the public key into the `authorized_keys` file of the home directory on the backup server
 
 
 # Backup Cronjobs
 
-https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
+- for details check [here](https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/)
+
+- adjust the source and target directories as well as keyname and user as required.
 
 `gca_backup.sh` file
-
-    #!/usr/bin/env bash
 
     # Home folder containing data base, config files and figures
     GCAHOME=/web/gca
@@ -202,6 +196,10 @@ https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
 
     # Image folder backup
     tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
+
+    # Backup everything to gate
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCADUMP.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/postgres/
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/figures/
 
 Daily backup cronjob at 4am:
 
