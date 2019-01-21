@@ -1,3 +1,8 @@
+
+GCA-Web development notes
+
+Not necessarily up to date.
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
@@ -82,14 +87,14 @@ GCA-Web - dev machine:
 
 on dev, the required config files can be found in:
 
-    /data/gca/conf
+    /web/gca/conf
 
 it should contain the file `application.dev.conf` with an appropriate base url e.g. `https://dev.g-node.org`
 
 the required figures and figures_mobile directories can be found in:
 
-    /data/gca/figures
-    /data/gca/figures_mobile
+    /web/gca/figures
+    /web/gca/figures_mobile
 
 `a` and `b` are dummy images that can replace the empty figures that are currently still being set up by the tests
 and potentially break shit when testing. Use `a` for `figures` and `b` for `figures_mobile` to test the difference.
@@ -106,7 +111,7 @@ stop the running machine
 
 startup with the latest container:
 
-    sudo docker run -dit --rm --name gca_bee -v /data/gca/conf/:/srv/gca/conf/ -v /data/gca/figures/:/srv/gca/figures -v /data/gca/figures_mobile/:/srv/gca/figures_mobile/ -p 9000:9000 gnode/gca-web
+    sudo docker run -dit --rm --name gca_bee -v /web/gca/conf/:/srv/gca/conf/ -v /web/gca/figures/:/srv/gca/figures -v /web/gca/figures_mobile/:/srv/gca/figures_mobile/ -p 9000:9000 gnode/gca
 
 cleanup any old containers:
 
@@ -120,8 +125,8 @@ check the current status of the instance:
 
 once the instance is done and running, fix the abstract figures:
 
-    sudo cp /data/gca/a /data/gca/figures/[insert figureID]
-    sudo cp /data/gca/a /data/gca/mobile_figures/[insert figureID]
+    sudo cp /web/gca/a /data/gca/figures/[insert figureID]
+    sudo cp /web/gca/a /data/gca/mobile_figures/[insert figureID]
 
 ------------------------------------------------------------------------------------------
 
@@ -158,33 +163,7 @@ sure, that also the data saving is disabled since this seems to be an extra cach
 ------------------------------------------------------------------------------------------
 
 Issues GCA-Web:
-- make fav abstracts star button white when unfavorite and yellow when favorite
-- favorite abstracts: link back to the main page within abstracts, not to the off site conference page.
-- Rename "Favorite Abstracts" to "Favorites"
-- Add the "Favorites" option to the main page as well since it is anyway not dependent on conference
-- Move the email address of a logged in user to the next line to increase readability in the header
-
 - when submitting (?) an abstract, the last line of the successful submission message in the info box reads: 
 'To register please go to: null'; where null is a link to some myabstracts page 
 e.g.: http://localhost:9000/myabstracts/8a7573cf-5fbb-4871-ac90-0a9079e4e27b/null
 This happens if a conference provides no link to the conference page / registration site.
-
-- [Q] Issue states that owner management should be the default one... but this is only available
-        as long as an abstract is in the submission process. Once it has been submitted, the owner management
-        is replaced by a withdraw tab. the state log tab is the only one that is permanently available.
-
-
-------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------------
-
-Felix ToDo
-
-(1) #414 - Move routes file from config folder
-
-(2) #383 - Required fields for conference creation
-(2) #412 - Minimum abstract length on conference settings save
-(2) #318 - Admin create/update Conference: Error when using improper Groups value
-(3) #411 - Update figure tests
-
-Based on and built against 'master' branch
