@@ -227,7 +227,7 @@ Test backup every five minutes
 - Use the python gca-client script; NOTE: the client currently only works with Python 2.
 - For fetching conferences login is not required.
 
-        ./gca-client http://abstracts.g-node.org conference [conferenceShort] > [output].json
+        ./gca-client https://abstracts.g-node.org conference [conferenceShort] > [output].json
         # example for local tests
         ./gca-client http://127.0.0.1:9000 conference BC17 > conf.dev.bc17.json
 
@@ -252,7 +252,7 @@ Test backup every five minutes
 
 - Now everything is set up to fetch abstracts
 
-        ./gca-client http://abstracts.g-node.org abstracts [conferenceShort] > [output].json
+        ./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json
         # example for local tests
         ./gca-client http://127.0.0.1:9000 abstracts BC17 > abs.dev.bc17.json
 
