@@ -130,6 +130,9 @@
             sudo systemctl reload apache2
             # or
             sudo systemctl restart apache2
+    - after installing a new container, make sure to check the running docker instances IP address and compare
+      it to the IP address in the apache configuration to check whether these two still are the same.
+    - chrome needs a restart to properly accept renewed certificates.
 
 
 ## Create and fetch database dumps
