@@ -190,8 +190,8 @@
     GCADUMP=$GCABACKUP/gca_$GCABACKDATE.sql
 
     # Database backup
-    docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
-    docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
+    sudo docker exec -it $GCAPGRES pg_dump -d play -U play -f /tmp/dump.sql
+    sudo docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
 
     # Image folder backup
