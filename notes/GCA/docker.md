@@ -1,5 +1,15 @@
 ### GCA-Web initial setup script
 
+- before anything else, make sure docker is set up to use a mountpoint with sufficient space.
+  On the current abstracts the docker folder hosting all containers is sym-linked to /data/docker
+
+    // make sure no containers are running and stop the docker daemon
+    sudo systemctl stop docker
+    sudo cp -a /var/lib/docker /data/docker
+    sudo mv /var/lib/docker /var/lib/docker_old
+    sudo ln -s /data/docker /var/lib/docker
+    sudo systemctl start docker
+
 - preparation: set up required folders, copy backup database sql, figures and play config folder
 
         # Home folder containing data base, config files and figures
