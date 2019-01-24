@@ -380,18 +380,3 @@ https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
     systemctl status gca.service
     sudo systemctl enable gca.service
 
-
-ToDo
-----
-[ ] test email from docker
-[ ] merge docker changes into master and favabs and push to upstream
-[ ] create release before favabs merge and push to upstream
-[ ] deploy current master to dev;
-[ ] redeploy with favabs play container and test
-[ ] merge favabs into master
-[ ] write setup environment script
-[ ] backup to gate
-   - add backup user to gate
-   - create backup ssh key on machine
-   - use rsync with this ssh key to copy on backup times
-   - add backup ssh public key to ~/.ssh/
