@@ -204,12 +204,9 @@
     sudo docker cp $GCAPGRES:/tmp/dump.sql $GCADUMP
     gzip $GCADUMP
 
-    # Image folder backup
-    tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
-
     # Backup everything to gate
-    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCADUMP.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/postgres/
-    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz msonntag@gate.g-node.org:/home/msonntag/g-node-core/backups/abstracts_docker_backup/figures/
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCADUMP.gz [user]@[domain].g-node.org:[home]/backups/abstracts_docker_backup/postgres/
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" -r --ignore-existing $GCAIMAGES/ [user]@[domain].g-node.org:[home]/backups/abstracts_docker_backup/images/
 
 - copy file to 
 
@@ -231,6 +228,15 @@ Test backup every five minutes
 
         grep CRON /var/log/syslog
 
+
+### Old backup scheme:
+
+    # Image folder backup
+    tar -zcvf $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz $GCAIMAGES
+
+    # Backup everything to gate
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCADUMP.gz [user]@g-node.org:/backups/abstracts_docker_backup/postgres/
+    rsync -e "ssh -i /root/.ssh/id_rsa_gate_backup" $GCABACKUP/gcaimgs_$GCABACKDATE.tar.gz [user]@g-node.org:/backups/abstracts_docker_backup/figures/
 
 # Fetching conference and abstract information
 
