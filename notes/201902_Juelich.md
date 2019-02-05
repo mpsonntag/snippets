@@ -1,8 +1,43 @@
-## 05.02.2019 (09:00 - )
+## 05.02.2019 (09:00 - 18:00 / )
 
 - gnode: Juelich security details (30')
 - gnode: odMLtables paper updates (30')
-- gnode: reading into SnakeMake ()
+- gnode: reading into SnakeMake and available continuous integration projects (2h)
+- gnode: discussion with Robin Gutzen, Julia Sprenger regarding SnakeMake use case (1h30)
+- gnode: discussion with Michael Denker, Julia Sprenger regarding SnakeMake project outline (3h)
+- gnode: chat with Achilleas Koutsou regarding git/annex functions in SnakeMake (30')
+- gnode: discussion with Michael Denker regarding Google Summer of Code (1h)
+- gnode: presentation preparation ()
+
+
+### Presentation:
+
+Data hosting with GIN - Present and Future
+
+Michael Sonntag
+G-Node, LMU Munich (German Neuroinformatics Node)
+
+06.02.2019, FSZ Juelich
+
+
+
+#### A brief introduction of the G-Node
+
+Funded by BMBF, hosted by LMU
+
+Focusing on software tool development for
+
+- storage
+- sharing    of neurophysiological data
+- handling
+
+http://www.g-node.org
+
+
+#### GIN - G-Node Infrastructure
+
+
+
 
 
 
