@@ -32,7 +32,7 @@ func main() {
 
 		// version unspecific
 		w[i].Commit = v.Commit
-		w[i].Subject = v.Subject +"-"
+		w[i].Subject = v.Subject + "-"
 	}
 	fmt.Printf("gitCS:  %v, Type: %q, Type content: %q\n", g, reflect.TypeOf(g), reflect.TypeOf(g[0]))
 	fmt.Printf("wireCS: %v, Type: %q, Type content: %q\n", w, reflect.TypeOf(w), reflect.TypeOf(w[0]))

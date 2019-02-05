@@ -1,24 +1,24 @@
 package main
 
 import (
-	"io"
-	"fmt"
-	"bytes"
 	"bufio"
-	"strings"
-	"os/exec"
-	"os"
+	"bytes"
 	"encoding/json"
+	"fmt"
+	"io"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 type CommitListItem struct {
-	Commit       string `json:"commit"`
-	Committer    string `json:"committer"`
-	Author       string `json:"author"`
+	Commit    string `json:"commit"`
+	Committer string `json:"committer"`
+	Author    string `json:"author"`
 	//Date       time.Time  `json:"date"`
-	DateIso      string `json:"date-iso"`
-	DateRelative string `json:"date-rel"`
-	Subject      string `json:"subject"`
+	DateIso      string   `json:"date-iso"`
+	DateRelative string   `json:"date-rel"`
+	Subject      string   `json:"subject"`
 	Changes      []string `json:"changes"`
 }
 

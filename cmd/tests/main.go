@@ -37,7 +37,6 @@ func main() {
 	}
 	fmt.Println("")
 
-
 	x := false
 	var y []byte
 
@@ -54,7 +53,6 @@ func main() {
 	fmt.Printf("Encoded Query: %s\n", s)
 	val, _ := url.ParseQuery(s)
 	fmt.Printf("Decoded Query: %s\n", val.Get("vals"))
-
 
 	fmt.Println("\n----- try opening non existing file ---")
 	const fn = "IdoNotExist"
@@ -115,7 +113,6 @@ func main() {
 	b = []byte(`{"public":"true"}`)
 	testMissingJSONFields(b)
 
-
 	fmt.Println("\n------ test write non existing and existing file -------------------------")
 	testWriteFile("this is my content for a non existing file", "writeTest.txt")
 	testWriteFile("this is my content for a non existing file", "writeTestOR.txt")
@@ -156,16 +153,16 @@ func main() {
 	fmt.Println("\n--------------- init boolean test ----------------")
 
 	type mrgs struct {
-		Contained	bool
+		Contained    bool
 		NotContained bool
 	}
-	
+
 	useMe := mrgs{}
 
 	fmt.Printf("This is contained: \t%v\n", useMe)
 
 	decodeThis := `{ "contained": true, "notContained": true }`
-	
+
 	decoder := json.NewDecoder(strings.NewReader(decodeThis))
 	err = decoder.Decode(&useMe)
 	if err != nil {
@@ -198,7 +195,7 @@ func testMissingJSONFields(b []byte) {
 	}
 
 	fmt.Printf("All is well, field had value: %t\n", setPublic)
-}   
+}
 
 func testWriteFile(content, filename string) error {
 	return ioutil.WriteFile(filename, []byte(content), 0666)
