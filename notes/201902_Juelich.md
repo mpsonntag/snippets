@@ -28,6 +28,14 @@ ecosystem from data publication to content validation. An outlook on
 planned development raises a call for comment, feedback and feature requests.
 
 
+## 06.02.2019, 09:00 - 18:00 (9h)
+
+- gnode: presentation preparations (4h)
+- gnode: Juelich presentation (1h)
+- gnode: video conference with Jan Grewe, Michael Denker, Julia Sprenger re odmltables paper (1h)
+- gnode: discussion with Michael Denker, Julia Sprenger regarding SnakeMake project outline (1h30)
+- gnode: odmltables paper updates (1h30)
+
 
 
 
