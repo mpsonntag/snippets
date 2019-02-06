@@ -1,4 +1,4 @@
-## 05.02.2019 (09:00 - 18:00 / )
+## 05.02.2019, 09:00 - 18:00 / 22:00 - 00:30 (11h30)
 
 - gnode: Juelich security details (30')
 - gnode: odMLtables paper updates (30')
@@ -7,19 +7,10 @@
 - gnode: discussion with Michael Denker, Julia Sprenger regarding SnakeMake project outline (3h)
 - gnode: chat with Achilleas Koutsou regarding git/annex functions in SnakeMake (30')
 - gnode: discussion with Michael Denker regarding Google Summer of Code (1h)
-- gnode: presentation preparation ()
+- gnode: presentation preparation (2h30)
 
 
-### Presentation:
-
-Data hosting with GIN - Present and Future
-
-Michael Sonntag
-G-Node, LMU Munich (German Neuroinformatics Node)
-
-06.02.2019, FSZ Juelich
-
-
+### Presentation abstract
 
 Handling neuroscientific data with GIN - Present and Future
 
@@ -36,111 +27,6 @@ workflow integration to collaboration and data sharing as well as its
 ecosystem from data publication to content validation. An outlook on 
 planned development raises a call for comment, feedback and feature requests.
 
-
-
-#### A brief introduction of the G-Node
-
-Funded by BMBF, hosted by LMU
-
-Focusing on software tool development for
-
-- storage     |
-- annotation  |  of neurophysiological data
-- sharing     |
-
-
-www.g-node.org
-
-
-#### Data formats developed by the G-Node
-
-- odML (open metadata annotation language)
-- NIX (Neuroscience exchange format)
-
-
-www.g-node.org/NIX
-
-
-#### Meta data storage format odML
-
-- flexible metadata storage
-- machine write and readable
-- terminologies
-- graphical user interface
-- odMLtables plugin
-
-github.com/G-Node/python-odml
-github.com/G-Node/odml-ui
-github.com/INM-6/python-odmltables
-
-#### Latest odML format developments
-
-- streamlined data format
-- added support for YAML and JSON
-- added export to RDF
-- prototyped odML flavored RDF Apache Jena server
-- prototyped abstracted SPARQL language for easy access
-
-
-#### Data storage and data annotation with NIX
-
-- based on hdf5
-- data with metadata
-- storing multiple analysis steps within the same file
-- tagging of features of different 
-
-
-#### NIXView
-
-github.com/bendalab/NixView
-
-
-#### Latest NIX developments
-
-- format consolidation
-- suite of tools for conversion[1]
-- visualization tools easy integration into jupyter notebooks[2]
-- NIXRawIO
-
-[1] github.com/G-Node/nix-odml-converter
-[2] github.com/G-Node/nixworks
-
-
-#### GIN - G-Node Infrastructure
-
-- based on git and git-annex
-- web interface by adapting gogs
-- workflow integration via command line client
-
-gin.g-node.org
-
-
-#### GIN features
-
-- public / private repositories
-- organizations and collaboration
-- extensive user documentation
-- in-house installation
-
-
-#### GIN client
-
-- Linux, Mac and Windows
-- GIN-UI; graphical gin-cli wrapper on Windows
-
-
-#### Web GIN features
-
-- Elastic search
-- odML integration
-- NIX integration (upcoming)
-
-
-#### GIN microservice architecture
-
-- DOI service
-- Format validation service (prototype)
-- Continuous Integration service (upcoming)
 
 
 
