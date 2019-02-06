@@ -25,13 +25,16 @@ Handling neuroscientific data with GIN - Present and Future
 
 The German Neuroinformatics Node has been developing tools
 for consistent storage, annotation and sharing of 
-neurophysiological data and metadata.
+neurophysiological data as well as metadata.
 
 This talk briefly introduces the metadata format odML and the 
-raw-to-analysis data format NIX as well
-as the developed data hosting and sharing platform GIN and its ecosystem
-and gives an outlook on planned development of all projects with the
-call for comment, feedback and feature requests.
+raw-to-analysis data format NIX, will elaborate on their recent development
+and refer to their integration into the data management platform GIN.
+
+The introduction will further cover GINs main features of version control,
+workflow integration to collaboration and data sharing as well as its 
+ecosystem from data publication to content validation. An outlook on 
+planned development raises a call for comment, feedback and feature requests.
 
 
 
