@@ -89,6 +89,7 @@ and have people that have an environment set up at the start of the project.
 
 Concourse
 https://concoursetutorial.com/
+https://concourse-ci.org/garbage-collection.html
 
 Pros:
 free
@@ -101,7 +102,10 @@ relatively new, might not be as established/feature rich as other projects
 
 
 Jenkins
+https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
 https://jenkins.io/blog/2018/04/25/configuring-jenkins-pipeline-with-yaml-file/
+https://medium.com/@salohyprivat/getting-gogs-and-jenkins-working-together-5e0f21377bcd
+https://jamalshahverdiev.wordpress.com/2018/02/09/jenkins-gogs-integration-with-webhook/
 
 pros:
 free
@@ -126,13 +130,23 @@ might not be as free as we want
 not much there in terms of documentation
 
 
-[ToCheck] SnakeMake ReadTheDocs remote filehandling iRODS ... timestamp problem handling
+### Open questions
+
+#### How to integrate gin remote files into snakemake
+
+SnakeMake ReadTheDocs remote filehandling iRODS ... timestamp problem handling
 
 https://snakemake.readthedocs.io/en/stable/snakefiles/remote_files.html
 
 It would be nice to have gin as another remote, so that we can fetch infiles from remotes
 directly ... Michael Denker asked Johannes Koester whether someone is already working on a 
 remote.
+
+
+#### How to deal with git vs local file timestamps
+
+https://snakemake.readthedocs.io/en/stable/project_info/faq.html#git-is-messing-up-the-modification-times-of-my-input-files-what-can-i-do
+
 
 
 
