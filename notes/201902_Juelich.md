@@ -34,11 +34,14 @@ planned development raises a call for comment, feedback and feature requests.
 - gnode: Juelich presentation (1h)
 - gnode: video conference with Jan Grewe, Michael Denker, Julia Sprenger re odmltables paper (1h)
 - gnode: discussion with Michael Denker, Julia Sprenger regarding SnakeMake project outline (1h30)
-- gnode: odmltables paper updates (1h30)
+- gnode: odmltables paper updates (1h)
+- gnode: presentation cleanup on gin (30')
 
 
 
 
+[ToDo] get updated NIX / odML / gin slides for presentations
+[ToDo] overhaul the logOS, presentation etc folders on github and move stuff to gin
 
 
 
@@ -121,6 +124,20 @@ gogs integration
 cons:
 might not be as free as we want
 not much there in terms of documentation
+
+
+[ToCheck] SnakeMake ReadTheDocs remote filehandling iRODS ... timestamp problem handling
+
+https://snakemake.readthedocs.io/en/stable/snakefiles/remote_files.html
+
+It would be nice to have gin as another remote, so that we can fetch infiles from remotes
+directly ... Michael Denker asked Johannes Koester whether someone is already working on a 
+remote.
+
+
+
+
+https://www.booking.com/hotel/de/keizerplatz-apartment.de.html
 
 
 
