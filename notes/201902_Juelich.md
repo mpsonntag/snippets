@@ -31,11 +31,22 @@ planned development raises a call for comment, feedback and feature requests.
 ## 06.02.2019, 09:00 - 18:00 (9h)
 
 - gnode: presentation preparations (4h)
-- gnode: Juelich presentation (1h)
+- gnode: G-Node tools presentation Juelich (1h)
+         ~10 People, most from the INM-6
+         most interest sparked the RDF part of odML
 - gnode: video conference with Jan Grewe, Michael Denker, Julia Sprenger re odmltables paper (1h)
 - gnode: discussion with Michael Denker, Julia Sprenger regarding SnakeMake project outline (1h30)
-- gnode: odmltables paper updates (1h)
+- gnode: reading into SnakeMake open issues (30')
+- gnode: odmltables paper updates (30')
 - gnode: presentation cleanup on gin (30')
+
+
+## 07.02.2019, 09:00 - 18:00 (9h)
+
+- gnode: odmltables paper updates (4h)
+- gnode: discussions with Julia Sprenger and Michael Denker regarding SnakeMake (2h30)
+- gnode: compiling snakemake discussion conclusion (2h)
+- odml: PR review (30')
 
 
 
@@ -146,13 +157,5 @@ remote.
 #### How to deal with git vs local file timestamps
 
 https://snakemake.readthedocs.io/en/stable/project_info/faq.html#git-is-messing-up-the-modification-times-of-my-input-files-what-can-i-do
-
-
-
-
-
-https://www.booking.com/hotel/de/keizerplatz-apartment.de.html
-
-
 
 
