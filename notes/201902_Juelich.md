@@ -49,6 +49,16 @@ planned development raises a call for comment, feedback and feature requests.
 - odml: PR review (30')
 
 
+## 08.02.2019, 15:00 - 18:00 (3h)
+
+- gnode: python-odml, gin-cli PR reviews (30')
+- gnode: gin help wiki updates with Achilleas Koutsou (30')
+- gnode: chat with Jan Grewe re usage GCA-Web abstracts service ('30)
+- gnode: odmltables paper review (1h30)
+
+
+## 10.02.2019, 17:30 - 23:30 (6h)
+- gnode: Munich return trip
 
 
 [ToDo] get updated NIX / odML / gin slides for presentations
