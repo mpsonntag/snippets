@@ -48,5 +48,6 @@ sleep 2
 
 # Start play framework container
 GCA=gca_bee
-sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+GCAPROXY=172.0.0.1
+sudo docker run -dit --restart always --name $GCA --network=$GCANET --ip=$GCAPROXY -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
 
