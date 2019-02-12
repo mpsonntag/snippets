@@ -1,0 +1,27 @@
+# GCA restart script
+
+# Set up GCA environmental variables
+GCAHOME=/web/gca
+GCAPGRESDB=$GCAHOME/postgres/
+GCACONF=$GCAHOME/conf/
+GCAIMAGES=$GCAHOME/images
+GCAFIG=$GCAIMAGES/figures/
+GCAFIGMOBILE=$GCAIMAGES/figures_mobile/
+
+GCAPGRESIMG=postgres:11
+GCAIMG=gnode/gca:latest
+
+GCAPGRES=pgres_gca_bee
+GCA=gca_bee
+GCANET=gcanet
+
+# Cleanup prevous containers
+sudo docker rm $GCAPGRES
+sudo docker rm $GCA
+
+# Start docker container
+sudo docker run -dit --restart always --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
+
+# Start play framework container
+sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+
