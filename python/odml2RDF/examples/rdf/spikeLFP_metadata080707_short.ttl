@@ -1,0 +1,171 @@
+@prefix odml: <https://g-node.org/projects/odml-rdf#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+odml:Hub odml:hasDocument odml:349c7ef2-79ed-451c-a5a4-836248cb66b2 .
+
+odml:0099b131-f489-492f-a2e6-6e04e014ceba a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "LfpDataAcquisition" ;
+    odml:hasValue odml:53a25be5-2003-48bb-886f-928c50f50157 .
+
+odml:08d92ae2-626f-4518-9f21-eeab90599e43 a rdf:Bag ;
+    rdf:li 7.5e+02 .
+
+odml:15cd3d18-2c51-4680-b762-fd736e5479aa a rdf:Bag ;
+    rdf:li 5e+02 .
+
+odml:1602cbbe-c83e-40de-ba9f-5c7067031b89 a rdf:Bag ;
+    rdf:li 16 .
+
+odml:26b662ff-ba71-44c7-bd0c-cdaec2cde706 a rdf:Bag ;
+    rdf:li 1e+00 .
+
+odml:349c7ef2-79ed-451c-a5a4-836248cb66b2 a odml:Document ;
+    odml:hasAuthor "Thomas Wachtler" ;
+    odml:hasDate "2008-07-07"^^xsd:date ;
+    odml:hasSection odml:e0502bef-b9c7-4a80-991d-f6e5b0f10947 .
+
+odml:362ea5a2-a39a-40cc-83d6-cc55e99d928c a odml:Property ;
+    odml:hasDtype "int" ;
+    odml:hasName "Age" ;
+    odml:hasUnit "a" ;
+    odml:hasValue odml:f018d42e-a406-43ad-84bd-6f949d043ab2 .
+
+odml:38a2fce1-8b34-4f98-a186-f5be2a89d78d a rdf:Bag ;
+    rdf:li 1.2e+02 .
+
+odml:483d9aaf-a900-479a-a43c-8ddc5f1d2739 a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "Name" ;
+    odml:hasValue odml:49e43e0a-fd9b-4726-87e4-78319e8038f5 .
+
+odml:494e444e-8da6-4189-bd7d-cd68d7c57468 a odml:Property ;
+    odml:hasDtype "float" ;
+    odml:hasName "LfpBandpassLowCutoff" ;
+    odml:hasUnit "Hz" ;
+    odml:hasValue odml:26b662ff-ba71-44c7-bd0c-cdaec2cde706 .
+
+odml:49e43e0a-fd9b-4726-87e4-78319e8038f5 a rdf:Bag ;
+    rdf:li "Maoli" .
+
+odml:4a343f29-9057-4678-8f2a-925692ae0f49 a rdf:Bag ;
+    rdf:li " LMU Munich; wachtler@bio.lmu.de",
+        "Thomas Wachtler; Dept. Biology II" .
+
+odml:53a25be5-2003-48bb-886f-928c50f50157 a rdf:Bag ;
+    rdf:li "CED 1401" .
+
+odml:545ddbb7-b526-451c-bbd9-500a194a9f04 a odml:Property ;
+    odml:hasDtype "int" ;
+    odml:hasName "NumberOfElectrodes" ;
+    odml:hasValue odml:1602cbbe-c83e-40de-ba9f-5c7067031b89 .
+
+odml:65b53ff9-fc9b-40c7-8ec1-0ca7ee0373a8 a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "ElectrodeArrayGeometry" ;
+    odml:hasValue odml:e738d308-9317-40ef-a591-4108c5a0faf1 .
+
+odml:67c111db-3e25-406c-baba-6c7b1376d67b a odml:Section ;
+    odml:hasName "RecordingHardware" ;
+    odml:hasProperty odml:0099b131-f489-492f-a2e6-6e04e014ceba,
+        odml:494e444e-8da6-4189-bd7d-cd68d7c57468,
+        odml:545ddbb7-b526-451c-bbd9-500a194a9f04,
+        odml:65b53ff9-fc9b-40c7-8ec1-0ca7ee0373a8,
+        odml:a52df8af-b58e-4125-80f4-d8064504bc11,
+        odml:d08a2a2c-dfc9-4859-8b79-0d15e90d249c,
+        odml:d65b6901-9b74-4410-9eb2-b509fe288468,
+        odml:db678a53-7699-4a51-a9b3-7dd052b25230,
+        odml:fccd1a8b-bbba-48b4-b9b2-bdf102149550 ;
+    odml:hasType "collection/hardware_settings" .
+
+odml:8e69a66d-55a2-4d13-91ff-567c80f2a694 a rdf:Bag ;
+    rdf:li "2008-07-07" .
+
+odml:9a30c04a-f805-4b30-9bbd-a742ec12e3a6 a rdf:Bag ;
+    rdf:li "Macaca mulatta" .
+
+odml:9f663a37-39ee-48eb-8624-794a714b19e9 a rdf:Bag ;
+    rdf:li 2.5e+01 .
+
+odml:a52df8af-b58e-4125-80f4-d8064504bc11 a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "BroadbandDataAcquisition" ;
+    odml:hasValue odml:de807008-bd02-4c53-a9c1-6179cdabeba6 .
+
+odml:ade7bc70-6a61-4fb6-8364-60558d0fce11 a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "Experimenter" ;
+    odml:hasValue odml:cd6c8572-20ba-4ce4-bf7f-b334d28e6ad4 .
+
+odml:cd6c8572-20ba-4ce4-bf7f-b334d28e6ad4 a rdf:Bag ;
+    rdf:li " Philipps-Universitaet Marburg",
+        " Thomas Wachtler; Neurophysics",
+        "Markus Wittenberg" .
+
+odml:d08a2a2c-dfc9-4859-8b79-0d15e90d249c a odml:Property ;
+    odml:hasDtype "float" ;
+    odml:hasName "BroadbandSamplingRate" ;
+    odml:hasUnit "kHz" ;
+    odml:hasValue odml:9f663a37-39ee-48eb-8624-794a714b19e9 .
+
+odml:d65b6901-9b74-4410-9eb2-b509fe288468 a odml:Property ;
+    odml:hasDtype "float" ;
+    odml:hasName "ElectrodeSpacing" ;
+    odml:hasUnit "um" ;
+    odml:hasValue odml:08d92ae2-626f-4518-9f21-eeab90599e43 .
+
+odml:d86e6317-4c15-42aa-9cf8-9eff0439fabb a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "Species" ;
+    odml:hasValue odml:9a30c04a-f805-4b30-9bbd-a742ec12e3a6 .
+
+odml:db678a53-7699-4a51-a9b3-7dd052b25230 a odml:Property ;
+    odml:hasDtype "float" ;
+    odml:hasName "LfpSamplingRate" ;
+    odml:hasUnit "Hz" ;
+    odml:hasValue odml:15cd3d18-2c51-4680-b762-fd736e5479aa .
+
+odml:de807008-bd02-4c53-a9c1-6179cdabeba6 a rdf:Bag ;
+    rdf:li "MultiChannelSystems" .
+
+odml:e0502bef-b9c7-4a80-991d-f6e5b0f10947 a odml:Recording ;
+    odml:hasName "RecordingSession" ;
+    odml:hasProperty odml:ade7bc70-6a61-4fb6-8364-60558d0fce11,
+        odml:e1f2f0a1-d2f0-47ac-9021-8799d1d46638,
+        odml:fa1105bb-3213-4b1e-bc26-d8fc833515be ;
+    odml:hasSection odml:67c111db-3e25-406c-baba-6c7b1376d67b,
+        odml:f15deb97-6c79-454a-957e-c3334e02797b ;
+    odml:hasType "recording" .
+
+odml:e1f2f0a1-d2f0-47ac-9021-8799d1d46638 a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "CorrespondingAuthor" ;
+    odml:hasValue odml:4a343f29-9057-4678-8f2a-925692ae0f49 .
+
+odml:e738d308-9317-40ef-a591-4108c5a0faf1 a rdf:Bag ;
+    rdf:li "4x4" .
+
+odml:f018d42e-a406-43ad-84bd-6f949d043ab2 a rdf:Bag ;
+    rdf:li 6 .
+
+odml:f15deb97-6c79-454a-957e-c3334e02797b a odml:Subject ;
+    odml:hasName "Subject" ;
+    odml:hasProperty odml:362ea5a2-a39a-40cc-83d6-cc55e99d928c,
+        odml:483d9aaf-a900-479a-a43c-8ddc5f1d2739,
+        odml:d86e6317-4c15-42aa-9cf8-9eff0439fabb ;
+    odml:hasType "subject" .
+
+odml:fa1105bb-3213-4b1e-bc26-d8fc833515be a odml:Property ;
+    odml:hasDtype "string" ;
+    odml:hasName "StartDate" ;
+    odml:hasValue odml:8e69a66d-55a2-4d13-91ff-567c80f2a694 .
+
+odml:fccd1a8b-bbba-48b4-b9b2-bdf102149550 a odml:Property ;
+    odml:hasDtype "float" ;
+    odml:hasName "LfpBandpassHighCutoff" ;
+    odml:hasUnit "Hz" ;
+    odml:hasValue odml:38a2fce1-8b34-4f98-a186-f5be2a89d78d .
+

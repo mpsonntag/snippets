@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML version="1.1">
+  <date>2008-07-07</date>
+  <section>
+    <property>
+      <value>2008-07-07</value>
+      <name>StartDate</name>
+    <type>string</type></property>
+    <property>
+      <value>Thomas Wachtler; Dept. Biology II, LMU Munich; wachtler@bio.lmu.de</value>
+      <name>CorrespondingAuthor</name>
+    <type>string</type></property>
+    <property>
+      <value>Markus Wittenberg, Thomas Wachtler; Neurophysics, Philipps-Universitaet Marburg</value>
+      <name>Experimenter</name>
+    <type>string</type></property>
+    <name>RecordingSession</name>
+    <section>
+      <property>
+        <value>6</value>
+        <name>Age</name>
+      <unit>a</unit><type>int</type></property>
+      <property>
+        <value>Macaca mulatta</value>
+        <name>Species</name>
+      <type>string</type></property>
+      <property>
+        <value>Maoli</value>
+        <name>Name</name>
+      <type>string</type></property>
+      <name>Subject</name>
+      <type>subject</type>
+    </section>
+    <section>
+      <property>
+        <value>16</value>
+        <name>NumberOfElectrodes</name>
+      <type>int</type></property>
+      <property>
+        <value>750</value>
+        <name>ElectrodeSpacing</name>
+      <unit>um</unit><type>float</type></property>
+      <property>
+        <value>MultiChannelSystems</value>
+        <name>BroadbandDataAcquisition</name>
+      <type>string</type></property>
+      <property>
+        <value>500</value>
+        <name>LfpSamplingRate</name>
+      <unit>Hz</unit><type>float</type></property>
+      <property>
+        <value>120</value>
+        <name>LfpBandpassHighCutoff</name>
+      <unit>Hz</unit><type>float</type></property>
+      <property>
+        <value>25</value>
+        <name>BroadbandSamplingRate</name>
+      <unit>kHz</unit><type>float</type></property>
+      <property>
+        <value>4x4</value>
+        <name>ElectrodeArrayGeometry</name>
+      <type>string</type></property>
+      <property>
+        <value>1.0</value>
+        <name>LfpBandpassLowCutoff</name>
+      <unit>Hz</unit><type>float</type></property>
+      <property>
+        <value>CED 1401</value>
+        <name>LfpDataAcquisition</name>
+      <type>string</type></property>
+      <name>RecordingHardware</name>
+      <type>collection/hardware_settings</type>
+    </section>
+    <type>recording</type>
+  </section>
+  <author>Thomas Wachtler</author>
+</odML>
