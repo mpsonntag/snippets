@@ -72,3 +72,10 @@ def main(args=None):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
+# Find more details at
+# https://github.com/SciCrunch/NIF-Ontology
+# https://scicrunch.org/browse/api-docs/index.html?url=https://scicrunch.org/swagger-docs/swagger.json
+
+
+
