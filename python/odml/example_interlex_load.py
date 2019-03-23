@@ -29,13 +29,16 @@ except ImportError:
     import httplib
 
 
+SCICRUNCH_USERKEY = "ZRt6argPOzoqCwk8ULK5N7agk731VsZy"
+SCICRUNCH_URI = "https://scicrunch.org/api/1"
+
+
 def main(args=None):
 
     parser = docopt(__doc__, argv=args, version="0.1.0")
 
     searchterm = parser['SEARCHTERM']
-    usrkey = "ZRt6argPOzoqCwk8ULK5N7agk731VsZy"
-    requ = "https://scicrunch.org/api/1/ilx/search/term/%s?key=%s" % (searchterm, usrkey)
+    requ = "%s/ilx/search/term/%s?key=%s" % (SCICRUNCH_URI, searchterm, SCICRUNCH_USERKEY)
 
     print("Running interlex query '%s'" % requ)
 
