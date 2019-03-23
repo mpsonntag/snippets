@@ -50,7 +50,7 @@ def search_interlex(search_term):
 
     content = json.load(resp)
 
-    print("Result: '%s'" % content)
+    print("Result: Hits:'%s', '%s'" % (len(content), content))
 
     data = None
     try:
@@ -73,12 +73,28 @@ def search_interlex(search_term):
         print("Current item: '%s'" % res)
 
 
+def search_vocabulary(search_term):
+    requ = "%s/scigraph/vocabulary/search/%s?limit=1&searchSynonyms=true&key=%s" % (SCICRUNCH_URI, search_term, SCICRUNCH_USERKEY)
+
+    print("Running interlex query '%s'" % requ)
+
+    resp = urllib2.urlopen(requ)
+
+    if resp.getcode() != httplib.OK:
+        print("Could not resolve query, exit with '%s/%s'" % (resp.msg, resp.getcode()))
+        exit(-1)
+
+    content = json.load(resp)
+
+    print("Result: Hits:'%s', '%s'" % (len(content), content))
+
+
 def main(args=None):
     # Find more details at
     # https://github.com/SciCrunch/NIF-Ontology
     # https://scicrunch.org/browse/api-docs/index.html?url=https://scicrunch.org/swagger-docs/swagger.json
 
-    parser = docopt(__doc__, argv=args, version="0.1.0")
+    parser = docopt(__doc__, argv=args, version="0.1.1")
 
     search_type = parser['SEARCHTYPE']
     search_term = parser['SEARCHTERM']
@@ -87,7 +103,8 @@ def main(args=None):
         search_interlex(search_term)
 
     elif search_type == "2":
-        pass
+        search_vocabulary(search_term)
+
     elif search_type == "3":
         pass
     else:
