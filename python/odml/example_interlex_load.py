@@ -34,6 +34,9 @@ SCICRUNCH_URI = "https://scicrunch.org/api/1"
 
 
 def main(args=None):
+    # Find more details at
+    # https://github.com/SciCrunch/NIF-Ontology
+    # https://scicrunch.org/browse/api-docs/index.html?url=https://scicrunch.org/swagger-docs/swagger.json
 
     parser = docopt(__doc__, argv=args, version="0.1.0")
 
@@ -75,10 +78,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-# Find more details at
-# https://github.com/SciCrunch/NIF-Ontology
-# https://scicrunch.org/browse/api-docs/index.html?url=https://scicrunch.org/swagger-docs/swagger.json
-
-
-
