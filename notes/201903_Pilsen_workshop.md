@@ -21,6 +21,20 @@
     - Edge DataReference-DataUUID: hasDataUUID
     - Edge DataReference-DataURI: hasDataURI
 
+[C]
+- a) Check how other projects actually handle the RDF namespace. is the namespace actually the 
+     place where the resources have to be linked? should our namespace change to meta.gnode.org or should
+     https://g-node.org/projects/odml-rdf resolve to meta.gnode.org? Where and how should the odml OWL be
+     available from then?
+- b) The current odml rdf ontology should be served and available at a place defined in a)
+- c) check auto-deployment of the odml OWL from python-odml via github to the appropriate place when
+     new version get released.
+
+        :param data_repository: URI pointing to where the odml documents or the data
+                                these documents are describing can be found.
+                                Default is None. If a data_repository is provided, it will
+                                be attached to all passed documents under the RDF
+
 
 https://docs.google.com/document/d/1JZaq_NzJy9u33pF2HS9mDejaUuzn9xSLZ8LuPGlJcHc/
 
