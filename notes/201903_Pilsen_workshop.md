@@ -3,12 +3,26 @@
 - Travel to venue
 
 
+-- nix issues
+
+[C] is there a NIX issue for a NIX file UUID to properly reference a whole data file?
+
+
+-- odml issues
+
 [C] odml_to_rdf ... report StringIO: check if we can use `with` for the deferred close of the StringIO
 
 [C] doc/section_subclasses.yaml is in docs but not used there. it is required in odml/tools/rdf_converter
     maybe move it there and remove the monkey_patch read of file.
 
-[C] is there a NIX issue for a NIX file UUID to properly reference a whole data file?
+[C] rdf_converter: does writer.save_element actually need to return the self.g? The changes are already accessible
+                   via the class...
+
+[C] rdf_converter: rdf_converter.write_file appends to its own graph every time it is called! Something very
+                   wrong is going on here!
+
+
+-- general odml topics to discuss
 
 [C] should odML feature a UUID for the referenced data at the document level.
     it would be good to have a data reference UUID and a data reference URI.
