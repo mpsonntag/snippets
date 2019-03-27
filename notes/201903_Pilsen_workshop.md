@@ -59,12 +59,25 @@ https://docs.google.com/document/d/1JZaq_NzJy9u33pF2HS9mDejaUuzn9xSLZ8LuPGlJcHc/
 - example odml files with added data references
 - discussions with Jeff Teeters, Roman Moucek and Radjeet regarding G-Node tools and features
 
-# We, 27.03.2019, 10:00 - 
+# We, 27.03.2019, 10:00 - 18:00 (8h ... +28h)
 
 - gnode: email to GSoC applicant
 - gnode: documentation of last days
 - odml-terminologies update to accommodate data reference
 - example odml files with added data references
+
+[C] ... with odml RDF an unresolved issue is, if the exported odml file does not have 
+UUIDs yet. if they are re-imported, they will be added to the graph and reside there as 
+double entries.
+
+[C] The conversion script should already add uuids to all new properties and sections if 
+there are none. This way the converted script will at least always feature the same IDs 
+as compared to when someone currently opens a converted file without saving, the ids 
+will always be different.
+
+[C] Check state of matlab - odml library
+    - check how hard the update would be
+    - check how hard the bridge - use python library in MatLab - is.
 
 
 # Th, 28.03.2019, 
