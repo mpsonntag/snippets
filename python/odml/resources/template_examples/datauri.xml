@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML version="1.1">
+    <section>
+        <type>DataReference</type>
+        <name>DataURI</name>
+
+        <property>
+            <name>DataURI</name>
+            <definition>A URI linking to the published dataset.</definition>
+            <type>url</type>
+            <value>https://web.gin.g-node.org/G-Node/odmlFiles</value>
+        </property>
+    </section>
+    <section>
+        <property>
+            <name>LocalAnaesthesia</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>Anaesthesia</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>AnaestheticDose</name>
+            <unit>mg</unit>
+            <value>120.0</value>
+        </property>
+        <property>
+            <name>Anaesthetic</name>
+            <value>MS 222</value>
+        </property>
+        <property>
+            <name>Immobilization</name>
+            <value>Pancuronium bromide</value>
+        </property>
+        <property>
+            <name>Type</name>
+            <value>in vivo</value>
+        </property>
+        <property>
+            <name>LocalAnaesthetic</name>
+            <value>Lidocaine</value>
+        </property>
+        <name>Preparation</name>
+        <type>Preparation</type>
+    </section>
+    <section>
+        <property>
+            <name>Depth</name>
+            <unit>um</unit>
+            <value>0.0</value>
+        </property>
+        <property>
+            <name>CellType</name>
+            <value>P-unit</value>
+        </property>
+        <property>
+            <name>Structure</name>
+            <value>Nerve</value>
+        </property>
+        <property>
+            <name>CV</name>
+            <value>0.202</value>
+        </property>
+        <property>
+            <name>Baseline rate</name>
+            <unit>Hz</unit>
+            <value>136.8</value>
+        </property>
+        <name>Cell</name>
+        <type>Cell</type>
+    </section>
+    <section>
+        <property>
+            <name>Maintainer</name>
+            <value>Jan Benda</value>
+        </property>
+        <property>
+            <name>Creator</name>
+            <value>Jan Benda</value>
+        </property>
+        <property>
+            <name>University</name>
+            <value>Ludwig-Maximilian University, Munich</value>
+        </property>
+        <property>
+            <name>Lab</name>
+            <value>Jan Benda</value>
+        </property>
+        <property>
+            <name>Location</name>
+            <value>D01-043</value>
+        </property>
+        <property>
+            <name>Address</name>
+            <value>Grosshaderner Str. 2, 82152 Planegg-Martinsried, Germany</value>
+        </property>
+        <property>
+            <name>Department</name>
+            <value>Department Biology II, LMU-Munich</value>
+        </property>
+        <property>
+            <name>Identifier</name>
+            <value>eFish-Setup</value>
+        </property>
+        <name>Setup</name>
+        <type>Setup</type>
+    </section>
+    <section>
+        <property>
+            <name>Comment</name>
+            <value>weak response</value>
+        </property>
+        <property>
+            <name>Name</name>
+            <value>2010-04-16-ab</value>
+        </property>
+        <property>
+            <name>Recording quality</name>
+            <value>Good</value>
+        </property>
+        <property>
+            <name>Software version</name>
+            <value>0.9.6 (04/12/10)</value>
+        </property>
+        <property>
+            <name>Experimenter</name>
+            <value>Henriette Walz</value>
+        </property>
+        <property>
+            <name>Mode</name>
+            <value>Acquisition</value>
+        </property>
+        <property>
+            <name>File</name>
+            <value>metadata.xml</value>
+        </property>
+        <property>
+            <name>Time</name>
+            <value>16:35:51</value>
+        </property>
+        <property>
+            <name>Date</name>
+            <value>2010-04-16</value>
+        </property>
+        <property>
+            <name>Recording duration</name>
+            <unit>m</unit>
+            <value>13.9</value>
+        </property>
+        <property>
+            <name>Folder</name>
+            <value>/home/efish/relacs/plugins/efish/2010-04-16-ab</value>
+        </property>
+        <property>
+            <name>Software</name>
+            <value>RELACS</value>
+        </property>
+        <name>Recording</name>
+        <type>Recording</type>
+    </section>
+    <section>
+        <property>
+            <name>Firing Rate1</name>
+            <unit>Hz</unit>
+            <value>136.0</value>
+        </property>
+        <property>
+            <name>EOD Frequency</name>
+            <unit>Hz</unit>
+            <value>1007.0</value>
+        </property>
+        <property>
+            <name>P-Value1</name>
+            <value>0.14</value>
+        </property>
+        <name>Cell properties</name>
+        <type>Cell properties</type>
+    </section>
+    <section>
+        <property>
+            <name>Gender</name>
+            <value>unknown</value>
+        </property>
+        <property>
+            <name>Species</name>
+            <value>Apteronotus albifrons</value>
+        </property>
+        <property>
+            <name>Size</name>
+            <unit>cm</unit>
+            <value>13.0</value>
+        </property>
+        <property>
+            <name>Transdermal amplitude</name>
+            <unit>mV</unit>
+            <value>1.82</value>
+        </property>
+        <property>
+            <name>EOD Frequency</name>
+            <unit>Hz</unit>
+            <value>1003.4</value>
+        </property>
+        <name>Subject</name>
+        <type>Subject</type>
+    </section>
+    <section>
+        <property>
+            <name>UpperCutoffFrequency</name>
+            <unit>Hz</unit>
+            <type>float</type>
+            <value>300.0</value>
+        </property>
+        <property>
+            <name>Duration</name>
+            <unit>s</unit>
+            <type>float</type>
+            <value>10.0</value>
+        </property>
+        <property>
+            <name>SampleRate</name>
+            <unit>s</unit>
+            <type>float</type>
+            <value>0.001</value>
+        </property>
+        <property>
+            <name>StandardDeviation</name>
+            <type>float</type>
+            <value>0.3</value>
+        </property>
+        <property>
+            <name>Contrast</name>
+            <unit>%</unit>
+            <value>20.0</value>
+        </property>
+        <property>
+            <name>File</name>
+            <value>/home/efish/stimuli/whitenoise/gwn300Hz10s0.3.dat</value>
+        </property>
+        <property>
+            <name>Additional noise</name>
+            <value>none</value>
+        </property>
+        <property>
+            <name>Additional noise contrast</name>
+            <unit>%</unit>
+            <value>0.0</value>
+        </property>
+        <property>
+            <name>Additional noise upper cutoff</name>
+            <unit>Hz</unit>
+            <value>0.0</value>
+        </property>
+        <property>
+            <name>Additional noise lower cutoff</name>
+            <unit>Hz</unit>
+            <value>0.0</value>
+        </property>
+        <name>Stimulus</name>
+        <type>stimulus/white_noise</type>
+    </section>
+    <author>grewe</author>
+</odML>
