@@ -25,7 +25,7 @@
 
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 1</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -54,7 +54,7 @@
     </section>
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 2</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -83,7 +83,7 @@
     </section>
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 3</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -113,7 +113,7 @@
 
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 4</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -140,10 +140,9 @@
             <value>orcid.org/0000-0002-6557-748X</value>
         </property>
     </section>
-
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 5</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -172,7 +171,7 @@
     </section>
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 6</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -201,7 +200,7 @@
     </section>
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 7</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -228,10 +227,9 @@
             <value>orcid.org/0000-0003-2829-2220</value>
         </property>
     </section>
-
     <section>
         <type>DataReference</type>
-        <name>DataCiteAuthor</name>
+        <name>DataCiteAuthor 8</name>
         <description>Information about an author as required by DataCite.</description>
         <property>
             <name>FirstName</name>
@@ -255,7 +253,7 @@
 
     <section>
         <type>DataReference</type>
-        <name>DataCiteReference</name>
+        <name>DataCiteReference 1</name>
         <definition>A publication the published dataset is referencing.</definition>
         <property>
             <name>DOI</name>
@@ -273,13 +271,12 @@
             <name>PublictionCitation</name>
             <definition>Full citation of the reference publication</definition>
             <type>string</type>
-            <value>"Brochier, T., Zehl, L., Hao, Y., Duret, M., Sprenger, J., Denker, M., Grün, S. & Riehle, A. (2018). Massively parallel recordings in macaque motor cortex during an instructed delayed reach-to-grasp task, Scientific Data, 5, 180055."</value>
+            <value>"Brochier, T., Zehl, L., Hao, Y., Duret, M., Sprenger, J., Denker, M., Grün, S.  Riehle, A. (2018). Massively parallel recordings in macaque motor cortex during an instructed delayed reach-to-grasp task, Scientific Data, 5, 180055."</value>
         </property>
     </section>
-
     <section>
         <type>DataReference</type>
-        <name>DataCiteReference</name>
+        <name>DataCiteReference 2</name>
         <definition>A publication the published dataset is referencing.</definition>
         <property>
             <name>DOI</name>
@@ -302,7 +299,7 @@
     </section>
     <section>
         <type>DataReference</type>
-        <name>DataCiteReference</name>
+        <name>DataCiteReference 3</name>
         <definition>A publication the published dataset is referencing.</definition>
         <property>
             <name>DOI</name>
@@ -320,7 +317,7 @@
             <name>PublictionCitation</name>
             <definition>Full citation of the reference publication</definition>
             <type>string</type>
-            <value>"Riehle, A., Wirtssohn, S., Grün, S., & Brochier, T. (2013). Mapping the spatio-temporal structure of motor cortical LFP and spiking activities during reach-to-grasp movements. Frontiers in Neural Circuits, 7, 48"</value>
+            <value>"Riehle, A., Wirtssohn, S., Grün, S.,  Brochier, T. (2013). Mapping the spatio-temporal structure of motor cortical LFP and spiking activities during reach-to-grasp movements. Frontiers in Neural Circuits, 7, 48"</value>
         </property>
     </section>
     <section>
