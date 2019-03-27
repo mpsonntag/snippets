@@ -1,7 +1,6 @@
-# Mo, 25.03.2019, 06:00 - ()
+# Mo, 25.03.2019, 06:00 - 18:00 (12h ... +27h)
 
 - Travel to venue
-
 
 -- nix issues
 
@@ -53,10 +52,19 @@
 https://docs.google.com/document/d/1JZaq_NzJy9u33pF2HS9mDejaUuzn9xSLZ8LuPGlJcHc/
 
 
-# Tu, 26.03.2019,
+# Tu, 26.03.2019, 09:00 - 18:00 (9h ... +28h)
 
+- odml to RDF discussion with Thomas Wachtler, Jeff Teeters, Pavel ...
+- odml-terminologies update to accommodate data reference
+- example odml files with added data references
+- discussions with Jeff Teeters, Roman Moucek and Radjeet regarding G-Node tools and features
 
-# We, 27.03.2019, 
+# We, 27.03.2019, 10:00 - 
+
+- gnode: email to GSoC applicant
+- gnode: documentation of last days
+- odml-terminologies update to accommodate data reference
+- example odml files with added data references
 
 
 # Th, 28.03.2019, 
