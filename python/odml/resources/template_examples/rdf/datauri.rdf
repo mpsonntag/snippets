@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:odml="https://g-node.org/projects/odml-rdf#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a8c31cfe-6f66-410c-bc64-e444e251f60d">
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#a34f1aca-a54d-4d99-ab0f-710d66683026"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#d76a9f32-3a64-435d-947a-9de438c321d1"/>
+    <odml:hasType>Preparation</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#1b4ee1e8-d014-441f-877b-a7f592b66f3c"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#0de64b7e-92dd-478a-af1a-7ef814fb4163"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#9dc941a2-d56c-48ac-8168-79531da550ff"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#da1f062c-198e-4856-9af4-1e77a1080b08"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#11fea2c5-e99c-4d73-a78f-b1157d31a6c8"/>
+    <odml:hasName>Preparation</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#ce86f3b1-2518-4e4f-b528-334968ae0e10">
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#b46f6937-d14e-444b-b3f9-bc2f9f451a12"/>
+    <odml:hasAuthor>grewe</odml:hasAuthor>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#cc5754ce-13b0-4b64-805b-9bfa75a62e34"/>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#9c49228e-06ae-4d6b-b54e-a547262bd425"/>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#f03c01b7-f871-4fc5-954b-6bc7c78e0b2a"/>
+    <odml:hasFileName>datauri.xml</odml:hasFileName>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#00843121-b105-42cf-9cc8-72d362213d19"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Document"/>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#6b4206ed-1093-4496-9d06-6e95287e2a75"/>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#a8c31cfe-6f66-410c-bc64-e444e251f60d"/>
+    <odml:hasSection rdf:resource="https://g-node.org/projects/odml-rdf#a53bf34c-35eb-4708-ab36-84492942b464"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#3c239429-87a4-45c1-af50-56b5378c9714">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>1.82</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#8b7523d6-6d6f-4b4f-acea-6202601bb5f8">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#70429c20-e1cf-4ecc-92eb-6e997a049c7c"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Additional noise</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#8bed3b87-5bca-40be-83da-b46591517b13">
+    <rdf:_1>/home/efish/relacs/plugins/efish/2010-04-16-ab</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#cd9824d7-2b01-4c88-b64a-eb232ac8f39b">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Contrast</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#a6576cba-626a-4065-9582-36719fba109a"/>
+    <odml:hasUnit>%</odml:hasUnit>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#208ca88b-a6e1-49f2-9393-e24ff790d90c">
+    <rdf:_1>Department Biology II, LMU-Munich</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a2b2a4c4-5d33-4c88-bc20-6a303c42d39b">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#07ebb456-e0e5-43bf-b1e0-eb99c40b74ce"/>
+    <odml:hasName>Experimenter</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#65f7f6b0-41ca-4223-ba06-edd44e4acdcd">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#94bee812-de06-4e7b-b1a9-e2822dfa7aa4"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>University</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a8c9633e-2d39-43ea-a60e-19f649c321ac">
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#99a08493-fb64-4c3a-9eb0-229834d9452c"/>
+    <odml:hasName>Additional noise lower cutoff</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#0251d589-06d8-4c49-bd6c-335c987f566e">
+    <odml:hasName>CellType</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#4f12bc2d-3436-4967-a246-474a9c87a99e"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#4f5f8a2e-3a4c-4955-b199-d5fb390dbfd6">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>File</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#72b8f985-2622-49b1-8b27-f88b1a2a107a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#bbc6ec5c-2003-4962-8a6f-5d929d31f694">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#42d807ae-5c21-4e2f-9f41-4f003e6cdc62"/>
+    <odml:hasDefinition>A URI linking to the published dataset.</odml:hasDefinition>
+    <odml:hasDtype>url</odml:hasDtype>
+    <odml:hasName>DataURI</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#b46f6937-d14e-444b-b3f9-bc2f9f451a12">
+    <odml:hasName>Subject</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#8b79e176-9bb0-47d1-ad22-ce9419ac83cb"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#94369a0e-f2ee-48e1-9724-c12c7c80572b"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#c2349f56-d1fc-4f98-9739-72c715499870"/>
+    <odml:hasType>Subject</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#45f5fa1c-8c0a-4ee7-8559-28d8a1421790"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#007064e2-963e-462a-bd62-bc4b4efe62f6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#0de64b7e-92dd-478a-af1a-7ef814fb4163">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#c840d2c5-a3ec-4677-a279-66c2dee7a670"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>LocalAnaesthesia</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#7ad9d3ce-8ee9-41ce-bcb0-6c43867fb00b">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#50d649c1-cd23-4776-a1c6-828efe0a18e7"/>
+    <odml:hasName>File</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#aabd9acb-a191-4648-958b-9b69132788ff">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#0140a10e-f759-47e8-9fd1-5bd55403414d"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Software</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#77578d3c-5a76-4ab5-9e43-672e35845296">
+    <rdf:_1>136.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#8b79e176-9bb0-47d1-ad22-ce9419ac83cb">
+    <odml:hasUnit>cm</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#379de2a9-1963-469c-9e39-514d9603662f"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Size</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a5d4374c-ab4f-4a22-9eef-2599c53c0fa4">
+    <rdf:_1>Good</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#6b4206ed-1093-4496-9d06-6e95287e2a75">
+    <odml:hasType>Cell properties</odml:hasType>
+    <odml:hasName>Cell properties</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#bc411b5f-986f-4461-a25c-51979b218da8"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#ef5ddf92-5283-45b1-b43f-ab7886a31f9b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#cc32b265-6e8d-45fb-b588-ffe394be619d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#200b74a8-9aad-4430-9ec8-4c650676763b">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Structure</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#c6491eda-fb7e-4ddb-ab26-65fb2e404fb5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#0140a10e-f759-47e8-9fd1-5bd55403414d">
+    <rdf:_1>RELACS</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#567538c0-e488-41df-bdfe-eb06bfc06311">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#d726f0f4-7576-4f79-b17d-324f577e685c"/>
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <odml:hasName>Baseline rate</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#ef9e23f8-39ad-42b0-a6c9-5e2110bdf276">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>eFish-Setup</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#cc5754ce-13b0-4b64-805b-9bfa75a62e34">
+    <odml:hasName>Stimulus</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#4f5f8a2e-3a4c-4955-b199-d5fb390dbfd6"/>
+    <odml:hasType>stimulus/white_noise</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#cd9824d7-2b01-4c88-b64a-eb232ac8f39b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#2f3056ac-6ef5-42ff-8198-a04c36b2560b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#f92bac26-ad28-448e-bd72-6baccc26cce8"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#67033b32-a469-4717-9bd6-9968172ad7d9"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#8b7523d6-6d6f-4b4f-acea-6202601bb5f8"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#66a5cd01-ad76-494a-a205-f4fbf75b1aee"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#cf45693b-533d-42e4-a6ae-a401f060978a"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#a8c9633e-2d39-43ea-a60e-19f649c321ac"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#2aba7314-c91f-4224-9b46-533ea63747d9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#4b0c8f4e-ffae-495f-a74e-2938973e5651">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Address</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#f9fd64d5-9298-4bd1-bce9-1e3d2f38b88a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#60256765-1e09-47ec-b1bd-94b0adae6c89">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>1003.4</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#af7f3304-8fba-4e82-93b6-19915eb12889">
+    <rdf:_1>0.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a53bf34c-35eb-4708-ab36-84492942b464">
+    <odml:hasType>Recording</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#9f7d5828-af64-47a0-b975-a5f324e5df70"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#83ca7e1c-72f2-499c-9889-7fbf7c32d04a"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#a2b2a4c4-5d33-4c88-bc20-6a303c42d39b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#e2b2bcc6-d528-41fe-adc2-c30099ff0478"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#be442b20-7a94-4db9-8a6a-3f91f24d9330"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#0abd2846-cc5f-4cc8-8d48-4556aa563fe6"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#a5ae4470-2a74-49ff-8269-0cbfbb6992c7"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#1797f470-9c8f-44aa-81b4-1af5bc7c9fbf"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#f48a46c4-2736-45d2-a6a1-cfdb263a93de"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#aabd9acb-a191-4648-958b-9b69132788ff"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#7ad9d3ce-8ee9-41ce-bcb0-6c43867fb00b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#8d0b78d1-4f60-43d6-bde8-3d1e9e04d50c"/>
+    <odml:hasName>Recording</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#66a5cd01-ad76-494a-a205-f4fbf75b1aee">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#82cbbc1b-a1b0-41d7-af93-185c97ab9ae8"/>
+    <odml:hasName>StandardDeviation</odml:hasName>
+    <odml:hasDtype>float</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#94369a0e-f2ee-48e1-9724-c12c7c80572b">
+    <odml:hasName>EOD Frequency</odml:hasName>
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#60256765-1e09-47ec-b1bd-94b0adae6c89"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#f92bac26-ad28-448e-bd72-6baccc26cce8">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Additional noise contrast</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#266c20b8-0308-424f-be86-941ecced5637"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasUnit>%</odml:hasUnit>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#e2b2bcc6-d528-41fe-adc2-c30099ff0478">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#8bed3b87-5bca-40be-83da-b46591517b13"/>
+    <odml:hasName>Folder</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#ef5ddf92-5283-45b1-b43f-ab7886a31f9b">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#504e081e-ee8f-4802-b4bf-3198eb002608"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>P-Value1</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#08745919-a98f-4c5e-8ee6-a7eaebddc2f1">
+    <odml:hasName>Creator</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#9bfb75ee-4a8a-4888-9b38-7f45bc671cdb"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#d726f0f4-7576-4f79-b17d-324f577e685c">
+    <rdf:_1>136.8</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#da1f062c-198e-4856-9af4-1e77a1080b08">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Type</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#9def0907-9a7c-4d9f-a31a-746a6552fcae"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#2f3056ac-6ef5-42ff-8198-a04c36b2560b">
+    <odml:hasDtype>float</odml:hasDtype>
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#33c6e50a-2d26-40a4-beb8-129cb671b06c"/>
+    <odml:hasName>UpperCutoffFrequency</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#c6491eda-fb7e-4ddb-ab26-65fb2e404fb5">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Nerve</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#0abd2846-cc5f-4cc8-8d48-4556aa563fe6">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasUnit>m</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#c515c562-c5f3-4c76-88e6-b2dd9b03aedb"/>
+    <odml:hasName>Recording duration</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#266c20b8-0308-424f-be86-941ecced5637">
+    <rdf:_1>0.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#bc411b5f-986f-4461-a25c-51979b218da8">
+    <odml:hasName>EOD Frequency</odml:hasName>
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#4a2ad1ff-5638-467f-b9d6-d5603be456e5"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#538a3a2f-86dd-4f62-82f2-9f6e19e110f9">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.001</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#42d807ae-5c21-4e2f-9f41-4f003e6cdc62">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>https://web.gin.g-node.org/G-Node/odmlFiles</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#65ded053-f58d-462e-a8df-906748ce2126">
+    <rdf:_1>Acquisition</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#70429c20-e1cf-4ecc-92eb-6e997a049c7c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>none</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#2aba7314-c91f-4224-9b46-533ea63747d9">
+    <odml:hasDtype>float</odml:hasDtype>
+    <odml:hasUnit>s</odml:hasUnit>
+    <odml:hasName>Duration</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#366d7a35-f93a-4a57-9a73-de5608a99992"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#1797f470-9c8f-44aa-81b4-1af5bc7c9fbf">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#df34b206-edbc-4e66-a5b2-9ff79113c00c"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Time</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#379de2a9-1963-469c-9e39-514d9603662f">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>13.0</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#45f5fa1c-8c0a-4ee7-8559-28d8a1421790">
+    <odml:hasName>Transdermal amplitude</odml:hasName>
+    <odml:hasUnit>mV</odml:hasUnit>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#3c239429-87a4-45c1-af50-56b5378c9714"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#8d0b78d1-4f60-43d6-bde8-3d1e9e04d50c">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#9b5be773-c52d-4a3c-9bd4-0a32be082096"/>
+    <odml:hasName>Name</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#c515c562-c5f3-4c76-88e6-b2dd9b03aedb">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>13.9</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#4f12bc2d-3436-4967-a246-474a9c87a99e">
+    <rdf:_1>P-unit</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#07ebb456-e0e5-43bf-b1e0-eb99c40b74ce">
+    <rdf:_1>Henriette Walz</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#83ca7e1c-72f2-499c-9889-7fbf7c32d04a">
+    <odml:hasName>Comment</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#d6e6e26a-2ab3-4963-b46b-cfee3db88c82"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9f7d5828-af64-47a0-b975-a5f324e5df70">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Date</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#7f443280-3d6f-45da-86af-d74732662803"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#f03c01b7-f871-4fc5-954b-6bc7c78e0b2a">
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#c0029ff5-7a1e-429a-8957-86764a73debc"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#08745919-a98f-4c5e-8ee6-a7eaebddc2f1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#0c57ad3f-f37f-41aa-ae3b-f45890f43cef"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#4b0c8f4e-ffae-495f-a74e-2938973e5651"/>
+    <odml:hasType>Setup</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#ab77d158-7e5a-45ca-b67b-49ac5044dee5"/>
+    <odml:hasName>Setup</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#5a0309a6-0601-421b-9afc-9d3d1a094a54"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#65f7f6b0-41ca-4223-ba06-edd44e4acdcd"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#9337c612-32d8-4e8f-9212-e09d46838157"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#c2349f56-d1fc-4f98-9739-72c715499870">
+    <odml:hasName>Gender</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#91784273-1435-4107-9036-20ecc44b31ac"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9c49228e-06ae-4d6b-b54e-a547262bd425">
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#567538c0-e488-41df-bdfe-eb06bfc06311"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#685a517e-7750-4a51-bd0c-09834dbc6fdb"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#a988a094-486c-4fbe-b7b6-7a3fd701812d"/>
+    <odml:hasType>Cell</odml:hasType>
+    <odml:hasName>Cell</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#200b74a8-9aad-4430-9ec8-4c650676763b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#0251d589-06d8-4c49-bd6c-335c987f566e"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#f9fd64d5-9298-4bd1-bce9-1e3d2f38b88a">
+    <rdf:_1>Grosshaderner Str. 2, 82152 Planegg-Martinsried, Germany</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#c840d2c5-a3ec-4677-a279-66c2dee7a670">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>true</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#504e081e-ee8f-4802-b4bf-3198eb002608">
+    <rdf:_1>0.14</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#2d74e9ee-f944-4248-a4a5-df6f254f0a58">
+    <rdf:_1>120.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#8d9313e7-1290-4828-ac4e-401cf7b82ee5">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>0.9.6 (04/12/10)</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#c0029ff5-7a1e-429a-8957-86764a73debc">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Maintainer</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#527d5fc6-b34a-4fb7-88e3-a1745ca82c6d"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9bfb75ee-4a8a-4888-9b38-7f45bc671cdb">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Jan Benda</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#90982057-d54d-4712-b621-3604c04d770b">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Apteronotus albifrons</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#fc5dfd5d-09c2-4e66-b219-8da750d7f007">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>0.202</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a5ae4470-2a74-49ff-8269-0cbfbb6992c7">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#a5d4374c-ab4f-4a22-9eef-2599c53c0fa4"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Recording quality</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#11fea2c5-e99c-4d73-a78f-b1157d31a6c8">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#2d74e9ee-f944-4248-a4a5-df6f254f0a58"/>
+    <odml:hasName>AnaestheticDose</odml:hasName>
+    <odml:hasUnit>mg</odml:hasUnit>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a6576cba-626a-4065-9582-36719fba109a">
+    <rdf:_1>20.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9dc941a2-d56c-48ac-8168-79531da550ff">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#ece0ffc3-06ef-463f-8bb8-afb27fe19592"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>LocalAnaesthetic</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#cc32b265-6e8d-45fb-b588-ffe394be619d">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#77578d3c-5a76-4ab5-9e43-672e35845296"/>
+    <odml:hasName>Firing Rate1</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasUnit>Hz</odml:hasUnit>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#ab77d158-7e5a-45ca-b67b-49ac5044dee5">
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#56089ff6-1e79-456b-8bd3-bdb3f2bfe84f"/>
+    <odml:hasName>Lab</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#f48a46c4-2736-45d2-a6a1-cfdb263a93de">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Mode</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#65ded053-f58d-462e-a8df-906748ce2126"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#e3da9d5a-9c38-470c-a551-ecd97e488f4c">
+    <rdf:_1>true</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a34f1aca-a54d-4d99-ab0f-710d66683026">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#b070c080-f671-48d8-90a9-5d5ef480b3a0"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Anaesthetic</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#d76a9f32-3a64-435d-947a-9de438c321d1">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#f2aef27f-33af-44eb-ae9a-73ce3b6254ac"/>
+    <odml:hasName>Immobilization</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9337c612-32d8-4e8f-9212-e09d46838157">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Identifier</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#ef9e23f8-39ad-42b0-a6c9-5e2110bdf276"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#5a0309a6-0601-421b-9afc-9d3d1a094a54">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Location</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#cdc3bb7c-3788-4b8d-948c-c270161a2da7"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#a988a094-486c-4fbe-b7b6-7a3fd701812d">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasUnit>um</odml:hasUnit>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#af7f3304-8fba-4e82-93b6-19915eb12889"/>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasName>Depth</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#f2aef27f-33af-44eb-ae9a-73ce3b6254ac">
+    <rdf:_1>Pancuronium bromide</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#685a517e-7750-4a51-bd0c-09834dbc6fdb">
+    <odml:hasName>CV</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#fc5dfd5d-09c2-4e66-b219-8da750d7f007"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#1b4ee1e8-d014-441f-877b-a7f592b66f3c">
+    <odml:hasName>Anaesthesia</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#e3da9d5a-9c38-470c-a551-ecd97e488f4c"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#00843121-b105-42cf-9cc8-72d362213d19">
+    <odml:hasName>DataURI</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/projects/odml-rdf#bbc6ec5c-2003-4962-8a6f-5d929d31f694"/>
+    <odml:hasType>DataReference</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#cdc3bb7c-3788-4b8d-948c-c270161a2da7">
+    <rdf:_1>D01-043</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#33c6e50a-2d26-40a4-beb8-129cb671b06c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">300.0</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9b5be773-c52d-4a3c-9bd4-0a32be082096">
+    <rdf:_1>2010-04-16-ab</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#cf45693b-533d-42e4-a6ae-a401f060978a">
+    <odml:hasDtype>float</odml:hasDtype>
+    <odml:hasName>SampleRate</odml:hasName>
+    <odml:hasUnit>s</odml:hasUnit>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#538a3a2f-86dd-4f62-82f2-9f6e19e110f9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#67033b32-a469-4717-9bd6-9968172ad7d9">
+    <odml:hasUnit>Hz</odml:hasUnit>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Additional noise upper cutoff</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#142f3aad-679b-4038-a84c-2990a1655121"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#be442b20-7a94-4db9-8a6a-3f91f24d9330">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#8d9313e7-1290-4828-ac4e-401cf7b82ee5"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>Software version</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#142f3aad-679b-4038-a84c-2990a1655121">
+    <rdf:_1>0.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#df34b206-edbc-4e66-a5b2-9ff79113c00c">
+    <rdf:_1>16:35:51</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#527d5fc6-b34a-4fb7-88e3-a1745ca82c6d">
+    <rdf:_1>Jan Benda</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#4a2ad1ff-5638-467f-b9d6-d5603be456e5">
+    <rdf:_1>1007.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#72b8f985-2622-49b1-8b27-f88b1a2a107a">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>/home/efish/stimuli/whitenoise/gwn300Hz10s0.3.dat</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#b070c080-f671-48d8-90a9-5d5ef480b3a0">
+    <rdf:_1>MS 222</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#82cbbc1b-a1b0-41d7-af93-185c97ab9ae8">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.3</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#56089ff6-1e79-456b-8bd3-bdb3f2bfe84f">
+    <rdf:_1>Jan Benda</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#91784273-1435-4107-9036-20ecc44b31ac">
+    <rdf:_1>unknown</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#0c57ad3f-f37f-41aa-ae3b-f45890f43cef">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#208ca88b-a6e1-49f2-9393-e24ff790d90c"/>
+    <odml:hasName>Department</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#7f443280-3d6f-45da-86af-d74732662803">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>2010-04-16</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#007064e2-963e-462a-bd62-bc4b4efe62f6">
+    <rdf:type rdf:resource="https://g-node.org/projects/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/projects/odml-rdf#90982057-d54d-4712-b621-3604c04d770b"/>
+    <odml:hasName>Species</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#366d7a35-f93a-4a57-9a73-de5608a99992">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">10.0</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#Hub">
+    <odml:hasDocument rdf:resource="https://g-node.org/projects/odml-rdf#ce86f3b1-2518-4e4f-b528-334968ae0e10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#50d649c1-cd23-4776-a1c6-828efe0a18e7">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>metadata.xml</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#d6e6e26a-2ab3-4963-b46b-cfee3db88c82">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>weak response</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#99a08493-fb64-4c3a-9eb0-229834d9452c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>0.0</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#ece0ffc3-06ef-463f-8bb8-afb27fe19592">
+    <rdf:_1>Lidocaine</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#9def0907-9a7c-4d9f-a31a-746a6552fcae">
+    <rdf:_1>in vivo</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/projects/odml-rdf#94bee812-de06-4e7b-b1a9-e2822dfa7aa4">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Ludwig-Maximilian University, Munich</rdf:_1>
+  </rdf:Description>
+</rdf:RDF>
