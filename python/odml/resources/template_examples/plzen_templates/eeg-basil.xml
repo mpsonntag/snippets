@@ -5,6 +5,13 @@
     <section>
         <type>template</type>
         <name>EEG-BASIL</name>
+
+        <property>
+            <name>Description</name>
+            <type>string</type>
+            <value>The template is used for datasets in the brain-driven computer assistance system for people with limited mobility (BASIL). It focuses on the design, development, testing and deployment of noninvasive brain-computer interface system (BCI) based on electroencephalography (EEG) methods. It's aim is to provide communication and control pathways to individuals with severe motor disabilities. The template contains description of software, hardware, analysis and the tested subject.</value>
+        </property>
+
         <section>
             <type>hardware/amplifier</type>
             <name>ODML-Amplifier</name>

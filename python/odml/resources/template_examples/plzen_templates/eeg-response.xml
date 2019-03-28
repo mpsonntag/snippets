@@ -6,6 +6,12 @@
         <type>template</type>
         <name>EEG-Response</name>
 
+        <property>
+            <name>Description</name>
+            <type>string</type>
+            <value>The template is used to describe the tested subject audio, video or visual stimulation during Event-Related Potentials (ERP) experiments.</value>
+        </property>
+
         <section>
             <type>Response</type>
             <name>Response</name>
