@@ -26,7 +26,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 1</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -55,7 +55,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 2</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -84,7 +84,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 3</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -114,7 +114,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 4</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -143,7 +143,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 5</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -172,7 +172,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 6</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -201,7 +201,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 7</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
@@ -230,7 +230,7 @@
     <section>
         <type>DataReference</type>
         <name>DataCiteAuthor 8</name>
-        <description>Information about an author as required by DataCite.</description>
+        <definition>Information about an author as required by DataCite.</definition>
         <property>
             <name>FirstName</name>
             <definition>The authors first Name (John).</definition>
