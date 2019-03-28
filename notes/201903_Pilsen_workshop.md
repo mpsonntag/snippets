@@ -94,6 +94,25 @@ will always be different.
 [C] Check odml renderer on gin for Neuroinf group / eeg-erp datasets
 [C] Create slides specific for NIX features - with images and everything to make them more
     easily comprehensible - check checklog at the end of this doc for details
+[C] Check if there is an [AttributeWindow] Segfault issue open already, if not, create one  
+[C] Create a resources presentation containing the most recent data models of NIX, odML, odML RDF
+[C] Why there is no "hasId" in the current odML RDF implementation
+[C] Readthedocs for everything!
+    - [C] how individual docs can be deployed for the different software versions
+
+
+[C] When editing a template, how to make sure, that we do not save ids!
+[C] Or if we load a template as an actual instance, make sure, that any ids that were in a template are replaced (but that should happen on copy anyway? just make sure that is true)
+
+
+[C] ADD THE CONCEPT OF PROVIDED/ALLOWED VALUES AT THE PROPERTY LEVEL!
+[C] WE NEED TO ESCAPE ',' IN MULTIPLE STRING VALUES IN ODML, DOES NOT PROPERLY SERIALIZE AND LOAD AT ALL!!!!
+
+[C] Add to file:
+
+http://eegdatabase.kiv.zcu.cz
+sonntag@bio.lmu.de
+
 
 
 # Fr, 29.03.2019, 
