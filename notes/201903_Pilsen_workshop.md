@@ -80,7 +80,18 @@ will always be different.
     - check how hard the bridge - use python library in MatLab - is.
 
 
-# Th, 28.03.2019, 
+# Th, 28.03.2019, 09:30 - ()
+
+- odml: creating template repository and populating it.
+- odml: fixing terminologies, data reference PR.
+- gnode: assisting with converting and annotating Pilzen odml files and putting them on gin
+- odml: working on Plzen templates
+
+
+[C] put conversion script notices and descriptions everywhere (github, tutorial, etc)
+[C] Better description in the commandline tools
+[C] Extract DataReference on gin from odml docs and prominently display them under the rendered display
+[C] Check odml renderer on gin for Neuroinf group / eeg-erp datasets
 
 
 # Fr, 29.03.2019, 
