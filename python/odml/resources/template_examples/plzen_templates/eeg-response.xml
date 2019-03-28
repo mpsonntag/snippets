@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odML version="1.1">
+    <date>2019-03-28</date>
+    <author>Petr Jezek</author>
+    <section>
+        <type>template</type>
+        <name>EEG-Response</name>
+
+        <section>
+            <type>Response</type>
+            <name>Response</name>
+            <definition>It describes responses of the person to the stimulation, surroundings,... during the experiment.</definition>
+
+            <property>
+                <name>Description</name>
+                <definition>A textual description of the response.</definition>
+                <type>text</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Comment</name>
+                <definition>A comment on this specific response.</definition>
+                <type>text</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Author</name>
+                <definition>Who is the author of this response.</definition>
+                <type>person</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Duration</name>
+                <definition>The duration of the response.</definition>
+                <type>float</type>
+                <unit>s</unit>
+                <value></value>
+            </property>
+
+            <property>
+                <name>StartTime</name>
+                <definition>The time the response started.</definition>
+                <type>time</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>EndTime</name>
+                <definition>The time the response ended.</definition>
+                <type>time</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Intensity</name>
+                <definition>like the current in case of electrical stimulation.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Location</name>
+                <definition>Describes the site of the response application.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Modality</name>
+                <definition>Visual, acoustic, haptic, electrical, etc. response.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Repetitions</name>
+                <definition>The number of repetitions of the described response.</definition>
+                <type>int</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>ResponseFile</name>
+                <definition>The URL to a received response file.</definition>
+                <type>URL</type>
+                <value></value>
+            </property>
+        </section>
+
+    </section>
+</odML>
