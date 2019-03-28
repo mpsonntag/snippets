@@ -92,7 +92,59 @@ will always be different.
 [C] Better description in the commandline tools
 [C] Extract DataReference on gin from odml docs and prominently display them under the rendered display
 [C] Check odml renderer on gin for Neuroinf group / eeg-erp datasets
+[C] Create slides specific for NIX features - with images and everything to make them more
+    easily comprehensible - check checklog at the end of this doc for details
 
 
 # Fr, 29.03.2019, 
 
+
+
+
+
+
+
+
+### NIX features exmplanations
+
+slightly_smiling_face:
+jgrewe [11:28 AM]
+they actually break the separation between data and metadata, as also the DataFrame will do
+jgrewe [11:35 AM]
+regarding the feature, we use them to store stimulus conditions such as the `contrast` of the stimulus that may change with each stimulus presentation.let's assume we record the membrane voltage `V-1` in a 1D regular sampled DataArray and the spike times `spikes` in a (alias)Ranged 1D DataArray. We further have `n` stimuli that each ahve a different `contrast` we store the contrast values in a separate 1D Set DataArray named `contrasts`.
+Stimulus epochs are marked using a MTag with `n` positions and extents. The epochs refer to `V-1` and `spikes` (MTag.references). and the MTag also has an `indexed` feature that points to the `contrasts` DataArray.During analysis I can do something like this:
+
+    nstimuli = mtag.positions.shape[0]
+    for i in range(nstimuli):
+        data = mtag.taggedData(i, 'V-1')[:]
+        spikes = mtag.taggedData(i, 'spikes')[:]
+        contrast = mtag.featureData(i, 'contrasts')[:]
+
+since `contrasts` it is linked as an `indexed` feature, it will return `contrasts[i, :]` which is a single number, i.e. the actual contrast
+more?
+achilleas [11:43 AM]
+Indexed seems like the most straightforward one then
+what about the other two?
+(you don't have to if you're busy :slightly_smiling_face: )
+jgrewe [11:52 AM]
+ok, let's assume The stimulus is complex and I store its waveform in a DataArray called `stimulus` it does not necessarily has to have the same size as `V-1`. For an `untagged` feature the size is actually irrelevant. Let's assume, `V-1` is long with shape (1000 x 1) and the stimulus (`shape=(100,1)`) was presented 5 times `nstims=5`.
+So the stimulus was on for `nstims` epochs of the `V-1` recording. The respective MTag references `V-1` with `nstims` position entries and uses `stimulus` as an `untagged` feature.
+
+    nstims = mtag.positions.shape[0]
+    for i in range(nstims):
+        voltage = mtag.taggedData(i, 'V-1')[:]
+        stim = mtag.featureData(i, 'stimulus')[:]
+
+it will always return the same stimulus data `stim.shape == stimulus.shape`
+could have explained that simpler... actually the `untagged` feature is the easiest
+you want to know more?
+jgrewe [12:06 PM]
+just for the sake of completeness and we wait for the boss before we go for food: (edited) 
+achilleas [12:07 PM]
+right, yeah, I REMEMBER THIS (untagged)
+
+jgrewe [12:14 PM]
+the trickiest beast is the `tagged` feature because it applies the MTag's `positions` and `extents` to the data linked as a feature. It is meant for a second way of linking between DataArrays.
+For example I do record the membrane voltage `V-1` as above and also have a recording of the room `temperature` I stimuluate the cell with a stimulus but I also want to highlight the `temperature` during that epoch, (I did not stimulate the room temperature so it would be nonsensical to suggest a causal relation between the stimulus and the temperature...)
+In brief, positions and extent have to be compatible with the dimensionality of an `tagged` feature. I think we are forgiving in the sense that the provided positions must match. That is if `temperature` would be 2D but `positions[i,:]` is only a single number `mtag.featureData(i, 'temperature')`  would return `temperature[indexof(positions[i]): indexof(positions[i] + extents[i]), :]` (edited) 
+kind of
