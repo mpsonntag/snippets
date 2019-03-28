@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odML version="1.1">
+    <date>2019-03-28</date>
+    <author>Petr Jezek</author>
+    <section>
+        <type>template</type>
+        <name>EEG-BASIL</name>
+        <section>
+            <type>hardware/amplifier</type>
+            <name>ODML-Amplifier</name>
+            <definition>The amplifier section defines elements that can be used to describe amplifier properties and settings.
+            </definition>
+
+            <property>
+                <name>SerialNo</name>
+                <definition>The device's serial number.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>InventoryNo</name>
+                <definition>The inventory number of the device.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Owner</name>
+                <definition>Who's the owner of the device.</definition>
+                <type>person</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Model</name>
+                <definition>The model name of this hardware item.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Manufacturer</name>
+                <definition>The Manufacturer of this hardware item.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>HighpassCutoff</name>
+                <definition>The cutoff frequency of the amplifier's highpass filter.</definition>
+                <type>float</type>
+                <unit>Hz</unit>
+                <value></value>
+            </property>
+
+            <property>
+                <name>LowpassCutoff</name>
+                <definition>The cutoff frequency of the amplifier's lowpass filter.</definition>
+                <type>float</type>
+                <unit>Hz</unit>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Description</name>
+                <definition>A description of this hardware item.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>analysis</type>
+            <name>ODML-Analysis</name>
+            <definition>Sections of the Analysis type can be used to describe analyses.</definition>
+
+            <property>
+                <name>Author</name>
+                <type>person</type>
+                <definition>The name of the person who did the analysis, e.g. 'John Doe' or 'Doe, John'</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Date</name>
+                <type>date</type>
+                <definition>The date of analysis.</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Description</name>
+                <type>text</type>
+                <definition>A general description of the analysis.</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Method</name>
+                <type>string</type>
+                <definition>The name of a method used in this analysis. E.g. "power spectrum".</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>CommandlineCall</name>
+                <type>string</type>
+                <definition>The command used to execute the analysis including the command line parameter.</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Comment</name>
+                <type>text</type>
+                <definition>Specific comments on this analysis.</definition>
+                <value></value>
+            </property>
+
+            <property>
+                <name>ResultFigure</name>
+                <type>URL</type>
+                <definition>The URL to a figure file showing the results of the analysis.</definition>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>experiment</type>
+            <name>ODML-Experiment</name>
+            <definition>Specification of an experiment. The Experiment is part of a Project and the recorded data for a specific
+                Experiment are found in Datasets. Possible subsections are, for example, Dataset and Stimulus.
+            </definition>
+
+            <property>
+                <name>Description</name>
+                <definition>A description of the experiment.</definition>
+                <type>text</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Type</name>
+                <definition>The type of experiment.</definition>
+                <type>string</type>
+                <value>[electrophysiology, behavior, simulation]</value>
+            </property>
+
+            <property>
+                <name>ProjectName</name>
+                <definition>The name of the project this experiment belongs to.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>ProjectID</name>
+                <definition>The ID of the project this experiment belongs to.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>software</type>
+            <name>ODML-Software</name>
+            <definition>This is a software section .</definition>
+
+            <property>
+                <name>Name</name>
+                <definition>The software's name.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Owner</name>
+                <definition>The owner of the software.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Developer</name>
+                <definition>The developer or the developers firm.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Version</name>
+                <definition>Version of the software.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Description</name>
+                <definition>The description of the software.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>subject</type>
+            <name>ODML-Subject</name>
+            <definition>The investigated experimental subject (animal or person).
+                May contain the Cell and Preparation sections as subsections.
+            </definition>
+
+            <property>
+                <name>Species</name>
+                <definition>The scientific name of the species e.g. Apis mellifera, Homo sapiens.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>TrivialName</name>
+                <definition>The trivial name of the species like Honeybee, Human.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Gender</name>
+                <definition>Male or female?</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Birthday</name>
+                <definition>The birthday. Age can be inferred from the date of recording.</definition>
+                <type>date</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>Age</name>
+                <definition>The age of the subject since birth. E.g. P19, or 5 days.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>HealthStatus</name>
+                <definition>Information about the health status of this subject.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+</odML>
