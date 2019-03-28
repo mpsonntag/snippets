@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odML version="1.1">
+    <date>2019-03-28</date>
+    <author>Petr Jezek</author>
+    <section>
+        <type>template</type>
+        <name>EEG-template-collection</name>
+
+        <section>
+            <type>experiment</type>
+            <name>Experiment</name>
+
+            <property>
+                <name>private-experiment</name>
+                <type>string</type>
+                <value>false</value>
+            </property>
+            <property>
+                <name>StartTime</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>EndTime</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>temperature</name>
+                <type>string</type>
+                <value>23</value>
+            </property>
+            <property>
+                <name>environment-note</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>research-group</name>
+                <type>string</type>
+                <value>Developmental Coordination Disorder</value>
+            </property>
+            <property>
+                <name>scenario-title</name>
+                <type>string</type>
+                <value>AUDITORY ERP PROTOCOL IN CHILDREN WITH DEVELOPMENTAL COORDINATION DISORDER</value>
+            </property>
+        </section>
+
+        <section>
+            <type>subject</type>
+            <name>Subject</name>
+
+            <property>
+                <name>Gender</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Age</name>
+                <type>int</type>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>weather</type>
+            <name>Weather</name>
+
+            <property>
+                <name>Title</name>
+                <type>string</type>
+                <value>Sunny</value>
+            </property>
+            <property>
+                <name>Description</name>
+                <type>string</type>
+                <value>Sunny weather</value>
+            </property>
+        </section>
+
+        <section>
+            <type>artifact</type>
+            <name>Artifact</name>
+
+            <property>
+                <name>Compensation</name>
+                <type>string</type>
+                <value>NotKnown</value>
+            </property>
+            <property>
+                <name>reject-condition</name>
+                <type>string</type>
+                <value>NotKnown</value>
+            </property>
+        </section>
+
+        <section>
+            <type>digitiztion</type>
+            <name>Digitization</name>
+
+            <property>
+                <name>filter</name>
+                <type>string</type>
+                <value>NotKnown</value>
+            </property>
+            <property>
+                <name>gain</name>
+                <type>string</type>
+                <value>-1</value>
+            </property>
+            <property>
+                <name>sampling-rate</name>
+                <type>string</type>
+                <value>-1</value>
+            </property>
+        </section>
+
+        <section>
+            <type>hardware</type>
+            <name>Hardwares</name>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Switch</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>Response button</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>"A response button is an electrical component that can break an electrical circuit, interrupting the current or diverting it from one conductor to another. A switch is used by a tested subject as a control signal (response) for a stimulation system." http://en.wikipedia.org/wiki/Switch</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware1</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>POWER SUPPLY</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>PS607110246wr</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>The component that supplies power to a amplifier. (http://www.webopedia.com/TERM/P/power_supply.html)</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware2</name>
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>E21-9S DISK ELECTRODE</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>reference electrode</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>A pure tin cup electrode with a 48" (122 cm) lead wire and a female socket. Device is used as a reference electrode, and is located at the root of the nose.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware3</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Small EEG cap</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>HEAD CIRCUMFERENCE: 50 - 54 cm</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>EEG cap captures the signal of neuronal activity in the brain from the head surface using electrode application technique.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware4</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Digital PortaStudio 564</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>PortaStudio564</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Device is used for audio stimulation of tested subject within EEG stimulation protocol.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware5</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>E5-9S EAR ELECTRODE</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>GROUND ELECTRODE</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>A pair of pure tin cup electrodes with a 48" (122 cm) lead wire and a female socket. A spring-clip back, covered with plastic for patient comfort, is used to hold the electrode in place.Device is used as a ground electrode.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware6</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>BRAIN AMP DC</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>AMP0711758DC</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>The BrainAmp DC includes all the outstanding features of the BrainAmp amplifier with the addition of the DC recording mode as well as with multiple hardware filtering options. The setup of the amplifier is fully controllable via the recording software.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware7</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>USB 2 ADAPTER</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>USB 2</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Hardware device which provides an interface between an amplifier (optic fiber) and computer (USB2).</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware8</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Headphones</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>Circumaural headphones</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Device is used for audio stimulation of tested subject within EEG stimulation protocol.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware9</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Clinical audiometer</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>DA74</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>An audiometer is a machine used for evaluating hearing mechanism. (http://en.wikipedia.org/wiki/Audiometer)</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware10</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>ELECTRODE INPUT BOX 64 CHANNEL</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>EIB06031122</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>64-channel Electrode Input Box is a device that only allowed electrodes with single-input safety sockets to be connected to the BrainAmp recording amplifiers.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware</type>
+                <name>Hardware11</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Sound-proof cabin</value>
+                </property>
+                <property>
+                    <name>type</name>
+                    <type>string</type>
+                    <value>2x2x1,5m</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Closable cabin formed by conducting material for one person (approx 2x2x1,5m) which muffle external noise. Cabin blocks external static and non-static electric fields by channeling electricity through conducting material and provides constant voltage on all sides of the cabin. Subject inside is screened out from events in the lab during the experiment. The cabin contains ventilation, light and window.&#xd;http://en.wikipedia.org/wiki/Faraday_cage</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>software</type>
+            <name>Softwares</name>
+
+            <section>
+                <type>software</type>
+                <name>Software</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Presentation</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Presentation is a stimulus delivery and experimental control program for neuroscience. Program delivers auditory, visual and multimodal stimuli with sub-millisecond temporal precision.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>software</type>
+                <name>Software1</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>BrainVision Recorder 1.2</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>The BrainVision Recorder is used to control EEG amplifiers and record EEG signals.</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>disease</type>
+            <name>Diseases</name>
+            <section>
+                <type>disease</type>
+                <name>Disease</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Diabetes</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>Diabetes is a group of metabolic diseases in which there are high blood sugar levels over a prolonged period.</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>project</type>
+            <name>ProjectTypes</name>
+            <section>
+                <type>project</type>
+                <name>ProjectType</name>
+
+                <property>
+                    <name>title</name>
+                    <type>string</type>
+                    <value>Grant Agency of the Czech Republic</value>
+                </property>
+                <property>
+                    <name>description</name>
+                    <type>string</type>
+                    <value>This work was supported by the Grant Agency of the Czech Republic under the grant P407/12/1525.</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>person</type>
+            <name>Experimentators</name>
+            <section>
+                <type>person</type>
+                <name>Person</name>
+
+                <property>
+                    <name>username</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+                <property>
+                    <name>surname</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+                <property>
+                    <name>givenname</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+                <property>
+                    <name>gender</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+                <property>
+                    <name>role</name>
+                    <type>string</type>
+                    <value></value>
+            </property>
+        </section>
+        </section>
+    </section>
+</odML>
