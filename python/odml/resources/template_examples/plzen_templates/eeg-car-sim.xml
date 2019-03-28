@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odML version="1.1">
+    <date>2019-03-28</date>
+    <author>Petr Jezek</author>
+    <section>
+        <type>template</type>
+        <name>EEG-Car-simulator</name>
+
+        <property>
+            <name>Description</name>
+            <type>string</type>
+            <value>The template describes experiments where a car simulator is used in examining the driver's attention during monotonous and dangerous traffic situations. Experiments are based on the method of event related potentials (ERP) and measurement of peripheral biological signals. The template contains description of the car stimulator, amplifier, electrodes, analysis, tested subject and experimenters. It also describes other hardware and software used.</value>
+        </property>
+
+        <section>
+            <type>experiment</type>
+            <name>Experiment</name>
+
+            <property>
+                <name>StartTime</name>
+                <type>time</type>
+                <value></value>
+            </property>
+            <property>
+                <name>EndTime</name>
+                <type>time</type>
+                <value></value>
+            </property>
+            <property>
+                <name>ResearchGroup</name>
+                <type>string</type>
+                <value>BRUVAR</value>
+            </property>
+
+            <section>
+                <type>person</type>
+                <name>Experimenters</name>
+
+                <property>
+                    <name>Experimenter #1</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>subject</type>
+            <name>Subject</name>
+
+            <property>
+                <name>Gender</name>
+                <definition>Male or female</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Age</name>
+                <type>int</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Laterality</name>
+                <definition>right-hander or left-hander</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Height</name>
+                <unit>cm</unit>
+                <type>float</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Weight</name>
+                <unit>kg</unit>
+                <type>float</type>
+                <value></value>
+            </property>
+        </section>
+
+        <section>
+            <type>hardware/setup</type>
+            <name>Digitization</name>
+            <property>
+                <name>SamplingRate</name>
+                <unit>Hz</unit>
+                <type>int</type>
+                <value>1000</value>
+            </property>
+        </section>
+
+        <section>
+            <type>hardware/setup</type>
+            <name>Hardware</name>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>EEG-cap</name>
+
+                <property>
+                    <name>Type</name>
+                    <type>string</type>
+                    <value>[Large; 58 - 62 cm (dark blue), Medium; 54 - 58 cm (red), Small; 50 - 54 cm (yellow)]</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>EEG cap captures the signal of neuronal activity in the brain from the head surface using electrode application technique.</value>
+                </property>
+                <property>
+                    <name>InventoryNumber</name>
+                    <type>string</type>
+                    <value></value>
+                </property>
+
+                <property>
+                    <name>Manufacturer</name>
+                    <type>string</type>
+                    <value>Electro-Cap International, Inc. Eaton, Ohio 45320 USA</value>
+                </property>
+            </section>
+
+            <section>
+                <type>electrode</type>
+                <name>Electrode</name>
+
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>An electrode is an electrical conductor used to make contact with a nonmetallic part of a circuit (e.g., the human scalp) and is used to measure electrical activity. http://purl.bioontology.org/NEMO/ontology/NEMO.owl#NEMO_0000501</value>
+                </property>
+
+                <section>
+                    <type>electrode</type>
+                    <name>Eye Blink Detection Electrode</name>
+                    <property>
+                        <name>Title</name>
+                        <type>string</type>
+                        <value>E21-9S DISK ELECTRODE</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>A pure tin cup electrode with a 48" (122 cm) lead wire and a female socket. Device is used as a reference electrode.</value>
+                    </property>
+                    <property>
+                        <name>Owner</name>
+                        <type>string</type>
+                        <value>Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic</value>
+                    </property>
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>Standard 9mm cup</value>
+                    </property>
+                    <property>
+                        <name>Manufacturer</name>
+                        <type>string</type>
+                        <value>Electro-Cap International, Inc. Eaton, Ohio 45320 USA</value>
+                    </property>
+                    <property>
+                        <name>Reference</name>
+                        <type>URL</type>
+                        <value>http://www.electro-cap.com/index.cfm/supplies</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>electrode</type>
+                    <name>Reference Electrode</name>
+
+                    <property>
+                        <name>Title</name>
+                        <type>string</type>
+                        <value>E21-9S DISK ELECTRODE</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>A pure tin cup electrode with a 48" (122 cm) lead wire and a female socket. Device is used as a reference electrode.</value>
+                    </property>
+                    <property>
+                        <name>Owner</name>
+                        <type>string</type>
+                        <value>Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic</value>
+                    </property>
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>Standard 9mm cup</value>
+                    </property>
+                    <property>
+                        <name>Manufacturer</name>
+                        <type>string</type>
+                        <value>Electro-Cap International, Inc. Eaton, Ohio 45320 USA</value>
+                    </property>
+                    <property>
+                        <name>Reference</name>
+                        <type>URL</type>
+                        <value>http://www.electro-cap.com/index.cfm/supplies</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>electrode</type>
+                    <name>Ground Electrode</name>
+
+                    <property>
+                        <name>Title</name>
+                        <type>string</type>
+                        <value>E5-9S EAR ELECTRODE</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>A pair of pure tin cup electrodes with a 48" (122 cm) lead wire and a female socket. A spring-clip back, covered with plastic for patient comfort, is used to hold the electrode in place. Device is used as a ground electrode.,</value>
+                    </property>
+                    <property>
+                        <name>Owner</name>
+                        <type>string</type>
+                        <value>Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic,</value>
+                    </property>
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>Standard 9mm cup</value>
+                    </property>
+                    <property>
+                        <name>Manufacturer</name>
+                        <type>string</type>
+                        <value>Electro-Cap International, Inc. Eaton, Ohio 45320 USA</value>
+                    </property>
+                    <property>
+                        <name>Reference</name>
+                        <type>URL</type>
+                        <value>http://www.electro-cap.com/index.cfm/supplies/</value>
+                    </property>
+                </section>
+            </section>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>Car-simulator</name>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>Bodywork</name>
+
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>Bodywork is the body of a motor vehicle (automobile, bus or truck), a horse-drawn coach or carriage (whence the term originated), or, by extension, a railroad car or railway carriage. An obsolescent synonym is carrossery.</value>
+                    </property>
+
+                    <property>
+                        <name>CarModel</name>
+                        <type>string</type>
+                        <value>Skoda Octavia - is a brand of the car bodywork used for our experimental car.</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>SteeringWheel</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>G27 Racing Wheel Steering wheel</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>A game wheel that controls steering, as in the car simulator. Device is used for measuring driver´s experiments.</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>Pedals</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>G27 Racing Wheel pedals</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>G27 Racing Wheel pedals device has the steel gas, brake, and clutch pedals deliver precise throttle, braking, and shifting control for heightened realism.Device is used for measuring driver´s experiments.</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>Shifter</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>G27 Racing Wheel shifter</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>G27 Racing Wheel shifter is a six-speed shifter used for shift gears in driver´s experiments.</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>DigitalProjector</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>The Acer P5280</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>The Acer P5280 is a digital projector used for projection of stimulation protokol.</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>SoundSystem</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value> Logitech X140</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>Total RMS power: 5 watts RMS (2.5 x 2) Total peak power: 10 watts Frequency response: 80Hz - 18kHz 7 cm high-excursion driver with 7.6 cm pressure driver Speaker dimensions 24.1 x 9.9 x 12.4 (H x W x D, cm)</value>
+                    </property>
+                </section>
+
+                <section>
+                    <type>car-simulator</type>
+                    <name>CameraSystem</name>
+
+                    <property>
+                        <name>Type</name>
+                        <type>string</type>
+                        <value>HD Pro Webcam C920</value>
+                    </property>
+                    <property>
+                        <name>Description</name>
+                        <type>string</type>
+                        <value>Full HD 1080p video calling (up to 1920 x 1080 pixels) with the latest version of Skype for Windows* 720p HD video calling (up to 1280 x 720 pixels) with supported clients Full HD video recording (up to 1920 x 1080 pixels) with a recommended system** Logitech Fluid Crystal™ Technology H.264 video compression* Carl Zeiss® lens with 20-step autofocus Built-in dual stereo mics with automatic noise reduction Automatic low-light correction Hi-Speed USB 2.0 certified (USB 3.0 ready) Tripod-ready universal clip fits laptops, LCD or CRT monitors</value>
+                    </property>
+                </section>
+            </section>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>Amplifier</name>
+
+                <property>
+                    <name>Title</name>
+                    <type>string</type>
+                    <value>V-Amp 16</value>
+                </property>
+                <property>
+                    <name>Type</name>
+                    <type>string</type>
+                    <value>digital DC amplifier input 5V DC, 450mA</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>The V-Amp is used for recording EEG signal and the full range of evoked potentials. Amplifier has two auxiliary ports for measuring peripheral signals like GSR, blood flow, body temperature.</value>
+                </property>
+                <property>
+                    <name>Serial number</name>
+                    <type>string</type>
+                    <value>AMP 10021151 VA16</value>
+                </property>
+                <property>
+                    <name>Inventory number</name>
+                    <type>string</type>
+                    <value>501421</value>
+                </property>
+                <property>
+                    <name>Owner</name>
+                    <type>string</type>
+                    <value>Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic</value>
+                </property>
+                <property>
+                    <name>Number of channels</name>
+                    <type>string</type>
+                    <value>18</value>
+                </property>
+                <property>
+                    <name>Manufacturer</name>
+                    <type>string</type>
+                    <value>Brain Products</value>
+                </property>
+                <property>
+                    <name>Reference</name>
+                    <type>URL</type>
+                    <value>http://www.brainproducts.com/productdetails.php?id=15</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>Stimulation computer</name>
+
+                <property>
+                    <name>Type</name>
+                    <type>string</type>
+                    <value>HP station</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>Stimulation computer used processor Intel Xeon E5 1650 3,5 GHz. It has 16 GB RAM. Stimulation computer is used for playing stimulation protocol.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>Recording computer</name>
+
+                <property>
+                    <name>Type</name>
+                    <type>string</type>
+                    <value>Notebook DELL LATITUDE</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>Recording computer used processor Intel Core i7 CPU 3,2GHz 3,19GHz. It has 12 GB RAM. Device is used for recording EEG/ERP from drivers or mice blindness expreriments.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware/setup</type>
+                <name>Auditory presentation computer</name>
+
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>Auditory presentation computer used processor Intel Core i7 CPU 2,67GHz 2,67GHz. It has 12 GB RAM. Stimulation computer is used for playing stimulation protocol.</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>hardware/setup</type>
+            <name>Accessories</name>
+
+            <section>
+                <type>accessories</type>
+                <name>ElectroGel</name>
+
+                <property>
+                    <name>Title</name>
+                    <type>string</type>
+                    <value>ELECTRO-GEL NET:16</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>This electro-gel is an off white color, water-miscible conductive gel. Electro-gel is a mixture of the following components: Water, Sodium Chloride, Aragum, Glycerin, Pottasium Bitartrate, Methylparaben and Propylparaben. Electro gel is applied by inserting the gel into the EEG cap electrodes by using a syringe and blunted needle. Electro gel is used for setting low electrode impedance and limitations of electrode artifacts.</value>
+                </property>
+                <property>
+                    <name>Manufacturer</name>
+                    <type>string</type>
+                    <value>ELECTRO-Cap International, Inc. 1011 W. Lexington Road Eaton, Ohio 45320 U.S.A.</value>
+                </property>
+            </section>
+
+            <section>
+                <type>accessories</type>
+                <name>Conductive Paste</name>
+
+                <property>
+                    <name>Title</name>
+                    <type>string</type>
+                    <value>Ten 20 CONDUCTIVE EEG Paste</value>
+                </property>
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>Ten20 is a conductive and adhesive paste specifically formulated for use with reusable (non-disposable) electrodes. Primarily used for EEG electrodes. (http://www.biopac.com/ten20-conductivegel)</value>
+                </property>
+                <property>
+                    <name>Manufacturer</name>
+                    <type>string</type>
+                    <value>Weaver and Company 565 Nucla Way Unit B Aurora, CO 80011 Toll Free 800-525-2130 Fax 303-367-5118</value>
+                </property>
+            </section>
+
+            <section>
+                <type>hardware/accessories</type>
+                <name>DegreasingGel</name>
+
+                <property>
+                    <name>Title</name>
+                    <type>string</type>
+                    <value>Nuprep</value>
+                </property>
+
+                <property>
+                    <name>Description</name>
+                    <type>string</type>
+                    <value>Nuprep gel is applied to electrode site on scalp with cotton swab. EEG electrode paste and reference or ground electrode is applied over Nuprep gel.</value>
+                </property>
+                <property>
+                    <name>Manufacturer</name>
+                    <type>string</type>
+                    <value>Weaver and Company 565 Nucla Way Unit B Aurora, CO 80011 Toll Free 800-525-2130 Fax 303-367-5118</value>
+                </property>
+            </section>
+        </section>
+
+        <section>
+            <type>software/setup</type>
+            <name>Software</name>
+            <property>
+                <name>Title</name>
+                <type>string</type>
+                <value>BrainVision Recorder 1.2</value>
+            </property>
+            <property>
+                <name>Description</name>
+                <type>string</type>
+                <value>EEG/ERP recording software</value>
+            </property>
+        </section>
+
+    </section>
+</odML>
