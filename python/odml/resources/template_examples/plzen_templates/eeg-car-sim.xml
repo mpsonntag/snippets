@@ -29,7 +29,7 @@
             <property>
                 <name>ResearchGroup</name>
                 <type>string</type>
-                <value>BRUVAR</value>
+                <value></value>
             </property>
 
             <section>
@@ -61,7 +61,7 @@
             </property>
             <property>
                 <name>Laterality</name>
-                <definition>right-hander or left-hander</definition>
+                <definition>right-handed or left-handed</definition>
                 <type>string</type>
                 <value></value>
             </property>
@@ -86,7 +86,7 @@
                 <name>SamplingRate</name>
                 <unit>Hz</unit>
                 <type>int</type>
-                <value>1000</value>
+                <value></value>
             </property>
         </section>
 
@@ -384,7 +384,7 @@
                 <property>
                     <name>Inventory number</name>
                     <type>string</type>
-                    <value>501421</value>
+                    <value></value>
                 </property>
                 <property>
                     <name>Owner</name>
