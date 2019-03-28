@@ -80,7 +80,7 @@ will always be different.
     - check how hard the bridge - use python library in MatLab - is.
 
 
-# Th, 28.03.2019, 09:30 - ()
+# Th, 28.03.2019, 09:30 - 18:00 (8h30 ... +28h30)
 
 - odml: creating template repository and populating it.
 - odml: fixing terminologies, data reference PR.
@@ -109,13 +109,30 @@ will always be different.
 [C] WE NEED TO ESCAPE ',' IN MULTIPLE STRING VALUES IN ODML, DOES NOT PROPERLY SERIALIZE AND LOAD AT ALL!!!!
 
 [C] Add to file:
-
-http://eegdatabase.kiv.zcu.cz
-sonntag@bio.lmu.de
-
+        http://eegdatabase.kiv.zcu.cz
+        sonntag@bio.lmu.de
 
 
-# Fr, 29.03.2019, 
+# Fr, 29.03.2019, 09:00 - 20:00 ()
+
+Short final presentation:
+
+Our group focused on two main aspects:
+- exporting odML to a common RDF format
+- providing odML templates
+
+Ad 1)
+already previously defined a odML specific RDF data model; implemented a way to export 
+odML files to RDF, merge them into a common graph and  query there.
+
+- problemset
+  - linking back from the RDF graph to the original datasets
+
+
+Ad 2)
+- problemsets
+  - providing a common place to host, discuss and share odML templates
+  - extracting eeg-base templates and make them available via the odML templates
 
 
 
@@ -123,8 +140,7 @@ sonntag@bio.lmu.de
 
 
 
-
-### NIX features exmplanations
+### NIX features explanations
 
 slightly_smiling_face:
 jgrewe [11:28 AM]
