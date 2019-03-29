@@ -134,9 +134,13 @@ will always be different.
     - registered datasets can be searched and found via
     https://datamed.org/
 
+[C] odml datatype append: this will complain if we have a 'Person' datatype and we try 
+    to append a string containing a person: since it expects a person, it will fail on 
+    string, even if the string contains a person...
 
+[C] remove all "following x properties" from the tutorial since most of the time they don't match.
 
-
+[C] check odml write to file of tuples; it seems to write only the first entry and skips the rest
 
 
 
