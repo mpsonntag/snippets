@@ -110,3 +110,20 @@ q = prepareQuery("""SELECT *
 for row in graph.query(q):
     print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname, row.dataSecName, row.uri))
 
+
+"""
+PREFIX odml: <https://g-node.org/projects/odml-rdf#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?stype ?sec_name ?propname ?parent_type WHERE {
+    ?parent odml:hasSection ?s .
+    ?s rdf:type odml:Section .
+    ?s odml:hasName ?sec_name .
+    ?s odml:hasProperty ?p .
+    ?p odml:hasName "LocalAnaesthesia" .
+    ?s odml:hasProperty ?prop .
+    ?prop odml:hasName ?propname .
+    ?parent rdf:type ?parent_type .
+    ?s rdf:type ?stype
+}
+"""
