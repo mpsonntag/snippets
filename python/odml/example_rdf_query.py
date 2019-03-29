@@ -82,3 +82,31 @@ q = prepareQuery("""SELECT *
 for row in graph.query(q):
     print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname, row.dataSecName, row.uri))
 
+
+q = prepareQuery("""SELECT * 
+             WHERE { 
+                ?d a odml:Document . 
+                ?d odml:hasSection* ?s .
+                ?s a odml:Section . 
+                ?s odml:hasType ?t . 
+                ?s odml:hasName ?secname . 
+                { SELECT ?dataSecName ?uri
+                   WHERE {
+                   ?d odml:hasSection ?datasec .
+                   ?datasec odml:hasType "DataReference" .
+                   ?datasec odml:hasName ?dataSecName .
+                   ?datasec odml:hasProperty ?uriprop .
+                   ?uriprop odml:hasName ?nameValue .
+                   ?uriprop odml:hasValue ?urival .
+                   ?urival ?pred ?uri. 
+                   FILTER (?nameValue in ("DataDOI", "DataURI"))
+                   FILTER (strstarts(str(?pred), str(rdf:_)))
+                   }
+                 }
+                FILTER (?t in ("setup/daq/preprocessing", "stimulus/white_noise"))
+             }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
+                           "rdf": RDF, "rdfs": RDFS})
+
+for row in graph.query(q):
+    print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname, row.dataSecName, row.uri))
+
