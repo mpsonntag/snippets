@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML version="1">
+  <version>1</version>
+  <date>2018-08-28</date>
+  <section>
+    <type>hardware/amplifier</type>
+    <name>ODML-Amplifier</name>
+    <definition>The amplifier section defines elements that can be used to describe amplifier properties and settings.</definition>
+    <property>
+      <name>SerialNo</name>
+      <definition>The device's serial number.</definition>
+      <value>
+        AMP 100 21151 VA16
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>InventoryNo</name>
+      <definition>The inventory number of the device.</definition>
+      <value>
+        501421
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Owner</name>
+      <definition>Who's the owner of the device.</definition>
+      <value>
+        University of West Bohemia
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Model</name>
+      <definition>The model name of this hardware item.</definition>
+      <value>
+        V-AMP 16
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Manufacturer</name>
+      <definition>The Manufacturer of this hardware item.</definition>
+      <value>
+        BRAIN PRODUCT GmbH
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>HighpassCutoff</name>
+      <definition>The cutoff frequency of the amplifier's highpass filter.</definition>
+      <value>
+        70 Hz
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>LowpassCutoff</name>
+      <definition>The cutoff frequency of the amplifier's lowpass filter.</definition>
+      <value>
+        0,531 Hz
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Description</name>
+      <definition>A description of this hardware item.</definition>
+      <value>
+        digital DC amplifier, input 5V DC, 450 mA
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+  <section>
+    <type>analysis</type>
+    <name>ODML-Analysis</name>
+    <definition>Sections of the Analysis type can be used to describe analyses.</definition>
+    <property>
+      <name>Author</name>
+      <definition>The name of the person who did the analysis, e.g. 'John Doe' or 'Doe, John'</definition>
+      <value>
+        Lukáš Vařeka
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Date</name>
+      <definition>The date of analysis.</definition>
+      <value>
+        31. 5. 2017
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Description</name>
+      <definition>A general description of the analysis.</definition>
+      <value>
+        P300 detection
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Method</name>
+      <definition>The name of a method used in this analysis. E.g. "power spectrum".</definition>
+      <value>
+        P300
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>CommandlineCall</name>
+      <definition>The command used to execute the analysis including the command line parameter.</definition>
+      <value>
+        MATLAB script
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Comment</name>
+      <definition>Specific comments on this analysis.</definition>
+      <value>
+        Result plot
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>ResultFigure</name>
+      <definition>A figure showing the results. This property is meant to strore the real figure content. 
+         This will blow up the the size of the metadatafile and we recommend to rather define the URL of the figure.</definition>
+      <value>
+        http://home.zcu.cz/~pbruha/EEGbase/BASIL/1/Figure_4instr.pdf
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+  <section>
+    <type>experiment</type>
+    <name>ODML-Experiment</name>
+    <definition>Specification of an experiment. The Experiment is
+      part of a Project and the recorded data for a specific
+      Experiment are found in Datasets. Possible subsections are, for
+      example, Dataset and Stimulus.</definition>
+    <property>
+      <name>Description</name>
+      <definition>A description of the
+         experiment.</definition>
+      <value>
+        Each patient or their legal representatives are acquainted with the course of the experiment and answered questions concerning his/her health. Each patient is given the standard EEG cap made by Electro-Cap International. The international 10-20 system of electrode placement was used. In fact, 7 electrodes from 19 were used as depicted in Figure. The reference electrode was placed at the root of his/her nose and the ground electrode was placed on the ear. The patient with EEG cap is sitting 1 m from the monitor and is told to watch the stimulation protocols which contain figures, sounds or matrix with activities, and to follow the rules for selecting thoughtful activity. EEG signal from all channels are amplified and together with markers of the events from parallel port interface from stimulation computer are delivered to recording PC. After the experiment is finished, the recorded data and collected metadata are uploaded to the EEG/ERP storage.
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Type</name>
+      <definition>The type of experiment.</definition>
+      <value>
+        electrophysiology
+        <type>string</type>
+      </value>
+      <value>
+        behavior
+        <type>string</type>
+      </value>
+      <value>
+        simulation
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Subtype</name>
+      <value>
+        event related potential
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>ProjectName</name>
+      <definition>The name of the project this experiment belongs to.</definition>
+      <value>
+        Brain-driven Computer Assistance System for People with Limited Mobility
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>ProjectID</name>
+      <definition>The ID of the project this experiment belongs
+         to.</definition>
+      <value>
+        85
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+</odML>
+

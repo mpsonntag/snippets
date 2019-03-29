@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML xmlns:gui="http://www.g-node.org/guiml" version="1">
+  <version>1</version>
+  <date>2015-07-16</date>
+  <section>
+    <type>new</type>
+    <name>Experiment</name>
+    <property>
+      <name>start-time</name>
+      <gui:required>true</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>0</gui:order>
+      <value>
+        01.04.2015, 12:17:00
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>end-time</name>
+      <gui:required>true</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>1</gui:order>
+      <value>
+        01.04.2015, 13:43:00
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>research-group</name>
+      <gui:required>true</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>2</gui:order>
+      <value>
+        BRUVAR
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>scenario-title</name>
+      <gui:required>true</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>3</gui:order>
+      <value>
+        Car simulator - driver attention
+        <type>string</type>
+      </value>
+    </property>
+    <section>
+      <type>new</type>
+      <name>Experimenters</name>
+      <property>
+        <name>Experimenter #1</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Ing. Pavel Mautner, Ph.D.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Experimenter #2</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          Ing. Petr  BRŮHA
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+  </section>
+  <section>
+    <type>new</type>
+    <name>Subject</name>
+    <property>
+      <name>Gender</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>0</gui:order>
+      <value>
+        male
+        <type>string</type>
+      </value>
+      <value>
+        female
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Age</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>1</gui:order>
+      <value>
+        21
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Laterality</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>2</gui:order>
+      <value>
+        right-hander
+        <type>string</type>
+      </value>
+      <value>
+        left-hander
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Height [cm]</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>3</gui:order>
+      <value>
+        182
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Weight [kg]</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>4</gui:order>
+      <value>
+        86
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+  <section>
+    <type>new</type>
+    <name>Digitization</name>
+    <property>
+      <name>Sampling-rate</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>0</gui:order>
+      <value>
+        1000 Hz
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+  <section>
+    <type>new</type>
+    <name>Hardware</name>
+    <section>
+      <type>new</type>
+      <name>EEG cap</name>
+      <property>
+        <name>Type</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Large, 58 - 62 cm (dark blue)
+          <type>string</type>
+        </value>
+        <value>
+          Medium, 54 - 58 cm (red)
+          <type>string</type>
+        </value>
+        <value>
+          Small, 50 - 54 cm (yellow)
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          EEG cap captures the signal  of neuronal activity in the brain from the head surface using electrode application technique.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Inventory number</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          21050
+          <type>string</type>
+        </value>
+        <value>
+          17196
+          <type>string</type>
+        </value>
+        <value>
+          16884
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>3</gui:order>
+        <value>
+          Electro-Cap International, Inc. Eaton, Ohio 45320 USA
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Electrode</name>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          An electrode is an electrical conductor used to make contact with a nonmetallic part of a circuit (e.g., the human scalp) and is used to measure electrical activity. http://purl.bioontology.org/NEMO/ontology/NEMO.owl#NEMO_0000501
+          <type>string</type>
+        </value>
+      </property>
+      <section>
+        <type>new</type>
+        <name>Eye Blink Detection Electrode</name>
+        <property>
+          <name>Title</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            E21-9S DISK ELECTRODE
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            A pure tin cup electrode with a 48" (122 cm) lead wire and a female socket. Device is used as a reference electrode.
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Owner</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>2</gui:order>
+          <value>
+            Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>3</gui:order>
+          <value>
+            Standard 9mm cup
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Manufacturer</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>4</gui:order>
+          <value>
+            Electro-Cap International, Inc. Eaton, Ohio 45320 USA
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Reference</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>5</gui:order>
+          <value>
+            http://www.electro-cap.com/index.cfm/supplies/
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Reference Electrode</name>
+        <property>
+          <name>Title</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            E21-9S DISK ELECTRODE
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            A pure tin cup electrode with a 48" (122 cm) lead wire and a female socket. Device is used as a reference electrode.
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Owner</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>2</gui:order>
+          <value>
+            Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>3</gui:order>
+          <value>
+            Standard 9mm cup
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Manufacturer</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>4</gui:order>
+          <value>
+            Electro-Cap International, Inc. Eaton, Ohio 45320 USA
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Reference</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>5</gui:order>
+          <value>
+            http://www.electro-cap.com/index.cfm/supplies/
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Ground Electrode</name>
+        <property>
+          <name>Title</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            E5-9S EAR ELECTRODE
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            A pair of pure tin cup electrodes with a 48" (122 cm) lead wire and a female socket. A spring-clip back, covered with plastic for patient comfort, is used to hold the electrode in place. Device is used as a ground electrode.
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Owner</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>2</gui:order>
+          <value>
+            Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>3</gui:order>
+          <value>
+            Standard 9mm cup
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Manufacturer</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>4</gui:order>
+          <value>
+            Electro-Cap International, Inc. Eaton, Ohio 45320 USA
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Reference</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>5</gui:order>
+          <value>
+            http://www.electro-cap.com/index.cfm/supplies/
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Car simulator</name>
+      <section>
+        <type>new</type>
+        <name>Bodywork</name>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            Bodywork is the body of a motor vehicle (automobile, bus or truck), a horse-drawn coach or carriage (whence the term originated), or, by extension, a railroad car or railway carriage. An obsolescent synonym is carrossery.
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Car model</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            Skoda Octavia - is a brand of the car bodywork used for our experimental car.
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Steering wheel</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            G27 Racing Wheel Steering wheel
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            A game wheel that controls steering, as in the car simulator. Device is used for measuring driver´s experiments.
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Pedals</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            G27 Racing Wheel pedals
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            G27 Racing Wheel pedals device has the steel gas, brake, and clutch pedals deliver precise throttle, braking, and shifting control for heightened realism.Device is used for measuring driver´s experiments.
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Shifter</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            G27 Racing Wheel shifter
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            G27 Racing Wheel shifter is a six-speed shifter used for shift gears in driver´s experiments.
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Digital projector</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            The Acer P5280
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            The Acer P5280 is a digital projector used for projection of stimulation protokol.
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Sound system</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            Logitech X140
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            Total RMS power: 5 watts RMS (2.5 x 2) Total peak power: 10 watts Frequency response: 80Hz - 18kHz 7 cm high-excursion driver with 7.6 cm pressure driver Speaker dimensions 24.1 x 9.9 x 12.4 (H x W x D, cm)
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+      <section>
+        <type>new</type>
+        <name>Camera system</name>
+        <property>
+          <name>Type</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>0</gui:order>
+          <value>
+            HD Pro Webcam C920
+            <type>string</type>
+          </value>
+        </property>
+        <property>
+          <name>Description</name>
+          <gui:required>false</gui:required>
+          <gui:editable>true</gui:editable>
+          <gui:order>1</gui:order>
+          <value>
+            Full HD 1080p video calling (up to 1920 x 1080 pixels) with the latest version of Skype for Windows* 720p HD video calling (up to 1280 x 720 pixels) with supported clients Full HD video recording (up to 1920 x 1080 pixels) with a recommended system** Logitech Fluid Crystal™ Technology H.264 video compression* Carl Zeiss® lens with 20-step autofocus Built-in dual stereo mics with automatic noise reduction Automatic low-light correction Hi-Speed USB 2.0 certified (USB 3.0 ready) Tripod-ready universal clip fits laptops, LCD or CRT monitors
+            <type>string</type>
+          </value>
+        </property>
+      </section>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Amplifier</name>
+      <property>
+        <name>Title</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          V-Amp 16
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Type</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          digital DC amplifier input 5V DC, 450mA
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          The V-Amp is used for recording EEG signal and the full range of evoked potentials. Amplifier has two auxiliary ports for measuring peripheral signals like GSR, blood flow, body temperature.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Serial number</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>3</gui:order>
+        <value>
+          AMP 10021151 VA16
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Inventory number</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>4</gui:order>
+        <value>
+          501421
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Owner</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>5</gui:order>
+        <value>
+          Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Number of channels</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>6</gui:order>
+        <value>
+          18
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>7</gui:order>
+        <value>
+          Brain Products
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Reference</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>8</gui:order>
+        <value>
+          http://www.brainproducts.com/productdetails.php?id=15
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Stimulation computer</name>
+      <property>
+        <name>Type</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          HP station
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          Stimulation computer used processor Intel Xeon E5 1650 3,5 GHz. It has 16 GB RAM. Stimulation computer is used for playing stimulation protocol.
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Recording computer</name>
+      <property>
+        <name>Type</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Notebook DELL LATITUDE
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          Recording computer used processor Intel Core i7 CPU 3,2GHz 3,19GHz. It has 12 GB RAM. Device is used for recording EEG/ERP from drivers or mice blindness expreriments.
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Auditory presentation computer</name>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Auditory presentation computer used processor Intel Core i7 CPU 2,67GHz 2,67GHz. It has 12 GB RAM. Stimulation computer is used for playing stimulation protocol.
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>GSR module</name>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          The GSR module acquires the skin conductance by applying a constant voltage of 0.5 volts and recording the resulting current.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Serial number</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          EDA1201248
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Owner</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          Department of Computer Science and Engineering, University of West Bohemia, Pilsen, Czech Republic
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Type</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>3</gui:order>
+        <value>
+          BP-BM-30
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>4</gui:order>
+        <value>
+          Becker Meditec, Karlsruhe, Germany
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+  </section>
+  <section>
+    <type>new</type>
+    <name>Accessories</name>
+    <section>
+      <type>new</type>
+      <name>Electro Gel</name>
+      <property>
+        <name>Title</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          ELECTRO-GEL NET:16
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          This electro-gel is an off white color, water-miscible conductive gel. Electro-gel is a mixture of the following components: Water, Sodium Chloride, Aragum, Glycerin, Pottasium Bitartrate, Methylparaben and Propylparaben. Electro gel is applied by inserting the gel into the EEG cap electrodes by using a syringe and blunted needle. Electro gel is used for setting low electrode impedance and limitations of electrode artifacts.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          ELECTRO-Cap International, Inc. 1011 W. Lexington Road Eaton, Ohio 45320 U.S.A.
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Conductive Paste</name>
+      <property>
+        <name>Title</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Ten 20 CONDUCTIVE EEG Paste
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          Ten20 is a conductive and adhesive paste specifically formulated for use with reusable (non-disposable) electrodes. Primarily used for EEG electrodes. (http://www.biopac.com/ten20-conductivegel)
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          Weaver and Company 565 Nucla Way Unit B Aurora, CO 80011 Toll Free 800-525-2130 Fax 303-367-5118
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+    <section>
+      <type>new</type>
+      <name>Degreasing Gel</name>
+      <property>
+        <name>Title</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>0</gui:order>
+        <value>
+          Nuprep
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Description</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>1</gui:order>
+        <value>
+          Nuprep gel is applied to electrode site on scalp with cotton swab. EEG electrode paste and reference or ground electrode is applied over Nuprep gel.
+          <type>string</type>
+        </value>
+      </property>
+      <property>
+        <name>Manufacturer</name>
+        <gui:required>false</gui:required>
+        <gui:editable>true</gui:editable>
+        <gui:order>2</gui:order>
+        <value>
+          Weaver and Company 565 Nucla Way Unit B Aurora, CO 80011 Toll Free 800-525-2130 Fax 303-367-5118
+          <type>string</type>
+        </value>
+      </property>
+    </section>
+  </section>
+  <section>
+    <type>new</type>
+    <name>Software</name>
+    <property>
+      <name>Title</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>0</gui:order>
+      <value>
+        BrainVision Recorder 1.2
+        <type>string</type>
+      </value>
+    </property>
+    <property>
+      <name>Description</name>
+      <gui:required>false</gui:required>
+      <gui:editable>true</gui:editable>
+      <gui:order>1</gui:order>
+      <value>
+        EEG/ERP recording software
+        <type>string</type>
+      </value>
+    </property>
+  </section>
+</odML>
+
