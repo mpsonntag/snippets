@@ -115,6 +115,32 @@ will always be different.
 
 # Fr, 29.03.2019, 09:00 - 20:00 ()
 
+[C] odml nix converter seems broken on many levels.
+    - fix it
+    - add proper usage advice
+    - add proper docstrings and a short tutorial
+
+[C] odml converter - do not export any unsupported xml attributes at the document level either
+
+[C] DATS initiative for making data findable
+    - check if we can get gin listed there
+    - if we have to provide specific information in the DATS format to make repos available
+    - create these schemas from the data available in odml and present them to the dats server for consumption
+
+    https://www.nature.com/articles/sdata201759
+    https://github.com/biocaddie/WG3-MetadataSpecifications
+    https://datatagsuite.github.io/
+
+    - registered datasets can be searched and found via
+    https://datamed.org/
+
+
+
+
+
+
+
+
 Short final presentation:
 
 Our group focused on two main aspects:
