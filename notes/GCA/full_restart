@@ -14,15 +14,14 @@ GCAIMG=gnode/gca:latest
 GCAPGRES=pgres_gca_bee
 GCA=gca_bee
 GCANET=gcanet
-GCAPROXY=172.0.0.1
 
-# Cleanup prevous containers
-sudo docker rm $GCAPGRES
-sudo docker rm $GCA
+# Cleanup previous containers
+sudo docker rename $GCAPGRES ${$GCAPGRES}_$(date +"%Y%m%dT%H%M%S")
+sudo docker rename $GCA ${GCA}_$(date +"%Y%m%dT%H%M%S")
 
 # Start docker container
 sudo docker run -dit --restart always --name $GCAPGRES --network=$GCANET -v $GCAPGRESDB:/var/lib/postgresql/data -p 5432:5432 $GCAPGRESIMG
 
 # Start play framework container
-sudo docker run -dit --restart always --name $GCA --network=$GCANET --ip=$GCAPROXY -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
+sudo docker run -dit --restart always --name $GCA --network=$GCANET -v $GCACONF:/srv/ext_conf/ -v $GCAFIG:/srv/gca/figures/ -v $GCAFIGMOBILE:/srv/gca/figures_mobile/ -p 9000:9000 $GCAIMG
 
