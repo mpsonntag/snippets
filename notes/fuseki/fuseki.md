@@ -17,7 +17,7 @@ fuseki setup
 // make sure a suitable run directory is already available somewhere
 
     export FUSEKI_BASE=/home/msonntag/Chaos/DL/fuseki
-    
+
 Use the following users and permissions to prohibit unwanted modification of 
 data via the webinterface in `shiro.ini`.
 
@@ -63,3 +63,14 @@ data via the webinterface in `shiro.ini`.
 
     docker run -dit --rm --name fuseki_bee -p 4044:4044 -v /home/msonntag/Chaos/DL/fuseki:/content fuseki
 
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+    some setup documentation
+
+    http://www.ddmore.eu/sites/ddmore/files/Fuseki_Server_Installation_0.pdf
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
