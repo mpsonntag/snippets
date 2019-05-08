@@ -74,3 +74,13 @@ data via the webinterface in `shiro.ini`.
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
+
+
+starting server at port 3030 from fuseki root:
+
+    ./fuseki start
+
+stopping server:
+
+    ./fuseki stop
+
