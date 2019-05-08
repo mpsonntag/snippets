@@ -84,3 +84,116 @@ stopping server:
 
     ./fuseki stop
 
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+## Setting up the server for fuseki
+
+- make sure apache is there; install otherwise
+
+        sudo apt-get update
+        sudo apt-get install apache2
+
+- make sure all required apache modules are active
+
+        sudo a2enmod rewrite
+        sudo a2enmod ssl
+        sudo a2enmod proxy
+        sudo a2enmod proxy_http
+        sudo a2enmod proxy_html
+        sudo a2enmod http2
+        sudo systemctl restart apache2
+
+- add a sites available entry
+
+        sudo vim /etc/apache2/sites-available/meta.g-node.org
+
+- make sure certbot is available, install otherwise
+
+        sudo apt install certbot
+
+- stop the apache server before setting up an encryption
+
+        sudo service apache2 stop
+
+- setup a certificate for the service domain name
+
+        sudo certbot certonly
+
+- deactivate the default encryption and add the new one
+
+
+- start apache
+
+        sudo service apache2 start
+
+
+
+
+
+- setup required users and folders
+
+- create user fuseki and add to docker group
+
+    sudo useradd -M -G docker gca
+
+- if it already exists, we can add it to the docker group
+
+    sudo usermod -a -G docker fuseki
+
+- disable login for user
+
+    sudo usermod -L fuseki
+
+- create work folder
+
+    mkdir -p /web/fuseki
+
+- change permissions so our process can write to this folder when starting the service
+
+    sudo chown -R docker:docker /web/fuseki
+
+
+
+## Apache Sites available for meta 
+
+    <VirtualHost *:80>
+            ServerName meta.g-node.org
+            ServerAdmin meta@g-node.org
+    
+            <IfModule mod_rewrite.c>
+                   RewriteEngine On
+                   RewriteCond %{HTTPS} off
+                   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+            </IfModule>
+          <IfModule mod_headers.c>
+                    <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
+                    Header set Access-Control-Allow-Origin "*"
+                    </FilesMatch>
+            </IfModule>
+    
+    RewriteCond %{SERVER_NAME} =meta.g-node.org
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+    </VirtualHost>
+    
+    <VirtualHost *:443>
+            ServerName meta.g-node.org
+            ServerAdmin dev@g-node.org
+    
+            SSLEngine On
+    
+            ProxyPreserveHost    On
+            ProxyRequests Off
+            ProxyPass / http://172.30.0.3:3030/
+            ProxyPassReverse / http://172.30.0.3:3030/
+            <IfModule mod_headers.c>
+                    <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
+                    Header set Access-Control-Allow-Origin "*"
+                    </FilesMatch>
+            </IfModule>
+                    SSLCertificateFile /etc/letsencrypt/live/meta.g-node.org/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/meta.g-node.org/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    </VirtualHost>
