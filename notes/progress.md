@@ -34,6 +34,7 @@ HTTPS
 
 # Linux commands and paths to rehearse
 
+watch
 
 useradd
 
@@ -49,7 +50,7 @@ scp
 
 systemctl [start stop]
 
-journalctl
+journalctl -f
 
 apache2 [start stop reload restart]
 
@@ -59,7 +60,11 @@ certbot
 
 nmap
 
-netstat
+ss
+
+gunzip
+
+tar
 
 
 /etc/apache2
@@ -92,9 +97,11 @@ docker logs -f [container]
 docker exec -it [container] /bin/bash
 
 
-
 docker-compose -p [projectname] up -d
 
+## Notes
+- when using volumes, the directories on the host system need to be assigned either 
+  to a user that is in the user group or should be assigned to the docker group. 
 
 
 # Postgres
@@ -105,3 +112,16 @@ psql -U[username] -d[dbname]
 \dt ... list tables
 \d [table] ... display details of [table]
 
+
+# Random usage notes
+
+How to figure out if anyone is connected to a service:
+
+    /var/log/apache2/other_vhosts_access.log
+    
+    # e.g.
+    cat /var/log/apache2/other_vhosts_access.log | grep "GET /login"
+
+Or connect to the web service docker container and run
+
+    watch ss
