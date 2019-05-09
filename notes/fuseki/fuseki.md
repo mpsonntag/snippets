@@ -75,7 +75,6 @@ data via the webinterface in `shiro.ini`.
 
 ------------------------------------------------------------------------------------------
 
-
 starting server at port 3030 from fuseki root:
 
     ./fuseki start
@@ -83,7 +82,6 @@ starting server at port 3030 from fuseki root:
 stopping server:
 
     ./fuseki stop
-
 
 ------------------------------------------------------------------------------------------
 
@@ -129,9 +127,7 @@ stopping server:
 
         sudo service apache2 start
 
-
-
-
+----------------------------------------------------
 
 - setup required users and folders
 
@@ -153,9 +149,11 @@ stopping server:
 
 - change permissions so our process can write to this folder when starting the service
 
-    sudo chown -R docker:docker /web/fuseki
+    sudo chown -R fuseki:docker /web/fuseki
 
+------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------
 
 ## Apache Sites available for meta 
 
