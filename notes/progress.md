@@ -65,6 +65,15 @@ ss
 rsync
 
 
+hostname
+
+    # print name of the current host
+    hostname
+
+    # print IP of the current host
+    hostname -I
+
+
 Compress all files into a common zip archive
 
     zip [archive_name] [directory]
@@ -184,3 +193,7 @@ How to figure out if anyone is connected to a service:
 Or connect to the web service docker container and run
 
     watch ss
+
+Connect to one host via another one that is accessible from outside a network
+
+    ssh -A -J username@gateway.org username@[ip address of target in closed network]
