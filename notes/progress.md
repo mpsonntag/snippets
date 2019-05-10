@@ -62,10 +62,61 @@ nmap
 
 ss
 
-gunzip
+rsync
 
-tar
 
+Compress all files into a common zip archive
+
+    zip [archive_name] [directory]
+    
+    # add files recursively
+    zip -r [name] [dir] 
+
+    # move files into the archive
+    zip -m [name] [dir]
+
+    # add a password
+    zip -e [name] [dir]
+
+    # exclude specific files e.g. text files
+    zip -e [name] [dir] -x \*.txt
+
+Decompress zip archive
+
+    # unzip all files into the current directory
+    unzip [archive_name]
+    
+    # unzip all files in a directory - will create the dir if it does not exist
+    unzip [name] -d [directory_name]
+
+    # unzip files without overwriting files
+    unzip -n [name]
+
+    # list content
+    unzip -l [name]
+
+Compress all files into a common tar archive
+
+    # c ... create, z ... zip content, v ... verbose, f ... archive_name
+    tar -czvf [archive_name].gz.tar [directory]
+
+Decompress all files from a tar archive
+
+    # x ... extract, z .. unzip content, v ... verbose, f ... archive_name; 
+    # Extract content into current directory
+    tar -xzvf [archive_name].gz.tar
+
+Compress all files in a specified directory individually
+
+    gzip [dir]/*
+
+    # include subdirectories
+    gzip -r [dir]/*
+
+Decompress all zipped files in a specific directory
+
+    gunzip [dir]/*
+    gzip -d [dir]/*
 
 /etc/apache2
 /etc/letsencrypt
