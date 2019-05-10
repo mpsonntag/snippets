@@ -34,7 +34,7 @@ HTTPS
 
 # Linux commands and paths to rehearse
 
-watch
+## User and permission commands
 
 useradd
 
@@ -44,9 +44,13 @@ chown
 
 chmod
 
-ssh
 
-scp
+## File commands
+
+watch
+
+
+## Server commands
 
 systemctl [start stop]
 
@@ -58,12 +62,12 @@ a2ensite a2disite; a2enmod
 
 certbot
 
-nmap
+
+## Networking commands
 
 ss
 
-rsync
-
+nmap
 
 hostname
 
@@ -72,6 +76,12 @@ hostname
 
     # print IP of the current host
     hostname -I
+
+rsync
+
+ssh
+
+scp
 
 
 Compress all files into a common zip archive
@@ -134,6 +144,7 @@ Deduplicate files
     # remove duplicates without asking
     fdupes -dN [dir]
 
+## Paths
 
 /etc/apache2
 /etc/letsencrypt
