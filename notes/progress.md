@@ -118,6 +118,14 @@ Decompress all zipped files in a specific directory
     gunzip [dir]/*
     gzip -d [dir]/*
 
+Deduplicate files
+
+    fdupes [dir]
+    
+    # remove duplicates without asking
+    fdupes -dN [dir]
+
+
 /etc/apache2
 /etc/letsencrypt
 
