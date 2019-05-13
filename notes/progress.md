@@ -5,8 +5,8 @@ inter network communication protocol to enable communication between
 two defined addresses. IPv4 addresses.
 
 UDP ... User datagram protocol
-inter network data transfer protocol. carries only checksum and the address
-of the receiver. does not provide support against data loss.
+inter network data transfer protocol. carries besides the data itself only 
+checksum and the address of the receiver. does not provide support against data loss.
 
 
 Ports ... 
@@ -29,8 +29,20 @@ HTTP
 
 HTTPS
 
+TLS
 
-# Linux commands and paths to rehearse
+SSH
+
+
+
+# Linux commands and paths
+
+... that are good to know and understand...
+
+Display all environmental variables
+
+    env
+
 
 ## User and permission commands
 
@@ -88,6 +100,8 @@ ssh
 scp
 
 
+## File handling
+
 Compress all files into a common zip archive
 
     zip [archive_name] [directory]
@@ -141,22 +155,42 @@ Decompress all zipped files in a specific directory
     gunzip [dir]/*
     gzip -d [dir]/*
 
-Deduplicate files
+Deduplicate files; the files to be compared for deduplication must not be zipped
 
     fdupes [dir]
     
     # remove duplicates without asking
     fdupes -dN [dir]
 
+
 ## Paths
 
+### Server related paths
 /etc/apache2
 /etc/letsencrypt
 
+### user and groups
 /etc/group
 /etc/passwd
 
+
+/var/logs
+
+
 /home/[uname]/.ssh
+
+
+Systemwide available executables
+
+    /usr/bin
+
+
+## Env vars
+
+$PATH
+$USER
+$UID
+$HOME
 
 
 
