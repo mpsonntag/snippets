@@ -1,37 +1,54 @@
 #!/bin/bash
-
 # Simple copy backup file for a specific directory
 
 set -eu
 
-echo "-- Running backup script..."
+echo "... Running backup script..."
 
-DRIVENAME = $1
-
-if [! $DRIVENAME ]; then
+if [ $# != 1 ]; then
     echo "Please provide the name of the target media"
-    exit 0
+    exit 1
 fi
+
+DRIVENAME=$1
 
 TARGETPATH=/media/$USER/$DRIVENAME
 SOURCEPATH=$HOME/Chaos/DC
 
-if [! -d $TARGETPATH ]; then
-    echo "Cannot find target: "$TARGETPATH
-    exit 0
+if [ ! -d $TARGETPATH ]; then
+    echo "... Cannot find target: ${TARGETPATH}"
+    exit 1
 fi
 
-if [! -d $SOURCEPATH ]; then
-    echo "Cannot find source: "$SOURCEPATH
-    exit 0
+if [ ! -d $SOURCEPATH ]; then
+    echo "... Cannot find source: ${SOURCEPATH}"
+    exit 1
 fi 
 
-echo "    -- Removing old files..."
+echo "... Using target: ${TARGETPATH}"
+echo "... Using source: ${SOURCEPATH}"
+
+echo "    Removing old files..."
 if [ -d $TARGETPATH"/DC" ]; then
+    echo -n "    Removing '${TARGETPATH}/DC' (y/n):"
+    read -s CHOICE
+    echo
+
+    if [ ! $CHOICE ]; then
+        echo "... Exiting (no choice)"
+        exit 0
+    fi
+
+    if [ $CHOICE != "y" ]; then
+        echo "... Exiting (${CHOICE})"
+        exit 0
+    fi
+
     rm $TARGETPATH/DC -rv
 fi
+printf "... Removal done!\n\n"
 
-echo "    -- Copying directory..."
+echo "    Copying directory ${SOURCEPATH}..."
 cp -rv $SOURCEPATH $TARGETPATH
 
-echo "\n    -- Copying done..."
+printf "\n... Copying done!\n"
