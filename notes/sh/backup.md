@@ -13,8 +13,8 @@ if [! $DRIVENAME ]; then
     exit 0
 fi
 
-TARGETPATH=/media/$USERNAME/$DRIVENAME
-SOURCEPATH=/home/$USERNAME/Chaos/DC
+TARGETPATH=/media/$USER/$DRIVENAME
+SOURCEPATH=$HOME/Chaos/DC
 
 if [! -d $TARGETPATH ]; then
     echo "Cannot find target: "$TARGETPATH
