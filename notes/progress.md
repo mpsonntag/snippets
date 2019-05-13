@@ -1,5 +1,3 @@
---------------------- intermediate notes --------------------
-
 # Networking
 
 IP ... internet protocol
@@ -48,6 +46,12 @@ chmod
 ## File commands
 
 watch
+
+disk usage; display estimated size of a directory
+
+    # s ... print only total size
+    # h ... print human friendly sizes
+    du -sh [dir_path]
 
 
 ## Server commands
