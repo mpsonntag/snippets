@@ -78,6 +78,17 @@ a2ensite a2disite; a2enmod
 
 certbot
 
+Scheduled jobs via `crontab`:
+
+    # list current users crontab
+    crontab -l
+
+    # list specificed users crontab
+    sudo crontab -lu [username]
+
+    # edit crontab [for superuser]
+    [sudo] crontab -e 
+
 
 ## Networking commands
 
@@ -246,3 +257,10 @@ Or connect to the web service docker container and run
 Connect to one host via another one that is accessible from outside a network
 
     ssh -A -J username@gateway.org username@[ip address of target in closed network]
+
+Find out which operating system is running
+
+    uname -a
+    lsb_release -a
+    cat /etc/*_version
+    cat /etc/*-release
