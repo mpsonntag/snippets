@@ -1,8 +1,24 @@
 #!/bin/bash
+
 # File unzips postgres db backup files, renames them and zips
 # them again to the original name.
+# Usage e.g. bash psqlren.sh .
 
-FILES=/home/msonntag/Chaos/DL/tmp/test/*.sql.gz
+
+if [ $# != 1 ]; then
+    echo "... Postgres dump file directory required"
+    echo "    exiting..."
+    exit 1
+fi
+
+if [ ! -d $1 ]; then
+    echo "... $1 is not a valid directory"
+    echo "    exiting..."
+    exit 1
+fi
+
+DIR="$(readlink -f $1)"
+FILES=$DIR/*.sql.gz
 
 for f in $FILES
 do
