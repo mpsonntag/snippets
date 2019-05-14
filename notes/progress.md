@@ -57,13 +57,25 @@ chmod
 
 ## File commands
 
+Get the name of a file in a path
+
+        basename [path]
+
+Get the directory of a file in a path
+
+        dirname [path]
+
 watch
 
-disk usage; display estimated size of a directory
+directory disk usage; display estimated size of a directory
 
     # s ... print only total size
     # h ... print human friendly sizes
     du -sh [dir_path]
+
+system disk usage; display system wide disk space usage
+
+    df -h
 
 
 ## Server commands
