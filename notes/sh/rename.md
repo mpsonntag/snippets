@@ -22,11 +22,12 @@ FILES=$DIR/*.sql.gz
 
 for f in $FILES
 do
-  gunzip $f
-  curr="$(basename $f)"
-  currsql=${curr%".gz"}
+  csf=${f%".gz"}
   new="$(dirname $f)/dump.sql"
-  mv -v $f $new
+
+  gunzip -v $f
+  mv -v $csf $new
   gzip -v $new
   mv -v $new".gz" $f
+  echo
 done
