@@ -54,6 +54,19 @@ chown
 
 chmod
 
+sudo ... execute commands as a different user. default user is root
+
+su ... switch to a different user; can also run commands w/o opening a new shell
+
+    # switch to a different user, opening a new shell, stop with 'exit'
+    su - username
+
+    # run a command as specific user; requires password
+    # -m preserves the current environment except for $PATH
+    # -c invokes running a command
+    su username -m -c 'ls -la'
+
+passwd ... change password
 
 ## File commands
 
@@ -116,11 +129,13 @@ hostname
     # print IP of the current host
     hostname -I
 
+ssh ... log into a remote host. requires a private ssh key in ~/.ssh and
+        the public key pendant in ~/.ssh on the remote host.
+
+scp ... provides remote access like ssh, but copies files instead of logging
+        into the remote machine.
+
 rsync
-
-ssh
-
-scp
 
 
 ## File handling
@@ -184,6 +199,10 @@ Deduplicate files; the files to be compared for deduplication must not be zipped
     
     # remove duplicates without asking
     fdupes -dN [dir]
+
+Get md5 hashes of files:
+
+    md5sum *
 
 
 ## Paths
