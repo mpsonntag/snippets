@@ -46,17 +46,17 @@ Display all environmental variables
 
 ## User and permission commands
 
-useradd
+`useradd` ... add a user
 
-groupadd
+`groupadd` ... add a user to a group
 
-chown
+`chown` ... change the owner or a file or directory
 
-chmod
+`chmod`
 
-sudo ... execute commands as a different user. default user is root
+`sudo` ... execute commands as a different user. default user is root
 
-su ... switch to a different user; can also run commands w/o opening a new shell
+`su` ... switch to a different user; can also run commands w/o opening a new shell
 
     # switch to a different user, opening a new shell, stop with 'exit'
     su - username
@@ -66,7 +66,7 @@ su ... switch to a different user; can also run commands w/o opening a new shell
     # -c invokes running a command
     su username -m -c 'ls -la'
 
-passwd ... change password
+`passwd` ... change password
 
 ## File commands
 
@@ -78,7 +78,12 @@ Get the directory of a file in a path
 
         dirname [path]
 
-watch
+watch a file or a command and refresh the view
+
+    # e.g. the content of a file
+    watch tail file.log
+    # e.g. running docker containers
+    watch docker ps
 
 directory disk usage; display estimated size of a directory
 
@@ -93,15 +98,17 @@ system disk usage; display system wide disk space usage
 
 ## Server commands
 
-systemctl [start stop]
+`systemctl [start stop] [service]`
 
-journalctl -f
+`journalctl -f`
 
-apache2 [start stop reload restart]
+`apache2 [start stop reload restart]`
 
-a2ensite a2disite; a2enmod
+`a2enmod` ... enable an apache2 mod
+`a2ensite` ... enable an available apache2 webservice configuration
+`a2disite` ... disable an available apache2 webservice configuration
 
-certbot
+`certbot` ... create https certificates for a webservice
 
 Scheduled jobs via `crontab`:
 
@@ -117,11 +124,14 @@ Scheduled jobs via `crontab`:
 
 ## Networking commands
 
-ss
+`ss` ... tool to investigate sockets (former `netstats`)
 
-nmap
+`nmap` ... show ports of a running server
 
-hostname
+    # e.g.
+    nmap example.org
+
+`hostname`
 
     # print name of the current host
     hostname
@@ -129,13 +139,13 @@ hostname
     # print IP of the current host
     hostname -I
 
-ssh ... log into a remote host. requires a private ssh key in ~/.ssh and
-        the public key pendant in ~/.ssh on the remote host.
+`ssh` ... log into a remote host. requires a private ssh key in ~/.ssh and
+        the public key pendant in the ~/.ssh/authorized_keys file on the remote host.
 
-scp ... provides remote access like ssh, but copies files instead of logging
+`scp` ... provides remote access like ssh, but copies files instead of logging
         into the remote machine.
 
-rsync
+`rsync` ...
 
 
 ## File handling
@@ -208,18 +218,16 @@ Get md5 hashes of files:
 ## Paths
 
 ### Server related paths
-/etc/apache2
-/etc/letsencrypt
+    /etc/apache2
+    /etc/letsencrypt
 
 ### user and groups
-/etc/group
-/etc/passwd
+    /etc/group
+    /etc/passwd
 
+    /var/logs
 
-/var/logs
-
-
-/home/[uname]/.ssh
+    /home/[uname]/.ssh
 
 
 Systemwide available executables
@@ -229,34 +237,62 @@ Systemwide available executables
 
 ## Env vars
 
-$PATH
-$USER
-$UID
-$HOME
+    $PATH
+    $USER
+    $UID
+    $HOME
 
 
 
 # Docker variants
 
 
-docker build -t [containername:label] .
+Build a container with the source code found at a provided directory
 
-docker run --rm -dit
+    docker build -t [containername:label] [source_dir]
 
-docker ps
+Start a container in detatched mode, remove it when it is stopped.
 
-docker images
+    docker run --rm -dit [container]
 
-docker rm [container]
+List running containers
 
-docker rmi [image]
+    docker ps
 
-docker logs -f [container]
+List all containers, running and stopped
 
-docker exec -it [container] /bin/bash
+    docker ps -a
 
+List all images
 
-docker-compose -p [projectname] up -d
+    docker images
+
+Remove container
+
+    docker rm [container]
+
+Remove image
+
+    docker rmi [image]
+
+Access log of a running container and follow
+
+    docker logs -f [container]
+
+Access a running container in interactive mode
+
+    docker exec -it [container] /bin/bash
+
+## Docker compose
+
+Start docker containers defined in a `docker-compose.yml` file. This
+file has to reside in the directory where the following command is executed.
+Any `.env` file providing environment variables for the services have to reside 
+in the same directory as well.
+
+    # -p defines a name for the started containers. by default, its the directory name (?)
+    # -d starts the containers in detached mode 
+    docker-compose -p [projectname] up -d
 
 ## Notes
 - when using volumes, the directories on the host system need to be assigned either 
@@ -265,11 +301,15 @@ docker-compose -p [projectname] up -d
 
 # Postgres
 
-psql -U[username] -d[dbname]
+Access a specific database with a specific user
 
-\dn ... list schemas
-\dt ... list tables
-\d [table] ... display details of [table]
+    psql -U[username] -d[dbname]
+
+`\dn`           ... list schemas
+
+`\dt`           ... list tables
+
+`\d [table]`    ... display details of [table]
 
 
 # Random usage notes
