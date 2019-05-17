@@ -70,6 +70,11 @@ Display all environmental variables
 
 ## File commands
 
+Copy command
+
+        # -r ... recursive, -u update target only, -L resolve symbolic links, v ... verbose
+        cp -vruL [source_directory] [target_directory]
+
 Get the name of a file in a path
 
         basename [path]
@@ -96,6 +101,21 @@ system disk usage; display system wide disk space usage
     df -h
 
 
+## Shell commands
+
+`shopt` ... shell options
+
+    # list all available shell options and whether they are set
+    shopt
+
+    # set a shell option
+    shopt -s [option]
+
+`xargs` ... pass output of a command to the next
+
+    ls -d [dir_path] | xargs -I {} echo {}
+
+
 ## Server commands
 
 `systemctl [start stop] [service]`
@@ -120,6 +140,13 @@ Scheduled jobs via `crontab`:
 
     # edit crontab [for superuser]
     [sudo] crontab -e 
+
+
+## Process commands
+
+`ps` ... display running processes
+
+processes can be found in `/proc/$PID`
 
 
 ## Networking commands
