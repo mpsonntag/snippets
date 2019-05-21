@@ -34,14 +34,56 @@ TLS
 SSH
 
 
+TTY ... teletypewriter - driver to provide connection between kernel and a shell
+"In unix terminology, a tty is a particular kind of device file which implements a 
+number of additional commands (ioctls) beyond read and write. In its most common meaning, 
+terminal is synonymous with tty." [from here](https://unix.stackexchange.com/a/4132)
+
+A tty provides session management, programm handling (signals for starting, stopping, 
+killing, etc; e.g. SIGTERM, SIGKILL, etc), IO operations in the shell ("line disciplines") 
+and terminal display handling e.g. vim file content display.
+
+[tty introduction](http://www.linusakesson.net/programming/tty/index.php)
+
 
 # Linux commands and paths
 
 ... that are good to know and understand...
 
+## Shell environment
+
 Display all environmental variables
 
     env
+
+## Job control
+
+Starting an application in the background and get the command line back can
+be done by using `&` after the command.
+
+    gedit &
+
+To see which jobs are running in the background of the shell, use `jobs`
+
+    # example of our above case
+    jobs
+    # would print
+    [1]+  Running                 gedit &
+
+Bring a background job to the front by using `fg`
+
+    # in our example
+    fg "%gedit"
+
+A running job blocking the shell can be stopped by using `ctrl+z`
+
+    # jobs would show the following in our example
+    [1]+  Stopped                 gedit
+
+A stopped job can be restarted by `fg` or by `bg` (background)
+
+    # in our example gedit would now run as a job in the background
+    bg "%gedit"
 
 
 ## User and permission commands
@@ -140,13 +182,6 @@ Scheduled jobs via `crontab`:
 
     # edit crontab [for superuser]
     [sudo] crontab -e 
-
-
-## Process commands
-
-`ps` ... display running processes
-
-processes can be found in `/proc/$PID`
 
 
 ## Networking commands
