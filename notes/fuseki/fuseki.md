@@ -155,6 +155,16 @@ stopping server:
 
 ------------------------------------------------------------------------------------------
 
+Code notes:
+
+The routes for the webapp seem to be defined in
+
+jena/jena-fuseki2/jena-fuseki-webapp/src/main/webapp/WEB-INF/web.xml
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
 ## Apache Sites available for meta 
 
     <VirtualHost *:80>
