@@ -345,11 +345,8 @@ Start a container in detatched mode, remove it when it is stopped.
 
 List running containers
 
-    docker ps
-
-List all containers, running and stopped
-
-    docker ps -a
+    # -a ... lists also the stopped containers
+    docker ps [-a]
 
 List all images
 
@@ -370,6 +367,14 @@ Access log of a running container and follow
 Access a running container in interactive mode
 
     docker exec -it [container] /bin/bash
+
+List docker volumes
+
+    docker volume ls
+
+Remove volume
+
+    docker volume rm [volumeName]
 
 ## Docker compose
 
