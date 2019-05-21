@@ -8,7 +8,6 @@ UDP ... User datagram protocol
 inter network data transfer protocol. carries besides the data itself only 
 checksum and the address of the receiver. does not provide support against data loss.
 
-
 Ports ... 
 logical construct to enable multiple different gate points at a specific address
 for different services. can also be seen as an endpoint of a communication 
@@ -94,19 +93,19 @@ A stopped job can be restarted by `fg` or by `bg` (background)
 
 `chown` ... change the owner or a file or directory
 
-`chmod`
+`chmod` ... change file permissions
 
 `sudo` ... execute commands as a different user. default user is root
 
 `su` ... switch to a different user; can also run commands w/o opening a new shell
 
     # switch to a different user, opening a new shell, stop with 'exit'
-    su - username
+    su - [username]
 
     # run a command as specific user; requires password
     # -m preserves the current environment except for $PATH
     # -c invokes running a command
-    su username -m -c 'ls -la'
+    su [username] -m -c 'ls -la'
 
 `passwd` ... change password
 
@@ -274,7 +273,7 @@ Deduplicate files; the files to be compared for deduplication must not be zipped
 
 Get md5 hashes of files:
 
-    md5sum *
+    md5sum [file/dir]
 
 
 ## Paths
