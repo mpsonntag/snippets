@@ -85,6 +85,26 @@ A stopped job can be restarted by `fg` or by `bg` (background)
     bg "%gedit"
 
 
+## Process commands
+
+`ps` ... display running processes
+
+    # plain ps displays the running processes of the current user
+    ps
+
+    # ps -aux displays all running processes
+    ps -aux
+
+Processes can be found in `/proc/$PID`
+
+
+## Terminal commands
+
+`/dev/pts` holds all the currently open terminals
+
+To identify the currently open terminal type `tty`.
+
+
 ## User and permission commands
 
 `useradd` ... add a user
@@ -282,6 +302,10 @@ Get md5 hashes of files:
     /etc/apache2
     /etc/letsencrypt
 
+### Server email related
+    /etc/postfix
+    /etc/aliases
+
 ### user and groups
     /etc/group
     /etc/passwd
@@ -290,8 +314,11 @@ Get md5 hashes of files:
 
     /home/[uname]/.ssh
 
+### TTYs
 
-Systemwide available executables
+    /dev/pts
+
+### Systemwide available executables
 
     /usr/bin
 
