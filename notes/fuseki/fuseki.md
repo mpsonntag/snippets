@@ -241,8 +241,10 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 set -eu
 
 # Required paths, files and folders
-FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test5
-FUSEKIURL=localhost:4044
+FUSEKI_HOME=/home/msonntag/Chaos/staging/fuseki/docker/test
+FUSEKI_URL=localhost:4044
+FUSEKI_NAME=fuseki_bee
+IMAGE=mpsonntag/fuseki:latest
 SHIRO=shiro.ini
 
 echo "... Running fuseki setup script ..."
@@ -259,10 +261,10 @@ if [[ ! -f "$REQFILES/$SHIRO" ]]; then
     exit 1
 fi
 
-mkdir -p $FUSEKIHOME
+mkdir -p $FUSEKI_HOME
 
 # Copy all required files to the appropriate folders
-cp $REQFILES/$SHIRO $FUSEKIHOME/$SHIRO
+cp $REQFILES/$SHIRO $FUSEKI_HOME/$SHIRO
 
 # Create dedicated "fuseki" user and add it to the "docker" group
 if id fuseki >/dev/null 2>&1; then
@@ -274,11 +276,20 @@ fi
 usermod -L fuseki
 
 # Change ownership of main folder to enable docker access
-chown -R fuseki:docker $FUSEKIHOME
+chown -R fuseki:docker $FUSEKI_HOME
 
-docker pull mpsonntag/fuseki
-docker run -dit --rm --name fuseki_bee -p 4044:4044 -v $FUSEKIHOME:/content mpsonntag/fuseki
+docker pull $IMAGE
+docker run -dit --rm --name $FUSEKI_NAME -p 4044:4044 -v $FUSEKI_HOME:/content $IMAGE
+
+echo "... Service is running"
+
+# Password required to set up new database
+echo "... Please enter server password"
+echo -n "... Password:"
+read -s PASS
+echo
 
 # Create a new, empty database
-curl -X POST --data "dbType=tdb&dbName=metadb" $FUSEKIURL/$/datasets
+curl -u admin:$PASS -X POST --data "dbType=tdb&dbName=metadb" $FUSEKI_URL/$/datasets
 
+echo "... Database created; data needs to be uploaded manually"
