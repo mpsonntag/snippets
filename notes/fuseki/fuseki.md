@@ -133,7 +133,7 @@ stopping server:
 
 - create user fuseki and add to docker group
 
-    sudo useradd -M -G docker gca
+    sudo useradd -M -G docker fuseki
 
 - if it already exists, we can add it to the docker group
 
@@ -205,3 +205,33 @@ jena/jena-fuseki2/jena-fuseki-webapp/src/main/webapp/WEB-INF/web.xml
     SSLCertificateKeyFile /etc/letsencrypt/live/meta.g-node.org/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
     </VirtualHost>
+
+## startup script
+
+#!/bin/bash
+
+set -eu
+
+echo "Running fuseki setup script ..."
+
+FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test1
+
+mkdir -p $FUSEKIHOME
+mkdir -p $FUSEKIHOME/configuration
+mkdir -p $FUSEKIHOME/databases
+
+# Create dedicated "fuseki" user and add it to the "docker" group
+if id fuseki >/dev/null 2>&1; then
+    echo "User fuseki already exists"
+else
+    useradd -M -G docker fuseki
+fi
+# Disable login for user fuseki
+usermod -L fuseki
+
+# Change ownership of main folder to enable docker access
+chown -R fuseki:docker $FUSEKIHOME
+
+docker pull mpsonntag/fuseki
+docker run -dit --rm --name fuseki_bee -p 4044:4044 -v $FUSEKIHOME:/content mpsonntag/fuseki
+
