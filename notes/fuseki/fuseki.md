@@ -230,14 +230,19 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
     Include /etc/letsencrypt/options-ssl-apache.conf
     </VirtualHost>
 
-## startup script
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+## init script
 
 #!/usr/env bash
 
 set -eu
 
 # Required paths, files and folders
-FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test
+FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test5
+FUSEKIURL=localhost:4044
 SHIRO=shiro.ini
 
 echo "... Running fuseki setup script ..."
@@ -255,8 +260,6 @@ if [[ ! -f "$REQFILES/$SHIRO" ]]; then
 fi
 
 mkdir -p $FUSEKIHOME
-mkdir -p $FUSEKIHOME/configuration
-mkdir -p $FUSEKIHOME/databases
 
 # Copy all required files to the appropriate folders
 cp $REQFILES/$SHIRO $FUSEKIHOME/$SHIRO
@@ -275,4 +278,7 @@ chown -R fuseki:docker $FUSEKIHOME
 
 docker pull mpsonntag/fuseki
 docker run -dit --rm --name fuseki_bee -p 4044:4044 -v $FUSEKIHOME:/content mpsonntag/fuseki
+
+# Create a new, empty database
+curl -X POST --data "dbType=tdb&dbName=metadb" $FUSEKIURL/$/datasets
 
