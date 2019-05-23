@@ -155,6 +155,18 @@ stopping server:
 
 ------------------------------------------------------------------------------------------
 
+Example curls, not all of them working
+
+
+# this one works
+curl -X POST --data "dbType=tdb&dbName=metadb" localhost:4044/$/datasets
+
+curl -i -X POST -H "Content-Type:application/n-quads" --data-binary "@/home/msonntag/Chaos/staging/fuseki/setup/new2.nq" localhost:4044/$/new2/update
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
 Code notes:
 
 The routes for the webapp seem to be defined in
