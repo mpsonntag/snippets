@@ -208,21 +208,38 @@ jena/jena-fuseki2/jena-fuseki-webapp/src/main/webapp/WEB-INF/web.xml
 
 ## startup script
 
-#!/bin/bash
+#!/usr/env bash
 
 set -eu
 
-echo "Running fuseki setup script ..."
+# Required paths, files and folders
+FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test
+SHIRO=shiro.ini
 
-FUSEKIHOME=/home/msonntag/Chaos/staging/fuseki/docker/test1
+echo "... Running fuseki setup script ..."
+if [[ $# != 1 ]]; then
+    echo "    Please provide the path to the fuseki required files folder"
+    exit 1
+fi
+
+REQFILES=$1
+
+echo "... Checking required files ..."
+if [[ ! -f "$REQFILES/$SHIRO" ]]; then
+    echo "    Could not find file ${REQFILES}/$SHIRO"
+    exit 1
+fi
 
 mkdir -p $FUSEKIHOME
 mkdir -p $FUSEKIHOME/configuration
 mkdir -p $FUSEKIHOME/databases
 
+# Copy all required files to the appropriate folders
+cp $REQFILES/$SHIRO $FUSEKIHOME/$SHIRO
+
 # Create dedicated "fuseki" user and add it to the "docker" group
 if id fuseki >/dev/null 2>&1; then
-    echo "User fuseki already exists"
+    echo "    User fuseki already exists"
 else
     useradd -M -G docker fuseki
 fi
