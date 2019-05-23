@@ -99,7 +99,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	// Parse and load custom server confguration
+	// Parse and load custom server configuration
 	if args["--config"] != nil {
 		content, err := ioutil.ReadFile(args["--config"].(string))
 		if err != nil {
