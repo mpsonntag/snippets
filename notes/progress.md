@@ -296,6 +296,17 @@ Get md5 hashes of files:
     md5sum [file/dir]
 
 
+## Network commands
+
+curl ... run http requests from the command line
+
+    # run a GET http request
+    curl [URL]
+
+    # run a POST http request
+    curl -X POST [URL]
+
+
 ## Paths
 
 ### Server related paths
