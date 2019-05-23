@@ -306,6 +306,12 @@ curl ... run http requests from the command line
     # run a POST http request
     curl -X POST [URL]
 
+    # add content header
+    curl -H "Content-Type: application/rdf+xml" [URL]
+
+Interesting for debugging with Chromium:
+- "Network" - right click request - Copy - Copy as curl
+
 
 ## Paths
 
