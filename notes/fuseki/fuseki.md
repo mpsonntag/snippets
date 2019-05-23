@@ -177,6 +177,18 @@ jena/jena-fuseki2/jena-fuseki-webapp/src/main/webapp/WEB-INF/web.xml
 
 ------------------------------------------------------------------------------------------
 
+Access tabs - remove and use as hidden feature:
+
+http://meta.g-node.org:3030/manage.html
+
+http://meta.g-node.org:3030/dataset.html?tab=info
+http://meta.g-node.org:3030/dataset.html?tab=edit
+http://meta.g-node.org:3030/dataset.html?tab=upload
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
 ## Apache Sites available for meta 
 
     <VirtualHost *:80>
