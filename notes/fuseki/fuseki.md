@@ -163,6 +163,8 @@ curl -X POST --data "dbType=tdb&dbName=metadb" localhost:4044/$/datasets
 
 curl -i -X POST -H "Content-Type:application/n-quads" --data-binary "@/home/msonntag/Chaos/staging/fuseki/setup/new2.nq" localhost:4044/$/new2/update
 
+curl -X POST localhost:4044/$/backup/metadb
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
@@ -234,41 +236,45 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 
 ------------------------------------------------------------------------------------------
 
-## init script
+## init script fuseki_init_empty.sh
 
 #!/usr/bin/env bash
+
+# Script to initialize a fuseki server with an empty database
 
 set -eu
 
 # Required paths, files and folders
-FUSEKI_HOME=/home/msonntag/Chaos/staging/fuseki/docker/test
-FUSEKI_URL=localhost:4044
-FUSEKI_NAME=fuseki_bee
+F_HOME=/home/msonntag/Chaos/staging/fuseki/docker/test
+F_URL=localhost:4044
+DOCKER_NAME=fuseki_bee
 IMAGE=mpsonntag/fuseki:latest
 SHIRO=shiro.ini
 
-echo "... Running fuseki setup script ..."
+echo "Running fuseki setup script ..."
 if [[ $# != 1 ]]; then
-    echo "    Please provide the path to the fuseki required files folder"
+    echo "... Please provide the path to the fuseki required files folder"
     exit 1
 fi
 
 REQFILES=$1
 
-echo "... Checking required files ..."
+echo "Checking required files ..."
 if [[ ! -f "$REQFILES/$SHIRO" ]]; then
-    echo "    Could not find file ${REQFILES}/$SHIRO"
+    echo "... Could not find file ${REQFILES}/$SHIRO"
     exit 1
 fi
 
-mkdir -p $FUSEKI_HOME
+echo "Creating required folders ..."
+mkdir -p $F_HOME
+mkdir -p $F_HOME/backups
 
-# Copy all required files to the appropriate folders
-cp $REQFILES/$SHIRO $FUSEKI_HOME/$SHIRO
+echo "Copying required files ..."
+cp $REQFILES/$SHIRO $F_HOME/$SHIRO
 
 # Create dedicated "fuseki" user and add it to the "docker" group
 if id fuseki >/dev/null 2>&1; then
-    echo "    User fuseki already exists"
+    echo "... User fuseki already exists"
 else
     useradd -M -G docker fuseki
 fi
@@ -276,12 +282,12 @@ fi
 usermod -L fuseki
 
 # Change ownership of main folder to enable docker access
-chown -R fuseki:docker $FUSEKI_HOME
+chown -R fuseki:docker $F_HOME
 
 docker pull $IMAGE
-docker run -dit --rm --name $FUSEKI_NAME -p 4044:4044 -v $FUSEKI_HOME:/content $IMAGE
+docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
 
-echo "... Service is running"
+echo "Service is running"
 
 # Password required to set up new database
 echo "... Please enter server password"
@@ -290,6 +296,7 @@ read -s PASS
 echo
 
 # Create a new, empty database
-curl -u admin:$PASS -X POST --data "dbType=tdb&dbName=metadb" $FUSEKI_URL/$/datasets
+curl -u admin:$PASS -X POST --data "dbType=tdb&dbName=metadb" $F_URL/$/datasets
 
-echo "... Database created; data needs to be uploaded manually"
+echo "Database created; data needs to be uploaded manually"
+echo
