@@ -133,16 +133,16 @@ To identify the currently open terminal type `tty`.
 
 Copy command
 
-        # -r ... recursive, -u update target only, -L resolve symbolic links, v ... verbose
-        cp -vruL [source_directory] [target_directory]
+    # -r ... recursive, -u update target only, -L resolve symbolic links, v ... verbose
+    cp -vruL [source_directory] [target_directory]
 
 Get the name of a file in a path
 
-        basename [path]
+    basename [path]
 
 Get the directory of a file in a path
 
-        dirname [path]
+    dirname [path]
 
 watch a file or a command and refresh the view
 
@@ -295,6 +295,10 @@ Get md5 hashes of files:
 
     md5sum [file/dir]
 
+Print tree structure of a directory
+
+    tree [dir]
+
 
 ## Network commands
 
@@ -334,6 +338,17 @@ Interesting for debugging with Chromium:
 ### TTYs
 
     /dev/pts
+
+### Default mount points
+
+A mount point is a link between a disk partition and the file system on 
+this partition
+
+    cat /etc/fstab
+
+More info on [mount points](http://www.linfo.org/mount_point.html)
+Easy, graphic introduction to [partitioning and mount points](
+https://www.linuxnix.com/what-is-a-mount-point-in-linuxunix/)
 
 ### Systemwide available executables
 
