@@ -252,6 +252,15 @@ Print tree structure of a directory
 
     tree [dir]
 
+## Scripting
+
+Use `test` or `[]` for checks that make sense from a command line perspective
+e.g. if a directory or a file exists, which of a file is older etc.
+This builtin provides a wide range of available checks, see `man test` for a list.
+
+    # e.g. Check whether a directory exists
+    test -d dirname && echo "exists" || echo "does not exist"
+
 
 ## Network commands
 
@@ -302,6 +311,9 @@ this partition
 More info on [mount points](http://www.linfo.org/mount_point.html)
 Easy, graphic introduction to [partitioning and mount points](
 https://www.linuxnix.com/what-is-a-mount-point-in-linuxunix/)
+Another introduction to [Linux disk management](
+https://www.linuxnix.com/disk-management-in-linux/)
+
 
 ### Systemwide available executables
 
