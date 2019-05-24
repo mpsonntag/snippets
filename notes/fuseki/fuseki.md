@@ -236,7 +236,7 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 
 ## init script
 
-#!/usr/env bash
+#!/usr/bin/env bash
 
 set -eu
 
