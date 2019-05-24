@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/env/bin bash
 
 # File unzips postgres db backup files, renames them and zips
 # them again to the original name.

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/env/bin bash
+
 # Simple copy backup file for a specific directory
 
 set -eu
