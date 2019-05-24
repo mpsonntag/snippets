@@ -393,6 +393,19 @@ Remove volume
 
     docker volume rm [volumeName]
 
+
+### Various notes on docker usage
+
+By default docker (images, containers, volumes) reside in `/var/lib/docker`.
+Keep an eye on the size of this folder and migrate if the space runs out.
+
+https://blog.adriel.co.nz/2018/01/25/change-docker-data-directory-in-debian-jessie/ 
+
+When having an external storage location for files via ` -v /external:/internal`,
+the content of `/external` is mounted into the docker volume `/internal`, which resides 
+in `/var/lib/docker`.
+
+
 ## Docker compose
 
 Start docker containers defined in a `docker-compose.yml` file. This
