@@ -390,3 +390,44 @@ docker pull $IMAGE
 docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
 
 echo "The fuseki service is running"
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+## Backup script fuseki_backup.sh
+
+#!/usr/env/bin bash
+
+set -eu
+
+echo "Running fuseki backup ..."
+
+F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/test
+
+FUSEKI_BACKUP=$F_ROOT/backup
+F_HOME=$F_ROOT/service
+F_URL=localhost:4044
+FUSEKI_DB=metadb
+
+# Pack up all required files and folders
+BACKDATE=$(date +"%Y%m%dT%H%M%S")
+ZIPNAME=$FUSEKI_BACKUP/fuseki_$BACKDATE
+
+SHIRO=$F_HOME/shiro.ini
+CONF=$F_HOME/config.ttl
+DBCONF=$F_HOME/configuration/*
+DB=$F_HOME/databases/*
+
+zip -r -X $ZIPNAME $SHIRO $CONF $DBCONF $DB
+
+# Trigger db backup to file
+
+# [xxx] will need auth soon 
+curl -X POST $F_URL/$/backup/$FUSEKI_DB
+
+# deduplicate after backups are done
+fdupes -dN $FUSEKI_BACKUP
+fdupes -dN $F_HOME/backups
+
+# [xxx] Add scp to offsite backup server
