@@ -26,3 +26,12 @@ Check here for details:
 - [Notes on brackets](
   https://stackoverflow.com/questions/2188199/how-to-use-double-or-single-brackets-parentheses-curly-braces
   )
+
+
+### Various script lines
+
+#### Check whether a user is in a specific group
+
+    # check if user 'fuseki' is in group 'docker'
+    VAR=$(id fuseki | grep docker)
+    test -z $VAR && echo "empty" || echo $VAR
