@@ -2,11 +2,6 @@
 
 ... that are good to know and understand...
 
-## Shell environment
-
-Display all environmental variables
-
-    env
 
 ## Job control
 
@@ -60,6 +55,20 @@ To identify the files location of the currently open terminal type `tty`.
 To get more information about what a tty is, read this [tty introduction](
 http://www.linusakesson.net/programming/tty/index.php).
 
+`env` ... Display all environmental variables of the current shell
+
+`shopt` ... shell options
+
+    # list all available shell options and whether they are set
+    shopt
+
+    # set a shell option
+    shopt -s [option]
+
+`xargs` ... pass output of a command to the next
+
+    ls -d [dir_path] | xargs -I {} echo {}
+
 
 ## User and permission commands
 
@@ -93,7 +102,11 @@ http://www.linusakesson.net/programming/tty/index.php).
 
 `passwd` ... change password
 
+
 ## File commands
+
+Use `cp [source] [target]` to copy files or directories
+Use `mv [source] [target]` to move them
 
 Copy command
 
@@ -108,37 +121,97 @@ Get the directory of a file in a path
 
     dirname [path]
 
-watch a file or a command and refresh the view
+Watch a file or a command and refresh the view, exit with `ctrl+c`
 
     # e.g. the content of a file
     watch tail file.log
     # e.g. running docker containers
     watch docker ps
 
-directory disk usage; display estimated size of a directory
+
+## File management
+
+Compress all files in a directory into a common zip archive
+
+    zip [archive_name] [directory]
+    
+    # add files recursively
+    zip -r [name] [dir]
+
+    # move files into the archive (remove them from the directory)
+    zip -m [name] [dir]
+
+    # add a password
+    zip -e [name] [dir]
+
+    # exclude specific files e.g. text files
+    zip [name] [dir] -x \*.txt
+
+Decompress zip archive
+
+    # unzip all files into the current directory
+    unzip [archive_name]
+    
+    # unzip all files into a directory - will create the dir if it does not exist
+    unzip [name] -d [directory_name]
+
+    # unzip files without overwriting files
+    unzip -n [name]
+
+    # list content
+    unzip -l [name]
+
+Compress all files into a common tar archive; 
+    will not create archive file extension on its own.
+
+    # c ... create, z ... zip content, v ... verbose, f ... archive_name
+    tar -czvf [archive_name].gz.tar [directory]
+
+Decompress all files from a tar archive
+
+    # x ... extract, z .. unzip content, v ... verbose, f ... archive_name; 
+    # Extract content into current directory
+    tar -xzvf [archive_name].gz.tar
+
+Compress all files in a specified directory individually
+
+    gzip [dir]/*
+
+    # include subdirectories
+    gzip -r [dir]/*
+
+Decompress all zipped files in a specific directory
+
+    gunzip [dir]/*
+    gzip -d [dir]/*
+
+Deduplicate files; the files to be compared for deduplication must not be zipped
+
+    fdupes [dir]
+    
+    # remove duplicates without asking
+    fdupes -dN [dir]
+
+Get md5 hashes of files:
+
+    md5sum [file/dir]
+
+Print tree structure of a directory
+
+    tree [dir]
+
+
+## Disk management
+
+Directory disk usage; display estimated size of a directory
 
     # s ... print only total size
     # h ... print human friendly sizes
     du -sh [dir_path]
 
-system disk usage; display system wide disk space usage
+System disk usage; display system wide disk space usage
 
     df -h
-
-
-## Shell commands
-
-`shopt` ... shell options
-
-    # list all available shell options and whether they are set
-    shopt
-
-    # set a shell option
-    shopt -s [option]
-
-`xargs` ... pass output of a command to the next
-
-    ls -d [dir_path] | xargs -I {} echo {}
 
 
 ## Server commands
@@ -192,90 +265,7 @@ Scheduled jobs via `crontab`:
 
 `rsync` ...
 
-
-## File handling
-
-Compress all files into a common zip archive
-
-    zip [archive_name] [directory]
-    
-    # add files recursively
-    zip -r [name] [dir] 
-
-    # move files into the archive
-    zip -m [name] [dir]
-
-    # add a password
-    zip -e [name] [dir]
-
-    # exclude specific files e.g. text files
-    zip -e [name] [dir] -x \*.txt
-
-Decompress zip archive
-
-    # unzip all files into the current directory
-    unzip [archive_name]
-    
-    # unzip all files in a directory - will create the dir if it does not exist
-    unzip [name] -d [directory_name]
-
-    # unzip files without overwriting files
-    unzip -n [name]
-
-    # list content
-    unzip -l [name]
-
-Compress all files into a common tar archive
-
-    # c ... create, z ... zip content, v ... verbose, f ... archive_name
-    tar -czvf [archive_name].gz.tar [directory]
-
-Decompress all files from a tar archive
-
-    # x ... extract, z .. unzip content, v ... verbose, f ... archive_name; 
-    # Extract content into current directory
-    tar -xzvf [archive_name].gz.tar
-
-Compress all files in a specified directory individually
-
-    gzip [dir]/*
-
-    # include subdirectories
-    gzip -r [dir]/*
-
-Decompress all zipped files in a specific directory
-
-    gunzip [dir]/*
-    gzip -d [dir]/*
-
-Deduplicate files; the files to be compared for deduplication must not be zipped
-
-    fdupes [dir]
-    
-    # remove duplicates without asking
-    fdupes -dN [dir]
-
-Get md5 hashes of files:
-
-    md5sum [file/dir]
-
-Print tree structure of a directory
-
-    tree [dir]
-
-## Scripting
-
-Use `test` or `[]` for checks that make sense from a command line perspective
-e.g. if a directory or a file exists, which of a file is older etc.
-This builtin provides a wide range of available checks, see `man test` for a list.
-
-    # e.g. Check whether a directory exists
-    test -d dirname && echo "exists" || echo "does not exist"
-
-
-## Network commands
-
-curl ... run http requests from the command line
+`curl` ... run http requests from the command line
 
     # run a GET http request
     curl [URL]
@@ -288,6 +278,16 @@ curl ... run http requests from the command line
 
 Interesting for debugging with Chromium:
 - "Network" - right click request - Copy - Copy as curl
+
+
+## Scripting
+
+Use `test` or `[]` for checks that make sense from a command line perspective
+e.g. if a directory or a file exists, which of a file is older etc.
+This builtin provides a wide range of available checks, see `man test` for a list.
+
+    # e.g. Check whether a directory exists
+    test -d dirname && echo "exists" || echo "does not exist"
 
 
 ## Paths
