@@ -424,14 +424,9 @@ F_DB=metadb
 BACKDATE=$(date +"%Y%m%dT%H%M%S")
 ZIPNAME=$F_BACKUP/fuseki_$BACKDATE
 
-SHIRO=$F_HOME/shiro.ini
-CONF=$F_HOME/config.ttl
-DBCONF=$F_HOME/configuration/*
-DB=$F_HOME/databases/*
-
 # zip all required folders without file attributes to allow deduplication
 echo "Running file based backup ..."
-zip -r -X $ZIPNAME $SHIRO $CONF $DBCONF $DB
+(cd ${F_HOME} && zip -r -X $ZIPNAME shiro.ini config.ttl configuration/* databases/*)
 
 # Trigger db backup to file; read db password from shiro file
 echo "Running graph base backup ..."
