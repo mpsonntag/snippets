@@ -411,33 +411,40 @@ echo
 
 set -eu
 
-echo "Running fuseki backup ..."
+echo "Running fuseki meta service backup ..."
 
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/test
-
-FUSEKI_BACKUP=$F_ROOT/backup
+F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
 F_HOME=$F_ROOT/service
-F_URL=localhost:4044
-FUSEKI_DB=metadb
+F_BACKUP=$F_ROOT/backup
 
-# Pack up all required files and folders
+F_URL=localhost:4044
+F_DB=metadb
+
+# Backup all required files and folders for a restore action
 BACKDATE=$(date +"%Y%m%dT%H%M%S")
-ZIPNAME=$FUSEKI_BACKUP/fuseki_$BACKDATE
+ZIPNAME=$F_BACKUP/fuseki_$BACKDATE
 
 SHIRO=$F_HOME/shiro.ini
 CONF=$F_HOME/config.ttl
 DBCONF=$F_HOME/configuration/*
 DB=$F_HOME/databases/*
 
+# zip all required folders without file attributes to allow deduplication
+echo "Running file based backup ..."
 zip -r -X $ZIPNAME $SHIRO $CONF $DBCONF $DB
 
-# Trigger db backup to file
+# Trigger db backup to file; read db password from shiro file
+echo "Running graph base backup ..."
+PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
+curl -u admin:$PASS -X POST $F_URL/$/backup/$F_DB
 
-# [xxx] will need auth soon 
-curl -X POST $F_URL/$/backup/$FUSEKI_DB
-
-# deduplicate after backups are done
-fdupes -dN $FUSEKI_BACKUP
+# Deduplicate after backups are done
+echo "Running deduplication ..."
+fdupes -dN $F_BACKUP
 fdupes -dN $F_HOME/backups
 
-# [xxx] Add scp to offsite backup server
+# [toDo] Add scp to offsite backup server
+
+echo "The fuseki meta service backup is done ..."
+echo
+
