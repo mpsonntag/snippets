@@ -10,14 +10,14 @@ Display all environmental variables
 
 ## Job control
 
-Starting an application in the background and get the command line back can
-be done by using `&` after the command.
+Starting an application in the background and returning an active command line 
+can be done by using `&` after the command.
 
     gedit &
 
 To see which jobs are running in the background of the shell, use `jobs`
 
-    # example of our above case
+    # example of the use case above
     jobs
     # would print
     [1]+  Running                 gedit &
@@ -53,9 +53,12 @@ Processes can be found in `/proc/$PID`
 
 ## Terminal commands
 
-`/dev/pts` holds all the currently open terminals
+`/dev/pts` contains the required files of all the currently open terminals
 
-To identify the currently open terminal type `tty`.
+To identify the files location of the currently open terminal type `tty`.
+
+To get more information about what a tty is, read this [tty introduction](
+http://www.linusakesson.net/programming/tty/index.php).
 
 
 ## User and permission commands
@@ -438,3 +441,29 @@ Find out which operating system is running
     lsb_release -a
     cat /etc/*_version
     cat /etc/*-release
+
+## Using different java versions
+
+Currently there are a couple of java version from two main distributers (Oracle, OpenJava)
+flying around. One can have both of them installed and switch between them using the
+`update-alternatives` command.
+
+If one does `which java`, it will give the path `/usr/bin/java`. An `ls` on that folder
+will show, that this is actually just a link to a java version in `/etc/alternatives/jvm`.
+An `ls` on the `/etc/alternatives/jvm` folder will show, which java version are installed.
+
+To switch between these alternatives use:
+
+    `sudo update-alternatives --config java`
+
+There you will be prompted to select which of the java versions installed should
+be linked to `/usr/bin/java`.
+
+Be aware tough, that this does not also link the `javac` command to the appropriate
+version as well. So you usually should update both to the required java distribution.
+
+Check [here](http://ask.xmodulo.com/change-default-java-version-linux.html) for details.
+ 
+
+
+
