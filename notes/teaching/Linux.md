@@ -292,6 +292,19 @@ This builtin provides a wide range of available checks, see `man test` for a lis
 
 ## Paths
 
+### Executables
+
+Most of the executables that are available on the command line are
+softlinks found in this directory:
+
+    /usr/bin
+
+Some of these executables are linked from the alternatives directory, that
+contains different variants of software which in turn contains links to
+the actual location of the files
+
+    /etc/alternatives 
+
 ### Server related paths
     /etc/apache2
     /etc/letsencrypt
@@ -326,7 +339,7 @@ Another introduction to [Linux disk management](
 https://www.linuxnix.com/disk-management-in-linux/)
 
 
-### Systemwide available executables
+### System wide available executables
 
     /usr/bin
 
