@@ -323,7 +323,7 @@ set -eu
 
 # Required paths, files and folders
 F_USER=fuseki
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
+F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta2
 F_HOME=$F_ROOT/service
 
 DOCKER_NAME=fuseki_bee
@@ -338,7 +338,7 @@ DB=databases
 
 echo "Running fuseki setup script ..."
 if [[ $# != 1 ]]; then
-    echo "... Please provide the path to the fuseki required files folder"
+    echo "... Please provide  a directory containing the required files"
     exit 1
 fi
 
@@ -365,6 +365,9 @@ if [[ ! -d "$REQFILES/$DB" ]]; then
     exit 1
 fi
 
+echo "Pulling docker image ${IMAGE} ..."
+docker pull $IMAGE
+
 echo "Creating required folders ..."
 mkdir -p $F_HOME
 mkdir -p $F_ROOT/backup
@@ -372,8 +375,8 @@ mkdir -p $F_ROOT/backup
 echo "Copying required files ..."
 cp $REQFILES/$SHIRO $F_HOME/$SHIRO
 cp $REQFILES/$CFILE $F_HOME/$CFILE
-cp $REQFILES/$CDIR $F_HOME/$CDIR
-cp $REQFILES/$DB $F_HOME/$DB
+cp -r $REQFILES/$CDIR $F_HOME/$CDIR
+cp -r $REQFILES/$DB $F_HOME/$DB
 
 # Create dedicated "fuseki" user and make sure its part of the "docker" group
 echo "Handling required user ${F_USER}"
@@ -381,7 +384,7 @@ if id $F_USER >/dev/null 2>&1; then
     echo "... User ${F_USER} already exists"
 
     VAR=$(id fuseki | grep docker)
-    if [[ -z $VAR]]; then
+    if [[ -z $VAR ]]; then
         echo "... Adding ${F_USER} to the docker group"
         usermod -a -G docker $F_USER
     fi
@@ -395,7 +398,6 @@ usermod -L $F_USER
 # Change ownership of main folder to enable docker access
 chown -R $F_USER:docker $F_HOME
 
-docker pull $IMAGE
 docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
 
 echo "The fuseki meta service is running ..."
