@@ -245,10 +245,14 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 set -eu
 
 # Required paths, files and folders
-F_HOME=/home/msonntag/Chaos/staging/fuseki/docker/test
+F_USER=fuseki
 F_URL=localhost:4044
+
+F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
+F_HOME=$F_ROOT/service
+
 DOCKER_NAME=fuseki_bee
-IMAGE=mpsonntag/fuseki:latest
+IMAGE=mpsonntag/fuseki:noport
 SHIRO=shiro.ini
 
 echo "Running fuseki setup script ..."
@@ -265,40 +269,44 @@ if [[ ! -f "$REQFILES/$SHIRO" ]]; then
     exit 1
 fi
 
+echo "Pulling docker image ..."
+docker pull $IMAGE
+
 echo "Creating required folders ..."
 mkdir -p $F_HOME
-mkdir -p $F_HOME/backups
+mkdir -p $F_ROOT/backup
 
 echo "Copying required files ..."
 cp $REQFILES/$SHIRO $F_HOME/$SHIRO
 
 # Create dedicated "fuseki" user and add it to the "docker" group
 if id fuseki >/dev/null 2>&1; then
-    echo "... User fuseki already exists"
+    echo "... User ${F_USER} already exists"
 else
-    useradd -M -G docker fuseki
+    useradd -M -G docker $F_USER
 fi
 # Disable login for user fuseki
-usermod -L fuseki
+usermod -L $F_USER
 
 # Change ownership of main folder to enable docker access
-chown -R fuseki:docker $F_HOME
+chown -R $F_USER:docker $F_HOME
 
-docker pull $IMAGE
+echo "Starting service ..."
 docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
 
-echo "Service is running"
+echo "The fuseki meta service is running ..."
 
-# Password required to set up new database
-echo "... Please enter server password"
-echo -n "... Password:"
-read -s PASS
-echo
+# Read password required to set up database from shiro file
+PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
 
 # Create a new, empty database
-curl -u admin:$PASS -X POST --data "dbType=tdb&dbName=metadb" $F_URL/$/datasets
+sleep 5
+echo "Creating empty database 'metadb' at ${F_URL} ..."
+echo
+curl -v -u admin:${PASS} -X POST --data "dbType=tdb&dbName=metadb" ${F_URL}/$/datasets
+echo
 
-echo "Database created; data needs to be uploaded manually"
+echo "Database created; data needs to be uploaded manually ..."
 echo
 
 ------------------------------------------------------------------------------------------
