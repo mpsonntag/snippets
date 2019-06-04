@@ -38,8 +38,9 @@ TTY ... teletypewriter - driver to provide connection between kernel and a shell
 number of additional commands (ioctls) beyond read and write. In its most common meaning, 
 terminal is synonymous with tty." [from here](https://unix.stackexchange.com/a/4132)
 
-A tty provides session management, programm handling (signals for starting, stopping, 
-killing, etc; e.g. SIGTERM, SIGKILL, etc), IO operations in the shell ("line disciplines") 
-and terminal display handling e.g. vim file content display.
+A tty provides session management, program handling (signals for starting, stopping, 
+killing of processes, etc; e.g. SIGTERM, SIGKILL, ... when an application stops, the 
+SIGTERM is used), IO operations in the shell ("line disciplines") and terminal display 
+handling e.g. vim file content display.
 
 [tty introduction](http://www.linusakesson.net/programming/tty/index.php)

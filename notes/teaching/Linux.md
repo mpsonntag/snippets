@@ -67,9 +67,17 @@ http://www.linusakesson.net/programming/tty/index.php).
 
 `groupadd` ... add a user to a group
 
-`chown` ... change the owner or a file or directory
+`chown` ... change the user and group owners of a file or directory
 
-`chmod` ... change file permissions
+    chown [username]:[group] [file/dir]
+
+    # if a directory is provided, -R can also change ownership recursively for all children
+    chown -R fuseki:docker /some/directory
+
+`chmod` ... change file permissions; define which users and groups 
+            are allowed to access, change or execute a file.
+            Read up [here](https://www.linux.org/threads/file-permissions-chmod.4124/) 
+            on file permissions.
 
 `sudo` ... execute commands as a different user. default user is root
 
