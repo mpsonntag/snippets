@@ -323,10 +323,11 @@ set -eu
 
 # Required paths, files and folders
 F_USER=fuseki
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/test
+F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
 F_HOME=$F_ROOT/service
+
 DOCKER_NAME=fuseki_bee
-IMAGE=mpsonntag/fuseki:latest
+IMAGE=mpsonntag/fuseki:noport
 
 # fuseki specific required files and folders
 SHIRO=shiro.ini
@@ -366,7 +367,7 @@ fi
 
 echo "Creating required folders ..."
 mkdir -p $F_HOME
-mkdir -p $F_ROOT/backups
+mkdir -p $F_ROOT/backup
 
 echo "Copying required files ..."
 cp $REQFILES/$SHIRO $F_HOME/$SHIRO
@@ -397,7 +398,8 @@ chown -R $F_USER:docker $F_HOME
 docker pull $IMAGE
 docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
 
-echo "The fuseki service is running"
+echo "The fuseki meta service is running ..."
+echo
 
 ------------------------------------------------------------------------------------------
 
