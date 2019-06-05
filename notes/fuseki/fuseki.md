@@ -245,21 +245,21 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 set -eu
 
 # Required paths, files and folders
-F_USER=fuseki
+F_USER=meta
 F_URL=localhost:4044
 
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
+F_ROOT=/web/meta
 F_HOME=$F_ROOT/service
 F_BACKUP=$F_ROOT/backup
 
 SHIRO=shiro.ini
 
-IMAGE=mpsonntag/fuseki:noport
-DOCKER_NAME=fuseki_bee
+METAIMG=mpsonntag/fuseki:noport
+METANAME=fuseki_bee
 
-echo "Running fuseki setup script ..."
+echo "Running fuseki meta service setup script ..."
 if [[ $# != 1 ]]; then
-    echo "... Please provide the path to the fuseki required files folder"
+    echo "... Please provide the path to the required files folder"
     exit 1
 fi
 
@@ -271,8 +271,8 @@ if [[ ! -f "$REQFILES/$SHIRO" ]]; then
     exit 1
 fi
 
-echo "Pulling docker image ..."
-docker pull $IMAGE
+echo "Pulling docker image ${METAIMG} ..."
+docker pull $METAIMG
 
 echo "Creating required folders ..."
 mkdir -p $F_HOME
@@ -281,12 +281,12 @@ mkdir -p $F_BACKUP
 echo "Copying required files ..."
 cp $REQFILES/$SHIRO $F_HOME/$SHIRO
 
-# Create dedicated "fuseki" user and add it to the "docker" group
+# Create dedicated "meta" user and make sure its part of the "docker" group
 echo "Handling required user ${F_USER} ..."
 if id $F_USER >/dev/null 2>&1; then
     echo "... User ${F_USER} already exists"
 
-    VAR=$(id fuseki | grep docker)
+    VAR=$(id ${F_USER} | grep docker)
     if [[ -z $VAR ]]; then
         echo "... Adding ${F_USER} to the docker group"
         usermod -a -G docker $F_USER
@@ -302,7 +302,7 @@ usermod -L $F_USER
 chown -R $F_USER:docker $F_HOME
 
 echo "Starting service ..."
-docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
+docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
 echo "The fuseki meta service is running ..."
 
@@ -332,14 +332,14 @@ echo
 set -eu
 
 # Required paths, files and folders
-F_USER=fuseki
+F_USER=meta
 
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta2
+F_ROOT=/web/meta
 F_HOME=$F_ROOT/service
 F_BACKUP=$F_ROOT/backup
 
-IMAGE=mpsonntag/fuseki:noport
-DOCKER_NAME=fuseki_bee
+METAIMG=mpsonntag/fuseki:noport
+METANAME=fuseki_bee
 
 # fuseki specific required files and folders
 SHIRO=shiro.ini
@@ -347,7 +347,7 @@ CFILE=config.ttl
 CDIR=configuration
 DB=databases
 
-echo "Running fuseki setup script ..."
+echo "Running fuseki meta service setup script ..."
 if [[ $# != 1 ]]; then
     echo "... Please provide  a directory containing the required files"
     exit 1
@@ -376,8 +376,8 @@ if [[ ! -d "$REQFILES/$DB" ]]; then
     exit 1
 fi
 
-echo "Pulling docker image ${IMAGE} ..."
-docker pull $IMAGE
+echo "Pulling docker image ${METAIMG} ..."
+docker pull $METAIMG
 
 echo "Creating required folders ..."
 mkdir -p $F_HOME
@@ -389,12 +389,12 @@ cp $REQFILES/$CFILE $F_HOME/$CFILE
 cp -r $REQFILES/$CDIR $F_HOME/$CDIR
 cp -r $REQFILES/$DB $F_HOME/$DB
 
-# Create dedicated "fuseki" user and make sure its part of the "docker" group
+# Create dedicated "meta" user and make sure its part of the "docker" group
 echo "Handling required user ${F_USER} ..."
 if id $F_USER >/dev/null 2>&1; then
     echo "... User ${F_USER} already exists"
 
-    VAR=$(id fuseki | grep docker)
+    VAR=$(id ${F_USER} | grep docker)
     if [[ -z $VAR ]]; then
         echo "... Adding ${F_USER} to the docker group"
         usermod -a -G docker $F_USER
@@ -410,7 +410,7 @@ usermod -L $F_USER
 chown -R $F_USER:docker $F_HOME
 
 echo "Starting service ..."
-docker run -dit --rm --name $DOCKER_NAME -p 4044:4044 -v $F_HOME:/content $IMAGE
+docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
 echo "The fuseki meta service is running ..."
 echo
@@ -427,7 +427,7 @@ set -eu
 
 echo "Running fuseki meta service backup ..."
 
-F_ROOT=/home/msonntag/Chaos/staging/fuseki/docker/meta
+F_ROOT=/web/meta
 F_HOME=$F_ROOT/service
 F_BACKUP=$F_ROOT/backup
 
