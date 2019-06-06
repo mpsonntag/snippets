@@ -433,15 +433,19 @@ F_URL=localhost:4044
 
 F_ROOT=/web/meta
 F_HOME=$F_ROOT/service
+F_ENV=$F_ROOT/env
 F_BACKUP=$F_ROOT/backup
+F_SCRIPTS=$F_ROOT/scripts
 
 # Fuseki specific files and folders
 SHIRO=shiro.ini
+BACKUPSCRIPT=meta_backup.sh
+
 CFILE=config.ttl
 CDIR=configuration
 DB=databases
 
-METAIMG=mpsonntag/fuseki:noport
+METAIMG=mpsonntag/fuseki
 METANAME=fuseki_bee
 
 echo "Running fuseki meta service setup script ..."
@@ -454,6 +458,7 @@ fi
 REQFILES=$1
 
 # Define initialization scheme
+echo
 echo -n "Initialize meta server from backup files (yes/no): "
 read -s FROMBACKUP
 echo $FROMBACKUP
@@ -469,9 +474,25 @@ else
     echo "Initializing empty server ..."
 fi
 
+echo
 echo "Checking required files and directories ..."
 if [[ ! -f "$REQFILES/$SHIRO" ]]; then
     echo "... Could not find file ${REQFILES}/$SHIRO"
+    exit 1
+fi
+
+if [[ ! -f "$REQFILES/$BACKUPSCRIPT" ]]; then
+    echo "... Could not find file ${REQFILES}/$BACKUPSCRIPT"
+    exit 1
+fi
+
+if [[ ! -f "$REQFILES/.env" ]]; then
+    echo "... Could not find file ${REQFILES}/.env"
+    exit 1
+fi
+
+if [[ ! -f "$REQFILES/docker-compose.yml" ]]; then
+    echo "... Could not find file ${REQFILES}/docker-compose.yml"
     exit 1
 fi
 
@@ -493,15 +514,23 @@ if [[ $FROMBACKUP == "yes" ]]; then
 fi
 
 
+echo
 echo "Pulling docker image ${METAIMG} ..."
 docker pull $METAIMG
 
+echo
 echo "Creating required folders ..."
 mkdir -pv $F_HOME
+mkdir -pv $F_ENV
 mkdir -pv $F_BACKUP
+mkdir -pv $F_SCRIPTS
 
+echo
 echo "Copying required files ..."
 cp -v $REQFILES/$SHIRO $F_HOME/$SHIRO
+cp -v $REQFILES/$BACKUPSCRIPT $F_SCRIPTS/$BACKUPSCRIPT
+cp -v $REQFILES/.env $F_ENV/.env
+cp -v $REQFILES/docker-compose.yml $F_ENV/docker-compose.yml
 
 if [[ $FROMBACKUP == "yes" ]]; then
     cp -v $REQFILES/$CFILE $F_HOME/$CFILE
@@ -510,6 +539,7 @@ if [[ $FROMBACKUP == "yes" ]]; then
 fi
 
 # Create dedicated "meta" user and make sure its part of the "docker" group
+echo
 echo "Handling required user ${F_USER} ..."
 if id $F_USER >/dev/null 2>&1; then
     echo "... User ${F_USER} already exists"
@@ -529,6 +559,7 @@ usermod -L $F_USER
 # Change ownership of main folder to enable docker access
 chown -R $F_USER:docker $F_HOME
 
+echo
 echo "Starting service ..."
 docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
@@ -540,6 +571,7 @@ if [[ ! $FROMBACKUP == "yes" ]]; then
 
     # Create a new, empty database
     sleep 5
+    echo
     echo "Creating empty database 'metadb' at ${F_URL} ..."
     echo
     curl -v -u admin:${PASS} -X POST --data "dbType=tdb&dbName=metadb" ${F_URL}/$/datasets
