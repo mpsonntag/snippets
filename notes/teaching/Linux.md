@@ -102,6 +102,9 @@ http://www.linusakesson.net/programming/tty/index.php).
 
 `passwd` ... change password
 
+`id` ... check if a user exists, list user id and groups
+
+    id [username]
 
 ## File commands
 
@@ -314,12 +317,11 @@ the actual location of the files
     /etc/aliases
 
 ### user and groups
-    /etc/group
-    /etc/passwd
+`/etc/group` ... contains all available groups and the ids of users that are part of a group
+`/etc/passwd` ... contains all users with their id, shell preference and home directory
 
-    /var/logs
-
-    /home/[uname]/.ssh
+`/var/logs`
+`/home/[uname]/.ssh` ... directory containing user specific ssh keys
 
 ### TTYs
 
