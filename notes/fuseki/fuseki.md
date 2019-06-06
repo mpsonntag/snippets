@@ -446,13 +446,20 @@ METANAME=fuseki_bee
 
 echo "Running fuseki meta service setup script ..."
 
+if [[ $# != 1 ]]; then
+    echo "... Please provide the path to the required files folder"
+    exit 1
+fi
+
+REQFILES=$1
+
 # Define initialization scheme
 echo -n "Initialize meta server from backup files (yes/no): "
 read -s FROMBACKUP
 echo $FROMBACKUP
 
 if [[ ! $FROMBACKUP == "yes" && ! $FROMBACKUP == "no" ]]; then
-    echo "Please enter 'yes' or 'no'; exiting ..."
+    echo "... Please enter 'yes' or 'no'"
     exit 1
 fi
 
@@ -461,13 +468,6 @@ if [[ $FROMBACKUP == "yes" ]]; then
 else
     echo "Initializing empty server ..."
 fi
-
-if [[ $# != 1 ]]; then
-    echo "... Please provide the path to the required files folder"
-    exit 1
-fi
-
-REQFILES=$1
 
 echo "Checking required files and directories ..."
 if [[ ! -f "$REQFILES/$SHIRO" ]]; then
@@ -497,16 +497,16 @@ echo "Pulling docker image ${METAIMG} ..."
 docker pull $METAIMG
 
 echo "Creating required folders ..."
-mkdir -p $F_HOME
-mkdir -p $F_BACKUP
+mkdir -pv $F_HOME
+mkdir -pv $F_BACKUP
 
 echo "Copying required files ..."
-cp $REQFILES/$SHIRO $F_HOME/$SHIRO
+cp -v $REQFILES/$SHIRO $F_HOME/$SHIRO
 
 if [[ $FROMBACKUP == "yes" ]]; then
-    cp $REQFILES/$CFILE $F_HOME/$CFILE
-    cp -r $REQFILES/$CDIR $F_HOME/$CDIR
-    cp -r $REQFILES/$DB $F_HOME/$DB
+    cp -v $REQFILES/$CFILE $F_HOME/$CFILE
+    cp -rv $REQFILES/$CDIR $F_HOME/$CDIR
+    cp -rv $REQFILES/$DB $F_HOME/$DB
 fi
 
 # Create dedicated "meta" user and make sure its part of the "docker" group
@@ -523,7 +523,7 @@ else
     useradd -M -G docker $F_USER
 fi
 
-# Disable login for user fuseki
+# Disable login for meta user
 usermod -L $F_USER
 
 # Change ownership of main folder to enable docker access
