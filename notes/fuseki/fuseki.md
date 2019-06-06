@@ -236,190 +236,46 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 
 ------------------------------------------------------------------------------------------
 
-## init script fuseki_init_empty.sh
+# Docker compose .env file
 
-#!/usr/bin/env bash
-
-# Script to initialize a fuseki server with an empty database
-
-set -eu
-
-# Required paths, files and folders
-F_USER=meta
-F_URL=localhost:4044
-
+COMPOSE_PROJECT_NAME=meta
 F_ROOT=/web/meta
-F_HOME=$F_ROOT/service
-F_BACKUP=$F_ROOT/backup
-
-SHIRO=shiro.ini
-
-METAIMG=mpsonntag/fuseki:noport
-METANAME=fuseki_bee
-
-echo "Running fuseki meta service setup script ..."
-if [[ $# != 1 ]]; then
-    echo "... Please provide the path to the required files folder"
-    exit 1
-fi
-
-REQFILES=$1
-
-echo "Checking required files ..."
-if [[ ! -f "$REQFILES/$SHIRO" ]]; then
-    echo "... Could not find file ${REQFILES}/$SHIRO"
-    exit 1
-fi
-
-echo "Pulling docker image ${METAIMG} ..."
-docker pull $METAIMG
-
-echo "Creating required folders ..."
-mkdir -p $F_HOME
-mkdir -p $F_BACKUP
-
-echo "Copying required files ..."
-cp $REQFILES/$SHIRO $F_HOME/$SHIRO
-
-# Create dedicated "meta" user and make sure its part of the "docker" group
-echo "Handling required user ${F_USER} ..."
-if id $F_USER >/dev/null 2>&1; then
-    echo "... User ${F_USER} already exists"
-
-    VAR=$(id ${F_USER} | grep docker)
-    if [[ -z $VAR ]]; then
-        echo "... Adding ${F_USER} to the docker group"
-        usermod -a -G docker $F_USER
-    fi
-else
-    useradd -M -G docker $F_USER
-fi
-
-# Disable login for user fuseki
-usermod -L $F_USER
-
-# Change ownership of main folder to enable docker access
-chown -R $F_USER:docker $F_HOME
-
-echo "Starting service ..."
-docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
-
-echo "The fuseki meta service is running ..."
-
-# Read password required to set up database from shiro file
-PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
-
-# Create a new, empty database
-sleep 5
-echo "Creating empty database 'metadb' at ${F_URL} ..."
-echo
-curl -v -u admin:${PASS} -X POST --data "dbType=tdb&dbName=metadb" ${F_URL}/$/datasets
-echo
-
-echo "Database created; data needs to be uploaded manually ..."
-echo
+METAIMG=mpsonntag/fuseki:latest
 
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
 
-## init script fuseki_init_backup.sh
+# Docker compose file
 
-#!/usr/bin/env bash
+version: "3.3"
+services:
 
-# Script to initialize a fuseki server from a whole server backup
+  meta:
+    image: ${METAIMG}
+    ports:
+      - "4044:4044"
+    networks:
+      gcanet:
+        ipv4_address: 172.23.0.3
+    volumes:
+      - content:/content:rw
+    restart: always
+    stdin_open: true
 
-set -eu
-
-# Required paths, files and folders
-F_USER=meta
-
-F_ROOT=/web/meta
-F_HOME=$F_ROOT/service
-F_BACKUP=$F_ROOT/backup
-
-METAIMG=mpsonntag/fuseki:noport
-METANAME=fuseki_bee
-
-# fuseki specific required files and folders
-SHIRO=shiro.ini
-CFILE=config.ttl
-CDIR=configuration
-DB=databases
-
-echo "Running fuseki meta service setup script ..."
-if [[ $# != 1 ]]; then
-    echo "... Please provide  a directory containing the required files"
-    exit 1
-fi
-
-REQFILES=$1
-
-echo "Checking required directories and files ..."
-if [[ ! -f "$REQFILES/$CFILE" ]]; then
-    echo "... Could not find file ${REQFILES}/$CFILE"
-    exit 1
-fi
-
-if [[ ! -f "$REQFILES/$SHIRO" ]]; then
-    echo "... Could not find file ${REQFILES}/$SHIRO"
-    exit 1
-fi
-
-if [[ ! -d "$REQFILES/$CDIR" ]]; then
-    echo "... Could not find directory ${REQFILES}/$CDIR"
-    exit 1
-fi
-
-if [[ ! -d "$REQFILES/$DB" ]]; then
-    echo "... Could not find directory ${REQFILES}/$DB"
-    exit 1
-fi
-
-echo "Pulling docker image ${METAIMG} ..."
-docker pull $METAIMG
-
-echo "Creating required folders ..."
-mkdir -p $F_HOME
-mkdir -p $F_BACKUP
-
-echo "Copying required files ..."
-cp $REQFILES/$SHIRO $F_HOME/$SHIRO
-cp $REQFILES/$CFILE $F_HOME/$CFILE
-cp -r $REQFILES/$CDIR $F_HOME/$CDIR
-cp -r $REQFILES/$DB $F_HOME/$DB
-
-# Create dedicated "meta" user and make sure its part of the "docker" group
-echo "Handling required user ${F_USER} ..."
-if id $F_USER >/dev/null 2>&1; then
-    echo "... User ${F_USER} already exists"
-
-    VAR=$(id ${F_USER} | grep docker)
-    if [[ -z $VAR ]]; then
-        echo "... Adding ${F_USER} to the docker group"
-        usermod -a -G docker $F_USER
-    fi
-else
-    useradd -M -G docker $F_USER
-fi
-
-# Disable login for user fuseki
-usermod -L $F_USER
-
-# Change ownership of main folder to enable docker access
-chown -R $F_USER:docker $F_HOME
-
-echo "Starting service ..."
-docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
-
-echo "The fuseki meta service is running ..."
-echo
+volumes:
+  content:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${F_ROOT}/service"
 
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
 
-## combined init script
+## Fuseki initialisation script
 
 #!/usr/bin/env bash
 
