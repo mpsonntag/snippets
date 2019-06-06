@@ -447,9 +447,14 @@ METANAME=fuseki_bee
 echo "Running fuseki meta service setup script ..."
 
 # Define initialization scheme
-echo -n "Do you want to initialize the server from backup files (yes): "
+echo -n "Initialize meta server from backup files (yes/no): "
 read -s FROMBACKUP
-echo
+echo $FROMBACKUP
+
+if [[ ! $FROMBACKUP == "yes" && ! $FROMBACKUP == "no" ]]; then
+    echo "Please enter 'yes' or 'no'; exiting ..."
+    exit 1
+fi
 
 if [[ $FROMBACKUP == "yes" ]]; then
     echo "Restoring from backup ..."
