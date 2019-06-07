@@ -151,6 +151,12 @@ stopping server:
 
     sudo chown -R fuseki:docker /web/fuseki
 
+- run docker command:
+
+METAIMG=mpsonntag/fuseki:latest
+METANAME=fuseki_bee
+docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
@@ -309,7 +315,6 @@ CDIR=configuration
 DB=databases
 
 METAIMG=mpsonntag/fuseki
-METANAME=fuseki_bee
 
 echo "Running fuseki meta service setup script ..."
 
@@ -426,8 +431,6 @@ echo "Starting meta service ..."
 
 cd $F_ENV
 docker-compose -p meta up -d
-
-# docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
 echo "The fuseki meta service is running ..."
 
