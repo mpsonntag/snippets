@@ -487,12 +487,18 @@ PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
 curl -u admin:$PASS -X POST $F_URL/$/backup/$F_DB
 
 # Deduplicate after backups are done
+echo
 echo "Running deduplication ..."
 fdupes -dN $F_BACKUP
 fdupes -dN $F_HOME/backups
 
-# [toDo] Add scp to offsite backup server
+# Backup to gate
+echo
+echo "Copying archives to [target] ..."
+#rsync -v -e "ssh -i [key]" -r --ignore-existing $F_BACKUP/ [user]@[target]/backups/meta/database
+#rsync -v -e "ssh -i [key]" -r --ignore-existing $F_HOME/backups/ [user]@[target]/backups/meta/graph
 
+echo
 echo "The fuseki meta service backup is done ..."
 echo
 
