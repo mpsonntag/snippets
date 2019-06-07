@@ -256,7 +256,7 @@ services:
     ports:
       - "4044:4044"
     networks:
-      gcanet:
+      metanet:
         ipv4_address: 172.23.0.3
     volumes:
       - content:/content:rw
@@ -270,6 +270,13 @@ volumes:
       type: "none"
       o: "bind"
       device: "${F_ROOT}/service"
+
+networks:
+  metanet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/16
 
 ------------------------------------------------------------------------------------------
 
