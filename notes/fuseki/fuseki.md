@@ -94,6 +94,10 @@ stopping server:
         sudo apt-get update
         sudo apt-get install apache2
 
+- make sure certbot is available, install otherwise
+
+        sudo apt install certbot
+
 - make sure all required apache modules are active
 
         sudo a2enmod rewrite
@@ -104,13 +108,9 @@ stopping server:
         sudo a2enmod http2
         sudo systemctl restart apache2
 
-- add a sites available entry
+- add a sites-available entry
 
         sudo vim /etc/apache2/sites-available/meta.g-node.org
-
-- make sure certbot is available, install otherwise
-
-        sudo apt install certbot
 
 - stop the apache server before setting up an encryption
 
@@ -199,44 +199,44 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 
 ## Apache Sites available for meta 
 
-    <VirtualHost *:80>
-            ServerName meta.g-node.org
-            ServerAdmin meta@g-node.org
+<VirtualHost *:80>
+    ServerName meta.dev.g-node.org
+    ServerAdmin dev@g-node.org
     
-            <IfModule mod_rewrite.c>
-                   RewriteEngine On
-                   RewriteCond %{HTTPS} off
-                   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-            </IfModule>
-          <IfModule mod_headers.c>
-                    <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
-                    Header set Access-Control-Allow-Origin "*"
-                    </FilesMatch>
-            </IfModule>
+    <IfModule mod_rewrite.c>
+       RewriteEngine On
+       RewriteCond %{HTTPS} off
+       RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    </IfModule>
+    <IfModule mod_headers.c>
+        <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
+            Header set Access-Control-Allow-Origin "*"
+        </FilesMatch>
+    </IfModule>
     
-    RewriteCond %{SERVER_NAME} =meta.g-node.org
+    RewriteCond %{SERVER_NAME} =meta.dev.g-node.org
     RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-    </VirtualHost>
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName meta.dev.g-node.org
+    ServerAdmin dev@g-node.org
     
-    <VirtualHost *:443>
-            ServerName meta.g-node.org
-            ServerAdmin dev@g-node.org
+    SSLEngine On
+#    SSLCertificateFile /etc/letsencrypt/live/meta.dev.g-node.org/fullchain.pem
+#    SSLCertificateKeyFile /etc/letsencrypt/live/meta.dev.g-node.org/privkey.pem
+#    Include /etc/letsencrypt/options-ssl-apache.conf
     
-            SSLEngine On
-    
-            ProxyPreserveHost    On
-            ProxyRequests Off
-            ProxyPass / http://172.30.0.3:3030/
-            ProxyPassReverse / http://172.30.0.3:3030/
-            <IfModule mod_headers.c>
-                    <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
-                    Header set Access-Control-Allow-Origin "*"
-                    </FilesMatch>
-            </IfModule>
-                    SSLCertificateFile /etc/letsencrypt/live/meta.g-node.org/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/meta.g-node.org/privkey.pem
-    Include /etc/letsencrypt/options-ssl-apache.conf
-    </VirtualHost>
+    ProxyPreserveHost    On
+    ProxyRequests Off
+    ProxyPass / http://172.23.0.3:4044/
+    ProxyPassReverse / http://172.23.0.3:4044/
+    <IfModule mod_headers.c>
+        <FilesMatch ".(eot|otf|svg|ttf|woff|woff2)$">
+            Header set Access-Control-Allow-Origin "*"
+        </FilesMatch>
+    </IfModule>
+</VirtualHost>
 
 ------------------------------------------------------------------------------------------
 
