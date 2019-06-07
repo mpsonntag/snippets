@@ -369,7 +369,6 @@ if [[ $FROMBACKUP == "yes" ]]; then
     fi
 fi
 
-
 echo
 echo "Pulling docker image ${METAIMG} ..."
 docker pull $METAIMG
@@ -416,14 +415,18 @@ usermod -L $F_USER
 chown -R $F_USER:docker $F_HOME
 
 echo
-echo "Starting service ..."
-docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
+echo "Starting meta service ..."
+
+cd $F_ENV
+docker-compose -p meta up -d
+
+# docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
 echo "The fuseki meta service is running ..."
 
 if [[ ! $FROMBACKUP == "yes" ]]; then
     # Read password required to set up database from shiro file
-    PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
+    PASS=$(grep -Po "(?<=admin=).*$" $F_HOME/${SHIRO})
 
     # Create a new, empty database
     sleep 5
