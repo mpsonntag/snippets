@@ -581,11 +581,17 @@ echo "Running graph based backup ..."
 PASS=$(grep -Po "(?<=admin=).*$" ${SHIRO})
 curl -u admin:$PASS -X POST $F_URL/$/backup/$F_DB
 
+# Make sure the graph backup is done before we run fdupes
+sleep 15
+
 # Deduplicate after backups are done
 echo
 echo "Running deduplication ..."
 fdupes -dN $F_BACKUP
 fdupes -dN $F_HOME/backups
+
+# Make sure fdupes is done before we run an rsync
+sleep 15
 
 # Backup to gate
 echo
