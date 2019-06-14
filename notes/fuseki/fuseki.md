@@ -278,9 +278,9 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
     ServerAdmin dev@g-node.org
     
     SSLEngine On
-#    SSLCertificateFile /etc/letsencrypt/live/meta.dev.g-node.org/fullchain.pem
-#    SSLCertificateKeyFile /etc/letsencrypt/live/meta.dev.g-node.org/privkey.pem
-#    Include /etc/letsencrypt/options-ssl-apache.conf
+    SSLCertificateFile /etc/letsencrypt/live/meta.dev.g-node.org/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/meta.dev.g-node.org/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
     
     ProxyPreserveHost    On
     ProxyRequests Off
@@ -360,6 +360,7 @@ F_HOME=$F_ROOT/service
 F_ENV=$F_ROOT/env
 F_BACKUP=$F_ROOT/backup
 F_SCRIPTS=$F_ROOT/scripts
+F_LOG=$F_ROOT/log
 
 # Fuseki specific files and folders
 SHIRO=shiro.ini
@@ -446,6 +447,7 @@ mkdir -pv $F_HOME
 mkdir -pv $F_ENV
 mkdir -pv $F_BACKUP
 mkdir -pv $F_SCRIPTS
+mkdir -pv $F_LOG
 
 echo
 echo "Copying required files ..."
