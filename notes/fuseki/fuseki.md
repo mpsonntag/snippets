@@ -87,7 +87,7 @@ stopping server:
 
 ------------------------------------------------------------------------------------------
 
-## Setting up the server for fuseki
+## Installing dependencies
 
 - make sure apache is there; install otherwise
 
@@ -122,35 +122,72 @@ stopping server:
 
 - deactivate the default encryption and add the new one
 
-
 - start apache
 
         sudo service apache2 start
 
-- if required install docker compose:
-    https://docs.docker.com/compose/install/
+- if required [install docker-compose](https://docs.docker.com/compose/install/)
 
         sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo chmod +x /usr/local/bin/docker-compose
+
+### Initialize the server
+
+Use the `meta_init.sh` script to initialize the meta server:
+
+    sudo bash meta_init.sh [required_files_dir]
+
+Before running the script make sure all required files
+are available in a directory and the appropriate server URL and docker image
+have been set in the respective files.
+
+The script will automatically setup the required folder structure,
+copy any required files, download and start the appropriate docker image.
+
+The script supports two different setup schemes and will ask the user
+at the very beginning which one should be run:
+
+a) Setup an empty server (Option: `Initialize meta server from backup files (yes/no): no`)
+   In this case the directory where the script is run from requires
+   the following files:
+   - `.env` containing required docker environmental variables
+   - `docker-compose.yml` containing the docker setup
+   - `shiro.ini` containing the security settings of the fuseki server and ideally an updated admin password
+   - `meta_backup.sh` ideally already set as an executable script
+   This will create an empty fuseki meta server and will try to create
+   a persistent empty database named `metadb`.
+b) Setup a server from an existing database (Option: `Initialize meta server from backup files (yes/no): yes`)
+   In this case the required files directory needs to contain the
+   additional file `config.ttl` and the directories `configuration` and `database` containing
+   the graph database from an earlier backup.
+
+Both init schemas will by default create all required directories in
+`/web/meta`, create and setup the required user, copy all required files and
+set the required permissions and pull and start the specified docker container.
+
 
 ### Backup Cronjob
 
 - make sure zip is installed; install otherwise...
 
-    sudo apt-get update
-    sudo apt-get install zip
+        sudo apt-get update
+        sudo apt-get install zip
 
 - make sure fdupes is installed, install otherwise...
 
-    sudo apt-get install fdupes
+        sudo apt-get install fdupes
 
-- run the backup script at least once manually before adding it to a crontab
-  to make sure the ssh keys are properly setup for usage.
+- make sure the meta_backup script is executable
+
+        chmod +x meta_backup.sh
 
 - adjust the source and target directories as well as keyname and user as required 
-  using the `meta_backup.sh` file which by default can be found at `/web/meta/scripts`.
+  in `meta_backup.sh` which by default can be found at `/web/meta/scripts`.
 
-- add a crontab job for gca_web as the root user
+- run `meta_backup.sh` at least once manually before setting up a cronjob
+  to ensure all variables are valid and the ssh keys are properly setup for usage.
+
+- add a crontab job for meta as the root user
 
         sudo crontab -e
 
@@ -301,7 +338,7 @@ http://meta.g-node.org:3030/dataset.html?tab=upload
 
 COMPOSE_PROJECT_NAME=meta
 F_ROOT=/web/meta
-METAIMG=mpsonntag/fuseki:latest
+METAIMG=gnode/meta
 
 ------------------------------------------------------------------------------------------
 
@@ -370,7 +407,7 @@ CFILE=config.ttl
 CDIR=configuration
 DB=databases
 
-METAIMG=mpsonntag/fuseki
+METAIMG=gnode/meta
 
 echo "Running fuseki meta service setup script ..."
 
@@ -489,6 +526,7 @@ echo "Starting meta service ..."
 cd $F_ENV
 docker-compose -p meta up -d
 
+echo
 echo "The fuseki meta service is running ..."
 
 if [[ ! $FROMBACKUP == "yes" ]]; then
@@ -513,7 +551,7 @@ fi
 
 ## Backup script fuseki_backup.sh
 
-#!/usr/env/bin bash
+#!/usr/bin/env bash
 
 set -eu
 
@@ -528,7 +566,7 @@ F_DB=metadb
 
 # Backup all required files and folders for a restore action
 BACKDATE=$(date +"%Y%m%dT%H%M%S")
-ZIPNAME=$F_BACKUP/fuseki_$BACKDATE
+ZIPNAME=$F_BACKUP/meta_$BACKDATE
 
 SHIRO=$F_HOME/shiro.ini
 
