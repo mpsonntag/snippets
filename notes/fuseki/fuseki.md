@@ -83,6 +83,17 @@ stopping server:
 
     ./fuseki stop
 
+
+starting the server using `fuseki-server`:
+
+    ./fuseki-server --port=3033
+
+starts the server in the background; to stop the server, find the PID and send term signal
+
+    ps aux | grep fuseki
+
+    kill -s 15 [fuseki_pid] 
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
