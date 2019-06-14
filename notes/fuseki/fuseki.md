@@ -164,12 +164,32 @@ METAIMG=mpsonntag/fuseki:latest
 METANAME=fuseki_bee
 docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
+----------------------------------------------------
+
+data upload notes:
+
+currently uploading larger files causes a Bad Gateway 502 error.
+
+Checking `sudo watch tail /var/log/apache2/error.log` returns the message
+
+     [proxy_http:error] [pid 21173] [client <IP>] AH01097: pass request body failed 
+     to <IP> (<IP>) from <IP> (), referer: https://meta.dev.g-node.org/dataset.html?tab=upload&ds=/metadb
+
+Updating the timeout in the apache config file does not yield any positive result:
+
+    ProxyPass / http://172.23.0.3:4044/ connectiontimeout=180 timeout=180
+
+Might also be a problem with an upload size limit (`LimitRequestBody`) or with using an
+    apache like server behind an apache and we need to try using a different apache 
+    proxy module - using `mod_proxy_ajp` instead of `mod_proxy`:
+
+    https://stackoverflow.com/questions/13003282/apache-multipart-post-pass-request-body-failed
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
 
 Example curls, not all of them working
-
 
 # this one works
 curl -X POST --data "dbType=tdb&dbName=metadb" localhost:4044/$/datasets
