@@ -204,7 +204,7 @@ set the required permissions and pull and start the specified docker container.
 
 - Backup every 10min and add status output to a logfile:
 
-        */10 * * * * /web/meta/scripts/meta_backup.sh 2>&1 >> /web/meta/logs/meta_backup.log
+        */10 * * * * /web/meta/scripts/meta_backup.sh 2>&1 >> /web/meta/log/meta_backup.log
 
 - logs about cronjobs can be checked via:
 
