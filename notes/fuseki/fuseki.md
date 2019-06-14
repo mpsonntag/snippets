@@ -127,12 +127,40 @@ stopping server:
 
         sudo service apache2 start
 
-
 - if required install docker compose:
     https://docs.docker.com/compose/install/
 
         sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo chmod +x /usr/local/bin/docker-compose
+
+### Backup Cronjob
+
+- make sure zip is installed; install otherwise...
+
+    sudo apt-get update
+    sudo apt-get install zip
+
+- make sure fdupes is installed, install otherwise...
+
+    sudo apt-get install fdupes
+
+- run the backup script at least once manually before adding it to a crontab
+  to make sure the ssh keys are properly setup for usage.
+
+- adjust the source and target directories as well as keyname and user as required 
+  using the `meta_backup.sh` file which by default can be found at `/web/meta/scripts`.
+
+- add a crontab job for gca_web as the root user
+
+        sudo crontab -e
+
+- Backup every 10min and add status output to a logfile:
+
+        */10 * * * * /web/meta/scripts/meta_backup.sh 2>&1 >> /web/meta/logs/meta_backup.log
+
+- logs about cronjobs can be checked via:
+
+        grep CRON /var/log/syslog
 
 ----------------------------------------------------
 
