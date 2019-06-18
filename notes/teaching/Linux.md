@@ -473,7 +473,7 @@ flying around. One can have both of them installed and switch between them using
 
 If one does `which java`, it will give the path `/usr/bin/java`. An `ls` on that folder
 will show, that this is actually just a link to a java version in `/etc/alternatives/jvm`.
-An `ls` on the `/etc/alternatives/jvm` folder will show, which java version are installed.
+An `ls` on the `/etc/alternatives/jvm` folder will show, which java versions are installed.
 
 To switch between these alternatives use:
 
@@ -488,5 +488,18 @@ version as well. So you usually should update both to the required java distribu
 Check [here](http://ask.xmodulo.com/change-default-java-version-linux.html) for details.
  
 
+Updating the alternatives does not update the environment variables though. Until a
+restart PATH, JAVA and JAVA_HOME might need a manual reset to link to the appropriate
+java version.
 
+### SBT project and activator specifics
+
+If you are running sbt projects and you ever get errors along the line:
+
+'The java installation you have is not up to date
+Activator requires at least version 1.6+, you have
+version [xxx]'
+
+then you need to switch your java alternatives and reset the JAVA_HOME environment
+variable.
 
