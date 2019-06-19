@@ -55,6 +55,7 @@ c) comparative analysis - when trying to figure out if a procedure works well
 
 ### Immunohistochemistry
 
+Metadata part:
 - date, experiment title and brief desc, experimenter
 - experimental conditions: organic material (mouse), age, temperature
 - Antibodies; primary and secondary (chicken, rabbit, mouse, goat)
@@ -66,6 +67,7 @@ c) comparative analysis - when trying to figure out if a procedure works well
 
 is this experiment actually performed within the scope of the practical course? [???]
 
+Metadata part:
 - date, experiment title and brief desc, experimenter
 - experimental conditions: organic material (chicken), age, temperature, which piece of the eye?
 - MEA
@@ -101,6 +103,7 @@ density filter
 
 ### Patch clamp recordings
 
+Metadata part:
 - date, experiment title and brief desc, experimenter
 - experimental conditions: organic material (cells, rat cortex), age (DIV), temperature
 - buffers used - either full documentation or reference to a specific lab table / notebook
@@ -179,4 +182,39 @@ NIX: Raw traces of the response to low and high current injections at different 
 
 #### Ad Fig 6 TTX application
 
+Analysis via Matlab
+
+
+### LFP
+
+Metadata part:
+- date, experiment title and brief desc, experimenter
+- experimental conditions: organic material (rat hippocampal slices), age (rat and slice), temperature
+- buffers used - either full documentation or reference to a specific lab table / notebook
+- setup documentation
+- stimulation protocols [???]
+- Matlab version; script documentation; figure creation documentation [???]
+
+
+#### Recordings A
+Recording of the stimulus intensity/response relation in a paired-pulse-facilitation
+paradigm after electrical stimulation in CA3.
+
+#### Recordings B
+Recording of the pulse latency/response relation in a paired-pulse-facilitation
+paradigm after electrical stimulation in CA3.
+
+#### Recordings C
+Induction of long-term-potentiation
+
+Ideally each DataArray is connected to a metadata section/property that references
+the script used to generate the data
+
+
+
+Analysis via Matlab
+
+
+toDo: read into script and results again: which stimulus, how could the different 
+results be represented in NIX.
 
