@@ -1,5 +1,18 @@
 ## Pre-Workshop notes:
 
+question for the tutors:
+- are there any parameters they would like to get analysed across courses?
+- is there any particular part of the course we should focus on?
+- should we do a short git/github tutorial and require students to upload
+  there data there or to gin?
+- is there a specific part / topic that might be helpful to students and that
+  we should focus on?
+
+-> if the students are required to save defined parameters in a standardized way,
+these kind of analysis should not be hard to do.
+
+question for the students:
+
 why is consistent recording, structuring of data necessary:
 
 in your context there are a couple of cases to consider:
