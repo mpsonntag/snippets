@@ -21,10 +21,29 @@ c) comparative analysis - when trying to figure out if a procedure works well
    across all your results can be possible, ideally in an automated fashion.
 
 
+- you should be provided with a pre-defined description of the setups you use.
+  but you should check if all components and settings that you use are actually 
+  the same as in the documented form.
+  In a real experiment it will be up to you to make sure that the
+  setup is properly prepared and your experiment properly documented 
+  in case of "debugging" you stumble across unexpected results or 
+  figure out that a specific setup had issues and need to figure out
+  which results can be used and which have to be discarded. Without
+  proper documentation that might not be possible and you will need to
+  discard more data then you might have otherwise.
+  
+  ideally a lab has such a set of reusable documentation prepared for 
+  every setup and variations thereof, but it is up to the user to
+  use and verify such templates with every use.
+
+  Use checklists to fight against sloppy routines and attach them to
+  your labbook / reports.
+
+
 ### Immunohistochemistry
 
 - date, experiment title and brief desc, experimenter
-- organic material (mouse)
+- experimental conditions: organic material (mouse), age, temperature
 - Antibodies; primary and secondary (chicken, rabbit, mouse, goat)
 - Staining Protocols
 - Microscope setups
@@ -35,7 +54,7 @@ c) comparative analysis - when trying to figure out if a procedure works well
 is this experiment actually performed within the scope of the practical course? [???]
 
 - date, experiment title and brief desc, experimenter
-- organic material -> which piece of the eye?
+- experimental conditions: organic material (chicken), age, temperature, which piece of the eye?
 - MEA
 - LED
 - Whole setup (cfg "Chicken retina skript: Overall layout of the setup")
@@ -67,5 +86,84 @@ o LED array, max. 6000 cd per LED; projected at 100:1 onto the retina, attenuate
 density filter
 
 
+### Patch clamp recordings
+
+- date, experiment title and brief desc, experimenter
+- experimental conditions: organic material (cells, rat cortex), age (DIV), temperature
+- buffers used - either full documentation or reference to a specific lab table / notebook
+- pipettes used documentation and description of used in which experiment
+- setup documentation
+- software spike2
+- stimulation protocols [???]
+
+
+
+Table 1 Information about the different cells, as age, temperature, pipette resistance and access resistance.
+Cell1
+Cell1
+Cell2
+Cell3
+Age [days]
+22
+22
+13
+23
+Temperature [°C]
+23.9
+30.3
+23.4
+22.7
+R pip [MΩ]
+11
+11
+8
+5
+R access [MΩ]
+33
+48
+29
+21
+
+Table 2 Calculation of the cell size by using the capacitance of each cell (0.9 μF/cm2)
+Cell 1
+Cell 2
+Cell 3
+Capacitance [pF]
+106.97
+62.75
+38.6
+Size [μm2]
+11885.56
+6972.22
+4288.89
+
+
+#### Ad Fig 3
+
+NIX: voltage vs time traces at different temperatures; stimulus data array, stimulus onset and offset
+
+DataArray: specific temperature
+probably sampled dimension
+- units: ms and mV
+- label: Time [ms]; Voltage [mV]
+- dimension: sampling interval (ms)
+- name/type/definition: temperature
+
+DataArray ... different temp
+DataArray ... different temp
+DataArray ... different temp
+
+DataArray ... stimulus protocol
+- units: ??? probably ms
+- label: ???
+- dimension: ??? probably irregularly sampled
+
+MultiTag + Feature to link stimulus to all data arrays
+
+#### Ad Fig 4
+
+NIX: Raw traces of the response to low and high current injections at different temperatures
+
+#### Ad Fig 6 TTX application
 
 
