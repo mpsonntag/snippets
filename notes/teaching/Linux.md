@@ -145,6 +145,7 @@ Compress all files in a directory into a common zip archive
     zip -m [name] [dir]
 
     # add a password
+    # add a password
     zip -e [name] [dir]
 
     # exclude specific files e.g. text files
@@ -501,5 +502,10 @@ Activator requires at least version 1.6+, you have
 version [xxx]'
 
 then you need to switch your java alternatives and reset the JAVA_HOME environment
-variable.
+variable and make sure the variable properly set via `.profile` or `.bash_alias`
 
+e.g. 
+
+    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
+    # or 
+    JAVA_HOME=/usr/lib/jvm/java-12-oracle/
