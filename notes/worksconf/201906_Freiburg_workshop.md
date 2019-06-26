@@ -218,3 +218,172 @@ Analysis via Matlab
 toDo: read into script and results again: which stimulus, how could the different 
 results be represented in NIX.
 
+
+
+
+# 26.06.2019
+
+08:30 - 18:00
+
+- Brief talk with Ulrich Egert outlining the course and some of the problems they face:
+  - LTP: slice orientation for analysis; need to be documented when recording
+  - LTP: should properly record the area they are recording in or stimulate
+  - LTP: properly annotating graphs ... always fun
+  - LTP: tying stimulus to recording data, recording times
+  - LTP: properly documenting the analysis steps e.g. normalizing two potentials
+  - LTP: always note the absolute time when changes occur or are introduced!
+  - LTP: of course always note the absolute time when a recording starts!
+
+- templates could make sense, but need to be taylored to the course so that the students still 
+  think about the xperiment and what they are actually doing and not just tick off boxes in lists.
+
+- tell the students its ok to be lost during this experiment since its complex and usually people need
+  some time to be able to do things on their own.
+  Therefore they will be provided with a template that contains non changing information for future 
+  reference and documentation of the experiment. They still have to note which settings they use
+  and if they change any settings over the course on an experiment! That is not specific to this
+  particular experiment but true for all types of experiments:
+  - make templates for recurring settings that can also be shared within a lab or with collaborators, 
+    but never forget to record changes in an experiment in addition.
+- ask the students at the end of the course where they had troubles recording metadata and in hindsight what 
+  they should have recorded from the beginning.
+
+
+- Brief introduction to Diego ... who is running the immunohisto part of the course
+
+[Q] when recording LTP or patch clamp, can they distinguish cell types by form?
+
+
+## Immunohistology
+
+- when doing a stimulus in an area note where that stimulus would come from naturally ... might be a note(?)
+  for the students
+  - EC connections into both DG and CA3 ... when stimulating there what should the results be based on the
+    site of excitation.
+  - EC connections into CA1
+- where are the eyes anatomically speaking with respect to a brain slice
+
+- have a metadata schema/template for the experiment to show them how it would be done and could be used
+- give every experiment a number so you can refer to it e.g. A###_custom_name
+
+- Slices are from WT and BomC-eGFP expressing mice
+- all female
+- WT
+  - sex: female
+  - slice-condition: fresh prepared
+  - age: 8 weeks
+  - thickness: 50um
+  - slices: [frontal, horizontal]
+- BomC-eGFP
+  - sex: female
+  - slice-condition: from frozen brains (2013)
+  - age: not mature - exact age not known
+  - thickness: 50um
+  - slices: horizontal
+  
+Antibody combinations:
+- Antibodies:
+  - names
+  - vendor
+  - concentration used in experiment
+  - equations used?
+  - protocol used should be referred somehow within this documentation e.g. by having a reference number or name
+    for the protocol
+
+
+come up with an odML example in YAML documenting the experiment
+
+S Slices used
+  S Slice 
+   P temporal
+  S Slice
+   P
+
+S Antibodies used
+  S Antibody name
+    P name
+    P vendor
+
+S Protocols used
+  S Protocol name
+    P reference
+
+S Experiments
+  S Experiment Histo A
+    Prop slice horizontal
+    Prop slice frontal
+    S AB pairing A
+      Prop AB name A
+       V [AB 1, AB 2]
+      Prop AB concentration
+       V [v1, v2]
+  S Experiment Histo B
+
+
+table in odml? check odmltables paper or odmltables
+
+There are two sides to this story:
+- students @ a course ... use your brain and figure out what is important to document
+- show routine in a lab and examples how to make it easier from the start ... show structured example how to collect all necessary data
+
+
+2nd part of the experiment:
+Nissl staining:
+
+- nissl_stain/experiment 
+    - exerimenters []
+    - date
+
+    - frontal slices
+      - slide 1
+      - subject:
+          - organism: mouse
+          - strain: WT
+          - sex:
+          - age:
+          - tissue:
+              - typ: slice:
+              - origin:
+              - preparation:
+    - horizontal slices
+      - slides 1 & 2
+      - animal: mouse
+      - strain: WT
+      - sex: ?
+      - age: ?
+      - slice origin: fresh prepared
+
+
+## outside the course:
+
+Brief overview of the work Diego is doing:
+Works on epileptic mice (WT?) at the medical university of Freiburg and also fetches his data from there
+- induce seizures by injecting butyric acid (?) into a brain region
+- transfect this region with optogenetic viruses (optional?)
+- do electrophysiology later in this brain region where due to the acid damage seizures start
+- after the mice have been sacrificed, they also do fluorescent microscopy on brain slices of the region on interest
+
+- goal check whether seizures can a) be indentfied when they start and b) suppress them by using theta wave like 
+  excitation in the region.
+
+Has a specific data management setup:
+Data
+- raw (all data files categorized by data type)
+-- InVivo/
+-- Microscope/ ... czi ... zeiss images and JPGs ... medical university usually just exports JPGs of all color channels and deletes the czi files due to file sizes
+-- Tracking/ (Behavior)
+
+- Project ACCESS/
+-- KA437/ [mouse_name]
+---- ephys data files
+-- Config/
+---- stimulation files
+-- Clinic_spreadsheet ... containing recording session notes according to mouse_name
+-- Animal_spreadsheet ... file keeping track of procedures done according to mouse_name
+-- Analysis_all ... more detailled descrption of procedures and sessions done according to mouse_name
+
+Ideally the university clinic captures all information required in a spreadsheet that can be converted into an odML file
+
+
+Diego ... Brazil, automation engineer, that after working went back to science, specifically ephys 
+
