@@ -225,6 +225,14 @@ results be represented in NIX.
 
 08:30 - 18:00
 
+- gnode: talk with Ulricht Egert re workshop
+- gnode: talk wih Diego ... re Data Management in his project
+- gnode: first day of the practical course
+- gnode: sanitizing notes
+- gnode: email to Claude duppe re gnode banner
+
+
+
 - Brief talk with Ulrich Egert outlining the course and some of the problems they face:
   - LTP: slice orientation for analysis; need to be documented when recording
   - LTP: should properly record the area they are recording in or stimulate
@@ -386,4 +394,7 @@ Ideally the university clinic captures all information required in a spreadsheet
 
 
 Diego ... Brazil, automation engineer, that after working went back to science, specifically ephys 
+
+
+
 
