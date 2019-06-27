@@ -396,5 +396,52 @@ Ideally the university clinic captures all information required in a spreadsheet
 Diego ... Brazil, automation engineer, that after working went back to science, specifically ephys 
 
 
+## odML as build and management tool
+
+Discussion with Ulrich Egert:
+
+
+
+# 27.06.2019
+
+
+## Notes patch clamp
+
+
+- turn on amplifier
+- prep cell cultures for recording
+- pull pipettes ... document pipette protocol ?
+-- document type of pipette used - refer to protocol
+- setup of the ephys apparatus
+-- heating for medium; Multichannel systems
+-- ground
+-- pipette / electrode attachement
+
+- document cell culture contamination?
+
+- pump/succion/liquid exchange settings?
+
+- Medium thermostat settings should be recorded
+    - 25.6dC ... will go up to 40?
+
+- turn on
+-- voltage clamp (Axon instruments)
+-- Oscilloscope (Rigol)
+-- Microscope camera -- Hammamatsu
+-- Software Spike 2
+--- for stimulus and recording
+--- Test pulse: to check pipette resistance in general
+
+- Axoclamp: all settings 0
+- check pipette tip:
+-- move objective into solution and identify a good cell
+-- move objective up as far as the solution still sticks to the objective and increase brightness
+-- put pressure into pipette
+-- move pipette into solution and bring it into focus, check the tip is not blocked
+-- move pipette tip close to cells and figure out pipette resistance
+
+
+
+in general: do a PhD when your'e 60!
 
 
