@@ -400,6 +400,25 @@ Diego ... Brazil, automation engineer, that after working went back to science, 
 
 Discussion with Ulrich Egert:
 
+A general idea is to use the metadata of a project as the project management tool to keep control
+of the actual data and scripts:
+
+when the odml file is opened, a control layer on top of the core library (ideally a GUI) will
+check 
+- whether all files listed within an odml file are available
+- when there are script, then they should be executed if possible
+- listed files should be checked against a saved checksum, that is also saved within
+  the odml file next to the file location to see, if a file has changed or is missing alltogether
+  which needs to be reported back to the user
+- comparison with Mendeley deduplication as well - to reduce 
+  
+This idea might be out of the scope of the current odML project, but adding custom validators,
+that check whether a file is available or if it has changed (providing the checksum is available)
+should be doable.
+
+Freeform notes:
+- Use an additional layer on top of odML core
+- 
 
 
 # 27.06.2019
