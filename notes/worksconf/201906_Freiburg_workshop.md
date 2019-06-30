@@ -430,28 +430,29 @@ Freeform notes:
 
 # 27.06.2019
 
+09:00 - 18:30
+
 
 ## Notes patch clamp
 
 
 - turn on amplifier
 - prep cell cultures for recording
+  - document cell culture contamination? at least cell culture status notes
 - pull pipettes ... document pipette protocol ?
 -- document type of pipette used - refer to protocol
 - setup of the ephys apparatus
 -- heating for medium; Multichannel systems
+-- Medium thermostat settings should be recorded
+   - 25.6dC ... will go up to 40?
 -- ground
--- pipette / electrode attachement
-
-- document cell culture contamination?
+-- pipette / electrode attachment
 
 - pump/succion/liquid exchange settings?
 
-- Medium thermostat settings should be recorded
-    - 25.6dC ... will go up to 40?
-
 - turn on
 -- voltage clamp (Axon instruments)
+   - note which Microelectrode channel? is used for the experiment: #1
 -- Oscilloscope (Rigol)
 -- Microscope camera -- Hammamatsu
 -- Software Spike 2
@@ -463,8 +464,104 @@ Freeform notes:
 -- move objective into solution and identify a good cell
 -- move objective up as far as the solution still sticks to the objective and increase brightness
 -- put pressure into pipette
--- move pipette into solution and bring it into focus, check the tip is not blocked
--- move pipette tip close to cells and figure out pipette resistance
+-- move pipette into solution and bring it into focus, check that the tip is not blocked
+-- move pipette tip close to cells, figure out and note pipette resistance
+   e.g. pipette resistance: Rpip 3MOhm which is quite low
+-- when close to cells run spike2 step pulse and check Oscilloscope voltage and current traces;
+   the step should be visible there.
+-- adjust holding position on Axoclamp in Bridge mode? until 0mV Vm is reached
+-- check pulse on Oscilloscope, switch to SEVC on Axoclamp and adjust current with offset
+-- what should the pressure in the pipette be before attaching? around 30-50bar?
+-- position electrode on selected cell so that a "dimple" in the cell membrane is visible, open electrode pressure valve
+   to attach to cell
+-- check oscilloscope for "flat line", now the voltage should change so that we acchieve the "Gigaseal" resistance
+-- Note Vm and I after attachment: Vm = -60mV, I = 0.01nA
+-- Apply suction to the electrode until cell membrane ruptures and the signal on the oscilloscope changes again
+   Note: Vm = -60mV, V2=16mV
+-- switch from SEVC to Bridge
+-- [N] adjust DC Current command on Microelectrode to get a good reading on the Oscilloscope
+-- [N] On Spike2 move to pulse protocol
+-- Note temperature in cell suspension at the time of the beginning of the experiment
+   -- [N] Tsuspension = 35dC
+-- [N] Also note when the Coverslip was first put out of the cell culture; note time of beginning of every experiment!
+-- [N] Spike2: 500ms pulse ... current pulse, 1s pause, protocol "P"
+-- membrane potential readout ~-50mV
+-- manually applying current in addition to the pulse via the Filter
+-- cell done
+
+- have all pulse protocols and the pipette protocol in the scriptum appendix so students can refer to it in metadata?
+- notes regarding the protocol:
+-- ideally there is an in lab library containing all used protocols with an ID. additionally, any used protocol should
+   reside with its ID number right next to the data files that were created with this stimulus protocol:
+   this ensures that we can trace back the original protocol via the ID, but we can always check, if the library protocol
+   might have deviated from the protocol used over time - should not happen, but could happen and then in a couple of
+   years the results could not be properly interpreted any longer. If the stimulus is missing all together, then
+   we have an interpretation problem in any case.
+
+next trial, next pipette, next cell
+- all settings on Axoclamp and filter back to 0
+-- holding position, DC current, offset and amplifier/filter, axoclamp setting "bridge"
+-- look for cell, pressurize pipette, object up, keep solution bridge, move pipette into bridge, find pipette, move tip close to cell
+-- activate "zero line protocol" in spike2 ... check how it is actually called in spike2
+-- adjust and check oscilloscope for voltage and current trace of stimulus
+-- switch axoclamp to SEVC
+   - adjust voltage clamp holding position, I to 0 ???
+   - switch to bridge and adjust input offset MEL
+   - switch SEVC and adjust holding position to I=0/I=0.01nA
+   - find signal on Oscilloscope
+   - Note Rpip, attach to cell by pipette pressure release, breach cell via pipette suction
+- [N] setup:
+  - AxoClamp 2B; Current and Voltage Clamp; Axon Instruments
+  - Filter system ... lowpass, highpass filter, note filter settings!
+    - filter at 3kHz
+    - pre Amp Current Injection, adjust offset here, used to apply current?
+  - Analog digital converter; Micro1401; CED
+    - connects stimulus and recording software with Oscilloscope, Filter and Axoclamp
+  - Microscope: Zeiss Axoscope
+
+- cover slips/ cells used:
+  - [N] DIV 27
+  - hippocampal neurons?
+  - rat pups (age?)
+
+next try:
+- pipette close to cell
+- Bridge, holding position correction Vm to 0
+- Rpip 4M Ohm
+- switch to SEVC, use Clamp holding position to set I = 0
+- Start spike2 test program "A" ... test pulse
+- check both U and I in Oscilloscope
+- move close in on cell, release pressure
+- update clamp holding position (?) and check Oscilloscope for telltale activity trace in current channel (?) ... was
+  in the experiment yellow. Telltale activity trace tells that a gigaseal has been formed
+- Calculate gigaseal resistance ... Rpatch = 7G Ohm, Vm -60mV, V2 = 15mV, I = 0.02nA
+- Break through membrane by suction, check Oscilloscope current trace (yellow) for telltale activity trace
+- stop testpulse in Spike2
+- switch to Bridge setting and note membrane potential Vm=-65mV
+- Note: Raxon is parallel to Rpip
+- adjust Oscilloscope util both U and I lines are visible
+- Oscilloscope channel 1 was yellow and was Current!
+- start second test protocol Spike2 [find out how this one was called]
+- adjust MEL input offset
+- adjust on filter (3kHz) pre Amp Injection setting to get a membrane resting potential of -50mV in Spike2 recording window
+- note absolute time
+- run test pulse program [???] for 100s and record
+- stop recording, start IF current protocol[?]: should induce spikes ... adjust filter settings (gain of the filter) until cell spikes
+- note gain settings on filter
+- protocol: 50ms pulse, 1s interval ... due to membrane capacitance the recorded trace should have a sharkfin shape. from this shape 
+  tau (latency?) of the cell can be calculated.
+
+IF current - Isteps that are increasing until the cell spikes
+- I is incresed via Filter pre Amp Current injection
+- recording times Spike2 ... file contains recording start time absolute, but ziy have to note at which relative time the protocol starts. recorded in pA and mV
+
+
+
+- when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
+
+
+
+
 
 
 
