@@ -418,7 +418,14 @@ should be doable.
 
 Freeform notes:
 - Use an additional layer on top of odML core
-- 
+- basically use odML as build tool
+- if a file path is provided in an odML file, add a checksum and validate this checksum everytime
+  the odML file is opened and the filepath is available. If not available provide messasge to the user;
+  if checksum does not match, do the same and ask user for feedback.
+- basically odML as container which files belong to an experiment and odML file checks which of the linked
+  files are available
+- what we can do for sure: add a validator to odML that checks if provided files paths in an odML file are
+  available on the current system and also checks whether a checksum matches.
 
 
 # 27.06.2019
