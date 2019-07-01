@@ -976,6 +976,9 @@ metadata. Otherwise use templates all the time; if you link files in templates u
 comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
 
 
+TODO: stupid bug? in odML include: one cannot specify a local absolute or relative path to specify a section to
+be included - it always has to be a terminology!
+discuss with Jan whether we want a function that actually builds a tree out of many local odML files.
 
 
 in general: do a PhD when your'e 60!
