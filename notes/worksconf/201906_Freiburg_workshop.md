@@ -745,8 +745,6 @@ to ignore missing files messages, checks and validations.
 
 
 
-
-
 [Note] there is much additional data where it makes sense beside the initial data analysis to record it. but it
 can easily out of hand and requires structured recording - ideally checklists that have to be filled every time 
 an experiment is run to make sure all metadata will be recorded. think about this list once before an experiment,
@@ -761,6 +759,223 @@ And give all pros and cons for the variants.
 # 30.06.2019
 
 19:00 - 23:30 train, documentation
+
+
+# 01.07.2019
+
+08:30 - 18:30 / 22:30 - 00:00
+
+Matlab MEA toolbox for analysis
+
+- Matlab 2007a
+
+
+
+- which sweeps need to be analysed?
+  - 3x5x7 = 105 sweeps
+  - which pulses to average
+        1,4,... |
+        2,5,... | ... isolating individual artifacts from the individual sweeps that can be averaged:
+        3,6,... |      1st, 2nd and 3rd artifact in a stimulus sweep
+  - 20s interval: first 15 sweeps
+
+- [Note] when using a script, then either write down ALL used parameters OR use a parameter file that is dated and 
+  described in the metadata ... but needs to be independent from the script to ensure that a reused script does not
+  contain changed parameters.
+
+MEA Tools: Matlab toolbox
+- extract LFP features, works with averaged artifacts from mcd files
+
+- exp2_long.mcd ... load with Matlab
+- MEA tools ... plot subplots for 8x8 MEA
+- Load control, KA, TTX mcd in Matlab and load via MEA toolbox 8x8 plot into same plot windows with different colors
+  - add legend to distinguish. note filename.
+- when subtracting TTX from KA we get presynaptic component of LFP
+- select interval start by sweep in subplots
+- document the subplot settings
+- loading various long sweeps, every 15 sweeps:
+  - 16,...61,71,91
+  - 6, 11, 16
+
+- subplots can change axis resolution
+- [N] there seems to be a shift in the data for unknown reasons
+
+- electrode was in CA1
+- electrode #25 was in CA3
+
+- save plots as mat figure - these should be linked in metadata with the parameters used to create them
+
+- sweep ids to average in experiment 2:
+    - avgid_long = [1,4,7,10,13,...]
+    - avgid_short = num2cell(reshape(1:35,5,7),1)
+- avgids in matlab workspace, open MEATools and use average
+
+- total of 21 averages ... 3*7
+- average across sets of triggered sweeps
+- save target variable in workspace
+
+- [N] MEA Tools version 2.8
+
+NOTE: when analying - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
+see if they are able to come to the same results w/o problems. when there are problems, these are the points that
+still need to be documented.
+
+- LFP tools - file handling - loads recording files or averages into MEA workspace
+
+- exp2_short.mcd - MEA tools - average - provide avgid_xy variable
+
+- exp2_short_KA.mcd ... avgid_short
+- outvar ... exp2_short_KA_avg
+
+- MEA Tools Plot MxN
+  - datasource e.g. exp2_short_KA_avg
+  - blue ... control    |
+  - red ... KA          |  ...  legend has to be added manually to a subplot
+  - green ... TTX       |
+
+- how the average sweeps were created and the legend should be put in a script fle and linked
+
+- MEA Tools MxN Plot
+
+- input: exp2_short_(control/KA/TTX)_avg is used as the datasource in the MxN plot
+- sweep 3
+- legend('ctrl','KA','TTX')
+- output filename: exp2_short_20s_sweep3_avg_8x8.fig
+
+- again for sweep 7 ... same legend
+- output filename: exp2_short_80ms_sweep7_avg_8x8.fig
+
+
+- Plot presynaptic part of transmission
+  - input: (exp2_long_KA_avg;;1) - (exp2_long_TTX_avg;;1)
+  - sweep 1
+
+  - input: exp2_short_KA_avg - exp2_short_TTX_avg
+  - sweep 3
+
+  - input: exp2_short_KA_avg - exp2_short_TTX_avg
+  - sweep 7
+
+Note: ideally the plot creating part is automated with a script, which also already writes to an odML file, that
+cna be copy pasted or loaded. This is a good part to show the students how practical scripting is ... everything 
+is documented and less tedious and error prone; no  morecopy paste errors.
+
+NOTE: sub odML using the following on file: <doc><sec><prop> or <odoc><osec><oprop> to reduce file size
+
+
+Extract LFP features:
+
+Automatically identifying maxima and minima after stimulus
+
+- sweeps 1 4 7 10 13 ... were averaged
+- sweeps 2 5 8 11 14 ... were averaged
+
+- avgid_long ... check m code snippet
+- avgid_short ... check m code snippet
+
+Open MEA extract LFP features
+form variables:
+- input file
+- trigger_position
+- sweep_range_ID
+- evaluation time window
+- result variable
+- subtraction template artifacts and atrifact_index
+
+non changing form variables
+- data_range_limits = [ms]
+- filter_type Savizky-Golany
+- filter_config [15 3]
+- trigger_electrode 2?
+- set_artifact_to_none True
+
+- datafile short ... exp2_short_avg
+- evaluation_window_extent ... 34ms?
+- subtract template ... exp2_short_KA_avg
+- index_var/artifact_idx: [1,1,1,1,1]
+- trigger_pos 150ms window - 180.64 ???
+
+
+- [N] Analysis note: trigger/sync seems to be a mismatch ... eval window extent needs to be shorter,
+  otherwise the minima detector does not work properly and will detect the test pulse as minima instead 
+  of the resposne directly afterwards
+  a shift problem occurred at sweep #40
+
+NOTE: as an exercise: reverse engineer a figure using all your notes. write down in reverse order every
+parameter used to create the figure.
+
+NOTE: Matlab uses \mu for mu
+
+NOTE: use an appendix where the used terms e.g. sweeps, trigger etc are described
+
+NOTE: Maybe an odML file for every figure? and they could be merged for the experiment? or the experiment folder 
+includes the sub odML files?
+
+NOTE: only allow full filenames/path for the file check? or allow two path variants side by side, one absolute and
+one relative for odML file checks?
+
+NOTE: Its ok if the process of coming up with a metadata scheme takes longer (a month), but come up with it early and 
+then use it from this point on.
+
+NOTE: could grade a repo in terms of documentation via odML scripts and provide vanity badges, so API could always
+check all repos within a lab for documentation quality ... since it is quantified, individuals might put effort into 
+it on their own.
+
+odML
+- include/link path
+  odML mcd
+- include/link path
+  odML fig
+
+[C] try out include and link
+
+Samora: Postdoc, working with MEA on cell culture "custom" nerve clusters
+
+Katrina: Master? custom beamer projecting into Zeiss microscope to directed activate optogenetically modified cells. Uses
+Python and wants to start with git.
+
+
+LFP experiment:
+- load mcd into Matlab, load "D" with MEA, get avg
+- LFP feature extraction
+- only two pulses in window
+- average before tetanus and after
+
+- Setup
+  - Rigol Ultra Zoom Digital Oscilloscope
+
+Sweep 16 was first Tetanus, sweep 22 second Tetanus
+- sweep 17 should be strong response
+
+NOTE: add links to install conda and pip tutorials on odML for windows readme to help users with installation
+
+NOTE: does NIX have support for NaN? talked about this, not sure if there is an issue
+
+NOTE: at this point my head is already brimming with ideas for code restructuring, features and how to structure
+course data ... hard to focus ... I think I would have needed two more days
+
+NOTE: ask the students to think about an experiment: in a month from now, what will they probably not remember -
+is that all written down? name a couple of things that should be additionally documented.
+
+Lists and Scripts!
+
+From a list it is actually not far to an automated script, since UIs have functions that take parameters... simply
+call the function directly with the parameter notes in a script. but don't do everything at once, step by step.
+
+NOTE: have cli script for odML file verification + option to rectify file paths
+
+NOTE: do we need a built index for specific field contents in odML e.g. "filename" on load?
+
+NOTE: LFP: let the students use the GUI for a while and then show them the same with a prepared script to show that
+everything is documented, makes work less error prone and saves time.
+
+NOTE: you will need to adapt this to your own experiments. There are no standards that apply to every individual experiment
+
+NOTE: if you can, find out, if there is an automated hardware readout so you can automatically add hardware to your
+metadata. Otherwise use templates all the time; if you link files in templates use a checksum to make sure that in
+comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
+
+
 
 
 in general: do a PhD when your'e 60!
