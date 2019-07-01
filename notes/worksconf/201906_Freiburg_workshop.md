@@ -555,14 +555,193 @@ IF current - Isteps that are increasing until the cell spikes
 - I is incresed via Filter pre Amp Current injection
 - recording times Spike2 ... file contains recording start time absolute, but ziy have to note at which relative time the protocol starts. recorded in pA and mV
 
+- [NOTE] when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
 
 
-- when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
+# 28.06.2019
+
+08:30 - 18:00
+20:00 - 00:00 train
+
+
+## LTP MEA / Paired pulses facilitation experiment
+
+- [N] document the analysis chain in the metadata
+- [N] how to document getting from raw data to analysis result
+
+- get multiple recording data points for each stimulus intensity
+
+- have paired pulses with enough time interval and then shorten interval over time
+
+[note] odML as build tool: this actually points to NIX with storage backend where odML contains and checks the data part!
+
+[note] for epilepsy: could one induce LTDepression in kez points of the affected network?
+
+[note] odML / project folder should be a packet that you can hand over to someone to describe the experiment
+
+### LTP experiment
+
+Using two paired pulses besides the titanic stimulus
+
+MEA experiments: 
+- setup
+  - which electrodes: microschannel systems
+  - which solutions used (Buffers)
+  - note preparation and setup protocol 
+    - T ~ RT
+  - Reference electrode
+  - MEA amplifier
+  - Zeiss microscope
+  - Stimulation electrode ... tungsten electrode ... shielded
+  - Program MC Rack ... Multichannel systems
+  - Operating system: Windows XP
+
+- 1st check all individual MEA electrodes when redocording setup is empty via MC Rack
+  - note if noise level is too high ... is currently not recorded
+  - baseline noise not recorded for future reference
+- these should be stable noise ~+/- 10uV
+- use MC Stimulus II to write stimulus protocols
+
+[note] why transform a stimulus protocol to odML? you cannnot send a labbook! it should be in data
+
+- MC Stim ... Testpulse e.g.
+
+Pulse        | value | unit | time | unit | value | unit | time | unit | value | unit | time | unit | repeat row | repeat group 
+------------ | ----- |
+rectangular  | 80    | uA   | 160  | us   | -80   | uA   | 160  | us   | 80    | ua   | 160  | us   | 2          | 1
+rectangular  | 80    | uA   | 160  | us   | 0     | uA   | 5    | s  
+
+repeat row ... repeat stimulus of current row x times
+repeat group ... repeat all rows x times
+
+
+Different channels:
+- Trigger channel ... defines and handles test pulses
+- Synchronisation channel ... defines and handles the start of the testpulses to communicate with the recording software [??]
+                          ... or tells the stimulus generator how long a stimulus will be and when
+- Trigger channel = system channel 1
+- Synchronisation channel = system channel 5
+
+The length of the overall stimulus and the non stimulus times need to match the sum defined via the stimulus channel
+
+Pulse       | value | unit | time | unit | value | unit | time | unit
+rectangular | 1     |      | 960  | us   | 0     |      | 40   | s
+
+Trigger and syc channels have to have the same overall length
+
+120kHz sampling? Frequency ... for data points ... will lead to 2GB of data points within an hour ... to save space
+only snippets around the testpulses will be recorded.
+
+[Note] templates to not document rationales behind experiments but only how the experiment was conducted!
+
+- stimulus files are saved to "xx.stim" files ... binary files that are used to run the stimulus generator
+- stimulus files can be saved in ASCII format
+
+- the MEA used has 60 electrodes in total 12 ... 17, 21 ... 28 ....... 71 ... 78 ... 82 ... 87
+- setup
+  - buffer heating ... multichannel systems?
+- note any electrodes are not usable e.g. #xy
+
+MEAs usually have differences between batches ... these should be documented
+
+[Note] If we have custom validators, there should also be a way to tie a custom validator to a specific template
+ ... or they should live within the space of the template itself, but not within the odML document
+     e.g. to check if required properties have been properly filled
+
+preparation specifics: absolute time 
+ ... note time the experiment started to know delta t to slice preparation
+- mouse, black 6, about 4-7 weeks old
+- slice: thickness: 400um
+- recordings with MC Rack
+- Stimulation area ... CA3 [???]
+- note image file of slice on top of electrodes
+- note where one reference MEA electrode is positioned also in the metadata so that the image is not really required
+  for data interpretation
+
+- running the first test pulse ... this is just a single pulse +80/-80uA followed by ???s inactive, repeated indefinitely
+  - how often a protocol is executed is actually not in the stimulus protocol, but can be deciffered by looking at
+    the data itself. To easier interpret the data, it does not hurt to record this number separateley! 
+    [Note] Describe everything that is not written down, is implicit knowledge that can be learned by
+    interpreting the data, but would make understanding easier by writing it down at the proper place in the
+    metadata in the first place ... do your future me a favor when she tries to figure out what the data means
+- again. running the first test pulse protocol while the electrode is lowered closer to the slice, until we
+  see a response in MC Rack electrode display
+
+- problem with the MEA, a single electrode seems to be on contact with the chip, but the contact to the apparatus
+  seems to have a problem - [N] should be a note in the metadata regarding the used MEA
+  - [N] electrode #38 was not connected due to dirt in the apparatus connection to the chip readout
+
+- recording interupted, slice was not sufficiently responsive
+
+new slice:
+- electrode was lowered towards CA1?? CA3?? - between 37, 47, 38 and 48 (but actually flipped in the 33/34 range)
+- Note for slice status: bright region over electrodes #65-75 ... 68-78; might have been tissue damage
+- recording:
+  - MC Rack recorder
+    - Set recording window in recorder ... 180ms
+    - start recording, will wait for the first trigger pulse from MC Stim sync channel
+    - [N] sampling rate can be set in MC Rack ... usually stays the same during all experiments/recordings, but should 
+      be noted for easier understanding
+    - recording metadata will be exported with the recorded file "xy.mcd"
+- setup
+  - STG2004 Multichannel systems trigger / stimulus generator?
+  - Zeiss microscope IM35
+- Note recording output file name as it will be in the data repository
+[Note] and here it makes total sense to check for filenames if an odML file will be opened - can easily happen between 
+recording setup where an odML file might be started and data management later on, that the filenames change in these 
+steps - and probably this change will not make it to the odml file...
+[Note] could have a "checksum" property that will always be added, if a "filename" property is present and the file
+is available - or checked, if a checksum already exists.
+I like the idea of odML as a control tool for repositories more and more ... could have "project" and "viewing" modes
+to ignore missing files messages, checks and validations.
+- time between placing the slice in the setup and starting a recording
+- time between preparing the slice and starting a recording
+- file name "exp2_long.mcd"
+
+- next experiment ... tripple Paired pulses over time
+- set window to -30ms, 400ms length for recording windows
+- [N] recording note: could be a problem with the fluid system, slice might be under oxygenated.
+
+- next experiment ... filename "exp3_LTP.mcd"
+- window -30ms / 190ms recording window
+- trigger 1
+- y axis ... uV
+- recording time 15:47 ... 16:41
+- tetanus stimulus ... "xy.stim" - 100Hz pulse in 1 second with 
+- LTP stimulus ... "xy.stim"
+- 15 interval pulses before tetanus 
+
+- Tetanus ... shut off continuous mode for this signal - we only want 1 s of it
+
+- at sweep 16 we stop the initial pulses and start tetanus pulse
+- when done, restart initial pulses with continuous mode (repeat stim indefinitely)
+- at sweep 22 start the 2nd tetanus w/o continuous mode
+- start test pulse after tetanus again with continuous mode
+- did not record num of sweeps after that one
+
+
+- next experiment ... "exp2_3_KN.mcd"
+- recording window -30ms / 190ms
+- start 16:43
 
 
 
 
 
+[Note] there is much additional data where it makes sense beside the initial data analysis to record it. but it
+can easily out of hand and requires structured recording - ideally checklists that have to be filled every time 
+an experiment is run to make sure all metadata will be recorded. think about this list once before an experiment,
+try it out, finetune it, and then keep it constant without deviating from it.
+
+[Note] and with respect to the paragraph above, it might also make sense to give every template a version number,
+since templates probably evolve in time as well...
+
+[Note] think about what makes most sense to have as the root of an odml tree - experiment? animal? project? trial?
+And give all pros and cons for the variants.
+
+# 30.06.2019
+
+19:00 - 23:30 train, documentation
 
 
 in general: do a PhD when your'e 60!
