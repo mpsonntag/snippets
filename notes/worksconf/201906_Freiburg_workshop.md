@@ -722,7 +722,26 @@ to ignore missing files messages, checks and validations.
 
 - next experiment ... "exp2_3_KN.mcd"
 - recording window -30ms / 190ms
-- start 16:43
+- start 16:43 with testpulse, 11th sweep
+- do a buffer switch to kunairic acid (???) ... wait until postsynaptic component in graph is gone
+
+
+- exp23_long_KA.mcd
+- recording temperature [N] 26.3 dC
+- exp2_long_art.stm with standard intervals
+- window start -30ms, length 180ms, 105 sweeps (3*5*7)
+
+- same for exp23_short_art.stm
+- window start -30, 530ms length, 35 sweeps
+
+- Tetanus artifact recording, window -30ms, 10 sweeps
+
+- add TTX to solution while solution exchange is stopped and keep stopped
+  - concentration? volume?
+- same as for KA recordings
+
+- [N] location of the stimulus electrode: between electrodes 32, 42, 31, 41?
+- [N] Name of the image displaying the electrode position and the slice orientation
 
 
 
