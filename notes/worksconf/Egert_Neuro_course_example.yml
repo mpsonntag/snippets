@@ -3,7 +3,7 @@ Document:
     - name: experiment/stainingA [xxx] would it make sense to introduce a running experiment ID at this point for identification?
       type: immunohistochemistry
       sections:
-      - name: subject/A[xxx] use animalNumber?
+      - name: subject/A[xxx] use animalNumber? ... this section would make sense to move to its own file and reference here, since it is used in more than one experiment
         properties:
         - name: organism
           value: Mouse
@@ -66,11 +66,48 @@ Document:
             value: frozen batch 2013 *
 
       - name: materials/methods
-        properties:
-        - name: preparation/slice
-          value: [xxx reference slice preparation protocol]
-        - name: preparation/staining
-          value: [xxx reference antibody staining protocol]
+        sections:
+        - name: methods/protocols
+          properties:
+          - name: preparation/slice
+            value: [xxx reference slice preparation protocol] *
+          - name: preparation/staining
+            value: [xxx reference antibody staining protocol] *
+        - name: materials/antibodies
+          sections:
+          - name: antibody/Ch_MAP2 [these could be included from its own file via the section name]
+            properties:
+            - name: host
+              value: Chicken
+            - name: antigen
+              value: Map2
+            - name: dilution
+              value: 1:1000
+            - name: vendor
+              value: [vendor name]
+          - name: antibody/Rb_GFAP
+            properties:
+            - name: host
+              value: Rabbit
+            - name: antigen
+              value: GFAP
+            - name: dilution
+              value: 1:1000
+            - name: vendor
+              value: [vendor name]
+          - name: [continue full primary list] 
+          - name: antibody/Gt-a-Ch/Cy2
+            properties:
+            - name: host
+              value: Goat
+            - name: antigen
+              value: Chicken
+            - name: dilution
+              value: 1:400
+            - name: fluorophore
+              value: Cy2
+            - name: vendor
+              value: [vendor name]
 
       - name: setup
         sections: setup/microtome
