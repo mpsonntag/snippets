@@ -555,7 +555,7 @@ IF current - Isteps that are increasing until the cell spikes
 - I is incresed via Filter pre Amp Current injection
 - recording times Spike2 ... file contains recording start time absolute, but ziy have to note at which relative time the protocol starts. recorded in pA and mV
 
-- [NOTE] when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
+- NOTE: when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
 
 
 # 28.06.2019
@@ -573,11 +573,11 @@ IF current - Isteps that are increasing until the cell spikes
 
 - have paired pulses with enough time interval and then shorten interval over time
 
-[note] odML as build tool: this actually points to NIX with storage backend where odML contains and checks the data part!
+NOTE/odML: odML as build tool: this actually points to NIX with storage backend where odML contains and checks the data part!
 
-[note] for epilepsy: could one induce LTDepression in kez points of the affected network?
+NOTE/general/ for epilepsy: could one induce LTDepression in kez points of the affected network?
 
-[note] odML / project folder should be a packet that you can hand over to someone to describe the experiment
+NOTE: odML / project folder should be a package that you can hand over to someone to describe the experiment
 
 ### LTP experiment
 
@@ -602,7 +602,7 @@ MEA experiments:
 - these should be stable noise ~+/- 10uV
 - use MC Stimulus II to write stimulus protocols
 
-[note] why transform a stimulus protocol to odML? you cannnot send a labbook! it should be in data
+NOTE: why transform a stimulus protocol to odML? you cannot send a labbook! it should be in data
 
 - MC Stim ... Testpulse e.g.
 
@@ -632,7 +632,7 @@ Trigger and syc channels have to have the same overall length
 120kHz sampling? Frequency ... for data points ... will lead to 2GB of data points within an hour ... to save space
 only snippets around the testpulses will be recorded.
 
-[Note] templates to not document rationales behind experiments but only how the experiment was conducted!
+NOTE: templates to not document rationales behind experiments but only how the experiment was conducted!
 
 - stimulus files are saved to "xx.stim" files ... binary files that are used to run the stimulus generator
 - stimulus files can be saved in ASCII format
@@ -644,7 +644,7 @@ only snippets around the testpulses will be recorded.
 
 MEAs usually have differences between batches ... these should be documented
 
-[Note] If we have custom validators, there should also be a way to tie a custom validator to a specific template
+NOTE/odML If we have custom validators, there should also be a way to tie a custom validator to a specific template
  ... or they should live within the space of the template itself, but not within the odML document
      e.g. to check if required properties have been properly filled
 
@@ -661,9 +661,6 @@ preparation specifics: absolute time
 - running the first test pulse ... this is just a single pulse +80/-80uA followed by ???s inactive, repeated indefinitely
   - how often a protocol is executed is actually not in the stimulus protocol, but can be deciffered by looking at
     the data itself. To easier interpret the data, it does not hurt to record this number separateley! 
-    [Note] Describe everything that is not written down, is implicit knowledge that can be learned by
-    interpreting the data, but would make understanding easier by writing it down at the proper place in the
-    metadata in the first place ... do your future me a favor when she tries to figure out what the data means
 - again. running the first test pulse protocol while the electrode is lowered closer to the slice, until we
   see a response in MC Rack electrode display
 
@@ -671,7 +668,11 @@ preparation specifics: absolute time
   seems to have a problem - [N] should be a note in the metadata regarding the used MEA
   - [N] electrode #38 was not connected due to dirt in the apparatus connection to the chip readout
 
-- recording interupted, slice was not sufficiently responsive
+NOTE: Describe everything that is not written down, is implicit knowledge that can be learned by
+interpreting the data, but would make understanding easier by writing it down at the proper place in the
+metadata in the first place ... do your future me a favor when she tries to figure out what the data means
+
+- recording interrupted, slice was not sufficiently responsive
 
 new slice:
 - electrode was lowered towards CA1?? CA3?? - between 37, 47, 38 and 48 (but actually flipped in the 33/34 range)
@@ -687,10 +688,10 @@ new slice:
   - STG2004 Multichannel systems trigger / stimulus generator?
   - Zeiss microscope IM35
 - Note recording output file name as it will be in the data repository
-[Note] and here it makes total sense to check for filenames if an odML file will be opened - can easily happen between 
+NOTE/odML: and here it makes total sense to check for filenames if an odML file will be opened - can easily happen between 
 recording setup where an odML file might be started and data management later on, that the filenames change in these 
 steps - and probably this change will not make it to the odml file...
-[Note] could have a "checksum" property that will always be added, if a "filename" property is present and the file
+NOTE/odML: could have a "checksum" property that will always be added, if a "filename" property is present and the file
 is available - or checked, if a checksum already exists.
 I like the idea of odML as a control tool for repositories more and more ... could have "project" and "viewing" modes
 to ignore missing files messages, checks and validations.
@@ -745,16 +746,17 @@ to ignore missing files messages, checks and validations.
 
 
 
-[Note] there is much additional data where it makes sense beside the initial data analysis to record it. but it
-can easily out of hand and requires structured recording - ideally checklists that have to be filled every time 
+NOTE: there is much additional data where it makes sense beside the initial data analysis to record it. but it
+can easily get out of hand and requires structured recording - ideally checklists that have to be filled every time 
 an experiment is run to make sure all metadata will be recorded. think about this list once before an experiment,
 try it out, finetune it, and then keep it constant without deviating from it.
 
-[Note] and with respect to the paragraph above, it might also make sense to give every template a version number,
+NOTE: and with respect to the paragraph above, it might also make sense to give every template a version number,
 since templates probably evolve in time as well...
 
-[Note] think about what makes most sense to have as the root of an odml tree - experiment? animal? project? trial?
+NOTE: think about what makes most sense to have as the root of an odml tree - experiment? animal? project? trial?
 And give all pros and cons for the variants.
+
 
 # 30.06.2019
 
@@ -779,7 +781,7 @@ Matlab MEA toolbox for analysis
         3,6,... |      1st, 2nd and 3rd artifact in a stimulus sweep
   - 20s interval: first 15 sweeps
 
-- [Note] when using a script, then either write down ALL used parameters OR use a parameter file that is dated and 
+NOTE: when using a script, then either write down ALL used parameters OR use a parameter file that is dated and 
   described in the metadata ... but needs to be independent from the script to ensure that a reused script does not
   contain changed parameters.
 
@@ -816,7 +818,7 @@ MEA Tools: Matlab toolbox
 
 - [N] MEA Tools version 2.8
 
-NOTE: when analying - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
+NOTE: when analysing - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
 see if they are able to come to the same results w/o problems. when there are problems, these are the points that
 still need to be documented.
 
@@ -858,9 +860,9 @@ still need to be documented.
 
 Note: ideally the plot creating part is automated with a script, which also already writes to an odML file, that
 cna be copy pasted or loaded. This is a good part to show the students how practical scripting is ... everything 
-is documented and less tedious and error prone; no  morecopy paste errors.
+is documented and less tedious and error prone; no more copy paste errors.
 
-NOTE: sub odML using the following on file: <doc><sec><prop> or <odoc><osec><oprop> to reduce file size
+NOTE/odML: sub odML using the following on file: <doc><sec><prop> or <odoc><osec><oprop> to reduce file size
 
 
 Extract LFP features:
@@ -904,20 +906,20 @@ non changing form variables
 NOTE: as an exercise: reverse engineer a figure using all your notes. write down in reverse order every
 parameter used to create the figure.
 
-NOTE: Matlab uses \mu for mu
+NOTE/general: Matlab uses \mu for mu
 
 NOTE: use an appendix where the used terms e.g. sweeps, trigger etc are described
 
 NOTE: Maybe an odML file for every figure? and they could be merged for the experiment? or the experiment folder 
 includes the sub odML files?
 
-NOTE: only allow full filenames/path for the file check? or allow two path variants side by side, one absolute and
+NOTE/odML: only allow full filenames/path for the file check? or allow two path variants side by side, one absolute and
 one relative for odML file checks?
 
 NOTE: Its ok if the process of coming up with a metadata scheme takes longer (a month), but come up with it early and 
 then use it from this point on.
 
-NOTE: could grade a repo in terms of documentation via odML scripts and provide vanity badges, so API could always
+NOTE/general: could grade a repo in terms of documentation via odML scripts and provide vanity badges, so API could always
 check all repos within a lab for documentation quality ... since it is quantified, individuals might put effort into 
 it on their own.
 
@@ -947,9 +949,9 @@ LFP experiment:
 Sweep 16 was first Tetanus, sweep 22 second Tetanus
 - sweep 17 should be strong response
 
-NOTE: add links to install conda and pip tutorials on odML for windows readme to help users with installation
+NOTE/odML: add links to install conda and pip tutorials on odML for windows readme to help users with installation
 
-NOTE: does NIX have support for NaN? talked about this, not sure if there is an issue
+NOTE/NIX: does NIX have support for NaN? talked about this, not sure if there is an issue
 
 NOTE: at this point my head is already brimming with ideas for code restructuring, features and how to structure
 course data ... hard to focus ... I think I would have needed two more days
@@ -962,9 +964,9 @@ Lists and Scripts!
 From a list it is actually not far to an automated script, since UIs have functions that take parameters... simply
 call the function directly with the parameter notes in a script. but don't do everything at once, step by step.
 
-NOTE: have cli script for odML file verification + option to rectify file paths
+NOTE/odML: have cli script for odML file verification + option to rectify file paths
 
-NOTE: do we need a built index for specific field contents in odML e.g. "filename" on load?
+NOTE/odML: do we need a built index for specific field contents in odML e.g. "filename" on load?
 
 NOTE: LFP: let the students use the GUI for a while and then show them the same with a prepared script to show that
 everything is documented, makes work less error prone and saves time.
@@ -975,10 +977,144 @@ NOTE: if you can, find out, if there is an automated hardware readout so you can
 metadata. Otherwise use templates all the time; if you link files in templates use a checksum to make sure that in
 comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
 
-
-TODO: stupid bug? in odML include: one cannot specify a local absolute or relative path to specify a section to
+NOTE/odML: stupid bug? in odML include: one cannot specify a local absolute or relative path to specify a section to
 be included - it always has to be a terminology!
 discuss with Jan whether we want a function that actually builds a tree out of many local odML files.
+
+
+
+# Tu, 02.07.2019
+
+
+
+NOTE: it would probably have been better, if we had focused on one particular experiment and thoroughly documented 
+that one.
+
+
+
+### Neuro course, Data management part
+
+
+#### Questions for the tutors
+- are there any parameters they would like to get analysed across courses?
+- is there a specific part / topic that might be helpful to students and that
+  we should focus on?
+
+
+#### Question for the students:
+
+why is consistent recording, structuring of data necessary:
+
+in your context there are a couple of cases to consider:
+a) personal stake: when you write the protocol for this course not tomorrow, but in one or two weeks from now
+   (I've heard it happen, that protocols arrive half a year later...)
+   you need to remember the details of the experiment to make sense of the resulting
+   data.
+   this means saving the raw data + stimulus data + analysis data + metadata (information 
+   how the experiment was conducted and which equipment and ingredients were used)
+b) the protocol - and subsequently the underlying data - needs to be understandable
+   by the ones trying to make sense out of your results. in your case your tutors, 
+   in the larger sense it will be your PIs or your reviewers -> how can they
+   review the data, if they do not have access to proprietory software.
+
+c) comparative analysis - when trying to figure out if a procedure works well
+   multiple same experiments from various experimenters need to be compared
+   e.g. to see if antibodies for the same question perform differently - 
+   in your case your data and metadata should be uniformly saved so that comparisons
+   across all your results can be possible, ideally in an automated fashion.
+
+#### General part
+
+- describe everything that is not written down. There is implicit information and procedural knowledge that can be 
+learned by interpreting the data, but it would make understanding an experiment easier by writing it down at the proper 
+place in the metadata in the first place ... do your future me a favor when she tries to figure out what the data means
+
+- why document everything in easy to read files besides raw data, proprietory formats or labbook? You cannot send a 
+labbook to a collaborator and you will need this information compiled for a publication in any case.
+
+- a project folder should be a package including as much information about the procedures and how the various data files
+and plot were created, that you can hand it over to someone and they could understand the structure and the experimental
+process.
+
+- when using abbreviations e.g. Vm, note what they mean at least somewhere in the metadata
+
+- when using a script, then either write down ALL used parameters OR use a parameter file that is dated and 
+described in the metadata ... but needs to be independent from the script to ensure that a reused script does not
+contain changed parameters.
+
+- think about what makes most sense to have as the root of an odml tree / or a simple file structure for that matter
+By experiment, animal, project? trial? Weigh the pros and cons for the variants.
+
+- when analysing - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
+see if they are able to come to the same results w/o problems. when there are problems, these are the points that
+still need to be documented.
+
+- Its ok if the process of coming up with a metadata scheme takes longer (a month), but come up with it early and 
+then use it from this point on.
+
+- there is much additional data where it makes sense beside the initial data analysis to record it. but it
+can easily get out of hand and requires structured recording - ideally checklists that have to be filled every time 
+an experiment is run to make sure all metadata will be recorded. think about this list once before an experiment,
+try it out, finetune it, and then keep it constant without deviating from it.
+
+- and with respect to the paragraph above, it might also make sense to give every template a version number,
+since templates probably evolve in time as well...
+
+- if you can, find out, if there is an automated hardware readout so you can automatically add hardware to your
+metadata. Otherwise use templates all the time; if you link files in templates use a checksum to make sure that in
+comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
+
+- you will need to adapt this to your own experiments. There are no standards that apply to every individual experiment
+
+- Lists (Templates) and Scripts! From a template checklist it is actually not far to an automated script, since UIs have functions that take 
+parameters... simply call the function directly with the parameter notes in a script. but don't do everything at once, 
+step by step.
+
+- Templates  are note meant to document rationales behind experiments but how the experiment was conducted!
+
+#### Experiments
+
+- LFP: let the students use the GUI for a while and then show them the same with a prepared script to show that
+everything is documented, makes work less error prone and saves time.
+
+- ideally the plot creating part is automated with a script, which also already writes to an odML file, that
+cna be copy pasted or loaded. This is a good part to show the students how practical scripting is ... everything 
+is documented and less tedious and error prone; no more copy paste errors.
+
+- students should be provided with a pre-defined description of the setups you use.
+  but you should check if all components and settings that you use are actually 
+  the same as in the documented form.
+  In a real experiment it will be up to you to make sure that the
+  setup is properly prepared and your experiment properly documented 
+  in case of "debugging" you stumble across unexpected results or 
+  figure out that a specific setup had issues and need to figure out
+  which results can be used and which have to be discarded. Without
+  proper documentation that might not be possible and you will need to
+  discard more data then you might have otherwise.
+  
+  ideally a lab has such a set of reusable documentation prepared for 
+  every setup and variations thereof, but it is up to the user to
+  use and verify such templates with every use.
+
+  Use checklists to fight against sloppy routines and attach them to
+  your labbook / reports.
+
+
+#### Exercises
+
+- reverse engineer a figure using all your notes. write down in reverse order every
+parameter used to create the figure.
+
+- ask the students to think about an experiment: in a month from now, what will they probably not remember -
+is that all written down? name a couple of things that should be additionally documented.
+
+
+
+
+
+
+
+
 
 
 in general: do a PhD when your'e 60!
