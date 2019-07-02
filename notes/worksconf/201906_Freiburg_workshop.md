@@ -1041,15 +1041,24 @@ c) comparative analysis - when trying to figure out if a procedure works well
 
 #### General part
 
-- have a metadata schema/template for the experiment to show them how it would be done and could be used
-- give every experiment a number so you can refer to it e.g. A###_custom_name
+where to start
 
 - describe everything that is not written down. There is implicit information and procedural knowledge that can be 
 learned by interpreting the data, but it would make understanding an experiment easier by writing it down at the proper 
 place in the metadata in the first place ... do your future me a favor when she tries to figure out what the data means
 
+how to start
+
+- when analysing - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
+see if they are able to come to the same results w/o problems. when there are problems, these are the points that
+still need to be documented.
+
 - why document everything in easy to read files besides raw data, proprietory formats or labbook? You cannot send a 
 labbook to a collaborator and you will need this information compiled for a publication in any case.
+
+which details to think about
+
+- give every experiment a number so you can refer to it e.g. A###_custom_name
 
 - a project folder should be a package including as much information about the procedures and how the various data files
 and plot were created, that you can hand it over to someone and they could understand the structure and the experimental
@@ -1061,15 +1070,20 @@ process.
 described in the metadata ... but needs to be independent from the script to ensure that a reused script does not
 contain changed parameters.
 
-- think about what makes most sense to have as the root of an odml tree / or a simple file structure for that matter
-By experiment, animal, project? trial? Weigh the pros and cons for the variants.
+- think about what makes most sense to have as the root of a file structure. By experiment, animal, project? trial? 
+Weigh the pros and cons for the variants.
 
-- when analysing - get someone unfamiliar with your experiment and let them redo the analysis with your notes.
-see if they are able to come to the same results w/o problems. when there are problems, these are the points that
-still need to be documented.
+how to document and automation
 
-- Its ok if the process of coming up with a metadata scheme takes longer (a month), but come up with it early and 
-then use it from this point on.
+- if you can, find out, if there is an automated hardware readout so you can automatically add hardware to your
+metadata. Otherwise use templates all the time; if you link files in templates use a checksum to make sure that in
+comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
+
+- Lists (Templates) and Scripts! From a template checklist it is actually not far to an automated script, since UIs have functions that take 
+parameters... simply call the function directly with the parameter notes in a script. but don't do everything at once, 
+step by step.
+
+- Templates  are note meant to document rationales behind experiments but how the experiment was conducted!
 
 - there is much additional data where it makes sense beside the initial data analysis to record it. but it
 can easily get out of hand and requires structured recording - ideally checklists that have to be filled every time 
@@ -1079,26 +1093,15 @@ try it out, finetune it, and then keep it constant without deviating from it.
 - and with respect to the paragraph above, it might also make sense to give every template a version number,
 since templates probably evolve in time as well...
 
-- if you can, find out, if there is an automated hardware readout so you can automatically add hardware to your
-metadata. Otherwise use templates all the time; if you link files in templates use a checksum to make sure that in
-comparison over time an empty template has not changed - if it has, it should be renamed to a different template.
-
 - you will need to adapt this to your own experiments. There are no standards that apply to every individual experiment
 
-- Lists (Templates) and Scripts! From a template checklist it is actually not far to an automated script, since UIs have functions that take 
-parameters... simply call the function directly with the parameter notes in a script. but don't do everything at once, 
-step by step.
+- Its ok if the process of coming up with a metadata scheme takes longer (a month), but come up with it early and 
+then use it from this point on.
 
-- Templates  are note meant to document rationales behind experiments but how the experiment was conducted!
 
-#### Experiments
+#### During the experiments
 
-- LFP: let the students use the GUI for a while and then show them the same with a prepared script to show that
-everything is documented, makes work less error prone and saves time.
-
-- ideally the plot creating part is automated with a script, which also already writes to an odML file, that
-cna be copy pasted or loaded. This is a good part to show the students how practical scripting is ... everything 
-is documented and less tedious and error prone; no more copy paste errors.
+- have a metadata schema/template for the experiment to show them how it would be done and could be used
 
 - students should be provided with a pre-defined description of the setups you use.
   but you should check if all components and settings that you use are actually 
@@ -1118,8 +1121,15 @@ is documented and less tedious and error prone; no more copy paste errors.
   Use checklists to fight against sloppy routines and attach them to
   your labbook / reports.
 
+- LFP: let the students use the GUI for a while and then show them the same with a prepared script to show that
+everything is documented, makes work less error prone and saves time.
 
-#### Exercises
+- LFP: ideally the plot creating part is automated with a script, which also already writes to an odML file, that
+can be copy pasted or loaded. This is a good part to show the students how practical scripting is ... everything 
+is documented and less tedious and error prone; no more copy paste errors.
+
+
+#### Exercises at the end
 
 - reverse engineer a figure using all your notes. write down in reverse order every
 parameter used to create the figure.
