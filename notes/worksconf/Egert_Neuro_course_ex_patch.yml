@@ -1,0 +1,236 @@
+Document:
+    sections:
+    - name: experiment/stainingAntibodies [xxx] would it make sense to introduce a running experiment ID at this point for identification? e.g. A###_custom_name
+      type: immunohistochemistry
+      sections:
+      - name: subject/A[xxx] use animalNumber? ... this section would make sense to move to its own file and reference here, since it is used in more than one experiment; could also be just a sheet that has to be filled in for starters
+        properties:
+        - name: organism
+          value: Mouse
+        - name: strain
+          value: wildType
+        - name: age
+          value: 8 weeks
+        - name: sex
+          value: f
+        - name: animalNumber
+          value: [xxx as reference to animal handling]
+        sections:
+        - name: tissue/[sample or batchNumber]
+          properties:
+          - name: preparation
+            value: slice
+          - name: thickness
+            value: 50
+            unit: um
+          - name: orientation
+            value: [horizontal, vertical]
+          - name: quantity
+            value: 6
+          - name: region
+            value: hippocampus
+          - name: preparation/date
+            value: 2019-06-27T08:00
+          - name: notes/condition
+            value: [xxx note irregularities]
+
+      - name: subject/B [xxx] use animalNumber? also not sure, if using this strain should not be a different experiment since a different AB combination is used compard to WT
+        properties:
+        - name: organism
+          value: Mouse *
+        - name: strain
+          value: BomC-eGFP *
+        - name: age 
+          value: 8 weeks *
+        - name: sex
+          value: f *
+        - name: animalNumber
+          value: [xxx as reference to animal handling] *
+        sections:
+        - name: tissue/[sample or batchNumber]
+          properties:
+          - name: preparation
+            value: slice *
+          - name: thickness
+            value: 50 *
+            unit: um *
+          - name: orientation
+            value: horizontal *
+          - name: quantity
+            value: 6 *
+          - name: region
+            value: hippocampus *
+          - name: preparation/date
+            value: 2019-06-27T08:00 *
+          - name: notes/condition
+            value: frozen batch 2013 *
+
+      - name: materials/methods
+        sections:
+        - name: methods/protocols
+          properties:
+          - name: preparation/slice
+            value: [xxx reference slice preparation protocol] *
+          - name: preparation/staining
+            value: [xxx reference antibody staining protocol] *
+        - name: materials/antibodies
+          sections:
+          - name: antibody/Ch_MAP2 [these could be included from its own file via the section name]
+            properties:
+            - name: host
+              value: Chicken
+            - name: antigen
+              value: Map2
+            - name: dilution
+              value: 1:1000
+            - name: vendor
+              value: [vendor name]
+          - name: antibody/Rb_GFAP
+            properties:
+            - name: host
+              value: Rabbit
+            - name: antigen
+              value: GFAP
+            - name: dilution
+              value: 1:1000
+            - name: vendor
+              value: [vendor name]
+          - name: [continue full primary list] 
+          - name: antibody/Gt-a-Ch/Cy2
+            properties:
+            - name: host
+              value: Goat
+            - name: antigen
+              value: Chicken
+            - name: dilution
+              value: 1:400
+            - name: fluorophore
+              value: Cy2
+            - name: vendor
+              value: [vendor name]
+
+      - name: setup
+        sections:
+        - name: setup/microtome
+          properties:
+          - name: product/manufacturer
+            value: [xxx - could also be merged with product name and ID, have everything in one value to reduce overhead]
+          - name: product/ID
+            value: [xxx]
+          - name: product/name
+            value: [xxx]
+          - name: inventoryID
+            value: [xxx if there are multiple ones at the lab, to distinguish which one was used]
+        - name: setup/microscope
+          properties:
+          - name: product/manufacturer
+            value: [Zeiss?]
+          - name: product/ID
+            value: [xxx]
+          - name: product/name
+            value: [xxx]
+          - name: inventoryID
+            value: [xxx if there are multiple ones at the lab, to distinguish which one was used]
+
+      - name: procedure/documentation
+        properties:
+          - name: experimenter
+            value: [Name A, Name B]
+        sections:
+        - name: Day1
+          properties:
+          - name: date
+            value: 2019-06-27
+          sections:
+          - name: day1/step1
+            properties:
+            - name: description
+              value: primary antibody combination A
+            - name: equation
+              value: [equation used to calculate the AB volumes]
+            - name: application/slice
+              value: [subject/A]
+            sections:
+            - name: antibody/primaryA
+              properties:
+              - name: ID
+                value: Ch_Map2
+              - name: volume
+                value: 
+                unit: uL
+            - name: antibody/primaryB
+              properties:
+              - name: ID
+                value: Rb_CR
+              - name: volume
+                value: 
+                unit: uL
+            - name: antibody/primaryC
+              properties:
+              - name: ID
+                value: Ms_PV
+              - name: volume
+                value: 
+                unit: uL
+            properties:
+            - name: description
+              value: primary antibody combination B
+            - name: equation
+              value: [equation used to calculate the AB volumes]
+            - name: application/slice
+              value: [subject/B]
+            sections:
+            - name: antibody/primaryA
+              properties:
+              - name: ID
+                value: ___
+              - name: volume
+                value: ___
+                unit: uL
+            - name: antibody/primaryB
+              properties:
+              - name: ID
+                value: ____
+              - name: volume
+                value: ___
+                unit: uL
+        - name: Day2
+          properties:
+          - name: date
+            value: 2019-06-28
+          sections:
+          - name: day2/step1
+            properties:
+            - name: description
+              value: secondary antibodies
+            sections:
+            - name: antibody/secondaryA
+              properties:
+              - name: ID
+                value: ___
+              - name: volume
+                value: 
+                unit: uL
+            - name: antibody/secondaryB
+              properties:
+              - name: ID
+                value: ___
+              - name: volume
+                value: 
+                unit: uL
+          - name: day2/step2
+            properties:
+            - name: slideA
+              value: [slide description/ number]
+            - name: slideB
+              value: [slide description/ number]
+        - name: Day3
+          properties:
+            - name: date
+              value: 2019-07-01
+            - name: file/stainingWT
+              value: SC19_WT_Map2Cy2_CRcy3_PVcy5_Sub_frontal_10x.czi
+            - name: file/stainingBomC
+              value: SC19_BOMCcy2____Sub_frontal_10x.czi
+
+odml-version: '1.1'
