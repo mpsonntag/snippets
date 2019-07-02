@@ -1,0 +1,92 @@
+Document:
+    sections:
+    - name: experiment/stainingA [xxx] would it make sense to introduce a running experiment ID at this point for identification?
+      type: immunohistochemistry
+      sections:
+      - name: subject/A[xxx] use animalNumber?
+        properties:
+        - name: organism
+          value: Mouse
+        - name: strain
+          value: wildType
+        - name: age
+          value: 8 weeks
+        - name: sex
+          value: f
+        - name: animalNumber
+          value: [xxx as reference to animal handling]
+        sections:
+        - name: tissue/[sample or batchNumber]
+          properties:
+          - name: preparation
+            value: slice
+          - name: thickness
+            value: 50
+            unit: um
+          - name: orientation
+            value: [horizontal, vertical]
+          - name: quantity
+            value: 6
+          - name: region
+            value: hippocampus
+          - name: preparation/date
+            value: 2019-06-28T08:00
+          - name: notes/condition
+            value: [xxx note irregularities]
+
+      - name: subject/B [xxx] use animalNumber?
+        properties:
+        - name: organism
+          value: Mouse *
+        - name: strain
+          value: BomC-eGFP *
+        - name: age 
+          value: 8 weeks *
+        - name: sex
+          value: f *
+        - name: animalNumber
+          value: [xxx as reference to animal handling] *
+        sections:
+        - name: tissue/[sample or batchNumber]
+          properties:
+          - name: preparation
+            value: slice *
+          - name: thickness
+            value: 50 *
+            unit: um *
+          - name: orientation
+            value: horizontal *
+          - name: quantity
+            value: 6 *
+          - name: region
+            value: hippocampus *
+          - name: preparation/date
+            value: 2019-06-28T08:00 *
+          - name: notes/condition
+            value: frozen batch 2013 *
+
+      - name: materials/methods
+        properties:
+        - name: preparation/slice
+          value: [xxx reference slice preparation protocol]
+        - name: preparation/staining
+          value: [xxx reference antibody staining protocol]
+
+      - name: setup
+        sections: setup/microtome
+        properties:
+        - name: product/manufacturer
+          value: [xxx]
+        - name: product/ID
+          value: [xxx]
+        - name: product/name
+          value: [xxx]
+        - name: inventoryID
+          value: [xxx if there are multiple ones at the lab, to distinguish which one was used]
+
+      - name: procedure
+        sections:
+        - name: 
+        
+
+odml-version: '1.1'
