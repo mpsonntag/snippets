@@ -1141,13 +1141,26 @@ is that all written down? name a couple of things that should be additionally do
 
 ## Example XML files
 
+all nodes that define an odml tree and can have parallel branches
+exp - animal - region - slice - protokoll - dyeprocess - images
+- would be nice to have the process in reverse to travel with the images w/o having to keep other branches e.g. from other images
+-> export a leaf to the root
+
+region: should contain a list of available subregions that can mapped to electrode positions or tissue damage
+
+mapping electrodes with region selection and note about tissue damage
+
+- export variante aus einem leaf, um alle   
+- kleines skript um aus dem template eine kurzbeschreibung rauszuziehen - bestes feature um die sinnhaftigkeit
+  zu vermitteln.
+
+- bei drei gruppen drei odml dateien die man diffen kann - einfach unterschiede zw exp ermitteln.
+
+odml: waere nett einen dateinamen generator aus bestimmten bereits im odml enthaltenen feldern zu generieren.
+- waere use case specific - waere eine funktionialitaet die man generalisieren koennte
 
 
-
-
-
-
-
+contact diego and samora re talking about first draft of odML
 
 
 
