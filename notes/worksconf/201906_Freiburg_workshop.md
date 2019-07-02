@@ -388,7 +388,7 @@ Data
 ---- stimulation files
 -- Clinic_spreadsheet ... containing recording session notes according to mouse_name
 -- Animal_spreadsheet ... file keeping track of procedures done according to mouse_name
--- Analysis_all ... more detailled descrption of procedures and sessions done according to mouse_name
+-- Analysis_all ... more detailed description of procedures and sessions done according to mouse_name
 
 Ideally the university clinic captures all information required in a spreadsheet that can be converted into an odML file
 
@@ -985,10 +985,26 @@ discuss with Jan whether we want a function that actually builds a tree out of m
 
 # Tu, 02.07.2019
 
+07:30 - 
 
 
 NOTE: it would probably have been better, if we had focused on one particular experiment and thoroughly documented 
 that one.
+
+
+
+Katrin Heinig?
+Diego Madado? Viera
+Rodrigues Flores
+Samora Okujuni:
+works on development of in vitro neuronal cell networks, how they change over time and which factors are important
+for survival from a cell activity point of view
+
+- already set up a good pipeline from raw data to analysis and has a lot of metadata automatically documented
+- should add morphology data documented in odml and might have to move his ephys documentation to odml as well
+  - advised to first come up with a feasable scheme for morphology and then write an extractor from matlab to odml
+    to merge these two datasets. should not mess around with a pipeline that has been developed over years until
+    a parallel pipeline works as good as this.
 
 
 
@@ -1024,6 +1040,9 @@ c) comparative analysis - when trying to figure out if a procedure works well
    across all your results can be possible, ideally in an automated fashion.
 
 #### General part
+
+- have a metadata schema/template for the experiment to show them how it would be done and could be used
+- give every experiment a number so you can refer to it e.g. A###_custom_name
 
 - describe everything that is not written down. There is implicit information and procedural knowledge that can be 
 learned by interpreting the data, but it would make understanding an experiment easier by writing it down at the proper 
@@ -1107,6 +1126,11 @@ parameter used to create the figure.
 
 - ask the students to think about an experiment: in a month from now, what will they probably not remember -
 is that all written down? name a couple of things that should be additionally documented.
+
+
+
+## Example XML files
+
 
 
 
