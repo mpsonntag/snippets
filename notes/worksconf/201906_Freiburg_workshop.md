@@ -1,3 +1,7 @@
+Multichannel check mcd reader for files
+
+Check with ljuba if she is interested in compiling a how to deal with specific data to odml cases.
+
 ## Pre-Workshop notes:
 
 question for the tutors:
