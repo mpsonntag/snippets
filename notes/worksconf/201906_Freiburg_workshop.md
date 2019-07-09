@@ -229,7 +229,7 @@ results be represented in NIX.
 
 08:30 - 18:00
 
-- gnode: talk with Ulricht Egert re workshop
+- gnode: talk with Ulrich Egert re workshop
 - gnode: talk wih Diego ... re Data Management in his project
 - gnode: first day of the practical course
 - gnode: sanitizing notes
@@ -336,7 +336,8 @@ table in odml? check odmltables paper or odmltables
 
 There are two sides to this story:
 - students @ a course ... use your brain and figure out what is important to document
-- show routine in a lab and examples how to make it easier from the start ... show structured example how to collect all necessary data
+- show routine in a lab and examples how to make it easier from the start ... 
+  show structured example how to collect all necessary data
 
 
 2nd part of the experiment:
@@ -369,20 +370,24 @@ Nissl staining:
 ## outside the course:
 
 Brief overview of the work Diego is doing:
-Works on epileptic mice (WT?) at the medical university of Freiburg and also fetches his data from there
+Works on epileptic mice (WT?) at the medical university of Freiburg and also fetches 
+his data from there
 - induce seizures by injecting butyric acid (?) into a brain region
 - transfect this region with optogenetic viruses (optional?)
-- do electrophysiology later in this brain region where due to the acid damage seizures start
-- after the mice have been sacrificed, they also do fluorescent microscopy on brain slices of the region on interest
+- do electrophysiology later in this brain region where due to the acid damage seizures 
+  start
+- after the mice have been sacrificed, they also do fluorescent microscopy on brain 
+  slices of the region on interest
 
-- goal check whether seizures can a) be indentfied when they start and b) suppress them by using theta wave like 
-  excitation in the region.
+- goal check whether seizures can a) be indentfied when they start and b) suppress 
+  them by using theta wave like excitation in the region.
 
 Has a specific data management setup:
 Data
 - raw (all data files categorized by data type)
 -- InVivo/
--- Microscope/ ... czi ... zeiss images and JPGs ... medical university usually just exports JPGs of all color channels and deletes the czi files due to file sizes
+-- Microscope/ ... czi ... zeiss images and JPGs ... medical university usually just 
+   exports JPGs of all color channels and deletes the czi files due to file sizes
 -- Tracking/ (Behavior)
 
 - Project ACCESS/
@@ -392,44 +397,50 @@ Data
 ---- stimulation files
 -- Clinic_spreadsheet ... containing recording session notes according to mouse_name
 -- Animal_spreadsheet ... file keeping track of procedures done according to mouse_name
--- Analysis_all ... more detailed description of procedures and sessions done according to mouse_name
+-- Analysis_all ... more detailed description of procedures and sessions done according 
+   to mouse_name
 
-Ideally the university clinic captures all information required in a spreadsheet that can be converted into an odML file
+Ideally the university clinic captures all information required in a spreadsheet that 
+can be converted into an odML file
 
 
-Diego ... Brazil, automation engineer, that after working went back to science, specifically ephys 
+Diego ... Brazil, automation engineer, that after working went back to science, 
+specifically ephys 
 
 
 ## odML as build and management tool
 
 Discussion with Ulrich Egert:
 
-A general idea is to use the metadata of a project as the project management tool to keep control
-of the actual data and scripts:
+A general idea is to use the metadata of a project as the project management tool to keep 
+control of the actual data and scripts:
 
-when the odml file is opened, a control layer on top of the core library (ideally a GUI) will
-check 
+when the odml file is opened, a control layer on top of the core library (ideally a GUI) 
+will check 
 - whether all files listed within an odml file are available
 - when there are script, then they should be executed if possible
 - listed files should be checked against a saved checksum, that is also saved within
-  the odml file next to the file location to see, if a file has changed or is missing alltogether
-  which needs to be reported back to the user
-- comparison with Mendeley deduplication as well - to reduce 
+  the odml file next to the file location to see, if a file has changed or is missing all 
+  together which needs to be reported back to the user
+- comparison with Mendeley deduplication to ensure not having same files under different 
+  names
   
-This idea might be out of the scope of the current odML project, but adding custom validators,
-that check whether a file is available or if it has changed (providing the checksum is available)
-should be doable.
+This idea might be out of the scope of the current odML project, but adding custom 
+validators, that check whether a file is available or if it has changed (providing the 
+checksum is available) should be do-able.
 
 Freeform notes:
 - Use an additional layer on top of odML core
 - basically use odML as build tool
-- if a file path is provided in an odML file, add a checksum and validate this checksum everytime
-  the odML file is opened and the filepath is available. If not available provide messasge to the user;
-  if checksum does not match, do the same and ask user for feedback.
-- basically odML as container which files belong to an experiment and odML file checks which of the linked
-  files are available
-- what we can do for sure: add a validator to odML that checks if provided files paths in an odML file are
-  available on the current system and also checks whether a checksum matches.
+- if a file path is provided in an odML file, add a checksum and validate this checksum 
+  everytime the odML file is opened and the filepath is available. If not available 
+  provide messasge to the user; if checksum does not match, do the same and ask user for 
+  feedback.
+- basically odML as container which files belong to an experiment and odML file checks 
+  which of the linked files are available
+- what we can do for sure: add a validator to odML that checks if provided files paths 
+  in an odML file are available on the current system and also checks whether 
+  a checksum matches.
 
 
 # 27.06.2019
@@ -992,23 +1003,26 @@ discuss with Jan whether we want a function that actually builds a tree out of m
 07:30 - 
 
 
-NOTE: it would probably have been better, if we had focused on one particular experiment and thoroughly documented 
-that one.
+NOTE: it would probably have been better, if we had focused on one particular experiment 
+and thoroughly documented that one.
 
 
+http://www.bcf.uni-freiburg.de/people
+Heining, Katharina
+Diego M Vieira
+Rodríguez Flores, Esther
+Okujeni, Samora, Dr.
+works on development of in vitro neuronal cell networks, how they change over time and 
+which factors are important for survival from a cell activity point of view
 
-Katrin Heinig?
-Diego Madado? Viera
-Rodrigues Flores
-Samora Okujuni:
-works on development of in vitro neuronal cell networks, how they change over time and which factors are important
-for survival from a cell activity point of view
-
-- already set up a good pipeline from raw data to analysis and has a lot of metadata automatically documented
-- should add morphology data documented in odml and might have to move his ephys documentation to odml as well
-  - advised to first come up with a feasable scheme for morphology and then write an extractor from matlab to odml
-    to merge these two datasets. should not mess around with a pipeline that has been developed over years until
-    a parallel pipeline works as good as this.
+- already set up a good pipeline from raw data to analysis and has a lot of metadata 
+  automatically documented
+- should add morphology data documented in odml and might have to move his ephys 
+  documentation to odml as well
+  - advised to first come up with a feasible scheme for morphology and then write an 
+    extractor from matlab to odml to merge these two datasets. should not mess around 
+    with a pipeline that has been developed over years until a parallel pipeline works 
+    as good as this.
 
 
 
@@ -1026,7 +1040,8 @@ for survival from a cell activity point of view
 why is consistent recording, structuring of data necessary:
 
 in your context there are a couple of cases to consider:
-a) personal stake: when you write the protocol for this course not tomorrow, but in one or two weeks from now
+a) personal stake: when you write the protocol for this course not tomorrow, but in one 
+   or two weeks from now
    (I've heard it happen, that protocols arrive half a year later...)
    you need to remember the details of the experiment to make sense of the resulting
    data.
@@ -1146,28 +1161,114 @@ is that all written down? name a couple of things that should be additionally do
 ## Example XML files
 
 all nodes that define an odml tree and can have parallel branches
-exp - animal - region - slice - protokoll - dyeprocess - images
-- would be nice to have the process in reverse to travel with the images w/o having to keep other branches e.g. from other images
+exp - animal - region - slice - protocol - dye-process - images
+- would be nice to have the process in reverse to travel with the images w/o having 
+  to keep other branches e.g. from other images
 -> export a leaf to the root
 
-region: should contain a list of available subregions that can mapped to electrode positions or tissue damage
-
+region: should contain a list of available subregions that can mapped to electrode 
+        positions or tissue damage
 mapping electrodes with region selection and note about tissue damage
 
-- export variante aus einem leaf, um alle   
-- kleines skript um aus dem template eine kurzbeschreibung rauszuziehen - bestes feature um die sinnhaftigkeit
-  zu vermitteln.
+- export variante aus einem leaf, um alle nodes bis zum root ohne andere branches zu ziehen.   
+- kleines skript um aus dem template eine kurzbeschreibung rauszuziehen - bestes feature 
+  um die sinnhaftigkeit zu vermitteln.
 
-- bei drei gruppen drei odml dateien die man diffen kann - einfach unterschiede zw exp ermitteln.
+- bei drei gruppen drei odml dateien die man diffen kann 
+  - einfach unterschiede zw exp ermitteln.
 
-odml: waere nett einen dateinamen generator aus bestimmten bereits im odml enthaltenen feldern zu generieren.
-- waere use case specific - waere eine funktionialitaet die man generalisieren koennte
+odml: waere nett einen dateinamen generator aus bestimmten bereits im odml enthaltenen 
+feldern zu generieren. - waere use case specific - waere eine funktionialitaet die man 
+generalisieren koennte
 
 
 contact diego and samora re talking about first draft of odML
 
 
+## G-Node meeting notes
+- UEgert was very interested in continuing the collaboration and to include a data 
+management part in the course next year. Given, that we continue working on 
+the templates, odML usage and the didactic part.
+
+- too little time to come up with a thorough documentation
+- would have made sense to focus on one, outmost two experiments
+- was exposed to various shortcomings of odML and our own knowledge in using it
+- showed how important templates are and that we also should have a good understanding
+in how to create, apply and nest them if odML is supposed to be use- and helpful.
+- showed how hard it is and how long it takes to identify important metadata and to 
+come up with a useful odML template.
+- came up with a first template for one branch of experiments - needs to be overhauled
+and discussed with Freiburg people
+
+- used template as basis for discussion with UEgert:
+- general structure: odML file should be deeply branched 
+  experiment - animal - region - tissue - procedure A - procedure B - imaging - results
+  at every node the file should branch!
+- there should not be references to sub files or templates to reduce redundancy. every
+  file should always contain all data to reduce chance of a template being changed after
+  it has been referenced in a "root" odML file that would include sub odML files.
+- using the yaml format would be the most desireable for data collection
+  ideally via a GUI, but text subtemplates that are copy pasted can be used as a crutch
+  until a usable GUI is available.
+- there should be easily plugin-able templates for setup, AB, protocols
+- ideally these templates should be easily plugged into each other on a graphical
+  user interface 
+- the protocols should be documented and contained in odML IN DETAIL
+- ideally at the end of a course there will be a script, that generates a short
+  report from the collected metadata to show the students the benefit of 
+  thoroughly documenting metadata
+- at the end do a diff on the metadata the student groups collected to show
+  which data is missing
+
+- roadmap would be:
+- would require dedication on our end of one day per week
+- finalize and fine tune first experiment odML (immunohistochemistry)
+- add second experiment odML (MEA ephys)
+- be done in ~3 weeks and check back and discuss with Diego, Samora
+- finetune again and discuss with Ulrich
+- discuss which further templates (setup, lab protocols) are required and need to
+  be added.
+- once the templates are defined, add a list of ranked usability features
+  and successively work through the list until the course.
+
+- ideas for odML usage, further development and general statements:
+- UEgert stressed, that all tools have to be available for Windows and should
+ideally provide easy to use GUIs as well. Otherwise adoption in experimental labs
+is highly unlikely from his experience - and he would probably have a hard time
+adopting it in his lab as well.
+- Ulrich would like to use odML as a projects metadata management tool
+required features for this:
+- filechecks of files listed in an odML file: via filename and checksum, if a file is present 
+                                                            and has changed when an odML file is opened.
+- A general idea is to use the metadata of a project as the project management tool to  
+  keep control of the actual data and scripts.
+  odML used as a 'make' tool e.g.: when opening an odML file, creating analysis files and
+  extracting metadata, adding and linking sub odML files via scripts and raw files that 
+  are mentioned in an odML file.
+- due to deeply nested odML files it would be necessary to 
+  - have a visual representation of nodes in an odML file analogous 
+    to the DAG in snakemake
+  - it would be required to have a 'Leaf-export' feature to create an odML file from a leaf
+    to its root without any of its siblings e.g. an image that is based on a specific 
+    electrode in a MEA should be exportable without any of the other electrodes or
+    information about other animals or tissues in the same experiment.
+- it would be nice to have additional tools e.g. like ouput file name generators that
+  create structured filenames dependent on previous documented data in odML and
+  automatically add that to odML analogous to mp3 filename creators 
+  e.g. %date%_%Tissue%_%AntiBody1%_%AntiBody2%
+
+- during the course I stumbled across a couple of bugs and shortcomings:
+- matlab/java implementation of odML is severely out of date but would
+be required for windows users; also does not support json or yaml
+- yaml and json are not supported when using sub-odml files
+
+
+
+
+
 
 in general: do a PhD when your'e 60!
+
+
 
 
