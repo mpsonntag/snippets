@@ -363,7 +363,7 @@ Build a container with the source code found at a provided directory
 
     docker build -t [containername:label] [source_dir]
 
-Start a container in detatched mode, remove it when it is stopped.
+Start a container in detached mode, remove it when it is stopped.
 
     docker run --rm -dit [container]
 
