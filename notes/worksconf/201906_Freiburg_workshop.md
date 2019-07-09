@@ -1312,3 +1312,40 @@ UEgert hat einige interessante Ideen bezüglich odML.
      zu definieren z.b. welche Werte eines Templates beim Speichern auf jeden Fall 
      vorhanden sein müssen, ob eine gewissen Anzahl an sub-templates vorhanden sein
      muss; dass gewisse Dateien physisch vorhanden sind; etc.
+
+
+#### Meeting with JGrewe
+
+discussed Freiburg ideas:
+- should have an FAQ section in how to create templates, what are main concepts e.g. 
+  shallow vs deep trees and which are common problems in transforming metadata to odML 
+  e.g. how do I get a table properly into odML
+- with respect to the point above: get in touch with Lyuba Zehl, since she probably
+  encountered multiple of these problems during her odML quest. 
+- shorten section and property (and other attributes) when saving to file
+  e.g. <section> -> <sec> or <osec>
+- how to deal with ids when a template is imported -> should probably get a new id when
+  a template becomes part of a different odML file.
+- revision ids on template import -> keep the id of the template root or add revision
+  sections/properties to a template
+- custom validations:
+  odML specific syntax, part of an odML template and will be imported when
+  the template is imported, but will be executed whenever an odML file is saved.
+
+        e.g.
+        [sec:validation]
+          [sec:required]
+               [section_type#property_name]
+           [sec:range]
+               [section_type#property] [min, max]
+           [sec:checks]
+               []
+            [auto_fill]
+
+  things to consider here are a) how do we know all the validations? b) how do we know
+  where the validations should be applied to - should only be applied to "their" template.
+- with respect to the point above:
+  saving a filename with a checksum should probably be a section template
+  with filename, checksum etc as properties and then a validation for locally available,
+  whether the checksum has changed etc. 
+- it would be nice to move the odml-ui from gtk to pyqt to be more windows compatible
