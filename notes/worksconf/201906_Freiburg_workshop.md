@@ -1023,7 +1023,11 @@ which factors are important for survival from a cell activity point of view
     extractor from matlab to odml to merge these two datasets. should not mess around 
     with a pipeline that has been developed over years until a parallel pipeline works 
     as good as this.
-
+- File structure: PIDXXX_CISXXX_MEAXXX_DIVXXX_[Drugs].mcd
+  ... recording data contains setup metadata, on analysis this metadata is 
+      extracted and put into well defined matlab structure.
+- Next to the mcd is a metadata file with the same name; on analysis, the metadata 
+  from this file is added to the setup specific metadata.
 
 
 ### Neuro course, Data management part
@@ -1170,19 +1174,19 @@ region: should contain a list of available subregions that can mapped to electro
         positions or tissue damage
 mapping electrodes with region selection and note about tissue damage
 
-- export variante aus einem leaf, um alle nodes bis zum root ohne andere branches zu ziehen.   
-- kleines skript um aus dem template eine kurzbeschreibung rauszuziehen - bestes feature 
-  um die sinnhaftigkeit zu vermitteln.
+- export variant from leaf including all parent nodes until the root 
+    discarding all sibling branches
+- small script to pull a short description out of an odML file / template - 
+    such a reporting tool would be an awesome feature to document the 
+    usefullness of documenting metadata.
+- with three groups, we could have three odML documents that could be diff'ed
+    to display the differences in note keeping
 
-- bei drei gruppen drei odml dateien die man diffen kann 
-  - einfach unterschiede zw exp ermitteln.
+odml: would be nice to have a file name generator from specific fields that already
+      are present in an odML file - that would be use case specific, but maybe we
+      could generalize the functionality.
 
-odml: waere nett einen dateinamen generator aus bestimmten bereits im odml enthaltenen 
-feldern zu generieren. - waere use case specific - waere eine funktionialitaet die man 
-generalisieren koennte
-
-
-contact diego and samora re talking about first draft of odML
+Next steps: Contact Diego and Samora re talking about first draft of odML
 
 
 ## G-Node meeting notes
