@@ -1263,12 +1263,52 @@ be required for windows users; also does not support json or yaml
 - yaml and json are not supported when using sub-odml files
 
 
+## JGrewe meeting notes
 
+UEgert hat einige interessante Ideen bezüglich odML.
 
+- alle Tools müssen auf Windows verfügbar und einfach installier und benutzbar sein.
 
+- odML als Quality magangement / build tool
+  Ulrich würde odML am liebsten aus einer PI/Quality management verwenden. Metadaten
+  sollten via odML dazu benutzt werden die Daten eines Projektes zu kontrollieren.
+  d.h. wenn eine odML Datei geöffnet wird, sollte die Library selbständig alle
+  in  der Datei gelisteten verlinkten Dateien prüfen, ob sie
+  a) vorhanden sind
+  b) über eine Checksum prüfen, ob sie sich verändert haben
+  c) verlinkte Scripts ausführen, um z.b. Endresultate aus den verlinkten
+     Dateien erzeugen -> das wäre quasi odML als 'make' tool für ein Projekt.
+  d) einen 'Filebrowser' der eine odML Datei graphisch betrachtbar macht und
+     über das verlinkte Dateien mit dem korrekten Program geöffnet werden können.
 
-in general: do a PhD when your'e 60!
+- eine Projekt bezogene odML Struktur. Aus Ulrichs Sicht müssten alle odML
+  odML files sollten immer komplett sein und nicht auf Sub-dateien verweisen.
+  Dokumente im wesentlichen der folgenden Struktur folgen:
+  [root] - [projekt] - [subjekt] - [tissue] - [Protokoll A] - [Resultat A] - [Protokoll B] - [Resultat B] - etc.
+  Jedes Protokoll enthält verwendete Setups und chemische Komponenten sowie 
+  Jeder Knoten in so einem odML Tree führt zu einem Branching point.
+  Idealerweise hat man für jeden Knoten templates, die man einfach einfügen 
+  und mit Werten befüllen kann. Aus Ulrichs sicht gibt es hier ein paar wesentliche 
+  Punkte zu beachten:
+  - Protokolle d.h. Arbeitsabläufe im Labor müssten vollständig eingefügt werden können.
+  - Templates müssen ohne Probleme mehrfach eingefügt werden können z.b. 
+      verschiedene Subjekte, verschiedene Antikörper oder Protokolle.
+  - Zum zusammenbauen so eines Baumes müsste es eine einfache zu benutzende 
+      graphische Oberfläche geben.
+  - Es muss unter Windows verfügbar und einfach benutzbar sein.
 
-
-
-
+- Zusatzfunktionen damit odML einen Mehrwert für den Benutzer darstellt
+  - Verfügbare Templates
+  - Nachdem in der oben beschriebenen Struktur die odML Dateien extrem groß und 
+      unübersichtlich werden (sehr tiefe Bäume) muss es eine Möglichkeit geben,
+      alle Informationen zu einem speziellen Resultat zu exportieren.
+      E.g. wenn das Endresultat einer Analyse 100 Imagedateien für 10 
+      verschiedenen Subjekte und 2 verschiedene Tissues sind, soll es möglich sein
+      ausgehend von genau einer Imagedatei alle Informationen für diese Datei
+      zurück zum root des Dokuments zu verfolgen und nur diese Informationen
+      zu exportieren -> 'leaf-export'
+  - eine Möglichkeit, um aus einer odML Datei einen lesbaren Report zu generieren.
+  - Custom Validation: zu einem Template sollte es möglich sein, selbst validationen
+     zu definieren z.b. welche Werte eines Templates beim Speichern auf jeden Fall 
+     vorhanden sein müssen, ob eine gewissen Anzahl an sub-templates vorhanden sein
+     muss; dass gewisse Dateien physisch vorhanden sind; etc.
