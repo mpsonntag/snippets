@@ -26,3 +26,15 @@ Chapters 1 through 4 (5 optional)
 
 - Matlab: make sure they can use it from off-site
 
+
+## Course preparation notes
+- Students will bring their own data and will briefly present them on the first day
+- git introduction
+- python introduction
+- nix introduction - probably with Spyder in Python or in Matlab with the nix bindings.
+- testing introduction
+  - give a brief introduction for python and matlab
+  - show what happens when the script changes
+  - provide templates for tests that just need to be changed and new tests added
+  - short introduction to tests via github/CI to expose them to the options that 
+    are available.
