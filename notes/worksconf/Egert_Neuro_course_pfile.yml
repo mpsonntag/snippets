@@ -1,0 +1,17 @@
+Document:
+  secitons:
+    - name: [specify]
+      type: odml/filename/required
+      properties:
+        - name: filepath
+          value: [/home/sommer/Chaos/projectA/somefile.dat]
+        - name: checksum
+          value: [somehash]
+        - name: hasher[xxx]
+          value: [] ... select provided hashing mech also via tools - support only common ones to allow cross library compat
+        - name: date/created
+          value: ['YYYYDDMMThh:mm:ss']
+        - name: date/changed
+          value: ['YYYYDDMMThh:mm:ss']
+
+odml-version: '1.1'
