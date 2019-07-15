@@ -1355,6 +1355,42 @@ discussed Freiburg ideas:
 - it would be nice to move the odml-ui from gtk to pyqt to be more windows compatible
 
 
-in odmltables there is a bug when trying to save a document with a document date
+issues and questions
+- in odmltables there is a bug when trying to save a document with a document date
+- did lyuba ever save tabular data, and if yes, whats the best way to do it
+
+
+
+
+Hi Thomas!
+
+Since some of our team are english speakers, my reply is in english as well, I hope you don't mind.
+
+With respect to your first questions: you could also install the DOI server we developed,
+but only organisations registered with the DOI organisation can request a DOI, so
+it would not help if you installed your own instance.
+We do guarantee that repositories that are uploaded to the G-Node GIN and 
+that request a DOI from such a repository will be hosted for at least 20 years.
+
+You can easily upload a repository that is hosted in your in-house GIN to the G-Node
+web gin by just changing the remote server of the repository in question and simply pushing 
+the content again.
+
+With respect to your second question: we ourselves are using an apache in front of the GIN instance we are running.
+If you plan to make your GIN instance accessible from outside your institute we would recommend using an apache 
+up front as well.
+
+And finally with respect to the second email: we do not have any restrictions on repository size but rather encourage a fair use policy. so in theory you can upload as much data as you want, the 2 TB you mention should be no problem at all, since the main bottleneck would be the upload rate in any case.
+
+
+
+
+hallo,
+
+noch eine kurze frage: wenn wir statt einer in-house installation ihren server nutzen würden, wie groß darf ein einzelnes repository / ein file sein? wir suchen nach einem repository für MEG rohdaten. diese können pro studie bis zu 2TB (verteilt auf mehrere files <2GB) benötigen.
+
+viele grüße,
+thomas hartmann
+
 
 
