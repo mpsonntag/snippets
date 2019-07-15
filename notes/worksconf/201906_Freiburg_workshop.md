@@ -247,7 +247,7 @@ results be represented in NIX.
   - LTP: of course always note the absolute time when a recording starts!
 
 - templates could make sense, but need to be taylored to the course so that the students still 
-  think about the xperiment and what they are actually doing and not just tick off boxes in lists.
+  think about the experiment and what they are actually doing and not just tick off boxes in lists.
 
 - tell the students its ok to be lost during this experiment since its complex and usually people need
   some time to be able to do things on their own.
@@ -344,7 +344,7 @@ There are two sides to this story:
 Nissl staining:
 
 - nissl_stain/experiment 
-    - exerimenters []
+    - experimenters []
     - date
 
     - frontal slices
@@ -386,7 +386,7 @@ Has a specific data management setup:
 Data
 - raw (all data files categorized by data type)
 -- InVivo/
--- Microscope/ ... czi ... zeiss images and JPGs ... medical university usually just 
+-- Microscope/ ... czi ... Zeiss images and JPGs ... medical university usually just 
    exports JPGs of all color channels and deletes the czi files due to file sizes
 -- Tracking/ (Behavior)
 
@@ -433,8 +433,8 @@ Freeform notes:
 - Use an additional layer on top of odML core
 - basically use odML as build tool
 - if a file path is provided in an odML file, add a checksum and validate this checksum 
-  everytime the odML file is opened and the filepath is available. If not available 
-  provide messasge to the user; if checksum does not match, do the same and ask user for 
+  every time the odML file is opened and the filepath is available. If not available 
+  provide message to the user; if checksum does not match, do the same and ask user for 
   feedback.
 - basically odML as container which files belong to an experiment and odML file checks 
   which of the linked files are available
@@ -497,7 +497,7 @@ Freeform notes:
 -- [N] adjust DC Current command on Microelectrode to get a good reading on the Oscilloscope
 -- [N] On Spike2 move to pulse protocol
 -- Note temperature in cell suspension at the time of the beginning of the experiment
-   -- [N] Tsuspension = 35dC
+   -- [N] T_suspension = 35dC
 -- [N] Also note when the Coverslip was first put out of the cell culture; note time of beginning of every experiment!
 -- [N] Spike2: 500ms pulse ... current pulse, 1s pause, protocol "P"
 -- membrane potential readout ~-50mV
@@ -566,7 +566,7 @@ next try:
 - protocol: 50ms pulse, 1s interval ... due to membrane capacitance the recorded trace should have a sharkfin shape. from this shape 
   tau (latency?) of the cell can be calculated.
 
-IF current - Isteps that are increasing until the cell spikes
+IF current - I_steps that are increasing until the cell spikes
 - I is incresed via Filter pre Amp Current injection
 - recording times Spike2 ... file contains recording start time absolute, but ziy have to note at which relative time the protocol starts. recorded in pA and mV
 
@@ -600,7 +600,7 @@ Using two paired pulses besides the titanic stimulus
 
 MEA experiments: 
 - setup
-  - which electrodes: microschannel systems
+  - which electrodes: microchannel systems
   - which solutions used (Buffers)
   - note preparation and setup protocol 
     - T ~ RT
@@ -714,7 +714,7 @@ to ignore missing files messages, checks and validations.
 - time between preparing the slice and starting a recording
 - file name "exp2_long.mcd"
 
-- next experiment ... tripple Paired pulses over time
+- next experiment ... triple Paired pulses over time
 - set window to -30ms, 400ms length for recording windows
 - [N] recording note: could be a problem with the fluid system, slice might be under oxygenated.
 
@@ -1353,3 +1353,8 @@ discussed Freiburg ideas:
   with filename, checksum etc as properties and then a validation for locally available,
   whether the checksum has changed etc. 
 - it would be nice to move the odml-ui from gtk to pyqt to be more windows compatible
+
+
+in odmltables there is a bug when trying to save a document with a document date
+
+
