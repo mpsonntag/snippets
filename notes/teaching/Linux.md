@@ -230,9 +230,25 @@ System disk usage; display system wide disk space usage
 `a2ensite` ... enable an available apache2 webservice configuration
 `a2disite` ... disable an available apache2 webservice configuration
 
+### Webservice certificates for encryption via certbot
+
+When using certbot, make sure you have the latest version and some additional
+plugins installed:
+
+    sudo apt-get update
+    sudo apt-get install certbot python3-certbot-apache
+
 `certbot` ... create https certificates for a webservice
 
-Scheduled jobs via `crontab`:
+Check installed certificates and their status:
+
+    certbot certificates
+
+Check installed certbot plugins:
+
+    certbot plugins
+
+### Scheduled jobs via `crontab`:
 
     # list current users crontab
     crontab -l
