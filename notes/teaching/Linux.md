@@ -248,6 +248,21 @@ Check installed certbot plugins:
 
     certbot plugins
 
+When trying to renew a certificate manually, make sure to use the `--dry-run` option
+first. If a renewal continuously fails a timeout for the next run might occur:
+
+    certbot renew --dry-run
+
+Renew all installed certificates:
+
+    certbot renew
+
+If you have an apache running up front your webservice, the renewal might require
+the `apache` flag; this probably depends on the `cerbot` version in use, newer version
+appear to do this automatically.
+
+    certbot renew --apache
+
 ### Scheduled jobs via `crontab`:
 
     # list current users crontab
