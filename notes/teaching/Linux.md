@@ -253,6 +253,19 @@ Note on how to read crontabs:
 | + ----------- hour; 0-23
 + ------------- min; 0-59 or fractions e.g. */10 ... every then minutes
 
+If not differently set up crontab writes its log entries to syslog:
+
+    /var/log/syslog
+
+- find cron specific log entries:
+
+
+    grep CRON /var/log/syslog
+
+
+By default crontab sets up jobs under the currently logged in user. There can
+be different crontabs under different users including root.
+
 
 ## Networking commands
 
