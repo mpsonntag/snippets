@@ -243,6 +243,16 @@ Scheduled jobs via `crontab`:
     # edit crontab [for superuser]
     [sudo] crontab -e 
 
+Note on how to read crontabs:
+
+* * * * *       command
+| | | | |
+| | | | + ----- day of the week; 0-6; Sunday=0
+| | | + ------- month; 1-12
+| | + --------- day of the month; 1-31
+| + ----------- hour; 0-23
++ ------------- min; 0-59 or fractions e.g. */10 ... every then minutes
+
 
 ## Networking commands
 
