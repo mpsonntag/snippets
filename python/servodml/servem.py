@@ -15,8 +15,10 @@ Options:
 import http.server as hs
 import socketserver
 import sys
+import webbrowser
 
 from docopt import docopt
+from multiprocessing import Process
 
 PORT = 8000
 
@@ -29,6 +31,7 @@ def run(port=PORT):
     server_address = ('', port)
 
     with socketserver.TCPServer(server_address, handler) as httpd:
+        webbrowser.open_new_tab('http://localhost:%s' % port)
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
