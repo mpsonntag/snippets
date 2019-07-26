@@ -8,6 +8,7 @@ Usage: serveOdml [-d DIRECTORY] [-p PORT]
 Options:
     -d DIRECTORY    Directory from which files will be served
                     Default is the directory from which the server is started.
+                    Use absolute paths.
     -p PORT         Port the server will use.
                     Default is port 8000.
     -h --help       Show this screen.
@@ -20,25 +21,32 @@ import sys
 
 from docopt import docopt
 
+PORT = 8000
 
-def run(directory=None, port=8000):
+
+def run(port=PORT):
     handler = hs.SimpleHTTPRequestHandler
     # files with odML extensions should be interpreted as XML
     handler.extensions_map.update({'.odml': 'application/xml'})
+
     server_address = ('', port)
 
     with socketserver.TCPServer(server_address, handler) as httpd:
         try:
             httpd.serve_forever()
-        except KeyboardInterrupt as exc:
+        except KeyboardInterrupt:
             print("Received Keyboard interrupt, shutting down")
             httpd.server_close()
 
 
+def parse_args(args):
+    parser = docopt(__doc__, argv=args, version="0.1.0")
+    server_port = int(parser['-p']) if parser['-p'] else PORT
+    run(server_port)
+
+
 if __name__ == "__main__":
-    parser = docopt(__doc__, argv=sys.argv[1:], version="0.1.0")
-
-    server_port = int(parser['-p']) if parser['-p'] else 8000
-    serve_directory = parser['-d'] if parser['-d'] else None
-
-    run(serve_directory, server_port)
+    if sys.argv[1:]:
+        parse_args(sys.argv[1:])
+    else:
+        run()
