@@ -318,4 +318,6 @@ Open Questions for us:
     annex directly if you want to use branches with annex. -> but does a branch
     merge on the server then properly move the annexed data?
 
+[T] RDM ... for the next one include python environments and docker in the 
+      presentation at least or a short introduction.
  
