@@ -28,7 +28,11 @@ def run(directory=None, port=8000):
     server_address = ('', port)
 
     with socketserver.TCPServer(server_address, handler) as httpd:
-        httpd.serve_forever()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt as exc:
+            print("Received Keyboard interrupt, shutting down")
+            httpd.server_close()
 
 
 if __name__ == "__main__":
