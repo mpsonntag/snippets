@@ -6,9 +6,6 @@ and renders local odml files.
 Usage: serveOdml [-d DIRECTORY] [-p PORT]
 
 Options:
-    -d DIRECTORY    Directory from which files will be served
-                    Default is the directory from which the server is started.
-                    Use absolute paths.
     -p PORT         Port the server will use.
                     Default is port 8000.
     -h --help       Show this screen.
