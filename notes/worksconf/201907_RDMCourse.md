@@ -1,5 +1,66 @@
 # Research DataManagement Course SS201907
 
+[T] ... toDo
+[N] ... toNote
+[C] ... toCheck
+
+## 24.07
+
+[T] odml ... add metadata description to odML tutorial, info pages and link 
+      presentaions from there.
+
+[T] odML ... actuaklly spell it out which program was used to create a specific file.
+
+[T] odML ... design generic high level metadata structure to choose from.
+     e.g. project - experiment - subject - etc
+          stubject - experiment - etc
+     take BIDS structure as one example
+
+[T] odML ... terminology RRID
+
+[T] RDM course ... update code snippet to jupyter style in thomas screenshot
+     presentation ... contains old odML code
+
+[T] conference notes ... why odml ... everything is stored in one place and machine 
+      readable and can write a report tool to create a report for every new experiment
+    still not different from matlab custom cells and reporting ...
+
+[T] RDM course ... actually read lyubas paper and distill guidelines for metadata 
+      extraction and organisation
+
+[N] RDM course .... we would have liked to achieve two things
+    - you are more aware that metadata annotation is really important for science
+      and your own rememberance in a year
+    - that your data is a bit more organized and annotated by the end of the course
+
+[T] RDM course ... guidelines on what to document
+    - what is the data structure
+    - what are file types used and how can they be opened
+    - what do files contain
+    - how do files relate to each other - in a pipeline context - which one is the 
+      raw data which is the analysed data etc.
+
+[T] RDM course / gnode ... to discuss ... what are our own guidelines for data management
+
+[N] publish your software via gin and DOI
+
+[T] nixpy ... add tutorial examples to tests to make sure that these examples
+      will also work with any current version of nixpy.
+
+[T] gnode project ... Data organisation: can we come up with a simple shell script, 
+    that traverses the file structure of a repo and
+    - extracts all file types used
+    - gives a tree of the current file structure
+    - provides short initial texts and a project description template that just
+      needs to be filled out
+    - spits it out as markdown, that can easily be updated and extended to
+      make documenting the contents of a repo easier.
+    - also create a file with improvement notes e.g. when there are whitespaces or
+      special characters in file or foldernames and reports on duplicate filenames
+      could also have duplicate file checks
+    - could be a go project since it nicely ports to all systems
+
+
 
 ## 25.07
 
