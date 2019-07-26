@@ -34,7 +34,7 @@ def run(directory=None, port=8000):
 if __name__ == "__main__":
     parser = docopt(__doc__, argv=sys.argv[1:], version="0.1.0")
 
-    server_port = parser['-p'] if parser['-p'] else 8000
+    server_port = int(parser['-p']) if parser['-p'] else 8000
     serve_directory = parser['-d'] if parser['-d'] else None
 
     run(serve_directory, server_port)
