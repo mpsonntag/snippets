@@ -50,6 +50,63 @@ Chapters 1 through 4 (5 optional)
 ## Course notes
 
 
+### 22.07
+
+
+[T] gin ... put some replicability etc terms in the general gin description
+
+[T] RDM course ... put RDM slides somewhere we can find it?
+
+[T] RDM course ...
+    - define first the report, describe your data
+    - collect metadata as automatic as possible
+    - create a) automatically out of b)
+
+[T] RDM course/conferences ...
+    Grants will require a data management plan. Think about RDM in time, so there are no
+    time issues.
+
+[T] odml ... give usage examples how to get tabular data out of odML via odMLTables both 
+      GUI and via scripting
+
+[T] RDM ... trivial but treat data management as a todo like meetings. pick a day of the 
+      weak, reserve and spend 2h on RDM continuously
+
+[T] RDM ... discussion ... ad hoc data changes vs refinement vs stick to the plan
+    we often have exploratory science, what are our recommendations when
+    e.g. a new parameter comes along or if a data structure needs to change 
+
+[T] RDM ... what is our policy on data migration ... can we give help there?
+     ideally we have an automization script from the start ... continuously use it to 
+     create publishable data files while keeping the plain ones.
+
+[T] RDM ... think ahead ... do you need more cameras, LEDs, diff stimuli in the future
+    - when writing software make it backwards compatible.
+
+[T] odml ... as with mp3s, don't care about folder structures. an odml editor should
+      provide all reqired files, so that the researcher does not have to care too
+      much about it. The editor should in term warn, if files have moved.
+      Look into git and metadata strcutures ... check if we can come up with
+      templates [?]
+
+[T] RDM/tip ... When there are parameter files add comments directly there
+
+[T] RDM/tip ... a problem with automation might be: there are too many plots at every run
+        ... add a plot suppression feature to the code so that only the bare necessities
+            are created on a pipe run. if you need all info, run without the flag.
+
+[T] odml ... how to deal with warnings and errors
+
+[N] personal ... provide courses on usage of various software tools for free
+      at universities .. 2 weeks Tu-Th every two months?
+
+[N] when we have guidelines for bulid pipelines approach the papers and offer the knowledge 
+
+[C] openscience ... reviews on github
+
+[C] Software and data carpentry
+
+
 ### 23.07
 
 [T] RDM course ... after the git course ... history to file and
@@ -66,6 +123,8 @@ Chapters 1 through 4 (5 optional)
 
 
 ### 24.07
+
+[T] nixpy ... when handing a numpy.str_ to a nix entity name it crashes.
 
 [T] odml ... add metadata description to odML tutorial, info pages and link 
       presentaions from there.
