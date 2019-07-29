@@ -1,9 +1,9 @@
-"""serveOdml
+"""odmlView
 
-serverLocalOdml sets up a minimal webserver and serves
+odmlView sets up a minimal webserver and serves
 and renders local odml files.
 
-Usage: serveOdml [-d DIRECTORY] [-p PORT]
+Usage: odmlView [-d DIRECTORY] [-p PORT]
 
 Options:
     -p PORT         Port the server will use.
@@ -18,7 +18,6 @@ import sys
 import webbrowser
 
 from docopt import docopt
-from multiprocessing import Process
 
 PORT = 8000
 
