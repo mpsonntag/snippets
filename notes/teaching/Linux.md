@@ -563,3 +563,19 @@ e.g.
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
     # or 
     JAVA_HOME=/usr/lib/jvm/java-12-oracle/
+
+
+## Adding additional fonts
+
+The following notes are at least true for Ubunut 18
+
+- create a folder in `/usr/share/fonts/truetype/newfonts`
+- move any new `.ttf` font files into this folder
+- the system should automatically make the new fonts available
+- you can check whether they have been added via
+
+
+        fc-list | grep [name of new font]
+
+- if a font has not been properly added, the font cache might need to
+  be refreshed; use the `fc-cache` command in this case.
