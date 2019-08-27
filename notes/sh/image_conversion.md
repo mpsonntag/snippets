@@ -11,11 +11,8 @@ fi
 SOURCEPATH=$1
 TARGETPATH=$2
 
-# Output format for JPEG and GIF is JPEG; use quality 60%
-J_QUALITY="60%"
-P_QUALITY=90
-
-# Conversion of PNG is handled differently
+# Output format for JPEG and GIF is JPEG; use quality 50%
+J_QUALITY="50%"
 
 echo "... using ${SOURCEPATH} and ${TARGETPATH}"
 
