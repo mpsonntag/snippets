@@ -38,9 +38,12 @@ for IMAGE in $SOURCEPATH/*; do
         convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
     fi
     if [[ $FMTYPE == "image/png" ]]; then
-        convert ${IMAGE} -verbose -quality ${P_QUALITY} ${TARGETPATH}${FBASE}
+        optipng ${IMAGE} -out ${TARGETPATH}${FBASE}
     fi
     if [[ $FMTYPE == "image/gif" ]]; then
         convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
     fi
 done
+
+du -hs ${SOURCEPATH}
+du -hs ${TARGETPATH}
