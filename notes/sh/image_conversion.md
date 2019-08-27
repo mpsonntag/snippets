@@ -10,8 +10,12 @@ fi
 
 SOURCEPATH=$1
 TARGETPATH=$2
-FORMAT="JPEG"
-QUALITY="60%"
+
+# Output format for JPEG and GIF is JPEG; use quality 60%
+J_QUALITY="60%"
+P_QUALITY=90
+
+# Conversion of PNG is handled differently
 
 echo "... using ${SOURCEPATH} and ${TARGETPATH}"
 
@@ -26,9 +30,17 @@ if [[ ! -d $SOURCEPATH ]]; then
 fi 
 
 echo "Converting images in ${SOURCEPATH} in ${TARGETPATH}"
-echo "Image format: ${FORMAT}, Quality: ${QUALITY}"
 
 for IMAGE in $SOURCEPATH/*; do
     FBASE=$(basename $IMAGE)
-    convert ${IMAGE} -verbose -quality ${QUALITY} ${FORMAT}:${TARGETPATH}${FBASE}
+    FMTYPE=$(mimetype -b $IMAGE)
+    if [[ $FMTYPE == "image/jpeg" ]]; then
+        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+    fi
+    if [[ $FMTYPE == "image/png" ]]; then
+        convert ${IMAGE} -verbose -quality ${P_QUALITY} ${TARGETPATH}${FBASE}
+    fi
+    if [[ $FMTYPE == "image/gif" ]]; then
+        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+    fi
 done
