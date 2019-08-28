@@ -35,7 +35,10 @@ for IMAGE in $SOURCEPATH/*; do
         convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
     fi
     if [[ $FMTYPE == "image/png" ]]; then
-        optipng ${IMAGE} -out ${TARGETPATH}${FBASE}
+        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+        # unfortunately does not compress as much as we had hoped so 
+        # its disabled for now.
+        # optipng ${IMAGE} -out ${TARGETPATH}${FBASE}
     fi
     if [[ $FMTYPE == "image/gif" ]]; then
         convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
