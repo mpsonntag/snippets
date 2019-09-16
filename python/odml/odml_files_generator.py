@@ -1,16 +1,20 @@
 import random
+import time
 import uuid
+
 from abc import ABC, abstractmethod
 from os import getcwd, path
 
 import odml
-from odml.tools.rdf_converter import RDFWriter
+from odml.tools.rdf_converter import RDFReader, RDFWriter
+from odml.tools.odmlparser import ODMLWriter
 
 RANDOM_MAX = 1000000000  # might be collisions so better change to uuid
 MAX_VALUE_LIST_NUMBER = 5
 MAX_PROPERTY_LIST_NUMBER = 6
 MIN_NUMBER_OF_ENTITIES_ON_THE_LEVEL = 2
-MIN_NUMBER_OF_CHILDREN = 2  # number of children for the entity until there are available children left
+# number of children for the entity until there are available children left
+MIN_NUMBER_OF_CHILDREN = 2
 
 
 # TODO document constants
@@ -335,7 +339,6 @@ class OdmlFilesGenerator:
         pass
 
     def testg(self, file_path):
-        import time
         c = time.time()
         use_width = 10
         use_height = 6
@@ -362,9 +365,6 @@ class OdmlFilesGenerator:
         # self.to_rdf(doc, "/home/rick/g-node/python-odml/doc/generated/w5000h200n30000.xml", format='xml')
 
     def wr(self):
-        from odml.tools.rdf_converter import RDFReader
-        from odml.tools.odmlparser import ODMLWriter
-
         docs = RDFReader().from_file("/home/rick/g-node/python-odml/doc/generated/w10h6n30.ttl", "turtle")
 
         ODMLWriter().write_file(docs[0], "/home/rick/g-node/python-odml/doc/generated/odmls/w10h6n30.odml")
