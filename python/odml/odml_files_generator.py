@@ -263,6 +263,13 @@ class OdmlFilesGenerator:
         self.max_sec_sec_children = max_min_sec_sec_children
         self.max_sec_prop_children = max_min_sec_prop_children
 
+    def _tree_section_append(self, width, height):
+        sec = SectionExample()
+        sec_random = SectionExample.create_random
+
+        curr_list = generate_entity_list(sec, sec_random, width, height)
+        self.tree.append(curr_list)
+
     def generate_by_width_height_entitiesnumber(self, width, height, randomness, number_entities):
         self.width = width
         self.height = height
@@ -289,10 +296,7 @@ class OdmlFilesGenerator:
             if current_level_n > width:
                 current_level_n = width
 
-            self.tree.append(generate_entity_list(SectionExample(),
-                                                  SectionExample.create_random,
-                                                  current_level_n,
-                                                  height - levels_left))
+            self._tree_section_append(current_level_n, height - levels_left)
 
             entities_left -= current_level_n
             level_max = int(entities_left / levels_left)
@@ -305,12 +309,12 @@ class OdmlFilesGenerator:
                 break
 
         if entities_left > width:
-            self.tree.append(generate_entity_list(SectionExample(), SectionExample.create_random, width, height - levels_left))
+            self._tree_section_append(width, height - levels_left)
         elif entities_left > MIN_NUMBER_OF_ENTITIES_ON_THE_LEVEL:
-            self.tree.append(generate_entity_list(SectionExample(), SectionExample.create_random, entities_left, height - levels_left))
+            self._tree_section_append(entities_left, height - levels_left)
 
         # append max level, might be any level
-        self.tree.append(generate_entity_list(SectionExample(), SectionExample.create_random, width, height - levels_left + 1))
+        self._tree_section_append(width, height - levels_left + 1)
 
         self.tree = self._merge_entities(self.tree)
 
