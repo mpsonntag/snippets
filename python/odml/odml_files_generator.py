@@ -323,7 +323,8 @@ class OdmlFilesGenerator:
         return doc
 
     def generate_by_width_children(self, width, randomness,
-                                   max_min_sec_sec_children=(10, 2), max_min_sec_prop_children=(10, 1)):
+                                   max_min_sec_sec_children=(10, 2),
+                                   max_min_sec_prop_children=(10, 1)):
         self.max_sec_sec_children = max_min_sec_sec_children
         self.max_sec_prop_children = max_min_sec_prop_children
         self.randomness = randomness
@@ -358,7 +359,7 @@ class OdmlFilesGenerator:
 
         self.to_rdf(doc, path.join(file_path, use_file_name), format=save_format)
 
-    def testg(self):
+    def time_create_graph(self):
         use_width = 10
         use_height = 6
         use_entities = 30
@@ -374,11 +375,18 @@ class OdmlFilesGenerator:
         # use_entities = 30000
         # self.run_create_graph_test(use_width, use_height, use_entities, "xml")
 
-    def wr(self):
-        docs = RDFReader().from_file("/home/rick/g-node/python-odml/doc/generated/w10h6n30.ttl", "turtle")
+    def write_rdf_to_odml(self, file_path=None):
+        if not file_path:
+            file_path = getcwd()
 
-        ODMLWriter().write_file(docs[0], "/home/rick/g-node/python-odml/doc/generated/odmls/w10h6n30.odml")
+        use_width = 10
+        use_height = 6
+        use_entities = 30
+        name_base = "w%dh%dn%d" % (use_width, use_height, use_entities)
+
+        docs = RDFReader().from_file(path.join(file_path, "%s.ttl" % name_base), "turtle")
+        ODMLWriter().write_file(docs[0], path.join("%s.odml" % name_base))
 
 
-# OdmlFilesGenerator().wr()
-OdmlFilesGenerator().testg()
+# OdmlFilesGenerator().write_rdf_to_odml()
+OdmlFilesGenerator().time_create_graph()
