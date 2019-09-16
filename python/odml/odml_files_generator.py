@@ -17,9 +17,6 @@ MIN_NUMBER_OF_ENTITIES_ON_THE_LEVEL = 2
 MIN_NUMBER_OF_CHILDREN = 2
 
 
-# TODO document constants
-
-
 def random_list_elem(list_obj):
     return random.choice(list_obj)
 
@@ -338,31 +335,44 @@ class OdmlFilesGenerator:
     def generate_by_height_entitiesnumber(self):
         pass
 
-    def testg(self, file_path):
+    def run_create_graph_test(self, use_width=1, use_height=1, use_entities=1,
+                              save_format="turtle", file_path=None, randomness=None):
+
+        if not file_path:
+            file_path = getcwd()
+
+        use_ext = "ttl"
+        if save_format == "xml":
+            use_ext = "xml"
+
+        use_name = "w%dh%dn%d.%s" % (use_width, use_height, use_entities, use_ext)
+        use_file_name = path.join(file_path, use_name)
+
         c = time.time()
-        use_width = 10
-        use_height = 6
-        use_entities = 30
         doc = self.generate_by_width_height_entitiesnumber(width=use_width,
                                                            height=use_height,
                                                            number_entities=use_entities,
-                                                           randomness=None)
-        use_name = "w%dh%dn%d.ttl" % (use_width, use_height, use_entities)
-        use_file_name = path.join(file_path, use_name)
+                                                           randomness=randomness)
 
         print(time.time() - c)
 
-        self.to_rdf(doc, path.join(file_path, use_name))
+        self.to_rdf(doc, path.join(file_path, use_file_name), format=save_format)
 
-        # c = time.time()
-        # doc = self.generate_by_width_height_entitiesnumber(width=500, height=100, number_entities=3000, randomness=None)
-        # print(time.time() - c)
-        # self.to_rdf(doc, "/home/rick/g-node/python-odml/doc/generated/w500h100n3000.ttl")
+    def testg(self):
+        use_width = 10
+        use_height = 6
+        use_entities = 30
+        self.run_create_graph_test(use_width, use_height, use_entities)
 
-        # c = time.time()
-        # doc = self.generate_by_width_height_entitiesnumber(width=5000, height=300, number_entities=30000, randomness=None)
-        # print(time.time() - c)
-        # self.to_rdf(doc, "/home/rick/g-node/python-odml/doc/generated/w5000h200n30000.xml", format='xml')
+        # use_width = 500
+        # use_height = 100
+        # use_entities = 3000
+        # self.run_create_graph_test(use_width, use_height, use_entities)
+
+        # use_width = 5000
+        # use_height = 300
+        # use_entities = 30000
+        # self.run_create_graph_test(use_width, use_height, use_entities, "xml")
 
     def wr(self):
         docs = RDFReader().from_file("/home/rick/g-node/python-odml/doc/generated/w10h6n30.ttl", "turtle")
@@ -371,4 +381,4 @@ class OdmlFilesGenerator:
 
 
 # OdmlFilesGenerator().wr()
-OdmlFilesGenerator().testg(getcwd())
+OdmlFilesGenerator().testg()
