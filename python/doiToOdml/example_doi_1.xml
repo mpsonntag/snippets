@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+  <identifier identifierType="DOI">10.12751/g-node.bcccab</identifier>
+  <creators>
+    <creator>
+      <creatorName>Marini, Francesco</creatorName>
+
+        <affiliation>Department of Psychology, University of Nevada, Reno, NV; Swartz Center for Computational Neuroscience, University of California San Diego, La Jolla, CA</affiliation>
+    </creator>
+    <creator>
+      <creatorName>Breeding, Katherine</creatorName>
+
+        <affiliation>Department of Psychology, University of Nevada, Reno, NV</affiliation>
+    </creator>
+    <creator>
+      <creatorName>Snow, Jacqueline</creatorName>
+
+        <affiliation>Department of Psychology, University of Nevada, Reno, NV</affiliation>
+    </creator>
+  </creators>
+  <titles>
+    <title>Dataset of 24-subject EEG recordings during viewing of real-world objects and planar images of the same items</title>
+  </titles>
+  <descriptions>
+    <description descriptionType="Abstract">
+    Collection of electroencephalographic (EEG) data recorded from 24 observers (14 females, 10 males, mean age: 25.4) while observing individually-presented stimuli comprised of 96 real-world objects, and 96 images of the same items printed in high-resolution. EEG was recorded from 128 scalp channels plus 6 external electrodes for electrooculogram and mastoids. EEG has been pre-processed, segmented in non-overlapping epochs, and independent component analysis (ICA) has been conducted to reject artifacts. Alongside this data we provide the custom-written Matlab® code that can be used to fully reproduce all analyses and figures presented in the linked research article.
+    </description>
+  </descriptions>
+  <rightsList>
+    <rights rightsURI="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike 4.0 International</rights>
+  </rightsList>
+  <subjects>
+     <subject>Neuroscience</subject>
+     <subject>Electrophysiology</subject>
+     <subject>EEG</subject>
+     <subject>Psychology</subject>
+  </subjects>
+  <relatedIdentifiers>
+  <relatedIdentifier relatedIdentifierType="Handle" relationType="IsSupplementTo">Dataset of 24-subject EEG recordings during viewing of real-world objects and planar images of the same items</relatedIdentifier>
+  <relatedIdentifier relatedIdentifierType="Handle" relationType="IsSupplementTo">Distinct visuo-motor brain dynamics for real-world objects versus planar images</relatedIdentifier>
+  </relatedIdentifiers>
+  <fundingReferences>
+  <fundingReference><funderName>NSF, 1632849</funderName></fundingReference>
+  <fundingReference><funderName>NIH, R01EY026701</funderName></fundingReference>
+  <fundingReference><funderName>NIGMS, P20 GM103650</funderName></fundingReference>
+</fundingReferences>
+  <contributors>
+    <contributor contributorType="HostingInstitution">
+      <contributorName>German Neuroinformatics Node</contributorName>
+    </contributor>
+  </contributors>
+  <publisher>G-Node</publisher>
+  <publicationYear>2018</publicationYear>
+  <language>eng</language>
+  <resourceType resourceTypeGeneral="Dataset">Dataset</resourceType>
+  <version>1</version>
+</resource>

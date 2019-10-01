@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+  <identifier identifierType="DOI">10.12751/g-node.feee47</identifier>
+  <creators>
+    <creator>
+      <creatorName>Kumaraswamy, Ajayrama</creatorName>
+        <nameIdentifier schemeURI="http://orcid.org/" nameIdentifierScheme="ORCID">0000-0001-7928-877</nameIdentifier>
+        <affiliation>Department of Biology II, Ludwig-Maximilians-Universität München, 82152 Planegg-Martinsried, Germany</affiliation>
+    </creator>
+  </creators>
+  <titles>
+    <title>Reg-MaxS and Reg-MaxS-N: Algorithms for co-registration of pairs and groups of neuron morphologies based on maximization of spatial overlap</title>
+  </titles>
+  <descriptions>
+    <description descriptionType="Abstract">
+    Algorithms for registering pairs and groups of SWC neuronal morphologies based on maximizing spatial overlap.&#xA;
+    </description>
+  </descriptions>
+  <rightsList>
+    <rights rightsURI="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0</rights>
+  </rightsList>
+  <subjects>
+     <subject>Neuroscience</subject>
+     <subject>Neuron morphology</subject>
+     <subject>Spatial registration</subject>
+  </subjects>
+  <relatedIdentifiers>
+  <relatedIdentifier relatedIdentifierType="Handle" relationType="IsDescribedBy">Kumaraswamy A., Kai K., Ai H., Ikeno H., Wachtler T. (2018). Spatial registration of neuron morphologies based on maximization of volume overlap. BMC Bioinformatics.</relatedIdentifier>
+  <relatedIdentifier relatedIdentifierType="Handle" relationType="IsPartOf">https://github.com/wachtlerlab/Reg-MaxS</relatedIdentifier>
+  </relatedIdentifiers>
+  <fundingReferences>
+  <fundingReference><funderName>BMBF, 01GQ1116</funderName></fundingReference>
+  <fundingReference><funderName>BMBF, 01GQ1302</funderName></fundingReference>
+</fundingReferences>
+  <contributors>
+    <contributor contributorType="HostingInstitution">
+      <contributorName>German Neuroinformatics Node</contributorName>
+    </contributor>
+  </contributors>
+  <publisher>G-Node</publisher>
+  <publicationYear>2018</publicationYear>
+  <language>eng</language>
+  <resourceType resourceTypeGeneral="Dataset">Dataset</resourceType>
+  <version>1</version>
+</resource>
