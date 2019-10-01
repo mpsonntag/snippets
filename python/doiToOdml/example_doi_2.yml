@@ -1,0 +1,45 @@
+#
+authors:
+  -
+    firstname: "Ajayrama"
+    lastname: "Kumaraswamy"
+    affiliation: "Department of Biology II, Ludwig-Maximilians-Universität München, 82152 Planegg-Martinsried, Germany"
+    id: "orcid.org/0000-0001-7928-877X"
+
+# A name or title to describe the published resource.
+title: "Reg-MaxS and Reg-MaxS-N: Algorithms for co-registration of pairs and groups of neuron morphologies based on maximization of spatial overlap"
+
+# Any additional information. It is best practice to supply a description for the resource.
+description: |
+  Algorithms for registering pairs and groups of SWC neuronal morphologies based on maximizing spatial overlap.
+
+# List of keywords the resource should be associated with.
+keywords:
+  - Neuroscience
+  - Neuron morphology
+  - Spatial registration
+
+# Any rights information for this resource. Please provide both a license name and a link to the license.
+# Please add also a LICENSE file to the repository
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+
+## Optional Fields
+
+# Any funding reference for this resource. Separate funder name and grant number by comma
+funding:
+  - "BMBF, 01GQ1116"
+  - "BMBF, 01GQ1302"
+
+# Related publications. reftype might be: IsCitedBy, IsSupplementTo, IsReferencedBy, IsPartOf
+# for further valid types see https://schema.datacite.org/meta/kernel-4
+# Please provide digital identifier (e.g., DOI) if possible.
+references:
+  -
+    doi: "10.1186/s12859-018-2136-z"
+    reftype: "IsDescribedBy"
+    name: "Kumaraswamy A., Kai K., Ai H., Ikeno H., Wachtler T. (2018). Spatial registration of neuron morphologies based on maximization of volume overlap. BMC Bioinformatics."
+  -
+    name: "https://github.com/wachtlerlab/Reg-MaxS"
+    reftype: "IsPartOf"

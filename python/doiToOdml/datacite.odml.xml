@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://templates.g-node.org/_resources/odmlTemplate.xsl"?>
+<odML version="1.1">
+  <section>
+    <type>DataReference</type>
+    <name>DataCite</name>
+    <definition>A published dataset referenced by a DOI and registered with DataCite. The referenced dataset will contain either the odML file itself or the data the odML is annotating.</definition>
+
+    <property>
+        <name>SchemaVersion</name>
+        <definition>The implemented datacite schema version</definition>
+        <value>kernel-4.3</value>
+        <type>string</type>
+        <reference>https://schema.datacite.org/meta/kernel-4.3/</reference>
+    </property>
+
+    <property>
+        <name>DataDOI</name>
+        <definition>A unique Digital object identifier of data. In the current context a URI linking to the published dataset.</definition>
+        <type>url</type>
+        <value></value>
+    </property>
+
+    <property>
+        <name>ResourceType</name>
+        <definition>A description of the resource. The format is open, but the preferred format is a single term of some detail so that a pair can be formed with the sub-property.Text formats can be free-text OR terms from the CASRAI Publications resource type list. In the odML context the value will mostly be 'Dataset'.</definition>
+        <type>string</type>
+        <value>DataSet</value>
+    </property>
+
+    <section>
+        <type>DataReference</type>
+        <name>DataCiteAuthors</name>
+        <section>
+            <name>DataCiteAuthor 1</name>
+            <type>DataReference</type>
+            <definition>Information about an author as required by DataCite.</definition>
+            <property>
+                <name>FirstName</name>
+                <definition>The authors first Name (John).</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>LastName</name>
+                <definition>The authors last name (Doe).</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Affiliation</name>
+                <definition>Affiliation of the author [Institute, City, Country]</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>Id</name>
+                <definition>Any Id that is capable of identifying the author e.g. ORCID</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
+        <type>DataReference</type>
+        <name>DataCiteReferences</name>
+        <section>
+            <type>DataReference</type>
+            <name>DataCiteReference 1</name>
+            <definition>A publication the published dataset is referencing.</definition>
+            <property>
+                <name>DOI</name>
+                <definition>DOI to the referenced publication</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>RefType</name>
+                <definition>refType might be: IsCitedBy, IsSupplementTo, IsReferencedBy, IsPartOf for further valid types see https://schema.datacite.org/meta/kernel-4</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>PublictionCitation</name>
+                <definition>Full citation of the reference publication</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
+        <type>DataReference</type>
+        <name>DataReferenceDescription</name>
+        <definition>Description of a data reference. This Section is defined to be used as a subsection of the 'DataReference' type sections.</definition>
+
+        <property>
+            <name>Title</name>
+            <definition>Title of the published dataset.</definition>
+            <type>string</type>
+            <value></value>
+        </property>
+
+        <property>
+            <name>Description</name>
+            <definition>Abstract of the published dataset.</definition>
+            <type>string</type>
+            <value></value>
+        </property>
+
+        <property>
+            <name>Funding</name>
+            <definition>List of grants the published dataset was funded by.</definition>
+            <type>string</type>
+            <value></value>
+        </property>
+
+        <property>
+            <name>Keywords</name>
+            <definition>List of keywords describing the published dataset.</definition>
+            <type>string</type>
+            <value></value>
+        </property>
+
+        <section>
+            <type>License</type>
+            <name>License</name>
+            <definition>Description of the license for data / software.</definition>
+
+            <property>
+                <name>Name</name>
+                <definition>A name of the license.</definition>
+                <type>string</type>
+                <value></value>
+            </property>
+
+            <property>
+                <name>LicenseURL</name>
+                <definition>URL of the license.</definition>
+                <type>URL</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+  </section>
+</odML>
