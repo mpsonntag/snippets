@@ -8,7 +8,7 @@
 
     <section>
         <name>identifier</name>
-        <type>DataReference</type>
+        <type>DataCite</type>
         <property>
             <name>identifierType</name>
             <type>string</type>
@@ -23,8 +23,8 @@
     </section>
 
     <section>
-        <name>SchemaVersion</name>
-        <type>DataReference</type>
+        <name>version</name>
+        <type>DataCite</type>
         <definition>The implemented datacite schema version</definition>
         <property>
             <name>version</name>
@@ -42,11 +42,11 @@
     </property>
 
     <section>
-        <type>DataReference</type>
+        <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
             <name>DataCiteAuthor 1</name>
-            <type>DataReference</type>
+            <type>DataCite</type>
             <definition>Information about an author as required by DataCite.</definition>
             <property>
                 <name>FirstName</name>
@@ -76,10 +76,10 @@
     </section>
 
     <section>
-        <type>DataReference</type>
+        <type>DataCite</type>
         <name>DataCiteReferences</name>
         <section>
-            <type>DataReference</type>
+            <type>DataCite</type>
             <name>DataCiteReference 1</name>
             <definition>A publication the published dataset is referencing.</definition>
             <property>
@@ -104,7 +104,7 @@
     </section>
 
     <section>
-        <type>DataReference</type>
+        <type>DataCite</type>
         <name>DataReferenceDescription</name>
         <definition>Description of a data reference. This Section is defined to be used as a subsection of the 'DataReference' type sections.</definition>
 
