@@ -34,12 +34,20 @@
         </property>
     </section>
 
-    <property>
-        <name>ResourceType</name>
-        <definition>A description of the resource. The format is open, but the preferred format is a single term of some detail so that a pair can be formed with the sub-property.Text formats can be free-text OR terms from the CASRAI Publications resource type list. In the odML context the value will mostly be 'Dataset'.</definition>
-        <type>string</type>
-        <value>DataSet</value>
-    </property>
+    <section>
+        <name>resourceType</name>
+        <type>DataReference</type>
+        <property>
+            <name>resourceTypeGeneral</name>
+            <type>string</type>
+            <value>[Audiovisual, Collection, DataPaper, Dataset, Event, Image, InteractiveResource, Model, PhysicalObject, Service, Software, Sound, Text, Workflow, Other]</value>
+        </property>
+        <property>
+            <name>resourceType</name>
+            <type>string</type>
+            <value></value>
+        </property>
+    </section>
 
     <section>
         <type>DataCite</type>
