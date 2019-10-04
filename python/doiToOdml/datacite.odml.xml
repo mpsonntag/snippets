@@ -202,6 +202,40 @@
     </section>
 
     <section>
+        <name>rightsList</name>
+        <type>DataCite</type>
+        <section>
+            <name>rights</name>
+            <type>DataCite</type>
+            <definition>Any rights information for this resource. The property may be repeated to record complex rights characteristics.</definition>
+            <property>
+                <name>rightsURI</name>
+                <type>url</type>
+                <definition>The URI of the license.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>rightsIdentifier</name>
+                <type>string</type>
+                <definition>A short, standardized version of the license name.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>rightsIdentifierScheme</name>
+                <type>string</type>
+                <definition>The name of the scheme.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>schemeURI</name>
+                <type>url</type>
+                <definition>The URI of the rightsIdentifierScheme.</definition>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
@@ -281,26 +315,6 @@
             <type>string</type>
             <value></value>
         </property>
-
-        <section>
-            <type>License</type>
-            <name>License</name>
-            <definition>Description of the license for data / software.</definition>
-
-            <property>
-                <name>Name</name>
-                <definition>A name of the license.</definition>
-                <type>string</type>
-                <value></value>
-            </property>
-
-            <property>
-                <name>LicenseURL</name>
-                <definition>URL of the license.</definition>
-                <type>URL</type>
-                <value></value>
-            </property>
-        </section>
     </section>
   </section>
 </odML>
