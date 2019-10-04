@@ -72,6 +72,25 @@
     </section>
 
     <section>
+        <name>titles</name>
+        <type>DataCite</type>
+        <section>
+            <name>title</name>
+            <type>DataCite</type>
+            <property>
+                <name>title</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>titleType</name>
+                <type>string</type>
+                <value>[AlternativeTitle, Subtitle, TranslatedTitle, Other]</value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
