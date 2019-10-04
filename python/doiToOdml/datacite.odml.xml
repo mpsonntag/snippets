@@ -6,20 +6,33 @@
     <name>DataCite</name>
     <definition>A published dataset referenced by a DOI and registered with DataCite. The referenced dataset will contain either the odML file itself or the data the odML is annotating.</definition>
 
-    <property>
-        <name>SchemaVersion</name>
-        <definition>The implemented datacite schema version</definition>
-        <value>kernel-4.3</value>
-        <type>string</type>
-        <reference>https://schema.datacite.org/meta/kernel-4.3/</reference>
-    </property>
+    <section>
+        <name>identifier</name>
+        <type>DataReference</type>
+        <property>
+            <name>identifierType</name>
+            <type>string</type>
+            <value>DOI</value>
+        </property>
+        <property>
+            <name>identifierURI</name>
+            <definition>A unique Digital object identifier of data. In the current context a URI linking to the published dataset.</definition>
+            <type>url</type>
+            <value></value>
+        </property>
+    </section>
 
-    <property>
-        <name>DataDOI</name>
-        <definition>A unique Digital object identifier of data. In the current context a URI linking to the published dataset.</definition>
-        <type>url</type>
-        <value></value>
-    </property>
+    <section>
+        <name>SchemaVersion</name>
+        <type>DataReference</type>
+        <definition>The implemented datacite schema version</definition>
+        <property>
+            <name>version</name>
+            <value>4.3</value>
+            <type>string</type>
+            <reference>https://schema.datacite.org/meta/kernel-4.3/</reference>
+        </property>
+    </section>
 
     <property>
         <name>ResourceType</name>
