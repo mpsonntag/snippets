@@ -125,6 +125,32 @@
     </section>
 
     <section>
+        <name>dates</name>
+        <type>DataCite</type>
+        <definition>Different dates relevant to the work.</definition>
+        <section>
+            <name>date 1</name>
+            <type>DataCite</type>
+            <property>
+                <name>date</name>
+                <definition>YYYY,YYYY-MM-DD, YYYY-MM-DDThh:mm:ssTZD or any other format or level of granularity described in W3CDTF24. Use RKMS-ISO860125standard for depicting date ranges.Example: 2004-03-02/2005-06-02.Years before 0000 must be prefixed with a -sign,e.g. -0054 to indicate 55 BC.</definition>
+            </property>
+            <property>
+                <name>dateType</name>
+                <type>string</type>
+                <definition>The type of date. If Date is used, dateType is mandatory.</definition>
+                <value>[Accepted, Available, Copyrighted, Collected, Created, Issued, Submitted, Updated, Valid, Withdrawn, Other]</value>
+            </property>
+            <property>
+                <name>dateInformation</name>
+                <type></type>
+                <definition>Specific information about the date, if appropriate. </definition>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
