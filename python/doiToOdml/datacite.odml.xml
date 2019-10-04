@@ -181,6 +181,27 @@
     </section>
 
     <section>
+        <name>descriptions</name>
+        <type>DataCite</type>
+        <section>
+            <name>description 1</name>
+            <type>DataCite</type>
+            <definition>All additional information that does not fit in any of the other categories. May be used for technical information.</definition>
+            <property>
+                <name>description</name>
+                <type>string</type>
+                <value></value>
+            </property>
+            <property>
+                <name>descriptionType</name>
+                <type>string</type>
+                <definition>The type of the Description. If Description is used, descriptionType is mandatory.</definition>
+                <value>[Abstract, Methods, Series, Information, TableOfContents ,TechnicalInfo, Other]</value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
@@ -255,22 +276,8 @@
         </property>
 
         <property>
-            <name>Description</name>
-            <definition>Abstract of the published dataset.</definition>
-            <type>string</type>
-            <value></value>
-        </property>
-
-        <property>
             <name>Funding</name>
             <definition>List of grants the published dataset was funded by.</definition>
-            <type>string</type>
-            <value></value>
-        </property>
-
-        <property>
-            <name>Keywords</name>
-            <definition>List of keywords describing the published dataset.</definition>
             <type>string</type>
             <value></value>
         </property>
