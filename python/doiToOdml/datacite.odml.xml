@@ -308,6 +308,58 @@
     </section>
 
     <section>
+        <name>fundingReferences</name>
+        <type>DataCite</type>
+        <section>
+            <name>fundingReference</name>
+            <type>DataCite</type>
+            <definition>Information about financial support (funding) for the resource being registered.</definition>
+            <property>
+                <name>funderName</name>
+                <type>string</type>
+                <definition>Name of the funding provider.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>funderIdentifier</name>
+                <type>string</type>
+                <definition>Uniquely identifies a funding entity, according to various types.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>funderIdentifierType</name>
+                <type>string</type>
+                <definition>The type of the funderIdentifier.</definition>
+                <value>[Crossref Funder ID, GRID, ISNI, ROR, Other]</value>
+            </property>
+            <property>
+                <name>schemeURI</name>
+                <type>url</type>
+                <definition>The URI of the funder identifier schema.</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>awardNumber</name>
+                <type>string</type>
+                <definition>The code assigned by the funder to a sponsored award (grant).</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>awardURI</name>
+                <type>url</type>
+                <definition>The URI leading to a page provided by the funder for more information about the award (grant).</definition>
+                <value></value>
+            </property>
+            <property>
+                <name>awardTitle</name>
+                <type>string</type>
+                <definition>The human readable title or name of the award (grant).</definition>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
@@ -369,24 +421,5 @@
         </section>
     </section>
 
-    <section>
-        <type>DataCite</type>
-        <name>DataReferenceDescription</name>
-        <definition>Description of a data reference. This Section is defined to be used as a subsection of the 'DataReference' type sections.</definition>
-
-        <property>
-            <name>Title</name>
-            <definition>Title of the published dataset.</definition>
-            <type>string</type>
-            <value></value>
-        </property>
-
-        <property>
-            <name>Funding</name>
-            <definition>List of grants the published dataset was funded by.</definition>
-            <type>string</type>
-            <value></value>
-        </property>
-    </section>
   </section>
 </odML>
