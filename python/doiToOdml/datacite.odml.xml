@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="https://templates.g-node.org/_resources/odmlTemplate.xsl"?>
 <odML version="1.1">
+  <repository>https://templates.g-node.org/datacite/datacite.xml</repository>
+  <version>1.0</version>
+  <date>2019-10-04</date>
+
   <section>
     <type>DataReference</type>
     <name>DataCite</name>
     <definition>A published dataset referenced by a DOI and registered with DataCite. The referenced dataset will contain either the odML file itself or the data the odML is annotating.</definition>
+
+    <property>
+        <name>publisher</name>
+        <type>string</type>
+        <value></value>
+    </property>
+    <property>
+        <name>publicationYear</name>
+        <type>string</type>
+        <value></value>
+    </property>
+    <property>
+        <name>language</name>
+        <type>string</type>
+        <definition>The primary language of the resource. Allowed values are taken from IETF BCP 47, ISO 639-1 language codes.Examples: en, de, fr</definition>
+        <value></value>
+    </property>
 
     <section>
         <name>identifier</name>
@@ -12,12 +33,13 @@
         <property>
             <name>identifierType</name>
             <type>string</type>
+            <definition>The type of Identifier.</definition>
             <value>DOI</value>
         </property>
         <property>
-            <name>identifierURI</name>
-            <definition>A unique Digital object identifier of data. In the current context a URI linking to the published dataset.</definition>
-            <type>url</type>
+            <name>identifier</name>
+            <definition>The Identifier is a unique string that identifies a resource. For software, determine whether the identifier is for a specific version of a piece of software, (per the Force11 Software Citation Principles), or for all versions. DOI (Digital Object Identifier) registered by a DataCite member. Format should be “10.1234/foo”</definition>
+            <type>string</type>
             <value></value>
         </property>
     </section>
@@ -36,7 +58,7 @@
 
     <section>
         <name>resourceType</name>
-        <type>DataReference</type>
+        <type>DataCite</type>
         <property>
             <name>resourceTypeGeneral</name>
             <type>string</type>
