@@ -151,6 +151,36 @@
     </section>
 
     <section>
+        <name>sizes</name>
+        <type>DataCite</type>
+        <section>
+            <name>size 1</name>
+            <type>DataCite</type>
+            <definition>Size (e.g. bytes, pages, inches, etc.) or duration (extent), e.g. hours, minutes, days, etc., of a resource.</definition>
+            <property>
+                <name>size</name>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
+        <name>formats</name>
+        <type>DataCite</type>
+        <section>
+            <name>format 1</name>
+            <type>DataCite</type>
+            <definition>Technical format of the resource</definition>
+            <property>
+                <name>format</name>
+                <type>string</type>
+                <value></value>
+            </property>
+        </section>
+    </section>
+
+    <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
         <section>
