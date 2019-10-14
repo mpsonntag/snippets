@@ -311,7 +311,7 @@
         <name>fundingReferences</name>
         <type>DataCite</type>
         <section>
-            <name>fundingReference</name>
+            <name>fundingReference #</name>
             <type>DataCite</type>
             <definition>Information about financial support (funding) for the resource being registered.</definition>
             <property>
@@ -359,6 +359,97 @@
         </section>
     </section>
 
+    <section>
+        <name>contributrors</name>
+        <type>DataCite</type>
+        <section>
+            <name>contributor</name>
+            <type>DataCite</type>
+            <definition>The institution or person responsible for collecting, managing, distributing, or otherwise contributing to the development of the resource.To supply multiple contributors, repeat this property.For software, if there is an alternate entity that "holds, archives, publishes, prints, distributes, releases, issues, or produces" the code, use the contributorType "hostingInstitution" for the code repository.</definition>
+
+            <property>
+                <name>contributerType</name>
+                <type>string</type>
+                <value>[ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, HostingInstitution, Producer, ProjectLeader, ProjectManager, ProjectMember, RegistrationAgency, RegistrationAuthority, RelatedPerson, Researcher, ResearchGroup, RightsHolder, Sponsor, Supervisor, WorkPackageLeader, Other]</value>
+                <definition>The type of contributor of the resource.</definition>
+            </property>
+            <property>
+                <name>contributorName</name>
+                <type>string</type>
+                <value></value>
+                <definition>The full name of the contributor.</definition>
+            </property>
+            <property>
+                <name>givenName</name>
+                <type>string</type>
+                <value></value>
+                <definition>The personal or first name of the contributor.</definition>
+            </property>
+            <property>
+                <name>familyName</name>
+                <type>string</type>
+                <value></value>
+                <definition>The surname or last name of the contributor.</definition>
+            </property>
+
+            <section>
+                <name>namedIdentifier #</name>
+                <type>DataCite</type>
+                <definition>Uniquely identifies an individual or legal entity, according to various schemes.</definition>
+                <property>
+                    <name>namedIdentifier</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Value of the named identifier</definition>
+                </property>
+                <property>
+                    <name>nameIdentifierScheme</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>The name of the name identifier scheme. Examples: ORCID, ISNI, ROR, GRID</definition>
+                </property>
+                <property>
+                    <name>schemeURI</name>
+                    <type>url</type>
+                    <value></value>
+                    <definition>The URI of the name identifier scheme.</definition>
+                </property>
+            </section>
+
+            <section>
+                <name>affiliation #</name>
+                <type>DataCite</type>
+                <definition>The organizational or institutional affiliation of the contributor.</definition>
+
+                <property>
+                    <name>affiliation</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Value of the affiliation</definition>
+                </property>
+                <property>
+                    <name>affiliationIdentifier</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Uniquely identifies the organizational affiliation of the contributor.</definition>
+                </property>
+                <property>
+                    <name>affiliationIdentifierScheme</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Name of the affiliation identifier schema. Examples: ROR, GRID</definition>
+                </property>
+                <property>
+                    <name>schemeURI</name>
+                    <type>url</type>
+                    <value></value>
+                    <definition>URI of the affiliation identifier schema.</definition>
+                </property>
+            </section>
+        </section>
+    </section>
+
+    <!-- custom -->
     <section>
         <type>DataCite</type>
         <name>DataCiteAuthors</name>
