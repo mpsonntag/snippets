@@ -449,38 +449,94 @@
         </section>
     </section>
 
-    <!-- custom -->
     <section>
+        <name>creators</name>
         <type>DataCite</type>
-        <name>DataCiteAuthors</name>
+
         <section>
-            <name>DataCiteAuthor 1</name>
+            <name>creator #</name>
             <type>DataCite</type>
-            <definition>Information about an author as required by DataCite.</definition>
+            <definition>The main researchers involved in producing the data, or the authors of the publication, in priority order. To supply multiple creators, repeat this property.</definition>
+
             <property>
-                <name>FirstName</name>
-                <definition>The authors first Name (John).</definition>
+                <name>creatorName</name>
                 <type>string</type>
                 <value></value>
+                <definition>The full name of the creator.</definition>
             </property>
             <property>
-                <name>LastName</name>
-                <definition>The authors last name (Doe).</definition>
+                <name>creatorNameType</name>
                 <type>string</type>
-                <value></value>
+                <value>[Organizational, Personal (default)]</value>
+                <definition>The type of name</definition>
             </property>
             <property>
-                <name>Affiliation</name>
-                <definition>Affiliation of the author [Institute, City, Country]</definition>
+                <name>givenName</name>
                 <type>string</type>
                 <value></value>
+                <definition>The personal or first name of the creator.</definition>
             </property>
             <property>
-                <name>Id</name>
-                <definition>Any Id that is capable of identifying the author e.g. ORCID</definition>
+                <name>familyName</name>
                 <type>string</type>
                 <value></value>
+                <definition>The surname or last name of the creator.</definition>
             </property>
+
+            <section>
+                <name>namedIdentifier #</name>
+                <type>DataCite</type>
+                <definition>Uniquely identifies an individual or legal entity, according to various schemes.</definition>
+                <property>
+                    <name>namedIdentifier</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Value of the named identifier</definition>
+                </property>
+                <property>
+                    <name>nameIdentifierScheme</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>The name of the name identifier scheme. Examples: ORCID, ISNI, ROR, GRID</definition>
+                </property>
+                <property>
+                    <name>schemeURI</name>
+                    <type>url</type>
+                    <value></value>
+                    <definition>The URI of the name identifier scheme.</definition>
+                </property>
+            </section>
+
+            <section>
+                <name>affiliation #</name>
+                <type>DataCite</type>
+                <definition>The organizational or institutional affiliation of the creator.</definition>
+
+                <property>
+                    <name>affiliation</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Value of the affiliation</definition>
+                </property>
+                <property>
+                    <name>affiliationIdentifier</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Uniquely identifies the organizational affiliation of the creator.</definition>
+                </property>
+                <property>
+                    <name>affiliationIdentifierScheme</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Name of the affiliation identifier schema. Examples: ROR, GRID</definition>
+                </property>
+                <property>
+                    <name>schemeURI</name>
+                    <type>url</type>
+                    <value></value>
+                    <definition>URI of the affiliation identifier schema.</definition>
+                </property>
+            </section>
         </section>
     </section>
 
