@@ -539,6 +539,98 @@
                 </section>
             </section>
         </section>
+
+        <section>
+            <name>geoLocations</name>
+            <type>DataCite</type>
+
+            <section>
+                <name>geoLocation #</name>
+                <type>DataCite</type>
+                <definition>Spatial region or named place where the data was gathered or about which the data is focused.</definition>
+
+                <property>
+                    <name>geoLocationPlace</name>
+                    <type>string</type>
+                    <value></value>
+                    <definition>Description of a geographic location</definition>
+                </property>
+
+                <section>
+                    <name>geoLocationPoint</name>
+                    <type>DataCite</type>
+                    <definition>A point location in space.</definition>
+
+                    <property>
+                        <name>pointLongitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Longitudinal dimension of point.</definition>
+                    </property>
+                    <property>
+                        <name>pointLatitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Latitudinal dimension of point.</definition>
+                    </property>
+                </section>
+                <section>
+                    <name>geoLocationBox</name>
+                    <type>DataCite</type>
+                    <definition>The spatial limits of a box. A box is defined by two geographic points. Left low corner and right upper corner. Each point is defined by its longitude and latitude.</definition>
+
+                    <property>
+                        <name>westBoundLongitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Western longitudinal dimension of box.</definition>
+                    </property>
+                    <property>
+                        <name>eastBoundLongitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Eastern longitudinal dimension of box.</definition>
+                    </property>
+                    <property>
+                        <name>southBoundLatitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Southern latitudinal dimension of box.</definition>
+                    </property>
+                    <property>
+                        <name>northBoundLatitude</name>
+                        <type>float</type>
+                        <value></value>
+                        <definition>Northern latitudinal dimension of box.</definition>
+                    </property>
+                </section>
+                <section>
+                    <name>geoLocationPolygon</name>
+                    <type>DataCite</type>
+                    <definition>A drawn polygon area, defined by a set of points and lines connecting the points in a closed chain.</definition>
+
+                    <section>
+                        <name>polygonPoint #</name>
+                        <type>DataCite</type>
+                        <definition>A point location in a polygon. If geoLocationPolygon is used, polygonPoint must be used as well. There must be at least 4 non-aligned points to make a closed curve, with the last point described the same as the first point.</definition>
+
+                        <property>
+                            <name>pointLatitude</name>
+                            <type>float</type>
+                            <value></value>
+                            <definition>Longitudinal dimension of point.</definition>
+                        </property>
+                        <property>
+                            <name>pointLongitude</name>
+                            <type>float</type>
+                            <value></value>
+                            <definition>Latitudinal dimension of point.</definition>
+                        </property>
+                    </section>
+                </section>
+            </section>
+        </section>
+
     </section>
 
     <section>
