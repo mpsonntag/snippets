@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="https://templates.g-node.org/_resources/odmlTemplate.xsl"?>
+<?xml-stylesheet type="text/xsl" href="https://terminologies.g-node.org/_resources/odmlDocument.xsl" xmlns:odml="http://www.g-node.org/odml"?>
 <odML version="1.1">
-    <repository>https://templates.g-node.org/datacite/datacite.xml</repository>
-    <version>1.0</version>
-    <date>2019-10-04</date>
+    <repository>https://terminologies.g-node.org/v1.1/terminologies.xml</repository>
+    <version>1.1</version>
+    <date>2019-10-15</date>
 
     <section>
         <name>DataCite</name>
@@ -25,7 +25,6 @@
             <property>
                 <name>identifier</name>
                 <type>string</type>
-                <value></value>
                 <definition>The value of the identifier.</definition>
             </property>
         </section>
@@ -62,7 +61,6 @@
                     <definition>The surname or last name of the creator.</definition>
                 </property>
 
-                <!-- should this be an "include"/"link"? -->
                 <section>
                     <name>namedIdentifier #</name>
                     <type>DataCite</type>
@@ -85,7 +83,6 @@
                     </property>
                 </section>
 
-                <!-- should this be an "include"/"link"? -->
                 <section>
                     <name>affiliation #</name>
                     <type>DataCite</type>
@@ -244,7 +241,6 @@
                     <definition>The surname or last name of the contributor.</definition>
                 </property>
 
-                <!-- should this be "include"/"link"? -->
                 <section>
                     <name>namedIdentifier #</name>
                     <type>DataCite</type>
@@ -267,7 +263,6 @@
                     </property>
                 </section>
 
-                <!-- should this be "include"/"link"? -->
                 <section>
                     <name>affiliation #</name>
                     <type>DataCite</type>
@@ -642,7 +637,7 @@
 
     <section>
         <name>DataCiteComplement</name>
-        <type>DataCite</type>
+        <type>DataReference</type>
         <definition>Additional sections complementing the Datacite scheme. The information contained in this section is not supported by the DataCite scheme.</definition>
 
         <section>
