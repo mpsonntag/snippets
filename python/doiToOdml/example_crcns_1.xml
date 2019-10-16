@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-2.2 http://schema.datacite.org/meta/kernel-2.2/metadata.xsd">
+    <identifier identifierType="DOI">10.6080/K0B85697</identifier>
+    <creators>
+        <creator>
+            <creatorName>Michiel M. ten Brinke</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Shane A. Heiney</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Xiaolu Wang</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Martina Proietti-Onori</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Henk-Jan Boele</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Jacob Bakermans</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Javier F. Medina</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Zhenyu Gao</creatorName>
+        </creator>
+        <creator>
+            <creatorName>Christiaan I. De Zeeuw</creatorName>
+        </creator>
+    </creators>
+    <titles>
+        <title>Eyelid behavior and spike activity of cerebellar interpositus
+                       nucleus neurons during eyeblink conditioning in awake behaving mice.</title>
+        <title titleType="AlternativeTitle">CRCNS.org cb-1</title>
+    </titles>
+    <publisher>CRCNS.org</publisher>
+    <publicationYear>2017</publicationYear>
+    <subjects>
+        <subject>Neuroscience</subject>
+        <subject>Electrophysiology</subject>
+        <subject>eyeblink</subject>
+        <subject>mouse</subject>
+        <subject>cerebellum</subject>
+        <subject>interpositus nucleus</subject>
+    </subjects>
+    <language>eng</language>
+    <resourceType resourceTypeGeneral="Dataset">Dataset/Neurophysiology</resourceType>
+    <sizes>
+        <size>294 MB</size>
+    </sizes>
+    <formats>
+        <format>application/matlab</format>
+        <format>binary</format>
+    </formats>
+    <version>1.0</version>
+    <descriptions>
+        <description descriptionType="Other">
+                The objective was to record cerebellar interpositus nucleus neurons in awake
+                behaving mice during or after training in a delay eyeblink conditioning paradigm.
+                The experiments yielded 372 recordings of interpositus neurons, each of which
+                comprising of traces of eyelid behavior and spike activity during paired trials,
+                i.e. presentations of an LED Light stimulus (the conditioned stimulus, CS) and
+                a subsequent periocular air puff stimulus (the unconditioned stimulus, US).
+                While unconditioned blink responses upon the US (called URs) were always prevalent,
+                well-timed conditioned eyelid closures in response to the CS (called CRs)
+                developed over the course of training. These learned CRs have been shown by
+                previous work to find their neuronal correlate in the cerebellum, and the
+                current data have served to determine in detail how neurons in the cerebellar
+                interposed nuclei respond to the conditioning stimuli, and how their spike
+                modulation correlates to CR behavior.
+        </description>
+    </descriptions>
+</resource>

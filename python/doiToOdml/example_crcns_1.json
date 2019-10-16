@@ -1,0 +1,135 @@
+{
+  "id": "https://doi.org/10.6080/k0b85697",
+  "doi": "10.6080/K0B85697",
+  "url": "http://crcns.org/data-sets/cb/cb-1",
+  "types": {
+    "ris": "DATA",
+    "bibtex": "misc",
+    "citeproc": "dataset",
+    "schemaOrg": "Dataset",
+    "resourceType": "Dataset/Neurophysiology",
+    "resourceTypeGeneral": "Dataset"
+  },
+  "creators": [
+    {
+      "name": "Brinke, Michiel M. Ten",
+      "nameType": "Personal",
+      "givenName": "Michiel M. Ten",
+      "familyName": "Brinke",
+      "affiliation": []
+    },
+    {
+      "name": "Heiney, Shane A.",
+      "nameType": "Personal",
+      "givenName": "Shane A.",
+      "familyName": "Heiney",
+      "affiliation": []
+    },
+    {
+      "name": "Xiaolu Wang",
+      "affiliation": []
+    },
+    {
+      "name": "Proietti-Onori, Martina",
+      "nameType": "Personal",
+      "givenName": "Martina",
+      "familyName": "Proietti-Onori",
+      "affiliation": []
+    },
+    {
+      "name": "Henk-Jan Boele",
+      "affiliation": []
+    },
+    {
+      "name": "Bakermans, Jacob",
+      "nameType": "Personal",
+      "givenName": "Jacob",
+      "familyName": "Bakermans",
+      "affiliation": []
+    },
+    {
+      "name": "Medina, Javier F.",
+      "nameType": "Personal",
+      "givenName": "Javier F.",
+      "familyName": "Medina",
+      "affiliation": []
+    },
+    {
+      "name": "Zhenyu Gao",
+      "affiliation": []
+    },
+    {
+      "name": "Zeeuw, Christiaan I. De",
+      "nameType": "Personal",
+      "givenName": "Christiaan I. De",
+      "familyName": "Zeeuw",
+      "affiliation": []
+    }
+  ],
+  "titles": [
+    {
+      "title": "Eyelid behavior and spike activity of cerebellar interpositus\n                       nucleus neurons during eyeblink conditioning in awake behaving mice."
+    },
+    {
+      "title": "CRCNS.org cb-1",
+      "titleType": "AlternativeTitle"
+    }
+  ],
+  "publisher": "CRCNS.org",
+  "container": {},
+  "subjects": [
+    {
+      "subject": "Neuroscience"
+    },
+    {
+      "subject": "Electrophysiology"
+    },
+    {
+      "subject": "eyeblink"
+    },
+    {
+      "subject": "mouse"
+    },
+    {
+      "subject": "cerebellum"
+    },
+    {
+      "subject": "interpositus nucleus"
+    }
+  ],
+  "contributors": [],
+  "dates": [
+    {
+      "date": "2017",
+      "dateType": "Issued"
+    }
+  ],
+  "publicationYear": 2017,
+  "language": "eng",
+  "identifiers": [
+    {
+      "identifier": "https://doi.org/10.6080/k0b85697",
+      "identifierType": "DOI"
+    }
+  ],
+  "sizes": [
+    "294 MB"
+  ],
+  "formats": [
+    "application/matlab",
+    "binary"
+  ],
+  "rightsList": [],
+  "descriptions": [
+    {
+      "description": "The objective was to record cerebellar interpositus nucleus neurons in awake\n                behaving mice during or after training in a delay eyeblink conditioning paradigm.\n                The experiments yielded 372 recordings of interpositus neurons, each of which\n                comprising of traces of eyelid behavior and spike activity during paired trials,\n                i.e. presentations of an LED Light stimulus (the conditioned stimulus, CS) and\n                a subsequent periocular air puff stimulus (the unconditioned stimulus, US).\n                While unconditioned blink responses upon the US (called URs) were always prevalent,\n                well-timed conditioned eyelid closures in response to the CS (called CRs)\n                developed over the course of training. These learned CRs have been shown by\n                previous work to find their neuronal correlate in the cerebellum, and the\n                current data have served to determine in detail how neurons in the cerebellar\n                interposed nuclei respond to the conditioning stimuli, and how their spike\n                modulation correlates to CR behavior.",
+      "descriptionType": "Other"
+    }
+  ],
+  "geoLocations": [],
+  "fundingReferences": [],
+  "relatedIdentifiers": [],
+  "providerId": "cdl",
+  "clientId": "cdl.ucb",
+  "state": "findable"
+}
