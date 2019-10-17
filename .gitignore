@@ -8,6 +8,7 @@ _obj
 _test
 python/odml/resources/save_load/1.4*
 python/odml/resources/convert/1.4__*
+__pycache__
 
 # Architecture specific extensions/prefixes
 *.[568vq]

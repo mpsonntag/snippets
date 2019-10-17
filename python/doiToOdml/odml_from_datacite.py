@@ -35,6 +35,49 @@ def parse_datacite(xml_file):
     if not etree.QName(root).localname == 'resource':
         raise ParserException("Could not find datacite root element")
 
+    for elem in root.getchildren():
+        curr_name = etree.QName(elem.tag).localname
+        if curr_name == "identifier":
+            print("handling identifier")
+        elif curr_name == "creators":
+            print("handling creators")
+        elif curr_name == "titles":
+            print("handling titles")
+        elif curr_name == "publisher":
+            print("handling publisher")
+        elif curr_name == "publicationYear":
+            print("handling publicationYear")
+        elif curr_name == "subjects":
+            print("handling subjects")
+        elif curr_name == "contributors":
+            print("handling contributors")
+        elif curr_name == "dates":
+            print("handling dates")
+        elif curr_name == "language":
+            print("handling language")
+        elif curr_name == "resourceType":
+            print("handling resourceType")
+        elif curr_name == "alternateIdentifiers":
+            print("handling alternateIdentifiers")
+        elif curr_name == "relatedIdentifiers":
+            print("handling relatedIdentifiers")
+        elif curr_name == "sizes":
+            print("handling sizes")
+        elif curr_name == "formats":
+            print("handling formats")
+        elif curr_name == "version":
+            print("handling version")
+        elif curr_name == "rightsList":
+            print("handling rightsList")
+        elif curr_name == "descriptions":
+            print("handling descriptions")
+        elif curr_name == "geoLocations":
+            print("handling geoLocations")
+        elif curr_name == "fundingReferences":
+            print("handling fundingReferences")
+        else:
+            print("[Warning] Encountered unsupported element; ignoring '%s'" % curr_name)
+
 
 def main(args=None):
     parser = docopt(__doc__, argv=args, version=VERSION)
@@ -50,8 +93,8 @@ def main(args=None):
         print("[Error] Could not parse input file '%s'" % cite_file)
         print("\t%s" % exc.msg)
         exit(1)
-    except ParserException:
-        print("[Error] Could not find the datacite root element in file '%s'" % cite_file)
+    except ParserException as exc:
+        print("[Error] %s in file '%s'" % (exc, cite_file))
         exit(1)
 
 
