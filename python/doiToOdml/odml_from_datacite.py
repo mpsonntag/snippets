@@ -1,9 +1,9 @@
-"""dataciteToOdml
+"""odmlFromDatacite
 
 Convenience script to parse a datacite xml file
-and create a new odML with the parsed information.
+and create an odML xml file with the parsed information.
 
-Usage: datacitetoodml FILENAME
+Usage: odmlFromDatacite FILENAME
 
 Arguments:
     FILENAME    Path and filename of the datacite xml file to be parsed.
@@ -11,7 +11,6 @@ Arguments:
 Options:
     -h --help   Show this screen.
     --version   Show version number.
-
 """
 
 import os
