@@ -17,15 +17,23 @@ import os
 import sys
 
 from docopt import docopt
-from lxml import etree as ET
-from lxml.etree import XMLSyntaxError
+from lxml import etree
 
 VERSION = "0.1.0"
 
 
+class ParserException(Exception):
+    """
+    Exception wrapper used by various odML parsers.
+    """
+    pass
+
+
 def parse_datacite(xml_file):
-    parser = ET.XMLParser(remove_comments=True)
-    ET.parse(xml_file, parser).getroot()
+    parser = etree.XMLParser(remove_comments=True)
+    root = etree.parse(xml_file, parser).getroot()
+    if not etree.QName(root).localname == 'resource':
+        raise ParserException("Could not find datacite root element")
 
 
 def main(args=None):
@@ -38,9 +46,12 @@ def main(args=None):
 
     try:
         parse_datacite(cite_file)
-    except XMLSyntaxError as exc:
+    except etree.XMLSyntaxError as exc:
         print("[Error] Could not parse input file '%s'" % cite_file)
         print("\t%s" % exc.msg)
+        exit(1)
+    except ParserException:
+        print("[Error] Could not find the datacite root element in file '%s'" % cite_file)
         exit(1)
 
 
