@@ -15,6 +15,7 @@ Options:
 
 import os
 import sys
+import xmltodict
 
 from docopt import docopt
 from lxml import etree
@@ -29,6 +30,14 @@ class ParserException(Exception):
     pass
 
 
+def xml_to_json(xml_file):
+
+    with open(xml_file) as file:
+        doc = xmltodict.parse(file.read())
+
+    return doc
+
+
 def parse_datacite(xml_file):
     parser = etree.XMLParser(remove_comments=True)
     root = etree.parse(xml_file, parser).getroot()
@@ -40,12 +49,15 @@ def parse_datacite(xml_file):
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
-    supported_tags = ["identifier", "creators", "titles", "publisher", "publicationYear"]
+    supported_tags = ["identifier"]
 
-    for elem in root.getchildren():
-        curr_name = etree.QName(elem.tag).localname
+    data = {}
+
+    for node in root.getchildren():
+        curr_name = etree.QName(node.tag).localname
         if curr_name in supported_tags:
             print("handling %s" % curr_name)
+            fname = "parse_datacite_%s" % curr_name
         else:
             print("[Warning] Encountered unsupported element; ignoring '%s'" % curr_name)
 
@@ -67,6 +79,8 @@ def main(args=None):
     except ParserException as exc:
         print("[Error] %s in file '%s'" % (exc, cite_file))
         exit(1)
+
+    doc = xml_to_json(cite_file)
 
 
 if __name__ == "__main__":
