@@ -33,6 +33,14 @@ class ParserException(Exception):
     pass
 
 
+class DataCiteItem(object):
+    def __init__(self, sec_name, attribute_map, container_name):
+        self.section_name = sec_name
+        self.section_type = "DataCite/%s" % sec_name
+        self.attribute_map = attribute_map
+        self.container_name = container_name
+
+
 def dict_from_xml(xml_file):
     """
     Parse the contents of an xml file into a python dictionary.
@@ -55,7 +63,7 @@ def handle_props(mapping, node, sec):
         if sub in mapping:
             odml.Property(name=mapping[sub], values=node[sub], parent=sec)
         else:
-            print("[Warning] Ignoring node '%s'" % sub)
+            print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
 def handle_identifier(node, odml_doc):
@@ -137,13 +145,20 @@ def handle_titles(node, odml_doc):
     if not node:
         return
 
-    sec_type = "DataCite/title"
-    sec = odml.Section(name="titles", type=sec_type, parent=odml_doc)
+    title_map = {
+        "#text": "title",
+        "@titleType": "titleType"
+    }
+    helper = DataCiteItem("title", title_map, "titles")
 
-    for (idx, title) in enumerate(node["title"]):
-        sec_name = "%s_%d" % ("title", idx + 1)
-        sub_sec = odml.Section(name=sec_name, type=sec_type, parent=sec)
-        handle_titles_item(title, sub_sec)
+    sec = odml.Section(name=helper.container_name, type=helper.section_type,
+                       parent=odml_doc)
+
+    for (idx, title_node) in enumerate(node[helper.section_name]):
+        sec_name = "%s_%d" % (helper.section_name, idx + 1)
+        sub_sec = odml.Section(name=sec_name, type=helper.section_type,
+                               parent=sec)
+        handle_props(helper.attribute_map, title_node, sub_sec)
 
 
 def parse_datacite_dict(doc):
