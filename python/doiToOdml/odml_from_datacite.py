@@ -85,26 +85,30 @@ def handle_creators_item(node, sec):
                               values=node[sub]["@nameIdentifierScheme"], parent=subsec)
 
         elif sub == "affiliation":
-            print(sub)
+            # toDo handle multiple affiliations
+            sec_aff = odml.Section(name=sub, type="DataCite/creator", parent=sec)
+            odml.Property(name=sub, values=node[sub]["#text"], parent=sec_aff)
+            if "@affiliationIdentifier" in node[sub]:
+                odml.Property(name="affiliationIdentifier", values=node[sub]["@affiliationIdentifier"], parent=sec_aff)
+            if "@affiliationIdentifierScheme" in node[sub]:
+                odml.Property(name="affiliationIdentifierScheme", values=node[sub]["@affiliationIdentifierScheme"],
+                              parent=sec_aff)
+            if "@schemeURI" in node[sub]:
+                odml.Property(name="schemeURI", values=node[sub]["@schemeURI"],
+                              dtype=odml.dtypes.DType.url, parent=sec_aff)
         else:
             print("[Warning] Found unsupported node '%s', ignoring" % sub)
 
 
 def handle_creators(node, odml_doc):
-    print("Handle creators: %s" % node)
-
-    item = "creator"
-
-    if not node or item not in node:
+    if not node or "creator" not in node:
         return
 
     sec = odml.Section(name="creators", type="DataCite/creator", parent=odml_doc)
 
-    for (idx, creator) in enumerate(node[item]):
-        p_name = "%s %d" % (item, idx+1)
+    for (idx, creator) in enumerate(node["creator"]):
+        p_name = "%s %d" % ("creator", idx+1)
         subsec = odml.Section(name=p_name, type="DataCite/creator", parent=sec)
-        print(p_name)
-        print(creator)
         handle_creators_item(creator, subsec)
 
 
