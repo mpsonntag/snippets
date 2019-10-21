@@ -48,28 +48,6 @@ def dict_from_xml(xml_file):
     return doc
 
 
-def parse_datacite(xml_file):
-    parser = etree.XMLParser(remove_comments=True)
-    root = etree.parse(xml_file, parser).getroot()
-    if not etree.QName(root).localname == 'resource':
-        raise ParserException("Could not find datacite root element")
-
-#    supported_tags = ["identifier", "creators", "titles", "publisher", "publicationYear",
-#                      "subjects", "contributors", "dates", "language", "resourceType",
-#                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
-#                      "version", "rightsList", "descriptions", "geoLocations",
-#                      "fundingReferences"]
-    supported_tags = ["identifier"]
-
-    for node in root.getchildren():
-        curr_name = etree.QName(node.tag).localname
-        if curr_name in supported_tags:
-            print("handling %s" % curr_name)
-            fname = "parse_datacite_%s" % curr_name
-        else:
-            print("[Warning] Encountered unsupported element; ignoring '%s'" % curr_name)
-
-
 def parse_datacite_dict(doc):
     """
     :param doc: python dict containing datacite conform data to
@@ -77,6 +55,13 @@ def parse_datacite_dict(doc):
     """
     if not doc or "resource" not in doc:
         raise ParserException("Could not find root")
+
+#    supported_tags = ["identifier", "creators", "titles", "publisher", "publicationYear",
+#                      "subjects", "contributors", "dates", "language", "resourceType",
+#                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
+#                      "version", "rightsList", "descriptions", "geoLocations",
+#                      "fundingReferences"]
+    supported_tags = ["identifier"]
 
 
 def main(args=None):
@@ -87,16 +72,7 @@ def main(args=None):
         print("[Error] Could not access input file '%s'\n" % cite_file)
         exit(1)
 
-    try:
-        parse_datacite(cite_file)
-    except etree.XMLSyntaxError as exc:
-        print("[Error] Could not parse input file '%s'" % cite_file)
-        print("\t%s" % exc.msg)
-        exit(1)
-    except ParserException as exc:
-        print("[Error] %s in file '%s'" % (exc, cite_file))
-        exit(1)
-
+    doc = None
     try:
         doc = dict_from_xml(cite_file)
     except ParserException as exc:
