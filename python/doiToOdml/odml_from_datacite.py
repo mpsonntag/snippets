@@ -34,10 +34,11 @@ class ParserException(Exception):
 
 
 class DataCiteItem(object):
-    def __init__(self, sec_name, attribute_map, container_name):
+    def __init__(self, sec_name, attribute_map, func, container_name):
         self.section_name = sec_name
         self.section_type = "DataCite/%s" % sec_name
         self.attribute_map = attribute_map
+        self.func = func
         self.container_name = container_name
 
 
@@ -66,7 +67,7 @@ def handle_props(mapping, node, sec):
             print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
-def handle_identifier(node, odml_doc):
+def handle_identifier(helper, node, odml_doc):
     id_type = "@identifierType"
     id_value = "#text"
 
@@ -119,7 +120,7 @@ def handle_creators_item(node, sec):
             print("[Warning] Found unsupported node '%s', ignoring" % sub)
 
 
-def handle_creators(node, odml_doc):
+def handle_creators(helper, node, odml_doc):
     if not node or "creator" not in node:
         return
 
@@ -131,15 +132,9 @@ def handle_creators(node, odml_doc):
         handle_creators_item(creator, sub_sec)
 
 
-def handle_titles(node, odml_doc):
-    if not node:
+def handle_titles(helper, node, odml_doc):
+    if not node or helper.section_name not in node:
         return
-
-    title_map = {
-        "#text": "title",
-        "@titleType": "titleType"
-    }
-    helper = DataCiteItem("title", title_map, "titles")
 
     sec = odml.Section(name=helper.container_name, type=helper.section_type,
                        parent=odml_doc)
@@ -168,17 +163,29 @@ def parse_datacite_dict(doc):
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
-    supported_tags = {"identifier": handle_identifier,
-                      "creators": handle_creators,
-                      "titles": handle_titles}
+
+    identifier_helper = DataCiteItem("identifier", None, handle_identifier, None)
+    creators_helper = DataCiteItem("creator", None, handle_creators, "creators")
+
+    title_map = {
+        "#text": "title",
+        "@titleType": "titleType"
+    }
+    title_helper = DataCiteItem("title", title_map, handle_titles, "titles")
+
+    supported_tags = {"identifier": identifier_helper,
+                      "creators": creators_helper,
+                      "titles": title_helper}
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
 
-    for node in dcite_root:
-        if node in supported_tags:
-            print("%s: %s" % (node, dcite_root[node]))
-            supported_tags[node](dcite_root[node], odml_doc)
+    for node_tag in dcite_root:
+        if node_tag in supported_tags:
+            helper = supported_tags[node_tag]
+            helper.func(helper, dcite_root[node_tag], odml_doc)
+        else:
+            print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
     print(odml_doc.pprint())
 
