@@ -19,6 +19,7 @@ import xmltodict
 
 from docopt import docopt
 from lxml import etree
+from xml.parsers.expat import ExpatError
 
 VERSION = "0.1.0"
 
@@ -30,10 +31,19 @@ class ParserException(Exception):
     pass
 
 
-def xml_to_json(xml_file):
+def dict_from_xml(xml_file):
+    """
+    Parse the contents of an xml file into a python dictionary.
 
-    with open(xml_file) as file:
-        doc = xmltodict.parse(file.read())
+    :param xml_file: Location of the xml file to be parsed.
+    :return: dictionary containing the contents of the xml file.
+    """
+
+    try:
+        with open(xml_file) as file:
+            doc = xmltodict.parse(file.read())
+    except ExpatError as exc:
+        raise ParserException("Could not parse file")
 
     return doc
 
@@ -80,7 +90,12 @@ def main(args=None):
         print("[Error] %s in file '%s'" % (exc, cite_file))
         exit(1)
 
-    doc = xml_to_json(cite_file)
+    try:
+        doc = dict_from_xml(cite_file)
+    except ParserException as exc:
+        print("[Error] '%s' in file '%s'" % (exc, cite_file))
+        exit(1)
+
 
 
 if __name__ == "__main__":
