@@ -89,9 +89,12 @@ def handle_creators_item(node, sec):
             sec_aff = odml.Section(name=sub, type="DataCite/creator", parent=sec)
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec_aff)
             if "@affiliationIdentifier" in node[sub]:
-                odml.Property(name="affiliationIdentifier", values=node[sub]["@affiliationIdentifier"], parent=sec_aff)
+                odml.Property(name="affiliationIdentifier",
+                              values=node[sub]["@affiliationIdentifier"],
+                              parent=sec_aff)
             if "@affiliationIdentifierScheme" in node[sub]:
-                odml.Property(name="affiliationIdentifierScheme", values=node[sub]["@affiliationIdentifierScheme"],
+                odml.Property(name="affiliationIdentifierScheme",
+                              values=node[sub]["@affiliationIdentifierScheme"],
                               parent=sec_aff)
             if "@schemeURI" in node[sub]:
                 odml.Property(name="schemeURI", values=node[sub]["@schemeURI"],
@@ -107,9 +110,32 @@ def handle_creators(node, odml_doc):
     sec = odml.Section(name="creators", type="DataCite/creator", parent=odml_doc)
 
     for (idx, creator) in enumerate(node["creator"]):
-        p_name = "%s %d" % ("creator", idx+1)
-        subsec = odml.Section(name=p_name, type="DataCite/creator", parent=sec)
-        handle_creators_item(creator, subsec)
+        sec_name = "%s_%d" % ("creator", idx+1)
+        sub_sec = odml.Section(name=sec_name, type="DataCite/creator", parent=sec)
+        handle_creators_item(creator, sub_sec)
+
+
+def handle_titles_item(node, sec):
+    for sub in node:
+        if sub == "#text":
+            odml.Property(name="title", values=node[sub], parent=sec)
+        elif sub == "@titleType":
+            odml.Property(name="titleType", value=node[sub], parent=sec)
+        else:
+            print("[Warning] Ignoring node '%s'" % sub)
+
+
+def handle_titles(node, odml_doc):
+    if not node:
+        return
+
+    sec_type = "DataCite/title"
+    sec = odml.Section(name="titles", type=sec_type, parent=odml_doc)
+
+    for (idx, title) in enumerate(node["title"]):
+        sec_name = "%s_%d" % ("title", idx + 1)
+        sub_sec = odml.Section(name=sec_name, type=sec_type, parent=sec)
+        handle_titles_item(title, sub_sec)
 
 
 def parse_datacite_dict(doc):
@@ -130,14 +156,18 @@ def parse_datacite_dict(doc):
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
     supported_tags = {"identifier": handle_identifier,
-                      "creators": handle_creators}
+                      "creators": handle_creators,
+                      "titles": handle_titles}
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
 
     for node in dcite_root:
         if node in supported_tags:
+            print("%s: %s" % (node, dcite_root[node]))
             supported_tags[node](dcite_root[node], odml_doc)
+
+    print(odml_doc.pprint())
 
 
 def main(args=None):
