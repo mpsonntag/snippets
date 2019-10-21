@@ -50,6 +50,14 @@ def dict_from_xml(xml_file):
     return doc
 
 
+def handle_props(mapping, node, sec):
+    for sub in node:
+        if sub in mapping:
+            odml.Property(name=mapping[sub], values=node[sub], parent=sec)
+        else:
+            print("[Warning] Ignoring node '%s'" % sub)
+
+
 def handle_identifier(node, odml_doc):
     id_type = "@identifierType"
     id_value = "#text"
