@@ -61,8 +61,6 @@ def parse_datacite(xml_file):
 #                      "fundingReferences"]
     supported_tags = ["identifier"]
 
-    data = {}
-
     for node in root.getchildren():
         curr_name = etree.QName(node.tag).localname
         if curr_name in supported_tags:
@@ -70,6 +68,15 @@ def parse_datacite(xml_file):
             fname = "parse_datacite_%s" % curr_name
         else:
             print("[Warning] Encountered unsupported element; ignoring '%s'" % curr_name)
+
+
+def parse_datacite_dict(doc):
+    """
+    :param doc: python dict containing datacite conform data to
+                be parsed.
+    """
+    if not doc or "resource" not in doc:
+        raise ParserException("Could not find root")
 
 
 def main(args=None):
@@ -96,6 +103,11 @@ def main(args=None):
         print("[Error] '%s' in file '%s'" % (exc, cite_file))
         exit(1)
 
+    try:
+        parse_datacite_dict(doc)
+    except ParserException as exc:
+        print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
+        exit(1)
 
 
 if __name__ == "__main__":
