@@ -131,16 +131,6 @@ def handle_creators(node, odml_doc):
         handle_creators_item(creator, sub_sec)
 
 
-def handle_titles_item(node, sec):
-    for sub in node:
-        if sub == "#text":
-            odml.Property(name="title", values=node[sub], parent=sec)
-        elif sub == "@titleType":
-            odml.Property(name="titleType", value=node[sub], parent=sec)
-        else:
-            print("[Warning] Ignoring node '%s'" % sub)
-
-
 def handle_titles(node, odml_doc):
     if not node:
         return
