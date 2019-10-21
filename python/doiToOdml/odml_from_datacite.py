@@ -64,17 +64,26 @@ def handle_identifier(node, odml_doc):
         odml.Property(name="identifier", values=node[id_value], parent=sec)
 
 
-def handle_creators_creator(node, sec):
-    print("handle creator: %s" % node)
+def handle_creators_item(node, sec):
     for sub in node:
         if sub == "creatorName":
-            print(sub)
-        elif sub == "givenName":
-            print(sub)
-        elif sub == "familyName":
-            print(sub)
+            odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
+            if "@nameType" in node[sub]:
+                odml.Property(name="creatorNameType", values=node[sub]["@nameType"], parent=sec)
+
+        elif sub in ["givenName", "familyName"]:
+            odml.Property(name=sub, values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
-            print(sub)
+            # toDo handle multiple name identifier
+            subsec = odml.Section(name=sub, type="DataCite/creator", parent=sec)
+            odml.Property(name=sub, values=node[sub]["#text"], parent=subsec)
+            if "@schemeURI" in node[sub]:
+                odml.Property(name="schemeURI", dtype=odml.dtypes.DType.url,
+                              values=node[sub]["@schemeURI"], parent=subsec)
+            if "@nameIdentifierScheme" in node[sub]:
+                odml.Property(name="nameIdentifierScheme",
+                              values=node[sub]["@nameIdentifierScheme"], parent=subsec)
+
         elif sub == "affiliation":
             print(sub)
         else:
@@ -94,7 +103,9 @@ def handle_creators(node, odml_doc):
     for (idx, creator) in enumerate(node[item]):
         p_name = "%s %d" % (item, idx+1)
         subsec = odml.Section(name=p_name, type="DataCite/creator", parent=sec)
-        handle_creators_creator(creator, subsec)
+        print(p_name)
+        print(creator)
+        handle_creators_item(creator, subsec)
 
 
 def parse_datacite_dict(doc):
@@ -118,12 +129,11 @@ def parse_datacite_dict(doc):
                       "creators": handle_creators}
 
     odml_doc = odml.Document()
+    odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
 
     for node in dcite_root:
         if node in supported_tags:
             supported_tags[node](dcite_root[node], odml_doc)
-
-    print("hello")
 
 
 def main(args=None):
