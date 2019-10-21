@@ -64,6 +64,39 @@ def handle_identifier(node, odml_doc):
         odml.Property(name="identifier", values=node[id_value], parent=sec)
 
 
+def handle_creators_creator(node, sec):
+    print("handle creator: %s" % node)
+    for sub in node:
+        if sub == "creatorName":
+            print(sub)
+        elif sub == "givenName":
+            print(sub)
+        elif sub == "familyName":
+            print(sub)
+        elif sub == "nameIdentifier":
+            print(sub)
+        elif sub == "affiliation":
+            print(sub)
+        else:
+            print("[Warning] Found unsupported node '%s', ignoring" % sub)
+
+
+def handle_creators(node, odml_doc):
+    print("Handle creators: %s" % node)
+
+    item = "creator"
+
+    if not node or item not in node:
+        return
+
+    sec = odml.Section(name="creators", type="DataCite/creator", parent=odml_doc)
+
+    for (idx, creator) in enumerate(node[item]):
+        p_name = "%s %d" % (item, idx+1)
+        subsec = odml.Section(name=p_name, type="DataCite/creator", parent=sec)
+        handle_creators_creator(creator, subsec)
+
+
 def parse_datacite_dict(doc):
     """
     :param doc: python dict containing datacite conform data to
@@ -81,11 +114,16 @@ def parse_datacite_dict(doc):
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
-    supported_tags = {"identifier": handle_identifier}
+    supported_tags = {"identifier": handle_identifier,
+                      "creators": handle_creators}
+
+    odml_doc = odml.Document()
 
     for node in dcite_root:
         if node in supported_tags:
-            supported_tags[node](dcite_root[node])
+            supported_tags[node](dcite_root[node], odml_doc)
+
+    print("hello")
 
 
 def main(args=None):
