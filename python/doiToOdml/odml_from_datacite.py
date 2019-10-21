@@ -69,7 +69,7 @@ def handle_creators_item(node, sec):
         if sub == "creatorName":
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
             if "@nameType" in node[sub]:
-                odml.Property(name="creatorNameType", values=node[sub]["@nameType"], parent=sec)
+                odml.Property(name="nameType", values=node[sub]["@nameType"], parent=sec)
 
         elif sub in ["givenName", "familyName"]:
             odml.Property(name=sub, values=node[sub], parent=sec)
