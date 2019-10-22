@@ -37,7 +37,6 @@ class ParserException(Exception):
 class DataCiteItem(object):
     def __init__(self, sec_name, attribute_map, func, container_name=None, item_func=None):
         self.section_name = sec_name
-        self.section_type = "DataCite/%s" % sec_name
         self.attribute_map = attribute_map
         self.func = func
         self.container_name = container_name
@@ -100,8 +99,9 @@ def handle_sec(helper, node, root_sec):
     if not node:
         return
 
+    sec_type = "datacite/%s" % camel_to_snake(helper.section_name)
     sec = odml.Section(name=helper.section_name,
-                       type=helper.section_type,
+                       type=sec_type,
                        parent=root_sec)
 
     handle_props(helper, node, sec)
@@ -267,7 +267,7 @@ def parse_datacite_dict(doc):
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
 
-    root_sec = odml.Section(name="DataCite", type="DataReference", parent=odml_doc)
+    root_sec = odml.Section(name="DataCite", type="data_reference", parent=odml_doc)
 
     for node_tag in dcite_root:
         if node_tag in supported_tags:
