@@ -201,11 +201,24 @@ def parse_datacite_dict(doc):
                                            attribute_map={"#text": "publicationYear"},
                                            func=handle_props)
 
+    subjects_map = {
+        "#text": "subject",
+        "@schemeURI": "schemeURI",
+        "@subjectScheme": "subjectScheme",
+        "@valueURI": "valueURI"
+    }
+    subjects_helper = DataCiteItem(sec_name="subject",
+                                   attribute_map=subjects_map,
+                                   func=handle_container,
+                                   container_name="subjects",
+                                   item_func=handle_props)
+
     supported_tags = {"identifier": identifier_helper,
                       "creators": creators_helper,
                       "titles": title_helper,
                       "publisher": publisher_helper,
-                      "publicationYear": publication_year_helper}
+                      "publicationYear": publication_year_helper,
+                      "subjects": subjects_helper}
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
