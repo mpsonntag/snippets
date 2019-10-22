@@ -76,6 +76,17 @@ def handle_container(helper, node, odml_doc):
         helper.item_func(helper.attribute_map, title_node, sub_sec)
 
 
+def handle_sec(helper, node, odml_doc):
+    if not node:
+        return
+
+    sec = odml.Section(name=helper.section_name,
+                       type=helper.section_type,
+                       parent=odml_doc)
+
+    handle_props(helper.attribute_map, node, sec)
+
+
 def handle_props(mapping, node, sec):
     for sub in node:
         if sub in mapping:
