@@ -95,20 +95,6 @@ def handle_props(mapping, node, sec):
             print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
-def handle_identifier(helper, node, odml_doc):
-    id_type = "@identifierType"
-    id_value = "#text"
-
-    if not node or (id_type not in node and id_value not in node):
-        return
-
-    sec = odml.Section(name="identifier", type="DataCite/identifier", parent=odml_doc)
-    if id_type in node:
-        odml.Property(name="identifierType", values=node[id_type], parent=sec)
-    if id_value in node:
-        odml.Property(name="identifier", values=node[id_value], parent=sec)
-
-
 def handle_creators_item(mapping, node, sec):
     for sub in node:
         if sub == "creatorName":
@@ -146,32 +132,6 @@ def handle_creators_item(mapping, node, sec):
                               dtype=odml.dtypes.DType.url, parent=sec_aff)
         else:
             print("[Warning] Found unsupported node '%s', ignoring" % sub)
-
-
-def handle_creators(helper, node, odml_doc):
-    if not node or "creator" not in node:
-        return
-
-    sec = odml.Section(name="creators", type="DataCite/creator", parent=odml_doc)
-
-    for (idx, creator) in enumerate(node["creator"]):
-        sec_name = "%s_%d" % ("creator", idx+1)
-        sub_sec = odml.Section(name=sec_name, type="DataCite/creator", parent=sec)
-        handle_creators_item(creator, sub_sec)
-
-
-def handle_titles(helper, node, odml_doc):
-    if not node or helper.section_name not in node:
-        return
-
-    sec = odml.Section(name=helper.container_name, type=helper.section_type,
-                       parent=odml_doc)
-
-    for (idx, title_node) in enumerate(node[helper.section_name]):
-        sec_name = "%s_%d" % (helper.section_name, idx + 1)
-        sub_sec = odml.Section(name=sec_name, type=helper.section_type,
-                               parent=sec)
-        handle_props(helper.attribute_map, title_node, sub_sec)
 
 
 def parse_datacite_dict(doc):
