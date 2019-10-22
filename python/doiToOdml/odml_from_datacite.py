@@ -124,6 +124,8 @@ def handle_props(helper, node, sec):
 
 
 def handle_creators_item(helper, node, sec):
+    sub_type_base = "datacite/creators/creator"
+
     for sub in node:
         if sub == "creatorName":
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
@@ -134,7 +136,9 @@ def handle_creators_item(helper, node, sec):
             odml.Property(name=sub, values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
             # toDo handle multiple name identifier
-            subsec = odml.Section(name=sub, type="DataCite/creator", parent=sec)
+            subsec = odml.Section(name=sub,
+                                  type="%s/named_identifier" % sub_type_base,
+                                  parent=sec)
             odml.Property(name=sub, values=node[sub]["#text"], parent=subsec)
             if "@schemeURI" in node[sub]:
                 odml.Property(name="schemeURI", dtype=odml.dtypes.DType.url,
@@ -145,7 +149,9 @@ def handle_creators_item(helper, node, sec):
 
         elif sub == "affiliation":
             # toDo handle multiple affiliations
-            sec_aff = odml.Section(name=sub, type="DataCite/creator", parent=sec)
+            sec_aff = odml.Section(name=sub,
+                                   type="%s/affiliation" % sub_type_base,
+                                   parent=sec)
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec_aff)
             if "@affiliationIdentifier" in node[sub]:
                 odml.Property(name="affiliationIdentifier",
