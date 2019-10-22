@@ -97,6 +97,7 @@ def handle_sec(helper, node, root_sec):
     handle_props(helper, node, sec)
 
 
+# ToDO: URI - odml.dtypes.DType.url handling
 def handle_props(helper, node, sec):
     if not node:
         return
@@ -163,8 +164,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["publisher", ,
-#                      "subjects", "contributors", "dates", "language", "resourceType",
+#    supported_tags = ["contributors", "language", "resourceType",
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
@@ -213,12 +213,24 @@ def parse_datacite_dict(doc):
                                    container_name="subjects",
                                    item_func=handle_props)
 
+    dates_map = {
+        "#text": "date",
+        "@dateType": "dateType",
+        "@dateInformation": "dateInformation"
+    }
+    dates_helper = DataCiteItem(sec_name="date",
+                                attribute_map=dates_map,
+                                func=handle_container,
+                                container_name="dates",
+                                item_func=handle_props)
+
     supported_tags = {"identifier": identifier_helper,
                       "creators": creators_helper,
                       "titles": title_helper,
                       "publisher": publisher_helper,
                       "publicationYear": publication_year_helper,
-                      "subjects": subjects_helper}
+                      "subjects": subjects_helper,
+                      "dates": dates_helper}
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
