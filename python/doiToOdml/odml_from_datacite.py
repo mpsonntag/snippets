@@ -70,8 +70,12 @@ def handle_container(helper, node, root_sec):
     if not node or helper.section_name not in node:
         return
 
+    sec_cont_name = camel_to_snake(helper.container_name)
+    sec_name = camel_to_snake(helper.section_name)
+    sub_sec_type = "datacite/%s/%s" % (sec_cont_name, sec_name)
+
     sec = odml.Section(name=helper.container_name,
-                       type=helper.section_type,
+                       type="datacite/%s" % sec_cont_name,
                        parent=root_sec)
 
     # We might need to handle the case, when a container holds
@@ -82,12 +86,12 @@ def handle_container(helper, node, root_sec):
         for (idx, title_node) in enumerate(node[helper.section_name]):
             sec_name = "%s_%d" % (helper.section_name, idx + 1)
             sub_sec = odml.Section(name=sec_name,
-                                   type=helper.section_type,
+                                   type=sub_sec_type,
                                    parent=sec)
             helper.item_func(helper, title_node, sub_sec)
     else:
         sub_sec = odml.Section(name="%s_1" % helper.section_name,
-                               type=helper.section_type,
+                               type=sub_sec_type,
                                parent=sec)
         helper.item_func(helper, node[helper.section_name], sub_sec)
 
