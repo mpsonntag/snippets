@@ -34,12 +34,13 @@ class ParserException(Exception):
 
 
 class DataCiteItem(object):
-    def __init__(self, sec_name, attribute_map, func, container_name):
+    def __init__(self, sec_name, attribute_map, func, container_name=None, item_func=None):
         self.section_name = sec_name
         self.section_type = "DataCite/%s" % sec_name
         self.attribute_map = attribute_map
         self.func = func
         self.container_name = container_name
+        self.item_func = item_func
 
 
 def dict_from_xml(xml_file):
@@ -57,6 +58,22 @@ def dict_from_xml(xml_file):
         raise ParserException("Could not parse file")
 
     return doc
+
+
+def handle_container(helper, node, odml_doc):
+    if not node or helper.section_name not in node:
+        return
+
+    sec = odml.Section(name=helper.container_name,
+                       type=helper.section_type,
+                       parent=odml_doc)
+
+    for (idx, title_node) in enumerate(node[helper.section_name]):
+        sec_name = "%s_%d" % (helper.section_name, idx + 1)
+        sub_sec = odml.Section(name=sec_name,
+                               type=helper.section_type,
+                               parent=sec)
+        helper.item_func(helper.attribute_map, title_node, sub_sec)
 
 
 def handle_props(mapping, node, sec):
@@ -81,7 +98,7 @@ def handle_identifier(helper, node, odml_doc):
         odml.Property(name="identifier", values=node[id_value], parent=sec)
 
 
-def handle_creators_item(node, sec):
+def handle_creators_item(mapping, node, sec):
     for sub in node:
         if sub == "creatorName":
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
@@ -164,14 +181,15 @@ def parse_datacite_dict(doc):
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
 
-    identifier_helper = DataCiteItem("identifier", None, handle_identifier, None)
-    creators_helper = DataCiteItem("creator", None, handle_creators, "creators")
+    identifier_helper = DataCiteItem("identifier", None, handle_identifier)
+    creators_helper = DataCiteItem("creator", None, handle_container,
+                                   "creators", handle_creators_item)
 
     title_map = {
         "#text": "title",
         "@titleType": "titleType"
     }
-    title_helper = DataCiteItem("title", title_map, handle_titles, "titles")
+    title_helper = DataCiteItem("title", title_map, handle_container, "titles", handle_props)
 
     supported_tags = {"identifier": identifier_helper,
                       "creators": creators_helper,
