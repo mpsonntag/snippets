@@ -192,7 +192,11 @@ def parse_datacite_dict(doc):
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
 
-    identifier_helper = DataCiteItem("identifier", None, handle_identifier)
+    identifier_map = {
+        "#text": "identifier",
+        "@identifierType": "identifierType"
+    }
+    identifier_helper = DataCiteItem("identifier", identifier_map, handle_sec)
     creators_helper = DataCiteItem("creator", None, handle_container,
                                    "creators", handle_creators_item)
 
