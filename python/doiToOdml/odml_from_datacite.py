@@ -164,8 +164,8 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["contributors", "language", "resourceType",
-#                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
+#    supported_tags = ["contributors", "alternateIdentifiers", "relatedIdentifiers",
+#                      "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
 
@@ -224,13 +224,29 @@ def parse_datacite_dict(doc):
                                 container_name="dates",
                                 item_func=handle_props)
 
-    supported_tags = {"identifier": identifier_helper,
-                      "creators": creators_helper,
-                      "titles": title_helper,
-                      "publisher": publisher_helper,
-                      "publicationYear": publication_year_helper,
-                      "subjects": subjects_helper,
-                      "dates": dates_helper}
+    language_helper = DataCiteItem(sec_name="language",
+                                   attribute_map={"#text": "language"},
+                                   func=handle_props)
+
+    res_type_map = {
+        "#text": "resourceType",
+        "@resourceTypeGeneral": "resourceTypeGeneral"
+    }
+    res_type_helper = DataCiteItem(sec_name="resourceType",
+                                   attribute_map=res_type_map,
+                                   func=handle_sec)
+
+    supported_tags = {
+        "identifier": identifier_helper,
+        "creators": creators_helper,
+        "titles": title_helper,
+        "publisher": publisher_helper,
+        "publicationYear": publication_year_helper,
+        "subjects": subjects_helper,
+        "dates": dates_helper,
+        "language": language_helper,
+        "resourceType": res_type_helper
+    }
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
