@@ -37,7 +37,7 @@
 
             <section>
                 <name>creator #</name>
-                <type>datacite/creators/creator</type>
+                <type>datacite/creator</type>
                 <definition>The main researchers involved in producing the data, or the authors of the publication, in priority order. To supply multiple creators, repeat this property.</definition>
 
                 <property>
@@ -48,7 +48,7 @@
 
                 <section>
                     <name>affiliation #</name>
-                    <type>datacite/creators/creator/affiliation</type>
+                    <type>datacite/creator/affiliation</type>
                     <definition>The organizational or institutional affiliation of the creator.</definition>
 
                     <property>
@@ -67,7 +67,7 @@
 
             <section>
                 <name>title #</name>
-                <type>datacite/titles/title</type>
+                <type>datacite/title</type>
                 <definition>A name or title by which a resource is known. May be the title of a dataset or the name of a piece of software.</definition>
 
                 <property>
@@ -85,7 +85,7 @@
 
             <section>
                 <name>description #</name>
-                <type>datacite/descriptions/description</type>
+                <type>datacite/description</type>
                 <definition>All additional information that does not fit in any of the other categories. May be used for technical information.</definition>
 
                 <property>
@@ -109,7 +109,7 @@
 
             <section>
                 <name>rights #</name>
-                <type>datacite/rights_list/rights</type>
+                <type>datacite/rights</type>
                 <definition>Any rights information for this resource. The property may be repeated to record complex rights characteristics.</definition>
 
                 <property>
@@ -132,7 +132,7 @@
 
             <section>
                 <name>subject #</name>
-                <type>datacite/subjects/subject</type>
+                <type>datacite/subject</type>
                 <definition>Subject, keyword, classification code, or key phrase describing the resource.</definition>
 
                 <property>
@@ -150,7 +150,7 @@
 
             <section>
                 <name>relatedIdentifier #</name>
-                <type>datacite/related_identifiers/related_identifier</type>
+                <type>datacite/related_identifier</type>
                 <definition>Identifiers of related resources. These must be globally unique identifiers.</definition>
 
                 <property>
@@ -180,7 +180,7 @@
 
             <section>
                 <name>fundingReference #</name>
-                <type>datacite/funding_references/funding_reference</type>
+                <type>datacite/funding_reference</type>
                 <definition>Information about financial support (funding) for the resource being registered.</definition>
 
                 <property>
@@ -198,7 +198,7 @@
 
             <section>
                 <name>contributor #</name>
-                <type>datacite/contributors/contributor</type>
+                <type>datacite/contributor</type>
                 <definition>The institution or person responsible for collecting, managing, distributing, or otherwise contributing to the development of the resource.To supply multiple contributors, repeat this property.For software, if there is an alternate entity that "holds, archives, publishes, prints, distributes, releases, issues, or produces" the code, use the contributorType "hostingInstitution" for the code repository.</definition>
 
                 <property>

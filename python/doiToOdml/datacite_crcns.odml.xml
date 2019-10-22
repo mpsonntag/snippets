@@ -37,7 +37,7 @@
 
             <section>
                 <name>creator #</name>
-                <type>datacite/creators/creator</type>
+                <type>datacite/creator</type>
                 <definition>The main researchers involved in producing the data, or the authors of the publication, in priority order. To supply multiple creators, repeat this property.</definition>
 
                 <property>
@@ -55,7 +55,7 @@
 
             <section>
                 <name>title #</name>
-                <type>datacite/titles/title</type>
+                <type>datacite/title</type>
                 <definition>A name or title by which a resource is known. May be the title of a dataset or the name of a piece of software.</definition>
 
                 <property>
@@ -93,7 +93,7 @@
 
             <section>
                 <name>subject #</name>
-                <type>datacite/subjects/subject</type>
+                <type>datacite/subject</type>
                 <definition>Subject, keyword, classification code, or key phrase describing the resource.</definition>
 
                 <property>
@@ -137,7 +137,7 @@
 
             <section>
                 <name>size #</name>
-                <type>datacite/sizes/size</type>
+                <type>datacite/size</type>
                 <definition>Size (e.g. bytes, pages, inches, etc.) or duration (extent), e.g. hours, minutes, days, etc., of a resource.</definition>
 
                 <property>
@@ -155,7 +155,7 @@
 
             <section>
                 <name>format #</name>
-                <type>datacite/formats/format</type>
+                <type>datacite/format</type>
                 <definition>Technical format of the resource.</definition>
 
                 <property>
@@ -180,7 +180,7 @@
 
             <section>
                 <name>description #</name>
-                <type>datacite/descriptions/description</type>
+                <type>datacite/description</type>
                 <definition>All additional information that does not fit in any of the other categories. May be used for technical information.</definition>
 
                 <property>
