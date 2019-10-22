@@ -7,14 +7,14 @@
 
     <section>
         <name>DataCite</name>
-        <type>DataReference</type>
+        <type>data_reference</type>
         <definition>A published dataset referenced by a DOI and registered with DataCite. The referenced dataset will contain either the odML file itself or the data the odML is annotating. This template is a subset of the full datacite schema used by the CRCNS.</definition>
         <repository>https://templates.g-node.org/datacite.crcns.xml</repository>
 
         <!-- #1 identifier -->
         <section>
             <name>identifier</name>
-            <type>DataCite/identifier</type>
+            <type>datacite/identifier</type>
             <definition>The Identifier is a unique string that identifies a resource.  For software, determine whether the identifier is for a specific version of a piece of software, (per the Force11 Software Citation Principles11), or for all versions.</definition>
 
             <property>
@@ -33,11 +33,11 @@
         <!-- #2 creators -->
         <section>
             <name>creators</name>
-            <type>DataCite/creator</type>
+            <type>datacite/creators</type>
 
             <section>
                 <name>creator #</name>
-                <type>DataCite/creator</type>
+                <type>datacite/creators/creator</type>
                 <definition>The main researchers involved in producing the data, or the authors of the publication, in priority order. To supply multiple creators, repeat this property.</definition>
 
                 <property>
@@ -51,11 +51,11 @@
         <!-- #3 Title -->
         <section>
             <name>titles</name>
-            <type>DataCite/title</type>
+            <type>datacite/titles</type>
 
             <section>
                 <name>title #</name>
-                <type>DataCite/title</type>
+                <type>datacite/titles/title</type>
                 <definition>A name or title by which a resource is known. May be the title of a dataset or the name of a piece of software.</definition>
 
                 <property>
@@ -89,11 +89,11 @@
         <!-- #6 Subject  -->
         <section>
             <name>subjects</name>
-            <type>DataCite/subject</type>
+            <type>datacite/subjects</type>
 
             <section>
                 <name>subject #</name>
-                <type>DataCite/subject</type>
+                <type>datacite/subjects/subject</type>
                 <definition>Subject, keyword, classification code, or key phrase describing the resource.</definition>
 
                 <property>
@@ -114,7 +114,7 @@
         <!-- #10 ResourceType -->
         <section>
             <name>resourceType</name>
-            <type>DataCite/resourceType</type>
+            <type>datacite/resource_type</type>
             <definition>A description of the resource. The format is open, but the preferred format is a single term of some detail so that a pair can be formed with the sub-property. Text formats can be free-text OR terms from the CASRAI Publications resource type list.</definition>
 
             <property>
@@ -133,11 +133,11 @@
         <!-- #13 size -->
         <section>
             <name>sizes</name>
-            <type>DataCite/size</type>
+            <type>datacite/sizes</type>
 
             <section>
                 <name>size #</name>
-                <type>DataCite/size</type>
+                <type>datacite/sizes/size</type>
                 <definition>Size (e.g. bytes, pages, inches, etc.) or duration (extent), e.g. hours, minutes, days, etc., of a resource.</definition>
 
                 <property>
@@ -151,11 +151,11 @@
         <!-- #14 format -->
         <section>
             <name>formats</name>
-            <type>DataCite/format</type>
+            <type>datacite/formats</type>
 
             <section>
                 <name>format #</name>
-                <type>DataCite/format</type>
+                <type>datacite/formats/format</type>
                 <definition>Technical format of the resource.</definition>
 
                 <property>
@@ -176,11 +176,11 @@
         <!-- #17 description -->
         <section>
             <name>descriptions</name>
-            <type>DataCite/description</type>
+            <type>datacite/descriptions</type>
 
             <section>
                 <name>description #</name>
-                <type>DataCite/description</type>
+                <type>datacite/descriptions/description</type>
                 <definition>All additional information that does not fit in any of the other categories. May be used for technical information.</definition>
 
                 <property>

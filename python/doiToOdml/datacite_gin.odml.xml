@@ -7,14 +7,14 @@
 
     <section>
         <name>DataCite</name>
-        <type>DataReference</type>
+        <type>data_reference</type>
         <definition>A published dataset referenced by a DOI and registered with DataCite. The referenced dataset will contain either the odML file itself or the data the odML is annotating. This template is a subset of the full datacite schema used by the German Neuroinformatics Node.</definition>
         <repository>https://templates.g-node.org/datacite.gin.xml</repository>
 
         <!-- #1 identifier -->
         <section>
             <name>identifier</name>
-            <type>DataCite/identifier</type>
+            <type>datacite/identifier</type>
             <definition>The Identifier is a unique string that identifies a resource.  For software, determine whether the identifier is for a specific version of a piece of software, (per the Force11 Software Citation Principles11), or for all versions.</definition>
 
             <property>
@@ -33,11 +33,11 @@
         <!-- #2 creators -->
         <section>
             <name>creators</name>
-            <type>DataCite/creator</type>
+            <type>datacite/creators</type>
 
             <section>
                 <name>creator #</name>
-                <type>DataCite/creator</type>
+                <type>datacite/creators/creator</type>
                 <definition>The main researchers involved in producing the data, or the authors of the publication, in priority order. To supply multiple creators, repeat this property.</definition>
 
                 <property>
@@ -48,7 +48,7 @@
 
                 <section>
                     <name>affiliation #</name>
-                    <type>DataCite/creator</type>
+                    <type>datacite/creators/creator/affiliation</type>
                     <definition>The organizational or institutional affiliation of the creator.</definition>
 
                     <property>
@@ -63,11 +63,11 @@
         <!-- #3 Title -->
         <section>
             <name>titles</name>
-            <type>DataCite/title</type>
+            <type>datacite/titles</type>
 
             <section>
                 <name>title #</name>
-                <type>DataCite/title</type>
+                <type>datacite/titles/title</type>
                 <definition>A name or title by which a resource is known. May be the title of a dataset or the name of a piece of software.</definition>
 
                 <property>
@@ -81,11 +81,11 @@
         <!-- #17 description -->
         <section>
             <name>descriptions</name>
-            <type>DataCite/description</type>
+            <type>datacite/descriptions</type>
 
             <section>
                 <name>description #</name>
-                <type>DataCite/description</type>
+                <type>datacite/descriptions/description</type>
                 <definition>All additional information that does not fit in any of the other categories. May be used for technical information.</definition>
 
                 <property>
@@ -105,11 +105,11 @@
         <!-- #16 Rights -->
         <section>
             <name>rightsList</name>
-            <type>DataCite/rights</type>
+            <type>datacite/rights_list</type>
 
             <section>
                 <name>rights #</name>
-                <type>DataCite/rights</type>
+                <type>datacite/rights_list/rights</type>
                 <definition>Any rights information for this resource. The property may be repeated to record complex rights characteristics.</definition>
 
                 <property>
@@ -128,11 +128,11 @@
         <!-- #6 Subject  -->
         <section>
             <name>subjects</name>
-            <type>DataCite/subject</type>
+            <type>datacite/subjects</type>
 
             <section>
                 <name>subject #</name>
-                <type>DataCite/subject</type>
+                <type>datacite/subjects/subject</type>
                 <definition>Subject, keyword, classification code, or key phrase describing the resource.</definition>
 
                 <property>
@@ -146,11 +146,11 @@
         <!-- #12 relatedIdentifier -->
         <section>
             <name>relatedIdentifiers</name>
-            <type>DataCite/relatedIdentifier</type>
+            <type>datacite/related_identifiers</type>
 
             <section>
                 <name>relatedIdentifier #</name>
-                <type>DataCite/relatedIdentifier</type>
+                <type>datacite/related_identifiers/related_identifier</type>
                 <definition>Identifiers of related resources. These must be globally unique identifiers.</definition>
 
                 <property>
@@ -176,11 +176,11 @@
         <!-- #19 fundingReference -->
         <section>
             <name>fundingReferences</name>
-            <type>DataCite/fundingReference</type>
+            <type>datacite/funding_references</type>
 
             <section>
                 <name>fundingReference #</name>
-                <type>DataCite/fundingReference</type>
+                <type>datacite/funding_references/funding_reference</type>
                 <definition>Information about financial support (funding) for the resource being registered.</definition>
 
                 <property>
@@ -194,11 +194,11 @@
         <!-- #7 Contributor -->
         <section>
             <name>contributors</name>
-            <type>DataCite/contributor</type>
+            <type>datacite/contributors</type>
 
             <section>
                 <name>contributor #</name>
-                <type>DataCite/contributor</type>
+                <type>datacite/contributors/contributor</type>
                 <definition>The institution or person responsible for collecting, managing, distributing, or otherwise contributing to the development of the resource.To supply multiple contributors, repeat this property.For software, if there is an alternate entity that "holds, archives, publishes, prints, distributes, releases, issues, or produces" the code, use the contributorType "hostingInstitution" for the code repository.</definition>
 
                 <property>
@@ -239,7 +239,7 @@
         <!-- #10 ResourceType -->
         <section>
             <name>resourceType</name>
-            <type>DataCite/resourceType</type>
+            <type>datacite/resource_type</type>
             <definition>A description of the resource. The format is open, but the preferred format is a single term of some detail so that a pair can be formed with the sub-property. Text formats can be free-text OR terms from the CASRAI Publications resource type list.</definition>
 
             <property>
