@@ -73,7 +73,7 @@ def handle_container(helper, node, root_sec):
         sub_sec = odml.Section(name=sec_name,
                                type=helper.section_type,
                                parent=sec)
-        helper.item_func(helper.attribute_map, title_node, sub_sec)
+        helper.item_func(helper, title_node, sub_sec)
 
 
 def handle_sec(helper, node, root_sec):
@@ -84,18 +84,25 @@ def handle_sec(helper, node, root_sec):
                        type=helper.section_type,
                        parent=root_sec)
 
-    handle_props(helper.attribute_map, node, sec)
+    handle_props(helper, node, sec)
 
 
-def handle_props(mapping, node, sec):
-    for sub in node:
-        if sub in mapping:
-            odml.Property(name=mapping[sub], values=node[sub], parent=sec)
-        else:
-            print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
+def handle_props(helper, node, sec):
+    if not node:
+        return
+
+    # Handle special case if a node is just the string content of an XML element.
+    if isinstance(node, str):
+        odml.Property(name=helper.section_name, values=node, parent=sec)
+    else:
+        for sub in node:
+            if sub in helper.attribute_map:
+                odml.Property(name=helper.attribute_map[sub], values=node[sub], parent=sec)
+            else:
+                print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
-def handle_creators_item(mapping, node, sec):
+def handle_creators_item(helper, node, sec):
     for sub in node:
         if sub == "creatorName":
             odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
@@ -146,7 +153,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["publisher", "publicationYear",
+#    supported_tags = ["publisher", ,
 #                      "subjects", "contributors", "dates", "language", "resourceType",
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
@@ -176,9 +183,19 @@ def parse_datacite_dict(doc):
                                 container_name="titles",
                                 item_func=handle_props)
 
+    publisher_helper = DataCiteItem(sec_name="publisher",
+                                    attribute_map={"#text": "publisher"},
+                                    func=handle_props)
+
+    publication_year_helper = DataCiteItem(sec_name="publicationYear",
+                                           attribute_map={"#text": "publicationYear"},
+                                           func=handle_props)
+
     supported_tags = {"identifier": identifier_helper,
                       "creators": creators_helper,
-                      "titles": title_helper}
+                      "titles": title_helper,
+                      "publisher": publisher_helper,
+                      "publicationYear": publication_year_helper}
 
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
@@ -192,9 +209,15 @@ def parse_datacite_dict(doc):
         else:
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
+    # ToDo remove DEBUG prints
+    print(doc)
+    print()
     print(odml_doc.pprint())
     print()
     print(odml_doc.sections[0].pprint())
+    print()
+    print(odml_doc.sections[0].properties)
+    odml.save(odml_doc, '/home/msonntag/Chaos/DL/doi_odml.odml')
 
 
 def main(args=None):
