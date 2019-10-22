@@ -60,13 +60,13 @@ def dict_from_xml(xml_file):
     return doc
 
 
-def handle_container(helper, node, odml_doc):
+def handle_container(helper, node, root_sec):
     if not node or helper.section_name not in node:
         return
 
     sec = odml.Section(name=helper.container_name,
                        type=helper.section_type,
-                       parent=odml_doc)
+                       parent=root_sec)
 
     for (idx, title_node) in enumerate(node[helper.section_name]):
         sec_name = "%s_%d" % (helper.section_name, idx + 1)
@@ -76,13 +76,13 @@ def handle_container(helper, node, odml_doc):
         helper.item_func(helper.attribute_map, title_node, sub_sec)
 
 
-def handle_sec(helper, node, odml_doc):
+def handle_sec(helper, node, root_sec):
     if not node:
         return
 
     sec = odml.Section(name=helper.section_name,
                        type=helper.section_type,
-                       parent=odml_doc)
+                       parent=root_sec)
 
     handle_props(helper.attribute_map, node, sec)
 
@@ -146,7 +146,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["identifier", "creators", "titles", "publisher", "publicationYear",
+#    supported_tags = ["publisher", "publicationYear",
 #                      "subjects", "contributors", "dates", "language", "resourceType",
 #                      "alternateIdentifiers", "relatedIdentifiers", "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
@@ -156,15 +156,25 @@ def parse_datacite_dict(doc):
         "#text": "identifier",
         "@identifierType": "identifierType"
     }
-    identifier_helper = DataCiteItem("identifier", identifier_map, handle_sec)
-    creators_helper = DataCiteItem("creator", None, handle_container,
-                                   "creators", handle_creators_item)
+    identifier_helper = DataCiteItem(sec_name="identifier",
+                                     attribute_map=identifier_map,
+                                     func=handle_sec)
+
+    creators_helper = DataCiteItem(sec_name="creator",
+                                   attribute_map=None,
+                                   func=handle_container,
+                                   container_name="creators",
+                                   item_func=handle_creators_item)
 
     title_map = {
         "#text": "title",
         "@titleType": "titleType"
     }
-    title_helper = DataCiteItem("title", title_map, handle_container, "titles", handle_props)
+    title_helper = DataCiteItem(sec_name="title",
+                                attribute_map=title_map,
+                                func=handle_container,
+                                container_name="titles",
+                                item_func=handle_props)
 
     supported_tags = {"identifier": identifier_helper,
                       "creators": creators_helper,
@@ -173,14 +183,18 @@ def parse_datacite_dict(doc):
     odml_doc = odml.Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
 
+    root_sec = odml.Section(name="DataCite", type="DataReference", parent=odml_doc)
+
     for node_tag in dcite_root:
         if node_tag in supported_tags:
             helper = supported_tags[node_tag]
-            helper.func(helper, dcite_root[node_tag], odml_doc)
+            helper.func(helper, dcite_root[node_tag], root_sec)
         else:
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
     print(odml_doc.pprint())
+    print()
+    print(odml_doc.sections[0].pprint())
 
 
 def main(args=None):
