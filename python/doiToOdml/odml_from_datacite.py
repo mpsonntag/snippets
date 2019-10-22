@@ -14,6 +14,7 @@ Options:
 """
 
 import os
+import re
 import sys
 import xmltodict
 
@@ -41,6 +42,11 @@ class DataCiteItem(object):
         self.func = func
         self.container_name = container_name
         self.item_func = item_func
+
+
+def camel_to_snake(name):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
 def dict_from_xml(xml_file):
