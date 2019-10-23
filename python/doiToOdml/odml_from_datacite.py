@@ -261,6 +261,21 @@ def parse_datacite_dict(doc):
                                                 container_name="alternateIdentifiers",
                                                 item_func=handle_props)
 
+    related_identifiers_map = {
+        "#text": "relatedIdentifier",
+        "@relatedIdentifierType": "relatedIdentifierType",
+        "@relationType": "relationType",
+        "@relatedMetadataScheme": "relatedMetadataScheme",
+        "@schemeURI": "schemeURI",
+        "@schemeType": "schemeType",
+        "@resourceTypeGeneral": "resourceTypeGeneral"
+    }
+    related_identifiers_helper = DataCiteItem(sec_name="relatedIdentifier",
+                                              attribute_map=related_identifiers_map,
+                                              func=handle_container,
+                                              container_name="relatedIdentifiers",
+                                              item_func=handle_props)
+
     supported_tags = {
         "identifier": identifier_helper,
         "creators": creators_helper,
@@ -271,7 +286,8 @@ def parse_datacite_dict(doc):
         "dates": dates_helper,
         "language": language_helper,
         "resourceType": res_type_helper,
-        "alternateIdentifiers": alternate_identifiers_helper
+        "alternateIdentifiers": alternate_identifiers_helper,
+        "relatedIdentifiers": related_identifiers_helper
     }
 
     odml_doc = odml.Document()
