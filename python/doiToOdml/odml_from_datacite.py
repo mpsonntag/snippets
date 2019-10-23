@@ -175,7 +175,33 @@ def handle_creators_item(_, node, sec):
                                                func=None)
             handle_props(creator_name_helper, node[sub], sec)
         elif sub in ["givenName", "familyName"]:
-            odml.Property(name=sub, values=node[sub], parent=sec)
+            if isinstance(node[sub], str):
+                odml.Property(name=sub, values=node[sub], parent=sec)
+            elif "#text" in node[sub]:
+                odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
+            else:
+                print("[Warning] Could not parse '%s/%s'" % (sub_type_base, sub))
+        elif sub == "nameIdentifier":
+            handle_name_identifiers(sub, node, sub_type_base, sec)
+        elif sub == "affiliation":
+            handle_affiliations(sub, node, sub_type_base, sec)
+        else:
+            print("[Warning] Ignoring unsupported attribute '%s'" % sub)
+
+
+def handle_contributors_item(_, node, sec):
+    sub_type_base = "datacite/contributor"
+
+    for sub in node:
+        if sub in ["contributorName", "givenName", "familyName"]:
+            if isinstance(node[sub], str):
+                odml.Property(name=sub, values=node[sub], parent=sec)
+            elif "#text" in node[sub]:
+                odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
+            else:
+                print("[Warning] Could not parse '%s/%s'" % (sub_type_base, sub))
+        elif sub == "@contributorType":
+            odml.Property(name="contributorType", values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
             handle_name_identifiers(sub, node, sub_type_base, sec)
         elif sub == "affiliation":
@@ -262,6 +288,12 @@ def parse_datacite_dict(doc):
                                    func=handle_container,
                                    container_name="subjects",
                                    item_func=handle_props)
+
+    contributors_helper = DataCiteItem(sec_name="contributor",
+                                       attribute_map=None,
+                                       func=handle_container,
+                                       container_name="contributors",
+                                       item_func=handle_contributors_item)
 
     dates_map = {
         "#text": "date",
@@ -362,6 +394,7 @@ def parse_datacite_dict(doc):
         "publisher": publisher_helper,
         "publicationYear": publication_year_helper,
         "subjects": subjects_helper,
+        "contributors": contributors_helper,
         "dates": dates_helper,
         "language": language_helper,
         "resourceType": res_type_helper,
@@ -388,8 +421,6 @@ def parse_datacite_dict(doc):
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
     # ToDo remove DEBUG prints
-    print(doc)
-    print()
     print(odml_doc.pprint())
     print()
     print(odml_doc.sections[0].pprint())
