@@ -464,13 +464,11 @@ def parse_datacite_dict(doc):
         else:
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
-    # ToDo remove DEBUG prints
-    print(odml_doc.pprint())
+    # ToDo make prints optional
     print()
-    print(odml_doc.sections[0].pprint())
-    print()
-    print(odml_doc.sections[0].properties)
-    odml.save(odml_doc, '/home/msonntag/Chaos/DL/doi_odml.odml')
+    print(odml_doc.pprint(max_depth=2))
+
+    # ToDo handle file saving
 
 
 def main(args=None):
