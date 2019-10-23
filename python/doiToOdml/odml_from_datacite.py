@@ -128,21 +128,6 @@ def handle_props(helper, node, sec):
                 print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
-def handle_opt_list_props(helper_map, label, node, sec):
-    if isinstance(node, str):
-        odml.Property(name=label, values=node, parent=sec)
-    else:
-        for sub in node:
-            if sub in helper_map:
-                dtype = DType.string
-                if isinstance(sub, str) and sub.endswith("URI"):
-                    dtype = DType.url
-                odml.Property(name=helper_map[sub], dtype=dtype,
-                              values=node[sub], parent=sec)
-            else:
-                print("[Warning] Ignoring unsupported attribute '%s'" % sub)
-
-
 def handle_creators_item(helper, node, sec):
     sub_type_base = "datacite/creator"
 
@@ -188,19 +173,25 @@ def handle_creators_item(helper, node, sec):
             print("[Warning] Ignoring unsupported attribute '%s'" % sub)
 
 
-def handle_funding_references(helper, node, sec):
+def handle_funding_references(_, node, sec):
     for sub in node:
         if sub in ["funderName", "awardTitle"]:
             odml.Property(name=sub, values=node[sub], parent=sec)
         elif sub == "awardNumber":
             award_number_map = {"#text": "awardNumber", "@awardURI": "awardURI"}
-            handle_opt_list_props(award_number_map, sub, node[sub], sec)
+            award_number_helper = DataCiteItem(sec_name=sub,
+                                               attribute_map=award_number_map,
+                                               func=None)
+            handle_props(award_number_helper, node[sub], sec)
         elif sub == "funderIdentifier":
             funder_identifier_map = {
                 "#text": "funderIdentifier",
                 "@funderIdentifierType": "funderIdentifierType",
                 "@schemeURI": "schemeURI"}
-            handle_opt_list_props(funder_identifier_map, sub, node[sub], sec)
+            funder_identifier_helper = DataCiteItem(sec_name=sub,
+                                                    attribute_map=funder_identifier_map,
+                                                    func=None)
+            handle_props(funder_identifier_helper, node[sub], sec)
 
 
 def parse_datacite_dict(doc):
