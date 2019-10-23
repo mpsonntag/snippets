@@ -128,15 +128,19 @@ def handle_props(helper, node, sec):
                 print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
-def handle_creators_item(helper, node, sec):
+def handle_creators_item(_, node, sec):
     sub_type_base = "datacite/creator"
 
     for sub in node:
         if sub == "creatorName":
-            odml.Property(name=sub, values=node[sub]["#text"], parent=sec)
-            if "@nameType" in node[sub]:
-                odml.Property(name="nameType", values=node[sub]["@nameType"], parent=sec)
-
+            creator_name_map = {
+                "#text": "creatorName",
+                "@nameType": "nameType"
+            }
+            creator_name_helper = DataCiteItem(sec_name=sub,
+                                               attribute_map=creator_name_map,
+                                               func=None)
+            handle_props(creator_name_helper, node[sub], sec)
         elif sub in ["givenName", "familyName"]:
             odml.Property(name=sub, values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
@@ -144,31 +148,32 @@ def handle_creators_item(helper, node, sec):
             subsec = odml.Section(name=sub,
                                   type="%s/named_identifier" % sub_type_base,
                                   parent=sec)
-            odml.Property(name=sub, values=node[sub]["#text"], parent=subsec)
-            if "@schemeURI" in node[sub]:
-                odml.Property(name="schemeURI", dtype=DType.url,
-                              values=node[sub]["@schemeURI"], parent=subsec)
-            if "@nameIdentifierScheme" in node[sub]:
-                odml.Property(name="nameIdentifierScheme",
-                              values=node[sub]["@nameIdentifierScheme"], parent=subsec)
+            name_identifier_map = {
+                "#text": "nameIdentifier",
+                "@schemeURI": "schemeURI",
+                "@nameIdentifierScheme": "nameIdentifierScheme"
+            }
+            name_identifier_helper = DataCiteItem(sec_name=sub,
+                                                  attribute_map=name_identifier_map,
+                                                  func=None)
+            handle_props(name_identifier_helper, node[sub], subsec)
 
         elif sub == "affiliation":
             # toDo handle multiple affiliations
             sec_aff = odml.Section(name=sub,
                                    type="%s/affiliation" % sub_type_base,
                                    parent=sec)
-            odml.Property(name=sub, values=node[sub]["#text"], parent=sec_aff)
-            if "@affiliationIdentifier" in node[sub]:
-                odml.Property(name="affiliationIdentifier",
-                              values=node[sub]["@affiliationIdentifier"],
-                              parent=sec_aff)
-            if "@affiliationIdentifierScheme" in node[sub]:
-                odml.Property(name="affiliationIdentifierScheme",
-                              values=node[sub]["@affiliationIdentifierScheme"],
-                              parent=sec_aff)
-            if "@schemeURI" in node[sub]:
-                odml.Property(name="schemeURI", values=node[sub]["@schemeURI"],
-                              dtype=DType.url, parent=sec_aff)
+
+            affiliation_map = {
+                "#text": "affiliation",
+                "@affiliationIdentifier": "affiliationIdentifier",
+                "@affiliationIdentifierScheme": "affiliationIdentifierScheme",
+                "@schemeURI": "schemeURI"
+            }
+            affiliation_helper = DataCiteItem(sec_name=sub,
+                                              attribute_map=affiliation_map,
+                                              func=None)
+            handle_props(affiliation_helper, node[sub], sec_aff)
         else:
             print("[Warning] Ignoring unsupported attribute '%s'" % sub)
 
