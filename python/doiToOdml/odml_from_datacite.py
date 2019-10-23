@@ -210,6 +210,20 @@ def handle_contributors_item(_, node, sec):
             print("[Warning] Ignoring unsupported attribute '%s'" % sub)
 
 
+def handle_geo_entry(helper_list, node, sec, sec_name, sec_type_base):
+    sub_type = "%s/%s" % (sec_type_base, camel_to_snake(sec_name))
+    sub_sec = odml.Section(name=sec_name, type=sub_type, parent=sec)
+
+    for entry in node:
+        if entry in helper_list:
+            try:
+                odml.Property(name=entry, dtype=DType.float,
+                              values=node[entry], parent=sub_sec)
+            except ValueError:
+                print("[Warning] Skipping invalid '%s' value '%s'" %
+                      (entry, node[entry]))
+
+
 def handle_funding_references(_, node, sec):
     for sub in node:
         if sub in ["funderName", "awardTitle"]:
