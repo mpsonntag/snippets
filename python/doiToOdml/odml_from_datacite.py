@@ -179,7 +179,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["contributors", "alternateIdentifiers", "relatedIdentifiers",
+#    supported_tags = ["contributors", "relatedIdentifiers",
 #                      "sizes", "formats",
 #                      "version", "rightsList", "descriptions", "geoLocations",
 #                      "fundingReferences"]
@@ -251,6 +251,16 @@ def parse_datacite_dict(doc):
                                    attribute_map=res_type_map,
                                    func=handle_sec)
 
+    alternate_identifiers_map = {
+        "#text": "alternateIdentifier",
+        "@alternateIdentifierType": "alternateIdentifierType"
+    }
+    alternate_identifiers_helper = DataCiteItem(sec_name="alternateIdentifier",
+                                                attribute_map=alternate_identifiers_map,
+                                                func=handle_container,
+                                                container_name="alternateIdentifiers",
+                                                item_func=handle_props)
+
     supported_tags = {
         "identifier": identifier_helper,
         "creators": creators_helper,
@@ -260,7 +270,8 @@ def parse_datacite_dict(doc):
         "subjects": subjects_helper,
         "dates": dates_helper,
         "language": language_helper,
-        "resourceType": res_type_helper
+        "resourceType": res_type_helper,
+        "alternateIdentifiers": alternate_identifiers_helper
     }
 
     odml_doc = odml.Document()
