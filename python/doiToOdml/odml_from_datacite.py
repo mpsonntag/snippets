@@ -286,6 +286,10 @@ def parse_datacite_dict(doc):
                                   container_name="formats",
                                   item_func=handle_props)
 
+    version_helper = DataCiteItem(sec_name="version",
+                                  attribute_map={"#text": "version"},
+                                  func=handle_props)
+
     supported_tags = {
         "identifier": identifier_helper,
         "creators": creators_helper,
@@ -299,7 +303,8 @@ def parse_datacite_dict(doc):
         "alternateIdentifiers": alternate_identifiers_helper,
         "relatedIdentifiers": related_identifiers_helper,
         "sizes": sizes_helper,
-        "formats": formats_helper
+        "formats": formats_helper,
+        "version": version_helper
     }
 
     odml_doc = odml.Document()
