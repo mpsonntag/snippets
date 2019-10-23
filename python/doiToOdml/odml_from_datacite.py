@@ -69,12 +69,11 @@ def handle_container(helper, node, root_sec):
     if not node or helper.section_name not in node:
         return
 
-    sec_cont_name = camel_to_snake(helper.container_name)
-    sec_name = camel_to_snake(helper.section_name)
-    sub_sec_type = "datacite/%s/%s" % (sec_cont_name, sec_name)
+    sec_cont_type = "datacite/%s" % camel_to_snake(helper.container_name)
+    sub_sec_type = "datacite/%s" % camel_to_snake(helper.section_name)
 
     sec = odml.Section(name=helper.container_name,
-                       type="datacite/%s" % sec_cont_name,
+                       type=sec_cont_type,
                        parent=root_sec)
 
     # We might need to handle the case, when a container holds
@@ -124,7 +123,7 @@ def handle_props(helper, node, sec):
 
 
 def handle_creators_item(helper, node, sec):
-    sub_type_base = "datacite/creators/creator"
+    sub_type_base = "datacite/creator"
 
     for sub in node:
         if sub == "creatorName":
