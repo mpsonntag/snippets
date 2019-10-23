@@ -108,7 +108,6 @@ def handle_sec(helper, node, root_sec):
     handle_props(helper, node, sec)
 
 
-# ToDO: URI - odml.dtypes.DType.url handling
 def handle_props(helper, node, sec):
     if not node:
         return
@@ -119,7 +118,12 @@ def handle_props(helper, node, sec):
     else:
         for sub in node:
             if sub in helper.attribute_map:
-                odml.Property(name=helper.attribute_map[sub], values=node[sub], parent=sec)
+                dtype = DType.string
+                if isinstance(sub, str) and sub.endswith("URI"):
+                    dtype = DType.url
+
+                odml.Property(name=helper.attribute_map[sub], dtype=dtype,
+                              values=node[sub], parent=sec)
             else:
                 print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
