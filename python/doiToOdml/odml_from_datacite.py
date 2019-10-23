@@ -124,6 +124,21 @@ def handle_props(helper, node, sec):
                 print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
+def handle_opt_list_props(helper_map, label, node, sec):
+    if isinstance(node, str):
+        odml.Property(name=label, values=node, parent=sec)
+    else:
+        for sub in node:
+            if sub in helper_map:
+                dtype = DType.string
+                if isinstance(sub, str) and sub.endswith("URI"):
+                    dtype = DType.url
+                odml.Property(name=helper_map[sub], dtype=dtype,
+                              values=node[sub], parent=sec)
+            else:
+                print("[Warning] Ignoring unsupported attribute '%s'" % sub)
+
+
 def handle_creators_item(helper, node, sec):
     sub_type_base = "datacite/creator"
 
