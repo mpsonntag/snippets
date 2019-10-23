@@ -290,6 +290,16 @@ def parse_datacite_dict(doc):
                                   attribute_map={"#text": "version"},
                                   func=handle_props)
 
+    descriptions_map = {
+        "#text": "description",
+        "@descriptionType": "descriptionType"
+    }
+    descriptions_helper = DataCiteItem(sec_name="description",
+                                       attribute_map=descriptions_map,
+                                       func=handle_container,
+                                       container_name="descriptions",
+                                       item_func=handle_props)
+
     supported_tags = {
         "identifier": identifier_helper,
         "creators": creators_helper,
@@ -304,7 +314,8 @@ def parse_datacite_dict(doc):
         "relatedIdentifiers": related_identifiers_helper,
         "sizes": sizes_helper,
         "formats": formats_helper,
-        "version": version_helper
+        "version": version_helper,
+        "descriptions": descriptions_helper
     }
 
     odml_doc = odml.Document()
