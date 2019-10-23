@@ -23,6 +23,8 @@ from xml.parsers.expat import ExpatError
 
 import odml
 
+from odml.dtypes import DType
+
 
 VERSION = "0.1.0"
 
@@ -140,7 +142,7 @@ def handle_creators_item(helper, node, sec):
                                   parent=sec)
             odml.Property(name=sub, values=node[sub]["#text"], parent=subsec)
             if "@schemeURI" in node[sub]:
-                odml.Property(name="schemeURI", dtype=odml.dtypes.DType.url,
+                odml.Property(name="schemeURI", dtype=DType.url,
                               values=node[sub]["@schemeURI"], parent=subsec)
             if "@nameIdentifierScheme" in node[sub]:
                 odml.Property(name="nameIdentifierScheme",
@@ -162,7 +164,7 @@ def handle_creators_item(helper, node, sec):
                               parent=sec_aff)
             if "@schemeURI" in node[sub]:
                 odml.Property(name="schemeURI", values=node[sub]["@schemeURI"],
-                              dtype=odml.dtypes.DType.url, parent=sec_aff)
+                              dtype=DType.url, parent=sec_aff)
         else:
             print("[Warning] Found unsupported node '%s', ignoring" % sub)
 
@@ -179,8 +181,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["contributors", "version", "rightsList",
-#    "descriptions", "geoLocations", "fundingReferences"]
+#    supported_tags = ["contributors", "rightsList", "geoLocations", "fundingReferences"]
 
     identifier_map = {
         "#text": "identifier",
