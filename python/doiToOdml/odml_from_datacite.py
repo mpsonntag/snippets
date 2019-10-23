@@ -210,9 +210,8 @@ def handle_contributors_item(_, node, sec):
             print("[Warning] Ignoring unsupported attribute '%s'" % sub)
 
 
-def handle_geo_entry(helper_list, node, sec, sec_name, sec_type_base):
-    sub_type = "%s/%s" % (sec_type_base, camel_to_snake(sec_name))
-    sub_sec = odml.Section(name=sec_name, type=sub_type, parent=sec)
+def handle_geo_entry(helper_list, node, sec, sub_sec_name, sub_sec_type):
+    sub_sec = odml.Section(name=sub_sec_name, type=sub_sec_type, parent=sec)
 
     for entry in node:
         if entry in helper_list:
@@ -222,6 +221,32 @@ def handle_geo_entry(helper_list, node, sec, sec_name, sec_type_base):
             except ValueError:
                 print("[Warning] Skipping invalid '%s' value '%s'" %
                       (entry, node[entry]))
+
+
+def handle_geo_locations(_, node, sec):
+    sub_type_base = "datacite/geo_location"
+
+    point_list = ["pointLongitude", "pointLatitude"]
+    box_list = ["westBoundLongitude", "eastBoundLongitude",
+                "southBoundLatitude", "northBoundLatitude"]
+
+    for elem in node:
+        if elem == "geoLocationPlace":
+            odml.Property(name=elem, values=node[elem], parent=sec)
+        elif elem == "geoLocationPoint":
+            sec_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            handle_geo_entry(point_list, node[elem], sec, elem, sec_type)
+        elif elem == "geoLocationBox":
+            sec_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            handle_geo_entry(box_list, node[elem], sec, elem, sec_type)
+        elif elem == "geoLocationPolygon":
+            sub_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            sub_sec = odml.Section(name=elem, type=sub_type, parent=sec)
+
+            for (idx, point) in enumerate(node[elem]["polygonPoint"]):
+                point_name = "polygonPoint_%d" % (idx + 1)
+                sec_type = "%s/%s" % (sub_type_base, camel_to_snake("polygonPoint"))
+                handle_geo_entry(point_list, point, sub_sec, point_name, sec_type)
 
 
 def handle_funding_references(_, node, sec):
@@ -253,11 +278,9 @@ def parse_datacite_dict(doc):
     if not doc or "resource" not in doc:
         raise ParserException("Could not find root")
 
-    dcite_root = doc["resource"]
-    if "identifier" not in dcite_root:
+    datacite_root = doc["resource"]
+    if "identifier" not in datacite_root:
         raise ParserException("Could not find identifier (DOI) node")
-
-#    supported_tags = ["contributors", "geoLocations"]
 
     identifier_map = {
         "#text": "identifier",
@@ -395,6 +418,12 @@ def parse_datacite_dict(doc):
                                        container_name="descriptions",
                                        item_func=handle_props)
 
+    geo_locations_helper = DataCiteItem(sec_name="geoLocation",
+                                        attribute_map=None,
+                                        func=handle_container,
+                                        container_name="geoLocations",
+                                        item_func=handle_geo_locations)
+
     funding_references_helper = DataCiteItem(sec_name="fundingReference",
                                              attribute_map=None,
                                              func=handle_container,
@@ -419,6 +448,7 @@ def parse_datacite_dict(doc):
         "version": version_helper,
         "rightsList": rights_helper,
         "descriptions": descriptions_helper,
+        "geoLocations": geo_locations_helper,
         "fundingReferences": funding_references_helper
     }
 
@@ -427,10 +457,10 @@ def parse_datacite_dict(doc):
 
     root_sec = odml.Section(name="DataCite", type="data_reference", parent=odml_doc)
 
-    for node_tag in dcite_root:
+    for node_tag in datacite_root:
         if node_tag in supported_tags:
             helper = supported_tags[node_tag]
-            helper.func(helper, dcite_root[node_tag], root_sec)
+            helper.func(helper, datacite_root[node_tag], root_sec)
         else:
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
