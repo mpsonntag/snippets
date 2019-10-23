@@ -78,22 +78,7 @@ def handle_container(helper, node, root_sec):
                        type=sec_cont_type,
                        parent=root_sec)
 
-    # We might need to handle the case, when a container holds
-    # only the content of one xml element and does not contain
-    # the content and attributes of this xml element as a sole
-    # list element but as many elements within an OrderedDict.
-    if isinstance(node[helper.section_name], list):
-        for (idx, title_node) in enumerate(node[helper.section_name]):
-            sec_name = "%s_%d" % (helper.section_name, idx + 1)
-            sub_sec = odml.Section(name=sec_name,
-                                   type=sub_sec_type,
-                                   parent=sec)
-            helper.item_func(helper, title_node, sub_sec)
-    else:
-        sub_sec = odml.Section(name="%s_1" % helper.section_name,
-                               type=sub_sec_type,
-                               parent=sec)
-        helper.item_func(helper, node[helper.section_name], sub_sec)
+    handle_sub_container(helper, node, sec, sub_sec_type)
 
 
 def handle_sub_container(helper, node, sec, sub_sec_type):
@@ -147,6 +132,35 @@ def handle_props(helper, node, sec):
                 print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
 
 
+def handle_name_identifiers(sub, node, sub_type_base, sec):
+    name_identifier_map = {
+        "#text": "nameIdentifier",
+        "@schemeURI": "schemeURI",
+        "@nameIdentifierScheme": "nameIdentifierScheme"
+    }
+    name_identifier_helper = DataCiteItem(sec_name=sub,
+                                          attribute_map=name_identifier_map,
+                                          func=None,
+                                          item_func=handle_props)
+    sub_sec_type = "%s/named_identifier" % sub_type_base
+    handle_sub_container(name_identifier_helper, node, sec, sub_sec_type)
+
+
+def handle_affiliations(sub, node, sub_type_base, sec):
+    affiliation_map = {
+        "#text": "affiliation",
+        "@affiliationIdentifier": "affiliationIdentifier",
+        "@affiliationIdentifierScheme": "affiliationIdentifierScheme",
+        "@schemeURI": "schemeURI"
+    }
+    affiliation_helper = DataCiteItem(sec_name=sub,
+                                      attribute_map=affiliation_map,
+                                      func=None,
+                                      item_func=handle_props)
+    sub_sec_type = "%s/affiliation" % sub_type_base
+    handle_sub_container(affiliation_helper, node, sec, sub_sec_type)
+
+
 def handle_creators_item(_, node, sec):
     sub_type_base = "datacite/creator"
 
@@ -163,31 +177,9 @@ def handle_creators_item(_, node, sec):
         elif sub in ["givenName", "familyName"]:
             odml.Property(name=sub, values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
-            name_identifier_map = {
-                "#text": "nameIdentifier",
-                "@schemeURI": "schemeURI",
-                "@nameIdentifierScheme": "nameIdentifierScheme"
-            }
-            name_identifier_helper = DataCiteItem(sec_name=sub,
-                                                  attribute_map=name_identifier_map,
-                                                  func=None,
-                                                  item_func=handle_props)
-            sub_sec_type = "%s/named_identifier" % sub_type_base
-            handle_sub_container(name_identifier_helper, node, sec, sub_sec_type)
-
+            handle_name_identifiers(sub, node, sub_type_base, sec)
         elif sub == "affiliation":
-            affiliation_map = {
-                "#text": "affiliation",
-                "@affiliationIdentifier": "affiliationIdentifier",
-                "@affiliationIdentifierScheme": "affiliationIdentifierScheme",
-                "@schemeURI": "schemeURI"
-            }
-            affiliation_helper = DataCiteItem(sec_name=sub,
-                                              attribute_map=affiliation_map,
-                                              func=None,
-                                              item_func=handle_props)
-            sub_sec_type = "%s/affiliation" % sub_type_base
-            handle_sub_container(affiliation_helper, node, sec, sub_sec_type)
+            handle_affiliations(sub, node, sub_type_base, sec)
         else:
             print("[Warning] Ignoring unsupported attribute '%s'" % sub)
 
