@@ -181,7 +181,22 @@ def handle_creators_item(helper, node, sec):
                 odml.Property(name="schemeURI", values=node[sub]["@schemeURI"],
                               dtype=DType.url, parent=sec_aff)
         else:
-            print("[Warning] Found unsupported node '%s', ignoring" % sub)
+            print("[Warning] Ignoring unsupported attribute '%s'" % sub)
+
+
+def handle_funding_references(helper, node, sec):
+    for sub in node:
+        if sub in ["funderName", "awardTitle"]:
+            odml.Property(name=sub, values=node[sub], parent=sec)
+        elif sub == "awardNumber":
+            award_number_map = {"#text": "awardNumber", "@awardURI": "awardURI"}
+            handle_opt_list_props(award_number_map, sub, node[sub], sec)
+        elif sub == "funderIdentifier":
+            funder_identifier_map = {
+                "#text": "funderIdentifier",
+                "@funderIdentifierType": "funderIdentifierType",
+                "@schemeURI": "schemeURI"}
+            handle_opt_list_props(funder_identifier_map, sub, node[sub], sec)
 
 
 def parse_datacite_dict(doc):
@@ -316,6 +331,12 @@ def parse_datacite_dict(doc):
                                        container_name="descriptions",
                                        item_func=handle_props)
 
+    funding_references_helper = DataCiteItem(sec_name="fundingReference",
+                                             attribute_map=None,
+                                             func=handle_container,
+                                             container_name="fundingReferences",
+                                             item_func=handle_funding_references)
+
     supported_tags = {
         "identifier": identifier_helper,
         "creators": creators_helper,
@@ -331,7 +352,8 @@ def parse_datacite_dict(doc):
         "sizes": sizes_helper,
         "formats": formats_helper,
         "version": version_helper,
-        "descriptions": descriptions_helper
+        "descriptions": descriptions_helper,
+        "fundingReferences": funding_references_helper
     }
 
     odml_doc = odml.Document()
