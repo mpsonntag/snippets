@@ -206,7 +206,7 @@ def parse_datacite_dict(doc):
     if "identifier" not in dcite_root:
         raise ParserException("Could not find identifier (DOI) node")
 
-#    supported_tags = ["contributors", "rightsList", "geoLocations", "fundingReferences"]
+#    supported_tags = ["contributors", "geoLocations"]
 
     identifier_map = {
         "#text": "identifier",
@@ -316,6 +316,18 @@ def parse_datacite_dict(doc):
                                   attribute_map={"#text": "version"},
                                   func=handle_props)
 
+    rights_map = {
+        "@schemeURI": "schemeURI",
+        "@rightsIdentifierScheme": "rightsIdentifierScheme",
+        "@rightsIdentifier": "rightsIdentifier",
+        "@rightsURI": "rightsURI"
+    }
+    rights_helper = DataCiteItem(sec_name="rights",
+                                 attribute_map=rights_map,
+                                 func=handle_container,
+                                 container_name="rightsList",
+                                 item_func=handle_props)
+
     descriptions_map = {
         "#text": "description",
         "@descriptionType": "descriptionType"
@@ -347,6 +359,7 @@ def parse_datacite_dict(doc):
         "sizes": sizes_helper,
         "formats": formats_helper,
         "version": version_helper,
+        "rightsList": rights_helper,
         "descriptions": descriptions_helper,
         "fundingReferences": funding_references_helper
     }
