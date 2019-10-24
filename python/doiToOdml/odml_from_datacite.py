@@ -66,6 +66,7 @@ def dict_from_xml(xml_file):
     :return: dictionary containing the contents of the xml file.
     """
 
+    # toDo check for xml file
     try:
         with open(xml_file) as file:
             doc = xmltodict.parse(file.read())
@@ -271,18 +272,7 @@ def handle_funding_references(_, node, sec):
             handle_props(funder_identifier_helper, node[sub], sec)
 
 
-def parse_datacite_dict(doc):
-    """
-    :param doc: python dict containing datacite conform data to
-                be parsed.
-    """
-    if not doc or "resource" not in doc:
-        raise ParserException("Could not find root")
-
-    datacite_root = doc["resource"]
-    if "identifier" not in datacite_root:
-        raise ParserException("Could not find identifier (DOI) node")
-
+def setup_supported_tags():
     identifier_map = {
         "#text": "identifier",
         "@identifierType": "identifierType"
@@ -453,11 +443,28 @@ def parse_datacite_dict(doc):
         "fundingReferences": funding_references_helper
     }
 
+    return supported_tags
+
+
+def parse_datacite_dict(doc):
+    """
+    :param doc: python dict containing datacite conform data to
+                be parsed.
+    """
+    if not doc or "resource" not in doc:
+        raise ParserException("Could not find root")
+
+    datacite_root = doc["resource"]
+    if "identifier" not in datacite_root:
+        raise ParserException("Could not find identifier (DOI) node")
+
     odml_doc = Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
+    # todo add date
 
     root_sec = Section(name="DataCite", type="data_reference", parent=odml_doc)
 
+    supported_tags = setup_supported_tags()
     for node_tag in datacite_root:
         if node_tag in supported_tags:
             helper = supported_tags[node_tag]
@@ -515,6 +522,7 @@ def main(args=None):
 
     out_name = os.path.splitext(os.path.basename(cite_file))[0]
     out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
+    # todo add overwrite check
     save_odml(odml_doc, out_file, backend)
 
 
