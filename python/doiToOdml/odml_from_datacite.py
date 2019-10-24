@@ -26,7 +26,7 @@ import xmltodict
 
 from docopt import docopt
 from odml import Document, Section, Property
-from odml.tools.odmlparser import ODMLWriter
+from odml.fileio import save as save_odml
 from odml.dtypes import DType
 
 
@@ -497,9 +497,10 @@ def main(args=None):
     print()
     print(odml_doc.pprint(max_depth=5))
 
+    backend = "XML"
     out_name = os.path.splitext(os.path.basename(cite_file))[0]
-    out_file = os.path.join(out_root, "%s.xml" % out_name)
-    ODMLWriter("XML").write_file(odml_doc, out_file)
+    out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
+    save_odml(odml_doc, out_file, backend)
 
 
 if __name__ == "__main__":
