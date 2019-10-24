@@ -3,7 +3,7 @@
 Convenience script to parse a datacite xml file
 and create an odML xml file with the parsed information.
 
-Usage: odmlFromDatacite [-f FORMAT] [-o OUT] FILENAME
+Usage: odmlFromDatacite [-f FORMAT] [-o OUT] [-p] FILENAME
 
 Arguments:
     FILENAME    Path and filename of the datacite xml file to be parsed.
@@ -14,6 +14,7 @@ Options:
     -o OUT          Output directory. Must exist if specified.
                     If not specified, output files will be
                     written to the current directory.
+    -p              print parsed document tree to the commandline.
     -h --help   Show this screen.
     --version   Show version number.
 """
@@ -508,9 +509,9 @@ def main(args=None):
         print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
         exit(1)
 
-    # ToDo make prints optional
-    print()
-    print(odml_doc.pprint(max_depth=5))
+    if parser["-p"]:
+        print()
+        print(odml_doc.pprint(max_depth=5))
 
     out_name = os.path.splitext(os.path.basename(cite_file))[0]
     out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
