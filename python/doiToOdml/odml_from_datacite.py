@@ -3,12 +3,14 @@
 Convenience script to parse a datacite xml file
 and create an odML xml file with the parsed information.
 
-Usage: odmlFromDatacite [-o OUT] FILENAME
+Usage: odmlFromDatacite [-f FORMAT] [-o OUT] FILENAME
 
 Arguments:
     FILENAME    Path and filename of the datacite xml file to be parsed.
 
 Options:
+    -f FORMAT       odML output file format. Available formats are
+                    'XML', 'JSON', 'YAML', 'RDF'. Default format is 'XML'.
     -o OUT          Output directory. Must exist if specified.
                     If not specified, output files will be
                     written to the current directory.
@@ -28,6 +30,7 @@ from docopt import docopt
 from odml import Document, Section, Property
 from odml.fileio import save as save_odml
 from odml.dtypes import DType
+from odml.tools.parser_utils import SUPPORTED_PARSERS
 
 
 VERSION = "0.1.0"
@@ -472,6 +475,16 @@ def main(args=None):
         print("[Error] Could not access input file '%s'\n" % cite_file)
         exit(1)
 
+    # Handle output file format
+    backend = "XML"
+    if parser["-f"]:
+        backend = parser["-f"].upper()
+        if backend not in SUPPORTED_PARSERS:
+            print("[Error] Output format '%s' is not supported. "
+                  "Use option '-h' for help" % backend)
+            exit(1)
+
+    # Handle output directory
     out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
@@ -480,6 +493,7 @@ def main(args=None):
 
         out_root = parser["-o"]
 
+    # Read document from input file
     doc = None
     try:
         doc = dict_from_xml(cite_file)
@@ -487,6 +501,7 @@ def main(args=None):
         print("[Error] '%s' in file '%s'" % (exc, cite_file))
         exit(1)
 
+    # Parse input to an odML document
     try:
         odml_doc = parse_datacite_dict(doc)
     except ParserException as exc:
@@ -497,7 +512,6 @@ def main(args=None):
     print()
     print(odml_doc.pprint(max_depth=5))
 
-    backend = "XML"
     out_name = os.path.splitext(os.path.basename(cite_file))[0]
     out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
     save_odml(odml_doc, out_file, backend)
