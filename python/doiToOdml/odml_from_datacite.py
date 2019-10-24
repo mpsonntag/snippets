@@ -23,6 +23,7 @@ import xmltodict
 
 from docopt import docopt
 from odml import Document, Section, Property
+from odml.tools.odmlparser import ODMLWriter
 from odml.dtypes import DType
 
 
@@ -457,11 +458,7 @@ def parse_datacite_dict(doc):
         else:
             print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
 
-    # ToDo make prints optional
-    print()
-    print(odml_doc.pprint(max_depth=5))
-
-    # ToDo handle file saving
+    return odml_doc
 
 
 def main(args=None):
@@ -480,10 +477,18 @@ def main(args=None):
         exit(1)
 
     try:
-        parse_datacite_dict(doc)
+        odml_doc = parse_datacite_dict(doc)
     except ParserException as exc:
         print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
         exit(1)
+
+    # ToDo make prints optional
+    print()
+    print(odml_doc.pprint(max_depth=5))
+
+    out_name = os.path.splitext(os.path.basename(cite_file))[0]
+    out_file = os.path.join(out_root, "%s.xml" % out_name)
+    ODMLWriter("XML").write_file(odml_doc, out_file)
 
 
 if __name__ == "__main__":
