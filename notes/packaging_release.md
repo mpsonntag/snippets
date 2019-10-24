@@ -62,6 +62,13 @@ NOTE: If the setup.py::licence attribute contains more lines or blank lines,
 then the description will NOT be displayed on PyPI but does not show up as an error. 
 This might be true for other attributes as well. 
 
+Run the following check to ensure that the readme can properly be integrated in PyPI:
+
+    twine check dist/*
+
+Check [here](https://packaging.python.org/guides/making-a-pypi-friendly-readme/#validating-restructuredtext-markup) 
+for more details.
+
 ## Check the documentation:
 
     sphinx-build -b html [sourcedir] [builddir]
