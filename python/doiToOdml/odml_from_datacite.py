@@ -523,7 +523,10 @@ def main(args=None):
 
     out_name = os.path.splitext(os.path.basename(cite_file))[0]
     out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
-    # todo add overwrite check
+
+    # Do not overwrite existing files
+    if os.path.isfile(out_file):
+        out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
     save_odml(odml_doc, out_file, backend)
 
 
