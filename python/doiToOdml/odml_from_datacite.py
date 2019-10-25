@@ -1,12 +1,12 @@
 """odmlFromDatacite
 
-Convenience script to parse a datacite xml file
-and create an odML xml file with the parsed information.
+Convenience script to parse a datacite XML file
+and create an odML file with the parsed information.
 
 Usage: odmlFromDatacite [-f FORMAT] [-o OUT] [-p] FILENAME
 
 Arguments:
-    FILENAME    Path and filename of the datacite xml file to be parsed.
+    FILENAME    Path and filename of the datacite XML file to be parsed.
 
 Options:
     -f FORMAT       odML output file format. Available formats are
@@ -24,6 +24,7 @@ import re
 import sys
 
 from datetime import date
+from xml.parsers.expat import errors as exp_err
 from xml.parsers.expat import ExpatError
 
 import xmltodict
@@ -67,12 +68,11 @@ def dict_from_xml(xml_file):
     :return: dictionary containing the contents of the xml file.
     """
 
-    # toDo check for xml file
     try:
         with open(xml_file) as file:
             doc = xmltodict.parse(file.read())
-    except ExpatError:
-        raise ParserException("Could not parse file")
+    except ExpatError as exc:
+        raise ParserException("%s" % exp_err.messages[exc.code])
 
     return doc
 
@@ -482,7 +482,7 @@ def main(args=None):
     cite_file = parser['FILENAME']
     if not os.path.isfile(cite_file):
         print("[Error] Could not access input file '%s'\n" % cite_file)
-        exit(1)
+        return exit(1)
 
     # Handle output file format
     backend = "XML"
@@ -491,14 +491,14 @@ def main(args=None):
         if backend not in SUPPORTED_PARSERS:
             print("[Error] Output format '%s' is not supported. "
                   "Use option '-h' for help" % backend)
-            exit(1)
+            return exit(1)
 
     # Handle output directory
     out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
             print("[Error] Could not find output directory '%s'" % parser["-o"])
-            exit(1)
+            return exit(1)
 
         out_root = parser["-o"]
 
@@ -507,15 +507,15 @@ def main(args=None):
     try:
         doc = dict_from_xml(cite_file)
     except ParserException as exc:
-        print("[Error] '%s' in file '%s'" % (exc, cite_file))
-        exit(1)
+        print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
+        return exit(1)
 
     # Parse input to an odML document
     try:
         odml_doc = parse_datacite_dict(doc)
     except ParserException as exc:
         print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
-        exit(1)
+        return exit(1)
 
     if parser["-p"]:
         print()
@@ -528,6 +528,8 @@ def main(args=None):
     if os.path.isfile(out_file):
         out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
     save_odml(odml_doc, out_file, backend)
+
+    return exit(0)
 
 
 if __name__ == "__main__":
