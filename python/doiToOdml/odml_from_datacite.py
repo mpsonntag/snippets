@@ -23,6 +23,7 @@ import os
 import re
 import sys
 
+from datetime import date
 from xml.parsers.expat import ExpatError
 
 import xmltodict
@@ -460,7 +461,7 @@ def parse_datacite_dict(doc):
 
     odml_doc = Document()
     odml_doc.repository = "https://terminologies.g-node.org/v1.1/terminologies.xml"
-    # todo add date
+    odml_doc.date = date.today().isoformat()
 
     root_sec = Section(name="DataCite", type="data_reference", parent=odml_doc)
 
