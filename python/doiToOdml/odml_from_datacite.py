@@ -482,6 +482,36 @@ def parse_datacite_dict(doc):
     return odml_doc
 
 
+def handle_document(cite_in, out_root, backend="XML", print_doc=False):
+    # Read document from input file
+    doc = None
+    try:
+        doc = dict_from_xml(cite_in)
+    except ParserException as exc:
+        exc_message = "[Error] Could not parse datacite file '%s'\n\t%s" % (cite_in, exc)
+        raise ParserException(exc_message)
+
+    # Parse input to an odML document
+    try:
+        odml_doc = parse_datacite_dict(doc)
+    except ParserException as exc:
+        exc_message = "[Error] Could not parse datacite file '%s'\n\t%s" % (cite_in, exc)
+        raise ParserException(exc_message)
+
+    if print_doc:
+        print()
+        print(odml_doc.pprint(max_depth=5))
+
+    out_name = os.path.splitext(os.path.basename(cite_in))[0]
+    out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
+
+    # Do not overwrite existing files
+    if os.path.isfile(out_file):
+        out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
+
+    save_odml(odml_doc, out_file, backend)
+
+
 def main(args=None):
     parser = docopt(__doc__, argv=args, version=VERSION)
 
