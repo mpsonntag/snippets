@@ -1,20 +1,26 @@
 """odmlFromDatacite
 
-Convenience script to parse a datacite XML file
-and create an odML file with the parsed information.
+Convenience script to parse a datacite XML file or whole directories
+containing datacite XML files and create odML files with the parsed
+information.
 
-Usage: odmlFromDatacite [-f FORMAT] [-o OUT] [-p] FILENAME
+Usage: odmlFromDatacite [-f FORMAT] [-o OUT] [-r] [-p] INPUT
 
 Arguments:
-    FILENAME    Path and filename of the datacite XML file to be parsed.
+    INPUT    Path and filename of the datacite XML file to be parsed.
+             If used with the [-r] flag, INPUT should be a directory;
+             all datacite XML files within this directory and any sub
+             directories will be parsed to odML.
 
 Options:
-    -f FORMAT       odML output file format. Available formats are
-                    'XML', 'JSON', 'YAML', 'RDF'. Default format is 'XML'.
-    -o OUT          Output directory. Must exist if specified.
-                    If not specified, output files will be
-                    written to the current directory.
-    -p              print parsed document tree to the commandline.
+    -f FORMAT   odML output file format. Available formats are
+                  'XML', 'JSON', 'YAML', 'RDF'. Default format is 'XML'.
+    -o OUT      Output directory. Must exist if specified.
+                  If not specified, output files will be written to the
+                  current directory.
+    -r          [Optional] Walk recursively through a repository.
+                  and convert all datacite files found.
+    -p          [Optional] Print the parsed document tree(s) to the command line.
     -h --help   Show this screen.
     --version   Show version number.
 """
@@ -479,9 +485,14 @@ def parse_datacite_dict(doc):
 def main(args=None):
     parser = docopt(__doc__, argv=args, version=VERSION)
 
-    cite_file = parser['FILENAME']
-    if not os.path.isfile(cite_file):
-        print("[Error] Could not access input file '%s'\n" % cite_file)
+    recursive = parser["-r"]
+    cite_in = parser["INPUT"]
+
+    if not recursive and not os.path.isfile(cite_in):
+        print("[Error] Could not access input file '%s'\n" % cite_in)
+        return exit(1)
+    elif recursive and not os.path.isdir(cite_in):
+        print("[Error] Could not access input directory '%s'\n" % cite_in)
         return exit(1)
 
     # Handle output file format
@@ -502,32 +513,33 @@ def main(args=None):
 
         out_root = parser["-o"]
 
-    # Read document from input file
-    doc = None
-    try:
-        doc = dict_from_xml(cite_file)
-    except ParserException as exc:
-        print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
-        return exit(1)
+    if not recursive:
+        # Read document from input file
+        doc = None
+        try:
+            doc = dict_from_xml(cite_in)
+        except ParserException as exc:
+            print("[Error] Could not parse input file '%s'\n\t%s" % (cite_in, exc))
+            return exit(1)
 
-    # Parse input to an odML document
-    try:
-        odml_doc = parse_datacite_dict(doc)
-    except ParserException as exc:
-        print("[Error] Could not parse input file '%s'\n\t%s" % (cite_file, exc))
-        return exit(1)
+        # Parse input to an odML document
+        try:
+            odml_doc = parse_datacite_dict(doc)
+        except ParserException as exc:
+            print("[Error] Could not parse input file '%s'\n\t%s" % (cite_in, exc))
+            return exit(1)
 
-    if parser["-p"]:
-        print()
-        print(odml_doc.pprint(max_depth=5))
+        if parser["-p"]:
+            print()
+            print(odml_doc.pprint(max_depth=5))
 
-    out_name = os.path.splitext(os.path.basename(cite_file))[0]
-    out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
+        out_name = os.path.splitext(os.path.basename(cite_in))[0]
+        out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
 
-    # Do not overwrite existing files
-    if os.path.isfile(out_file):
-        out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
-    save_odml(odml_doc, out_file, backend)
+        # Do not overwrite existing files
+        if os.path.isfile(out_file):
+            out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
+        save_odml(odml_doc, out_file, backend)
 
     return exit(0)
 
