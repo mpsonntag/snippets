@@ -146,7 +146,10 @@ function displayQuestion(){
       if(this.id!=rnd){
       $(stage).append('<div class="feedback2">LEIDER NEIN</div>');
       }
-      setTimeout(function(){changeQuestion()},1000);
+      $(stage).append('<div class="next">Weiter</div>');
+      $('.next').click(function(){
+        setTimeout(function(){changeQuestion()}, 500);
+      })
       }})
       }//display question
 
