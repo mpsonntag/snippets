@@ -10,22 +10,95 @@ $(document).ready(function () {
     var data = {
     "quizlist":[
       {
-      "question":"Portuguese is spoken in ______",
-      "option1":"Brazil",
-      "option2":"Argentina",
-      "option3":"Ecuador"
+      "question":"Was ist kein Browser",
+      "option1":"Windows",
+      "option2":"Firefox",
+      "option3":"Opera",
+      "option4":"Chrome"
       },
       {
-      "question":"What is the capital of Peru?",
-      "option1":"Lima",
-      "option2":"Bogota",
-      "option3":"San Juan"
+      "question":"Was ist kein Datenformat",
+      "option1":"RAM",
+      "option2":"mp3",
+      "option3":"XML",
+      "option4":"doc"
       },
       {
-      "question":"Which country is long and thin?",
-      "option1":"Chile",
-      "option2":"Uruguay",
-      "option3":"Colombia"
+      "question":"Wie heisst das Internet-Protokoll zur Übertragung von Dateien?",
+      "option1":"HTTP",
+      "option2":"FTP",
+      "option3":"URL",
+      "option4":"XML"
+      },
+      {
+      "question":"Python wird in der Wissenschaft gerne verwendet, weil",
+      "option1":"die Sprache einfach zu lernen und gratis ist",
+      "option2":"es die häufigste Programmiersprache ist",
+      "option3":"alle Wissenschaftler Schlangen mögen",
+      "option4":"es die neueste Prgrammiersprache ist"
+      },
+      {
+      "question":"Was ist keine Programmiersprache?",
+      "option1":"ClubMate",
+      "option2":"Python",
+      "option3":"Java",
+      "option4":"C++"
+      },
+      {
+      "question":"Der Ausdruck 'Open Source' bezeichnet Software, die",
+      "option1":"gratis verfügbar ist und verwendet werden darf",
+      "option2":"unter allen herkömmlichen Betriebssystemen läuft",
+      "option3":"man testen kann, bevor man kauft",
+      "option4":"nicht verändert werden darf"
+      },
+      {
+      "question":"Was ist ein Byte?",
+      "option1":"eine Speichereinheit",
+      "option2":"ein Internet-Explorer",
+      "option3":"ein Computer",
+      "option4":"eine Tierart"
+      },
+      {
+      "question":"Wie viele Bits ergeben ein Byte?",
+      "option1":"8",
+      "option2":"5",
+      "option3":"12",
+      "option4":"16"
+      },
+      {
+      "question":"Welches ist die kleinste Einheit?",
+      "option1":"Bit",
+      "option2":"Megabyte",
+      "option3":"Kilobyte",
+      "option4":"Byte"
+      },
+      {
+      "question":"Was ist kein Eingabegerät am Computer?",
+      "option1":"Monitor",
+      "option2":"Maus",
+      "option3":"Tastatur",
+      "option4":"Joystick"
+      },
+      {
+      "question":"Wofür steht die Abkürzung RAM?",
+      "option1":"Random Access Memory",
+      "option2":"Read Access Memory",
+      "option3":"Random Address Memory",
+      "option4":"Ralph Anders Mark"
+      },
+      {
+      "question":"Worauf kann man keine Daten speichern?",
+      "option1":"WLAN",
+      "option2":"Festplatte",
+      "option3":"USB-Stick",
+      "option4":"CD"
+      },
+      {
+      "question":"Wofür können wissenschaftliche Computermodelle verwendet werden?",
+      "option1":"um eine Theorie am Computer zu testen",
+      "option2":"um den Computer warm zu halten",
+      "option3":"um online Geld z.B. Bitcoins zu erzeugen",
+      "option4":"um berühmt zu werden"
       }
       ]
     }
