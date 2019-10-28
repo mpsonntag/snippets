@@ -489,8 +489,8 @@ def main(args=None):
     if parser["-f"]:
         backend = parser["-f"].upper()
         if backend not in SUPPORTED_PARSERS:
-            print("[Error] Output format '%s' is not supported. "
-                  "Use option '-h' for help" % backend)
+            print("[Error] Output format '%s' is not supported. \n" % backend)
+            print(docopt(__doc__, "-h"))
             return exit(1)
 
     # Handle output directory
