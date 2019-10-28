@@ -4,7 +4,6 @@ html, body {
       background: #ffeca0;
       font-family: Arial, Helvetica, sans-serif;
       }
-
 #navContent{
       margin:auto;
       width:800px;
@@ -30,7 +29,6 @@ html, body {
       font-size:26px;
       color:black;
       }
-
 .option{
       width:400px;
       height:30px;
@@ -48,7 +46,6 @@ html, body {
       border:#FC0 solid 2px;
       color:#FC0;
       }
-
 #topbar{
       height:50px;
       margin:auto;
@@ -57,7 +54,7 @@ html, body {
       font-size:36px;
       font-family:Arial, Helvetica, sans-serif;
       width:800px;
-      border-bottom:solid white 1px;
+      border-bottom:solid black 1px;
       }
 .spacer{
       height:30px;
@@ -71,9 +68,8 @@ html, body {
       font-family:Arial, Helvetica, sans-serif;
       text-align:center;
       }
-
 .feedback2{
-      width:150px;
+      width:300px;
       padding:5px;
       font-size:30px;
       color:#FFFFCC;
