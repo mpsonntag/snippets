@@ -21,6 +21,7 @@ Options:
     -r          [Optional] Walk recursively through a repository.
                   and convert all datacite files found.
     -p          [Optional] Print the parsed document tree(s) to the command line.
+                   Default is False.
     -h --help   Show this screen.
     --version   Show version number.
 """
@@ -484,6 +485,8 @@ def parse_datacite_dict(doc):
 
 
 def handle_document(cite_in, out_root, backend="XML", print_doc=False):
+    print("[INFO] Handling file '%s'" % cite_in)
+
     # Read document from input file
     doc = None
     try:
