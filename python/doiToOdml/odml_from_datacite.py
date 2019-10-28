@@ -26,6 +26,7 @@ Options:
 """
 
 import os
+import pathlib
 import re
 import sys
 
@@ -543,33 +544,22 @@ def main(args=None):
 
         out_root = parser["-o"]
 
-    if not recursive:
-        # Read document from input file
-        doc = None
+    print_file = parser["-p"]
+
+    # File conversion
+    if recursive:
+        xfiles = list(pathlib.Path(cite_in).rglob('*.xml'))
+        for file in xfiles:
+            try:
+                handle_document(file, out_root, backend, print_file)
+            except ParserException as exc:
+                print(exc)
+    else:
         try:
-            doc = dict_from_xml(cite_in)
+            handle_document(cite_in, out_root, backend, print_file)
         except ParserException as exc:
-            print("[Error] Could not parse input file '%s'\n\t%s" % (cite_in, exc))
+            print(exc)
             return exit(1)
-
-        # Parse input to an odML document
-        try:
-            odml_doc = parse_datacite_dict(doc)
-        except ParserException as exc:
-            print("[Error] Could not parse input file '%s'\n\t%s" % (cite_in, exc))
-            return exit(1)
-
-        if parser["-p"]:
-            print()
-            print(odml_doc.pprint(max_depth=5))
-
-        out_name = os.path.splitext(os.path.basename(cite_in))[0]
-        out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
-
-        # Do not overwrite existing files
-        if os.path.isfile(out_file):
-            out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
-        save_odml(odml_doc, out_file, backend)
 
     return exit(0)
 
