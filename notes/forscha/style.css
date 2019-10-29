@@ -14,14 +14,14 @@ html, body {
 #game1{
       margin:auto;
       width:800px;
-      height:500px;
+      min-height:500px;
       right:0px;
       position:absolute;
       }
 #game2{
       margin:auto;
       width:800px;
-      height:500px;
+      min-height:500px;
       right:-800px;
       position:absolute;
       }
@@ -31,7 +31,7 @@ html, body {
       }
 .option{
       width:400px;
-      height:30px;
+      min-height:30px;
       margin:15px;
       font-size:18px;
       color:white;
