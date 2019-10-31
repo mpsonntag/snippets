@@ -89,6 +89,7 @@ html, body {
 .feedback1{
       width:150px;
       padding:5px;
+      padding-left:10px;
       font-size:30px;
       color:#FFFFCC;
       background-color:#009900;
@@ -98,6 +99,7 @@ html, body {
 .feedback2{
       width:300px;
       padding:5px;
+      padding-left:10px;
       font-size:30px;
       color:#FFFFCC;
       background-color:#CC3300;
