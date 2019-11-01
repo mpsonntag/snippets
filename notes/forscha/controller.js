@@ -20,15 +20,22 @@ $(document).ready(function () {
       "question":"Was ist kein Datenformat",
       "option1":"RAM",
       "option2":"mp3",
-      "option3":"XML",
+      "option3":"odt",
       "option4":"doc"
       },
       {
-      "question":"Wie heisst das Internet-Protokoll zur Übertragung von Dateien?",
+      "question":"Wie heisst das Internet-Protokoll zur Übertragung von Informationen?",
       "option1":"HTTP",
       "option2":"FTP",
       "option3":"URL",
       "option4":"XML"
+      },
+      {
+      "question":"Wie alt ist das World Wide Web?",
+      "option1":"30 Jahre",
+      "option2":"253 Jahre",
+      "option3":"12 Jahre",
+      "option4":"51 Jahre"
       },
       {
       "question":"Python wird in der Wissenschaft gerne verwendet, weil",
@@ -77,7 +84,7 @@ $(document).ready(function () {
       "option1":"Monitor",
       "option2":"Maus",
       "option3":"Tastatur",
-      "option4":"Joystick"
+      "option4":"Graphikkarte"
       },
       {
       "question":"Wofür steht die Abkürzung RAM?",
@@ -94,7 +101,7 @@ $(document).ready(function () {
       "option4":"CD"
       },
       {
-      "question":"Wofür können wissenschaftliche Computermodelle verwendet werden?",
+      "question":"Wofür werden wissenschaftliche Computermodelle entwickelt?",
       "option1":"um eine Theorie am Computer zu testen",
       "option2":"um den Computer warm zu halten",
       "option3":"um online Geld z.B. Bitcoins zu erzeugen",
