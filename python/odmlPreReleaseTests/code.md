@@ -3,7 +3,7 @@ Create conda environments for both installation options
 ## Basic setup
 
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
-    CURR_DIR=pwd
+    CURR_DIR=$(pwd)
 
     # cleanup and create python setup install environment
     conda remove -n pyinst --all -y
@@ -35,7 +35,7 @@ Create conda environments for both installation options
 
 Activate python installation environment
 
-    ROOT_DIR=pwd
+    ROOT_DIR=$(pwd)
     cd $ROOT_DIR/resources/test_load
     conda activate pyinst
     ipython
@@ -43,9 +43,12 @@ Activate python installation environment
 Run script
 
     import odml
-    doc = odml.load('./test_load/load.odml.xml')
+
+    doc = odml.load('./load.odml.xml')
+
     doc.pprint()
-    doc = odml.load('./test_load/load_v1.odml.xml')
+
+    doc = odml.load('./load_v1.odml.xml')
 
 Exit and switch to pip environment 
 
@@ -56,9 +59,12 @@ Exit and switch to pip environment
 Run script again
 
     import odml
-    doc = odml.load('./test_load/load.odml.xml')
+
+    doc = odml.load('./load.odml.xml')
+
     doc.pprint()
-    doc = odml.load('./test_load/load_v1.odml.xml')
+
+    doc = odml.load('./load_v1.odml.xml')
 
 Exit and go back to main directory
 
