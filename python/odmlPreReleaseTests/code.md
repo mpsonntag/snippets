@@ -44,10 +44,9 @@ Activate python installation environment
 Run script
 
     # Test possible imports of all parsers without importing the full odML package
-    from odml.tools.converters import ODMLReader, ODMLWriter, RDFReader, RDFWriter
+    from odml.tools import ODMLReader, ODMLWriter, RDFReader, RDFWriter
     from odml.tools.converters import FormatConverter, VersionConverter
     from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
-
     import odml
 
     doc = odml.load('./load.odml.xml')
@@ -65,10 +64,9 @@ Exit and switch to pip environment
 Run script again
 
     # Test possible imports of all parsers without importing the full odML package
-    from odml.tools.converters import ODMLReader, ODMLWriter, RDFReader, RDFWriter
+    from odml.tools import ODMLReader, ODMLWriter, RDFReader, RDFWriter
     from odml.tools.converters import FormatConverter, VersionConverter
     from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
-
     import odml
 
     doc = odml.load('./load.odml.xml')
@@ -84,11 +82,11 @@ Exit and go back to main directory
 
 ## Test conversion script
 
-Run test with the python install enviroment  
+Run test with the python install environment  
 
     ROOT_DIR=$(pwd)
-    OUT_DIR=$ROOT_DIR/resources/out
-    mkdir -vp $OUT_DIR/convert
+    OUT_DIR=$ROOT_DIR/resources/out/convert
+    mkdir -vp $OUT_DIR
     cd $ROOT_DIR/resources/test_convert_script
     conda activate pyinst
     odmlconvert -o $OUT_DIR -r .
@@ -106,8 +104,8 @@ Run test with the pip install environment
 Run test with the python install environment  
 
     ROOT_DIR=$(pwd)
-    OUT_DIR=$ROOT_DIR/resources/out
-    mkdir -vp $OUT_DIR/rdf
+    OUT_DIR=$ROOT_DIR/resources/out/rdf
+    mkdir -vp $OUT_DIR
     cd $ROOT_DIR/resources/test_rdf_export_script
     conda activate pyinst
     odmltordf -o $OUT_DIR -r .
@@ -137,8 +135,10 @@ Run test with the pip install environment
     odmlview --fetch
     odmlview
 
+    # cleanup
     conda deactivate
     cd $ROOT_DIR
+    rm $ROOT_DIR/resources/out -r
 
 ## Test odml-ui
 
@@ -150,12 +150,13 @@ Test if loading, saving and importing of templates/terminologies works
     conda install -c conda-forge gdk-pixbuf -y
     conda install -c pkgw-forge adwaita-icon-theme -y
     pip install odml-ui
-    conda deactivate
+    odmlui
 
+    conda deactivate
     conda activate pipinst
     conda install -c pkgw/label/superseded gtk3 -y
     conda install -c conda-forge pygobject -y
     conda install -c conda-forge gdk-pixbuf -y
     conda install -c pkgw-forge adwaita-icon-theme -y
     pip install odml-ui
-    conda deactivate
+    odmlui
