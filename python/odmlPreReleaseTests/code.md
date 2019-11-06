@@ -87,7 +87,7 @@ Run test with the python install enviroment
 
     ROOT_DIR=$(pwd)
     OUT_DIR=$ROOT_DIR/resources/out
-    mkdir -vp $OUT_DIR
+    mkdir -vp $OUT_DIR/convert
     cd $ROOT_DIR/resources/test_convert_script
     conda activate pyinst
     odmlconvert -o $OUT_DIR -r .
@@ -106,7 +106,7 @@ Run test with the python install environment
 
     ROOT_DIR=$(pwd)
     OUT_DIR=$ROOT_DIR/resources/out
-    mkdir -vp $OUT_DIR
+    mkdir -vp $OUT_DIR/rdf
     cd $ROOT_DIR/resources/test_rdf_export_script
     conda activate pyinst
     odmltordf -o $OUT_DIR -r .
@@ -119,3 +119,42 @@ Run test with the pip install environment
     conda deactivate
     cd $ROOT_DIR
 
+## Test odmlview script
+
+Run test with the python install environment
+
+    ROOT_DIR=$(pwd)
+    cd $ROOT_DIR/resources/test_odmlview
+    conda activate pyinst
+    odmlview --fetch
+    odmlview
+
+Run test with the pip install environment
+
+    conda deactivate
+    conda activate pipinst
+    odmlview --fetch
+    odmlview
+
+    conda deactivate
+    cd $ROOT_DIR
+
+## Test odml-ui
+
+Test if loading, saving and importing of templates/terminologies works
+
+    conda activate pyinst
+    conda install -c pkgw/label/superseded gtk3 -y
+    conda install -c conda-forge pygobject -y
+    conda install -c conda-forge gdk-pixbuf -y
+    conda install -c pkgw-forge adwaita-icon-theme -y
+    pip install odml-ui
+    conda deactivate
+
+    conda activate pipinst
+    conda install -c pkgw/label/superseded gtk3 -y
+    conda install -c conda-forge pygobject -y
+    conda install -c conda-forge gdk-pixbuf -y
+    conda install -c pkgw-forge adwaita-icon-theme -y
+    pip install odml-ui
+    conda deactivate
