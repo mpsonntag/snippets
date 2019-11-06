@@ -42,6 +42,11 @@ Activate python installation environment
 
 Run script
 
+    # Test possible imports of all parsers without importing the full odML package
+    from odml.tools.converters import ODMLReader, ODMLWriter, RDFReader, RDFWriter
+    from odml.tools.converters import FormatConverter, VersionConverter
+    from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
+
     import odml
 
     doc = odml.load('./load.odml.xml')
@@ -57,6 +62,11 @@ Exit and switch to pip environment
     ipython
 
 Run script again
+
+    # Test possible imports of all parsers without importing the full odML package
+    from odml.tools.converters import ODMLReader, ODMLWriter, RDFReader, RDFWriter
+    from odml.tools.converters import FormatConverter, VersionConverter
+    from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
 
     import odml
 
@@ -88,3 +98,24 @@ Run test with the pip install environment
     conda activate pipinst
     odmlconvert -o $OUT_DIR -r .
     conda deactivate
+    cd $ROOT_DIR
+
+## Test rdf export script
+
+Run test with the python install environment  
+
+    ROOT_DIR=$(pwd)
+    OUT_DIR=$ROOT_DIR/resources/out
+    mkdir -vp $OUT_DIR
+    cd $ROOT_DIR/resources/test_rdf_export_script
+    conda activate pyinst
+    odmltordf -o $OUT_DIR -r .
+    conda deactivate
+
+Run test with the pip install environment
+
+    conda activate pipinst
+    odmltordf -o $OUT_DIR -r .
+    conda deactivate
+    cd $ROOT_DIR
+
