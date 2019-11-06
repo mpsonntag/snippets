@@ -14,7 +14,7 @@ Create conda environments for both installation options
 
     # cleanup and create pip install environment
     conda remove -n pipinst --all -y
-    conda create -n pipinst -y
+    conda create -n pipinst python=3.7 -y
     conda activate pipinst
     pip install ipython
     conda deactivate
@@ -71,3 +71,20 @@ Exit and go back to main directory
     conda deactivate
     cd $ROOT_DIR
 
+## Test conversion script
+
+Run test with the python install enviroment  
+
+    ROOT_DIR=$(pwd)
+    OUT_DIR=$ROOT_DIR/resources/out
+    mkdir -vp $OUT_DIR
+    cd $ROOT_DIR/resources/test_convert_script
+    conda activate pyinst
+    odmlconvert -o $OUT_DIR -r .
+    conda deactivate
+
+Run test with the pip install environment
+
+    conda activate pipinst
+    odmlconvert -o $OUT_DIR -r .
+    conda deactivate
