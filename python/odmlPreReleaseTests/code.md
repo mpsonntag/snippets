@@ -2,19 +2,20 @@ Create conda environments for both installation options
 
 ## Basic setup
 
+    PYVER=3.7
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     CURR_DIR=$(pwd)
 
     # cleanup and create python setup install environment
     conda remove -n pyinst --all -y
-    conda create -n pyinst python=3.7 -y
+    conda create -n pyinst python=$PYVER -y
     conda activate pyinst
     pip install ipython
     conda deactivate
 
     # cleanup and create pip install environment
     conda remove -n pipinst --all -y
-    conda create -n pipinst python=3.7 -y
+    conda create -n pipinst python=$PYVER -y
     conda activate pipinst
     pip install ipython
     conda deactivate
