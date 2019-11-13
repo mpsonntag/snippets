@@ -58,7 +58,7 @@ Run script
 Exit and switch to pip environment 
 
     conda deactivate
-    conda activate pyinst
+    conda activate pipinst
     ipython
 
 Run script again
