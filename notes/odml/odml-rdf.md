@@ -69,6 +69,30 @@ WHERE {
 ORDER BY ?file
 LIMIT 100
 
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix odml: <https://g-node.org/projects/odml-rdf#>
+
+SELECT ?file ?idtypeval ?val
+WHERE {
+  ?doc rdf:type odml:Document .
+  ?doc odml:hasFileName ?file .
+  ?doc odml:hasSection ?par .
+  ?par odml:hasSection ?s .
+  ?s odml:hasProperty ?p .
+  ?p odml:hasName "identifier" .
+  ?p odml:hasValue ?doival .
+  ?s odml:hasProperty ?pt .
+  ?pt odml:hasName "identifierType" .
+  ?pt odml:hasValue ?idtype .
+  ?idtype rdfs:member ?idtypeval .
+  ?doival rdfs:member ?val .
+}
+ORDER BY ?file
+LIMIT 50
+
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
