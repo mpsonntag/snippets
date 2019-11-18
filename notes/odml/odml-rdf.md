@@ -92,7 +92,37 @@ WHERE {
 ORDER BY ?file
 LIMIT 50
 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/projects/odml-rdf#>
 
+SELECT ?file ?val ?idtypeval ?out_link
+WHERE {
+  ?doc rdf:type odml:Document .
+  ?doc odml:hasFileName ?file .
+  ?doc odml:hasSection ?s .
+  ?s odml:hasSection ?ids .
+  ?ids odml:hasProperty ?idp .
+  ?ids odml:hasName ?secidname .
+  ?idp odml:hasName "identifier" .
+  ?idp odml:hasValue ?doival .
+  ?ids odml:hasProperty ?pt .
+  ?pt odml:hasName "identifierType" .
+  ?pt odml:hasValue ?idtype .
+  ?idtype rdfs:member ?idtypeval .
+  ?doival rdfs:member ?doi_val .
+  ?s odml:hasSection ?subcont .
+  ?s odml:hasName ?sec_name .
+  ?subcont odml:hasSection ?subj .
+  ?subj odml:hasProperty ?p .
+  ?p odml:hasName ?prop_name .
+  ?p odml:hasValue ?v .
+  {?v rdfs:member "Neuroscience"} UNION {?v rdfs:member "Electrophysiology"} .
+  ?v rdfs:member ?val .
+  BIND(CONCAT("https://doi.org/", ?doi_val) AS ?out_link)
+}
+ORDER BY ?file
+LIMIT 50
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
