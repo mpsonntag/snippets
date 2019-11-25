@@ -2,6 +2,21 @@
 
 ------------------------------------------------------------------------------------------
 
+odml hierarchy example
+
+Document
++-Section
+| +-Property-[Values]
++-Section
+  +-Section
+  | +-Property-[Values]
+  | +-Property-[Values]
+  +-Section
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
 RDFReader write function
 
     def write_file(self, filename, doc_format, output_path):
@@ -31,7 +46,6 @@ RDFReader write function
                              "output_path is not a valid path to the output file.")
 
 -----------------------------------------------------------------------------------------
-
 ------------------------------------------------------------------------------------------
 
 python-odml: odml.tools.xmlparser - fix parsing value.unit and type from v1.0
@@ -54,7 +68,6 @@ python-odml: odml.tools.xmlparser - fix parsing value.unit and type from v1.0
         ) if node.text else None
 
 ------------------------------------------------------------------------------------------
-
 ------------------------------------------------------------------------------------------
 
 python-odml: multiple places where valid arguments are checked.
@@ -66,7 +79,6 @@ python-odml: multiple places where valid arguments are checked.
             if tag_name not in ArgClass._args:
 
 ------------------------------------------------------------------------------------------
-
 ------------------------------------------------------------------------------------------
 
 odML library changes:
