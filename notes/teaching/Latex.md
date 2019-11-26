@@ -22,10 +22,23 @@ To access references, the referenced entities need to provide unique labels.
 #### Figure label
 
     \usepackage{graphicx}
+
     \begin{figure}
       \includegraphics{figure_name_A.pdf}
       \label{fig:nameA}
     \end{figure}
+
+#### Code listing label
+
+Code listing labels work different than other labels since everything within the `\begin-\end` tags is specially rendered.
+Note that the reference will not work, if the listing does not also specify a caption for the code listing.
+
+    \usepackage{listings}
+
+    \begin{lstlisting}[label=lst:code_label, caption=Code caption]
+    ...text...
+    \end{lstlisting}
+
 
 ### Reference use
 
