@@ -1,0 +1,79 @@
+Create conda environments for both installation options
+
+## Basic setup
+
+    PYVER=3.7
+    ODML_SOURCE=/home/$USER/Chaos/work/python-odml
+    ODML_UI_SOURCE=/home/$USER/Chaos/work/odml-ui
+    CURR_DIR=$(pwd)
+
+    # cleanup and create python setup install environment
+    conda remove -n pyinst --all -y
+    conda create -n pyinst python=$PYVER -y
+    conda activate pyinst
+    pip install ipython
+
+    conda install -c pkgw/label/superseded gtk3 -y
+    conda install -c conda-forge pygobject -y
+    conda install -c conda-forge gdk-pixbuf -y
+    conda install -c pkgw-forge adwaita-icon-theme -y
+    conda deactivate
+
+    # cleanup and create pip install environment
+    conda remove -n pipinst --all -y
+    conda create -n pipinst python=$PYVER -y
+    conda activate pipinst
+    pip install ipython
+
+    conda install -c pkgw/label/superseded gtk3 -y
+    conda install -c conda-forge pygobject -y
+    conda install -c conda-forge gdk-pixbuf -y
+    conda install -c pkgw-forge adwaita-icon-theme -y
+    conda deactivate
+
+    # switch to python source directory and use both installations
+    cd $ODML_SOURCE
+    conda activate pyinst
+    python setup.py install
+    conda deactivate
+    conda activate pipinst
+    pip install .
+    conda deactivate
+
+    # switch to ui python source dir and use both installations
+    cd $ODML_UI_SOURCE
+    conda activate pyinst
+    python setup.py install
+    conda deactivate
+    conda activate pipinst
+    pip install .
+    conda deactivate
+
+    # switch back to the test directory
+    cd $CURR_DIR
+
+## Run basic manual tests
+
+Activate python installation environment
+
+    ROOT_DIR=$(pwd)
+    cd $ROOT_DIR/resources/test_load
+    conda activate pyinst
+
+Run the following most tests:
+- open `test_load\load_v1.odml.xml`
+- check fail message
+- import `test_load\load_v1.odml.xml`
+- save as `pyi_conv.xml`
+- save as `pyi_conv.yaml`
+- save as `pyi_conv.json`
+- open `pyi_conv.xml`
+- open `pyi_conv.yaml`
+- open `pyi_conv.json`
+
+Exit and switch to pip environment 
+
+    conda deactivate
+    conda activate pipinst
+
+Run manual tests again

@@ -140,7 +140,7 @@ Run test with the pip install environment
     cd $ROOT_DIR
     rm $ROOT_DIR/resources/out -r
 
-## Test odml-ui
+## Test current PyPI package odml-ui
 
 Test if loading, saving and importing of templates/terminologies works
 
