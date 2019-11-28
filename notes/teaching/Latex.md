@@ -1,6 +1,7 @@
 # Latex
 
-Documenting useful packages
+Documenting useful packages and their use. Note that the import order of packages
+is important. Things can break if the import order is changed.
 
 ## References
 
@@ -51,6 +52,8 @@ Add a reference for a section:
     \footnote{...text...}
 
 ## url
+
+    \usepackage{hyperlink}
 
     \url{...text...}
 
