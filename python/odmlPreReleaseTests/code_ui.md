@@ -59,6 +59,7 @@ Activate python installation environment
     ROOT_DIR=$(pwd)
     cd $ROOT_DIR/resources/test_load
     conda activate pyinst
+    odmlui
 
 Run the following most tests:
 - open `test_load\load_v1.odml.xml`
@@ -75,5 +76,6 @@ Exit and switch to pip environment
 
     conda deactivate
     conda activate pipinst
+    odmlui
 
 Run manual tests again

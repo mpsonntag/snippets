@@ -1,0 +1,42 @@
+Create conda environments for both installation options
+
+## Basic setup
+
+    PYVER=3.7
+    ODML_SOURCE=/home/$USER/Chaos/work/python-odml
+    ODMLTOOLS_SOURCE=/home/$USER/Chaos/work/odmltools
+    CURR_DIR=$(pwd)
+
+    # cleanup and create python setup install environment
+    conda remove -n pyinst --all -y
+    conda create -n pyinst python=$PYVER -y
+    conda activate pyinst
+    pip install ipython
+    conda deactivate
+
+    # cleanup and create pip install environment
+    conda remove -n pipinst --all -y
+    conda create -n pipinst python=$PYVER -y
+    conda activate pipinst
+    pip install ipython
+    conda deactivate
+
+    # switch to python source directory and use both installations
+    cd $ODML_SOURCE
+    conda activate pyinst
+    python setup.py install
+    cd $ODMLTOOLS_SOURCE
+    python setup.py install
+    conda deactivate
+
+    cd $ODML_SOURCE
+    conda activate pipinst
+    pip install .
+    cd $ODMLTOOLS_SOURCE
+    pip install .
+    conda deactivate
+
+    # switch back to the test directory
+    cd $CURR_DIR
+
+## Conversion tests
