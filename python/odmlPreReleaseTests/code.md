@@ -82,7 +82,7 @@ Exit and go back to main directory
 
 ## Test conversion script
 
-Run test with the python install environment  
+Run tests with the Python setup installation  
 
     ROOT_DIR=$(pwd)
     OUT_DIR=$ROOT_DIR/resources/out/convert
@@ -92,7 +92,7 @@ Run test with the python install environment
     odmlconvert -o $OUT_DIR -r .
     conda deactivate
 
-Run test with the pip install environment
+Run tests with the pip installation
 
     conda activate pipinst
     odmlconvert -o $OUT_DIR -r .

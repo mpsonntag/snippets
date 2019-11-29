@@ -40,3 +40,25 @@ Create conda environments for both installation options
     cd $CURR_DIR
 
 ## Conversion tests
+
+Run tests with the Python setup installation
+
+    ROOT_DIR=$(pwd)
+    OUT_DIR=$ROOT_DIR/out/odmltools
+    mkdir -vp $OUT_DIR
+    cd $ROOT_DIR/resources/test_odmltools/datacite
+    conda activate pyinst
+    odmlimportdatacite -o $OUT_DIR -r .
+    odmlimportdatacite -o $OUT_DIR -r -f RDF .
+    odmlimportdatacite -o $OUT_DIR -r -f YAML .
+    odmlimportdatacite -o $OUT_DIR -r -f JSON .
+    conda deactivate
+
+Run tests with the pip installation
+
+    conda activate pipinst
+    odmlimportdatacite -o $OUT_DIR -r .
+    odmlimportdatacite -o $OUT_DIR -r -f RDF .
+    odmlimportdatacite -o $OUT_DIR -r -f YAML .
+    odmlimportdatacite -o $OUT_DIR -r -f JSON .
+    conda deactivate
