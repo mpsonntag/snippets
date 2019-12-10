@@ -10,21 +10,21 @@ Create conda environments for both installation options
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     CURR_DIR=$(pwd)
 
-    # cleanup and create python setup install environment
+    echo "cleanup and create python setup install environment"
     conda remove -n pyinst --all -y
     conda create -n pyinst python=$PYVER -y
     conda activate pyinst
     pip install ipython
     conda deactivate
 
-    # cleanup and create pip install environment
+    echo "cleanup and create pip install environment"
     conda remove -n pipinst --all -y
     conda create -n pipinst python=$PYVER -y
     conda activate pipinst
     pip install ipython
     conda deactivate
 
-    # switch to python source directory and use both installations
+    echo "switching to Python source directory and use both installations"
     cd $ODML_SOURCE
     conda activate pyinst
     python setup.py install
@@ -33,7 +33,7 @@ Create conda environments for both installation options
     pip install .
     conda deactivate
 
-    # switch back to the test directory
+    echo "switching back to the test directory"
     cd $CURR_DIR
 
 ## Basic ipython tests
@@ -43,41 +43,15 @@ Activate python installation environment
     ROOT_DIR=$(pwd)
     cd $ROOT_DIR/resources/test_load
     conda activate pyinst
-    ipython
-
-Run script
-
-    # Test possible imports of all parsers without importing the full odML package
-    from odml.tools import ODMLReader, ODMLWriter, RDFReader, RDFWriter
-    from odml.tools.converters import FormatConverter, VersionConverter
-    from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
-    import odml
-
-    doc = odml.load('./load.odml.xml')
-
-    doc.pprint()
-
-    doc = odml.load('./load_v1.odml.xml')
+    echo "Running basic tests"
+    python ../scripts/test_odml_basics.py
 
 Exit and switch to pip environment 
 
     conda deactivate
     conda activate pipinst
-    ipython
-
-Run script again
-
-    # Test possible imports of all parsers without importing the full odML package
-    from odml.tools import ODMLReader, ODMLWriter, RDFReader, RDFWriter
-    from odml.tools.converters import FormatConverter, VersionConverter
-    from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
-    import odml
-
-    doc = odml.load('./load.odml.xml')
-
-    doc.pprint()
-
-    doc = odml.load('./load_v1.odml.xml')
+    echo "Running basic tests"
+    python ../scripts/test_odml_basics.py
 
 Exit and go back to main directory
 
