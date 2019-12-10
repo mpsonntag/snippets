@@ -153,13 +153,8 @@ odML library changes:
 
 - [lib|terminologies] add check whether there is an internet connection and act appropriately if there is none.
 
-- [lib|base.py] Connected to the issue terminology cache refresh issue: base.py deferred_load makes it hard to debug
-            where a terminology is broken, because when one document is loaded, it immediately loads
-            and parses all other documents that can be found via any <repository> tag, and since 
-            it is a deferred load, it's virtually impossible to find out which of the connected terminologies 
-            contains the error.
-            plus: every time we even HOVER above any property in the ui, deferred_loading happens in the background, 
-            trying to load all connected terminologies.
+- [lib|base.py] Connected to the issue terminology cache refresh issue: base.py deferred_load makes it hard to debug where a terminology is broken, because when one document is loaded, it immediately loads and parses all other documents that can be found via any <repository> tag, and since it is a deferred load, it's virtually impossible to find out which of the connected terminologies contains the error.
+    plus: every time we even HOVER above any property in the ui, deferred_loading happens in the background, trying to load all connected terminologies.
 
 - [lib|property.py] There is still an in-code import around L146 - issue
 
