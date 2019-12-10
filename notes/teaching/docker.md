@@ -44,6 +44,16 @@ Remove volume
 
     docker volume rm [volumeName]
 
+### Thorough cleanup
+
+docker can be a bit messy with the images and containers it leaves behind. Normal cleanup with the `rm` command might not be enough.
+
+    # cleanup unused docker containers
+    docker ps -aq --no-trunc -f status=exited | xargs docker rm
+
+    # cleanup unused docker images
+    docker images -f "dangling=true" -q | xargs docker rmi
+
 
 ### Various notes on docker usage
 
