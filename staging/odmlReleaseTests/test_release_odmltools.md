@@ -1,3 +1,7 @@
+# Tests for an odmltools release
+
+These tests create conda environments for a specified Python release and both `pip` and `setup.py` installation of local `odmltools` library source code.
+
 Create conda environments for both installation options
 
 ## Basic setup

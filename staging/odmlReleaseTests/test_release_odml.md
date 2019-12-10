@@ -1,3 +1,7 @@
+# Tests for an odml release
+
+These tests create conda environments for a specified Python release and both `pip` and `setup.py` installation of local `python-odml` library source code.
+
 Create conda environments for both installation options
 
 ## Basic setup
@@ -140,7 +144,7 @@ Run test with the pip install environment
     cd $ROOT_DIR
     rm $ROOT_DIR/resources/out -r
 
-## Test current PyPI package odml-ui
+## Test current PyPI package odml-ui with the built local library
 
 Test if loading, saving and importing of templates/terminologies works
 

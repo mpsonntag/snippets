@@ -1,3 +1,7 @@
+# Tests for an odml-ui release
+
+These tests create conda environments for a specified Python release and both `pip` and `setup.py` installation of local `odml-ui` library source code and documents the manual steps for minimal conversion, file loading+saving and loading a terminology via the document wizard.
+
 Create conda environments for both installation options
 
 ## Basic setup
@@ -71,6 +75,7 @@ Run the following most tests:
 - open `pyi_conv.xml`
 - open `pyi_conv.yaml`
 - open `pyi_conv.json`
+- check importing a terminology using the document wizard
 
 Exit and switch to pip environment 
 
