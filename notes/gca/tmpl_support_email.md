@@ -14,9 +14,14 @@ write us with this or any other questions you might have.
 
 The conference organizers keep the abstract submission still
 open until 
+
+[xxx]
+
 for a normal abstract submission.
 
 Yours sincerely,
-Michael Sonntag
+
+[xxx]
+
 German Neuroinformatics Node
 LMU München
