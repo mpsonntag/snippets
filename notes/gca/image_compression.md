@@ -1,4 +1,4 @@
-### A quick howto do image compression
+### A quick how to do image compression
 
 - download the latest `figures` and `figures_mobile` from gate
 - run the cleanup script (`cleanup_existing`) with `figures_mobile` as source and `figures` as target to remove all figures that have already been converted.
