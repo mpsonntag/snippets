@@ -30,6 +30,8 @@
   # copy figures - edit as required
   # scp ${USER}@[backupserver]:[backuplocation]/images/figures/* ./figures/
   # scp ${USER}@[backupserver]:[backuplocation]/images/figures_mobile/* ./figures_mobile/
+  # scp ${USER}@[backupserver]:[backuplocation]/images/banners/* ./banners/
+  # scp ${USER}@[backupserver]:[backuplocation]/images/banners_mobile/* ./banners_mobile/
 
 - if available fetch the latest database dump from a running abstracts service, rename to backup.sql.gz and unzip into `$CURRDIR` 
 
@@ -49,9 +51,11 @@
 
    # rm /web/gca[variable] -r
 
-- move to the staging directory and run the script
+- move to the staging directory
 
   cd ${STAGING}/gca/${CURRDIR}
+
+- make sure the backup script is up to date with the latest paths and containers 
 
   # make sure all settings in .env, application.conf and the init script are properly set
   sudo bash ./gca_initialize.sh .
