@@ -8,12 +8,13 @@
   # otherwise the compiler will create classes incompatible with the scala compiler
   sudo update-alternatives java
   sudo update-alternatives javac
-  cd $WORK/GCA-Web
+  cd ${WORK}/GCA-Web
 
   # MAKE SURE THERE IS NO DOCKER CONTAINER RUNNING
 
   activator test
   activator run
+
 
 # when setting up and running the docker base GCA-WEB:
 - Recursively copy template folder
@@ -21,8 +22,8 @@
   cd ${STAGING}/gca
   CURRDATE=$(date +"%Y%m%d")
   CURRDIR=${CURRDATE}_gca_init
-  cp ./gca_init_template ./$CURRDIR -r
-  cd $CURRDIR
+  cp ./gca_init_template ./${CURRDIR} -r
+  cd ${CURRDIR}
 
 - fetch latest figures and database and copy them into the template folders `figures`, `figures_mobile`, `banners` and `banners_mobile`
 
@@ -40,7 +41,7 @@
 
     # requires manual set of latest gca directory
     # GCADIR=/web/gca[variable]
-    cd $GCADIR/env
+    cd ${GCADIR}/env
     docker-compose down
     cd /web
 
@@ -50,14 +51,17 @@
 
 - move to the staging directory and run the script
 
-  cd $STAGING/gca/$CURRDIR
+  cd ${STAGING}/gca/${CURRDIR}
 
   # make sure all settings in .env, application.conf and the init script are properly set
   sudo bash ./gca_initialize.sh .
 
-- move the staging directory to the archive folder if everything worked out.
+- cleanup and move the staging directory to the archive folder if everything worked out.
 
-  cd $STAGING/gca
-  rm $CURRDIR/figures/*
-  mv $CURRDIR ./archive
+  cd ${STAGING}/gca
+  rm ${CURRDIR}/figures/*
+  rm ${CURRDIR}/figures_mobile/*
+  rm ${CURRDIR}/banners/*
+  rm ${CURRDIR}/banners_mobile/*
+  mv ${CURRDIR} ./archive
 
