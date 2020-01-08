@@ -23,3 +23,10 @@ When trying to test mobile images e.g. figures or banners:
 - mobile figures are only fetched when published abstracts are viewed via the abstract list
 - for local testing make sure we (a) know the uuid of a specific figure; (b) the corresponding figures in `./figures` and `./figures_mobile` have the same id but completely different content.
 - use chromium; open dev panel, toggle the device toolbar (top left)
+
+## Unit tests
+
+### Running single tests
+
+    # e.g.
+    activator "test-only service.BannerServiceTest"
