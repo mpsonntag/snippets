@@ -16,3 +16,10 @@ When updating postgres in a docker container via a script use the following temp
     # to use and create uuids postgres needs the extension enabled
     sudo docker exec -it ${CONTAINERNAME} psql -Upostgres -dplay -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
     sudo docker exec -it ${CONTAINERNAME} psql -Uplay -dplay -a -f /docker-entrypoint-initdb.d/[script].sql
+
+## Testing mobile images
+
+When trying to test mobile images e.g. figures or banners:
+- mobile figures are only fetched when published abstracts are viewed via the abstract list
+- for local testing make sure we (a) know the uuid of a specific figure; (b) the corresponding figures in `./figures` and `./figures_mobile` have the same id but completely different content.
+- use chromium; open dev panel, toggle the device toolbar (top left)
