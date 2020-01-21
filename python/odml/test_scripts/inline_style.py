@@ -201,13 +201,22 @@ other_template = """
 </xsl:template>
 """
 
+basic_save = "/home/msonntag/Chaos/DL/odml_default.xml"
+
 file_default = "/home/msonntag/Chaos/DL/odml_style_default.xml"
 file_style_odml = "/home/msonntag/Chaos/DL/odml_style_odml.xml"
 file_style_custom = "/home/msonntag/Chaos/DL/odml_style_custom.xml"
 file_style_other = "/home/msonntag/Chaos/DL/odml_style_other.xml"
 
+odml.save(doc, basic_save)
 odml.tools.XMLWriter(doc).write_file(file_default)
 odml.tools.XMLWriter(doc).write_file(file_style_odml, local_style=True)
 odml.tools.XMLWriter(doc).write_file(file_style_custom,
                                      local_style=True, custom_template=template)
 odml.tools.XMLWriter(doc).write_file(file_style_other, custom_template=other_template)
+
+doc_basic = odml.load(basic_save)
+doc_default = odml.load(file_default)
+doc_odml = odml.load(file_style_odml)
+doc_custom = odml.load(file_style_custom)
+doc_other = odml.load(file_style_other)
