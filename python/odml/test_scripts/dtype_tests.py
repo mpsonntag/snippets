@@ -23,4 +23,3 @@ odml.dtypes.get("bla", prop_t.dtype)
 odml.dtypes.get("bla", prop_dt.dtype)
 
 # string based types will accept everything
-
