@@ -91,8 +91,17 @@ take some time to update after a delete and a new upload.
 
 ## Test the Test Package
 
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
+    pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml
+
+    pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
+
+if on conda, make sure to get the deps first:
+
+    conda install -c pkgw/label/superseded gtk3 -y
+    conda install -c conda-forge pygobject -y
+    conda install -c conda-forge gdk-pixbuf -y
+    conda install -c pkgw-forge adwaita-icon-theme -y
+
 
 # Upload working package to PyPI proper (see below if making a release makes sense as well)
 
