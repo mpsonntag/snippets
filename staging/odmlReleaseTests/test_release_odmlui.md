@@ -6,7 +6,7 @@ Create conda environments for both installation options
 
 ## Basic setup
 
-    PYVER=3.7
+    PYVER=3.5
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     ODML_UI_SOURCE=/home/$USER/Chaos/work/odml-ui
     CURR_DIR=$(pwd)
@@ -15,6 +15,7 @@ Create conda environments for both installation options
     conda remove -n pyinst --all -y
     conda create -n pyinst python=$PYVER -y
     conda activate pyinst
+    pip install --upgrade pip
     pip install ipython
 
     conda install -c pkgw/label/superseded gtk3 -y
@@ -27,6 +28,7 @@ Create conda environments for both installation options
     conda remove -n pipinst --all -y
     conda create -n pipinst python=$PYVER -y
     conda activate pipinst
+    pip install --upgrade pip
     pip install ipython
 
     conda install -c pkgw/label/superseded gtk3 -y
