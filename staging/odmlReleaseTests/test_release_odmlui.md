@@ -86,3 +86,19 @@ Exit and switch to pip environment
     odmlui
 
 Run manual tests again
+
+Test odmltables plugin
+
+    pip install odmltables
+    pip install odmltables[gui]
+    odmlui
+
+Run the following minimal tests
+- open `pyi_conv.xml`
+- use odmltables `convert` button, save as csv file
+- use odmltables `filter` button
+
+Exit and move back to the root
+
+    cd $ROOT_DIR
+    conda deactivate
