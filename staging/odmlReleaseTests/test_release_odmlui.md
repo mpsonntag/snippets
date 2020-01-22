@@ -6,7 +6,7 @@ Create conda environments for both installation options
 
 ## Basic setup
 
-    PYVER=3.5
+    PYVER=3.8
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     ODML_UI_SOURCE=/home/$USER/Chaos/work/odml-ui
     CURR_DIR=$(pwd)
@@ -98,7 +98,11 @@ Run the following minimal tests
 - use odmltables `convert` button, save as csv file
 - use odmltables `filter` button
 
-Exit and move back to the root
+Exit, move back to the root and cleanup
 
     cd $ROOT_DIR
     conda deactivate
+    rm $ROOT_DIR/resources/test_load/load_v1.odml_converted.xml
+    rm $ROOT_DIR/resources/test_load/pyi_conv.json
+    rm $ROOT_DIR/resources/test_load/pyi_conv.xml
+    rm $ROOT_DIR/resources/test_load/pyi_conv.yaml

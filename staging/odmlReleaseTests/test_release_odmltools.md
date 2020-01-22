@@ -6,7 +6,7 @@ Create conda environments for both installation options
 
 ## Basic setup
 
-    PYVER=3.5
+    PYVER=3.8
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     ODMLTOOLS_SOURCE=/home/$USER/Chaos/work/odmltools
     CURR_DIR=$(pwd)
@@ -69,6 +69,7 @@ Run tests with the pip installation
     odmlimportdatacite -o $OUT_DIR -r -f JSON .
     conda deactivate
 
-Move back
+Move back and cleanup
 
     cd $ROOT_DIR
+    rm $ROOT_DIR/resources/out -r

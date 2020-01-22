@@ -6,7 +6,7 @@ Create conda environments for both installation options
 
 ## Basic setup
 
-    PYVER=3.5
+    PYVER=3.8
     ODML_SOURCE=/home/$USER/Chaos/work/python-odml
     CURR_DIR=$(pwd)
 
@@ -117,7 +117,8 @@ Run test with the pip install environment
     odmlview --fetch
     odmlview
 
-    # cleanup
+Cleanup
+
     conda deactivate
     cd $ROOT_DIR
     rm $ROOT_DIR/resources/out -r
