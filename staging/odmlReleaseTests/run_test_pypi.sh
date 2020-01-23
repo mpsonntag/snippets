@@ -5,6 +5,12 @@ echo "-- MAKE SURE TO RUN THIS SCRIPT IN INTERACTIVE MODE '-i' --"
 PYVER=3.8
 ROOT_DIR=$(pwd)
 
+CHECK_DIR=$(basename $ROOT_DIR)
+if [ ! "$CHECK_DIR" = "odmlReleaseTests" ]; then
+    echo "-- In wrong directory $ROOT_DIR"
+    exit -1
+fi
+
 CONDA_ENV=testpypi
 
 echo "-- Cleanup and create the conda environment"
