@@ -6,27 +6,27 @@ PYVER=3.8
 ROOT_DIR=$(pwd)
 CONDA_ENV=testpypi
 
-echo "-- Running directory check: $ROOT_DIR"
-CHECK_DIR=$(basename $ROOT_DIR)
+echo "-- Running directory check: ${ROOT_DIR}"
+CHECK_DIR=$(basename ${ROOT_DIR})
 if [[ ! "$CHECK_DIR" = "odmlReleaseTests" ]]; then
-    echo "-- In wrong directory $ROOT_DIR"
+    echo "-- In wrong directory ${ROOT_DIR}"
     exit -1
 fi
 
-echo "-- Running active conda env check: $CONDA_PREFIX"
-if [[ ! -z "$CONDA_PREFIX" ]]; then
-    echo "-- Deactivating conda env: $CONDA_PREFIX"
+echo "-- Running active conda env check: ${CONDA_PREFIX}"
+if [[ ! -z "${CONDA_PREFIX}" ]]; then
+    echo "-- Deactivating conda env: ${CONDA_PREFIX}"
     conda deactivate
 fi
 
 echo
 echo "-- Cleanup previous conda environment and create new one"
 echo
-conda remove -q -n $CONDA_ENV --all -y
+conda remove -q -n ${CONDA_ENV} --all -y
 
-conda create -q -n $CONDA_ENV python=$PYVER -y
+conda create -q -n ${CONDA_ENV} python=${PYVER} -y
 
-conda activate $CONDA_ENV
+conda activate ${CONDA_ENV}
 pip install -q --upgrade pip
 pip install -q ipython
 
