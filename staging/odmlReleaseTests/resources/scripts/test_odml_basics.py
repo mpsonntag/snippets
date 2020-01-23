@@ -27,9 +27,7 @@ class TestODMLBasics(unittest.TestCase):
 
 if __name__ == "__main__":
     try:
-        test = TestODMLBasics()
-        test.testLoad()
-        test.testVersionLoad()
+        unittest.main()
 
     except Exception:
         print("-- Failed on a test")
