@@ -48,11 +48,6 @@ conda install -q -c pkgw-forge adwaita-icon-theme -y
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
 
 echo
-echo "-- Creating output folder"
-OUT_DIR=${ROOT_DIR}/resources/out/convert
-mkdir -vp ${OUT_DIR}
-
-echo
 echo "-- Running basic tests"
 cd ${ROOT_DIR}/resources/test_load
 BASIC_SCRIPT=${ROOT_DIR}/resources/scripts/test_odml_basics.py
@@ -70,9 +65,29 @@ echo
 echo "-- Returning to root"
 cd ${ROOT_DIR}
 
+echo
+echo "-- Creating convert output folder"
+OUT_DIR=${ROOT_DIR}/resources/out/convert
+mkdir -vp ${OUT_DIR}
+
+echo
 echo "-- Running conversion script tests"
 cd ${ROOT_DIR}/resources/test_convert_script
 odmlconvert -o ${OUT_DIR} -r .
+
+echo
+echo "-- Returning to root"
+cd ${ROOT_DIR}
+
+echo
+echo "-- Creating rdf output folder"
+OUT_DIR=${ROOT_DIR}/resources/out/rdf
+mkdir -vp ${OUT_DIR}
+
+echo
+echo "-- Running rdf conversion script test"
+cd ${ROOT_DIR}/resources/test_rdf_export_script
+odmltordf -o ${OUT_DIR} -r .
 
 echo
 echo "-- Returning to root"
