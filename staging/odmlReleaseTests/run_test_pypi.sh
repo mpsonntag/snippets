@@ -1,18 +1,39 @@
 #!/usr/bin/env bash
 
+echo
 echo "-- MAKE SURE TO RUN THIS SCRIPT IN INTERACTIVE MODE '-i' --"
 
-PYVER=3.8
-ROOT_DIR=$(pwd)
-CONDA_ENV=testpypi
+PY_VER_ARRAY=("|2.7|3.5|3.6|3.7|3.8|")
 
+if [[ $# != 1 ]]; then
+    echo
+    echo "-- Please provide a valid Python version: ${PY_VER_ARRAY}"
+    exit 1
+fi
+
+PYVER=$1
+
+if [[ ! "${PY_VER_ARRAY}" =~ "|${PYVER}|" ]]; then
+    echo
+    echo "-- Please provide a valid Python version: ${PY_VER_ARRAY}"
+    exit 1
+fi
+
+echo
+echo "-- Using Python version ${PYVER}"
+
+ROOT_DIR=$(pwd)
+CONDA_ENV=pypi_test_${PYVER}
+
+echo
 echo "-- Running directory check: ${ROOT_DIR}"
 CHECK_DIR=$(basename ${ROOT_DIR})
 if [[ ! "$CHECK_DIR" = "odmlReleaseTests" ]]; then
     echo "-- In wrong directory ${ROOT_DIR}"
-    exit -1
+    exit 1
 fi
 
+echo
 echo "-- Running active conda env check: ${CONDA_PREFIX}"
 if [[ ! -z "${CONDA_PREFIX}" ]]; then
     echo "-- Deactivating conda env: ${CONDA_PREFIX}"
