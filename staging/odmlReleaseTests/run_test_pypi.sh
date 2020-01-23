@@ -4,14 +4,20 @@ echo "-- MAKE SURE TO RUN THIS SCRIPT IN INTERACTIVE MODE '-i' --"
 
 PYVER=3.8
 ROOT_DIR=$(pwd)
+CONDA_ENV=testpypi
 
+echo "-- Running directory check: $ROOT_DIR"
 CHECK_DIR=$(basename $ROOT_DIR)
-if [ ! "$CHECK_DIR" = "odmlReleaseTests" ]; then
+if [[ ! "$CHECK_DIR" = "odmlReleaseTests" ]]; then
     echo "-- In wrong directory $ROOT_DIR"
     exit -1
 fi
 
-CONDA_ENV=testpypi
+echo "-- Running active conda env check: $CONDA_PREFIX"
+if [[ ! -z "$CONDA_PREFIX" ]]; then
+    echo "-- Deactivating conda env: $CONDA_PREFIX"
+    conda deactivate
+fi
 
 echo "-- Cleanup and create the conda environment"
 conda remove -n $CONDA_ENV --all -y
