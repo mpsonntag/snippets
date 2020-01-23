@@ -47,6 +47,24 @@ conda install -q -c pkgw-forge adwaita-icon-theme -y
 
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
 
+echo
+echo "-- Running basic tests"
+cd ${ROOT_DIR}/resources/test_load
+BASIC_SCRIPT=${ROOT_DIR}/resources/scripts/test_odml_basics.py
+python ${BASIC_SCRIPT}
+
+if [[ ! $? -eq 0 ]]; then
+    cd ${ROOT_DIR}
+    conda deactivate
+    echo "-- Encountered error in script ${BASIC_SCRIPT}"
+    echo
+    exit
+fi
+
+echo
+echo "-- Back to root"
+cd ${ROOT_DIR}
+
 conda deactivate
 
 echo
