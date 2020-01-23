@@ -19,25 +19,36 @@ if [[ ! -z "$CONDA_PREFIX" ]]; then
     conda deactivate
 fi
 
-echo "-- Cleanup and create the conda environment"
-conda remove -n $CONDA_ENV --all -y
+echo
+echo "-- Cleanup previous conda environment and create new one"
+echo
+conda remove -q -n $CONDA_ENV --all -y
 
-conda create -n $CONDA_ENV python=$PYVER -y
+conda create -q -n $CONDA_ENV python=$PYVER -y
 
 conda activate $CONDA_ENV
-pip install --upgrade pip
-pip install ipython
+pip install -q --upgrade pip
+pip install -q ipython
 
-echo "-- Install odml and odml-ui from PyPI test"
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml
+echo
+echo "-- Installing odml from PyPI test"
+echo
 
-conda install -c pkgw/label/superseded gtk3 -y
-conda install -c conda-forge pygobject -y
-conda install -c conda-forge gdk-pixbuf -y
-conda install -c pkgw-forge adwaita-icon-theme -y
+pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml
 
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
+echo
+echo "-- Installing dependencies and odml-ui from PyPI test"
+echo
+
+conda install -q -c pkgw/label/superseded gtk3 -y
+conda install -q -c conda-forge pygobject -y
+conda install -q -c conda-forge gdk-pixbuf -y
+conda install -q -c pkgw-forge adwaita-icon-theme -y
+
+pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
 
 conda deactivate
 
+echo
 echo "-- Done"
+echo
