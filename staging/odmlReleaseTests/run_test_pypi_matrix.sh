@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 echo
-echo "-- MAKE SURE TO RUN THIS SCRIPT IN INTERACTIVE MODE '-i' --"
+echo "-- Running Test PyPI python-odml package test installation matrix"
 
 ROOT_DIR=$(pwd)
+LOG_DIR=/tmp/odml/pypi_test_install
+SCRIPT=./run_test_pypi.sh
 
 echo
 echo "-- Running directory check: ${ROOT_DIR}"
@@ -14,40 +16,41 @@ if [[ ! "${CHECK_DIR}" = "odmlReleaseTests" ]]; then
     exit 1
 fi
 
-LOG_DIR=./test_logs
-
+echo
+echo "-- Creating log directory ${LOG_DIR}"
+mkdir -vp ${LOG_DIR}
 if [[ ! -d "${LOG_DIR}" ]]; then
     echo
     echo "-- Cannot find ${LOG_DIR} output directory"
-    echo
     exit 1
 fi
 
-SCRIPT=./run_test_pypi.sh
+echo
+echo "-- Log files of all tests can be found in ${LOG_DIR}"
 
 PYVER=3.8
 echo
 echo "-- Running script for Python version ${PYVER}"
-bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log
+bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
 
 PYVER=3.7
 echo
 echo "-- Running script for Python version ${PYVER}"
-bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log
+bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
 
 PYVER=3.6
 echo
 echo "-- Running script for Python version ${PYVER}"
-bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log
+bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
 
 PYVER=3.5
 echo
 echo "-- Running script for Python version ${PYVER}"
-bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log
+bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
 
 PYVER=2.7
 echo
 echo "-- Running script for Python version ${PYVER}"
-bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log
+bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
 
 echo "-- Done"
