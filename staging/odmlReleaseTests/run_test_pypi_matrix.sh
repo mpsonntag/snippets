@@ -32,25 +32,45 @@ PYVER=3.8
 echo
 echo "-- Running script for Python version ${PYVER}"
 bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
+FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+if [[ "${FAIL_COUNT}" -gt 0 ]]; then
+    echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+fi
 
 PYVER=3.7
 echo
 echo "-- Running script for Python version ${PYVER}"
 bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
+FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+if [[ "${FAIL_COUNT}" -gt 0 ]]; then
+    echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+fi
 
 PYVER=3.6
 echo
 echo "-- Running script for Python version ${PYVER}"
 bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
+FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+if [[ "${FAIL_COUNT}" -gt 0 ]]; then
+    echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+fi
 
 PYVER=3.5
 echo
 echo "-- Running script for Python version ${PYVER}"
 bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
+FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+if [[ "${FAIL_COUNT}" -gt 0 ]]; then
+    echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+fi
 
 PYVER=2.7
 echo
 echo "-- Running script for Python version ${PYVER}"
 bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
+FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+if [[ "${FAIL_COUNT}" -gt 0 ]]; then
+    echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+fi
 
 echo "-- Done"
