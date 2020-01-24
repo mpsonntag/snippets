@@ -15,13 +15,17 @@ if [[ ! "${RUN_MODE_ARRAY}" =~ "|${RUN_MODE}|" ]]; then
     exit 1
 fi
 
+echo
+echo "-- Running test mode ${RUN_MODE}"
+
 # -- This run will be default
 LOG_DIR=/tmp/odml/local_test
 SCRIPT=./run_local_tests.sh
 
-if [[ "${RUN_MODE}" -eq "pypi_test" ]]; then
+if [[ "${RUN_MODE}" == "pypi_test" ]]; then
   LOG_DIR=/tmp/odml/pypi_test_install
   SCRIPT=./run_test_pypi.sh
+  echo
   echo "-- Running Test PyPI installation matrix"
 fi
 
