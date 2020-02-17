@@ -101,6 +101,8 @@ if on conda, make sure to get the deps first:
 
 # Upload working package to PyPI proper (see below if making a release makes sense as well)
 
+NOTE: make sure the dist folder contains ONLY the single package that is supposed to be uploaded. And not any .egg files etc.
+
     twine upload dist/*
 
 ------------------------------------------------------------------------------------------
@@ -113,12 +115,16 @@ creating a release:
 
 - if necessary, update readme files.
 - create branch with the version number e.g. v1.4
+
+- check previous git tags:
+
+    git tag -ln
+
 - create a tag with the exact version number, pointing at the latest commit in the version branch.
-    Note: This way, bugfixes from master can be cherry picked into the version branch and additional releases
-    based on this branch can be, well, released.
-    
+    Note: This way, bugfixes from master can be cherry picked into the version branch and additional releases based on this branch can be, well, released.
+
     git tag -a v1.4 -m "tag message"
-    
+
 - push branch and tag upstream
 
     git push upstream v1.4
