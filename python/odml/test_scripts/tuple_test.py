@@ -19,6 +19,7 @@ list_prop.values = [1, 2, 3, 4, 5]
 odml.save(doc, fpath)
 
 check = odml.load(fpath)
+assert len(check.sections[0].properties[0].values) == len(tuple_values)
 
 # test saving lists of odml style tuples
 fname = "tuple_direct_test.xml"
@@ -31,3 +32,5 @@ tprop = odml.Property(name="tuple_test", dtype="2-tuple",
 
 odml.save(doc, fpath)
 check_doc = odml.load(fpath)
+assert len(check_doc.sections[0].properties[0].values) == len(tuple_values)
+
