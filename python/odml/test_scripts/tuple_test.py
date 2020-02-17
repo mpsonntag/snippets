@@ -41,15 +41,26 @@ assert len(y_check.sections[tst].properties[tst].values) == \
 
 
 # test saving lists of odml style tuples
-fname = "tuple_direct_test.xml"
-fpath = os.path.join(out_dir, fname)
+f_name = "tuple_direct_test.xml"
+f_path = os.path.join(out_dir, f_name)
 
 tdoc = odml.Document()
-tsec = tdoc.create_section(name="tuple_test")
-tprop = odml.Property(name="tuple_test", dtype="2-tuple",
-                      values=tuple_values, parent=tsec)
+tsec = tdoc.create_section(name=tst)
+tprop = odml.Property(name=tst, dtype="2-tuple", values=tuple_values, parent=tsec)
 
-odml.save(doc, fpath)
-check_doc = odml.load(fpath)
-assert len(check_doc.sections[0].properties[0].values) == len(tuple_values)
+odml.save(doc, f_path)
+check_doc = odml.load(f_path)
+assert len(check_doc.sections[tst].properties[tst].values) == len(tuple_values)
 
+
+# test single tuple value
+val_type = "3-tuple"
+val_in = "(1; 1; 1)"
+val_odml = [["1", "1", "1"]]
+
+f_name = "tuple_single_test.xml"
+f_path = os.path.join(out_dir, f_name)
+
+single_doc = odml.Document()
+single_sec = single_doc.create_section(name=tst)
+single_prop = odml.Property(name=tst, dtype=val_type, values=val_in, parent=single_sec)
