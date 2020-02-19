@@ -7,7 +7,7 @@ PY_VER_ARRAY=("|2.7|3.5|3.6|3.7|3.8|")
 
 if [[ $# != 1 ]]; then
     echo
-    echo "-- Please provide a valid Python version: ${PY_VER_ARRAY}"
+    echo "-- [FAILED] Please provide a valid Python version: ${PY_VER_ARRAY}"
     exit 1
 fi
 
@@ -15,7 +15,7 @@ PYVER=$1
 
 if [[ ! "${PY_VER_ARRAY}" =~ "|${PYVER}|" ]]; then
     echo
-    echo "-- Please provide a valid Python version: ${PY_VER_ARRAY}"
+    echo "-- [FAILED] Please provide a valid Python version: ${PY_VER_ARRAY}"
     exit 1
 fi
 
@@ -30,7 +30,7 @@ echo
 echo "-- Running directory check: ${ROOT_DIR}"
 CHECK_DIR=$(basename ${ROOT_DIR})
 if [[ ! "$CHECK_DIR" = "python-odml" ]]; then
-    echo "-- In wrong directory ${ROOT_DIR}"
+    echo "-- [FAILED] In wrong directory ${ROOT_DIR}"
     exit 1
 fi
 
