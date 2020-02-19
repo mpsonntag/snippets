@@ -17,17 +17,32 @@ class TestODMLBasics(unittest.TestCase):
 
     def testLoad(self):
         print("-- Load odml xml file")
-        doc = odml.load('./load.odml.xml')
-        print(doc.pprint())
+        xdoc = odml.load('./load.odml.xml')
+        print(xdoc.pprint())
+
+        print("-- Load odml json file")
+        jdoc = odml.load('./load.odml.json', 'JSON')
+        self.assertEqual(xdoc, jdoc)
+
+        print("-- Load odml yaml file")
+        ydoc = odml.load('./load.odml.yaml', 'YAML')
+        self.assertEqual(xdoc, ydoc)
+
+        print("-- Document loading tests success")
 
     def testVersionLoad(self):
         print("-- Test invalid version exception xml file load")
         with self.assertRaises(odml.tools.parser_utils.InvalidVersionException):
             _ = odml.load('./load_v1.odml.xml')
+        print("-- Invalid version loading test success")
 
 
 if __name__ == "__main__":
     try:
+        svi = sys.version_info
+        print("-- Using Python '%s.%s.%s'" % (svi.major, svi.minor, svi.micro))
+        print("-- Testing odml Version: '%s'" % odml.VERSION)
+
         unittest.main()
 
     except Exception as exc:
