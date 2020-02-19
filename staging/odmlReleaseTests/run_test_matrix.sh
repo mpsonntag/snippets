@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
 echo
-echo "-- Running Test PyPI python-odml package test installation matrix"
+echo "-- Running python-odml package test installation matrix"
 
 ROOT_DIR=$(pwd)
-LOG_DIR=/tmp/odml/pypi_test_install
-SCRIPT=./run_test_pypi.sh
+
+# Local test installations
+LOG_DIR=/tmp/odml/local_install
+SCRIPT=./run_test_local_odml.sh
+
+# PyPI test odml installations
+LOG_DIR=/tmp/odml/pypi_test_install_odml
+SCRIPT=./run_test_pypi_odml.sh
+
+# PyPI test odmltools installations
+LOG_DIR=/tmp/odml/pypi_test_install_odmltools
+SCRIPT=./run_test_pypi_odmltools.sh
 
 echo
 echo "-- Running directory check: ${ROOT_DIR}"
