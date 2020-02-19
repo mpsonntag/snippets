@@ -3,19 +3,49 @@
 echo
 echo "-- Running python-odml package test installation matrix"
 
+print_options () {
+    echo
+    echo "-- Missing or invalid test script selection letter (A|B|C), please provide one of the following"
+    echo "     A: local install test (odml)"
+    echo "     B: Test PyPI install test (odml)"
+    echo "     C: Test PyPI install test (odmltools)"
+}
+
+if [[ $# != 1 ]]; then
+    print_options
+    exit 1
+fi
+
+TEST_ARRAY=("|A|B|C|")
+TEST=$1
+
+if [[ ! "${TEST_ARRAY}" =~ "|${TEST}|" ]]; then
+    print_options
+    exit 1
+fi
+
+if [[ "${TEST}" == "A" ]]; then
+    echo
+    echo "-- Running local test installations"
+    LOG_DIR=/tmp/odml/local_install
+    SCRIPT=./run_test_local_odml.sh
+fi
+
+if [[ "${TEST}" == "B" ]]; then
+    echo
+    echo "-- Running PyPI test odml installations"
+    LOG_DIR=/tmp/odml/pypi_test_install_odml
+    SCRIPT=./run_test_pypi_odml.sh
+fi
+
+if [[ "${TEST}" == "C" ]]; then
+    echo
+    echo "-- Running PyPI test odmltools installations"
+    LOG_DIR=/tmp/odml/pypi_test_install_odmltools
+    SCRIPT=./run_test_pypi_odmltools.sh
+fi
+
 ROOT_DIR=$(pwd)
-
-# Local test installations
-# LOG_DIR=/tmp/odml/local_install
-# SCRIPT=./run_test_local_odml.sh
-
-# PyPI test odml installations
-LOG_DIR=/tmp/odml/pypi_test_install_odml
-SCRIPT=./run_test_pypi_odml.sh
-
-# PyPI test odmltools installations
-# LOG_DIR=/tmp/odml/pypi_test_install_odmltools
-# SCRIPT=./run_test_pypi_odmltools.sh
 
 echo
 echo "-- Running directory check: ${ROOT_DIR}"
