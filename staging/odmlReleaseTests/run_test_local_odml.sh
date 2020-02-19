@@ -44,17 +44,17 @@ fi
 CONDA_ENV=odml_test_${PYVER}
 
 echo
+echo "-- Testing local pip installation"
 echo "-- Cleanup previous conda environment and create new one"
 echo
 conda remove -q -n ${CONDA_ENV} --all -y
-
 conda create -q -n ${CONDA_ENV} python=${PYVER} -y
 
 conda activate ${CONDA_ENV}
 pip install -q --upgrade pip
 
 echo
-echo "-- Locally pip installing odml"
+echo "-- Local installation (pip)"
 echo
 pip install .
 
@@ -62,12 +62,33 @@ echo
 echo "-- Running tests"
 python setup.py test
 
+conda deactivate
+
+echo
+echo "-- Testing local setup installation"
+echo "-- Cleanup previous conda environment and create new one"
+echo
+conda remove -q -n ${CONDA_ENV} --all -y
+conda create -q -n ${CONDA_ENV} python=${PYVER} -y
+
+conda activate ${CONDA_ENV}
+pip install -q --upgrade pip
+
+echo
+echo "-- Local installation (setup.py)"
+echo
+python setup.py install
+
+echo
+echo "-- Running tests"
+python setup.py test
+
+conda deactivate
 
 echo
 echo "-- Returning to script directory ${SCRIPT_DIR}"
 echo
 cd ${SCRIPT_DIR}
 
-echo
 echo "-- Done"
 echo

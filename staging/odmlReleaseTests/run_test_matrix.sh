@@ -26,8 +26,8 @@ fi
 
 if [[ "${TEST}" == "A" ]]; then
     echo
-    echo "-- Running local test installations"
-    LOG_DIR=/tmp/odml/local_install
+    echo "-- Running local test odml installations"
+    LOG_DIR=/tmp/odml/local_install_odml
     SCRIPT=./run_test_local_odml.sh
 fi
 
