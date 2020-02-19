@@ -6,9 +6,10 @@ try:
     from odml.tools import ODMLReader, ODMLWriter, RDFReader, RDFWriter
     from odml.tools.converters import FormatConverter, VersionConverter
     from odml.tools import XMLReader, XMLWriter, DictReader, DictWriter
+
     import odml
-except Exception:
-    print("-- Failed on an import")
+except Exception as exc:
+    print("-- Failed on an import: %s" % exc)
     sys.exit(-1)
 
 
@@ -29,6 +30,6 @@ if __name__ == "__main__":
     try:
         unittest.main()
 
-    except Exception:
-        print("-- Failed on a test")
+    except Exception as exc:
+        print("-- Failed on a test: %s" % exc)
         sys.exit(-1)
