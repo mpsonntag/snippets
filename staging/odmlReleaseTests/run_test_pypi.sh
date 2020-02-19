@@ -78,7 +78,7 @@ if [[ ! $? -eq 0 ]]; then
     cd ${ROOT_DIR}
     conda deactivate
     echo
-    echo "-- Encountered error in script ${BASIC_SCRIPT}"
+    echo "-- [FAILED] Encountered error in script ${BASIC_SCRIPT}"
     exit
 fi
 
@@ -90,9 +90,20 @@ echo
 echo "-- Creating convert output folder"
 OUT_DIR=${ROOT_DIR}/resources/out/convert
 mkdir -vp ${OUT_DIR}
-
 echo
 echo "-- Running conversion script tests"
+
+if ! [[ -x "$(command -v odmlconvert)" ]]; then
+    cd ${ROOT_DIR}
+    conda deactivate
+    echo
+    echo "-- Cleaning up output folder"
+    rm ${ROOT_DIR}/resources/out -r
+    echo
+    echo "-- [FAILED] odmlconvert not installed"
+    exit
+fi
+
 cd ${ROOT_DIR}/resources/test_convert_script
 odmlconvert -o ${OUT_DIR} -r .
 
@@ -104,6 +115,17 @@ echo
 echo "-- Creating rdf output folder"
 OUT_DIR=${ROOT_DIR}/resources/out/rdf
 mkdir -vp ${OUT_DIR}
+
+if ! [[ -x "$(command -v odmltordf)" ]]; then
+    cd ${ROOT_DIR}
+    conda deactivate
+    echo
+    echo "-- Cleaning up output folder"
+    rm ${ROOT_DIR}/resources/out -r
+    echo
+    echo "-- [FAILED] odmltordf not installed"
+    exit
+fi
 
 echo
 echo "-- Running rdf conversion script test"
