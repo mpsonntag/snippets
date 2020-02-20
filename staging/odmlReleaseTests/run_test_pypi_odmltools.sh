@@ -53,18 +53,31 @@ pip install -q ipython
 
 echo
 echo "-- Installing odmltools from PyPI test"
-echo
 
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odmltools
 
 OUT_DIR=${ROOT_DIR}/out/odmltools
 mkdir -vp ${OUT_DIR}
-cd ${ROOT_DIR}/resources/test_odmltools/datacite
+cd ${ROOT_DIR}/resources/test_odmltools
 
-odmlimportdatacite -o ${OUT_DIR} -r .
-odmlimportdatacite -o ${OUT_DIR} -r -f RDF .
-odmlimportdatacite -o ${OUT_DIR} -r -f YAML .
-odmlimportdatacite -o ${OUT_DIR} -r -f JSON .
+echo
+echo "-- running odmltools conversion tests"
+odmlimportdatacite -o ${OUT_DIR} -r ./datacite
+odmlimportdatacite -o ${OUT_DIR} -r -f RDF ./datacite
+odmlimportdatacite -o ${OUT_DIR} -r -f YAML ./datacite
+odmlimportdatacite -o ${OUT_DIR} -r -f JSON ./datacite
+
+echo
+echo "-- checking namespace test success"
+odmlimportdatacite -o ${OUT_DIR} ./datacite_namespace/fullDataCiteSchemaNS.xml
+
+echo
+echo "-- checking namespace test fail"
+odmlimportdatacite -o ${OUT_DIR} ./datacite_namespace/DataCitePreviousNS.xml
+
+echo
+echo "-- checking namespace escape test success"
+odmlimportdatacite -o ${OUT_DIR} -n http://datacite.org/schema/kernel-2 ./datacite_namespace/DataCitePreviousNS.xml
 
 echo
 echo "-- Returning to root"
