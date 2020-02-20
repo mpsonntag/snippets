@@ -57,6 +57,14 @@ echo "-- Installing odmltools from PyPI test"
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odmltools
 
 OUT_DIR=${ROOT_DIR}/out/odmltools
+if ! [[ -x "$(command -v odmlimportdatacite)" ]]; then
+    conda deactivate
+    cd ${ROOT_DIR}
+    echo
+    echo "-- [FAILED] odmlimportdatacite not installed"
+    exit
+fi
+
 mkdir -vp ${OUT_DIR}
 cd ${ROOT_DIR}/resources/test_odmltools
 
