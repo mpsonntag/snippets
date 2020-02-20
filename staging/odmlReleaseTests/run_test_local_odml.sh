@@ -41,16 +41,17 @@ if [[ ! -z "${CONDA_PREFIX}" ]]; then
     conda deactivate
 fi
 
-CONDA_ENV=odml_test_${PYVER}
+CONDA_ENV_SETUP=odmlsetup${PYVER}
+CONDA_ENV_PIP=odmlpip${PYVER}
 
 echo
 echo "-- Testing local pip installation"
 echo "-- Cleanup previous conda environment and create new one"
 echo
-conda remove -q -n ${CONDA_ENV} --all -y
-conda create -q -n ${CONDA_ENV} python=${PYVER} -y
+conda remove -q -n ${CONDA_ENV_PIP} --all -y
+conda create -q -n ${CONDA_ENV_PIP} python=${PYVER} -y
 
-conda activate ${CONDA_ENV}
+conda activate ${CONDA_ENV_PIP}
 pip install -q --upgrade pip
 
 echo
@@ -68,10 +69,10 @@ echo
 echo "-- Testing local setup installation"
 echo "-- Cleanup previous conda environment and create new one"
 echo
-conda remove -q -n ${CONDA_ENV} --all -y
-conda create -q -n ${CONDA_ENV} python=${PYVER} -y
+conda remove -q -n ${CONDA_ENV_SETUP} --all -y
+conda create -q -n ${CONDA_ENV_SETUP} python=${PYVER} -y
 
-conda activate ${CONDA_ENV}
+conda activate ${CONDA_ENV_SETUP}
 pip install -q --upgrade pip
 
 echo

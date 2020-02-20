@@ -23,7 +23,7 @@ echo
 echo "-- Using Python version ${PYVER}"
 
 ROOT_DIR=$(pwd)
-CONDA_ENV=pypi_test_${PYVER}
+CONDA_ENV=odmlpip${PYVER}
 
 echo
 echo "-- Running directory check: ${ROOT_DIR}"
