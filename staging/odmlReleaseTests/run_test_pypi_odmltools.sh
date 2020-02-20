@@ -56,7 +56,6 @@ echo "-- Installing odmltools from PyPI test"
 
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odmltools
 
-OUT_DIR=${ROOT_DIR}/out/odmltools
 if ! [[ -x "$(command -v odmlimportdatacite)" ]]; then
     conda deactivate
     cd ${ROOT_DIR}
@@ -65,6 +64,7 @@ if ! [[ -x "$(command -v odmlimportdatacite)" ]]; then
     exit
 fi
 
+OUT_DIR=/tmp/odml/out/${PYVER}/odmltools
 mkdir -vp ${OUT_DIR}
 cd ${ROOT_DIR}/resources/test_odmltools
 
@@ -93,8 +93,5 @@ cd ${ROOT_DIR}
 
 conda deactivate
 
-# echo
-# echo "-- Cleaning up output folder"
-# rm ${ROOT_DIR}/resources/out -r
 echo "-- Done"
 echo

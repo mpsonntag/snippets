@@ -88,17 +88,15 @@ cd ${ROOT_DIR}
 
 echo
 echo "-- Creating convert output folder"
-OUT_DIR=${ROOT_DIR}/resources/out/convert
+OUT_DIR=/tmp/odml/out/${PYVER}/convert
 mkdir -vp ${OUT_DIR}
+
 echo
 echo "-- Running conversion script tests"
 
 if ! [[ -x "$(command -v odmlconvert)" ]]; then
-    cd ${ROOT_DIR}
     conda deactivate
-    echo
-    echo "-- Cleaning up output folder"
-    rm ${ROOT_DIR}/resources/out -r
+    cd ${ROOT_DIR}
     echo
     echo "-- [FAILED] odmlconvert not installed"
     exit
@@ -113,15 +111,12 @@ cd ${ROOT_DIR}
 
 echo
 echo "-- Creating rdf output folder"
-OUT_DIR=${ROOT_DIR}/resources/out/rdf
+OUT_DIR=/tmp/odml/out/${PYVER}/rdf
 mkdir -vp ${OUT_DIR}
 
 if ! [[ -x "$(command -v odmltordf)" ]]; then
-    cd ${ROOT_DIR}
     conda deactivate
-    echo
-    echo "-- Cleaning up output folder"
-    rm ${ROOT_DIR}/resources/out -r
+    cd ${ROOT_DIR}
     echo
     echo "-- [FAILED] odmltordf not installed"
     exit
@@ -138,8 +133,5 @@ cd ${ROOT_DIR}
 
 conda deactivate
 
-echo
-echo "-- Cleaning up output folder"
-rm ${ROOT_DIR}/resources/out -r
 echo "-- Done"
 echo
