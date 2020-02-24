@@ -30,3 +30,5 @@ When trying to test mobile images e.g. figures or banners:
 
     # e.g.
     activator "test-only service.BannerServiceTest"
+
+## Templates
