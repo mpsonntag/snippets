@@ -1,6 +1,5 @@
 # G-Node / Projects overview
 
-
 ## G-Node github.io projects page
 
 ### Addresses and forwards
@@ -106,6 +105,77 @@ www.g-node.org/projects -> forwards to plone login page
 
 # NIX
 
+## nix project page
+
+### Addresses and forwards
+- https://g-node.github.io/nix
+- www.g-node.org/nix -> forward to https://g-node.github.io/nix
+
+### Documentation Source and deployment
+- https://github.com/G-Node/nix/tree/master/docs
+- autodeployed from github
+- both nixio.readthedocs as well as https://g-node.github.io/nix are deployed from the docs folder.
+
+### Contains links to
+- https://nixio.readthedocs.io/
+- https://github.com/G-Node/nix/wiki
+
+- http://g-node.github.io/nixpy/tutorial.html
+
+- https://github.com/g-node/nix-demo
+- https://github.com/g-node/nixpy
+- https://github.com/g-node/nix-mx
+- https://github.com/g-node/nix-java
+
+- http://www.g-node.org/
+
+### ToDo
+- add nix.g-node.org forward
+- add nixpy readthedocs link
+- add g-node projects link
+- change nixpy tutorial link to https://nixpy.readthedocs.io/en/latest/tutorial.html
+- add nixpy readthedocs main page link https://nixpy.readthedocs.io
+- figure out if the nix wiki will be kept or if the information should be moved to the nixio readthedocs.
+
+
+## nixio readthedocs
+
+### Addresses and forwards
+- https://nixio.readthedocs.io
+
+### Documentation Source and deployment
+- https://github.com/G-Node/nix/tree/master/docs
+- autodeployed from github
+- both nixio.readthedocs as well as https://g-node.github.io/nix are deployed from the docs folder.
+
+### Contains links to
+- https://github.com/G-Node/nix/wiki
+
+### ToDo
+- figure out if the nix wiki will be kept or if the information should be moved to the nixio readthedocs.
+- add link to the g-node projects page
+
+
+## nix wiki page
+
+### Addresses and forwards
+https://github.com/G-Node/nix/wiki
+
+### Documentation Source and deployment
+https://github.com/G-Node/nix.wiki.git
+
+### Contains links to
+- https://nixio.readthedocs.io/en/latest/
+- http://portal.g-node.org/odml/terminologies/v1.0/terminologies.xml
+- https://github.com/g-node/nix
+- http://g-node.github.io/nix/
+- http://www.g-node.org/
+
+### ToDo
+- consolidate the info between wiki and nixio.readthedocs intro OR
+- figure out if the nix wiki will be kept or if the information should be moved to the nixio readthedocs.
+- update outdated terminologies link
+- update Tutorial and API link to both lead to readthedocs - currently both lead to the NIX project overview page.
 
 
 # odML
@@ -113,13 +183,13 @@ www.g-node.org/projects -> forwards to plone login page
 ## odml project page
 
 ### Addresses and forwards
-https://g-node.github.io/python-odml
-http://g-node.github.io/python-odml (no forward to https)
+- https://g-node.github.io/python-odml
+- http://g-node.github.io/python-odml (no forward to https)
 
-odml.g-node.org -> forward to http://g-node.github.io/python-odml)
-https://odml.g-node.org -> forwards to https://templates.g-node.org and fails to load.
-g-node.org/odml -> forward to http://g-node.github.io/python-odml)
-https://g-node.org/odml -> dead link
+- odml.g-node.org -> forward to http://g-node.github.io/python-odml)
+- https://odml.g-node.org -> forwards to https://templates.g-node.org and fails to load.
+- g-node.org/odml -> forward to http://g-node.github.io/python-odml)
+- https://g-node.org/odml -> dead link
 
 ### Documentation Source and deployment
 - https://github.com/G-Node/python-odml/tree/master/docs
