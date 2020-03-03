@@ -1,14 +1,11 @@
 # G-Node / Projects overview
 
-## Projects forward
-
-
 
 ## G-Node github.io projects page
 
 ### Addresses and forwards
-g-node.github.io/
--> forward to http(s)://g-node.github.io/
+g-node.github.io
+-> forward to http(s)://g-node.github.io
 
 ### Documentation Source and deployment
 -> source: https://github.com/G-Node/g-node.github.io
@@ -48,6 +45,9 @@ g-node.github.io/
   - https://github.com/G-Node/nswineproxy
 
 ### ToDo
+- either shut this page down or have all 'projects' links redirect to this page
+  e.g. www.g-node.org/projects or projects.g-node.org
+- add readthedocs links for odml and nix
 
 
 ## G-Node Plone webpage
@@ -56,6 +56,7 @@ g-node.github.io/
 http://www.g-node.org/
 projects.g-node.org
 -> (no https) forward to http://www.g-node.org/
+www.g-node.org/projects -> forwards to plone login page
 
 ### Documentation Source and deployment
 -> plone deployment
@@ -101,7 +102,11 @@ projects.g-node.org
   - http://www.g-node.org/projects/odml/terminologies
   - https://github.com/G-Node/nix/wiki
 
+
+
 # NIX
+
+
 
 # odML
 
@@ -145,7 +150,24 @@ https://g-node.org/odml -> dead link
 - fix https://odml.g-node.org forward
 - always redirect to https
 
+
 ## odml github source code README
+
+### Addresses and forwards
+https://github.com/G-Node/python-odml
+
+### Documentation Source and deployment
+-
+
+### Contains links to
+- (badge link) https://python-odml.readthedocs.io/en/latest/
+- https://g-node.github.io/python-odml/
+- https://github.com/G-Node/python-odml/blob/master/doc/tutorial.rst
+
+### ToDo
+- add an in-text link to readthedocs.
+- update link to the tutorial from code to readthedocs.
+
 
 ## odml github wiki
 
@@ -165,9 +187,85 @@ https://github.com/G-Node/python-odml.wiki.git
 ### ToDo
 - This wiki should be deleted and all its still relevant information integrated into the python-odml readthedocs. 
 
+
+## odml readthedocs
+
+### Addresses and forwards
+https://python-odml.readthedocs.io
+
+### Documentation Source and deployment
+- https://github.com/G-Node/python-odml/tree/master/doc
+- autodeployed via github
+
+### ToDo
+- add links to the g-node and odml projects pages
+- check if odml.readthedocs.io can be registered or secondary deployed as well
+
+
+## odml templates
+
+### Addresses and forwards
+http(s)://templates.g-node.org
+
+### Documentation Source and deployment
+- https://github.com/G-Node/odml-templates
+- autodeployed from github
+
+### Contains links to
+- http://g-node.github.io/python-odml
+- https://github.com/G-Node/odml-templates
+
+### ToDo
+- add link to the main g-node projects page
+- add link to the odml readthedocs page
+
+
+## odml terminologies
+
+### Addresses and forwards
+http(s)://terminologies.g-node.org
+
+### Documentation Source and deployment
+- https://github.com/G-Node/odml-terminologies
+- autodeployed from github
+
+### Contains links to
+- http://g-node.github.io/python-odml
+- https://github.com/G-Node/odml-terminologies
+
+### ToDo
+- add link to the main g-node projects page
+- add link to the odml readthedocs page
+
+
+## odml terminologies wiki
+
+### Addresses and forwards
+https://github.com/G-Node/odml-terminologies/wiki
+
+### Documentation Source and deployment
+-
+
+### Contains links to
+- http://g-node.github.io/python-odml/
+- https://github.com/G-Node/odml-java-lib
+- https://github.com/G-Node/matlab-odml
+
+### ToDo
+- contains minimal, outdated information
+- remove this wiki
+
+
 # GIN
 
 # GCA
 
 
+### Addresses and forwards
+
+### Documentation Source and deployment
+
+### Contains links to
+
+### ToDo
 
