@@ -64,3 +64,48 @@ if ! [[ -x "$(command -v nixodmlconverter)" ]]; then
     exit
 fi
 
+
+OUT_DIR=/tmp/odml/out/${PYVER}/nixodmlconverter
+mkdir -vp ${OUT_DIR}
+cp ${ROOT_DIR}/resources/test_nixodmlconv/example.odml.xml ${OUT_DIR}/
+
+cd ${OUT_DIR}
+
+echo
+echo "-- running nixodmlconverter help"
+nixodmlconverter -h
+
+echo
+echo "-- running nixodmlconversion odml->nix"
+nixodmlconverter example.odml.xml
+
+if ! [[ -f example.odml.nix ]]; then
+    conda deactivate
+    cd ${ROOT_DIR}
+    echo
+    echo "-- [FAILED] nixodmlconverter conversion odml->nix"
+    exit
+fi
+
+cp example.odml.nix export.odml.nix
+
+echo
+echo "-- running nixodmlconversion odml->nix"
+nixodmlconverter export.odml.nix
+
+if ! [[ -f export.odml.xml ]]; then
+    conda deactivate
+    cd ${ROOT_DIR}
+    echo
+    echo "-- [FAILED] nixodmlconverter conversion nix->odml"
+    exit
+fi
+
+echo
+echo "-- Returning to root"
+cd ${ROOT_DIR}
+
+conda deactivate
+
+echo "-- Done"
+echo
