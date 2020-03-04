@@ -84,6 +84,10 @@ function run_script () {
     if [[ "${FAIL_COUNT}" -gt 0 ]]; then
         echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
     fi
+    PY_ERR_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c Traceback)
+    if [[ "${PY_ERR_COUNT}" -gt 0 ]]; then
+        echo "-- Runtime error in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
+    fi
 }
 
 PYVER=3.8
@@ -101,4 +105,5 @@ run_script
 PYVER=2.7
 run_script
 
+echo
 echo "-- Done"
