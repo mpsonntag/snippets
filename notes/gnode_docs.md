@@ -102,7 +102,6 @@ www.g-node.org/projects -> forwards to plone login page
   - https://github.com/G-Node/nix/wiki
 
 
-
 # NIX
 
 ## nix project page
@@ -176,6 +175,55 @@ https://github.com/G-Node/nix.wiki.git
 - figure out if the nix wiki will be kept or if the information should be moved to the nixio readthedocs.
 - update outdated terminologies link
 - update Tutorial and API link to both lead to readthedocs - currently both lead to the NIX project overview page.
+
+
+## nixpy readthedocs page
+
+### Addresses and forwards
+https://nixpy.readthedocs.io
+
+### Documentation Source and deployment
+- https://github.com/G-Node/nixpy/blob/master/docs
+- autodeployed via github
+
+### Contains links to
+-
+
+### ToDo
+- either keep in sync with the github-pages branch or remove github pages
+
+
+## nixpy "API documentation" page
+
+### Addresses and forwards
+http://g-node.github.io/nixpy/
+
+### Documentation Source and deployment
+- https://github.com/G-Node/nixpy/tree/gh-pages
+- autodeployed via github
+
+### Contains links to
+-
+
+### ToDo
+- either keep in sync with the readthedocs in the main branch or remove github pages
+
+
+## nixpy github readme
+
+### Addresses and forwards
+https://github.com/G-Node/nixpy
+
+### Documentation Source and deployment
+-
+
+### Contains links to
+- https://github.com/G-Node/nix
+- http://g-node.github.io/nixpy/
+
+### ToDo
+- add link to readthedocs
+- remove the nixpy api documentation link or replace it with a link to readthedocs as well
 
 
 # odML
@@ -324,18 +372,3 @@ https://github.com/G-Node/odml-terminologies/wiki
 ### ToDo
 - contains minimal, outdated information
 - remove this wiki
-
-
-# GIN
-
-# GCA
-
-
-### Addresses and forwards
-
-### Documentation Source and deployment
-
-### Contains links to
-
-### ToDo
-
