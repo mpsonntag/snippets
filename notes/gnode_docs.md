@@ -104,7 +104,7 @@ www.g-node.org/projects -> forwards to plone login page
 
 # NIX
 
-## nix project page
+## nix github.io page
 
 ### Addresses and forwards
 - https://g-node.github.io/nix
@@ -177,6 +177,30 @@ https://github.com/G-Node/nix.wiki.git
 - update Tutorial and API link to both lead to readthedocs - currently both lead to the NIX project overview page.
 
 
+## nixio github readme
+
+### Addresses and forwards
+https://github.com/G-Node/nix
+
+### Documentation Source and deployment
+-
+
+### Contains links to
+- https://github.com/G-Node/nix/wiki
+- https://nixio.readthedocs.io/en/latest/
+- https://nixio.readthedocs.io/en/latest/api/library_root.html
+- http://g-node.github.io/nixpy/tutorial.html
+- https://github.com/g-node/nix-demo
+- https://github.com/g-node/nixpy
+- https://github.com/g-node/nix-mx
+- https://github.com/g-node/nix-java
+
+### ToDo
+- add link to nix project page?
+- change nixpy tutorial link from github-pages to readthedocs?
+- add link to g-node projects page?
+
+
 ## nixpy readthedocs page
 
 ### Addresses and forwards
@@ -193,7 +217,7 @@ https://nixpy.readthedocs.io
 - either keep in sync with the github-pages branch or remove github pages
 
 
-## nixpy "API documentation" page
+## nixpy github.io page
 
 ### Addresses and forwards
 http://g-node.github.io/nixpy/
@@ -228,7 +252,7 @@ https://github.com/G-Node/nixpy
 
 # odML
 
-## odml project page
+## odml github.io page
 
 ### Addresses and forwards
 - https://g-node.github.io/python-odml
