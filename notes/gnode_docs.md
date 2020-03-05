@@ -47,6 +47,7 @@ g-node.github.io
 - either shut this page down or have all 'projects' links redirect to this page
   e.g. www.g-node.org/projects or projects.g-node.org
 - add readthedocs links for odml and nix
+- remove dead links
 
 
 ## G-Node Plone webpage
@@ -291,6 +292,7 @@ https://github.com/G-Node/nixpy
 - add https://g-node.org/odml forward
 - fix https://odml.g-node.org forward
 - always redirect to https
+- add link to odmltools?
 
 
 ## odml github source code README
@@ -338,6 +340,9 @@ https://python-odml.readthedocs.io
 ### Documentation Source and deployment
 - https://github.com/G-Node/python-odml/tree/master/doc
 - autodeployed via github
+
+### Contains links to
+-
 
 ### ToDo
 - add links to the g-node and odml projects pages
