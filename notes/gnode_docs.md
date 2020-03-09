@@ -24,7 +24,6 @@ g-node.github.io
   - https://github.com/G-Node/gin-doi
   - https://github.com/G-Node/gin-cli
   - https://github.com/G-Node/gin-valid
-  - https://github.com/G-Node/gin-proc
   - https://gin.g-node.org/G-Node/Info/wiki
 
   - https://github.com/G-Node/python-odml
@@ -32,8 +31,6 @@ g-node.github.io
   - https://terminologies.g-node.org/
 
   - https://abstracts.g-node.org/conferences
-  - https://play.google.com/store/apps/developer?id=G-Node+Development+Team
-  - (dead link) https://apps.apple.com/us/developer/thomas-wachtler/id1154537542
   - https://github.com/G-Node/gca-web
   - https://github.com/G-Node/gca-python
   - https://github.com/G-Node/gca-ios
@@ -44,10 +41,10 @@ g-node.github.io
   - https://github.com/G-Node/nswineproxy
 
 ### ToDo
+- projects.g-node.org redirects to www.g-node.org and not to this page.
 - either shut this page down or have all 'projects' links redirect to this page
-  e.g. www.g-node.org/projects or projects.g-node.org
-- add readthedocs links for odml and nix
-- remove dead links
+  e.g. www.g-node.org/projects or projects.g-node.org.
+- add readthedocs links for odml and nix? -> rather have them linked from the nix or odml projects pages.
 
 
 ## G-Node Plone webpage
@@ -244,11 +241,10 @@ https://github.com/G-Node/nixpy
 
 ### Contains links to
 - https://github.com/G-Node/nix
-- http://g-node.github.io/nixpy/
+- https://nixpy.readthedocs.io/
 
 ### ToDo
-- add link to readthedocs
-- remove the nixpy api documentation link or replace it with a link to readthedocs as well
+-
 
 
 # odML
