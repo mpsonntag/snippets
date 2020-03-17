@@ -1,5 +1,7 @@
-labbook
 
+------------------------------------
+labbook
+------------------------------------
 
 ### Tu, 17.03.2020, 12:00 -  ( ... )
 - gnode: plan for the day, backups, jentry, emails, mail-list cleanup           (--1h--)
@@ -19,3 +21,9 @@ labbook
   - update DC dirs
   - set up notes return flow scheme
 
+
+------------------------------------
+runningTab
+------------------------------------
+
+- nix/odml: compare the methods available in nix1.5 with the ones currently available in the current python-odml branch
