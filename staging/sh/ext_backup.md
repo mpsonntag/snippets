@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Simple copy backup file for a specific directory
+# Simple copy file backup to an external source from a local directory
 
 set -eu
 
@@ -17,8 +17,9 @@ TARGETPATH=/media/$USER/$DRIVENAME
 SOURCEPATH=$HOME/Chaos/DC
 
 if [ ! -d $TARGETPATH ]; then
-    echo "... Cannot find target: ${TARGETPATH}"
-    exit 1
+    echo
+    echo "    Please provide the name of the target media"
+    echo
 fi
 
 if [ ! -d $SOURCEPATH ]; then
@@ -26,10 +27,12 @@ if [ ! -d $SOURCEPATH ]; then
     exit 1
 fi 
 
-echo "... Using target: ${TARGETPATH}"
-echo "... Using source: ${SOURCEPATH}"
+echo "... Target directory: ${TARGETPATH}"
+echo "... Source directory: ${SOURCEPATH}"
 
-echo "    Update directory ${SOURCEPATH}..."
+echo "    Update directory ${TARGETPATH}..."
 cp -vuLr $SOURCEPATH $TARGETPATH
 
-printf "\n... Update done!\n"
+echo
+echo "... Update done!"
+echo
