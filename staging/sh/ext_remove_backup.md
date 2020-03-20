@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Simple copy backup file for a specific directory
+# Simple copy file backup for a specific directory; removes old files before copy
 
 set -eu
 
@@ -37,19 +37,25 @@ if [ -d $TARGETPATH"/DC" ]; then
 
     if [ ! $CHOICE ]; then
         echo "... Exiting (no choice)"
+        echo
         exit 0
     fi
 
     if [ $CHOICE != "y" ]; then
-        echo "... Exiting (${CHOICE})"
+        echo "... Exiting (use only 'y' to continue: ${CHOICE})"
+        echo
         exit 0
     fi
 
     rm $TARGETPATH/DC -rv
 fi
-printf "... Removal done!\n\n"
+echo
+echo "... Removal done!"
+echo
 
 echo "    Copying directory ${SOURCEPATH}..."
 cp -rv $SOURCEPATH $TARGETPATH
 
-printf "\n... Copying done!\n"
+echo
+echo "... Copy done!"
+echo
