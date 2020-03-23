@@ -1,6 +1,16 @@
 
 # concepts 
 
+# format:
+
+## Section type handling
+- currently we have section type defined as a required attribute in format
+- so far we have not checked the format required attributes. we now have a prototype validation that does this. I would like to remove some of the hard checks that are still in various code places.
+- specifically we have not checked section type until now. now that we check for required attributes. If we keep this, we could render a lot of existing files that have not specified 'type' unsaveable since this is now an error.
+- we could have a workaround e.g. render the required format validation as a mere warning for now, add a deprecation warning and switch to error in a couple of releases. 
+- I really don't like 'undefined'. If we keep it, should we switch to something else e.g. 'n/a'?
+- should we also keep a release list to keep track of all the deprecated things we have lying around to remember to actually remove them after a couple of releases? Maybe as an own section in the README and documentation so people can see which features will be removed at which point in time? would that be a nice scheme?
+
 # new features
 
 ## container sections
@@ -10,4 +20,7 @@
 - write a container section description in the tutorial; how to handle 
 
 ## validations
+- should we add a validation object to every loaded document in the first place? display an info to the user on load and hint to where the warnings and infos can be found?
+- should the "this value is string but could be xy" warning be a new category: info?
+
 - if we had dedicated container sections, we could check all direct child sections for consistency of name, type, properties, etc.
