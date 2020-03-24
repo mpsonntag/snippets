@@ -24,3 +24,7 @@
 - should the "this value is string but could be xy" warning be a new category: info?
 
 - if we had dedicated container sections, we could check all direct child sections for consistency of name, type, properties, etc.
+
+- maybe we should have different default validations on startup checks and when saving
+  - the 'different dtype' validation might make sense when reading a file in - there could be data entry errors, but it could be very tedious seeing these warnings every time a file is saved or validated.
+
