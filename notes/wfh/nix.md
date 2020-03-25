@@ -1,3 +1,6 @@
+TO-SHARE:
+https://pad.lqdn.fr/p/nix
+
 general idea: have dependent code repos run tests periodically via github and ci to check if the core libraries have been changed and the changes have broken the dependent code.
 
 
@@ -6,29 +9,54 @@ https://github.com/G-Node/nixworks
 
 - dependencies optional
 
+
 ## nix-mne
 https://github.com/G-Node/nix-mne
 
-- create `nixworks/converters/mne`
-- migrate `readrawnix.py` and `mnetonix.py`;
-- maybe rename both to `nix2mne.py` and `mne2nix.py`?
-- should we migrate the examples to `nixworks/converters/mne/resources`?
-- installable command line scripts? check out one CL script per module
+-[x] create `nixworks/converters/mne`
+-[x] migrate `readrawnix.py` and `mnetonix.py`;
+-[x] maybe rename both to `nix2mne.py` and `mne2nix.py`?
+-[x] should we migrate the examples to `nixworks/converters/mne/resources` -> no
+-[] installable command line scripts? -> check out one CL script per module; create issue on nixworks
 
-- what to do with the repository
-  - There are additional files in there e.g. ./new_experiment_workflow.pdf
-  - update readme and archive repo?
+- what to do with the repository -> update readme and archive repo!
+  -[x] There are additional files in there e.g. ./new_experiment_workflow.pdf -> will not be migrated to nixworks
+  -[x] update readme
+  -[] archive repo
+
 
 ## nix-nwb
 https://github.com/G-Node/nix-nwb
 
-- create `nixworks/converters/nwb`
-- move `nix2nwb` and `nwb2nix`
-- installable command line scripts?
+-[x] create `nixworks/converters/nwb`
+-[x] move `nix2nwb` and `nwb2nix`
+-[] installable command line scripts?
 
-- update readme and archive repo
-  - is christian ok with it
-  - are there any dependencies we are unaware of
+- what to do with the repo -> update readme and archive repo!
+  -[] is christian ok with editing, moving, archiving
+  -[x] are there any dependencies we are unaware of -> Jan linked the repo so it should be kept as long as the readme points to the current dev point
+  -[x] update readme
+  -[] archive repo
+
+
+## jnode_nix
+https://github.com/G-Node/jnode_nix
+
+- is there any useful code that should be migrated -> code outdated, surpassed by wagatonix
+- should we archive the repo -> yes
+
+-[x] update readme and point to wagatonix
+-[] archive repo
+
+
+## mea2nix (private repo)
+https://github.com/G-Node/mea2nix
+
+- is there anything to upgrade and migrate to nixworks?
+- archive it to make clear that the repo is no longer used?
+
+-> leave as is
+
 
 ## nix-demo
 https://github.com/G-Node/nix-demo
@@ -50,20 +78,3 @@ https://github.com/G-Node/nix-examples
 
 -> Enable recurring CI builds to check if scripts are runnable
 -> Update submodules when running builds to make sure newer versions also work (maybe allow failure?)
-
-## mea2nix (private repo)
-https://github.com/G-Node/mea2nix
-
-- is there anything to upgrade and migrate to nixworks?
-- archive it to make clear that the repo is no longer used?
-
--> leave as is
-
-## jnode_nix
-https://github.com/G-Node/jnode_nix
-
-- jan: is there any useful code that should be migrated
-- should we archive the repo
-
--> archive, point to wagatonix
-
