@@ -50,3 +50,39 @@ print(prop.val_cardinality)
 prop.val_cardinality = (1, 5)
 assert prop.val_cardinality == (1, 5)
 print(prop.val_cardinality)
+
+# -- Test Property cardinality assignment failures
+try:
+    prop.val_cardinality = "a"
+except ValueError:
+    print("String assignment failure")
+
+try:
+    prop.val_cardinality = -1
+except ValueError:
+    print("Negative integer assignment failure")
+
+try:
+    prop.val_cardinality = (1, "b")
+except ValueError:
+    print("Invalid tuple content assignment failure")
+
+try:
+    prop.val_cardinality = (1, 2, 3)
+except ValueError:
+    print("Invalid tuple type assignment failure")
+
+try:
+    prop.val_cardinality = (-1, 1)
+except ValueError:
+    print("Invalid tuple min integer assignment failure")
+
+try:
+    prop.val_cardinality = (1, -5)
+except ValueError:
+    print("Invalid tuple max integer assignment failure")
+
+try:
+    prop.val_cardinality = (5, 1)
+except ValueError:
+    print("Invalid tuple integer order assignment failure")
