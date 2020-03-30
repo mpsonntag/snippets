@@ -1,7 +1,7 @@
 import odml
 
 doc = odml.Document()
-sec = odml.Section(name="sec", parent=doc)
+sec = odml.Section(name="sec", type="sometype", parent=doc)
 
 # -- Test set cardinality on Property init
 # Test empty init
@@ -86,3 +86,69 @@ try:
     prop.val_cardinality = (5, 1)
 except ValueError:
     print("Invalid tuple integer order assignment failure")
+
+
+# -- Test saving and loading
+# Test saving to and loading from an XML file
+xname = "/home/sommer/Chaos/tmp/odml/prop_cardinality.xml"
+odml.save(doc, xname)
+
+xdoc = odml.load(xname)
+xprop = xdoc.sections["sec"].properties["prop_cardinality_empty"]
+assert xprop.val_cardinality is None
+xprop.val_cardinality
+
+xprop = xdoc.sections["sec"].properties["prop_cardinality_max"]
+assert xprop.val_cardinality == (None, 10)
+xprop.val_cardinality
+
+xprop = xdoc.sections["sec"].properties["prop_cardinality_min"]
+assert xprop.val_cardinality == (2, None)
+xprop.val_cardinality
+
+xprop = xdoc.sections["sec"].properties["prop"]
+assert xprop.val_cardinality == (1, 5)
+xprop.val_cardinality
+
+# Test saving to and loading from a JSON file
+jname = "/home/sommer/Chaos/tmp/odml/prop_cardinality.json"
+odml.save(doc, jname, "JSON")
+jdoc = odml.load(jname, "JSON")
+
+jprop = jdoc.sections["sec"].properties["prop_cardinality_empty"]
+assert jprop.val_cardinality is None
+jprop.val_cardinality
+
+jprop = jdoc.sections["sec"].properties["prop_cardinality_max"]
+assert jprop.val_cardinality == (None, 10)
+jprop.val_cardinality
+
+jprop = jdoc.sections["sec"].properties["prop_cardinality_min"]
+assert jprop.val_cardinality == (2, None)
+jprop.val_cardinality
+
+jprop = jdoc.sections["sec"].properties["prop"]
+assert jprop.val_cardinality == (1, 5)
+jprop.val_cardinality
+
+
+# Test saving to and loading from a YAML file
+yname = "/home/sommer/Chaos/tmp/odml/prop_cardinality.yaml"
+odml.save(doc, yname, "YAML")
+ydoc = odml.load(yname, "YAML")
+
+yprop = ydoc.sections["sec"].properties["prop_cardinality_empty"]
+assert yprop.val_cardinality is None
+yprop.val_cardinality
+
+yprop = ydoc.sections["sec"].properties["prop_cardinality_max"]
+assert yprop.val_cardinality == (None, 10)
+yprop.val_cardinality
+
+yprop = ydoc.sections["sec"].properties["prop_cardinality_min"]
+assert yprop.val_cardinality == (2, None)
+yprop.val_cardinality
+
+yprop = ydoc.sections["sec"].properties["prop"]
+assert yprop.val_cardinality == (1, 5)
+yprop.val_cardinality
