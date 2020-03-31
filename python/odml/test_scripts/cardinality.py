@@ -152,17 +152,3 @@ print(yprop.val_cardinality)
 yprop = ydoc.sections["sec"].properties["prop"]
 assert yprop.val_cardinality == (1, 5)
 print(yprop.val_cardinality)
-
-
-# -- Test cardinality validation
-import odml
-
-from odml.validation import Validation
-
-doc = odml.Document()
-sec = odml.Section(name="sec", type="sometype", parent=doc)
-prop = odml.Property(name="prop", parent=sec)
-
-
-valid = Validation(doc)
-print(valid.errors)
