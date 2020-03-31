@@ -7,22 +7,22 @@ sec = odml.Section(name="sec", type="sometype", parent=doc)
 # Test empty init
 prop_card_none = odml.Property(name="prop_cardinality_empty", parent=sec)
 assert prop_card_none.val_cardinality is None
-prop_card_none.val_cardinality
+print(prop_card_none.val_cardinality)
 
 # Test single int max init
 prop_card_max = odml.Property(name="prop_cardinality_max", val_cardinality=10, parent=sec)
 assert prop_card_max.val_cardinality == (None, 10)
-prop_card_max.val_cardinality
+print(prop_card_max.val_cardinality)
 
 # Test tuple init
 prop_card_min = odml.Property(name="prop_cardinality_min", val_cardinality=(2, None), parent=sec)
 assert prop_card_min.val_cardinality == (2, None)
-prop_card_min.val_cardinality
+print(prop_card_min.val_cardinality)
 
 # -- Test Property cardinality re-assignment
 prop = odml.Property(name="prop", val_cardinality=(None, 10), parent=sec)
 assert prop.val_cardinality == (None, 10)
-prop.val_cardinality
+print(prop.val_cardinality)
 
 # Test Property cardinality reset
 for non_val in [None, "", [], ()]:
@@ -96,19 +96,19 @@ odml.save(doc, xname)
 xdoc = odml.load(xname)
 xprop = xdoc.sections["sec"].properties["prop_cardinality_empty"]
 assert xprop.val_cardinality is None
-xprop.val_cardinality
+print(xprop.val_cardinality)
 
 xprop = xdoc.sections["sec"].properties["prop_cardinality_max"]
 assert xprop.val_cardinality == (None, 10)
-xprop.val_cardinality
+print(xprop.val_cardinality)
 
 xprop = xdoc.sections["sec"].properties["prop_cardinality_min"]
 assert xprop.val_cardinality == (2, None)
-xprop.val_cardinality
+print(xprop.val_cardinality)
 
 xprop = xdoc.sections["sec"].properties["prop"]
 assert xprop.val_cardinality == (1, 5)
-xprop.val_cardinality
+print(xprop.val_cardinality)
 
 # Test saving to and loading from a JSON file
 jname = "/home/sommer/Chaos/tmp/odml/prop_cardinality.json"
@@ -117,19 +117,19 @@ jdoc = odml.load(jname, "JSON")
 
 jprop = jdoc.sections["sec"].properties["prop_cardinality_empty"]
 assert jprop.val_cardinality is None
-jprop.val_cardinality
+print(jprop.val_cardinality)
 
 jprop = jdoc.sections["sec"].properties["prop_cardinality_max"]
 assert jprop.val_cardinality == (None, 10)
-jprop.val_cardinality
+print(jprop.val_cardinality)
 
 jprop = jdoc.sections["sec"].properties["prop_cardinality_min"]
 assert jprop.val_cardinality == (2, None)
-jprop.val_cardinality
+print(jprop.val_cardinality)
 
 jprop = jdoc.sections["sec"].properties["prop"]
 assert jprop.val_cardinality == (1, 5)
-jprop.val_cardinality
+print(jprop.val_cardinality)
 
 
 # Test saving to and loading from a YAML file
@@ -139,16 +139,30 @@ ydoc = odml.load(yname, "YAML")
 
 yprop = ydoc.sections["sec"].properties["prop_cardinality_empty"]
 assert yprop.val_cardinality is None
-yprop.val_cardinality
+print(yprop.val_cardinality)
 
 yprop = ydoc.sections["sec"].properties["prop_cardinality_max"]
 assert yprop.val_cardinality == (None, 10)
-yprop.val_cardinality
+print(yprop.val_cardinality)
 
 yprop = ydoc.sections["sec"].properties["prop_cardinality_min"]
 assert yprop.val_cardinality == (2, None)
-yprop.val_cardinality
+print(yprop.val_cardinality)
 
 yprop = ydoc.sections["sec"].properties["prop"]
 assert yprop.val_cardinality == (1, 5)
-yprop.val_cardinality
+print(yprop.val_cardinality)
+
+
+# -- Test cardinality validation
+import odml
+
+from odml.validation import Validation
+
+doc = odml.Document()
+sec = odml.Section(name="sec", type="sometype", parent=doc)
+prop = odml.Property(name="prop", parent=sec)
+
+
+valid = Validation(doc)
+print(valid.errors)
