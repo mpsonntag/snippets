@@ -173,3 +173,21 @@ prop_card_max = odml.Property(name="prop_card_max", values=[1, 2, 3],
 # Test no warning on valid init
 prop_card = odml.Property(name="prop_card", values=[1, 2],
                           val_cardinality=(1, 5), parent=sec)
+
+# -- Test cardinality validation warnings on cardinality updates
+# Test warning when setting minimally required values cardinality
+prop_card.val_cardinality = (3, None)
+# add assert minimum validation warning
+
+# Test warning when setting maximally required values cardinality
+prop_card.values = [1, 2, 3]
+prop_card.val_cardinality = 2
+# add assert maximum validation warning
+
+# Test no warning on valid cardinality
+prop_card.val_cardinality = (1, 10)
+# add assert validation empty
+
+# Test no warning when setting cardinality to None
+prop_card.val_cardinality = None
+# add assert validation empty
