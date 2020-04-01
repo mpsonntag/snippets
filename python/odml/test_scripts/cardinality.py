@@ -152,3 +152,24 @@ print(yprop.val_cardinality)
 yprop = ydoc.sections["sec"].properties["prop"]
 assert yprop.val_cardinality == (1, 5)
 print(yprop.val_cardinality)
+
+
+# -- Test assignment validation warnings
+import odml
+doc = odml.Document()
+sec = odml.Section(name="sec", type="sometype", parent=doc)
+
+# -- Test cardinality validation warnings on Property init
+# Test warning when setting invalid minimum
+prop_card_min = odml.Property(name="prop_card_min", values=[1],
+                              val_cardinality=(2, None), parent=sec)
+# add assert minimum validation warning
+
+# Test warning when setting invalid maximum
+prop_card_max = odml.Property(name="prop_card_max", values=[1, 2, 3],
+                              val_cardinality=2, parent=sec)
+# add assert maximum validation warning
+
+# Test no warning on valid init
+prop_card = odml.Property(name="prop_card", values=[1, 2],
+                          val_cardinality=(1, 5), parent=sec)
