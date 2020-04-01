@@ -31,8 +31,8 @@ prop = odml.Property(name="prop_invalid_max_val", values=test_val, val_cardinali
 valid = Validation(doc)
 print(valid.errors)
 
-test_msg = "Number of Property values does not satisfy value cardinality"
-test_msg += " (maximum %s values, %s found)" % (test_card, len(prop.values))
+test_msg_base = "Property values cardinality violated"
+test_msg = "%s (maximum %s values, %s found)" % (test_msg_base, test_card, len(prop.values))
 for err in valid.errors:
     if err.obj.id == prop.id:
         assert not err.is_error and err.msg == test_msg
@@ -45,8 +45,7 @@ prop = odml.Property(name="prop_invalid_min_val", values=test_val, val_cardinali
 valid = Validation(doc)
 print(valid.errors)
 
-test_msg = "Number of Property values does not satisfy value cardinality"
-test_msg += " (minimum %s values, %s found)" % (test_card[0], len(prop.values))
+test_msg = "%s (minimum %s values, %s found)" % (test_msg_base, test_card[0], len(prop.values))
 for err in valid.errors:
     if err.obj.id == prop.id:
         assert not err.is_error and err.msg == test_msg
