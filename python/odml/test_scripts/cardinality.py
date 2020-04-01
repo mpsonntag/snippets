@@ -155,7 +155,6 @@ print(yprop.val_cardinality)
 
 
 # -- Test assignment validation warnings
-import odml
 doc = odml.Document()
 sec = odml.Section(name="sec", type="sometype", parent=doc)
 
@@ -190,4 +189,23 @@ prop_card.val_cardinality = (1, 10)
 
 # Test no warning when setting cardinality to None
 prop_card.val_cardinality = None
+# add assert validation empty
+
+# -- Test cardinality validation warnings on values updates
+# Test warning when violating minimally required values cardinality
+prop_card.val_cardinality = (3, None)
+prop_card.values = [1, 2]
+# add assert minimum validation warning
+
+# Test warning when violating maximally required values cardinality
+prop_card.val_cardinality = (None, 2)
+prop_card.values = [1, 2, 3]
+# add assert maximum validation warning
+
+# Test no warning when setting correct number of values
+prop_card.values = [1, 2]
+# add assert validation empty
+
+# Test no warning when setting values to None
+prop_card.values = None
 # add assert validation empty
