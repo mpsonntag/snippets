@@ -155,19 +155,49 @@ print(yprop.val_cardinality)
 
 
 # -- Test assignment validation warnings
+import sys
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+import odml
+
+# Redirect stdout to test messages
+capture = StringIO()
+sys.stdout = capture
+
+
+def _get_captured_output(buff):
+    out = [txt.strip() for txt in buff.getvalue().split('\n') if txt]
+    capture.seek(0)
+    capture.truncate()
+
+    return out
+
+
 doc = odml.Document()
-sec = odml.Section(name="sec", type="sometype", parent=doc)
+sec = odml.Section(name="sec", type="type", parent=doc)
 
 # -- Test cardinality validation warnings on Property init
 # Test warning when setting invalid minimum
 prop_card_min = odml.Property(name="prop_card_min", values=[1],
                               val_cardinality=(2, None), parent=sec)
 # add assert minimum validation warning
+out_a = _get_captured_output(capture)
 
 # Test warning when setting invalid maximum
 prop_card_max = odml.Property(name="prop_card_max", values=[1, 2, 3],
                               val_cardinality=2, parent=sec)
 # add assert maximum validation warning
+out_b = _get_captured_output(capture)
+
+# Reset stdout
+sys.stdout = sys.__stdout__
+
+print(out_a)
+print(out_b)
+
 
 # Test no warning on valid init
 prop_card = odml.Property(name="prop_card", values=[1, 2],
