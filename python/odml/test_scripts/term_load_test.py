@@ -7,6 +7,10 @@ import tempfile
 
 from glob import glob
 
+try:
+    from urllib.request import pathname2url
+except ImportError:
+    from urllib import pathname2url
 
 from odml import save, Document, Section
 from odml import terminology
@@ -66,8 +70,33 @@ def refresh_odml_terminology():
     refresh_terminology(terminology.REPOSITORY)
 
 
+def refresh_local_terminology():
+    tmp_dir = tempfile.mkdtemp("_odml")
+    print("Using temp directory '%s'" % tmp_dir)
+    tmp_name = os.path.basename(tmp_dir)
+
+    main_name = "%s_main.xml" % tmp_name
+    main_file = os.path.join(tmp_dir, main_name)
+    main_url = "file://%s" % pathname2url(main_file)
+
+    include_name = "%s_include.xml" % tmp_name
+    include_file = os.path.join(tmp_dir, include_name)
+    include_url = "file://%s" % pathname2url(include_file)
+
+    include_doc = Document()
+    _ = Section(name="include_sec", type="test", parent=include_doc)
+    save(include_doc, include_file)
+
+    main_doc = Document()
+    _ = Section(name="main_sec", type="test", include=include_url, parent=main_doc)
+    save(main_doc, main_file)
+
+    file_filter = "*%s*" % tmp_name
+    refresh_terminology(main_url, file_filter)
+
+
 def main():
-    refresh_odml_terminology()
+    refresh_local_terminology()
 
 
 if __name__ == "__main__":
