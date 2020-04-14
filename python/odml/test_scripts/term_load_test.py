@@ -5,23 +5,30 @@ Script testing odml cache refresh
 import os
 import tempfile
 
+from glob import glob
+
+
+from odml import save, Document, Section
 from odml import terminology
 
 
-CACHE_DIR = os.path.join(tempfile.gettempdir(), "odml.cache")
-
-
-def current_cache_files_map():
+def current_cache_files_map(file_filter="*"):
     """
     Returns a dict mapping the basefilenames of cached odml files
     to their md5 hash and mtime.
 
+    :param file_filter: a valid glob to search for files in the odml cache directory.
+                        The cache directory is provided and must not be part of the glob.
+                        Default value is '*'.
+
     :return: dict of the format {filename: [md5_hash, mtime]}
     """
+    cache_dir = os.path.join(tempfile.gettempdir(), "odml.cache", file_filter)
+
     curr_map = {}
-    for fnm in os.listdir(CACHE_DIR):
+    for fnm in glob(cache_dir):
         spn = fnm.split('.')
-        fn_mtime = os.path.getmtime(os.path.join(CACHE_DIR, fnm))
+        fn_mtime = os.path.getmtime(os.path.join(cache_dir, fnm))
         curr_map[spn[1]] = [spn[0], fn_mtime]
 
     return curr_map
