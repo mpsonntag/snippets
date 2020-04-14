@@ -27,13 +27,13 @@ def cache_files_map(file_filter="*"):
 
     :return: dict of the format {filename: [md5_hash, mtime]}
     """
-    cache_dir = os.path.join(tempfile.gettempdir(), "odml.cache", file_filter)
+    temp_file_glob = os.path.join(tempfile.gettempdir(), "odml.cache", file_filter)
 
     curr_map = {}
-    for fnm in glob(cache_dir):
-        spn = fnm.split('.')
-        fn_mtime = os.path.getmtime(os.path.join(cache_dir, fnm))
-        curr_map[spn[1]] = [spn[0], fn_mtime]
+    for file_path in glob(temp_file_glob):
+        split_name = os.path.basename(file_path).split('.')
+        file_mtime = os.path.getmtime(file_path)
+        curr_map[split_name[1]] = [split_name[0], file_mtime]
 
     return curr_map
 
