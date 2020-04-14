@@ -34,15 +34,15 @@ def current_cache_files_map(file_filter="*"):
     return curr_map
 
 
-def main():
-    terminology.load(terminology.REPOSITORY)
+def refresh_terminology(refresh_url, file_filter="*"):
+    terminology.load(refresh_url)
 
     # Fetch current cache content
-    orig_map = current_cache_files_map()
+    orig_map = current_cache_files_map(file_filter)
 
     # Test cache content does not change
-    terminology.load(terminology.REPOSITORY)
-    load_map = current_cache_files_map()
+    terminology.load(refresh_url)
+    load_map = current_cache_files_map(file_filter)
 
     assert len(orig_map) == len(load_map)
     for curr_file in orig_map:
@@ -51,8 +51,8 @@ def main():
 
     # Test refresh loads same cached files but changes them.
     # Different mtimes and id strings are sufficient.
-    terminology.refresh(terminology.REPOSITORY)
-    refresh_map = current_cache_files_map()
+    terminology.refresh(refresh_url)
+    refresh_map = current_cache_files_map(file_filter)
     assert len(orig_map) == len(refresh_map)
     for curr_file in orig_map:
         assert curr_file in refresh_map
@@ -60,6 +60,14 @@ def main():
         assert orig_map[curr_file][0] == refresh_map[curr_file][0]
         # Check different mtime
         assert orig_map[curr_file][1] < refresh_map[curr_file][1]
+
+
+def refresh_odml_terminology():
+    refresh_terminology(terminology.REPOSITORY)
+
+
+def main():
+    refresh_odml_terminology()
 
 
 if __name__ == "__main__":
