@@ -16,7 +16,7 @@ from odml import save, Document, Section
 from odml import terminology
 
 
-def current_cache_files_map(file_filter="*"):
+def cache_files_map(file_filter="*"):
     """
     Returns a dict mapping the basefilenames of cached odml files
     to their md5 hash and mtime.
@@ -42,11 +42,11 @@ def refresh_terminology(refresh_url, file_filter="*"):
     terminology.load(refresh_url)
 
     # Fetch current cache content
-    orig_map = current_cache_files_map(file_filter)
+    orig_map = cache_files_map(file_filter)
 
     # Test cache content does not change
     terminology.load(refresh_url)
-    load_map = current_cache_files_map(file_filter)
+    load_map = cache_files_map(file_filter)
 
     assert len(orig_map) == len(load_map)
     for curr_file in orig_map:
@@ -56,7 +56,7 @@ def refresh_terminology(refresh_url, file_filter="*"):
     # Test refresh loads same cached files but changes them.
     # Different mtimes and id strings are sufficient.
     terminology.refresh(refresh_url)
-    refresh_map = current_cache_files_map(file_filter)
+    refresh_map = cache_files_map(file_filter)
     assert len(orig_map) == len(refresh_map)
     for curr_file in orig_map:
         assert curr_file in refresh_map
