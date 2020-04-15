@@ -1,5 +1,5 @@
 """
-odml entity cardinality tests.
+odml object cardinality tests.
 """
 
 
@@ -19,9 +19,9 @@ def prop_card_save_load():
     sec_full_card = (1, 5)
 
     _ = odml.Section(name=sec_empty, type="test", parent=doc)
-    _ = odml.Section(name=sec_max, prop_cardinality=sec_max_card, type = "test", parent = doc)
-    _ = odml.Section(name=sec_min, prop_cardinality=sec_min_card, type = "test", parent = doc)
-    _ = odml.Section(name=sec_full, prop_cardinality=sec_full_card, type = "test", parent = doc)
+    _ = odml.Section(name=sec_max, prop_cardinality=sec_max_card, type="test", parent=doc)
+    _ = odml.Section(name=sec_min, prop_cardinality=sec_min_card, type="test", parent=doc)
+    _ = odml.Section(name=sec_full, prop_cardinality=sec_full_card, type="test", parent=doc)
 
     sec = odml.Section(name="sec", type="sometype", parent=doc)
     prop_empty = "prop_cardinality_empty"
@@ -33,9 +33,9 @@ def prop_card_save_load():
     prop_full_card = (1, 5)
 
     _ = odml.Property(name=prop_empty, parent=sec)
-    _ = odml.Property(name=prop_max, val_cardinality=prop_max_card, parent = sec)
-    _ = odml.Property(name=prop_min, val_cardinality=prop_min_card, parent = sec)
-    _ = odml.Property(name=prop_full, val_cardinality=prop_full_card, parent = sec)
+    _ = odml.Property(name=prop_max, val_cardinality=prop_max_card, parent=sec)
+    _ = odml.Property(name=prop_min, val_cardinality=prop_min_card, parent=sec)
+    _ = odml.Property(name=prop_full, val_cardinality=prop_full_card, parent=sec)
 
     odml.save(doc, fname, "YAML")
     _ = odml.load(fname, "YAML")
@@ -163,7 +163,8 @@ def val_card_tests():
     print(prop_card_max.val_cardinality)
 
     # Test tuple init
-    prop_card_min = odml.Property(name="prop_cardinality_min", val_cardinality=(2, None), parent=sec)
+    prop_card_min = odml.Property(name="prop_cardinality_min",
+                                  val_cardinality=(2, None), parent=sec)
     assert prop_card_min.val_cardinality == (2, None)
     print(prop_card_min.val_cardinality)
 
