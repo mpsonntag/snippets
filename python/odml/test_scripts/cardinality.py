@@ -3,12 +3,25 @@ odml entity cardinality tests.
 """
 
 
+def prop_card_tests():
+    import odml
+
+    # section property cardinality tests
+    doc = odml.Document()
+
+    # -- Test set cardinality on Section init
+    # Test empty init
+    sec_prop_card_none = odml.Section(name="prop_cardinality_empty", type="test", parent=doc)
+    assert sec_prop_card_none.prop_cardinality is None
+    print(sec_prop_card_none.prop_cardinality)
+
+
 def val_card_tests():
     import odml
 
     # property value cardinality tests
     doc = odml.Document()
-    sec = odml.Section(name="sec", type="sometype", parent=doc)
+    sec = odml.Section(name="sec", type="test", parent=doc)
 
     # -- Test set cardinality on Property init
     # Test empty init
@@ -99,7 +112,7 @@ def test_save_load(doc):
     import odml
 
     doc = odml.Document()
-    sec = odml.Section(name="sec", type="sometype", parent=doc)
+    sec = odml.Section(name="sec", type="test", parent=doc)
     _ = odml.Property(name="prop_cardinality_empty", parent=sec)
     _ = odml.Property(name="prop_cardinality_max", val_cardinality=10, parent=sec)
     _ = odml.Property(name="prop_cardinality_min", val_cardinality=(2, None), parent=sec)
