@@ -4,6 +4,10 @@ odml entity cardinality tests.
 
 
 def prop_card_tests():
+    """
+    This functions tests the basic assignment rules for odml Section property cardinality
+    but does not test the actual cardinality validation itself.
+    """
     import odml
 
     # section property cardinality tests
@@ -14,6 +18,92 @@ def prop_card_tests():
     sec_prop_card_none = odml.Section(name="prop_cardinality_empty", type="test", parent=doc)
     assert sec_prop_card_none.prop_cardinality is None
     print(sec_prop_card_none.prop_cardinality)
+
+    # Test single int max init
+    sec_card_max = odml.Section(name="prop_cardinality_max", prop_cardinality=10, parent=doc)
+    assert sec_card_max.prop_cardinality == (None, 10)
+    print(sec_card_max.prop_cardinality)
+
+    # Test tuple init
+    sec_card_min = odml.Section(name="prop_cardinality_min", prop_cardinality=(2, None), parent=doc)
+    assert sec_card_min.prop_cardinality == (2, None)
+    print(sec_card_min.prop_cardinality)
+
+    # -- Test Property cardinality re-assignment
+    sec = odml.Section(name="prop_cardinality", prop_cardinality=(None, 10), parent=doc)
+    assert sec.prop_cardinality == (None, 10)
+    print(sec.prop_cardinality)
+
+    # Test Property cardinality re-set
+    for non_val in [None, "", [], (), {}]:
+        sec.prop_cardinality = non_val
+        assert sec.prop_cardinality is None
+        print("Curr val '%s: %s'" % (non_val, sec.prop_cardinality))
+        sec.prop_cardinality = 1
+
+    # Test Property cardinality single int max assignment
+    sec.prop_cardinality = 10
+    assert sec.prop_cardinality == (None, 10)
+    print(sec.prop_cardinality)
+
+    # Test Property cardinality tuple max assignment
+    sec.prop_cardinality = (None, 5)
+    assert sec.prop_cardinality == (None, 5)
+    print(sec.prop_cardinality)
+
+    # Test Property cardinality tuple min assignment
+    sec.prop_cardinality = (5, None)
+    assert sec.prop_cardinality == (5, None)
+    print(sec.prop_cardinality)
+
+    # Test Property cardinality min/max assignment
+    sec.prop_cardinality = (1, 5)
+    assert sec.prop_cardinality == (1, 5)
+    print(sec.prop_cardinality)
+
+    # -- Test Property cardinality assignment failures
+    msg = ""
+    try:
+        sec.prop_cardinality = "a"
+    except ValueError:
+        msg = "String assignment failure"
+    assert msg == "String assignment failure"
+
+    try:
+        sec.prop_cardinality = -1
+    except ValueError:
+        msg = "Negative integer assignment failure"
+    assert msg == "Negative integer assignment failure"
+
+    try:
+        sec.prop_cardinality = (1, "b")
+    except ValueError:
+        msg = "Invalid tuple content assignment failure"
+    assert msg == "Invalid tuple content assignment failure"
+
+    try:
+        sec.prop_cardinality = (1, 2, 3)
+    except ValueError:
+        msg = "Invalid tuple type assignment failure"
+    assert msg == "Invalid tuple type assignment failure"
+
+    try:
+        sec.prop_cardinality = (-1, 1)
+    except ValueError:
+        msg = "Invalid tuple min integer assignment failure"
+    assert msg == "Invalid tuple min integer assignment failure"
+
+    try:
+        sec.prop_cardinality = (1, -5)
+    except ValueError:
+        msg = "Invalid tuple max integer assignment failure"
+    assert msg == "Invalid tuple max integer assignment failure"
+
+    try:
+        sec.prop_cardinality = (5, 1)
+    except ValueError:
+        msg = "Invalid tuple integer order assignment failure"
+    assert msg == "Invalid tuple integer order assignment failure"
 
 
 def val_card_tests():
