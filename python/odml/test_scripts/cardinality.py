@@ -3,6 +3,44 @@ odml entity cardinality tests.
 """
 
 
+def prop_card_save_load():
+    import odml
+
+    fname = '/home/sommer/Chaos/tmp/odml/test.xml'
+
+    doc = odml.Document()
+
+    sec_empty = "cardinality_empty"
+    sec_max = "cardinality_max"
+    sec_max_card = (None, 10)
+    sec_min = "cardinality_min"
+    sec_min_card = (2, None)
+    sec_full = "cardinality_full"
+    sec_full_card = (1, 5)
+
+    _ = odml.Section(name=sec_empty, type="test", parent=doc)
+    _ = odml.Section(name=sec_max, prop_cardinality=sec_max_card, type = "test", parent = doc)
+    _ = odml.Section(name=sec_min, prop_cardinality=sec_min_card, type = "test", parent = doc)
+    _ = odml.Section(name=sec_full, prop_cardinality=sec_full_card, type = "test", parent = doc)
+
+    sec = odml.Section(name="sec", type="sometype", parent=doc)
+    prop_empty = "prop_cardinality_empty"
+    prop_max = "prop_cardinality_max"
+    prop_max_card = (None, 10)
+    prop_min = "prop_cardinality_min"
+    prop_min_card = (2, None)
+    prop_full = "prop_full"
+    prop_full_card = (1, 5)
+
+    _ = odml.Property(name=prop_empty, parent=sec)
+    _ = odml.Property(name=prop_max, val_cardinality=prop_max_card, parent = sec)
+    _ = odml.Property(name=prop_min, val_cardinality=prop_min_card, parent = sec)
+    _ = odml.Property(name=prop_full, val_cardinality=prop_full_card, parent = sec)
+
+    odml.save(doc, fname, "YAML")
+    _ = odml.load(fname, "YAML")
+
+
 def prop_card_tests():
     """
     This functions tests the basic assignment rules for odml Section property cardinality
