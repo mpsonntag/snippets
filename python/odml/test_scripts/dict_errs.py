@@ -4,7 +4,7 @@ import tempfile
 import odml
 
 
-def set_up_content():
+def fill_up_drive():
     temp_dir = tempfile.gettempdir()
     tmp_dir_path = os.path.join(temp_dir, "odml_test")
     if not os.path.exists(tmp_dir_path):
@@ -40,5 +40,22 @@ def set_up_content():
 
 def tidy_up(file_path):
     temp_dir_path = os.path.dirname(file_path)
+    print("Removing file '%s'" % file_path)
     os.remove(file_path)
+    print("Removing temporary directory '%s'" % temp_dir_path)
     os.rmdir(temp_dir_path)
+
+
+cleanup_dir = True
+f_path = fill_up_drive()
+
+try:
+    l_doc = odml.load(f_path, "YAML")
+except Exception as exc:
+    if cleanup_dir:
+        tidy_up(f_path)
+
+    raise exc
+
+if cleanup_dir:
+    tidy_up(f_path)
