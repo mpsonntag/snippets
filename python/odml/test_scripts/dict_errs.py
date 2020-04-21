@@ -4,12 +4,9 @@ import tempfile
 import odml
 
 
-TEMP_DIR_NAME = "odml_test"
-
-
 def set_up_content():
     temp_dir = tempfile.gettempdir()
-    tmp_dir_path = os.path.join(temp_dir, TEMP_DIR_NAME)
+    tmp_dir_path = os.path.join(temp_dir, "odml_test")
     if not os.path.exists(tmp_dir_path):
         os.mkdir(tmp_dir_path)
 
@@ -39,3 +36,9 @@ def set_up_content():
         dump_file.write(content)
 
     return file_path
+
+
+def tidy_up(file_path):
+    temp_dir_path = os.path.dirname(file_path)
+    os.remove(file_path)
+    os.rmdir(temp_dir_path)
