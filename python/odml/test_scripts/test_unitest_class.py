@@ -13,3 +13,7 @@ class TestUnitTestClass(unittest.TestCase):
 
     def test_some_method(self):
         print("test some method")
+
+
+if __name__ == "__main__":
+    unittest.main()
