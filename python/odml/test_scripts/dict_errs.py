@@ -27,11 +27,8 @@ def tidy_up(file_path):
     os.rmdir(temp_dir_path)
 
 
-cleanup_dir = True
-
-# invalid yaml odml file content
-invalid_attribute_content = """
-Document:
+def get_invalid_attribute_content():
+    return """Document:
   id: 82408bdb-1d9d-4fa9-b4dd-ad78831c797c
   invalid_doc_attr: i_do_not_exist_on_doc_level
   sections:
@@ -48,7 +45,10 @@ Document:
 odml-version: '1.1'
 """
 
-content="""
+
+cleanup_dir = False
+
+content = """
 Document:
   id: cb64006a-1440-442a-9b53-edfa66f97191
   sections:
@@ -68,7 +68,7 @@ Document:
 odml-version: '1.1'
 """
 
-f_path = fill_up_drive(content)
+f_path = fill_up_drive(get_invalid_attribute_content())
 
 try:
     l_doc = odml.load(f_path, "YAML")
