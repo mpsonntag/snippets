@@ -1,6 +1,8 @@
 """
 Script file to test minor scriptlets
 """
+import sys
+
 
 import odml
 
@@ -15,3 +17,10 @@ def filter_func():
 
     val = odml.validation.Validation(prop)
     _ = [curr for curr in val.errors if prop.id == curr.obj.id]
+
+
+def inspect_own_name():
+    """
+    Print the funcs own name.
+    """
+    print(sys._getframe().f_code.co_name)
