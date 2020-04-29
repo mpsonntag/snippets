@@ -28,10 +28,10 @@ val = odml.validation.Validation(doc)
 errors = list()
 warnings = list()
 reduce = set()
+sec_count = 0
+prop_count = 0
 obj_valid_map = {}
 valid_obj_map = {}
-secs = list()
-props = list()
 
 for i in val.errors:
     vid = i.validation_id
@@ -40,6 +40,10 @@ for i in val.errors:
     else:
         warnings.append(i)
 
+    if i.obj not in reduce and 'section' in str(i.obj).lower():
+        sec_count += 1
+    elif i.obj not in reduce and 'property' in str(i.obj).lower():
+        prop_count += 1
     reduce.add(i.obj)
 
     if i.obj in obj_valid_map:
@@ -50,3 +54,9 @@ for i in val.errors:
         valid_obj_map[vid].append(i.obj)
     else:
         valid_obj_map[vid] = [i.obj]
+
+msg = "Validation found %s errors and %s warnings" % (len(errors), len(warnings))
+msg += " in %s Sections and %s Properties." % (sec_count, prop_count)
+msg += "\nRun 'odml.Validation' for details and to resolve the issues."
+
+print(msg)
