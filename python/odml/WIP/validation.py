@@ -18,10 +18,12 @@ curr = sec
 
 def print_val(rank, curr):
     disp = ""
+    # Document has no name attribute and should not print id or name info
     if hasattr(curr, "name"):
-        disp = "[id=%s]" % curr.id
+        disp = "[%s]" % curr.id
         if curr.name and curr.name != curr.id:
-            disp = "[name=%s]" % curr.name
+            disp = "[%s]" % curr.name
 
-    obj_fmt = str(curr).split()[0].split("[")[0]
+    # Cleanup the odml object print strings
+    obj_fmt = str(curr).split()[0].split("[")[0].split(":")[0]
     print("Validation%s: %s%s '%s'" % (rank.capitalize(), obj_fmt, disp, "some err message"))
