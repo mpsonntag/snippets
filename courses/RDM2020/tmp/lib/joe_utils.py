@@ -2,12 +2,12 @@
 #  -*- coding: utf-8 -*-
 from __future__ import print_function, division
 
-import numpy as np
-import scipy.signal as sp
 import random
 
-import nixio
 import matplotlib.pyplot as plt
+import nixio
+import numpy as np
+import scipy.signal as sp
 
 COLORS_BLUE_AND_RED = (
     'dodgerblue', 'red'
@@ -69,7 +69,8 @@ class Plotter(object):
 
     @property
     def last_figure(self):
-        assert self.__last_figure is not None, "No figure available (method plot has to be called at least once)"
+        msg = "No figure available (method plot has to be called at least once)"
+        assert self.__last_figure is not None, msg
         return self.__last_figure
 
     # methods
@@ -87,11 +88,14 @@ class Plotter(object):
         Add a new data array to the plot
 
         :param array:       The data array to plot
-        :param subplot:     The index of the subplot where the array should be added (starting with 0)
-        :param color:       The color of the array to plot (if None the next default colors will be assigned)
+        :param subplot:     The index of the subplot where the array should be added
+                            (starting with 0)
+        :param color:       The color of the array to plot
+                            (if None the next default colors will be assigned)
         :param xlim:        Start and end of the x-axis limits.
         :param downsample:  True if the array should be sampled down
-        :param labels:      Data array with labels that should be added to each data point of the array to plot
+        :param labels:      Data array with labels that should be added to each data point
+                            of the array to plot
         """
         color = self.__mk_color(color, subplot)
         pdata = PlottingData(array, color, subplot, xlim, downsample, labels)
@@ -167,8 +171,9 @@ class Plotter(object):
             color = self.defaultcolors[count if count < color_count else color_count - 1]
 
         if color == "random":
-            color = "#%02x%02x%02x" % (
-            random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
+            color = "#%02x%02x%02x" % (random.randint(50, 255),
+                                       random.randint(50, 255),
+                                       random.randint(50, 255))
 
         return color
 
@@ -183,8 +188,8 @@ class Plotter(object):
 
             if nd == 1 and dims[0].dimension_type in sig_types:
                 count += 1
-            elif nd == 2 and dims[0].dimension_type == nixio.DimensionType.Set and dims[
-                1].dimension_type in sig_types:
+            elif nd == 2 and dims[0].dimension_type == nixio.DimensionType.Set and \
+                    dims[1].dimension_type in sig_types:
                 count += 1
 
         return count
@@ -198,8 +203,8 @@ class Plotter(object):
             dims = pdata.array.dimensions
             nd = len(dims)
 
-            if nd == 2 and dims[0].dimension_type in sig_types and dims[
-                1].dimension_type in sig_types:
+            if nd == 2 and dims[0].dimension_type in sig_types and \
+                    dims[1].dimension_type in sig_types:
                 count += 1
 
         return count
@@ -210,7 +215,7 @@ class Plotter(object):
 
         for pdata in pdata_list:
             dims = pdata.array.dimensions
-            nd = len(dims)
+            # nd = len(dims)
 
             if dims[0].dimension_type == nixio.DimensionType.Set:
                 count += 1
@@ -218,7 +223,7 @@ class Plotter(object):
         return count
 
 
-class PlottingData(object):
+class PlottingData:
 
     def __init__(self, array, color, subplot=0, xlim=None, downsample=False, labels=None):
         self.array = array
@@ -232,8 +237,8 @@ class PlottingData(object):
         self.labels = labels
 
     def __cmp__(self, other):
-        weights = lambda dims: [(1 if d.dimension_type == nixio.DimensionType.Sample else 0) for d in
-                                dims]
+        weights = lambda dims: [(1 if d.dimension_type == nixio.DimensionType.Sample else 0)
+                                for d in dims]
         return weights(self.array.dimensions) == weights(other.array.dimensions)
 
     def __lt__(self, other):
@@ -261,8 +266,8 @@ def plot_make_figure(width, height, dpi, cols, lines, facecolor):
 def plot_array_1d(array, axis, color=None, xlim=None, downsample=None, hint=None, labels=None):
     dim = array.dimensions[0]
 
-    assert dim.dimension_type in (
-    nixio.DimensionType.Sample, nixio.DimensionType.Range), "Unsupported data"
+    assert dim.dimension_type in (nixio.DimensionType.Sample, nixio.DimensionType.Range), \
+        "Unsupported data"
 
     y = array[:]
     if dim.dimension_type == nixio.DimensionType.Sample:
