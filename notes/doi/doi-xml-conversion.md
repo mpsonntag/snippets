@@ -1,7 +1,7 @@
 # Potential changes notes for current files
 
 - g-node.1e7756.xml
-  - not-usefull funding reference (empty DFG award number after full DFG entry)
+  - strange funding reference (empty DFG award number after full DFG entry)
 
         <fundingReference>
           <funderName>DFG</funderName>
@@ -13,26 +13,17 @@
         </fundingReference>
 
 - g-node.5a4628
-  - probably not our fault, there seems to be a typo (`Helth`):
-
-        <fundingReference>
-          <funderName>Kids Brain Helth Network</funderName>
-          <awardNumber></awardNumber>
-        </fundingReference>
+  - typo in fundingReference (`Helth`): `<funderName>Kids Brain Helth Network</funderName>`
 
 - g-node.5b08du
   - empty language tag
   - empty version tag
 
 - g-node.6a0d94
-  - Typo in a title (`fied`)
-
-        <titles>
-          <title>Local fied potential dataset: fronto-striatal oscillations predict vocal output in bats  </title>
-        </titles>
+  - typo in title (`fied`): `<title>Local fied potential dataset:...`
 
 - g-node.7a5020
-- repeating subjects
+  - repeating subjects
 
         <subjects>
           <subject>delay discounting, win-stay, lose-switch, perseveration, reversal learning, perceptual uncertainty</subject>
@@ -43,37 +34,15 @@
         </subjects>
 
 - g-node.9c0912
- - again as in the related doi above, there seems to be a typo (`Helth`):
-
-        <fundingReference>
-          <funderName>Kids Brain Helth Network</funderName>
-          <awardNumber></awardNumber>
-        </fundingReference>
+  - again as in the related DOI g-node.5a4628 above, typo in fundingReference (`Helth`): `<funderName>Kids Brain Helth Network</funderName>`
 
 - g-node.57a01e
-  - author affiliations contain not escaped ampersand for multiple authors:
-
-          <creatorName>Sehara, Keisuke</creatorName>
-          <creatorName>Nashaat,  Mostafa A.</creatorName>
-          <creatorName>Oraby, Hatem</creatorName>
-          <creatorName>Larkum, Matthew E.</creatorName>
-          <creatorName>Sachdev, Robert N.S.</creatorName>
-          <affiliation>Institut für Biologie, Neurocure Center for Excellence, Chariteplatz 1 / Virchowweg 6, Charité Universitätsmedizin Berlin &amp; Humboldt Universität, Berlin, 10117 Germany.</affiliation>
-
-  - author contains an empty ORCID entry
-
-        <creator>
-          <creatorName>Dominiak, Sina E.</creatorName>
-          <nameIdentifier schemeURI="https://orcid.org/" nameIdentifierScheme="ORCID"></nameIdentifier>
-          <affiliation>Institut für Biologie, Neurocure Center for Excellence, Chariteplatz 1 / Virchowweg 6, Charité Universitätsmedizin Berlin &amp; Humboldt Universität, Berlin, 10117 Germany.</affiliation>
-        </creator>
+  - author affiliations contain not escaped ampersand for multiple authors: `...Universitätsmedizin Berlin & Humboldt Universität...`
+  - author contains an empty ORCID entry for creator `Dominiak, Sina E.`
 
 - g-node.80dd9a
-
   - unescaped ampersand in description `...P Barsi & LR Kozák</description>`
-  - typo in subject:
-
-        <subject>Neurorimaging</subject>
+  - typo in subject: `<subject>Neurorimaging</subject>`
 
 - g-node.97bc14
   - unescaped 'lesser than' in abstract description `...luminance < 0.01 cd/m2...`
@@ -85,16 +54,10 @@
   - unescaped ampersand in author affiliation: `Histology & Research Laboratory`
 
 - g-node.6269c2
-  - unescaped ampersand in author affiliation:
-
-          <creatorName>Soltanian-Zadeh, Hamid</creatorName>
-          <affiliation>University of Tehran &amp; Henry Ford Health System</affiliation>
+  - unescaped ampersand in author affiliation: `<affiliation>University of Tehran & Henry Ford...`
 
 - g-node.52349d
-  - unescaped ampersand in fundingReference
-
-        <fundingReference>
-            <funderName>National Key R&amp;D Program of China.2017YFC0840100 and 2017YFC0840106</funderName>
+  - unescaped ampersand in fundingReference: `<funderName>National Key R&D Program of China...`
 
 - g-node.b56be0
   - unescaped ampersand in both descriptions: `...Soyman & Vicario...`, `...Soyman, E. & Vicario...`
@@ -103,7 +66,7 @@
   - size is `0 B`
 
 - g-node.d315b3
-  - unescaped ampersand in description `...Abraham Betancourt &amp; Hugo Merchant...`
+  - unescaped ampersand in description `...Abraham Betancourt & Hugo Merchant...`
 
 - g-node.e520bb
   - lower case authors name: `<creatorName>chen, xi</creatorName>`
