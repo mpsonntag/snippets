@@ -37,36 +37,10 @@
   - again as in the related DOI g-node.5a4628 above, typo in fundingReference (`Helth`): `<funderName>Kids Brain Helth Network</funderName>`
 
 - g-node.57a01e
-  - author affiliations contain not escaped ampersand for multiple authors: `...Universitätsmedizin Berlin & Humboldt Universität...`
   - author contains an empty ORCID entry for creator `Dominiak, Sina E.`
-
-- g-node.80dd9a
-  - unescaped ampersand in description `...P Barsi & LR Kozák</description>`
-  - typo in subject: `<subject>Neurorimaging</subject>`
-
-- g-node.97bc14
-  - unescaped 'lesser than' in abstract description `...luminance < 0.01 cd/m2...`
-
-- g-node.134e2c
-  - unescaped ampersand in title `Data for Gill & Chiel 2020:`
-
-- g-node.3730d0
-  - unescaped ampersand in author affiliation: `Histology & Research Laboratory`
-
-- g-node.6269c2
-  - unescaped ampersand in author affiliation: `<affiliation>University of Tehran & Henry Ford...`
-
-- g-node.52349d
-  - unescaped ampersand in fundingReference: `<funderName>National Key R&D Program of China...`
-
-- g-node.b56be0
-  - unescaped ampersand in both descriptions: `...Soyman & Vicario...`, `...Soyman, E. & Vicario...`
 
 - g-node.d9dd71
   - size is `0 B`
-
-- g-node.d315b3
-  - unescaped ampersand in description `...Abraham Betancourt & Hugo Merchant...`
 
 - g-node.e520bb
   - lower case authors name: `<creatorName>chen, xi</creatorName>`
