@@ -68,3 +68,13 @@
 - g-node.vd9c21
   - empty language tag
   - empty version tag
+
+## ROR additions
+
+ROR Questions:
+- g-node.5a4628
+  - current funderName: `Kids Brain Health Network` without awardNumber or funderIdentifier. No ROR id exists for this foundation; googling reveals, that the foundation it was formerly known as `NeuroDevNet` which has the ROR ID `https://ror.org/04r0s0t24`. Should I leave this one as is or add the `NeuroDevNet` ROR ID as ROR funderIdentifier? The external page link on ROR for NeuroDevNet is dead btw.
+
+- g-node.aa605a: contains a Crossref Funder ID (Seventh Framework Programme) that has no ROR, so I left it as is.
+
+- g-node.f83565: contains a Crossref Funder ID (10.13039/100010664) that has no ROR, so I left it as is.
