@@ -112,3 +112,52 @@ https://ror.org/0210rze73   Stavros Niarchos Foundation
 DOI link
     <relatedIdentifier relatedIdentifierType="DOI" relationType="IsSupplementTo"></relatedIdentifier>
 
+
+## Update DOI links
+
+Generally I added DOIs of full publications as relatedIdentifier DOI relationType="IsSupplementTo" if our DOI dataset was linked in the paper as "supplement" or data "availability". If our DOI dataset was not linked in the paper I chose relatedIdentifier DOI relationType="IsDescribedBy".
+
+- g-node.6d38c0
+  This seems to be data for the following paper: https://doi.org/10.1371/journal.pone.0223702
+  It is not mentioned in the description though, one author on the paper is different, the paper title has changed as well and the gin doi is not in the paper.
+
+- g-node.3730d0
+  This seems to be data for the following paper: https://doi.org/10.1038/s41467-019-10428-1
+  The gin doi is not mentioned anywhere.
+
+- g-node.af468c: https://onlinelibrary.wiley.com/doi/full/10.1002/brb3.1155
+  authors of the dataset and the paper are identical, the titel varies slightly and the gin doi is not mentioned in the paper.
+
+- g-node.hnj28q: https://doi.org/10.1177/2041669517701458
+  old dataset, does not mention g-node as hosting institution in the paper 
+
+    - ~~g-node.2e31e3~~
+    - ~~g-node.4bdb22~~
+    - ~~g-node.5a4628~~
+    - ~~g-node.7a5020~~
+    - ~~g-node.8d6e59~~
+    - ~~g-node.9c0912~~
+    - ~~g-node.50baa6~~
+    - ~~g-node.80dd9a~~
+    - ~~g-node.85d46c~~
+    - ~~g-node.91a992~~
+    - ~~g-node.230a07~~
+    - ~~g-node.298ce0~~
+    - ~~g-node.0300fd~~
+    - ~~g-node.3730d0~~
+    - ~~g-node.4160bc~~
+    - ~~g-node.6521de~~
+    - ~~g-node.08853e~~
+    - ~~g-node.10246f~~
+    - ~~g-node.52349d~~
+    - ~~g-node.92538d~~
+    - ~~g-node.af468c~~
+    - ~~g-node.b6d000~~
+    - ~~g-node.b56be0~~
+    - ~~g-node.b64563~~
+    - ~~g-node.ec6518~~
+    - ~~g-node.f13e77~~
+    - ~~g-node.f93a29~~
+    - ~~g-node.fb5bd5~~
+    - ~~g-node.hnj28q~~
+    - ~~g-node.o1g64d~~
