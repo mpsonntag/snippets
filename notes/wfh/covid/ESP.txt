@@ -1,0 +1,233 @@
+<g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(2,421
+ Jan 22, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(15,421
+ Jan 23, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(29,421
+ Jan 24, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(43,421
+ Jan 25, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(56,421
+ Jan 26, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(70,421
+ Jan 27, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(83,421
+ Jan 28, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(97,421
+ Jan 29, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(111,421
+ Jan 30, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(124,421
+ Jan 31, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(138,421
+ Feb 01, 2020 1
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(151,421
+ Feb 02, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(165,421
+ Feb 03, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(179,421
+ Feb 04, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(192,421
+ Feb 05, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(206,421
+ Feb 06, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(219,421
+ Feb 07, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(233,421
+ Feb 08, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(246,421
+ Feb 09, 2020 1
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(260,421
+ Feb 10, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(274,421
+ Feb 11, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(287,421
+ Feb 12, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(301,421
+ Feb 13, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(314,421
+ Feb 14, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(328,421
+ Feb 15, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(342,421
+ Feb 16, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(355,421
+ Feb 17, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(369,421
+ Feb 18, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(382,421
+ Feb 19, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(396,421
+ Feb 20, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(410,421
+ Feb 21, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(423,421
+ Feb 22, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(437,421
+ Feb 23, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(450,421
+ Feb 24, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(464,421
+ Feb 25, 2020 4
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(478,421
+ Feb 26, 2020 7
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(491,421
+ Feb 27, 2020 2
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(505,421
+ Feb 28, 2020 17
+L0.5,-0.5 L11.5,-0.5 L11.5,0.5 L0.5,0.5 Z"518,421
+ Feb 29, 2020 13
+L0.5,-0.5 L11.5,-0.5 L11.5,0.5 L0.5,0.5 Z"532,421
+ Mar 01, 2020 39
+L0.5,-1.5 L11.5,-1.5 L11.5,0.5 L0.5,0.5 Z"546,421
+ Mar 02, 2020 36
+L0.5,-1.5 L11.5,-1.5 L11.5,0.5 L0.5,0.5 Z"559,421
+ Mar 03, 2020 45
+L0.5,-1.5 L11.5,-1.5 L11.5,0.5 L0.5,0.5 Z"573,421
+ Mar 04, 2020 57
+L0.5,-1.5 L11.5,-1.5 L11.5,0.5 L0.5,0.5 Z"586,421
+ Mar 05, 2020 37
+L0.5,-1.5 L11.5,-1.5 L11.5,0.5 L0.5,0.5 Z"600,421
+ Mar 06, 2020 141
+L0.5,-5.5 L11.5,-5.5 L11.5,0.5 L0.5,0.5 Z"614,421
+ Mar 07, 2020 100
+L0.5,-3.5 L11.5,-3.5 L11.5,0.5 L0.5,0.5 Z"627,421
+ Mar 08, 2020 173
+L0.5,-6.5 L11.5,-6.5 L11.5,0.5 L0.5,0.5 Z"641,421
+ Mar 09, 2020 400
+L0.5,-16.5 L11.5,-16.5 L11.5,0.5 L0.5,0.5 Z"654,421
+ Mar 10, 2020 622
+L0.5,-25.5 L11.5,-25.5 L11.5,0.5 L0.5,0.5 Z"668,421
+ Mar 11, 2020 582
+L0.5,-23.5 L11.5,-23.5 L11.5,0.5 L0.5,0.5 Z"682,421
+ Mar 12, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1589787534580" transform="translate(695,421
+ Mar 13, 2020 2,955
+L0.5,-123.5 L11.5,-123.5 L11.5,0.5 L0.5,0.5 Z"709,421
+ Mar 14, 2020 1,159
+L0.5,-48.5 L11.5,-48.5 L11.5,0.5 L0.5,0.5 Z"722,421
+ Mar 15, 2020 1,407
+L0.5,-58.5 L11.5,-58.5 L11.5,0.5 L0.5,0.5 Z"736,421
+ Mar 16, 2020 2,144
+L0.5,-89.5 L11.5,-89.5 L11.5,0.5 L0.5,0.5 Z"749,421
+ Mar 17, 2020 1,806
+L0.5,-75.5 L11.5,-75.5 L11.5,0.5 L0.5,0.5 Z"763,421
+ Mar 18, 2020 2,162
+L0.5,-90.5 L11.5,-90.5 L11.5,0.5 L0.5,0.5 Z"777,421
+ Mar 19, 2020 4,053
+L0.5,-170.5 L11.5,-170.5 L11.5,0.5 L0.5,0.5 Z"790,421
+ Mar 20, 2020 2,447
+L0.5,-102.5 L11.5,-102.5 L11.5,0.5 L0.5,0.5 Z"804,421
+ Mar 21, 2020 4,964
+L0.5,-208.5 L11.5,-208.5 L11.5,0.5 L0.5,0.5 Z"817,421
+ Mar 22, 2020 3,394
+L0.5,-142.5 L11.5,-142.5 L11.5,0.5 L0.5,0.5 Z"831,421
+ Mar 23, 2020 6,368
+L0.5,-267.5 L11.5,-267.5 L11.5,0.5 L0.5,0.5 Z"845,421
+ Mar 24, 2020 4,749
+L0.5,-199.5 L11.5,-199.5 L11.5,0.5 L0.5,0.5 Z"858,421
+ Mar 25, 2020 9,630
+L0.5,-404.5 L11.5,-404.5 L11.5,0.5 L0.5,0.5 Z"872,421
+ Mar 26, 2020 8,271
+L0.5,-347.5 L11.5,-347.5 L11.5,0.5 L0.5,0.5 Z"885,421
+ Mar 27, 2020 7,933
+L0.5,-333.5 L11.5,-333.5 L11.5,0.5 L0.5,0.5 Z"899,421
+ Mar 28, 2020 7,516
+L0.5,-315.5 L11.5,-315.5 L11.5,0.5 L0.5,0.5 Z"913,421
+ Mar 29, 2020 6,875
+L0.5,-288.5 L11.5,-288.5 L11.5,0.5 L0.5,0.5 Z"926,421
+ Mar 30, 2020 7,846
+L0.5,-329.5 L11.5,-329.5 L11.5,0.5 L0.5,0.5 Z"939,421
+ Mar 31, 2020 7,967
+L0.5,-334.5 L11.5,-334.5 L11.5,0.5 L0.5,0.5 Z"953,421
+ Apr 01, 2020 8,195
+L0.5,-344.5 L11.5,-344.5 L11.5,0.5 L0.5,0.5 Z"966,421
+ Apr 02, 2020 7,947
+L0.5,-334.5 L11.5,-334.5 L11.5,0.5 L0.5,0.5 Z"980,421
+ Apr 03, 2020 7,134
+L0.5,-299.5 L11.5,-299.5 L11.5,0.5 L0.5,0.5 Z"994,421
+ Apr 04, 2020 6,969
+L0.5,-292.5 L11.5,-292.5 L11.5,0.5 L0.5,0.5 Z"1007,421
+ Apr 05, 2020 5,478
+L0.5,-230.5 L11.5,-230.5 L11.5,0.5 L0.5,0.5 Z"1021,421
+ Apr 06, 2020 5,029
+L0.5,-211.5 L11.5,-211.5 L11.5,0.5 L0.5,0.5 Z"1034,421
+ Apr 07, 2020 5,267
+L0.5,-221.5 L11.5,-221.5 L11.5,0.5 L0.5,0.5 Z"1048,421
+ Apr 08, 2020 6,278
+L0.5,-263.5 L11.5,-263.5 L11.5,0.5 L0.5,0.5 Z"1062,421
+ Apr 09, 2020 5,002
+L0.5,-210.5 L11.5,-210.5 L11.5,0.5 L0.5,0.5 Z"1075,421
+ Apr 10, 2020 5,051
+L0.5,-212.5 L11.5,-212.5 L11.5,0.5 L0.5,0.5 Z"1089,421
+ Apr 11, 2020 4,754
+L0.5,-199.5 L11.5,-199.5 L11.5,0.5 L0.5,0.5 Z"1102,421
+ Apr 12, 2020 3,804
+L0.5,-159.5 L11.5,-159.5 L11.5,0.5 L0.5,0.5 Z"1116,421
+ Apr 13, 2020 3,268
+L0.5,-137.5 L11.5,-137.5 L11.5,0.5 L0.5,0.5 Z"1130,421
+ Apr 14, 2020 2,442
+L0.5,-102.5 L11.5,-102.5 L11.5,0.5 L0.5,0.5 Z"1143,421
+ Apr 15, 2020 5,103
+L0.5,-214.5 L11.5,-214.5 L11.5,0.5 L0.5,0.5 Z"1157,421
+ Apr 16, 2020 7,304
+L0.5,-306.5 L11.5,-306.5 L11.5,0.5 L0.5,0.5 Z"1170,421
+ Apr 17, 2020 5,891
+L0.5,-247.5 L11.5,-247.5 L11.5,0.5 L0.5,0.5 Z"1184,421
+ Apr 18, 2020 887
+L0.5,-36.5 L11.5,-36.5 L11.5,0.5 L0.5,0.5 Z"1198,421
+ Apr 19, 2020 6,948
+L0.5,-292.5 L11.5,-292.5 L11.5,0.5 L0.5,0.5 Z"1211,421
+ Apr 20, 2020 1,536
+L0.5,-64.5 L11.5,-64.5 L11.5,0.5 L0.5,0.5 Z"1225,421
+ Apr 21, 2020 3,968
+L0.5,-166.5 L11.5,-166.5 L11.5,0.5 L0.5,0.5 Z"1238,421
+ Apr 22, 2020 4,211
+L0.5,-176.5 L11.5,-176.5 L11.5,0.5 L0.5,0.5 Z"1252,421
+ Apr 23, 2020 4,635
+L0.5,-194.5 L11.5,-194.5 L11.5,0.5 L0.5,0.5 Z"1279,421
+ Apr 25, 2020 2,915
+L0.5,-122.5 L11.5,-122.5 L11.5,0.5 L0.5,0.5 Z"1293,421
+ Apr 26, 2020 1,729
+L0.5,-72.5 L11.5,-72.5 L11.5,0.5 L0.5,0.5 Z"1306,421
+ Apr 27, 2020 1,831
+L0.5,-76.5 L11.5,-76.5 L11.5,0.5 L0.5,0.5 Z"1320,421
+ Apr 28, 2020 1,308
+L0.5,-54.5 L11.5,-54.5 L11.5,0.5 L0.5,0.5 Z"1334,421
+ Apr 29, 2020 2,144
+L0.5,-89.5 L11.5,-89.5 L11.5,0.5 L0.5,0.5 Z"1347,421
+ Apr 30, 2020 518
+L0.5,-21.5 L11.5,-21.5 L11.5,0.5 L0.5,0.5 Z"1361,421
+ May 01, 2020 1,781
+L0.5,-74.5 L11.5,-74.5 L11.5,0.5 L0.5,0.5 Z"1374,421
+ May 02, 2020 1,366
+L0.5,-57.5 L11.5,-57.5 L11.5,0.5 L0.5,0.5 Z"1388,421
+ May 03, 2020 884
+L0.5,-36.5 L11.5,-36.5 L11.5,0.5 L0.5,0.5 Z"1401,421
+ May 04, 2020 545
+L0.5,-22.5 L11.5,-22.5 L11.5,0.5 L0.5,0.5 Z"1415,421
+ May 05, 2020 1,318
+L0.5,-54.5 L11.5,-54.5 L11.5,0.5 L0.5,0.5 Z"1429,421
+ May 06, 2020 996
+L0.5,-41.5 L11.5,-41.5 L11.5,0.5 L0.5,0.5 Z"1442,421
+ May 07, 2020 1,122
+L0.5,-46.5 L11.5,-46.5 L11.5,0.5 L0.5,0.5 Z"1456,421
+ May 08, 2020 1,410
+L0.5,-58.5 L11.5,-58.5 L11.5,0.5 L0.5,0.5 Z"1469,421
+ May 09, 2020 721
+L0.5,-29.5 L11.5,-29.5 L11.5,0.5 L0.5,0.5 Z"1483,421
+ May 10, 2020 772
+L0.5,-31.5 L11.5,-31.5 L11.5,0.5 L0.5,0.5 Z"1497,421
+ May 11, 2020 3,086
+L0.5,-129.5 L11.5,-129.5 L11.5,0.5 L0.5,0.5 Z"1510,421
+ May 12, 2020 594
+L0.5,-24.5 L11.5,-24.5 L11.5,0.5 L0.5,0.5 Z"1524,421
+ May 13, 2020 661
+L0.5,-27.5 L11.5,-27.5 L11.5,0.5 L0.5,0.5 Z"1537,421
+ May 14, 2020 849
+L0.5,-35.5 L11.5,-35.5 L11.5,0.5 L0.5,0.5 Z"1551,421
+ May 15, 2020 643
+L0.5,-26.5 L11.5,-26.5 L11.5,0.5 L0.5,0.5 Z"1565,421
+ May 16, 2020 515
+L0.5,-21.5 L11.5,-21.5 L11.5,0.5 L0.5,0.5 Z"1578,421
+ May 17, 2020 0
+L11.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#ffaa00" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g>
