@@ -77,7 +77,9 @@ nixodmlconverter -h
 
 echo
 echo "-- running nixodmlconversion odml->nix"
-rm example.odml.nix
+if [[ -f example.odml.nix ]]; then
+    rm example.odml.nix
+fi
 nixodmlconverter example.odml.xml
 
 if ! [[ -f example.odml.nix ]]; then
@@ -91,8 +93,10 @@ fi
 cp example.odml.nix export.odml.nix
 
 echo
-echo "-- running nixodmlconversion odml->nix"
-rm export.odml.xml
+echo "-- running nixodmlconversion nix->odml"
+if [[ -f export.odml.xml ]]; then
+    rm export.odml.xml
+fi
 nixodmlconverter export.odml.nix
 
 if ! [[ -f export.odml.xml ]]; then
