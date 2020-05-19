@@ -17,7 +17,7 @@ It tests
 
 ## Manual odml-ui tests
 
-To set up conda environments and run local or Test PyPI installations run the script `run_test_matrix.sh` from the current directory.
+To set up conda environments and run local or Test PyPI installations run the script `run_test_matrix.sh` with option `B` from the current directory.
 Once set up, the conda environments can be used to manually test `odml-ui` as well.
 
 Activate python installation environment
