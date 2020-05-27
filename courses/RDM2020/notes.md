@@ -56,3 +56,8 @@
     - Glue a yaml printout in your labbook  
     - Reformat and hand over partial metadata with more ease e.g. when in a project based style of documentation extract infos about experiments with a specific strain and compile all information with more ease.
       - Example: compile a list of experiments where a specific person did the experiments -> collect docs and view in browser with localview
+
+## Open Data storage <-> Metadata connection part: NIX (Neuroscience Information Exchange) format
+
+- Update NIX jupyter notebook
+  - get RDM2019 to the point of the nixio tutorial
