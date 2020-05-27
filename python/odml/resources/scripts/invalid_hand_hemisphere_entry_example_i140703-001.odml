@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML version="1.1">
+  <date>2017-07-14</date>
+  <section>
+    <definition>Information on the experimental setup</definition>
+    <property>
+      <definition>Location of the setup</definition>
+      <name>Location</name>
+      <type>string</type>
+      <value>Inst. de Neurosciences de la Timone (INT), UMR 7289, CNRS - Aix Marseille Univ., Marseille, France</value>
+    </property>
+    <property>
+      <definition>Used data acquisition (DAQ) system</definition>
+      <name>DAQSystem</name>
+      <type>string</type>
+      <value>Cerebus</value>
+    </property>
+    <name>Setup</name>
+    <section>
+      <definition>Information on the experimental apparatus</definition>
+      <property>
+        <definition>Full name of person who created the setup</definition>
+        <name>Creator</name>
+        <type>string</type>
+        <value>Thomas Brochier</value>
+      </property>
+      <property>
+        <definition>Full name of person who maintains the setup</definition>
+        <name>Maintainer</name>
+        <type>string</type>
+        <value>Thomas Brochier</value>
+      </property>
+      <name>Apparatus</name>
+      <section>
+        <definition>Information on the input/output connector block</definition>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>input/output connector block</value>
+        </property>
+        <property>
+          <definition>Name of manufacturer used to build the experimental apparatus</definition>
+          <name>Manufacturer</name>
+          <type>string</type>
+          <value>NI, National Instruments Corporation, Austin, Texas, USA</value>
+        </property>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>used to connect devices of the apparatus with the LabVIEW computer and the Neural Signal Processor</value>
+        </property>
+        <name>NIConnectorBlock</name>
+        <type>setup</type>
+      </section>
+      <section>
+        <definition>Information on the analog/digital converter card</definition>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>NI 6023E</value>
+        </property>
+        <property>
+          <definition>Name of manufacturer used to build the experimental apparatus</definition>
+          <name>Manufacturer</name>
+          <type>string</type>
+          <value>NI, National Instruments Corporation, Austin, Texas, USA</value>
+        </property>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>used as analog/digital converter for the LabVIEW computer, converts analog signal received from the table switch and send to control the reward pump to digital events</value>
+        </property>
+        <name>ADConverterCard</name>
+        <type>setup</type>
+      </section>
+      <section>
+        <definition>Information on the start switch</definition>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>activates the internal initiation of the start trial event, its deactivation marks the onset of the reach-to-grasp movement</value>
+        </property>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>table switch</value>
+        </property>
+        <property>
+          <definition>Signal type of apparatus (digital or analog)</definition>
+          <name>SignalType</name>
+          <type>string</type>
+          <value>analog</value>
+        </property>
+        <property>
+          <definition>Names of events extracted from this signal</definition>
+          <name>TrialEvents</name>
+          <type>string</type>
+          <value>SR</value>
+        </property>
+        <property>
+          <definition>Sampling rate of data</definition>
+          <name>SamplingRate</name>
+          <unit>Hz</unit>
+          <type>int</type>
+          <value>30000</value>
+        </property>
+        <property>
+          <definition>Target device of apparatus</definition>
+          <name>ConnectedTo</name>
+          <type>string</type>
+          <value>NI connector block</value>
+        </property>
+        <property>
+          <definition>Control software of apparatus</definition>
+          <name>MonitoredBy</name>
+          <type>string</type>
+          <value>LabVIEW</value>
+        </property>
+        <property>
+          <definition>File in which apparatus signals are saved</definition>
+          <name>SavedIn</name>
+          <type>string</type>
+          <value>nev</value>
+        </property>
+        <property>
+          <definition>X position of apparatus relative to PosOrigin</definition>
+          <name>PosX</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>5.0</value>
+        </property>
+        <property>
+          <definition>Y position of apparatus relative to PosOrigin</definition>
+          <name>PosY</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>0.0</value>
+        </property>
+        <property>
+          <definition>Z position of apparatus relative to PosOrigin</definition>
+          <name>PosZ</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>0.0</value>
+        </property>
+        <property>
+          <definition>Origin for x,y, and z position of apparatus</definition>
+          <name>PosOrigin</name>
+          <type>string</type>
+          <value>midline, waist-level</value>
+        </property>
+        <name>StartSwitch</name>
+        <type>setup</type>
+      </section>
+      <section>
+        <definition>Information on the target object</definition>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>object to grasp, pull and hold</value>
+        </property>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>stainless steel parallelpiped</value>
+        </property>
+        <property>
+          <definition>Length of apparatus</definition>
+          <name>Length</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>40.0</value>
+        </property>
+        <property>
+          <definition>Width of apparatus</definition>
+          <name>Width</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>16.0</value>
+        </property>
+        <property>
+          <definition>Height of apparatus</definition>
+          <name>Height</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>10.0</value>
+        </property>
+        <property>
+          <definition>Device apparatus is attached to</definition>
+          <name>AttachedTo</name>
+          <type>string</type>
+          <value>anterior end of a low- friction horizontal shuttle</value>
+        </property>
+        <property>
+          <definition>Rotation of apparatus from vertical axis</definition>
+          <name>Rotation</name>
+          <unit>deg</unit>
+          <type>float</type>
+          <value>45.0</value>
+        </property>
+        <property>
+          <definition>X position of apparatus relative to PosOrigin</definition>
+          <name>PosX</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>5.0</value>
+        </property>
+        <property>
+          <definition>Y position of apparatus relative to PosOrigin</definition>
+          <name>PosY</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>13.0</value>
+        </property>
+        <property>
+          <definition>Z position of apparatus relative to PosOrigin</definition>
+          <name>PosZ</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>14.0</value>
+        </property>
+        <property>
+          <definition>Origin for x,y, and z position of apparatus</definition>
+          <name>PosOrigin</name>
+          <type>string</type>
+          <value>midline, waist-level</value>
+        </property>
+        <property>
+          <definition>Minimum and maximum pull range of target object</definition>
+          <name>PullRange</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>[0.0,15.0]</value>
+        </property>
+        <property>
+          <definition>Minimum and maximum weight range of target object</definition>
+          <name>WeightRange</name>
+          <unit>g</unit>
+          <type>float</type>
+          <value>[0.0,800.0]</value>
+        </property>
+        <property>
+          <definition>Mechanism to switch weight configuration</definition>
+          <name>WeightSwitch</name>
+          <type>string</type>
+          <value>activation of magnet</value>
+        </property>
+        <property>
+          <definition>Sensors providing additional analogue signals to monitor task and behavior</definition>
+          <name>Sensors</name>
+          <type>string</type>
+          <value>[FSRSensor,HESensor,LoadForce]</value>
+        </property>
+        <name>TargetObject</name>
+        <section>
+          <definition>Information on the FSR sensors</definition>
+          <property>
+            <definition>Function of apparatus</definition>
+            <name>Function</name>
+            <type>string</type>
+            <value>Measures grip and pulling load forces by means of force sensitive resistances (FSR)</value>
+          </property>
+          <property>
+            <definition>Channel IDs of FSR sensors to measure load forces of side grip</definition>
+            <name>SGChannelIDs</name>
+            <type>int</type>
+            <value>[138,140]</value>
+          </property>
+          <property>
+            <definition>Channel IDs of FSR sensors to measure load forces of precision grip</definition>
+            <name>PGChannelIDs</name>
+            <type>int</type>
+            <value>[137,139]</value>
+          </property>
+          <property>
+            <definition>Signal type of apparatus (digital or analog)</definition>
+            <name>SignalType</name>
+            <type>string</type>
+            <value>analog</value>
+          </property>
+          <property>
+            <definition>Names of events extracted from this signal</definition>
+            <name>TrialEvents</name>
+            <type>string</type>
+            <value>[OT,OR]</value>
+          </property>
+          <property>
+            <definition>Sampling rate of data</definition>
+            <name>SamplingRate</name>
+            <unit>Hz</unit>
+            <type>int</type>
+            <value>1000</value>
+          </property>
+          <property>
+            <definition>Target device of apparatus</definition>
+            <name>ConnectedTo</name>
+            <type>string</type>
+            <value>NeuralSignalProcessor</value>
+          </property>
+          <property>
+            <definition>Control software of apparatus</definition>
+            <name>MonitoredBy</name>
+            <type>string</type>
+            <value>LabVIEW</value>
+          </property>
+          <property>
+            <definition>Preprocessing software used on signals of apparatus</definition>
+            <name>PreProcessedBy</name>
+            <type>string</type>
+            <value>MATLAB</value>
+          </property>
+          <property>
+            <definition>Control software of apparatus</definition>
+            <name>ControlledBy</name>
+            <type>string</type>
+            <value>LabVIEW</value>
+          </property>
+          <property>
+            <definition>File in which apparatus signals are saved</definition>
+            <name>SavedIn</name>
+            <type>string</type>
+            <value>ns2</value>
+          </property>
+          <name>FSRSensor</name>
+          <type>setup/daq</type>
+        </section>
+        <section>
+          <definition>Information on the hall-effect sensor</definition>
+          <property>
+            <definition>Function of apparatus</definition>
+            <name>Function</name>
+            <type>string</type>
+            <value>Hall effect (HE) sensor measures horizontal displacement</value>
+          </property>
+          <property>
+            <definition>Number of hall-effect sensors</definition>
+            <name>Count</name>
+            <type>int</type>
+            <value>1</value>
+          </property>
+          <property>
+            <definition>Channel ID of HESensor to measure horizontal object displacement</definition>
+            <name>ChannelID</name>
+            <type>int</type>
+            <value>143</value>
+          </property>
+          <property>
+            <definition>Names of events extracted from this signal</definition>
+            <name>TrialEvents</name>
+            <type>string</type>
+            <value>[DO,OBB]</value>
+          </property>
+          <property>
+            <definition>Signal type of apparatus (digital or analog)</definition>
+            <name>SignalType</name>
+            <type>string</type>
+            <value>analog</value>
+          </property>
+          <property>
+            <definition>File in which apparatus signals are saved</definition>
+            <name>SavedIn</name>
+            <type>string</type>
+            <value>ns2</value>
+          </property>
+          <name>HESensor</name>
+          <type>setup/daq</type>
+        </section>
+        <section>
+          <definition>Information on the load force signal</definition>
+          <property>
+            <definition>Function of apparatus</definition>
+            <name>Function</name>
+            <type>string</type>
+            <value>used to detect load force of the target object</value>
+          </property>
+          <property>
+            <definition>Number of load force signals</definition>
+            <name>Count</name>
+            <type>int</type>
+            <value>1</value>
+          </property>
+          <property>
+            <definition>Channel ID of load force signal</definition>
+            <name>ChannelID</name>
+            <type>int</type>
+            <value>141</value>
+          </property>
+          <property>
+            <definition>Signal type of apparatus (digital or analog)</definition>
+            <name>SignalType</name>
+            <type>string</type>
+            <value>analog</value>
+          </property>
+          <property>
+            <definition>File in which apparatus signals are saved</definition>
+            <name>SavedIn</name>
+            <type>string</type>
+            <value>ns2</value>
+          </property>
+          <name>LoadForce</name>
+          <type>setup/daq</type>
+        </section>
+        <type>setup</type>
+      </section>
+      <section>
+        <definition>Information on the cue system</definition>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>instructing movement configurations of each trial</value>
+        </property>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>visual, LED cube</value>
+        </property>
+        <property>
+          <definition>Signal type of apparatus (digital or analog)</definition>
+          <name>SignalType</name>
+          <type>string</type>
+          <value>digital</value>
+        </property>
+        <property>
+          <definition>Names of events extracted from this signal</definition>
+          <name>EventNames</name>
+          <type>string</type>
+          <value>[WS-ON,CUE-ON,CUE-OFF,GO-ON,GO-OFF,ERROR-FLASH-ON]</value>
+        </property>
+        <property>
+          <definition>Width of apparatus</definition>
+          <name>Width</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>10.0</value>
+        </property>
+        <property>
+          <definition>Height of apparatus</definition>
+          <name>Height</name>
+          <unit>mm</unit>
+          <type>float</type>
+          <value>10.0</value>
+        </property>
+        <property>
+          <definition>X position of apparatus relative to PosOrigin</definition>
+          <name>PosX</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>5.0</value>
+        </property>
+        <property>
+          <definition>Y position of apparatus relative to PosOrigin</definition>
+          <name>PosY</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>13.0</value>
+        </property>
+        <property>
+          <definition>Z position of apparatus relative to PosOrigin</definition>
+          <name>PosZ</name>
+          <unit>cm</unit>
+          <type>float</type>
+          <value>-1.0</value>
+        </property>
+        <property>
+          <definition>Origin for x,y, and z position of apparatus</definition>
+          <name>PosOrigin</name>
+          <type>string</type>
+          <value>midline, waist-level</value>
+        </property>
+        <property>
+          <definition>Number of LEDs</definition>
+          <name>LEDCount</name>
+          <type>int</type>
+          <value>5</value>
+        </property>
+        <property>
+          <definition>Arrangement of LEDs</definition>
+          <name>LEDConfiguration</name>
+          <type>string</type>
+          <value>2-1-2</value>
+        </property>
+        <property>
+          <definition>Color of the corner LEDs</definition>
+          <name>CornerLEDColor</name>
+          <type>string</type>
+          <value>red</value>
+        </property>
+        <property>
+          <definition>Color of the center LEDs</definition>
+          <name>CenterLEDColor</name>
+          <type>string</type>
+          <value>yellow</value>
+        </property>
+        <property>
+          <definition>Sampling rate of data</definition>
+          <name>SamplingRate</name>
+          <unit>Hz</unit>
+          <type>int</type>
+          <value>30000</value>
+        </property>
+        <property>
+          <definition>Target device of apparatus</definition>
+          <name>ConnectedTo</name>
+          <type>string</type>
+          <value>NI connector block</value>
+        </property>
+        <property>
+          <definition>Control software of apparatus</definition>
+          <name>MonitoredBy</name>
+          <type>string</type>
+          <value>LabVIEW</value>
+        </property>
+        <property>
+          <definition>Control software of apparatus</definition>
+          <name>ControlledBy</name>
+          <type>string</type>
+          <value>LabVIEW</value>
+        </property>
+        <property>
+          <definition>File in which apparatus signals are saved</definition>
+          <name>SavedIn</name>
+          <type>string</type>
+          <value>nev</value>
+        </property>
+        <name>CueSystem</name>
+        <section>
+          <definition>Information on cue codes</definition>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>LeftLEDs</name>
+            <type>string</type>
+            <value>side grip</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>RightLEDs</name>
+            <type>string</type>
+            <value>precision grip</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>BottomLEDs</name>
+            <type>string</type>
+            <value>low force</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>TopLEDs</name>
+            <type>string</type>
+            <value>high force</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>CenterLED</name>
+            <type>string</type>
+            <value>fixation point</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>FourCornerLEDs</name>
+            <type>string</type>
+            <value>ERROR-FLASH-ON</value>
+          </property>
+          <property>
+            <definition>LEDs coding this trial instruction</definition>
+            <name>ThreeCornerLEDs</name>
+            <type>string</type>
+            <value>ERROR-FLASH-ON</value>
+          </property>
+          <name>CueCodes</name>
+          <type>setup/daq</type>
+        </section>
+        <type>setup</type>
+      </section>
+      <section>
+        <definition>Information on the reward system</definition>
+        <property>
+          <definition>Function of apparatus</definition>
+          <name>Function</name>
+          <type>string</type>
+          <value>rewards subject if trial was performed correctly</value>
+        </property>
+        <property>
+          <definition>Type of apparatus</definition>
+          <name>Type</name>
+          <type>string</type>
+          <value>reward pipe</value>
+        </property>
+        <property>
+          <definition>Signal type of apparatus (digital or analog)</definition>
+          <name>SignalType</name>
+          <type>string</type>
+          <value>digital</value>
+        </property>
+        <property>
+          <definition>Names of events extracted from this signal</definition>
+          <name>EventNames</name>
+          <type>string</type>
+          <value>RW-ON</value>
+        </property>
+        <property>
+          <definition>Food used for reward</definition>
+          <name>RewardFood</name>
+          <type>string</type>
+          <value>apple sauce</value>
+        </property>
+        <property>
+          <definition>Food amount used for reward per trial</definition>
+          <name>RewardAmount</name>
+          <unit>ml/200ms</unit>
+          <type>float</type>
+          <value>0.5</value>
+        </property>
+        <property>
+          <definition>Sampling rate of data</definition>
+          <name>SamplingRate</name>
+          <unit>Hz</unit>
+          <type>int</type>
+          <value>30000</value>
+        </property>
+        <property>
+          <definition>Target device of apparatus</definition>
+          <name>ConnectedTo</name>
+          <type>string</type>
+          <value>NeuralSignalProcessor</value>
+        </property>
+        <property>
+          <definition>Control software of apparatus</definition>
+          <name>MonitoredBy</name>
+          <type>string</type>
+          <value>LabVIEW</value>
+        </property>
+        <property>
+          <definition>Control software of apparatus</definition>
+          <name>ControlledBy</name>
+          <type>string</type>
+          <value>LabVIEW</value>
+        </property>
+        <property>
+          <definition>File in which apparatus signals are saved</definition>
+          <name>SavedIn</name>
+          <type>string</type>
+          <value>nev</value>
+        </property>
+        <name>RewardSystem</name>
+        <type>setup</type>
+      </section>
+      <type>setup</type>
+    </section>
+    <type>setup</type>
+  </section>
+  <section>
+    <definition>Information on the experimental subject (animal or person) under investigation</definition>
+    <property>
+      <definition>Binomial species name (genus, species within genus)</definition>
+      <name>Species</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>Macaca mulatta</value>
+    </property>
+    <property>
+      <definition>Commonly used (trivial) species name</definition>
+      <name>TrivialName</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>Rhesus monkey</value>
+    </property>
+    <property>
+      <definition>Given name</definition>
+      <name>GivenName</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>monkey_N</value>
+    </property>
+    <property>
+      <definition>Short identifier for monkey (e.g., used in file names)</definition>
+      <name>Identifier</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>i</value>
+    </property>
+    <property>
+      <definition>Gender (male or female)</definition>
+      <name>Gender</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>male</value>
+    </property>
+    <property>
+      <definition>Date of birth</definition>
+      <name>Birthday</name>
+      <unit/>
+      <uncertainty/>
+      <type>date</type>
+      <value>2008-05-17</value>
+    </property>
+    <property>
+      <definition>Trained hand (left and/or right)</definition>
+      <name>ActiveHand</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>[left, right]</value>
+    </property>
+    <property>
+      <definition>Comment on existing disabilities</definition>
+      <name>Disabilities</name>
+      <unit/>
+      <uncertainty/>
+      <type>text</type>
+      <value>-</value>
+    </property>
+    <property>
+      <definition>Comment on the general character/personality</definition>
+      <name>Character</name>
+      <unit/>
+      <uncertainty/>
+      <type>text</type>
+      <value>Calm, but overall not really motivated. Less attentive.</value>
+    </property>
+    <name>Subject</name>
+    <section>
+      <definition>Information on the training given to subject</definition>
+      <property>
+        <definition>Trained hand (left and/or right) * invalid test entry</definition>
+        <name>ActiveHand</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+      </property>
+      <property>
+        <definition>Full name(s) of person(s) responsible for the training</definition>
+        <name>Coach</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>Thomas Brochier</value>
+      </property>
+      <property>
+        <definition>Start date of training</definition>
+        <name>Start</name>
+        <unit/>
+        <uncertainty/>
+        <type>date</type>
+        <value>2013-09-01</value>
+      </property>
+      <property>
+        <definition>End date of training</definition>
+        <name>End</name>
+        <unit/>
+        <uncertainty/>
+        <type>date</type>
+        <value>2014-05-01</value>
+      </property>
+      <property>
+        <definition>Comment on training</definition>
+        <name>Comment</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>Initial, but also second training was difficult. Learned task slowly. Correct object load identification was never reliable.</value>
+      </property>
+      <name>Training</name>
+      <type>subject/preparation</type>
+    </section>
+    <section>
+      <definition>Information on the array implant performed on subject</definition>
+      <property>
+        <definition>Date of the surgery</definition>
+        <name>Date</name>
+        <unit/>
+        <uncertainty/>
+        <type>date</type>
+        <value>2014-05-22</value>
+      </property>
+      <property>
+        <definition>Full name(s) of the person(s) responsible for the surgery</definition>
+        <name>Surgeon</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>[Ivan Balansard,Alexa Riehle]</value>
+      </property>
+      <property>
+        <definition>Hemisphere (left and/or right) in which surgery was performed</definition>
+        <name>Hemisphere</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>[right, right]</value>
+      </property>
+      <property>
+        <definition>Rotation of the array in the CCW direction, where 0 degrees is defined by projecting the array onto a sagittal view of the brain with the wire bundle extruding to the anterior direction.</definition>
+        <name>ArrayRotation</name>
+        <unit>deg</unit>
+        <uncertainty/>
+        <type>float</type>
+        <value>239.0</value>
+      </property>
+      <property>
+        <definition>Comment on the surgery</definition>
+        <name>Comment</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>no comment</value>
+      </property>
+      <name>ArrayImplant</name>
+      <type>subject/preparation</type>
+    </section>
+    <type>subject</type>
+  </section>
+  <version>0.1</version>
+  <author>Lyuba Zehl</author>
+</odML>
