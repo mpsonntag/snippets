@@ -1,5 +1,12 @@
 # Git annex notes
 
+All infos distilled from https://git-annex.branchable.com
+
+## Automatic conflict resolution
+
+When two or more files have diverged, upon a merge, they will be renamed to
+`filename.variant-AAA`, `filename.variant-BBB`, etc; its up to the user to 
+resolve the conflict at this point.
 
 ## Annex sync
 `git annex sync` ... updates all connected repositories
