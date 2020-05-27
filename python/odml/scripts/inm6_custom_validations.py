@@ -1,9 +1,26 @@
+"""
+Custom validations for the odML library, the validations
+are specific for an INM6 use case. Check the tutorial on
+python-odml.readthedocs.org for a general odml validation
+introduction.
+
+These validations require an odml library >= 1.5.0.
+"""
+
 import odml
 
 from odml.validation import IssueID, LABEL_WARNING, Validation, ValidationError
 
 
 def check_left_right(obj):
+    """
+    Checks if a Property with the name "Hemisphere" or "ActiveHand"
+    has a value length of 1 and contains only the value content
+    of "right" or "left".
+
+    :param obj: odml Property
+    :return: Yields a ValidationError if the check fails.
+    """
     validation_id = IssueID.custom_validation
 
     if obj.name in ["Hemisphere", "ActiveHand"] and (not len(obj.values) == 1 or
@@ -14,6 +31,17 @@ def check_left_right(obj):
 
 
 def verify_hand_hemisphere_prop(obj):
+    """
+    Checks if the Properties with the name "Hemisphere" and "ActiveHand"
+    each contain the opposing value of the other: "left"-"right" or
+    "right"-"left" respectively.
+
+    :param obj: odml Property
+
+    :return: Yields a ValidationError if any of the required Properties
+             cannot be found at its place in the tree or if the corresponding
+             Property does not contain the required corresponding value.
+    """
     validation_id = IssueID.custom_validation
 
     # path hemisphere: root/S[Subject]/S[ArrayImplant]/P[Hemisphere]
@@ -48,6 +76,17 @@ def verify_hand_hemisphere_prop(obj):
 
 
 def verify_hand_hemisphere_root(obj):
+    """
+    Checks if the Properties with the name "Hemisphere" and "ActiveHand"
+    each contain the opposing value of the other: "left"-"right" or
+    "right"-"left" respectively.
+
+    :param obj: odml Document root
+
+    :return: Yields a ValidationError if any of the required Properties
+             cannot be found at its place in the tree or if the corresponding
+             Property does not contain the required corresponding value.
+    """
     validation_id = IssueID.custom_validation
 
     try:
