@@ -37,3 +37,22 @@
   - Labbook
   - CSV files
   - Text documents
+
+- Different use cases?
+
+- Identify required metadata in a project and choose a documenting concept
+
+- odML: a tool to automate metadata collection
+  - Template concept
+
+  - odML jupyter notebook
+    - Links
+    - Basic concepts (save, load, create docs, add template to document)
+
+  - Why automation:
+    - Less error prone
+    - Reduce documentation work
+    - Quickly get an overview with the xml local style - view in browser
+    - Glue a yaml printout in your labbook  
+    - Reformat and hand over partial metadata with more ease e.g. when in a project based style of documentation extract infos about experiments with a specific strain and compile all information with more ease.
+      - Example: compile a list of experiments where a specific person did the experiments -> collect docs and view in browser with localview
