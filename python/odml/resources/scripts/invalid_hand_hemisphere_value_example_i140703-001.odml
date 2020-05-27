@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="odmlTerms.xsl"?>
+<?xml-stylesheet type="text/xsl" href="odml.xsl"?>
+<odML version="1.1">
+  <section>
+    <definition>Information on the experimental subject (animal or person) under investigation</definition>
+    <property>
+      <definition>Trained hand (left and/or right)</definition>
+      <name>ActiveHand</name>
+      <unit/>
+      <uncertainty/>
+      <type>string</type>
+      <value>[right]</value>
+    </property>
+    <name>Subject</name>
+    <section>
+      <definition>Information on the array implant performed on subject</definition>
+      <property>
+        <definition>Hemisphere (left and/or right) in which surgery was performed</definition>
+        <name>Hemisphere</name>
+        <unit/>
+        <uncertainty/>
+        <type>string</type>
+        <value>[right]</value>
+      </property>
+      <name>ArrayImplant</name>
+      <type>subject/preparation</type>
+    </section>
+    <type>subject</type>
+  </section>
+  <version>0.1</version>
+  <author>edited</author>
+</odML>
