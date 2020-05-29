@@ -7,6 +7,24 @@
   - if adding links in the tutorial, add access tests to ensure that these links are always available.
 - give an example of how to use local style
 
+- try to document all settings for every experiment/setup; save it with every experiment, keep it close to the raw data, make the connections clear
+- try to automate settings documentation
+  - template and manual checklist
+  - if available, save settings to file and connect to raw data
+
+- check the bids standard as example for a structured workflow/metadata collection
+
+- leave comments every where! it does not hurt and helps later on
+
+- when taking notes, use open standards, ideally ones that are machine readable and writeable and that are common:
+  - json
+  - yaml
+  - markdown for notes
+
+- bids as example
+
+- real live example: odml of a calcium imaging experiment
+
 
 # Course outline
 
