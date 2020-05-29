@@ -25,6 +25,10 @@
 
 - real live example: odml of a calcium imaging experiment
 
+- always keep complete history for every day:
+  - shell, matlab, python (ipython)
+  - its not large, might be important later on
+
 
 # Course outline
 
