@@ -43,3 +43,10 @@ curr_query = prepareQuery(q_string, initNs={"odml": Namespace(ODML_NS), "rdf": R
 
 for row in graph_expand.query(curr_query):
     print(row.s)
+
+# For future test cases if a proper web endpoint is available the following implementation might
+# be a faster RDFS inference implementation e.g. for subclass inference
+# from SPARQLWrapper import SPARQLWrapper, JSON
+# sparql = SPARQLWrapper("web address")
+# sparql.addParameter('inference','true')
+# sparql.setReturnFormat(JSON)
