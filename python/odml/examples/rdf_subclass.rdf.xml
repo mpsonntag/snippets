@@ -4,6 +4,18 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#Section">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#Cell">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="https://g-node.org/odml-rdf#Section"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#DataCite">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="https://g-node.org/odml-rdf#Section"/>
+  </rdf:Description>
+
   <rdf:Description rdf:about="https://g-node.org/odml-rdf#dc38910b-d7d5-4083-b1b3-7dfdf427e6d8">
     <rdf:type rdf:resource="https://g-node.org/odml-rdf#Document"/>
     <odml:hasFileName>None</odml:hasFileName>
