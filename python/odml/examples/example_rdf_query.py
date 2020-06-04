@@ -1,5 +1,9 @@
+from odml.tools.rdf_converter import ODML_NS
+
 from rdflib import Graph, Namespace, RDF, RDFS
 from rdflib.plugins.sparql import prepareQuery
+
+NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
 
 res_cite = './resources/template_examples/rdf/i140703-001_datacite_conv.rdf'
 res_uri = './resources/template_examples/rdf/datauri.rdf'
@@ -16,8 +20,7 @@ q = prepareQuery("""SELECT *
                ?d odml:hasSection ?s .
                ?s rdf:type odml:Section .
                ?s odml:hasType "setup/daq" .
-            }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
-                          "rdf": RDF, "rdfs": RDFS})
+            }""", initNs=NAMESPACE_MAP)
 
 for row in graph.query(q):
     print("Doc: %s, Sec: %s" % (row.d, row.s))
@@ -31,8 +34,7 @@ q = prepareQuery("""SELECT *
                 ?s a odml:Section . 
                 ?s odml:hasType "setup/daq/preprocessing" . 
                 ?s odml:hasName ?name . 
-             }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
-                           "rdf": RDF, "rdfs": RDFS})
+             }""", initNs=NAMESPACE_MAP)
 
 for row in graph.query(q):
     print("Doc: %s, Sec: %s, Name: %s" % (row.d, row.s, row.name))
@@ -49,8 +51,7 @@ q = prepareQuery("""SELECT *
                    ?urival ?pred ?uri. 
                    FILTER (?nameValue in ("DataDOI", "DataURI"))
                    FILTER (strstarts(str(?pred), str(rdf:_)))
-             }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
-                           "rdf": RDF, "rdfs": RDFS})
+             }""", initNs=NAMESPACE_MAP)
 
 for row in graph.query(q):
     print("Sec: %s, DataSecName: %s, DOI: %s" % (row.datasec, row.dataSecName, row.uri))
@@ -76,11 +77,11 @@ q = prepareQuery("""SELECT *
                    FILTER (strstarts(str(?pred), str(rdf:_)))
                    }
                  }
-             }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
-                           "rdf": RDF, "rdfs": RDFS})
+             }""", initNs=NAMESPACE_MAP)
 
 for row in graph.query(q):
-    print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname, row.dataSecName, row.uri))
+    print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname,
+                                                                  row.dataSecName, row.uri))
 
 
 q = prepareQuery("""SELECT * 
@@ -104,11 +105,11 @@ q = prepareQuery("""SELECT *
                    }
                  }
                 FILTER (?t in ("setup/daq/preprocessing", "stimulus/white_noise"))
-             }""", initNs={"odml": Namespace("https://g-node.org/projects/odml-rdf#"),
-                           "rdf": RDF, "rdfs": RDFS})
+             }""", initNs=NAMESPACE_MAP)
 
 for row in graph.query(q):
-    print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname, row.dataSecName, row.uri))
+    print("Doc: %s, secname: %s, DataSecName: %s, datauri: %s" % (row.d, row.secname,
+                                                                  row.dataSecName, row.uri))
 
 
 """
