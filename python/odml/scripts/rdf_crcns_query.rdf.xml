@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:odml="https://g-node.org/odml-rdf#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#095c96bb-56dd-42e5-8ee7-d9fd2891f54b">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>stimulationMethod</odml:hasName>
+    <odml:hasDefinition>specifies the types of photostimulation experiment, not exclusive.  Examples:  clear skull, craniotomy, glass window, optica fiber, 2P excitation</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d5fe0edd-a105-46d3-ab3d-f696da3eaed2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#6f38cfe4-e658-413b-9d62-947aa4c0e154">
+    <rdf:_3> 0.3]"</rdf:_3>
+    <rdf:_1>[2.5</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_2> -1.5</rdf:_2>
+    <rdf:_4>[2.5, -1.5, 0.7]</rdf:_4>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#24bb5d10-0131-4873-9f6d-06aebd1a6137">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>titleType</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#5c46e07b-d573-46a5-af68-c07ff2a18726"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#6b870400-fdce-4c1c-9e17-bffe44e23535">
+    <rdf:_1>mice</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e62160fb-500b-4e4b-8590-ff42dea2d3a6">
+    <odml:hasName>animalGeneticBackground</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>Example: unidentified; describe breeding history</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#0d45ddc7-f5dc-46df-aa93-c56f25beb42a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f6a25e7d-5692-4ec7-8e4f-126ee6ef12c1">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#3b7c0da5-7255-447f-b859-83be07883fe6"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>description</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#753fbebe-0106-4e0f-8cce-41244282fce0">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>**PMID currently not avaliable</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e85180c1-29cb-4f19-a755-33bf36926327">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Paxinos</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#02184941-ffc6-40d0-9938-7b59c6aba659">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>subject</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#6b870400-fdce-4c1c-9e17-bffe44e23535"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#32f1ea06-d647-4b8e-a240-96bd9595f480">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>1.0</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e89f51f0-6b7f-443b-b123-5d6d09bc1cb3">
+    <rdf:_2>spike waveform snipets</rdf:_2>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_3>spike band voltage traces</rdf:_3>
+    <rdf:_1>sorted spike times</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#300d2dc7-6cc6-4ac9-a8c4-2f7aa3e900e7">
+    <rdf:_3>ChR tagging and collision test</rdf:_3>
+    <rdf:_2>waveform shape</rdf:_2>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_4>ChR tagging and collision test</rdf:_4>
+    <rdf:_1>waveform shape</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#026bf262-112e-4ed3-8e15-7a572bc857be">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#e9279d6a-1ef3-4f1f-971f-80fe5434f22c"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#164425e8-87d3-456d-b456-ddcffb791ce8"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#3bdb3455-452f-4aec-bc21-905b26db6771"/>
+    <odml:hasName>creators</odml:hasName>
+    <odml:hasType>datacite/creators</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9c022414-a026-4561-b1ee-cf6f175f40ef">
+    <odml:hasType>datacite/title</odml:hasType>
+    <odml:hasName>title_1</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#4c68bd96-26e2-49e6-8850-64531280810c"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Title"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9f4ac8a8-df31-4419-bf41-4172cebf63d9">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.5</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_2 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-1.5</rdf:_2>
+    <rdf:_3 rdf:datatype="http://www.w3.org/2001/XMLSchema#double">687.0422254603595</rdf:_3>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#288e7de3-058b-4a4c-8239-9acba888c3c1">
+    <odml:hasName>dateOfExperiment</odml:hasName>
+    <odml:hasDefinition>Format: yyyymmdd (international standard notation)</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#80dda7ff-0f41-486c-a80a-220d555c0663"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#eff278f3-9d1c-45cb-b369-750799d222a5">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#9b9e360c-b2d2-43ca-91c1-449a7b0a98f5"/>
+    <odml:hasDefinition>Example: anm0032456; unique animal identifier</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>animalID</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#fbcbefa8-7b1e-4701-a149-e06e92d46c76">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>species</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#b268a37d-e85b-4a6a-a4a7-a6e9f16957bd"/>
+    <odml:hasDefinition>Species.  Examples: Mus musculus, Rattus norvegicus</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#5c7a3468-336d-4e58-88f8-1d6e1cef2b3f">
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#91fbb84f-adef-4e18-bb41-a84553a24258"/>
+    <odml:hasType>Extracellular recordings</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#fe082305-69cb-45ad-adfb-d48c0af031df"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#70f44ba2-083e-4ab6-bd99-915bf82b84cd"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#b797fe33-3caa-4fe2-81f3-0934da480289"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#c2431605-6aac-432b-94f8-60c01b391b37"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#21f2a41a-9f50-469f-a4c1-1976a279a131"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#7743fea9-b19b-4495-a94e-f05a7ed9e2d8"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#994832ae-fbac-4aa2-a0cd-fc879777cab0"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#cac9dae7-0019-4f76-8c41-91262b41b681"/>
+    <odml:hasDefinition>Extracellular recordings metadata</odml:hasDefinition>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#5b1a1c7b-1ba7-4054-a007-d2b3296ba707"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#3717d030-7163-474a-ac4a-80c2cae489fa"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#07a08055-1a39-420f-a78f-0063c1a2154f"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#9391b7b7-6ac0-4855-b082-b611966114e9"/>
+    <odml:hasName>Extracellular</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#f7539e1a-1046-4fa8-adac-9ffb4552f9d1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#2735702c-bed1-499d-aba7-4c0ee306c238"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#bd6a264f-1ef3-4bec-a714-a18d2d9acf72"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b10db5e8-2997-4ca5-a314-9ee849fdf46b">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>subject</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#8932a5cd-ade3-491d-b577-e7ba771e7495"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#5a63ec8d-168a-41af-9929-d6b69635dcd2">
+    <rdf:_1>full</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#93b80e52-a20b-482e-9ad2-99d84d99ea41">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#DataReference"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#e5a5dde4-462b-4b3e-a741-992c03a78777"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#026bf262-112e-4ed3-8e15-7a572bc857be"/>
+    <odml:hasName>DataCite</odml:hasName>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#2dc08bd7-ea94-49f7-9d8a-ffdf66e939be"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#76fcbdd7-a9b8-4b84-8ea0-f890adf676ec"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#77fef63a-4367-4a8c-a29e-d05598ca4d93"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#18203702-f1cc-4fbc-b978-affa6486448b"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#d4803c9d-ecc8-46a2-a8db-4001291fa7f6"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#658720c8-7059-486b-b60a-2c088f1ccb94"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#77cb7aae-5d50-4735-a02e-e19aa5bdeace"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#0b4150ce-b68a-433b-b595-fe2b644aa11e"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#1b2acf08-7e52-4a4a-88cb-bd0191f458b1"/>
+    <odml:hasType>data_reference</odml:hasType>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#177118e6-a3a7-4682-ad63-d8d1bf5f7c54"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d269e4ee-a1f7-4790-996c-794f748850d4">
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#458d6701-6164-4198-b43c-80e1aec8023f"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#24b87e0c-92fd-4001-bcc8-978f6b45a3a9"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#e62160fb-500b-4e4b-8590-ff42dea2d3a6"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#cb6704d9-223e-4e80-8314-f57c730a79c2"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#288e7de3-058b-4a4c-8239-9acba888c3c1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#db99aded-e083-4b4c-987f-494891eaad24"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#b2ac3dde-cf55-42b7-9634-8c2fbef9382c"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#c5dcf340-92bb-456f-9136-63149b2ee1d1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#eff278f3-9d1c-45cb-b369-750799d222a5"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#455e83c9-61f5-46f8-9e15-bd3b03df82ad"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#fbcbefa8-7b1e-4701-a149-e06e92d46c76"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#ff022607-6334-4b9b-bb3b-c2ebed748d99"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#61cf3645-7b8e-48ba-878c-e89911e62da6"/>
+    <odml:hasType>Experiment</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#3c55be31-6a26-4c7e-a746-532cdce8c3d1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#da31d652-727d-44db-8ca6-f14084eba49f"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#008d808b-85fc-4fe1-9593-d6a641d5591d"/>
+    <odml:hasDefinition>Metadata about the experiment session</odml:hasDefinition>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#714f7ab6-b796-4a38-8ae0-cbfb38d829ce"/>
+    <odml:hasName>Experiment</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#52f84e9b-ab04-44ee-af0d-1513074d25e0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1ca6ce42-744d-4dc0-b7c5-4407f671784c">
+    <rdf:_2>['2.5', '-1.2', '0.477']</rdf:_2>
+    <rdf:_21>['2.5', '-1.6', '0.177']</rdf:_21>
+    <rdf:_20>['2.5', '-1.6', '0.277']</rdf:_20>
+    <rdf:_13>['2.5', '-1.4', '0.177']</rdf:_13>
+    <rdf:_23>['2.5', '-1.6', '-0.023']</rdf:_23>
+    <rdf:_31>['2.5', '-1.8', '-0.023']</rdf:_31>
+    <rdf:_27>['2.5', '-1.8', '0.377']</rdf:_27>
+    <rdf:_5>['2.5', '-1.2', '0.177']</rdf:_5>
+    <rdf:_1>['2.5', '-1.2', '0.577']</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_29>['2.5', '-1.8', '0.177']</rdf:_29>
+    <rdf:_15>['2.5', '-1.4', '-0.023']</rdf:_15>
+    <rdf:_32>['2.5', '-1.8', '-0.123']</rdf:_32>
+    <rdf:_14>['2.5', '-1.4', '0.077']</rdf:_14>
+    <rdf:_18>['2.5', '-1.6', '0.477']</rdf:_18>
+    <rdf:_28>['2.5', '-1.8', '0.277']</rdf:_28>
+    <rdf:_3>['2.5', '-1.2', '0.377']</rdf:_3>
+    <rdf:_8>['2.5', '-1.2', '-0.123']</rdf:_8>
+    <rdf:_9>['2.5', '-1.4', '0.577']</rdf:_9>
+    <rdf:_7>['2.5', '-1.2', '-0.023']</rdf:_7>
+    <rdf:_11>['2.5', '-1.4', '0.377']</rdf:_11>
+    <rdf:_26>['2.5', '-1.8', '0.477']</rdf:_26>
+    <rdf:_17>['2.5', '-1.6', '0.577']</rdf:_17>
+    <rdf:_30>['2.5', '-1.8', '0.077']</rdf:_30>
+    <rdf:_25>['2.5', '-1.8', '0.577']</rdf:_25>
+    <rdf:_12>['2.5', '-1.4', '0.277']</rdf:_12>
+    <rdf:_22>['2.5', '-1.6', '0.077']</rdf:_22>
+    <rdf:_24>['2.5', '-1.6', '-0.123']</rdf:_24>
+    <rdf:_6>['2.5', '-1.2', '0.077']</rdf:_6>
+    <rdf:_10>['2.5', '-1.4', '0.477']</rdf:_10>
+    <rdf:_4>['2.5', '-1.2', '0.277']</rdf:_4>
+    <rdf:_19>['2.5', '-1.6', '0.377']</rdf:_19>
+    <rdf:_16>['2.5', '-1.4', '-0.123']</rdf:_16>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#0d4a5491-f337-4487-87f6-667a54301084">
+    <rdf:_1>Svoboda, Karel</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#0b4150ce-b68a-433b-b595-fe2b644aa11e">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#890c49f8-cf02-4316-8538-5e76675549df"/>
+    <odml:hasName>publicationYear</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#24b87e0c-92fd-4001-bcc8-978f6b45a3a9">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>animalGeneCopy</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#0415d2df-76b2-4ad0-aaac-a9e0bd1461a0"/>
+    <odml:hasDefinition>0, 1 or 2; 0: homozygous ko; 1: het transgene; 2: homo transgene</odml:hasDefinition>
+    <odml:hasDtype>int</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d4803c9d-ecc8-46a2-a8db-4001291fa7f6">
+    <odml:hasType>datacite/formats</odml:hasType>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#10826e9b-5dd3-41ca-90d2-26d8cae783d1"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasName>formats</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f2845552-6e87-495a-9994-b4dd34ae87b6">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>virusTiter</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>nominal titer</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#9c419012-788d-4f4c-bd63-d3e56330646e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#21b9a71f-18bd-4c6e-8e4c-5f080cc54a30">
+    <rdf:_1>pyramidal</rdf:_1>
+    <rdf:_2>interneuron</rdf:_2>
+    <rdf:_4>corpus callosal projection neuron</rdf:_4>
+    <rdf:_3>pyramidal tract neuron</rdf:_3>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d3a020d2-71d3-4b43-9b10-35877c08cf50">
+    <odml:hasName>creatorName</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#0d4a5491-f337-4487-87f6-667a54301084"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#94d99801-a499-40ed-ac9b-72cb58775429">
+    <odml:hasType>datacite/subject</odml:hasType>
+    <odml:hasName>subject_6</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#c407e0bd-c700-46f3-8525-94c575c17929"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#c5dcf340-92bb-456f-9136-63149b2ee1d1">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#5a63ec8d-168a-41af-9929-d6b69635dcd2"/>
+    <odml:hasName>whiskerConfig</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>Description of the state of the whiskers during the experiment.  Examples: full/ C row/ C2</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d406f1a0-5715-494f-a4f4-9c716163d3ba">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a40b99e0-6687-4af6-9fc5-050b1cbc5642">
+    <odml:hasType>virus</odml:hasType>
+    <odml:hasName>Virus</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#7aa2bacb-d893-43de-8a02-3da51b159ff4"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#1fac4172-7a62-4825-b4ac-d451cc21d246"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#7a33177b-8009-481d-be19-42979635c087"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#451da662-5b2a-472d-9d9c-932675e579b9"/>
+    <odml:hasDefinition>viral injection metadata</odml:hasDefinition>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#4daa7f4e-ae68-42bd-8db7-484c301d3401"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#f2845552-6e87-495a-9994-b4dd34ae87b6"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#a45e34a4-df04-4fba-b064-b90c327a1c5e"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#5bcf48a4-87a3-4d50-937b-c45ab981343f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#2dc08bd7-ea94-49f7-9d8a-ffdf66e939be">
+    <odml:hasType>datacite/subjects</odml:hasType>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#541bafbe-efa0-4e42-9488-4c60d46b49ef"/>
+    <odml:hasName>subjects</odml:hasName>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#fa434210-061f-4f9e-9930-967418de482e"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#94d99801-a499-40ed-ac9b-72cb58775429"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#ab46bf6b-df12-466a-b153-912f0e7aa879"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#7c7ae264-ce8d-4007-a3e3-119a6b003622"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#7ce1c284-c60f-4de8-b268-24b8fb80c97e"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#dd88a164-696a-4191-adb1-eb0480c5dfbb">
+    <rdf:_1>behavior</rdf:_1>
+    <rdf:_3>photostim</rdf:_3>
+    <rdf:_2>extracellular</rdf:_2>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#fb2dde7c-2c79-48b7-a97a-cbe7464cc7e3">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#85d11d39-cb8d-498e-a2c0-edb7f63dfe9e"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>int</odml:hasDtype>
+    <odml:hasDefinition>photostimulation wavelength in nanometers</odml:hasDefinition>
+    <odml:hasName>photostimWavelength</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7c7ae264-ce8d-4007-a3e3-119a6b003622">
+    <odml:hasType>datacite/subject</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+    <odml:hasName>subject_1</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#4c6e43f9-28b7-47db-8a03-4e6db9c79cd5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d5fe0edd-a105-46d3-ab3d-f696da3eaed2">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_2>craniotomy</rdf:_2>
+    <rdf:_1>clear skull</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#087cb9c6-8e62-463d-9cea-be4e71190625">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>GENSAT</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f5d83051-eded-4e8c-a155-a99d7ecdf9f0">
+    <odml:hasName>descriptionType</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d1cb578b-8196-4950-92dc-0e25a696610c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ca2923dc-c1be-4012-9c31-103d2450426a">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</rdf:_2>
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#77299d65-88e7-4dab-9400-60c66ef04425">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>eng</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#0d45ddc7-f5dc-46df-aa93-c56f25beb42a">
+    <rdf:_1>unidentified</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#458d6701-6164-4198-b43c-80e1aec8023f">
+    <odml:hasName>citation</odml:hasName>
+    <odml:hasDefinition>PMID</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#753fbebe-0106-4e0f-8cce-41244282fce0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#848de77f-3bc6-44a0-9780-356de1190657">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>not recorded</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d1cb578b-8196-4950-92dc-0e25a696610c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Other</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#91fbb84f-adef-4e18-bb41-a84553a24258">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#1ca6ce42-744d-4dc0-b7c5-4407f671784c"/>
+    <odml:hasDtype>3-tuple</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>array of locations, one per site (ml, ap, depth); in micrometers</odml:hasDefinition>
+    <odml:hasName>siteLocations</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#5bcf48a4-87a3-4d50-937b-c45ab981343f">
+    <odml:hasDefinition>Format: yyyymmdd</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>injectionDate</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#1e2f7a30-0b0b-4c93-84c4-ed6eb539710b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#cb6704d9-223e-4e80-8314-f57c730a79c2">
+    <odml:hasName>animalGeneModification</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasDefinition>Examples: PV-ires-Cre, rosa-Cag-lsl-ChR2-YFP, sim1-cre; describe genomic modification</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#a4528e35-3e4e-454d-b428-d37015ae6b1d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#4c6e43f9-28b7-47db-8a03-4e6db9c79cd5">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#be0a04d5-c2ee-4512-b538-283dfb2bf251"/>
+    <odml:hasName>subject</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7a590669-afff-47cf-8d33-6a304f58dfe7">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>manual</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#8c5c5847-d361-4816-93b4-0e7c212931cf">
+    <odml:hasDocVersion>0.1</odml:hasDocVersion>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Document"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#12abcbe3-72c4-4517-b3b7-2bd2c583a488"/>
+    <odml:hasDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-02-10</odml:hasDate>
+    <odml:hasFileName>meta_data_ANM221977_20140115_DataCite.xml</odml:hasFileName>
+    <odml:hasAuthor>Jeff Teeters</odml:hasAuthor>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#93b80e52-a20b-482e-9ad2-99d84d99ea41"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#c2431605-6aac-432b-94f8-60c01b391b37">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>recordingMarker</odml:hasName>
+    <odml:hasDefinition>Examples: DiI, lesion, stereotaxic, ISI</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d18983bb-10e9-44f0-8030-12d226a81fad"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b64450ca-875e-40d7-b16d-4490723b2efb">
+    <odml:hasName>Photostim</odml:hasName>
+    <odml:hasDefinition>Photostimulation metadata</odml:hasDefinition>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#ac183231-f064-47a7-9647-fa2f4df3fd82"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#3e4b7974-1ee2-4343-983d-e31e6dece2b9"/>
+    <odml:hasType>Photostim</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#095c96bb-56dd-42e5-8ee7-d9fd2891f54b"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#8ba62818-93cf-4423-988e-21b02675aaf1"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#fb2dde7c-2c79-48b7-a97a-cbe7464cc7e3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b2ac3dde-cf55-42b7-9634-8c2fbef9382c">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>animalStrain</odml:hasName>
+    <odml:hasDefinition>One of: 012569, kj18, JAX stock number, GENSAT ID, other</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#ed751205-79f3-49de-8b47-cf72bee2e798"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#21f2a41a-9f50-469f-a4c1-1976a279a131">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#258c98f8-626a-4e0b-ba8c-855c9fda1fcc"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>ADunit</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>Describe the AD unit; example: '14 bits'</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d18983bb-10e9-44f0-8030-12d226a81fad">
+    <rdf:_1>stereotaxic</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#994832ae-fbac-4aa2-a0cd-fc879777cab0">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasDefinition>Array of cell types; Example: pyramidal, PT neuron</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#21b9a71f-18bd-4c6e-8e4c-5f080cc54a30"/>
+    <odml:hasName>cellType</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1b2acf08-7e52-4a4a-88cb-bd0191f458b1">
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#dece5538-5c6f-4963-ac7e-73244deba9a4"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasName>sizes</odml:hasName>
+    <odml:hasType>datacite/sizes</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b029db56-d357-453f-9566-21240c10d447">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Nuo Li</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d654ea92-0fef-4bb2-8552-6a67bd29761c">
+    <rdf:_1>CRCNS.org alm-1</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#98cd5c6f-32fc-4dbc-a314-84ff33dfb5d8">
+    <rdf:_1>application/matlab</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#69c4c885-0d2f-4056-8680-836450fd0d27">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasDefinition>One of: detection, discrimination, go nogo, lick Left lick Right, delay, somatosensory, motor, response, reward</odml:hasDefinition>
+    <odml:hasName>task_keyword</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#b29a4aaf-90a7-4206-96ad-b8156ea5a431"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#4c68bd96-26e2-49e6-8850-64531280810c">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#7997a86a-ffa3-423e-8635-b7a48bb157cd"/>
+    <odml:hasDtype>text</odml:hasDtype>
+    <odml:hasName>title</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9c419012-788d-4f4c-bd63-d3e56330646e">
+    <rdf:_1>untitered</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#0c08ef36-5d3c-4e2d-a437-005607c32a16">
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#f6a25e7d-5692-4ec7-8e4f-126ee6ef12c1"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Description"/>
+    <odml:hasType>datacite/description</odml:hasType>
+    <odml:hasName>description_1</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#f5d83051-eded-4e8c-a155-a99d7ecdf9f0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#5c46e07b-d573-46a5-af68-c07ff2a18726">
+    <rdf:_1>AlternativeTitle</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#dece5538-5c6f-4963-ac7e-73244deba9a4">
+    <odml:hasType>datacite/size</odml:hasType>
+    <odml:hasName>size_1</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Size"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#1ffb2f12-fc3f-414e-9230-d8dab377a6b3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1ffb2f12-fc3f-414e-9230-d8dab377a6b3">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>size</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#59cff557-236d-413d-a0dc-c5b202db58eb"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#61cf3645-7b8e-48ba-878c-e89911e62da6">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#dd88a164-696a-4191-adb1-eb0480c5dfbb"/>
+    <odml:hasDefinition>Specifies the types of experiments, not exclusive; see detailed decription below. Is one of: behavior/extracellular/wholeCell/calciumImaging/photostim.</odml:hasDefinition>
+    <odml:hasName>experimentType</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b29a4aaf-90a7-4206-96ad-b8156ea5a431">
+    <rdf:_1>detection</rdf:_1>
+    <rdf:_6>motor</rdf:_6>
+    <rdf:_4>delay</rdf:_4>
+    <rdf:_5>somatosensory</rdf:_5>
+    <rdf:_7>response</rdf:_7>
+    <rdf:_2>discrimination</rdf:_2>
+    <rdf:_3>lick Left lick Right</rdf:_3>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_8>reward</rdf:_8>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#db99aded-e083-4b4c-987f-494891eaad24">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>dateOfBirth</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#848de77f-3bc6-44a0-9780-356de1190657"/>
+    <odml:hasDefinition>Format: yyyymmdd (international standard notation)</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7a33177b-8009-481d-be19-42979635c087">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#f149cf7b-b009-44a6-bda3-0fa6fc24af69"/>
+    <odml:hasName>infectionLocation</odml:hasName>
+    <odml:hasDefinition>location of infection according to atlas.  Examples: vS1 C2 barrel</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9b9e360c-b2d2-43ca-91c1-449a7b0a98f5">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>anm00221977</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e9279d6a-1ef3-4f1f-971f-80fe5434f22c">
+    <odml:hasType>datacite/creator</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#11671666-ae19-480d-a539-82b8a59f1e70"/>
+    <odml:hasName>creator_1</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Creator"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#70f44ba2-083e-4ab6-bd99-915bf82b84cd">
+    <odml:hasName>recordingType</odml:hasName>
+    <odml:hasDefinition>One of: chronic, accute</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#327c5898-af03-448e-ba3b-5cf5b9ae61b9"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a0a547ae-6819-4981-bdf2-32cbd6523145">
+    <rdf:_1>A4x8-5mm-100-200-177</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#177118e6-a3a7-4682-ad63-d8d1bf5f7c54">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasName>titles</odml:hasName>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#ad807861-a472-45ac-a6e3-a49cb42f7e1d"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#9c022414-a026-4561-b1ee-cf6f175f40ef"/>
+    <odml:hasType>datacite/titles</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e656eb87-bcfb-46f8-920a-ac35f69a2762">
+    <rdf:_1>neuronexus</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e4c1f21a-56cc-4ede-8283-59550ebf16c3">
+    <rdf:_1>Addgene41015</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ff022607-6334-4b9b-bb3b-c2ebed748d99">
+    <odml:hasDefinition>sex of mouse (m,f)</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#f9887d4d-e27b-4c26-a205-69462d0ea21c"/>
+    <odml:hasName>sex</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b797fe33-3caa-4fe2-81f3-0934da480289">
+    <odml:hasDefinition>NN part#/ tetrode / Janelia ref</odml:hasDefinition>
+    <odml:hasName>probeType</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#a0a547ae-6819-4981-bdf2-32cbd6523145"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#64b4b11a-0814-47f7-8cb4-e4483108e0bc">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Extracellular recordings</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#52f84e9b-ab04-44ee-af0d-1513074d25e0">
+    <odml:hasName>experimenters</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#b029db56-d357-453f-9566-21240c10d447"/>
+    <odml:hasDefinition>names of experimenters</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#455e83c9-61f5-46f8-9e15-bd3b03df82ad">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#e85180c1-29cb-4f19-a755-33bf36926327"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>455e83c9-61f5-46f8-9e15-bd3b03df82ad</odml:hasName>
+    <odml:hasDefinition>Specifies reference atlast for anatomical locations; Example: Allen Reference Atlas</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e5a5dde4-462b-4b3e-a741-992c03a78777">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#77299d65-88e7-4dab-9400-60c66ef04425"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>language</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d1cd9fb2-4e3b-4cbf-9897-9e19e7ac2243">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>CRCNS.org</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#12abcbe3-72c4-4517-b3b7-2bd2c583a488">
+    <odml:hasType>metadata/Dataset</odml:hasType>
+    <odml:hasName>Metadata</odml:hasName>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#8c129122-3b31-46da-91a9-a4b8ba0f4eb5"/>
+    <odml:hasDefinition>Metadata root of a published Dataset</odml:hasDefinition>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#d269e4ee-a1f7-4790-996c-794f748850d4"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#b64450ca-875e-40d7-b16d-4490723b2efb"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#881eaec9-ee79-48df-945c-517e80ce60b0"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#5c7a3468-336d-4e58-88f8-1d6e1cef2b3f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1fac4172-7a62-4825-b4ac-d451cc21d246">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#6f38cfe4-e658-413b-9d62-947aa4c0e154"/>
+    <odml:hasDefinition>Locations of infection if based on histology or injection (ml, ap, depth) relative to bregma; in millimeters; if multiple injection sites give list of (x,y,z) coordinates.</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>infectionCoordinates</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#af4ba0a9-8853-4234-bf0b-9f0aa8e227b2">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>anterior lateral motor cortex (ALM)</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#76fcbdd7-a9b8-4b84-8ea0-f890adf676ec">
+    <odml:hasName>version</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#32f1ea06-d647-4b8e-a240-96bd9595f480"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ac183231-f064-47a7-9647-fa2f4df3fd82">
+    <odml:hasName>photostimCoordinates</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#8df0d6cb-d0f6-4c6f-b0dc-8da167170595"/>
+    <odml:hasDefinition>x,y,z; laser focal location  or fiber tip location; (ml, ap, depth) relative to bregma; in millimeters</odml:hasDefinition>
+    <odml:hasDtype>3-tuple</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#80dda7ff-0f41-486c-a80a-220d555c0663">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>20140115</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#77cb7aae-5d50-4735-a02e-e19aa5bdeace">
+    <odml:hasType>datacite/descriptions</odml:hasType>
+    <odml:hasName>descriptions</odml:hasName>
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#0c08ef36-5d3c-4e2d-a437-005607c32a16"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3717d030-7163-474a-ac4a-80c2cae489fa">
+    <odml:hasDefinition>Either: sorted spike times, spike waveform snipets, spike band voltage traces, local field potential</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#e89f51f0-6b7f-443b-b123-5d6d09bc1cb3"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>extracellularDataType</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#72c06696-d67b-429d-82a3-78cefe555111">
+    <odml:hasName>resourceType</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#cc5808d6-7266-4d8c-9a38-b6a52d2f0792"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#be0a04d5-c2ee-4512-b538-283dfb2bf251">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Neuroscience</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#07a08055-1a39-420f-a78f-0063c1a2154f">
+    <odml:hasName>penetrationN</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d406f1a0-5715-494f-a4f4-9c716163d3ba"/>
+    <odml:hasDefinition>The nth time to access the tissue.  Example: 1</odml:hasDefinition>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>int</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#8c129122-3b31-46da-91a9-a4b8ba0f4eb5">
+    <odml:hasSection rdf:resource="https://g-node.org/odml-rdf#a40b99e0-6687-4af6-9fc5-050b1cbc5642"/>
+    <odml:hasName>Surgerical_procedures</odml:hasName>
+    <odml:hasDefinition>Procedures used for the surgery</odml:hasDefinition>
+    <odml:hasType>Surgerical procedures</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#9353ebcb-33a9-434f-9113-35d6c2d73ed7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#4daa7f4e-ae68-42bd-8db7-484c301d3401">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>virus lot number</odml:hasDefinition>
+    <odml:hasName>virusLotNumber</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#56c92123-12b9-45dd-a343-38a4839f6a9a">
+    <odml:hasName>subject</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#e0ea1054-6ea6-45bc-a374-68faa57bc739"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#104c842c-d1c4-492c-ab2a-dbfec8abaad5">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#3409c458-7015-4f90-93b0-b327c8cf75f3"/>
+    <odml:hasName>resourceTypeGeneral</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#2735702c-bed1-499d-aba7-4c0ee306c238">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#e656eb87-bcfb-46f8-920a-ac35f69a2762"/>
+    <odml:hasName>probeSource</odml:hasName>
+    <odml:hasDefinition>Examples: neuronexus, apig</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7ce1c284-c60f-4de8-b268-24b8fb80c97e">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#b10db5e8-2997-4ca5-a314-9ee849fdf46b"/>
+    <odml:hasName>subject_4</odml:hasName>
+    <odml:hasType>datacite/subject</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#fa434210-061f-4f9e-9930-967418de482e">
+    <odml:hasName>subject_2</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#56c92123-12b9-45dd-a343-38a4839f6a9a"/>
+    <odml:hasType>datacite/subject</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#47df94dd-1daf-408d-b8c2-101f0fe55190">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>identifierType</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#de4b543e-0669-4781-a3d9-62a9d433d641"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#451da662-5b2a-472d-9d9c-932675e579b9">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>virusID</odml:hasName>
+    <odml:hasDefinition>Upenn designation; or addgene; Example: AV-9-PV2833</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#e4c1f21a-56cc-4ede-8283-59550ebf16c3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3e4b7974-1ee2-4343-983d-e31e6dece2b9">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#fd7fa40e-0559-4db7-94ef-2f8c6741cb2a"/>
+    <odml:hasDefinition>Example: histology</odml:hasDefinition>
+    <odml:hasName>identificationMethod</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3bdb3455-452f-4aec-bc21-905b26db6771">
+    <odml:hasType>datacite/creator</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#f1fbf137-908f-4393-8775-1cbf841ad720"/>
+    <odml:hasName>creator_2</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Creator"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#164425e8-87d3-456d-b456-ddcffb791ce8">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Creator"/>
+    <odml:hasName>creator_3</odml:hasName>
+    <odml:hasType>datacite/creator</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#d3a020d2-71d3-4b43-9b10-35877c08cf50"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#18203702-f1cc-4fbc-b978-affa6486448b">
+    <odml:hasType>datacite/identifier</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Identifier"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#a6f9c3d1-b7f5-409b-81eb-e19a9bc293b4"/>
+    <odml:hasName>identifier</odml:hasName>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#47df94dd-1daf-408d-b8c2-101f0fe55190"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#cc5808d6-7266-4d8c-9a38-b6a52d2f0792">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Dataset/Neurophysiology</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7b11c6c7-289b-4ece-af16-8d6f56f9601d">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Janelia core</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#36417302-9c37-4ebd-8790-bb2488e0e727">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>114656</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7aa2bacb-d893-43de-8a02-3da51b159ff4">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>injection volume, in nL; Examples: 50, 50</odml:hasDefinition>
+    <odml:hasDtype>int</odml:hasDtype>
+    <odml:hasName>injectionVolume</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#ca2923dc-c1be-4012-9c31-103d2450426a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3c55be31-6a26-4c7e-a746-532cdce8c3d1">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#087cb9c6-8e62-463d-9cea-be4e71190625"/>
+    <odml:hasDefinition>Examples: JAX, GENSAT, investigator name; or other source of the animal</odml:hasDefinition>
+    <odml:hasName>animalSource</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7997a86a-ffa3-423e-8635-b7a48bb157cd">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Extracellular recordings from anterior lateral motor cortex (ALM) neurons of adult mice
+                performing a tactile decision behavior</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#77fef63a-4367-4a8c-a29e-d05598ca4d93">
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#104c842c-d1c4-492c-ab2a-dbfec8abaad5"/>
+    <odml:hasType>datacite/resource_type</odml:hasType>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#72c06696-d67b-429d-82a3-78cefe555111"/>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#ResourceType"/>
+    <odml:hasName>resourceType</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#59cff557-236d-413d-a0dc-c5b202db58eb">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>44 GB, compressed</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#658720c8-7059-486b-b60a-2c088f1ccb94">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>publisher</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d1cd9fb2-4e3b-4cbf-9897-9e19e7ac2243"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#881eaec9-ee79-48df-945c-517e80ce60b0">
+    <odml:hasType>Behavior</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Section"/>
+    <odml:hasName>Behavior</odml:hasName>
+    <odml:hasDefinition>Behavior metadata</odml:hasDefinition>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#69c4c885-0d2f-4056-8680-836450fd0d27"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a45e34a4-df04-4fba-b064-b90c327a1c5e">
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasDefinition>Source of virus.  Examples: Upenn, Janelia core, investigator, other</odml:hasDefinition>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>virusSource</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#7b11c6c7-289b-4ece-af16-8d6f56f9601d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1804a40f-2d28-4d04-bb2f-974216b42f5e">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_3> 1</rdf:_3>
+    <rdf:_2> -1</rdf:_2>
+    <rdf:_1>-5</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9391b7b7-6ac0-4855-b082-b611966114e9">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>spikeSorting</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#7a590669-afff-47cf-8d33-6a304f58dfe7"/>
+    <odml:hasDefinition>algorithm or manual; for algorithm, provide citation of the original method paper</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#1e2f7a30-0b0b-4c93-84c4-ed6eb539710b">
+    <rdf:_1>20130904</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f9887d4d-e27b-4c26-a205-69462d0ea21c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>m</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#8df0d6cb-d0f6-4c6f-b0dc-8da167170595">
+    <rdf:_1>['2.5', '1.5', '0']</rdf:_1>
+    <rdf:_2>['2.5', '-1.5', '0']</rdf:_2>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f1fbf137-908f-4393-8775-1cbf841ad720">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#bd388c38-7e6c-4f55-93c8-3dbeba07e520"/>
+    <odml:hasName>creatorName</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7ff5d2a2-d0cf-4063-a5a6-ae79d8bb4445">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>format</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#98cd5c6f-32fc-4dbc-a314-84ff33dfb5d8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3b7c0da5-7255-447f-b859-83be07883fe6">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>These experiments probe neural dynamics in the anterior motor cortex (ALM) and its
+                relationship to voluntary movement.  The data represent extracellular recordings from ALM
+                neurons of adult mice performing a tactile decision behavior.  Mouse uses whisker to detect
+                which of two possible positions a pole is in.  After a delay, the mice indicate the pole
+                position by licking a sensor either on the right or left.  During the experiment extracellular
+                recordings were made from ALM neurons using 32 channels.  Photostimulation was used to
+                generate antidromic spikes in either layer 5 IT (Intratelencephalic) neuron axons through a
+                cranial window over contra-lateral ALM or PT (Pyramidal Tract) neuron axons through an optical
+                fiber in the ipsi-lateral brainstem.</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#9353ebcb-33a9-434f-9113-35d6c2d73ed7">
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#02b74c18-2160-433b-a653-b5f0fd297a48"/>
+    <odml:hasDefinition>Specifies the types of surgical manipulations.  Not exclusive. Examples: Virus injection/fiber implant/window implant/drug injection/electroporation</odml:hasDefinition>
+    <odml:hasName>surgicalManipulation</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a6f9c3d1-b7f5-409b-81eb-e19a9bc293b4">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#7a366449-c10a-4c6a-aaec-66018fad7f7d"/>
+    <odml:hasName>identifier</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#e0ea1054-6ea6-45bc-a374-68faa57bc739">
+    <rdf:_1>Electrophysiology</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#83b86647-c673-40dd-8b0e-1aca38b52cfb">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_2>ALM</rdf:_2>
+    <rdf:_1>ALM</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f7539e1a-1046-4fa8-adac-9ffb4552f9d1">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>rolloff frequency of the recording system, kHz</odml:hasDefinition>
+    <odml:hasName>amplifierRolloff</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#fe082305-69cb-45ad-adfb-d48c0af031df">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasDefinition>(ml, ap, depth) relative to bregma; in millimeters</odml:hasDefinition>
+    <odml:hasName>referenceCoordinates</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#fd7fa40e-0559-4db7-94ef-2f8c6741cb2a">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>stereotaxic coordinate</rdf:_1>
+    <rdf:_2>stereotaxic coordinate</rdf:_2>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#11671666-ae19-480d-a539-82b8a59f1e70">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasName>creatorName</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#a47daae2-a1c3-4802-885f-6a86cc365583"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#477e5b1b-b675-477b-8a16-cbea4fd8068b">
+    <odml:hasName>subject</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#af4ba0a9-8853-4234-bf0b-9f0aa8e227b2"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ed751205-79f3-49de-8b47-cf72bee2e798">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>pl56</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#85d11d39-cb8d-498e-a2c0-edb7f63dfe9e">
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">473</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#de4b543e-0669-4781-a3d9-62a9d433d641">
+    <rdf:_1>DOI</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#f149cf7b-b009-44a6-bda3-0fa6fc24af69">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>M2</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#8ba62818-93cf-4423-988e-21b02675aaf1">
+    <odml:hasName>photostimLocation</odml:hasName>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDefinition>Example: ALM</odml:hasDefinition>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#83b86647-c673-40dd-8b0e-1aca38b52cfb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#bd388c38-7e6c-4f55-93c8-3dbeba07e520">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Gerfen, Charles R</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#10826e9b-5dd3-41ca-90d2-26d8cae783d1">
+    <odml:hasType>datacite/format</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Format"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#7ff5d2a2-d0cf-4063-a5a6-ae79d8bb4445"/>
+    <odml:hasName>format_1</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ad807861-a472-45ac-a6e3-a49cb42f7e1d">
+    <odml:hasName>title_2</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Title"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#968a0117-00c2-46ad-ada5-80fd79bd2597"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#24bb5d10-0131-4873-9f6d-06aebd1a6137"/>
+    <odml:hasType>datacite/title</odml:hasType>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#b268a37d-e85b-4a6a-a4a7-a6e9f16957bd">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Mus musculus</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#bd6a264f-1ef3-4bec-a714-a18d2d9acf72">
+    <odml:hasName>identificationMethod</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#300d2dc7-6cc6-4ac9-a8c4-2f7aa3e900e7"/>
+    <odml:hasDefinition>Example: waveform shape, ChR tagging</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7a366449-c10a-4c6a-aaec-66018fad7f7d">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>10.6080/K0MS3QNT</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#7743fea9-b19b-4495-a94e-f05a7ed9e2d8">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#1804a40f-2d28-4d04-bb2f-974216b42f5e"/>
+    <odml:hasName>groundCoordinates</odml:hasName>
+    <odml:hasDefinition>(ml, ap, depth) relative to bregma; in millimeters</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a47daae2-a1c3-4802-885f-6a86cc365583">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>Li, Nuo</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#8932a5cd-ade3-491d-b577-e7ba771e7495">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>motor cortex</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#008d808b-85fc-4fe1-9593-d6a641d5591d">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#36417302-9c37-4ebd-8790-bb2488e0e727"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>timeOfExperiment</odml:hasName>
+    <odml:hasDefinition>Format: hhmmss (international standard notation)</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#968a0117-00c2-46ad-ada5-80fd79bd2597">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d654ea92-0fef-4bb2-8552-6a67bd29761c"/>
+    <odml:hasName>title</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasDtype>string</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#0415d2df-76b2-4ad0-aaac-a9e0bd1461a0">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#890c49f8-cf02-4316-8538-5e76675549df">
+    <rdf:_1>2014</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#cac9dae7-0019-4f76-8c41-91262b41b681">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>recordingCoordinates</odml:hasName>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#9f4ac8a8-df31-4419-bf41-4172cebf63d9"/>
+    <odml:hasDefinition>Location of probe 1 (ml, ap, depth) relative to bregma; in millimeters. This is the center of the tips; for example, the location in a 4-shank electrode will be specified as a point along the tips, but between the two center shanks. Example: P: 1.5; Lat: 3.5; depth</odml:hasDefinition>
+    <odml:hasDtype>float</odml:hasDtype>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#327c5898-af03-448e-ba3b-5cf5b9ae61b9">
+    <rdf:_1>accute</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#5b1a1c7b-1ba7-4054-a007-d2b3296ba707">
+    <odml:hasDefinition>location according to reference atlas or anatomy or ISI; Example: vS1, C2, Paxinos or ISI</odml:hasDefinition>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#d648ecd5-6900-43f1-b37b-c3c618dccc32"/>
+    <odml:hasName>recordingLocation</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#c407e0bd-c700-46f3-8525-94c575c17929">
+    <odml:hasValue rdf:resource="https://g-node.org/odml-rdf#64b4b11a-0814-47f7-8cb4-e4483108e0bc"/>
+    <odml:hasDtype>string</odml:hasDtype>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>subject</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#541bafbe-efa0-4e42-9488-4c60d46b49ef">
+    <odml:hasName>subject_5</odml:hasName>
+    <odml:hasType>datacite/subject</odml:hasType>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#02184941-ffc6-40d0-9938-7b59c6aba659"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#a4528e35-3e4e-454d-b428-d37015ae6b1d">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>tlx-cre</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#02b74c18-2160-433b-a653-b5f0fd297a48">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>virus injection</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#714f7ab6-b796-4a38-8ae0-cbfb38d829ce">
+    <odml:hasDefinition>Weight of subject at the beginning of the experiment, in grams; Example: 20</odml:hasDefinition>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>weightBefore</odml:hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#da31d652-727d-44db-8ca6-f14084eba49f">
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Property"/>
+    <odml:hasName>da31d652-727d-44db-8ca6-f14084eba49f</odml:hasName>
+    <odml:hasDefinition>Weight of subject at the end of the experiment, in grams; Example: 21</odml:hasDefinition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#ab46bf6b-df12-466a-b153-912f0e7aa879">
+    <odml:hasType>datacite/subject</odml:hasType>
+    <odml:hasName>subject_3</odml:hasName>
+    <rdf:type rdf:resource="https://g-node.org/odml-rdf#Subject"/>
+    <odml:hasProperty rdf:resource="https://g-node.org/odml-rdf#477e5b1b-b675-477b-8a16-cbea4fd8068b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#d648ecd5-6900-43f1-b37b-c3c618dccc32">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>M2</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#258c98f8-626a-4e0b-ba8c-855c9fda1fcc">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1>14 bits</rdf:_1>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#3409c458-7015-4f90-93b0-b327c8cf75f3">
+    <rdf:_1>Dataset</rdf:_1>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://g-node.org/odml-rdf#Hub">
+    <odml:hasDocument rdf:resource="https://g-node.org/odml-rdf#8c5c5847-d361-4816-93b4-0e7c212931cf"/>
+  </rdf:Description>
+</rdf:RDF>

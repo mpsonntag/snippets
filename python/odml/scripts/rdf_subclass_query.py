@@ -41,6 +41,7 @@ def run_query(curr_graph):
 
     print(curr_graph.serialize(format='turtle').decode("utf-8"))
 
+
 # Load a file containing subclasses to a default rdflib graph
 graph = Graph()
 graph.parse(FNAME)
