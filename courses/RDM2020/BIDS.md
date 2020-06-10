@@ -107,3 +107,44 @@ Example code
         print(validator.is_bids(filepath))  # will print True, and then False
 
 For the more versed people there is also the option to locally start the full BIDS web service using docker, but we will not cover this here and now. The details are documented on https://github.com/bids-standard/bids-validator
+
+# BIDS converters, tools and apps
+
+https://bids-apps.neuroimaging.io/about/
+https://doi.org/10.1371/journal.pcbi.1005209
+
+Outlook - BIDS is at version v1.3.0; any non-backwards compatible changes will be introduced with version v2.0.
+
+
+
+# Get involved
+
+- feedback, contribute, provide another usecase example from your project, propose your format to be included
+- if you found errors or things that were ambiguous to you or information you felt was missing - you yourself can add this on the starter-kit page - you just need to be signed into github and you can immediately change it
+- extend the core specification
+https://bids-specification.readthedocs.io/en/stable/06-extensions.html
+- ask for or add a new BIDS extension for your formats
+
+YOU CAN ACTUALLY CONTRIBUTE TO MAKE LIVES EASIER FOR THE COMMUNITY AND IN A ROUNDABOUT WAY ALSO FOR YOU
+
+
+
+
+# Linklist
+
+https://github.com/bids-standard/bids-starter-kit
+
+https://bids-specification.readthedocs.io/en/stable/
+
+# assignment
+
+- read through https://github.com/bids-standard/bids-starter-kit and maybe the specification (not that extensive)
+- try to map your data to the BIDS structure; if you have problems check the examples page: https://github.com/bids-standard/bids-examples
+- create an example dataset based on your own data (does not have to contain actual data, but the structure should fit)
+- make sure your example is valid using the online validator
+
+-> for week after
+- locally clone the gin repo
+- create a new branch with your full name
+- add your example dataset to your branch and push to gin. Check the GIN FAQ / gin-cli notes for details.
+
