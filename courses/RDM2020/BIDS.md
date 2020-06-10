@@ -79,3 +79,31 @@ https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#de
 ## examples
 
 https://github.com/bids-standard/bids-examples
+
+# The BIDS validator
+
+A validation can be run on a local BIDS directory using a web service provided at 
+
+https://bids-standard.github.io/bids-validator/
+
+[example]
+
+If you are not allowed to provide an off site page access to your data, you can also install and run validation tools locally to ensure, that your BIDS structure remains clean and compatible with any additional tools.
+
+https://github.com/bids-standard/bids-validator
+
+
+There is no comparable implementation of the web service BIDS validator for local checks, but you can use the python implementation to locally check, whether all files in a BIDS directory are valid BIDS files.
+
+`pip install -U bids_validator`
+
+Example code
+
+    from bids_validator import BIDSValidator
+    
+    validator = BIDSValidator()
+    filepaths = ["/sub-01/anat/sub-01_rec-CSD_T1w.nii.gz", "/sub-01/anat/sub-01_acq-23_rec-CSD_T1w.exe"]
+    for filepath in filepaths:
+        print(validator.is_bids(filepath))  # will print True, and then False
+
+For the more versed people there is also the option to locally start the full BIDS web service using docker, but we will not cover this here and now. The details are documented on https://github.com/bids-standard/bids-validator
