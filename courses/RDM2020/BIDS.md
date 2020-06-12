@@ -1,4 +1,4 @@
-# Brain Imaging Data Structure (BIDS)
+#   (BIDS)
 
 BIDS is an initiative to establish a data structure aimed to consistently organize and document neuroimaging and connected behavioral data.
 
@@ -76,9 +76,7 @@ All of the datatypes allow only specific files that are specifically named
 ### File names and folder structure
 Metadata and data file names depend on the project type and the folder names!
 
-Example
-
- anat: Anatomical MRI data (`myProject/sub-01/ses-01/anat/`)
+Example `anat`: Anatomical MRI data (`myProject/sub-01/ses-01/anat/`)
 
     Data:
         sub-<>_ses-<>_T1w.nii.gz
