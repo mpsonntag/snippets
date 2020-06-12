@@ -5,6 +5,7 @@ Upload the following folders to https://bids-standard.github.io/bids-validator/ 
 ## 01_empty_example/
 
     01_empty_example
+    ├── ignored_folder
     ├── datafile.txt
     ├── dataset_description.json
     └── .bidsignore
@@ -54,11 +55,11 @@ Upload the following folders to https://bids-standard.github.io/bids-validator/ 
     │   ├── additional_file.txt
     │   └── ses-01
     │       └── anat
-    │           └── sub-01_ses-01_T1w_invalid_annotation.nii.gz
+    │           └── sub-01_ses-01_T1w.nii.gz
     └── sub-02
         └── ses-02
             └── anat
-                ├── sub-01_ses-01_T1w_invalid_annotation.nii.gz
+                ├── sub-02_ses-02_T1w.nii.gz
                 └── sub-02_ses-02_unsupported_file.tsv
 
 - Note that only specific file types are allowed at specific levels of the BIDS directory hierarchy.
