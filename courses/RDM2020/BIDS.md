@@ -1,87 +1,46 @@
 # Brain Imaging Data Structure (BIDS)
 
-[xxx] BIDS citation
+BIDS is an initiative to establish a data structure aimed to consistently organize and document neuroimaging and connected behavioral data.
+
 Gorgolewski, K.J., Auer, T., Calhoun, V.D., Craddock, R.C., Das, S., Duff, E.P., Flandin, G., Ghosh, S.S., Glatard, T., Halchenko, Y.O., Handwerker, D.A., Hanke, M., Keator, D., Li, X., Michael, Z., Maumet, C., Nichols, B.N., Nichols, T.E., Pellman, J., Poline, J.-B., Rokem, A., Schaefer, G., Sochat, V., Triplett, W., Turner, J.A., Varoquaux, G., Poldrack, R.A., 2016. The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments. Sci Data 3, 160044.
 
 Research Resource Identifier RRID:SCR_016124
 
-BIDS is an initiative to establish a data structure aimed to consistently organize neuroimaging and behavioral data.
-
-Uses simple file formats and folder structures.
-
---- https://osf.io/fhm5d/
-Not a file format, but a way of structuring your data and providing metadata
-–
-It specifies which 
-file formats 
-are to be used (i.e. Nifti, json, tsv)
-–
-It specifies the 
-naming convention 
-for files and directories
-–
-It addresses the problem of 
-metadata 
-getting lost while doing your research
-–
-Details from DICOM headers lost in converting DICOM to Nifti
-–
-Details about the participants
-–
-Details about the cognitive task an/or experimental manipulations
-
-Rather than as a “standard”, 
-you should consider it a widely supported “best practice”
-
-BIDS was initiated at Stanford to address the challenges of OpenFMRI.org (now OpenNeuro.org)
-
-Main focus is on “brain” imaging, i.e. neuroimaging, which is often done in relation to cognitive 
-neuroscience
-
-Not only focusses on the imaging aspect
-–
-Also on the cognitive part of the research (i.e. behavior)
-–
-Also on other measures of brain activity (i.e. physiology)
-
-In 2016 BIDS was specified for MRI and fMRI, in 2018 also MEG, in 2019 also for EEG and iEEG, 
-and more extensions are in the works
----
-
-can also be adopted for other use cases.
-
-Current BIDS usage:
-https://miro.medium.com/max/1400/0*hWRIrcNvy7yFxdwQ.png
+https://bids.neuroimaging.io
 
 
+It is not a standard per se but a best practice model to enable data sharing and open source tool development based on a common data structure.
 
-Trying to be a community project. All users should be aware that they can help making the project better
-https://bids.neuroimaging.io/get_involved.html
+To this end the BIDS standard specifies
+- which file formats are to be used for a use case (i.e. Nifti, json, tsv)
+- the naming convention for files and directories
+- core metadata and how they are to be stored e.g. about participants, stimuli and key recording settings
 
-Many tools have been grown and become available around the BIDS specification.
+Besides the imaging aspect it includes
+- behavior
+- physiology
 
-This relies on the fact that the BIDS specification leads to a strict, stereotypical data structure. To ensure this remains valid and ensure that the tools built around the data structure remain functional, BIDS provides a validator tool. This validator tool can be run on the root of a BIDS repository and will return all errors and warnings it encounters with respect to the BIDS specification. It does not check the contents of the files.
+So far full BIDS specifications exist for
+- MRI (2016)
+- fMRI (2016)
+- MEG (2018)
+- EEG (2019)
+- iEEG (2019)
 
-Be aware that putting any additional files in a BIDS structure will invalidate the BIDS project by default. There are two (and a half) ways to deal with this limitation
-- Keep all files that are not part of the BIDS specification in directories outside of the BIDS structure. This is also necessary if you want to have the BIDS structure in git.
-- add all non-BIDS files to a special file, `.bidsignore`. This works similar to the `.gitignore` functionality, any files mentioned in this file will be ignored by the BIDS validation and by the tools that work with BIDS. Here you will need what you have learned in the first session: navigating the file system, providing correct paths and file extensions.
-
-
-        *_not_bids.txt
-        extra_data/
+Specification extensions e.g. for PET or CT are currently being developed by the community. 
 
 # The BIDS structure
 
-The Brain Imaging Data Structure (BIDS) defines a format for the file names, folder structures and file types for neuroimaging data.
+The Brain Imaging Data Structure (BIDS) specifies folder structures and file names as well as supported file types for different types of neuroimaging data.
 
 ## The BIDS folder structure and supported file formats
 
 https://github.com/bids-standard/bids-starter-kit/wiki
 
-### BIDS supports three main file types
+### BIDS file type support
 - `.json` files to document metadata
-- `.tsv` files containing tab separated tabular metadata
-- raw data files e.g. `.jpg` files or `.nii.gz` files for FMRI data
+- `.tsv` files containing tab separated tabular metadata - no CSV, no excel, only true tabs, no spacing
+- raw data files specific to the modality that the project contains e.g. nii.gz files for an anatomical MRI project; only NIFTI files are supported, .
 
 ### BIDS general folder structure
 
@@ -114,7 +73,10 @@ project                 exampleProjectName
 
 All of the datatypes allow only specific files that are specifically named
 
-One example
+### File names and folder structure
+Metadata and data file names depend on the project type and the folder names!
+
+Example
 
  anat: Anatomical MRI data (`myProject/sub-01/ses-01/anat/`)
 
@@ -129,10 +91,17 @@ The root of the project folder should contain the following files:
 - `participants.tsv`
 
 These files have to be named exactly like written above and they must not be empty.
+Be aware that putting any additional files in a BIDS structure will invalidate the BIDS project by default. There are two (and a half) ways to deal with this limitation
+- Keep all files that are not part of the BIDS specification in directories outside of the BIDS structure. This is also necessary if you want to have the BIDS structure in git.
+- add all non-BIDS files to a special file, `.bidsignore`. This works similar to the `.gitignore` functionality, any files mentioned in this file will be ignored by the BIDS validation and by the tools that work with BIDS. Here you will need what you have learned in the first session: navigating the file system, providing correct paths and file extensions.
+
+
+        *_not_bids.txt
+        extra_data/
 
 ## Examples
 
-Example dataset
+Example project structure
 
 ```
 ds001
@@ -147,8 +116,6 @@ ds001
 │       ├── sub-01_task-balloonanalogrisktask_run-01_events.tsv
 │       ├── sub-01_task-balloonanalogrisktask_run-02_bold.nii.gz
 │       ├── sub-01_task-balloonanalogrisktask_run-02_events.tsv
-│       ├── sub-01_task-balloonanalogrisktask_run-03_bold.nii.gz
-│       └── sub-01_task-balloonanalogrisktask_run-03_events.tsv
 ├── sub-02
 │   ├── anat
 │   │   ├── sub-02_inplaneT2.nii.gz
@@ -158,13 +125,11 @@ ds001
 │       ├── sub-02_task-balloonanalogrisktask_run-01_events.tsv
 │       ├── sub-02_task-balloonanalogrisktask_run-02_bold.nii.gz
 │       ├── sub-02_task-balloonanalogrisktask_run-02_events.tsv
-│       ├── sub-02_task-balloonanalogrisktask_run-03_bold.nii.gz
-│       └── sub-02_task-balloonanalogrisktask_run-03_events.tsv
-...
 ...
 └── task-balloonanalogrisktask_bold.json
 ```
 
+Find more examples at
 https://github.com/bids-standard/bids-examples
 
 # The BIDS validator
@@ -179,28 +144,17 @@ If you are not allowed to provide an off site page access to your data, you can 
 
 https://github.com/bids-standard/bids-validator
 
-
-There is no comparable implementation of the web service BIDS validator for local checks, but you can use the python implementation to locally check, whether all files in a BIDS directory are valid BIDS files.
-
-`pip install -U bids_validator`
-
-Example code
-
-    from bids_validator import BIDSValidator
-    
-    validator = BIDSValidator()
-    filepaths = ["/sub-01/anat/sub-01_rec-CSD_T1w.nii.gz", "/sub-01/anat/sub-01_acq-23_rec-CSD_T1w.exe"]
-    for filepath in filepaths:
-        print(validator.is_bids(filepath))  # will print True, and then False
-
-For the more versed people there is also the option to locally start the full BIDS web service using docker, but we will not cover this here and now. The details are documented on https://github.com/bids-standard/bids-validator
+Local installation:
+- nodejs (full functionality, commandline tool)
+- Python (reduced functionality)
+- docker
 
 # The BIDS Specification
 
 https://bids-specification.readthedocs.io/en/stable/
 
-detailed example, how to read and use to get a properly valid BIDS structure for a modality
-
+Detailed example, how to read and use to get a properly valid BIDS structure for a modality
+https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html
 
 Definitions - there are a set of terms that are important for the BIDS structure. To avoid misinterpretation, they have been defined here 
 - if you want to use BIDS, it might be worth your time to familiarize yourself with these terms beforehand to be sure you know what you are doing.
@@ -235,13 +189,32 @@ BIDS apps - applications that work with BIDS datasets
 https://bids-apps.neuroimaging.io/about/
 https://doi.org/10.1371/journal.pcbi.1005209
 
+Example app
+https://github.com/poldracklab/fmriprep
+
 Outlook - BIDS is at version v1.4.0; any non-backwards compatible changes will be introduced with version v2.0.
+
+# Specific tutorials
+https://github.com/bids-standard/bids-starter-kit/wiki/Tutorials
 
 
 # Linklist
+https://bids.neuroimaging.io
 https://bids-specification.readthedocs.io/en/stable/
 https://github.com/bids-standard/bids-starter-kit
 
+Papers
+
+BIDS
+https://doi.org/10.1038/sdata.2016.44
+EEG-BIDS
+https://doi.org/10.1038/s41597-019-0104-8
+iEEG BIDS
+https://doi.org/10.1038/s41597-019-0105-7
+MEG BIDS
+https://doi.org/10.1038/sdata.2018.110
+BIDS apps
+https://doi.org/10.1371/journal.pcbi.1005209 
 
 # assignment
 - read through https://github.com/bids-standard/bids-starter-kit and maybe the specification (not that extensive)
