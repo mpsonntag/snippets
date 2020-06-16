@@ -33,3 +33,49 @@ They include
 - Python essentials; fundamentals, functions, exceptions, debugging
 - Data handling libraries
 - Data loading, handling and plotting
+
+## Markdown
+
+Get reference sheet
+
+- how to put images in
+
+## Jupyter shortcuts
+
+Get reference sheet
+
+## Internals
+
+look at json
+
+pitfall: jupyter and git
+
+## Installation variants
+
+pip (native, not recommended)
+virtual environment (will probably fade out)
+conda (with respect to OS adaption probably the best option)
+binder
+
+## Python Libraries
+
+The most important ones
+
+ipython
+jupyter
+numpy
+matplotlib
+pandas
+
+work with pip
+
+work with conda
+
+widgets; interactive jupyter notebooks
+https://www.mikulskibartosz.name/interactive-plots-in-jupyter-notebook/
+
+## Jupyter example
+
+Save with vs without results
+
+
