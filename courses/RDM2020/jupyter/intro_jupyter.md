@@ -79,3 +79,28 @@ https://www.mikulskibartosz.name/interactive-plots-in-jupyter-notebook/
 Save with vs without results
 
 
+## Binder
+
+binder will time out, if there is inactivity. in this case all changes are lost! if you want to work on a notebook, download frequently, because all changes will be lost when the container is shut down and recycled.
+
+binder examples
+https://github.com/binder-examples
+
+## Jupyter and R
+
+links how to install and use
+
+most important libraries
+
+## Jupyter and Matlab
+
+Matlab - live editor and matlab online
+https://www.mathworks.com/products/matlab/live-editor.html
+https://www.mathworks.com/products/matlab-online.html
+
+Matlab in jupyter notebooks:
+https://anneurai.net/2015/11/12/matlab-based-ipython-notebooks/
+
+Matlab kernels for jupyter notebooks
+https://github.com/Calysto/matlab_kernel
+https://github.com/imatlab/imatlab
