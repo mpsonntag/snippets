@@ -37,12 +37,18 @@ They include
 ## Markdown
 
 Get reference sheet
+https://www.markdownguide.org/cheat-sheet
+https://guides.github.com/features/mastering-markdown/
 
 - how to put images in
 
 ## Jupyter shortcuts
 
 Get reference sheet
+
+https://jupyter-notebook.readthedocs.io
+
+For the full list of available shortcuts, click Help, Keyboard Shortcuts in the notebook menus.
 
 ## Internals
 
@@ -95,12 +101,12 @@ most important libraries
 ## Jupyter and Matlab
 
 Matlab - live editor and matlab online
-https://www.mathworks.com/products/matlab/live-editor.html
-https://www.mathworks.com/products/matlab-online.html
+- https://www.mathworks.com/products/matlab/live-editor.html
+- https://www.mathworks.com/products/matlab-online.html
 
 Matlab in jupyter notebooks:
-https://anneurai.net/2015/11/12/matlab-based-ipython-notebooks/
+- https://anneurai.net/2015/11/12/matlab-based-ipython-notebooks/
 
 Matlab kernels for jupyter notebooks
-https://github.com/Calysto/matlab_kernel
-https://github.com/imatlab/imatlab
+- https://github.com/Calysto/matlab_kernel
+- https://github.com/imatlab/imatlab
