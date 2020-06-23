@@ -14,15 +14,14 @@ As a scientist you are expected to be independent find out the things you need o
   - R
   - (options for Matlab)
 
-show of hands
+Show of hands
 
-who knows how to script with matlab
-who knows how to script with python
+who knows how to script with Matlab
+who knows how to script with Python
 who knows how to script with R
 
-who knows virtual environments or conda
+who knows conda
 who knows ipython or jupyter notebooks
-who knows markdown
 
 ## Introduction to Python
 
@@ -42,19 +41,20 @@ They include
 
 Example
 
-## Markdown
+https://nbviewer.jupyter.org/github/jupyter/notebook/blob/master/docs/source/examples/Notebook/Notebook%20Basics.ipynb
 
-Get reference sheet
+## Markdown (already done by Thomas)
+
 https://www.markdownguide.org/cheat-sheet
 https://guides.github.com/features/mastering-markdown/
 
 - how to put images in
 
 ## Jupyter shortcuts
-
 - https://jupyter-notebook.readthedocs.io
 
 For the full list of available shortcuts, click Help, Keyboard Shortcuts in the notebook menus.
+- https://jupyter-notebook.readthedocs.io/en/stable/notebook.html?highlight=shortcuts#keyboard-shortcuts
 
 Nice rundown also comparing across OS platforms can be found here
 - https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330
@@ -79,11 +79,11 @@ numpy
 matplotlib
 pandas
 
-work with pip
+Work with pip
 
-work with conda
+Work with conda
 
-Conda and windows - whitespace - path issue
+Conda and Windows - whitespace - path issue
 https://github.com/conda/conda/issues/8725
 
 https://docs.anaconda.com/anaconda/user-guide/faq/
@@ -94,7 +94,7 @@ In what folder should I install Anaconda on Windows?
 We recommend installing Anaconda or Miniconda into a directory that contains only 7-bit ASCII characters and no spaces, such as C:\anaconda. Do not install into paths that contain spaces such as C:\Program Files or that include Unicode characters outside the 7-bit ASCII character set. This helps ensure correct operation and no errors when using any open-source tools in either Python 3 or Python 2 conda environments.
 "
 
-widgets; interactive jupyter notebooks
+Widgets; interactive jupyter notebooks
 https://www.mikulskibartosz.name/interactive-plots-in-jupyter-notebook/
 
 ## create a conda environment, install dependencies
@@ -113,7 +113,35 @@ https://www.mikulskibartosz.name/interactive-plots-in-jupyter-notebook/
 
 Pitfall: Do not use `conda activate`. Immediately do `conda deactivate`
 
+A full script to install jupyter notebook in conda with relevant libraries
+
+
 ## Jupyter example
+
+How to start one
+
+```bash
+jupyter notebook
+```
+or
+```bash
+jupyter notebook [notbook_name]
+```
+
+To shut it down again, type Ctrl+C
+
+## Full example
+
+conda create -n jnb python=3.8 -y
+conda activate jnb
+pip install ipython
+pip install numpy
+pip install matplotlib
+pip install jupyter
+
+jupyter notebook
+
+
 
 ## NBViewer
 
@@ -121,31 +149,36 @@ https://nbviewer.jupyter.org/
 
 ## Internals
 
-look at json
+Look at json
 
-pitfall: jupyter and git
+Pitfall: jupyter and git
 
 Save with vs without results
 
 ## Use it as a presentation tool
 
+`View` -> `Cell toolbar` -> `Slideshow`
+
+
 ## Binder
 
 Additional information at
-https://mybinder.readthedocs.io/en/latest/
-
+- https://mybinder.readthedocs.io/en/latest/
 
 Binder will time out, if there is inactivity. in this case all changes are lost! if you want to work on a notebook, download frequently, because all changes will be lost when the container is shut down and recycled.
 
-binder examples
-https://github.com/binder-examples
+Binder examples
+- https://github.com/binder-examples
 
 ## Jupyter and R
 
-links how to install and use
+- https://www.datacamp.com/community/blog/jupyter-notebook-r
+- https://datatofish.com/r-jupyter-notebook/
+
+Links how to install and use
 - https://plotly.com/r/using-r-in-jupyter-notebooks/
 
-most important libraries
+Most important libraries
 
 ## Jupyter and Matlab
 
