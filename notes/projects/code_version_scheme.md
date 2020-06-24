@@ -6,7 +6,7 @@ The NIX project consists of different components: At the core of it is the data 
 
 All three components, i.e. data model, file format and API carry their own version number and some can change independently from each other.
 
-## File format versioning scheme
+## File format version scheme
 
 The file format is versioned with a triplet of integers, that carries semantics, thus can and indeed must be used by libraries that want to open NIX files to determine if the version of the file is compatible with the library version (i.e. the file can be read or written to).
 
