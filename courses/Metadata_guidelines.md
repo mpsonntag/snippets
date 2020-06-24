@@ -6,13 +6,16 @@
 # Links and references
 
 Data Carpentry: Data management
-https://datacarpentry.org/organization-genomics/01-tidiness/index.html
+- https://datacarpentry.org/organization-genomics/01-tidiness/index.html
 
 List of metadata standards
-https://www.dcc.ac.uk/guidance/standards/metadata/list
+- https://www.dcc.ac.uk/guidance/standards/metadata/list
 
 Ten Simple Rules for the Care and Feeding of Scientific Data
-https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003542
+- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003542
 
 Research Data Management guidelines; German only
-https://www.forschungsdaten.info/themen/organisieren-und-aufbereiten/
+- https://www.forschungsdaten.info/themen/organisieren-und-aufbereiten/
+
+Course organisation tips and rules
+- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007808
