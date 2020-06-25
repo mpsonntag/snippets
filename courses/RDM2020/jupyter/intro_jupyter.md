@@ -361,3 +361,16 @@ Select `Git repository` and paste the URL of the repository e.g. https://gin.g-n
 Select `launch`; it will now take a bit until the environment is created and ready for you to use.
 You can now create a new notebook vie the menu `New -> Notebook: R`. Note, that we also still have the Python dependencies in the same repository. That is why we could also start a Python3 notebook as well.
 A new tab will open with the Jupyter notebook. Note the `R` logo which denotes that we are working in an R Jupyter notebook.
+
+## Jupyter and Matlab
+
+Matlab - live editor and Matlab online
+- https://www.mathworks.com/products/matlab/live-editor.html
+- https://www.mathworks.com/products/matlab-online.html
+
+Matlab in Jupyter notebooks:
+- https://anneurai.net/2015/11/12/matlab-based-ipython-notebooks
+
+Matlab kernels for Jupyter notebooks
+- https://github.com/Calysto/matlab_kernel
+- https://github.com/imatlab/imatlab
