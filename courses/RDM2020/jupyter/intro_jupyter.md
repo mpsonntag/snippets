@@ -198,3 +198,35 @@ Jupyter specific magic methods (subset of Python magic)
 Python magic methods
 - https://ipython.readthedocs.io/en/stable/interactive/magics.html
 
+## Use Jupyter notebooks as presentations
+
+In a running notebook:
+
+    `View` -> `Cell toolbar` -> `Slideshow`
+
+You can now select how each cell should appear in a presentation.
+
+After you have saved your notebook and closed Jupyter, restart Jupyter as a presentation tool:
+
+    jupyter nbconvert [file_name.ipynb] --to slides --post serve
+
+When running the jupyter notebook, it will create a *.slides.html file. use that one in presentations and for handouts.
+Use the following command to create a static html page.
+
+    jupyter nbconvert --to html BIDS_introduction.ipynb
+
+The HTML file can then be converted to a PDF and handed around.
+
+## Additional features when publishing notebooks
+
+Uploading Jupyter notebooks to public git repositories gives access to additional tools
+
+- can be published on any online git repository e.g. github, gitlab, gin ...
+- online viewing of notebook content via NBViewer
+    https://nbviewer.jupyter.org
+
+Example
+https://github.com/G-Node/nix-demo/blob/master/2019_RDM_course_nix.ipynb
+
+- online editing via Binder
+
