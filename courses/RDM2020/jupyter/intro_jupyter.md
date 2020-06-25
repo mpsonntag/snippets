@@ -298,3 +298,66 @@ You can have multiple Jupyter notebooks in the same directory
 - all can have their own permanent links
 - all will share the same environment and dependencies
 
+# Jupyter and R
+
+## Full example of Jupyter with R in conda
+
+kernel ... enables the notebook to understand R syntax
+
+    conda create -n r-jnb-py38 python=3.8 -y
+    conda activate r-jnb-py38
+    conda install -c conda-forge jupyterlab -y
+    conda install -c r r-base -y
+    conda install -c r r-irkernel -y
+
+    jupyter notebook
+
+From the menu select `New -> Notebook: R`
+
+## Additional resources to set up Jupyter with R
+
+Jupyter and R - setup and use
+- https://www.datacamp.com/community/blog/jupyter-notebook-r
+- https://datatofish.com/r-jupyter-notebook/
+- https://plotly.com/r/using-r-in-jupyter-notebooks/
+
+R maintains its own channel on conda and provides all libraries for conda environments there
+- https://anaconda.org/r
+
+### Useful R libraries available via conda
+
+`r-base` ... core installation
+`r-tidyverse` ... package collection; https://tidyverse.tidyverse.org; it contains
+- ggplot2, for data visualisation.
+- dplyr, for data manipulation.
+- tidyr, for data tidying.
+- readr, for data import.
+- purrr, for functional programming.
+- tibble, for tibbles, a modern re-imagining of data frames.
+- stringr, for strings.
+- forcats, for factors.
+
+Install it using
+
+    conda install -c r r-base
+    conda install -c r r-tidyverse
+
+
+## R Binder set up example 
+
+We again need a public git repository
+This time we need to provide the YAML file `environment.yml` at the root of the repository.
+It contains all `conda` packages that need to be installed to run the `R` Jupyter notebook in Binder.
+
+channels:
+  - r
+dependencies:
+  - r-base
+  - r-tidyverse
+
+Upload the file to the public git repository
+Go to https://mybinder.org/
+Select `Git repository` and paste the URL of the repository e.g. https://gin.g-node.org/msonntag/demo
+Select `launch`; it will now take a bit until the environment is created and ready for you to use.
+You can now create a new notebook vie the menu `New -> Notebook: R`. Note, that we also still have the Python dependencies in the same repository. That is why we could also start a Python3 notebook as well.
+A new tab will open with the Jupyter notebook. Note the `R` logo which denotes that we are working in an R Jupyter notebook.
