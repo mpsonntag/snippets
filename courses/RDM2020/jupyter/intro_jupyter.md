@@ -42,3 +42,49 @@ A virtual environment
 
 (Ana)Conda is a cross platform package manager and a virtual environment.
 
+## Conda installation and resources
+
+Installation files and instructions
+https://docs.conda.io/en/latest/miniconda.html
+
+20 minute introduction to conda
+https://conda.io/projects/conda/en/latest/user-guide/getting-started.html
+
+Conda commands cheat sheet
+https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
+
+## Working with conda
+- open a terminal
+- create a new conda virtual environment
+    conda create -n [env_name] python=3.8
+
+- activate the environment
+    conda activate [env_name]
+
+- install software packages using the conda package manager - will be installed into the active environment only
+    conda install [library]
+
+- install python packages using pip; when using pip, it will be installed into the active environment only
+    pip install [library]
+
+- deactivate an active environment
+    conda deactivate
+
+- delete an environment with all installed software packages
+    conda remove -n [env_name] --all
+
+Pitfall: Do not use `conda activate`. Immediately do `conda deactivate`. Otherwise the installation of conda will be affected and can become unusable.
+
+## Conda and Windows
+
+Conda terminal: from the Start menu, search for and open "Anaconda Prompt."
+
+Known issue: whitespace - path issue
+- https://github.com/conda/conda/issues/8725
+- https://docs.anaconda.com/anaconda/user-guide/faq/
+"
+In what folder should I install Anaconda on Windows?
+
+We recommend installing Anaconda or Miniconda into a directory that contains only 7-bit ASCII characters and no spaces, such as C:\anaconda. Do not install into paths that contain spaces such as C:\Program Files or that include Unicode characters outside the 7-bit ASCII character set. This helps ensure correct operation and no errors when using any open-source tools in either Python 3 or Python 2 conda environments.
+"
+
