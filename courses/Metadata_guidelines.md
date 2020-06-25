@@ -14,8 +14,11 @@ List of metadata standards
 Ten Simple Rules for the Care and Feeding of Scientific Data
 - https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003542
 
+Ten Rules for Digital Data storage
+- https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005097
+
 Research Data Management guidelines; German only
 - https://www.forschungsdaten.info/themen/organisieren-und-aufbereiten/
 
-Course organisation tips and rules
+Ten rules for course organisation
 - https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007808
