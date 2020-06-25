@@ -230,3 +230,71 @@ https://github.com/G-Node/nix-demo/blob/master/2019_RDM_course_nix.ipynb
 
 - online editing via Binder
 
+# Binder
+
+Binder is a free service that enables to run a published Jupyter notebook on a remote machine.
+With minimum set up you can run and work on a full Jupyter notebook without the need to install the environment locally.
+
+The full documentation in how to properly use Binder can be found here
+- https://mybinder.readthedocs.io/en/latest/
+
+You can find minimal examples how to set up a repository for use with binder for Python and R at
+https://github.com/binder-examples
+
+We will do a very quick introduction into how to set up and use a Python and an R Binder notebook
+
+## Empty Python Binder set up
+
+Prepare an empty, public git repository
+To start a Python Jupyter notebook via Binder you need to provide two files at the root of the repository.
+- `runtime.txt` ... this file contains the Python version that will be used for any Notebook started by this repository. It contains only one entry:
+
+    python-3.8
+- `requirements.txt` ... this file contains the Python packages that will be installed when the container starts. In our example we will install the following python packages:
+
+    numpy
+    matplotlib
+    nixio==1.5.0b4
+
+Commit and upload these files to the public git repository
+
+Go to https://mybinder.org/
+Select `Git repository` and paste the URL of the repository e.g. https://gin.g-node.org/msonntag/demo
+Select `launch`; it will now take a bit until the environment is created and ready for you to use.
+You can now create a new notebook vie the menu `New -> Notebook: Python3`.
+A new tab will open and you can save it under a new name - this will still be on the remote machine.
+You can always save the notebook to your local machine via the `Download` menu button.
+You can now work on this notebook as you would locally.
+
+## Python Binder with an existing notebook
+
+As above you have to set up a git repository with the environment and the Python dependencies
+Also upload the existing Jupyter notebook to this repository and also any data files you want to use in this notebook
+Again go to https://mybinder.org and set up the repository information as before.
+But now also provide the file name of the uploaded Jupyter notebook and select `Launch`
+Binder will now launch the notebook directly.
+
+Note that
+- https://mybinder.org also provides a permanent link to such a notebook
+
+## Notes on Binder
+
+Binder is a free service
+- building a container might take up to 20min the first time around.
+- takes longer the more dependencies are defined.
+- built containers are kept for a while - the next time the Binder is used, the start up will take less time.
+
+Binder is a cloud service; all files are remote
+- upload required dependencies and files to the git repository
+- upload required files to the running cloud service
+- save changes to your notebook in the cloud service AND download the notebook to your local machine
+- Binder will time out when there is inactivity - save OFTEN
+
+https://mybinder.org provides a permanent link to public binder git repositories
+- you can run your notebook from anywhere
+- collaborators can easily run your notebook as well
+
+You can have multiple Jupyter notebooks in the same directory
+- all can have their own permanent links
+- all will share the same environment and dependencies
+
