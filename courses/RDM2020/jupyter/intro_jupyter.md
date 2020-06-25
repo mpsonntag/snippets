@@ -88,3 +88,79 @@ In what folder should I install Anaconda on Windows?
 We recommend installing Anaconda or Miniconda into a directory that contains only 7-bit ASCII characters and no spaces, such as C:\anaconda. Do not install into paths that contain spaces such as C:\Program Files or that include Unicode characters outside the 7-bit ASCII character set. This helps ensure correct operation and no errors when using any open-source tools in either Python 3 or Python 2 conda environments.
 "
 
+# Jupyter notebooks
+
+https://jupyter.org/
+
+"Project Jupyter exists to develop open-source software, open-standards, and services for interactive computing across dozens of programming languages."
+
+- all Jupyter notebooks require a Python installation
+- Python is the default scripting language in Jupyter notebooks
+
+## Introduction to Python
+
+Not by me
+
+Here are three links to lessons tailored for scientists; can each be done in 1/2 - 1 day:
+- https://swcarpentry.github.io/python-novice-inflammation
+- https://swcarpentry.github.io/python-novice-gapminder
+- https://datacarpentry.org/python-ecology-lesson
+
+They include
+- Python essentials; fundamentals, functions, exceptions, debugging
+- Data handling libraries
+- Data loading, handling and plotting
+
+## Python Libraries
+
+The most important ones and how they can be installed
+
+pip install jupyter
+pip install ipython
+pip install numpy
+pip install matplotlib
+
+Widgets; interactive Jupyter notebooks
+- https://www.mikulskibartosz.name/interactive-plots-in-jupyter-notebook/
+
+## Installation example of Jupyter in a conda environment
+
+- open a (conda) terminal
+- create the python conda environment
+
+
+    conda create -n jnb-py38 python=3.8 -y
+
+- activate the environment
+
+
+    conda activate jnb-py38
+
+- install jupyter into the active conda environment
+
+
+    pip install jupyter
+
+- navigate to a directory on you operating system where you want to save files or have datafiles you want to use
+
+
+    cd [path/to/working/directory]
+
+- open jupyter
+
+
+    jupyter notebook
+
+- automatic switch to the browser
+- select "New -> Notebook: Python3"
+- will open another tab with an unsaved notebook
+- save the notebook
+
+- to close a notebook, switch to the terminal
+- press "ctrl+C" ("cmd+C" on macOS)
+
+- you can directly start an existing notebook from the command line
+
+
+    jupyter notebook [file_name.ipynb]
+
