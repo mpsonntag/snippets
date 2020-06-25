@@ -164,3 +164,37 @@ Widgets; interactive Jupyter notebooks
 
     jupyter notebook [file_name.ipynb]
 
+## Using Jupyter notebook
+
+Check the reference for FAQs and details
+- https://jupyter-notebook.readthedocs.io
+
+Find a quick tutorial about the basic features here
+- https://realpython.com/jupyter-notebook-introduction
+
+We'll do a quick feature glimpse on a live Jupyter notebook.
+
+## Markdown (see Lecture05)
+- https://www.markdownguide.org/cheat-sheet
+- https://guides.github.com/features/mastering-markdown/
+
+## Make your life easier - use keyboard shortcuts
+
+The running notebook provides a full list of available shortcuts via the notebook menu:
+
+    `Help` -> `Keyboard Shortcuts`
+
+You can also find a reference here
+- https://jupyter-notebook.readthedocs.io/en/stable/notebook.html?highlight=shortcuts#keyboard-shortcuts
+
+Nice rundown also comparing across OS platforms can be found here
+- https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330
+
+## Make your life easier - use magic methods
+
+Jupyter specific magic methods (subset of Python magic)
+- https://nbviewer.jupyter.org/github/ipython/ipython/blob/6.x/examples/IPython%20Kernel/Cell%20Magics.ipynb
+
+Python magic methods
+- https://ipython.readthedocs.io/en/stable/interactive/magics.html
+
