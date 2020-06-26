@@ -27,7 +27,7 @@ Show of hands who knows
 Find a short introduction at 
 - https://nbviewer.jupyter.org/github/jupyter/notebook/blob/master/docs/source/examples/Notebook/Notebook%20Basics.ipynb
 
-# Package managers and virtual environments
+# Detour: Package managers and virtual environments
 
 A package manager
 - keeps track of installed software packages
@@ -88,7 +88,7 @@ In what folder should I install Anaconda on Windows?
 We recommend installing Anaconda or Miniconda into a directory that contains only 7-bit ASCII characters and no spaces, such as C:\anaconda. Do not install into paths that contain spaces such as C:\Program Files or that include Unicode characters outside the 7-bit ASCII character set. This helps ensure correct operation and no errors when using any open-source tools in either Python 3 or Python 2 conda environments.
 "
 
-# Jupyter notebooks
+# Finally: Jupyter notebooks
 
 https://jupyter.org/
 
@@ -374,3 +374,7 @@ Matlab in Jupyter notebooks:
 Matlab kernels for Jupyter notebooks
 - https://github.com/Calysto/matlab_kernel
 - https://github.com/imatlab/imatlab
+
+## Jupyter notebooks and good practice
+
+https://reproducible-science-curriculum.github.io/publication-RR-Jupyter/
