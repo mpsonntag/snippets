@@ -22,36 +22,36 @@
 - Phillip Tovote
   - the community approach is very appreciated
   - sections (task areas) are a good idea
-  - how can the community motivate itself for the task at hand. the system is still mainly driven by the impact factor and there is no reward for proper RDM and sharing might be even contra productive for a PhDs or a postdocs career.
+  - how can the community motivate itself for the task at hand. The system is still mainly driven by the impact factor and there is no reward for proper RDM and sharing might be even counter productive for a PhD's or a postdoc's career.
   - this is a complex, philosphical discussion but should be held.
-  - alternative incentives should be implemented into the initiative giving an outlook in how proper RDM can help with the career.
-- Thomas Wachtler:
-  - scientists are more effective with proper RDM. By starting a community it will be easier to overcome the immediate reward barrier.
-  - with respect to open data there is no established credit system yet, but journals already support data publications and credits for data publication will come in time.
+  - alternative incentives should be implemented into the NFDI Neuro initiative giving an outlook on how proper RDM can help with the career.
+  - Thomas Wachtler:
+    - scientists are more effective with proper RDM. By aggregating a community it will be easier to overcome the immediate reward barrier.
+    - with respect to open data there is no established credit system yet, but journals already support data publications and credits for data publication will come in time.
 - Otto Witte
   - many data repositories are too much work and too much documentation is required.
-  - more positive impulses for data publications are required
-  - funded research must demand open data publication
+  - more positive impulses for data publications are required.
+  - funded research must demand open data publication.
 - Lucia Melloni
-  - use this initiative to develop guidelines which can work as an incentive for a community.
-  - they are working in a large collaboration and RDM is an issue; the data sharing is difficult and the rewards for limited positions like PhDs are not available; they need to profit in some way.
-  - the rewards need to be actively developed
+  - NFDI Neuro should be used to develop guidelines which can work as an incentive for a community.
+  - their lab is working in a large collaboration and RDM is an issue; the data sharing is difficult and the rewards for limited positions like PhDs are not available; they need to profit in some way.
+  - these rewards need to be actively developed.
 - Sonja Gruen:
-  - first round of student will have a hard time
-  - second round of students can work on the collected data already
-    - we need to overcome this initial collection step
+  - first round of students will have a hard time establishing proper RDM.
+  - but the second round of students can already work on the collected data.
+  - this initial collection step needs to be overcome.
 - Michael Hanke
-    - there is a point in additional incentives
-    - but the initiative should remove the need for incentives and make the RDM so easy to make training less costly
+  - there is a point in additional incentives.
+  - but NFDI Neuro should remove the need for incentives and make the RDM so easy to make training less costly.
 - Karl Kafitz
-    - students actually like RDM if they get the chance
-    - a problem are the universities since they do not give much support with respect to RDM in individual labs - there money is a problem, as soon as money is involved, the universities get hesitant.
+  - students actually like RDM if they get the chance
+  - a problem are the universities since they do not give much support with respect to RDM in individual labs - there money is a problem, as soon as money is involved, the universities get hesitant.
 - Michael Denker
-    - students are extremely motivated
-    - are lacking the experience in RDM topics themselves since they come from different background
-    - funding and acknowledging RDM efforts are important
+  - students are extremely motivated
+  - are lacking the experience in RDM topics themselves since they come from different background
+  - funding and acknowledging RDM efforts are important
 - Julien Colomb
-    - the DFG should be actively engaged in requiring incentives for grants with respect to RDM
+  - the DFG should be actively engaged in requiring incentives for grants with respect to RDM
 
 
 # Common Infrastructure (Michael Hanke, Thomas Wachtler)
@@ -324,12 +324,75 @@ https://tinyurl.com/nfdi-compneurosci
   - OWitte: in many collaborative research centers applications the RDM plan is already a very important point.
   - PTovote: had application with DFG where a not well developed RDM plan was criticised.
 
-# Clinical Neuroscience ()
+## Chat
+Julien Colomb
+So if we want to share grant application (and reviews from the DFG, maybe also documentation about how the infrastructure project ended up the way it did), what tool could we use? If this public information or do we want to keep it visible only to “us” (whoever us is) ?
+
+
+# Clinical Neuroscience (Otto Witte, Jena University hospital)
+
+- require a conversion tool and a viewer for the DICOM standard to open up the recorded data
+
+## Comments and discussion
+- Severin Heumueller:
+  - Jena part of Smith initiative; does the initiative overlap with what has been discussed?
+  - OWitte: yes and no. Will work with them on the legal issue part. In principle they work with standard clinical data.
+  SHeumueller: work with 2 different initiatives as well and problems from clinical data will be solved by them because SHeumueller lacks the manpower.
+- AStein: where would be the main intersectio nwith NFDI 4 health
+  - OWitte: clinic studies outside of hospitals, several areas where they deal with patients, do not deal with legal aspects but with patients. Here could be an overlap with the NFDI Neuro to not repeat work on anaonymising data. NFDI for health is versorgungsforschung. They are very open for discussion and collaboration.
+- HansScherberger: how much would would imaging overlap with the task 2 - since clinical need anonymisation.
+  - OWitte: in principle the acquired data are much more standardised since they are routinely taken. maybe the recorded data / metadata can overlap with task 2.
+- Philip Tovote
+  - group discussion very similar to their grant proposal where intertwining person and animal data - the answers are complex; maybe these plans can also be shared with the community. the data repos that are needed should be in parallel for human and animals but should be aligned in terms of standards. the medical side are ahead in some respect since they have standards and rules that are lacking in animal research - maybe these can be applied to animal research as well. in the long run consolidate these standards also with the computational neuroscience task group.
+  - HScherberger: very good answer and should be used in the grant proposal.
+  - PTovote: just not overpromise to standardise everything and remain realistic.
+  - OWitte: need to be a simple start since the implementation will take quite some time.
+- Constanze Seidenbecher:
+  - if we deal with patient data - if changes are made to the standard data, are there any other stakeholders that need to be consulted
+  - OWitte: not the stakeholders are the problem but the established techniques and hardware that are available - to convert from these data formats to open ones will take most of the time.
+- Daniel Guellmar:
+  - change structure if task areas - branches of neuroscience do similar things and have same problems. change the view on that; defining standard is one thing but enforces to push discussion how to share data and make it visible. it is not that necessary to have a common platform to share but at least make the people aware that these data exists. there should be channels that are bidirectional and not full public as well. The disciplines within neuroscience should mix and not be separate like with the task areas
+  - OWitte: its true the worlds are not that different, but the used formats are and it is important to
+  - TWachtler: the defined categories should not be seen as divisions and overlaps should be recognised. but the fields are at different stages in data annotation and sharing and the gaps are large. the idea is to structure the consortium to fetch people where they are and work from there and help fields to work from each other from there.
+- Michael Denker
+  - the idea was to structure the consortium in a way so that every community would recognise them in the consortium. the fields overlap strongly and the goal should be to move closer together.
+  - OWitte: agreed, in the long
+- Julien Colomb:
+  - how can the common questions be asked and discussed in a common way - maybe in a next workshop it could be discussed how to make this best visible to the community
+  - TWachtler: very good suggestion to focus on specific topics and might be helpful. also good to get the working groups starting.
+  - Hans Scherberger: the main thing to fail would not be to dev the tools, but not reaching out to the users because they dont understand it or that they do not think its important. especially in the beginning it should be close to the community. biggest fear of failure: we do not pick up the people.
+- Daniel Guellmar
+  - consortium will create something with a benefit - some technical or structural burdens will be lifted. but different branches in neuroscience we should aim for defining an arching minimal standard for all neuroscience data e.g. did not think about modeling. what is the overarching structure to cover all neuroscientific data to get people to think in a general structure and not only in their own specific format. formats change. what would be the minimum standard to develop.
+  - a platform should be community driven but heavily guided by the consortium. it should not be just a forum where everyone does what they please.
+- Severin Heumueller:
+  - prioritisation of issues: how will this happen? lot of topics but not all can be adressed at the same time. how will we prioritised? who guides it.
+  - OWitte: we cannot describe the while world and not neuroscience. with the task areas it is like a matrix depending how you look at it.
+  - TWachtler: also important to focus and get things used. with respect to prioritisation: the more useful it seems the higher the priority it will have. which also includes where the community engages the most.
+  - MHanke: indeed. in the middle of priorisation. stick to the things that we know. The reason for the workshops was to collect exports. If that was not enough do more workshops to collect more exports that will participate.
+- Julien Colomb
+  - outreach to researchers is a big part of the idea, but there are no experts on teaching. how would RDM outreach work, since none of the people in the current NFDI Neuro that are experts. How to address this problem that there are no experts in RDM. It is very difficult to get researchers engaged.
+  - OWitte: there are elements of outreach already there and we should stick to the elements that are already there.
+  - HScherberger: bring experts together and to talk to each other. They can teach each other the best.
+  - Karl Kafitz: most important point is to tell the colleagues about the worth of RDM. when trying to solicitate, people will not react favorably. 
+  - Severin Heumueller: get it into peoples heads that RDM is science as well. the unified patient consent that data can also be used for science, it has taken tons of times to get all countries in germany to decide on a same form. there the problem is, there are many experts, but they will all disagree amongst themselves. here getting the experts will not lead to an answer. how to deal in such a case.
+  - OWitte: the medical informatics initiative did agree on a common patient form only recently for all of Germany.
+  - TWachtler: its sufficient to convey what everyone already knows and teaching what each knows is already better than not teaching at all. and solving it together is better in the long run.
+  - SHeumueller: puts the point that getting an agreement between large institutions which are currently not solvable.
+- Daniel Guellmar
+  - what if the objective would be to accumulate all information in Germany for RDM in the neuroscience community; how is this currently done? as a task do a consensus building on the existing tools.
+  - MDenker: the workshop focused on the specific task areas, but there are several tasks that the teams have as homework to go in the direction not to solve specific problems but bring people together and give direct support on emerging projects. teaching and training should not be distributed in clusters but should be done coordinated. quality assessment: what are common standards, then push and advocate the ones that have advantages. these tasks have to be done by the individual groups. 
 
 ## Chat
 Anke Jaudszus
 TA5 Clinical Neuroscience 
 https://t1p.de/neuro-TA5 
 
-# Summary
+
+# Summary and wrap up
+
+- Thomas Wachtler:
+  - use the presented google docs to get involved.
+  - slides will be available via the NFDI web page; mailing list is also available via the NFDI page.
+  - next week there is a general NFDI web conference
+
 
