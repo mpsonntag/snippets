@@ -288,9 +288,48 @@ Focus areas for Computational Neurosicence
 Michael Denker
 https://tinyurl.com/nfdi-compneurosci
 
-# Molecular and Cellular Neuroscience
+# Molecular and Cellular Neuroscience (Constanze Seidenbecher, Pavol Bauer, LIN Magdeburg)
 
-# Clinical Neuroscience
+- OME bio-format library .. can read more than 100 imaging format and save in an annotated format (omero).
+- combined physiological and behavioral data
+  - metadata problem - live in different domains hard to collect it in a standardised way.
+
+
+
+- a grant working group would be very good and could be a magnet for users which then might check out the forums for other areas as well.
+
+## Comments and discussion
+- Julien Colomb
+  - a lot of the discussed points are domain unspecific; could e.g. one general teaching concept for all areas.; there was an NFDI specific for teaching and will NFDI Neuro interact
+  - Otto Witte: This group will not apply in this NFDI round
+  - HScher: would advise against collaboration with another NFDI group since the users will be even more diverse than within the NFDI Neuro community
+  - TWachtler: question for community ... number of initiative for NFDI consortia for general topics e.g. generic data service. DFG decided on the first round not to consider overarching but rather consider only fachspezifische requests.
+- Karl Kafitz
+  - re madgeburg issues: as long as dealing within a building collaboration its doable. but with larger collaboration issues with metadata arise, the exchange of data will be a problem - labbooks and software distributers are not willing to help with exporting to open formats. Within the scope of the NFDI approaching vendors might be more effective.
+  - CSeidenbecher: good point, vendors are not very willing to support other formats.
+  - KKafitz: Omero is already a good starting point
+- Pavol Bauer:
+  - the intersection of different steps in a workflow are important. how does a grad student get from omero to using datalad - this needs to be properly taught to be used
+  - KKafitz: neuroimaging community already has some strategies how to open up formats but the strategies should be shared.
+  - AStein: there already are connections to various consortia to share this kind of information.
+- AStein: CSeidenbacher - there was a workshop on already developed RDM strategies. NFDI Neuro wants to build up a repo on strategies and bring the participants together.
+- Julien Colomb
+  - what should people write at the grant application level. what should they write in CRC grants - can NFDI Neuro raise the quality in grant writing as well?
+  - TWachtler: would be a good idea to enforce this.
+  - CSeidenbacher: held a workshop in grant writing - they profited very much about writing the non-scientific side.
+- Sonja Gruen
+  - DFG is asking for Data management plan? it is not really relevant for funding right now, but it should change soon.
+  - CSeidenbacher: some grants failed due to lacking RDM plan.
+  - SGruen: will push the DFG to take more care about considering RDM plans.
+  - OWitte: in many collaborative research centers applications the RDM plan is already a very important point.
+  - PTovote: had application with DFG where a not well developed RDM plan was criticised.
+
+# Clinical Neuroscience ()
+
+## Chat
+Anke Jaudszus
+TA5 Clinical Neuroscience 
+https://t1p.de/neuro-TA5 
 
 # Summary
 
