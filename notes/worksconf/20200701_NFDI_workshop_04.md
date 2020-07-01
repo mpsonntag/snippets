@@ -248,7 +248,45 @@ Michael Hanke
 NCF has also tried things that we now know did NOT work. And that is very important knowledge. 
 And indeed, there would be no DataLad without INCFs initiatives and working groups-- the concepts present in that community shaped and do shape the present efforts.
 
-# Computational and Theoretical Neuroscience
+Julien Colomb
+maybe of interest for working with administration: https://www.labfolder.com/features/#Compliance 
+
+
+# Computational and Theoretical Neuroscience (Michael Denker)
+
+Focus areas for Computational Neurosicence
+- I: Best practices for model description and simulation outcomes
+- II: Simulation, analysis, validation workflows and provenance
+- III: Simplifying model validation and verification of simulations
+
+## Focus I
+- really hard to redo a model simulation from a paper
+- how can an abstract modeling language description be reconciled with a repository??
+
+- models have been standardized in physics -> how can neuronal network models be standardized in a similar way?
+
+## Focus II
+- analysis is quite heterogeneous
+- how can analysis be made comparable across tools
+-> build universal workflows across different analysis' to enable comparison across tools and methods.
+
+- NFDI Neuro could help in organising these workflows - Marketplaces for tools and workflows.
+
+## Focus III
+- NFDI Neuro is to promote best practices to set up simulation environments and standards to compare across different models.
+- metadata that is done in Task Areas 1 and 2 should fit the one in Task Area 3 ... NFDI Neuro should already bridge that gap automatically and ensure that not another gap is opened.
+
+## Comments and documents
+- A Stein: all fields have their own RDM issues what are the ones for comp neuro
+  - MDenker: for comp neuro a lot of models where developed and tons of data harvested, but how could these two be connected. The technical level is standing between the comp scientists and the experimental scientists. So NFDI Neuro should also work on reconciling these two disciplines so one can comment on the other from their own expertise.
+  - Otto Witte: models require the connection to scientific data so the connection is essential
+- Stephan Rotter
+  - students have to learn from each other. PIs job is to bring them together. The NFDI Neuro platform should help people learn from each other. The idea of marketplace is very helpful in this respect. A platform where things can be changed and also exchange and discussion of e.g. models can take place.
+
+
+## Chat
+Michael Denker
+https://tinyurl.com/nfdi-compneurosci
 
 # Molecular and Cellular Neuroscience
 
