@@ -222,6 +222,22 @@ NFDI Neuro can help with
   - HScherberger: very good point; it is necessary to learn from past "mistakes".
   - AStein: the established connections to existing networks should make this very possible.
 
+- Severin Heumueller
+  - are there already tools for the community discussion and a workflow how to interact and informat participants?
+  - HScherberger: a support team should be included and outreach should also be supported to help with specific problems especially when setting up new techniques / software in a lab
+  - MDenker: need to overcome the deadlock that a developer does not know whether the tool has problems in a specific use case - the platform should help provide low key feedback
+  - SHeumueller: how will this solution be marketed so that people will be aware? are there better tools to reach people other than workshops or meetings?
+  - TWachtler: distributed via NWG mailinglists; first step was to reach people that are willing to participate and then grow once enough people are already supporters.
+
+- Karl Kafitz:
+  - problem with metadata - officials are not happy with making data public and demand threefold documentation and in paper form. which might also be different between political districts. are there any efforts in this direction?
+  - TWachtler: on paper is a problem.
+  - HScherberger: its ok to document day to day and do a printed and signed version at the end of the experiment (in lower saxony).
+  - KKafitz: it is problematic to do work in duplicates, it simply binds tons of resources.
+  - TWachtler: could do a survey over multiple locations and point the officials to different locations where it works as well.
+  - Otto Witte: every official does their own rules based on a common law
+  - A Stein: this should be taken up since it is a very important point.
+
 ## Chat
 Hans Scherberger: TA2 Systems & Behavioral Neuroscience comments: https://docs.google.com/document/d/1tJqNDFdmCW840Z2GhRIcM2r-ySf4IHx4p9eJ5mXuAmY/edit?usp=sharing
 
