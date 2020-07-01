@@ -1,3 +1,5 @@
+# NFDI Neuro workshop 2020.07.01
+
 # RDM Strategy of NFDI Neuroscience (Thomas Wachtler)
 
 - Neuroscience data are diverse and complex
@@ -50,6 +52,7 @@
     - funding and acknowledging RDM efforts are important
 - Julien Colomb
     - the DFG should be actively engaged in requiring incentives for grants with respect to RDM
+
 
 # Common Infrastructure (Michael Hanke, Thomas Wachtler)
 
@@ -129,6 +132,7 @@ maybe there is already a repository (or link collection) of datalad extensions?
 Adina Wagner
 here is a short overview: http://handbook.datalad.org/en/latest/extension_pkgs.html 
 
+
 # Neuroimaging (Michael Hanke)
 
 ## State of RDM in Neuroimaging
@@ -170,7 +174,63 @@ here is a short overview: http://handbook.datalad.org/en/latest/extension_pkgs.h
   - A Stein: other funding schemes for projects can be appropriated and NFDI Neuro can help there
   - M Denker: in future it will be important to show in grants how to introduce tools on a broader scope which in turn will increase the funding in the long run.
 
-# Systems and Behavioural Neuroscience
+## Chat
+Michael Hanke: I completely forgot: There is a similar feedback document for the task area neuroimaging https://tinyurl.com/nfdi-ta1 
+(sorry for the late notice)
+
+
+# Systems and Behavioural Neuroscience (Hansjoerg Scherberger)
+
+- over time behavioral and ephys experiments have become more and more complex
+- the metadata to document how the actual experiment was performed and analysed have become very hard to document as well
+- storing data and metadata is problematic, analysis is non-standard
+
+Analysis itself has problems
+- many diverse tools used in non-standard ways.
+- metadata is missing quite often.
+
+NFDI Neuro can help with
+- dev of platform independent data formats
+- handling of metadata
+- workflow standardisation
+- ability to re-analyze and re-use data sets years later
+
+- with any of the developments on the side of NFDI Neuro feedback from actual labs is essential
+- there is funding available for development together with labs
+
+## Comments and discussion
+- Philip Tovote
+  - pushing the envelop - when developing new techniques and methods or using emerging techinques, who decides what the standard should be. How can a workflow be established to decide how to deal with an emerging technology
+  - HScherberger: it should be decided bottom up and via a discussion a consensus should be reached.
+- Julien Colomb
+  - how far does NFDI Neuro want to go. 90% of people still use Excel; will they be approached and included?
+  - HScherberger: everyone should be included; if e,g, excel is used, then it should at least be documented
+  - SGruen: pick people up where they are; in Juelich CSV sheets are supported (odmltables)
+- Sen Cheng
+  - many ideas are similar to INCF ideas. So there is already previous work, but why has not INCF accomplished the questions already?
+  - HScherberger: a problem there was that the community was not properly included and the projects have to be beneficial for many users.
+  - TWachtler
+    - good observation; the NFDI Neuro ideas do not come from nowhere. INCF has tried this in the past. Why does INCF did not succeed by now? because its a hard problem and the topics where too diverse for the available funding. NFDI Neuro does not provide that much funding either but it should be more focused on both topics and audience within Germany. Through focus and funding it can succeed.
+    - SChen: would INCF agree with this observation
+    - INCF has acchieved quite a bit in certain areas but compared to the original scope it can be underestimated. BIDS, Datalad and other approaches have their roots in INCF. So stating that INCF should have achieved more understates the achievements.
+    - HScherberger: Lucky to have INCF since NFDI Neuro can build on it and the problem of RDM is way more clear at this point in time than it was 10 years ago, in addition to more clear legal outlines.
+- MDenker
+  - INCF: important to mention that small size of community brings scientists closer together. Even if similar to INCF, the focus of NFDI Neuro is more on the adoption of tools instead of thinking bout which tools should be done.
+  - standardisation: NFDI Neuro should not be the standard of how to do things, but the things that work should be documented and guidelines should be available, plus a forum to discuss one workflow via another
+- Lucia Melloni
+  - brainlab e.g. has tried this for some time. bottom up is good, but it is also good to know what has work and what has not. allen institute has an amazing project due to funding and we could benefit from what did not work for them.
+  - HScherberger: very good point; it is necessary to learn from past "mistakes".
+  - AStein: the established connections to existing networks should make this very possible.
+
+## Chat
+Hans Scherberger: TA2 Systems & Behavioral Neuroscience comments: https://docs.google.com/document/d/1tJqNDFdmCW840Z2GhRIcM2r-ySf4IHx4p9eJ5mXuAmY/edit?usp=sharing
+
+Julien Colomb
+excel has (unfortunately) to be added to that list
+
+Michael Hanke
+NCF has also tried things that we now know did NOT work. And that is very important knowledge. 
+And indeed, there would be no DataLad without INCFs initiatives and working groups-- the concepts present in that community shaped and do shape the present efforts.
 
 # Computational and Theoretical Neuroscience
 
