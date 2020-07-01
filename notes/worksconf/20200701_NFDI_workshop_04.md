@@ -16,7 +16,7 @@
 ## How to participate
 - NFDI should be a platform to collect tools from labs and make them available and support in further development.
 
-## Comments
+## Discussion and comments
 - Phillip Tovote
   - the community approach is very appreciated
   - sections (task areas) are a good idea
@@ -88,8 +88,7 @@ e.g. UKBiobank
 - prototype to extract metadata automatically from data sets and introduce them to google - google for data sets
 - have workshops where scientists ask a scientific question and solve it while on the side learn how to do RDM
 
-## Comments
-
+## Discussion and comments
 - Julien Colomb
   - using DataLad with GIN. DataLad is too computer scientific; how to make access easier for biologists -> MHanke: GUI is not a solution, automatically extracting metadata should already help; interfaces for metadata should be developed as well to make required metadata entry low key as well. community needs to be engaged for tailored solutions to this end. NFDI Neuro should be the platform for it. Convenience and robustness need to be balanced.
 - Stephan Hachinger, LRZ Graching
@@ -130,7 +129,46 @@ maybe there is already a repository (or link collection) of datalad extensions?
 Adina Wagner
 here is a short overview: http://handbook.datalad.org/en/latest/extension_pkgs.html 
 
-# Neuroimaging
+# Neuroimaging (Michael Hanke)
+
+## State of RDM in Neuroimaging
+- there already are established standards in Neuroimaging; NIFTI and DICOM; BIDS
+- good basis, but not extensive enough; majority of studies are deemed not reproducible.
+- size of datasets is increasing, but it gets a problem to even access this amount of data to run analysis on it.
+-> an aim of NFDI Neuro should also be to address the question to develop and establish means to access this kind of large data sets.
+
+## Measures required to Improve RDM in Neuroimaging
+- NFDI should not be Neuroscience in Germany but a voice in Neuroscience from Germany.
+- M4: provide recommendations and inform about best-practices on legal aspects of acquiring human subject data
+- M5: develop data harmonization tools across modalities, centers and studies.
+- M6: automated extraction tools of data and metadata and conversion to common data structure
+- M7: Training, on demand help and documentation
+
+## How participants and supporting community members profit in practice
+- NDFI Neuro imaging group should first collect the workflows that individual labs use and collect the problems that arise; use this to develop and publish best practices.
+
+## Discussion
+- Rene Bernard (Charite)
+  - before getting into sharing in a network problems need to be solved
+    - thinking in lab structure is a nightmare for the IT -> hundreds of island solutions at the Charite; researchers did not care about standards so far.
+    - Charite has an intermediate solution - everyone uses the omero? standard and started to help with the development of omero plus.
+    - NFDI Neuro should think broader than the individual lab and collect information how other collaborations have solved this problem.
+  - MHanke: there should be as little development within NFDI Neuro itself. NFDI Neuro should be the connection between existing solutions. NFDI Neuro should think big in terms of size of institutions but should not exclude small labs either.
+- Lucia Melloni
+  - should NFDI Neuro reach out to other institutions eg exnat
+  - MHanke: German legislation is unique, but all other aspects should stay connected to other initiatives; surveys are part of the plan to identify tools in use and how to best support them
+  - NIDM format is an international effort and NFDI Neuro imaging is in touch with them; no point in building something within Germany that already exists
+- Philip Boehn-Sturm
+  - Neuroimaging is well on the human side, but Institutions are important players. How will NFDI Neuro interact with the institutions.
+  - MHanke: labs and institutions have to be pursued. Advertise opportunities to learn what NFDI Neuro is doing. When solutions are built that make researchers more effective, then people will use it. In this case the institutes will use them as well. The grassroots approach will be the more dominant one but both approaches will be pursued.
+- Rene Bernard
+  - oemero platform can do both - requires additional system when setting it up in a large institution. NFDI Neuro should have both pathways - one for small labs and one for institutes.
+  - MHanke: need to prioritise -> surveys, be an active participant, it would be very good to already have an institute wide solution that could be introduced to NFDI Neuro
+- Philip Boehm-Sturm
+  - it was mentioned that not much funding is available. There should be some cost involved to make it sustainable. Are there ideas about workflows, how should that be written in grants - are there any quidelines in how to write this in grants is there support?
+  - TWachtler: pursue lightweight approaches since we cannot handle it. Small projects can be funded within NFDI Neuro, but larger projects cannot be funded.
+  - A Stein: other funding schemes for projects can be appropriated and NFDI Neuro can help there
+  - M Denker: in future it will be important to show in grants how to introduce tools on a broader scope which in turn will increase the funding in the long run.
 
 # Systems and Behavioural Neuroscience
 
