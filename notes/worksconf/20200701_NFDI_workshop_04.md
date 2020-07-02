@@ -24,34 +24,38 @@
   - sections (task areas) are a good idea
   - how can the community motivate itself for the task at hand. The system is still mainly driven by the impact factor and there is no reward for proper RDM and sharing might be even counter productive for a PhD's or a postdoc's career.
   - this is a complex, philosphical discussion but should be held.
-  - alternative incentives should be implemented into the NFDI Neuro initiative giving an outlook on how proper RDM can help with the career.
+  - alternative incentives should be implemented within the NFDI Neuro initiative giving an outlook on how proper RDM can help with the career.
   - Thomas Wachtler:
     - scientists are more effective with proper RDM. By aggregating a community it will be easier to overcome the immediate reward barrier.
     - with respect to open data there is no established credit system yet, but journals already support data publications and credits for data publication will come in time.
+
 - Otto Witte
   - many data repositories are too much work and too much documentation is required.
   - more positive impulses for data publications are required.
   - funded research must demand open data publication.
+
 - Lucia Melloni
   - NFDI Neuro should be used to develop guidelines which can work as an incentive for a community.
   - their lab is working in a large collaboration and RDM is an issue; the data sharing is difficult and the rewards for limited positions like PhDs are not available; they need to profit in some way.
   - these rewards need to be actively developed.
+
 - Sonja Gruen:
-  - first round of students will have a hard time establishing proper RDM.
-  - but the second round of students can already work on the collected data.
+  - the first round of students will have a hard time establishing proper RDM, but the second round of students can already work on collected data.
   - this initial collection step needs to be overcome.
+
 - Michael Hanke
-  - there is a point in additional incentives.
-  - but NFDI Neuro should remove the need for incentives and make the RDM so easy to make training less costly.
+  - there is a point in additional incentives, but NFDI Neuro should remove the need for incentives and make RDM easy and training less costly.
+
 - Karl Kafitz
-  - students actually like RDM if they get the chance
-  - a problem are the universities since they do not give much support with respect to RDM in individual labs - there money is a problem, as soon as money is involved, the universities get hesitant.
+  - students actually like RDM if they get the chance to train.
+  - a problem are universities which do not give much support with respect to RDM in individual labs; there money is a problem, as soon as money is involved, universities get hesitant.
+
 - Michael Denker
-  - students are extremely motivated
-  - are lacking the experience in RDM topics themselves since they come from different background
-  - funding and acknowledging RDM efforts are important
+  - students are extremely motivated with respect to RDM, but usually are lacking the experience in RDM topics themselves since they come from different backgrounds.
+  - funding and acknowledging RDM efforts are important.
+
 - Julien Colomb
-  - the DFG should be actively engaged in requiring incentives for grants with respect to RDM
+  - the DFG should be actively engaged in requiring incentives for grants with respect to RDM.
 
 
 # Common Infrastructure (Michael Hanke, Thomas Wachtler)
@@ -93,31 +97,37 @@ e.g. UKBiobank
 
 ## Discussion and comments
 - Julien Colomb
-  - using DataLad with GIN. DataLad is too computer scientific; how to make access easier for biologists -> MHanke: GUI is not a solution, automatically extracting metadata should already help; interfaces for metadata should be developed as well to make required metadata entry low key as well. community needs to be engaged for tailored solutions to this end. NFDI Neuro should be the platform for it. Convenience and robustness need to be balanced.
+  - they are using DataLad with GIN. DataLad on its own is too complicated; access needs to be made easier for biologists.
+  - Michael Hanke: just providing a GUI is not a solution, automatically extracting metadata from datasets and make them available should already help; interfaces for metadata should be developed to make required metadata entry low key as well. The Community needs to be engaged for tailored solutions to this end. NFDI Neuro should be the platform for it. Convenience and robustness need to be balanced.
+
 - Stephan Hachinger, LRZ Graching
-  - interested in contributing to RDM; some efforts for writing adaptors to export metadata to search engines. offer capacity to write adaptors for NFDI projects as well. Also offer in terms of infrastructure itself.
-  - is the NFDI planning to deploy datalad on computing centers; how to best interact with NFDI in the next weeks; MHanke: will not go to every institute and deploy services but will establish collaborations with institutes - transfer teams are permanently reachable people from domains available for the institutes.
+  - interested in contributing to RDM within the scope of NFDI Neuro; they already did some effort for writing adaptors to export metadata to search engines and offer capacity to write adaptors for NFDI projects as well.
+  - is the NFDI planning to deploy Datalad on computing centers; how to best interact with NFDI in the next weeks;
+  - Michael Hanke: NFDI Neuro will not visit every institute and deploy services, but will establish collaborations with institutes; so called transfer teams for the individual Task areas should be permanently reachable people available for institutes and data centers.
+
 - Timo Dickscheid:
-  - follow up in Julien; gap between developers and analysts and labmates - within the lab there are individual solutions.
-  - datalad makes sense and would like to use it but was too difficult for neuroanatomists.
-  - agrees that a custom interface for user groups would make much sense, they are doing this right now to put a mask on top of datalad and it works quite well.
+  - follow up on Julien Colomb; there is a gap between developers and analysts and people in a lab; within the lab there are already individual solutions.
+  - Datalad makes sense and they ould like to use it, but it was too difficult for their Neuroanatomists to quickly learn and use.
+  - agrees that a custom interface for user groups would make much sense; they are in the process of implementing one to put an entry-mask on top of Datalad and it works quite well.
   - the NFDI should also be a point of access to share these user interfaces.
-  - MHanke: agreed, also the collaboration aspect in development is the proper approach; a common layer for collaborative development needs to be established via the NFDI and made known to the experts in the lab so they can participate and benefit.
+  - Michael Hanke: the collaboration aspect in development is the proper approach; a common layer for collaborative development needs to be established via NFDI Neuro and made known to the experts within individual labs so they can participate and benefit.
+
 - Lucia Melloni
-    - have problem in documenting complete metadata, to make them searchable. community standards in metadata are required.
-    - MHanke: Datalad is dumb in the sense that it does not get in the way. Start with low quality metadata standards and grow up from there to reduce the barrier. the researcher has to be rewarded somehow for entering high quality metadata. Datalad already provides a local search enginge for entered metadata w/o the need for a database.
+    - they encounter problems in documenting complete metadata and to make them searchable; from their perspective community standards in metadata are required.
+    - Michael Hanke: Datalad is dumb in the sense that it does not get in the way when collecting and providing data and metadata. NFDI Neuro should start with low quality metadata standards and build up from there to reduce the barrier. The researcher has to be rewarded somehow for entering high quality metadata. Datalad already provides a local search engine for entered metadata w/o the need for a database.
+
 - Tamas Spisak (UKE Essen)
-  - uses datalad; plan to use datalad for imaging data; how is the stance with respect to GDPR
-  - is there direct support in datalad 
-  - MHanke: virtual brain cloud - assessment of GDPR compliance of datasets; datalad cannot give GDPR compliance out of the box
+  - they are using Datalad and plan to use it for imaging data; how is the stance with respect to GDPR.
+  - Michael Hanke: they are working with the Virtual brain cloud which provide an assessment of GDPR compliance of datasets; Datalad cannot provide GDPR compliance out of the box.
+
 - Philip Tovote:
-  - marketplace is a very good idea
-  - would NFDI Neuro provide a platform for this kind of self organized marketplace?
-  - MHanke: the answer has to be yes. NFDI Neuro should be the coordinating entity and has to provide this kind of service. But: the groups have to be defined first and then the groups can talk about metadata. start small and succeed and not aim high and delay.
+  - an NFDI Neuro marketplace is a very good idea; would NFDI Neuro provide a platform for this kind of self organized marketplace?
+  - Michael Hanke: the answer has to be yes. NFDI Neuro should be the coordinating entity and has to provide this kind of service. But the groups have to be defined first and then talk about metadata. Start small and succeed by not aiming too high and delay.
+
 - Julien Coulomb
   - NFDI Neuro infrastructure and Datalad: is this the only content or will there be other tools
-  - MHanke: infrastructure is a wide field and not just datalad. the core purpose is to connect tools. It is not about consolidation into a single tool. It should be and stay independently extensible and should stay as decentral as possible. If a new tool emerges that is better capable of getting the job done, it should be used and be easy to switch.
-  - TWachtler: as clarification: infrastructure is used in a general sense and not in the sense of specific tools.
+  - Michael Hanke: infrastructure is a wide field and should not just be Datalad. The core purpose is not to consolidate everything into a single tool but to connect existing tools. The underlying infrastructure should be and stay independently extensible and as de-central as possible. If a new tool compared to Datalad emerges that is better capable of getting the job done, it should be used and be easy to switch.
+  - Thomas Wachtler: as clarification: infrastructure is used in a general sense and not in the sense of specific tools.
 
 ## Chat
 Michael Hanke
@@ -153,29 +163,33 @@ here is a short overview: http://handbook.datalad.org/en/latest/extension_pkgs.h
 
 ## Discussion
 - Rene Bernard (Charite)
-  - before getting into sharing in a network problems need to be solved
-    - thinking in lab structure is a nightmare for the IT -> hundreds of island solutions at the Charite; researchers did not care about standards so far.
-    - Charite has an intermediate solution - everyone uses the omero? standard and started to help with the development of omero plus.
+  - before getting into sharing data within a network, problems need to be solved.
+    - thinking at the level of lab structure is a nightmare for the IT department of an institute; there were hundreds of island solutions at the Charite; researchers did not care about standards so far.
+    - Charite currently has an intermediate solution; everyone uses the omero standard and started to help with the development of omero plus for imaging data.
     - NFDI Neuro should think broader than the individual lab and collect information how other collaborations have solved this problem.
-  - MHanke: there should be as little development within NFDI Neuro itself. NFDI Neuro should be the connection between existing solutions. NFDI Neuro should think big in terms of size of institutions but should not exclude small labs either.
+  - Michael Hanke: there should be as little development within NFDI Neuro itself as possible but should be the connection between existing solutions. NFDI Neuro should think big in terms of size of institutions but should not exclude small labs either.
+
 - Lucia Melloni
-  - should NFDI Neuro reach out to other institutions eg exnat
-  - MHanke: German legislation is unique, but all other aspects should stay connected to other initiatives; surveys are part of the plan to identify tools in use and how to best support them
-  - NIDM format is an international effort and NFDI Neuro imaging is in touch with them; no point in building something within Germany that already exists
+  - should NFDI Neuro reach out to other institutions or solutions e.g. exnat.
+  - Michael Hanke: German legislation is unique, but all other aspects should stay connected to other initiatives; surveys are part of the plan to identify tools in use and how to best support them.
+  - the NIDM format is an international effort and NFDI Neuro imaging is in touch with them; no point in building something within Germany that already exists.
+
 - Philip Boehn-Sturm
-  - Neuroimaging is well on the human side, but Institutions are important players. How will NFDI Neuro interact with the institutions.
-  - MHanke: labs and institutions have to be pursued. Advertise opportunities to learn what NFDI Neuro is doing. When solutions are built that make researchers more effective, then people will use it. In this case the institutes will use them as well. The grassroots approach will be the more dominant one but both approaches will be pursued.
+  - Neuroimaging is well documented and defined on the human side, but Institutions are important players. How will NFDI Neuro interact with the institutions.
+  - Michael Hanke: labs AND institutions have to be pursued and it opportunities should be advertised on both levels what NFDI Neuro is doing. When solutions are built that make researchers more effective, then people will use them; once this is accomplished, institutes will use them as well. The grassroots approach will be the more dominant one within NFDI Neuro, but both approaches will be pursued.
+
 - Rene Bernard
-  - oemero platform can do both - requires additional system when setting it up in a large institution. NFDI Neuro should have both pathways - one for small labs and one for institutes.
-  - MHanke: need to prioritise -> surveys, be an active participant, it would be very good to already have an institute wide solution that could be introduced to NFDI Neuro
+  - the oemero platform can do both; it requires additional expertise when introducing a general solution within a large institution. NFDI Neuro should provide both options; one for small labs and one for institutes.
+  - Michael Hanke: there is a need to prioritise; surveys should first be done and the inquire is out there to be an active participant. It would be very good to already have an institute wide solution that could be introduced to NFDI Neuro.
+
 - Philip Boehm-Sturm
-  - it was mentioned that not much funding is available. There should be some cost involved to make it sustainable. Are there ideas about workflows, how should that be written in grants - are there any quidelines in how to write this in grants is there support?
-  - TWachtler: pursue lightweight approaches since we cannot handle it. Small projects can be funded within NFDI Neuro, but larger projects cannot be funded.
-  - A Stein: other funding schemes for projects can be appropriated and NFDI Neuro can help there
-  - M Denker: in future it will be important to show in grants how to introduce tools on a broader scope which in turn will increase the funding in the long run.
+  - it was mentioned that not much funding is available. There should be some cost involved to make NFDI Neuro sustainable. Are there any guidelines in how to write NFDI Neuro specific grant applications or how to include NFDI Neuro in grant applications?
+  - Thomas Wachtler: for now lightweight approaches are pursued due to the current scope of NFDI Neuro. Small projects can be funded within NFDI Neuro, but larger projects need different funding as well.
+  - Alexandra Stein: other funding schemes for projects can be appropriated and NFDI Neuro can and will support in getting them.
+  - Michael Denker: in future it will be important to include in grants how to introduce developed tools on a broader scope which in turn will increase the funding in the long run.
 
 ## Chat
-Michael Hanke: I completely forgot: There is a similar feedback document for the task area neuroimaging https://tinyurl.com/nfdi-ta1 
+Michael Hanke: I completely forgot: There is a similar feedback document for the Task area neuroimaging https://tinyurl.com/nfdi-ta1 
 (sorry for the late notice)
 
 
@@ -200,43 +214,42 @@ NFDI Neuro can help with
 
 ## Comments and discussion
 - Philip Tovote
-  - pushing the envelop - when developing new techniques and methods or using emerging techinques, who decides what the standard should be. How can a workflow be established to decide how to deal with an emerging technology
-  - HScherberger: it should be decided bottom up and via a discussion a consensus should be reached.
+  - when developing new techniques and methods or using emerging techniques, who will decide what "the" standard should be. How can a workflow be established on making decisions how to deal with an emerging technology.
+  - Hansjoerg Scherberger: it should be decided bottom up and via a discussion a consensus will be reached.
+
 - Julien Colomb
   - how far does NFDI Neuro want to go. 90% of people still use Excel; will they be approached and included?
-  - HScherberger: everyone should be included; if e,g, excel is used, then it should at least be documented
-  - SGruen: pick people up where they are; in Juelich CSV sheets are supported (odmltables)
+  - Hansjoerg Scherberger: everyone should be included; if e.g. Excel is used, then it should at least be well documented how these files are to be interpreted and used.
+  - Sonja Gruen: it is important to pick scientists up where they are; e.g. Juelich has developed a way to support CSV sheets (odmltables).
+
 - Sen Cheng
-  - many ideas are similar to INCF ideas. So there is already previous work, but why has not INCF accomplished the questions already?
-  - HScherberger: a problem there was that the community was not properly included and the projects have to be beneficial for many users.
-  - TWachtler
-    - good observation; the NFDI Neuro ideas do not come from nowhere. INCF has tried this in the past. Why does INCF did not succeed by now? because its a hard problem and the topics where too diverse for the available funding. NFDI Neuro does not provide that much funding either but it should be more focused on both topics and audience within Germany. Through focus and funding it can succeed.
-    - SChen: would INCF agree with this observation
-    - INCF has acchieved quite a bit in certain areas but compared to the original scope it can be underestimated. BIDS, Datalad and other approaches have their roots in INCF. So stating that INCF should have achieved more understates the achievements.
-    - HScherberger: Lucky to have INCF since NFDI Neuro can build on it and the problem of RDM is way more clear at this point in time than it was 10 years ago, in addition to more clear legal outlines.
-- MDenker
-  - INCF: important to mention that small size of community brings scientists closer together. Even if similar to INCF, the focus of NFDI Neuro is more on the adoption of tools instead of thinking bout which tools should be done.
-  - standardisation: NFDI Neuro should not be the standard of how to do things, but the things that work should be documented and guidelines should be available, plus a forum to discuss one workflow via another
+  - many ideas are similar to INCF ideas; there is already previous work, but why has the INCF not solved these questions?
+  - Hansjoerg Scherberger: an issue there was that the community was not properly included and projects have to be beneficial for many users.
+  - Thomas Wachtler: this is a good observation; the NFDI Neuro ideas do not come out of the blue. INCF has tried solving similar problems in the past. Why did INCF not succeed by now? Because the addressed problems are hard ones and the topics where too diverse with respect to the available funding. NFDI Neuro does not provide that much funding either but it should be more focused with respect to both topics and audience within Germany. Through focus and funding it can succeed.
+    - Sen Chen: would INCF agree with this observation.
+    - INCF has achieved quite a lot in certain areas but compared to the original scope the achievements are underestimated. BIDS, Datalad and other approaches have their roots in INCF. So stating that INCF should have achieved more understates the actual accomplishments.
+    - Hansjoerg Scherberger: Its lucky to have the INCF since NFDI Neuro can build on their experience and the problem of RDM is way clearer at this point in time than it was 10 years ago, in addition to more clear legal outlines.
+    - Michael Denker: with respect to the INCF it is important to mention that the comparable small size of the community in Germany brings scientists closer together within the country. Even if NFDI Neuro is similar to the INCF, the focus of NFDI Neuro is more on the adoption of tools instead of thinking about which tools should be developed. With respect to standardisation: NFDI Neuro should not enforce standards of how to do things, but standards that work should be documented and guidelines should be available, and it should provide and be a forum to discuss one workflow via another.
+
 - Lucia Melloni
-  - brainlab e.g. has tried this for some time. bottom up is good, but it is also good to know what has work and what has not. allen institute has an amazing project due to funding and we could benefit from what did not work for them.
-  - HScherberger: very good point; it is necessary to learn from past "mistakes".
-  - AStein: the established connections to existing networks should make this very possible.
+  - brainlab e.g. has tried such an approach for some time. Bottom up is good, but it is also good to know what has worked in the past and what did not succeed. The Allen Brain institute has an amazing project due to extensive funding; NFDI Neuro could and should benefit from which approaches did not succeed for them in the past.
+  - Hansjoerg Scherberger: very good point; it is necessary to learn from past "mistakes".
+  - Alexandra Stein: the established connections by NFDI Neuro to existing networks should make this point very feasable.
 
 - Severin Heumueller
-  - are there already tools for the community discussion and a workflow how to interact and informat participants?
-  - HScherberger: a support team should be included and outreach should also be supported to help with specific problems especially when setting up new techniques / software in a lab
-  - MDenker: need to overcome the deadlock that a developer does not know whether the tool has problems in a specific use case - the platform should help provide low key feedback
-  - SHeumueller: how will this solution be marketed so that people will be aware? are there better tools to reach people other than workshops or meetings?
-  - TWachtler: distributed via NWG mailinglists; first step was to reach people that are willing to participate and then grow once enough people are already supporters.
+  - are there already tools available for the community discussion and a workflow how to interact with and inform participants?
+  - Hansjoerg Scherberger: a support team should be included and outreach should also be supported to help with specific problems; especially when setting up new techniques / software in a lab.
+  - Michael Denker: also there is a need to overcome the deadlock that developers do not know whether their tool has problems in a specific use case; this platform should help provide low key feedback.
+  - Severin Heumueller: how will this solution be marketed so that people will be aware of it? Are there better tools to reach people other than workshops or meetings?
+  - Thomas Wachtler: information is also distributed via various mailinglists e.g. NWG; the first step was to reach people that are willing to participate and then grow, once enough people are NFDI Neuro participants or supporters.
 
 - Karl Kafitz:
-  - problem with metadata - officials are not happy with making data public and demand threefold documentation and in paper form. which might also be different between political districts. are there any efforts in this direction?
-  - TWachtler: on paper is a problem.
-  - HScherberger: its ok to document day to day and do a printed and signed version at the end of the experiment (in lower saxony).
-  - KKafitz: it is problematic to do work in duplicates, it simply binds tons of resources.
-  - TWachtler: could do a survey over multiple locations and point the officials to different locations where it works as well.
-  - Otto Witte: every official does their own rules based on a common law
-  - A Stein: this should be taken up since it is a very important point.
+  - there is a problem with metadata; local officials are not happy with making data public and demand threefold documentation in paper form. This might even be different between political districts. Are there any efforts in this direction?
+  - Hansjoerg Scherberger: usually it is fine to document day to day on a digital basis and do a printed and signed version at the end of an experiment (at least in Lower Saxony).
+  - Karl Kafitz: it is problematic to do this kind of work basically twice, since it simply binds of resources.
+  - Thomas Wachtler: a survey could be done over multiple locations and point the officials to different political districts where this kind of official documentation scheme works well.
+  - Otto Witte: unfortunately basically all officials implement their own rules based on a common law.
+  - Alexandra Stein: this should be taken up at a later point in time since it is a very important point.
 
 ## Chat
 Hans Scherberger: TA2 Systems & Behavioral Neuroscience comments: https://docs.google.com/document/d/1tJqNDFdmCW840Z2GhRIcM2r-ySf4IHx4p9eJ5mXuAmY/edit?usp=sharing
@@ -277,16 +290,17 @@ Focus areas for Computational Neurosicence
 - metadata that is done in Task Areas 1 and 2 should fit the one in Task Area 3 ... NFDI Neuro should already bridge that gap automatically and ensure that not another gap is opened.
 
 ## Comments and documents
-- A Stein: all fields have their own RDM issues what are the ones for comp neuro
-  - MDenker: for comp neuro a lot of models where developed and tons of data harvested, but how could these two be connected. The technical level is standing between the comp scientists and the experimental scientists. So NFDI Neuro should also work on reconciling these two disciplines so one can comment on the other from their own expertise.
-  - Otto Witte: models require the connection to scientific data so the connection is essential
-- Stephan Rotter
-  - students have to learn from each other. PIs job is to bring them together. The NFDI Neuro platform should help people learn from each other. The idea of marketplace is very helpful in this respect. A platform where things can be changed and also exchange and discussion of e.g. models can take place.
+- Alexandra Stein: all fields have their own RDM issues; what are the ones encountered in computational neuroscience.
+  - Michael Denker: for computational neuroscience many models where developed and extensive data was harvested, but the problem was how these two could be connected. The technical level is a constant barrier between the computational scientists and the experimental scientists. NFDI Neuro should also work on reconciling these two disciplines so one can comment on the other from their own expertise.
+  - Otto Witte: models require the connection to scientific data so the connection is essential.
 
+- Stephan Rotter
+  - students have to learn from each other. A PIs job is to bring them together. The NFDI Neuro platform should help people learn from each other and the idea of a marketplace is very helpful in this respect. A platform where things can be changed and also exchange and discussion of e.g. models can take place.
 
 ## Chat
 Michael Denker
 https://tinyurl.com/nfdi-compneurosci
+
 
 # Molecular and Cellular Neuroscience (Constanze Seidenbecher, Pavol Bauer, LIN Magdeburg)
 
@@ -294,35 +308,38 @@ https://tinyurl.com/nfdi-compneurosci
 - combined physiological and behavioral data
   - metadata problem - live in different domains hard to collect it in a standardised way.
 
-
-
 - a grant working group would be very good and could be a magnet for users which then might check out the forums for other areas as well.
 
 ## Comments and discussion
 - Julien Colomb
-  - a lot of the discussed points are domain unspecific; could e.g. one general teaching concept for all areas.; there was an NFDI specific for teaching and will NFDI Neuro interact
-  - Otto Witte: This group will not apply in this NFDI round
-  - HScher: would advise against collaboration with another NFDI group since the users will be even more diverse than within the NFDI Neuro community
-  - TWachtler: question for community ... number of initiative for NFDI consortia for general topics e.g. generic data service. DFG decided on the first round not to consider overarching but rather consider only fachspezifische requests.
+  - a lot of the discussed points are domain unspecific; could e.g. one general teaching concept be applied to all areas; to his knowledge an NFDI group specific for teaching exists, will NFDI Neuro interact with them.
+  - Otto Witte: This particular NFDI group will not apply during the current NFDI round.
+  - Hansjoerg Scherberger: advises against collaboration with another NFDI group since the users will be even more diverse than within the NFDI Neuro community.
+  - Thomas Wachtler: this is a question for the community; there is a number of initiatives for general topics NFDI consortia e.g. for generic data service. The DFG decided during the first round to not to consider overarching but rather consider only "fachspezifische" requests.
+
 - Karl Kafitz
-  - re madgeburg issues: as long as dealing within a building collaboration its doable. but with larger collaboration issues with metadata arise, the exchange of data will be a problem - labbooks and software distributers are not willing to help with exporting to open formats. Within the scope of the NFDI approaching vendors might be more effective.
-  - CSeidenbecher: good point, vendors are not very willing to support other formats.
-  - KKafitz: Omero is already a good starting point
+  - with respect to the Madgeburg issues: as long as dealing within a building collaboration common data and metadata exchange is doable. With larger collaboration issues with metadata arise, the exchange of data will be a problem; labbooks and software distributers are not willing to help with exporting to open formats. Within the scope of the NFDI Neuro approaching vendors might be more effective.
+  - Constanze Seidenbecher: this is a good point, vendors are not very willing to support other formats than their own.
+  - Karl Kafitz: Omero is already a good starting point.
+
 - Pavol Bauer:
-  - the intersection of different steps in a workflow are important. how does a grad student get from omero to using datalad - this needs to be properly taught to be used
-  - KKafitz: neuroimaging community already has some strategies how to open up formats but the strategies should be shared.
-  - AStein: there already are connections to various consortia to share this kind of information.
-- AStein: CSeidenbacher - there was a workshop on already developed RDM strategies. NFDI Neuro wants to build up a repo on strategies and bring the participants together.
+  - the intersections of different steps in a workflow are important. How will grad students get from omero to using Datalad; this needs to be properly taught to be used.
+  - Karl Kafitz: the neuroimaging community already has some strategies how to use and open up formats but these strategies should be shared and distributed to a broader .
+  - Alexandra Stein: exchange with various consortia already exists to share this kind of information.
+
+- Alexandra Stein: with respect to Constanze Seidenbacher; there was a workshop in Magdeburg on developed RDM strategies. NFDI Neuro wants to build up a repository on such strategies and bring participants together in future workshops.
+
 - Julien Colomb
-  - what should people write at the grant application level. what should they write in CRC grants - can NFDI Neuro raise the quality in grant writing as well?
-  - TWachtler: would be a good idea to enforce this.
-  - CSeidenbacher: held a workshop in grant writing - they profited very much about writing the non-scientific side.
+  - what should people write at the grant application level; e.g. what should they write in CRC grants; can NFDI Neuro raise the quality in grant writing as well?
+  - Thomas Wachtler: it would be a good idea to enforce this.
+  - Constanze Seidenbacher: a workshop in grant writing was already held; the participants profited a lot with respect to writing the non-scientific side.
+
 - Sonja Gruen
-  - DFG is asking for Data management plan? it is not really relevant for funding right now, but it should change soon.
-  - CSeidenbacher: some grants failed due to lacking RDM plan.
-  - SGruen: will push the DFG to take more care about considering RDM plans.
-  - OWitte: in many collaborative research centers applications the RDM plan is already a very important point.
-  - PTovote: had application with DFG where a not well developed RDM plan was criticised.
+  - from her experience the DFG is currently not asking for or evaluating Data management plans too much, but this should change soon and also should from her point of view.
+  - Constanze Seidenbacher: in her experience some grants already failed due to a lacking or unsatisfying RDM plan.
+  - Sonja Gruen: the DFG should be pushed to take more care about considering RDM plans.
+  - Otto Witte: in many collaborative research center applications the RDM plan is already a very important point.
+  - Philip Tovote: they had an application to the DFG where a not well developed RDM plan was criticised.
 
 ## Chat
 Julien Colomb
@@ -335,52 +352,59 @@ So if we want to share grant application (and reviews from the DFG, maybe also d
 
 ## Comments and discussion
 - Severin Heumueller:
-  - Jena part of Smith initiative; does the initiative overlap with what has been discussed?
-  - OWitte: yes and no. Will work with them on the legal issue part. In principle they work with standard clinical data.
-  SHeumueller: work with 2 different initiatives as well and problems from clinical data will be solved by them because SHeumueller lacks the manpower.
-- AStein: where would be the main intersectio nwith NFDI 4 health
-  - OWitte: clinic studies outside of hospitals, several areas where they deal with patients, do not deal with legal aspects but with patients. Here could be an overlap with the NFDI Neuro to not repeat work on anaonymising data. NFDI for health is versorgungsforschung. They are very open for discussion and collaboration.
-- HansScherberger: how much would would imaging overlap with the task 2 - since clinical need anonymisation.
-  - OWitte: in principle the acquired data are much more standardised since they are routinely taken. maybe the recorded data / metadata can overlap with task 2.
-- Philip Tovote
-  - group discussion very similar to their grant proposal where intertwining person and animal data - the answers are complex; maybe these plans can also be shared with the community. the data repos that are needed should be in parallel for human and animals but should be aligned in terms of standards. the medical side are ahead in some respect since they have standards and rules that are lacking in animal research - maybe these can be applied to animal research as well. in the long run consolidate these standards also with the computational neuroscience task group.
-  - HScherberger: very good answer and should be used in the grant proposal.
-  - PTovote: just not overpromise to standardise everything and remain realistic.
-  - OWitte: need to be a simple start since the implementation will take quite some time.
-- Constanze Seidenbecher:
-  - if we deal with patient data - if changes are made to the standard data, are there any other stakeholders that need to be consulted
-  - OWitte: not the stakeholders are the problem but the established techniques and hardware that are available - to convert from these data formats to open ones will take most of the time.
-- Daniel Guellmar:
-  - change structure if task areas - branches of neuroscience do similar things and have same problems. change the view on that; defining standard is one thing but enforces to push discussion how to share data and make it visible. it is not that necessary to have a common platform to share but at least make the people aware that these data exists. there should be channels that are bidirectional and not full public as well. The disciplines within neuroscience should mix and not be separate like with the task areas
-  - OWitte: its true the worlds are not that different, but the used formats are and it is important to
-  - TWachtler: the defined categories should not be seen as divisions and overlaps should be recognised. but the fields are at different stages in data annotation and sharing and the gaps are large. the idea is to structure the consortium to fetch people where they are and work from there and help fields to work from each other from there.
-- Michael Denker
-  - the idea was to structure the consortium in a way so that every community would recognise them in the consortium. the fields overlap strongly and the goal should be to move closer together.
-  - OWitte: agreed, in the long
-- Julien Colomb:
-  - how can the common questions be asked and discussed in a common way - maybe in a next workshop it could be discussed how to make this best visible to the community
-  - TWachtler: very good suggestion to focus on specific topics and might be helpful. also good to get the working groups starting.
-  - Hans Scherberger: the main thing to fail would not be to dev the tools, but not reaching out to the users because they dont understand it or that they do not think its important. especially in the beginning it should be close to the community. biggest fear of failure: we do not pick up the people.
+  - Jena is part of the Smith initiative; does the initiative overlap with what has been discussed?
+  - Otto Witte: yes and no. They will work with the initiative on the legal issue part. In principle they work with standard clinical data.
+  Severin Heumueller: they collaborate with two different initiatives as well and problems from clinical data will be solved by the initiatives because Heumuellers group lacks the manpower.
+
+- Alexandra Stein: where would the main intersection with NFDI4health be
+  - Otto Witte: clinic studies outside of hospitals, several areas where NFDI4health does not deal with legal aspects but collect patient data. Here could be an overlap with the NFDI Neuro to not repeat work on anonymisation of data. NFDI4health is "Versorgungsforschung", they are very open for discussion and collaboration.
+
+- Hansjoerg Scherberger: how much would imaging overlap with the Task area 2 - since clinical need anonymisation.
+  - Otto Witte: in principle the acquired data are much more standardised since they are routinely and constantly collected. Maybe the recorded data and metadata can overlap with Task area 2 and save them some work.
+  - Philip Tovote: this discussion is very similar to their grant proposal which contains intertwining human and animal data; the answers are complex; maybe these plans can also be shared with the community. The data repositories that are needed should remain in parallel for human and animals but should be aligned in terms of standards. The medical side is ahead in some respect since they have standards and rules that are currently still lacking in animal research; maybe these can be applied to animal research as well. In the long run a consolidation between these standards and also with the computational neuroscience Task area should take place.
+  - Hansjoerg Scherberger: this is a very good answer and should be used in the grant proposal.
+  - Philip Tovote: just not over-promise to standardise everything and remain realistic.
+  - Otto Witte: a simple starting point is needed since the implementation will take quite some time.
+
+- Constanze Seidenbecher
+  - if changes are made to the standard patient data, are there any other stakeholders that need to be considered.
+  - Otto Witte: not the stakeholders are the problem but the established techniques and hardware that are available; to convert from these data formats to open formats will take most of the time and effort.
+
 - Daniel Guellmar
-  - consortium will create something with a benefit - some technical or structural burdens will be lifted. but different branches in neuroscience we should aim for defining an arching minimal standard for all neuroscience data e.g. did not think about modeling. what is the overarching structure to cover all neuroscientific data to get people to think in a general structure and not only in their own specific format. formats change. what would be the minimum standard to develop.
-  - a platform should be community driven but heavily guided by the consortium. it should not be just a forum where everyone does what they please.
-- Severin Heumueller:
-  - prioritisation of issues: how will this happen? lot of topics but not all can be adressed at the same time. how will we prioritised? who guides it.
-  - OWitte: we cannot describe the while world and not neuroscience. with the task areas it is like a matrix depending how you look at it.
-  - TWachtler: also important to focus and get things used. with respect to prioritisation: the more useful it seems the higher the priority it will have. which also includes where the community engages the most.
-  - MHanke: indeed. in the middle of priorisation. stick to the things that we know. The reason for the workshops was to collect exports. If that was not enough do more workshops to collect more exports that will participate.
+  - raises the question if a change in structure would make sense if Task areas - branches of neuroscience - do similar things and have similar problems. The disciplines within neuroscience should mix and not be separate like with the Task areas.
+  - it is not that necessary to have a common platform to share data but more important to make the people aware that these data exists.
+  - there should also be communication channels that are bidirectional and not full public.
+  - Otto Witte: its true the Task area disciplines are not that different, but the used data formats are and it is important to focus the work to consolidate them.
+  - Thomas Wachtler: the defined categories should not be seen as divisions but overlaps should be recognised. The fields are at different stages in data annotation and sharing and the gaps are large. The idea is to structure the consortium to fetch people where they are and work from there.
+  - Michael Denker: the idea behind the consortium structure was that every community could recognise themselves in the consortium. The fields overlap strongly and the goal should be to move closer together.
+
 - Julien Colomb
-  - outreach to researchers is a big part of the idea, but there are no experts on teaching. how would RDM outreach work, since none of the people in the current NFDI Neuro that are experts. How to address this problem that there are no experts in RDM. It is very difficult to get researchers engaged.
-  - OWitte: there are elements of outreach already there and we should stick to the elements that are already there.
-  - HScherberger: bring experts together and to talk to each other. They can teach each other the best.
-  - Karl Kafitz: most important point is to tell the colleagues about the worth of RDM. when trying to solicitate, people will not react favorably. 
-  - Severin Heumueller: get it into peoples heads that RDM is science as well. the unified patient consent that data can also be used for science, it has taken tons of times to get all countries in germany to decide on a same form. there the problem is, there are many experts, but they will all disagree amongst themselves. here getting the experts will not lead to an answer. how to deal in such a case.
-  - OWitte: the medical informatics initiative did agree on a common patient form only recently for all of Germany.
-  - TWachtler: its sufficient to convey what everyone already knows and teaching what each knows is already better than not teaching at all. and solving it together is better in the long run.
-  - SHeumueller: puts the point that getting an agreement between large institutions which are currently not solvable.
+  - how can the common questions be asked and discussed in a common way; maybe in a next workshop it could be discussed how to make this best visible to the community.
+  - Thomas Wachtler: very good suggestion to focus on specific topics. It would also be good to get the Task areas going.
+  - Hansjoerg Scherberger: the main danger of failing would not be to develop tools, but not to achieve the user outreach because they don't understand the problems at hand or that they do not think the problems are important. Especially during the early stage NFDI Neuro should be close to the community. The biggest fear of failure is that the people are not picked up.
+
 - Daniel Guellmar
-  - what if the objective would be to accumulate all information in Germany for RDM in the neuroscience community; how is this currently done? as a task do a consensus building on the existing tools.
-  - MDenker: the workshop focused on the specific task areas, but there are several tasks that the teams have as homework to go in the direction not to solve specific problems but bring people together and give direct support on emerging projects. teaching and training should not be distributed in clusters but should be done coordinated. quality assessment: what are common standards, then push and advocate the ones that have advantages. these tasks have to be done by the individual groups. 
+  - the NFDI Neuro consortium will create something with a benefit; some technical or structural burdens will be lifted. But there are different branches in neuroscience and the consortium should aim for defining an arching minimal standard for all neuroscientific data to get scientists to think in a general structure and not only in their own specific format. Formats change. What would the minimum standard to develop be.
+  - a platform should be community driven but heavily guided by the consortium. It should not just be a forum where everyone does what they please.
+
+- Severin Heumueller
+  - There are a lot of topics but not all can be addressed at the same time. How and by whom will prioritisation of issues happen?
+  - Thomas Wachtler: it is important to focus and get things used. With respect to prioritisation: the more useful an aspect seems and where the community engages the most, the higher the priority it will have.
+  - Michael Hanke: The reason for the workshops was to collect exports. If that was not enough, then more workshops are required to collect more exports that will participate.
+
+- Julien Colomb
+  - outreach to researchers is a big part of the idea, but there currently are no participating experts on teaching and outreach. How would RDM outreach work, since none of the people in the current NFDI Neuro that are experts. Also how should the problem be addressed that there are no experts in RDM. It is very difficult to get researchers engaged.
+  - Otto Witte: elements of outreach are already available and NFDI Neuro should first of course stick to what already exists.
+  - Hansjoerg Scherberger: bring experts together and to talk to each other. They can teach each other the best.
+  - Karl Kafitz: the most important point is to tell colleagues about the worth of RDM. When trying to do solicitation, people will not react favorably. 
+  - Severin Heumueller: it is important to get people to realize that RDM is science as well. There is a unified patient consent in clinical tests that the resulting data can also be used for science; it has taken much time and effort to get all counties in Germany to decide on a common form. There the problem is, that there are many experts, but they will all disagree amongst themselves. Here getting the experts together will not lead to an answer. How to deal in such a case.
+  - Otto Witte: the medical informatics initiative did agree on a common patient form only recently for all of Germany.
+  - Thomas Wachtler: its sufficient to convey current broadly used knowledge; teaching this knowledge is already better than not teaching at all. Solving these issues on a common and public forum is more likely to succeed in the long run.
+  - Severin Heumueller: getting an agreement between large institutions is a hard problem in this case.
+
+- Daniel Guellmar
+  - the objective could be to accumulate all information in Germany for RDM in the neuroscience community; how is this currently done? As a task do a consensus building on the existing tools.
+  - Michael Denker: the workshop focused on the specific Task areas, but there are several tasks that the teams have as homework to go in the direction not to solve specific problems but bring people together and give direct support on emerging projects. Teaching and training should not be distributed in clusters but should be done coordinated. The quality assessment is what the common standards are and then push and advocate the ones that have advantages. These tasks have to be done by the individual groups. 
 
 ## Chat
 Anke Jaudszus
@@ -393,6 +417,8 @@ https://t1p.de/neuro-TA5
 - Thomas Wachtler:
   - use the presented google docs to get involved.
   - slides will be available via the NFDI web page; mailing list is also available via the NFDI page.
-  - next week there is a general NFDI web conference
+  - next week there is a general NFDI web conference.
 
-
+- Julien Colomb:
+  - it would be good to make a list and contact points within the task areas what should be done next.
+  - Thomas Wachtler: first contact points are the presenters today - from there a scheme will be drafted.
