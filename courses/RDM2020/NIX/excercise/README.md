@@ -1,4 +1,4 @@
-# Project description
+# Recording description
 
 InVivo single cell recording in strain N2 Caenorhabditis elegans.
 Activity shown in oxygen sensitive neuron(s) using Calcium Indicator GCaMP5k.
@@ -14,10 +14,10 @@ Experiments used an oxygen concentration shift paradigm:
 
 Calcium imaging traces can be found in files with the extension "*.log".
 
-The nine columns contained in these log files are in this order:
+The nine columns contained in these log files are to be interpreted in this order:
 "current_frame", "time_elapsed", "obj_substracted", "substracted_value", "obj_value", "obj_size", "background_value", "x_old", "y_old"
 
-e.g. 
+e.g.
 [1],  [2],    [3],     [4],     [5],  [6], [7],     [8], [9] 
 6046, 605491, 10768.6, 12809.4, 23578, 80, 160.118, 264, 65
 
@@ -33,31 +33,6 @@ The columns are interpreted as:
 [8] x_old               ... previous x position of region of interest [px]
 [9] y_old               ... previous y position of region of interest [px]
 
-## Recording equipment and settings
-
-Zeiss (I don't know the exact description of the model)
-
-Objective: Pln Apo 40x/1.3 oil DIC II
-
-Zeiss recording settings: 
-pE LED intensity 2		                ... 20
-Zeiss 6x reflector changer	            ... none
-Zeiss 3x Optovar turret		            ... 1x Tubelens
-Zeiss 3x Beam Path Switching Baseport	... 100% Baseport
-Zeiss 3x Sideport Baseport	            ... 100% L
-Zeiss RL 6x FL Attenuator	            ... 20%
-
-Digitizer		                        ... 14 bit (10MHz)
-Exposure Time		                    ... 100ms
-EM Gain 		                        ... 1500
-
-
-
-Recordings done by:
-The Research Institute of Molecular Pathology (IMP)
-Research Group Manuel Zimmer
-
-
 ## Recording files metadata
 file name, strain, protocol [%], feeding condition [hour], worm resting time [min], tracked neuron, intensity, Comments, tracking comment, frames, genetic modification, shifting times [s], worm, paralytic agent, EM gain settig, LED I, Gray Filter, exposure
 
@@ -67,4 +42,20 @@ file name, strain, protocol [%], feeding condition [hour], worm resting time [mi
 
 20121205Pflp178GCaMP5kN2shift_210421W4, N2, cs01_shift, 21-04-21, 2h20, 5', BAG, 6200/500, process visible, '', 6100, Pflp-8; Pflp-17::GCaMP5.k, 110-360-150, 1, Tetramisol 5mM, 1500, 20, 0.2, 100 ms
 
+## Recording equipment and settings
 
+Zeiss epifluorescence microscope equipped with a CoolLED pE-100 excitation system.
+Images were acquired with an Andor iXon 397 EMCCD camera and MetaMorph software (Universal Imaging)
+Objective: Pln Apo 40x/1.3 oil DIC II
+
+Zeiss recording settings:
+pE LED intensity 2                      ... 20
+Zeiss 6x reflector changer              ... none
+Zeiss 3x Optovar turret                 ... 1x Tubelens
+Zeiss 3x Beam Path Switching Baseport   ... 100% Baseport
+Zeiss 3x Sideport Baseport              ... 100% L
+Zeiss RL 6x FL Attenuator               ... 20%
+
+Digitizer                               ... 14 bit (10MHz)
+Exposure Time                           ... 100ms
+EM Gain                                 ... 1500
