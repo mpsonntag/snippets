@@ -59,3 +59,16 @@ Zeiss RL 6x FL Attenuator               ... 20%
 Digitizer                               ... 14 bit (10MHz)
 Exposure Time                           ... 100ms
 EM Gain                                 ... 1500
+
+# Background
+The Caenorabdhitis elegans neurons labeled BAG and URX have been reported to be tonic signaling neurons. The constant high concentration of increased intracellular Ca 2+ is thought to be mediated by L-type voltage gated Ca 2+ channels (L-VGCC), IP3 and ryanodine receptor Ca 2+ channels. (Busch et al, 2011)
+The activity of the oxygen de- and increase sensory neurons BAG and URX is tested in
+an N2 strain (ZIM226) background. The strain contains an extra-chromosomal array expressing GCaMP5k under the flp-8 and the flp-17 promoter. Flp-8 is expressed in URX, flp-17 in BAG. GCaMP5k is a genetically encoded calcium indicator (Akerboom et al, 2012) which links calmodulin to an inactive form of GFP. Upon binding of Ca 2+ to calmodulin the conformation of GFP changes and becomes fluorescent. Depolarization of a neuron leads to an intracellular release of Ca 2+. GCaMP therefore is a useful second messenger in visualizing neuronal activity.
+
+## Neuronal activity in an oxygen shift paradigm
+To study the response of the sensory neurons to a harsh stimulus, animals were exposed to subsequent oxygen shifts from 21-4% and back to 21%, oxygen concentrations are always balanced with nitrogen. The oxygen "down shift" (DS) took place 110 seconds, the "up shift" (US) 470 seconds after the start of the experiment.
+
+# Data provenance
+All recordings were done at and by:
+The Research Institute of Molecular Pathology (IMP), Vienna, Austria
+Research Group Manuel Zimmer
