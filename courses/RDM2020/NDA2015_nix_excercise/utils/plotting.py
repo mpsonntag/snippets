@@ -213,6 +213,7 @@ class Plotter(object):
 
         return count
 
+
 def cmp(x, y):
     """
     Replacement for built-in function cmp that was removed in Python 3
@@ -223,6 +224,8 @@ def cmp(x, y):
     """
 
     return (x > y) - (x < y)
+
+
 class PlottingData(object):
 
     def __init__(self, array, color, subplot=0, xlim=None, downsample=False, labels=None):
@@ -363,4 +366,3 @@ def plot_array_2d_set(array, axis, color=None, xlim=None, downsample=None, hint=
 
     if d1.labels is not None:
         axis.legend(d1.labels)
-
