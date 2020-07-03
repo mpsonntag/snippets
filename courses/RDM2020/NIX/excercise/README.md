@@ -34,7 +34,7 @@ The columns are interpreted as:
 [9] y_old               ... previous y position of region of interest [px]
 
 ## Recording files metadata
-file name, strain, protocol [%], feeding condition [hour], worm resting time [min], tracked neuron, intensity, Comments, tracking comment, frames, genetic modification, shifting times [s], worm, paralytic agent, EM gain settig, LED I, Gray Filter, exposure
+file name, strain, protocol [%], feeding condition [hour], worm resting time [min], tracked neuron, intensity, Comments, tracking comment, frames, genetic modification, shifting times [s], worm, paralytic agent, EM gain setting, LED I, Gray Filter, exposure
 
 20121202Pflp178GCaMP5kN2shift_210421W1, N2, cs01_shift 21-04-21, 1h50, 7', BAG,	4000/400,'' ,'' 6100, Pflp-8; Pflp-17::GCaMP5.k, 110-360-150, 1, Tetramisol 5mM, 1500, 20, 0.2, 100 ms
 
