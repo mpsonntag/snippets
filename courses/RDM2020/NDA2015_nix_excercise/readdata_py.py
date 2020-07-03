@@ -4,19 +4,18 @@ import numpy as np
 import nixio as nix
 
 # read data from file
-nixf = nix.File.open("module2.h5", nix.FileMode.ReadOnly)
+nixf = nix.File.open("module2x.h5", nix.FileMode.ReadOnly)
 
 # inspect contents
-nixf.blocks
+print(nixf.blocks)
 
 
 # get overview of block contents
 for b in nixf.blocks:
     tlst = list(filter(lambda x: x.type == "nix.trial", b.tags))
-    print('session %s: %d trials' % (b.name, len(tlst)))
+    print('%s: %d trials' % (b.name, len(tlst)))
     for s in b.sources:
-        print('\t'+s.name)
-    tlst = list(filter(lambda x: x.type == "nix.trial", b.tags))
+        print('\t%s ' % s.name)
 
 # select data from one session
 b108 = nixf.blocks["joe108"]
@@ -26,10 +25,11 @@ b108 = nixf.blocks["joe108"]
 dalst = filter(lambda x:
                ("SpikeActivity" in x.name) &
                (filter(lambda s: s.name == "Unit 7", x.sources) != []) &
-               (x.metadata['Target'] == 2) & 
+               (x.metadata['Target'] == 2) &
                (x.metadata['BehavioralCondition'] == 3),
                b108.data_arrays)
+dalst = list(dalst)
 
 # plot spiketrains
-[tind, jind] = np.nonzero(list(dalst))
+[tind, jind] = np.nonzero(dalst[0])
 plot.scatter(tind, jind)
