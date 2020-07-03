@@ -16,7 +16,7 @@ for b in nixf.blocks:
     print('session %s: %d trials' % (b.name, len(tlst)))
     for s in b.sources:
         print('\t'+s.name)
-
+    tlst = list(filter(lambda x: x.type == "nix.trial", b.tags))
 
 # select data from one session
 b108 = nixf.blocks["joe108"]
