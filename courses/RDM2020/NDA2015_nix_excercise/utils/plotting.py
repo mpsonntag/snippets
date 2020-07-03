@@ -2,12 +2,12 @@
 #  -*- coding: utf-8 -*-
 from __future__ import print_function, division
 
-import random
-
-import matplotlib.pyplot as plt
-import nixio
 import numpy as np
 import scipy.signal as sp
+import random
+
+import nixio as nix
+import matplotlib.pyplot as plt
 
 COLORS_BLUE_AND_RED = (
     'dodgerblue', 'red'
@@ -49,7 +49,7 @@ class Plotter(object):
 
         self.__subplot_data = tuple()
         for i in range(self.subplot_count):
-            self.__subplot_data += ([],)
+            self.__subplot_data += ([], )
 
         self.__last_figure = None
 
@@ -69,8 +69,7 @@ class Plotter(object):
 
     @property
     def last_figure(self):
-        msg = "No figure available (method plot has to be called at least once)"
-        assert self.__last_figure is not None, msg
+        assert self.__last_figure is not None, "No figure available (method plot has to be called at least once)"
         return self.__last_figure
 
     # methods
@@ -88,14 +87,11 @@ class Plotter(object):
         Add a new data array to the plot
 
         :param array:       The data array to plot
-        :param subplot:     The index of the subplot where the array should be added
-                            (starting with 0)
-        :param color:       The color of the array to plot
-                            (if None the next default colors will be assigned)
+        :param subplot:     The index of the subplot where the array should be added (starting with 0)
+        :param color:       The color of the array to plot (if None the next default colors will be assigned)
         :param xlim:        Start and end of the x-axis limits.
         :param downsample:  True if the array should be sampled down
-        :param labels:      Data array with labels that should be added to each data point
-                            of the array to plot
+        :param labels:      Data array with labels that should be added to each data point of the array to plot
         """
         color = self.__mk_color(color, subplot)
         pdata = PlottingData(array, color, subplot, xlim, downsample, labels)
@@ -136,17 +132,16 @@ class Plotter(object):
                 nd = len(shape)
 
                 if nd == 1:
-                    if d1type == nixio.DimensionType.Set:
+                    if d1type == nix.DimensionType.Set:
                         second_y = signal_like > 0
                         hint = (i + 1.0) / (event_like + 1.0) if event_like > 0 else None
-                        plot_array_1d_set(pdata.array, axis, color=pdata.color, xlim=pdata.xlim,
-                                          labels=pdata.labels,
+                        plot_array_1d_set(pdata.array, axis, color=pdata.color, xlim=pdata.xlim, labels=pdata.labels,
                                           second_y=second_y, hint=hint)
                     else:
                         plot_array_1d(pdata.array, axis, color=pdata.color, xlim=pdata.xlim,
                                       downsample=pdata.downsample)
                 elif nd == 2:
-                    if d1type == nixio.DimensionType.Set:
+                    if d1type == nix.DimensionType.Set:
                         plot_array_2d_set(pdata.array, axis, color=pdata.color, xlim=pdata.xlim,
                                           downsample=pdata.downsample)
                     else:
@@ -171,15 +166,13 @@ class Plotter(object):
             color = self.defaultcolors[count if count < color_count else color_count - 1]
 
         if color == "random":
-            color = "#%02x%02x%02x" % (random.randint(50, 255),
-                                       random.randint(50, 255),
-                                       random.randint(50, 255))
+            color = "#%02x%02x%02x" % (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
 
         return color
 
     @staticmethod
     def __count_signal_like(pdata_list):
-        sig_types = (nixio.DimensionType.Range, nixio.DimensionType.Sample)
+        sig_types = (nix.DimensionType.Range, nix.DimensionType.Sample)
         count = 0
 
         for pdata in pdata_list:
@@ -188,23 +181,21 @@ class Plotter(object):
 
             if nd == 1 and dims[0].dimension_type in sig_types:
                 count += 1
-            elif nd == 2 and dims[0].dimension_type == nixio.DimensionType.Set and \
-                    dims[1].dimension_type in sig_types:
+            elif nd == 2 and dims[0].dimension_type == nix.DimensionType.Set and dims[1].dimension_type in sig_types:
                 count += 1
 
         return count
 
     @staticmethod
     def __count_image_like(pdata_list):
-        sig_types = (nixio.DimensionType.Range, nixio.DimensionType.Sample)
+        sig_types = (nix.DimensionType.Range, nix.DimensionType.Sample)
         count = 0
 
         for pdata in pdata_list:
             dims = pdata.array.dimensions
             nd = len(dims)
 
-            if nd == 2 and dims[0].dimension_type in sig_types and \
-                    dims[1].dimension_type in sig_types:
+            if nd == 2 and dims[0].dimension_type in sig_types and dims[1].dimension_type in sig_types:
                 count += 1
 
         return count
@@ -215,15 +206,24 @@ class Plotter(object):
 
         for pdata in pdata_list:
             dims = pdata.array.dimensions
-            # nd = len(dims)
+            nd = len(dims)
 
-            if dims[0].dimension_type == nixio.DimensionType.Set:
+            if dims[0].dimension_type == nix.DimensionType.Set:
                 count += 1
 
         return count
 
+def cmp(x, y):
+    """
+    Replacement for built-in function cmp that was removed in Python 3
 
-class PlottingData:
+    Compare the two objects x and y and return an integer according to
+    the outcome. The return value is negative if x < y, zero if x == y
+    and strictly positive if x > y.
+    """
+
+    return (x > y) - (x < y)
+class PlottingData(object):
 
     def __init__(self, array, color, subplot=0, xlim=None, downsample=False, labels=None):
         self.array = array
@@ -237,9 +237,8 @@ class PlottingData:
         self.labels = labels
 
     def __cmp__(self, other):
-        weights = lambda dims: [(1 if d.dimension_type == nixio.DimensionType.Sample else 0)
-                                for d in dims]
-        return weights(self.array.dimensions) == weights(other.array.dimensions)
+        weights = lambda dims: [(1 if d.dimension_type == nix.DimensionType.Sample else 0) for d in dims]
+        return cmp(weights(self.array.dimensions), weights(other.array.dimensions))
 
     def __lt__(self, other):
         return self.__cmp__(other) < 0
@@ -251,7 +250,8 @@ def plot_make_figure(width, height, dpi, cols, lines, facecolor):
     figure.subplots_adjust(wspace=0.3, hspace=0.3, left=0.1, right=0.9, bottom=0.05, top=0.95)
 
     for subplot in range(cols * lines):
-        axis = figure.add_subplot(lines, cols, subplot + 1)
+
+        axis = figure.add_subplot(lines, cols, subplot+1)
         axis.tick_params(direction='out')
         axis.spines['top'].set_color('none')
         axis.spines['right'].set_color('none')
@@ -266,23 +266,22 @@ def plot_make_figure(width, height, dpi, cols, lines, facecolor):
 def plot_array_1d(array, axis, color=None, xlim=None, downsample=None, hint=None, labels=None):
     dim = array.dimensions[0]
 
-    assert dim.dimension_type in (nixio.DimensionType.Sample, nixio.DimensionType.Range), \
-        "Unsupported data"
+    assert dim.dimension_type in (nix.DimensionType.Sample, nix.DimensionType.Range), "Unsupported data"
 
     y = array[:]
-    if dim.dimension_type == nixio.DimensionType.Sample:
+    if dim.dimension_type == nix.DimensionType.Sample:
         x_start = dim.offset or 0
         x = np.arange(0, array.shape[0]) * dim.sampling_interval + x_start
     else:
         x = np.array(dim.ticks)
-
+    
     if downsample is not None:
         x = sp.decimate(x, downsample)
         y = sp.decimate(y, downsample)
     if xlim is not None:
         y = y[(x >= xlim[0]) & (x <= xlim[1])]
         x = x[(x >= xlim[0]) & (x <= xlim[1])]
-
+       
     axis.plot(x, y, color, label=array.name)
     axis.set_xlabel('%s [%s]' % (dim.label, dim.unit))
     axis.set_ylabel('%s [%s]' % (array.label, array.unit))
@@ -292,7 +291,7 @@ def plot_array_1d(array, axis, color=None, xlim=None, downsample=None, hint=None
 def plot_array_1d_set(array, axis, color=None, xlim=None, hint=None, labels=None, second_y=False):
     dim = array.dimensions[0]
 
-    assert dim.dimension_type == nixio.DimensionType.Set, "Unsupported data"
+    assert dim.dimension_type == nix.DimensionType.Set, "Unsupported data"
 
     x = array[:]
     z = np.ones_like(x) * 0.8 * (hint or 0.5) + 0.1
@@ -326,8 +325,8 @@ def plot_array_2d(array, axis, color=None, xlim=None, downsample=None, hint=None
     d1_type = d1.dimension_type
     d2_type = d2.dimension_type
 
-    assert d1_type == nixio.DimensionType.Sample, "Unsupported data"
-    assert d2_type == nixio.DimensionType.Sample, "Unsupported data"
+    assert d1_type == nix.DimensionType.Sample, "Unsupported data"
+    assert d2_type == nix.DimensionType.Sample, "Unsupported data"
 
     z = array[:]
     x_start = d1.offset or 0
@@ -350,8 +349,8 @@ def plot_array_2d_set(array, axis, color=None, xlim=None, downsample=None, hint=
     d1_type = d1.dimension_type
     d2_type = d2.dimension_type
 
-    assert d1_type == nixio.DimensionType.Set, "Unsupported data"
-    assert d2_type == nixio.DimensionType.Sample, "Unsupported data"
+    assert d1_type == nix.DimensionType.Set, "Unsupported data"
+    assert d2_type == nix.DimensionType.Sample, "Unsupported data"
 
     x_start = d2.offset or 0
     x_one = x_start + np.arange(0, array.shape[1]) * d2.sampling_interval
@@ -364,3 +363,4 @@ def plot_array_2d_set(array, axis, color=None, xlim=None, downsample=None, hint=
 
     if d1.labels is not None:
         axis.legend(d1.labels)
+
