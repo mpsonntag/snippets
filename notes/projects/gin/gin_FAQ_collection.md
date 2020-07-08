@@ -39,3 +39,16 @@ gin git push -d origin branchname
 
 where "branchname" is of course the name of the branch you want to delete.
 
+
+## An upload via the webpage shows no progress or has stopped
+
+### Q
+
+I have been trying to upload data onto a repository but it seems to have stopped adding commits.
+Is there a limit on how much we can upload to a repository?
+
+### A
+
+Uploads through the website should work without issue, but for large, long running uploads there is always a greater risk of the connection timing out or being interrupted and subsequent uploads will need to start over. To reduce the chance of long running uploads through the web form, we recommend submitting large repositories in small chunks and low file numbers to avoid timeouts.
+
+As an alternative to the web upload the GIN command line client GIN-cli will resume a broken upload and makes it easier to keep track of what has been uploaded and what remains to be sent, which is important when uploading multiple files in multiple directories. To this end we recommend using the GIN client for large uploads instead of the web interface.
