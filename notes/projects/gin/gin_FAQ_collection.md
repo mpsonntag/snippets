@@ -19,3 +19,23 @@ It will also be useful to check the client log file. It can be found in the foll
 - Linux: `/home/<User>/.cache/g-node/gin/gin.log`
 
 Before checking the log, try to run 'gin upload' again to make sure that the failure and any pertinent information is included in the logfile.
+
+
+## How to delete a branch
+
+### Q
+I'm trying to delete a branch I added by mistake to https://gin.g-node.org/[repo] and am unable to do so. Can you please kindly direct me to how I may do this?
+
+### A
+Deleting branches on the gin website is currently not supported.
+
+Deleting a branch is possible using the gin client to send the git remote branch deletion command.
+
+If you are unfamiliar with git or the gin client you can find installation instructions for the client here: https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup
+and a basic usage tutorial here: https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Usage+Tutorial
+
+To delete the branch, you will need to have the repository cloned to a local directory, then from within the repository run the following command:
+gin git push -d origin branchname
+
+where "branchname" is of course the name of the branch you want to delete.
+
