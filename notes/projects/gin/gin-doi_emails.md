@@ -22,11 +22,13 @@ Dear [xyz],
 
 We have received your request to register the GIN repository at https://gin.g-node.org/[xyz].  Before we proceed with the registration, there are a few issues with the metadata that need to be addressed.
 
-- The description of the dataset, which should serve the purpose of a brief abstract, hasn't been entered. In the datacite.yml file in the repository, the description contains the text from the template instead.
+- The description section is the placeholder text from the template file. Please update this with a description of the dataset being registered? This can be a couple of sentences serving as a short, abstract-like description.
 
 - Since this dataset appears to be supplementing a publication, you can add it in the references even though it's not yet published, by adding the full citation to the "name" field, adding "IsSupplemenTo" to the reftype, and keeping the "id" field empty. We will list the citation on the page of your dataset and once it is published, you can update the metadata with the DOI and we will add the link to the dataset appropriately.
 
-- The "references" section contains some template text from the original datacite.yaml file. For the first reference, the DOI is 10.xxx/zzzz.  Additionally, the second reference is still template text. If there is no second reference, the second "reftype" and "name" can be safely removed.
+- The "references" section contains some template text from the original datacite.yaml file. For the first reference, the DOI is 10.xxx/zzzz.  Additionally, the second reference is still template text. If there is no second reference, the second "reftype" and "name" can be safely removed. If the DOIs are not available yet, you can update them later in the datacite.yml and the README and we will pick up the changes and add them to the published metadata.
+
+- The first author's information contains an ID field with value "AuthorID1 (e.g. ORCID)", which is the placeholder value from the datacite.yml template. Please either remove this placeholder text or update it with the proper ORCID if you have one.
 
 Please update your repository with these changes and let us know if you have any questions. Once you are happy with the changes, resubmit the request or reply to this email and we will continue with the registration.
 
@@ -72,3 +74,4 @@ Thank you and best regards,
 
 [xyz]
 G-Node
+
