@@ -52,3 +52,22 @@ Is there a limit on how much we can upload to a repository?
 Uploads through the website should work without issue, but for large, long running uploads there is always a greater risk of the connection timing out or being interrupted and subsequent uploads will need to start over. To reduce the chance of long running uploads through the web form, we recommend submitting large repositories in small chunks and low file numbers to avoid timeouts.
 
 As an alternative to the web upload the GIN command line client GIN-cli will resume a broken upload and makes it easier to keep track of what has been uploaded and what remains to be sent, which is important when uploading multiple files in multiple directories. To this end we recommend using the GIN client for large uploads instead of the web interface.
+
+
+## Files with a specific file ending are not uploaded
+
+### Q
+I am trying to upload files to a GIN repository, but files with a specific file ending e.g. "tif" or "nii" are not uploaded.
+
+### A
+GIN is based on git and will respect if files have been excluded from git. Check if there is a ".gitignore" file at the root of your repository where these files have been excluded.
+
+
+## Modification of a dataset pubilished with GIN-DOI
+
+### Q
+Once a DOI is issued for a dataset, can this dataset be modified in the future? I.e., can new data be added?
+
+### A
+The brief answer is, that the original GIN repository that was used to create the registered dataset can be changed after it has been used for a DOI publication. Further changes in the original GIN repository do not introduce changes in the published DOI dataset.
+Further there is no automatic way to update the DOI dataset after the DOI has been issued. We can issue a different DOI for the same data repository if changes need need to be published as well.
