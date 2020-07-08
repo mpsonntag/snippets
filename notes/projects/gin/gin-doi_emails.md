@@ -31,3 +31,24 @@ Thank you and best regards,
 
 [xyz]
 G-Node
+
+
+## Publication reference request
+
+Dear [xyz],
+
+Your dataset with title
+[xyz]
+has been successfully registered
+The new DOI for the dataset is: [xyz] and can be viewed at https://doi.org/[xyz].
+
+If this is data supplementing a publication and if you haven't done so already, we kindly request you to:
+- Include the new DOI of this dataset and the DOI URL (not the repository URL) in the publication as a reference. Note that PLOS has a special Data Availability field for this particular purpose. Typically, this addition can be done as a request to changes in the proofs.
+- Update the datacite file of the registered dataset to reference the publication, including its DOI, once it is known.
+
+The latter will result in a link in the Datacite database to your publication and will increase its discoverability.
+
+Thank you and best regards,
+
+[xyz]
+G-Node
