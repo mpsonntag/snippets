@@ -23,9 +23,29 @@ Dear [xyz],
 We have received your request to register the GIN repository at https://gin.g-node.org/[xyz].  Before we proceed with the registration, there are a few issues with the metadata that need to be addressed.
 
 - The description of the dataset, which should serve the purpose of a brief abstract, hasn't been entered. In the datacite.yml file in the repository, the description contains the text from the template instead.
+
 - Since this dataset appears to be supplementing a publication, you can add it in the references even though it's not yet published, by adding the full citation to the "name" field, adding "IsSupplemenTo" to the reftype, and keeping the "id" field empty. We will list the citation on the page of your dataset and once it is published, you can update the metadata with the DOI and we will add the link to the dataset appropriately.
 
+- The "references" section contains some template text from the original datacite.yaml file. For the first reference, the DOI is 10.xxx/zzzz.  Additionally, the second reference is still template text. If there is no second reference, the second "reftype" and "name" can be safely removed.
+
 Please update your repository with these changes and let us know if you have any questions. Once you are happy with the changes, resubmit the request or reply to this email and we will continue with the registration.
+
+Thank you and best regards,
+
+[xyz]
+G-Node
+
+
+## README character problems
+
+Dear [xyz],
+
+We have received your request to register the GIN repository at https://gin.g-node.org/[xyz]. Before we continue with the registration process, there are a few issues with the metadata and descriptions that should be addressed.
+
+- The README.md file contains characters that do not appear to be unicode. This is preventing the website from displaying the README contents on the front page of the repository. Removing these characters (or replacing them if they are meant to be something else) should fix the problem.
+- The description of the repository seems to have the same character issue as the README.md file. [point to character location]
+
+Please make the appropriate changes and resubmit the registration request when everything is ready. We will then begin the registration process and inform you of the new DOI when it is ready.
 
 Thank you and best regards,
 
