@@ -15,7 +15,7 @@ from rdflib.plugins.sparql import prepareQuery
 NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
 
 
-def test_subclassing():
+def test_rdf_subclassing():
     """
     Test collection of the odml RDF subclassing feature.
     Tests that the resulting output RDF document contains any required additional RDF subclasses.
@@ -91,7 +91,57 @@ def test_subclassing():
     print(rdf_writer.get_rdf_str())
 
 
-def test_subclassing_queries():
+def test_rdf_subclassing_definitions():
+    """
+    Test that RDF Subclass definitions are written to the resulting graph.
+    """
+    # -- Test default subclassing
+    doc = odml.Document()
+    _ = odml.Section(name="test_subclassing", type="cell", parent=doc)
+
+    rdf_writer = RDFWriter([doc])
+    curr_str = " ".join(rdf_writer.get_rdf_str().split())
+    assert "odml:Cell a rdfs:Class ; rdfs:subClassOf odml:Section" in curr_str
+    assert "odml:Section a rdfs:Class" in curr_str
+
+    # -- Test multiple entries; a definition should only occur once in an RDF document
+    doc = odml.Document()
+    sec = odml.Section(name="test_subclassing", type="cell", parent=doc)
+    sub_sec = odml.Section(name="test_subclassing", type="cell", parent=sec)
+    _ = odml.Section(name="test_subclassing", type="cell", parent=sub_sec)
+
+    rdf_writer = RDFWriter([doc])
+    curr_str = " ".join(rdf_writer.get_rdf_str().split())
+    assert "odml:Cell a rdfs:Class ; rdfs:subClassOf odml:Section" in curr_str
+    assert curr_str.count("odml:Cell a rdfs:Class ; rdfs:subClassOf odml:Section") == 1
+    assert "odml:Section a rdfs:Class" in curr_str
+    assert curr_str.count("odml:Section a rdfs:Class") == 1
+
+    # -- Test custom subclassing
+    type_custom_class = "species"
+    custom_class_dict = {type_custom_class: "Species"}
+
+    doc = odml.Document()
+    _ = odml.Section(name="test_subclassing", type="cell", parent=doc)
+    _ = odml.Section(name="test_custom_subclassing", type=type_custom_class, parent=doc)
+
+    rdf_writer = RDFWriter([doc], custom_subclasses=custom_class_dict)
+    curr_str = " ".join(rdf_writer.get_rdf_str().split())
+    assert "odml:Cell a rdfs:Class ; rdfs:subClassOf odml:Section" in curr_str
+    assert "odml:Species a rdfs:Class ; rdfs:subClassOf odml:Section" in curr_str
+    assert "odml:Section a rdfs:Class" in curr_str
+
+    # -- Test inactive subclassing
+    doc = odml.Document()
+    _ = odml.Section(name="test_subclassing", type="cell", parent=doc)
+
+    rdf_writer = RDFWriter([doc], rdf_subclassing=False)
+    curr_str = " ".join(rdf_writer.get_rdf_str().split())
+    assert "odml:Section a rdfs:Class" not in curr_str
+    assert "odml:Cell a rdfs:Class ; rdfs:subClassOf odml:Section" not in curr_str
+
+
+def test_rdf_subclassing_queries():
     """
     Test the proper implementation of the RDF subclassing feature. Tests ensure, that queries
     relying on RDF Subclasses return appropriate results.
