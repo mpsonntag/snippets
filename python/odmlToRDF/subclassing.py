@@ -87,7 +87,7 @@ from rdflib.plugins.sparql import prepareQuery
 
 NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
 
-# Test default subclassing
+# -- Test default subclassing
 doc = odml.Document()
 _ = odml.Section(name="test_subclass", type="cell", parent=doc)
 _ = odml.Section(name="test_regular_class", type="regular", parent=doc)
@@ -116,7 +116,53 @@ assert len(use_graph.query(curr_query)) == 1
 for row in use_graph.query(curr_query):
     assert row.s in result_section
 
-# Test custom subclassing
+# -- Test custom subclassing
+type_custom_class = "species"
+type_overwrite_class = "cell"
+custom_class_dict = {type_custom_class: "Species", type_overwrite_class: "Neuron"}
 
+doc = odml.Document()
+sec = odml.Section(name="test_subclass", type="species", parent=doc)
+_ = odml.Section(name="test_subclass_overwrite", type="cell", parent=sec)
+_ = odml.Section(name="test_regular_class", type="regular", parent=sec)
 
-# Test inactivated subclassing
+rdf_writer = RDFWriter([doc], custom_subclasses=custom_class_dict)
+_ = rdf_writer.get_rdf_str()
+
+use_graph = rdf_writer.graph
+DeductiveClosure(RDFS_Semantics).expand(use_graph)
+
+q_string = "SELECT * WHERE {?s rdf:type odml:Section .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+# Make sure the query finds three sections
+assert len(use_graph.query(curr_query)) == 3
+
+# Make sure the query finds
+result_section = []
+for row in use_graph.query(curr_query):
+    result_section.append(row.s)
+
+# Custom class 'Species' should be found.
+q_string = "SELECT * WHERE {?s rdf:type odml:Species .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 1
+for row in use_graph.query(curr_query):
+    assert row.s in result_section
+
+# Custom class 'Neuron' should be found.
+q_string = "SELECT * WHERE {?s rdf:type odml:Neuron .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 1
+for row in use_graph.query(curr_query):
+    assert row.s in result_section
+
+# Default class 'Cell' was replaced and should not return any result.
+q_string = "SELECT * WHERE {?s rdf:type odml:Cell .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 0
+
+# -- Test inactivated subclassing
