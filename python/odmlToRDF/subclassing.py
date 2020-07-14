@@ -71,3 +71,52 @@ assert "odml:Neuron" in rdf_writer.get_rdf_str()
 custom_class_dict = {sub_class_type: "neuron"}
 rdf_writer = RDFWriter([doc], custom_subclasses=custom_class_dict)
 print(rdf_writer.get_rdf_str())
+
+
+# Test subclassing queries
+
+import odml
+
+from odml.tools import RDFWriter
+from odml.tools.rdf_converter import ODML_NS
+
+from owlrl import DeductiveClosure, RDFS_Semantics
+
+from rdflib import Namespace, RDF, RDFS
+from rdflib.plugins.sparql import prepareQuery
+
+NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
+
+# Test default subclassing
+doc = odml.Document()
+_ = odml.Section(name="test_subclass", type="cell", parent=doc)
+_ = odml.Section(name="test_regular_class", type="regular", parent=doc)
+
+rdf_writer = RDFWriter([doc])
+_ = rdf_writer.get_rdf_str()
+
+use_graph = rdf_writer.graph
+DeductiveClosure(RDFS_Semantics).expand(use_graph)
+
+q_string = "SELECT * WHERE {?s rdf:type odml:Section .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+# Make sure the query finds two sections
+assert len(use_graph.query(curr_query)) == 2
+
+# Make sure the query finds
+result_section = []
+for row in use_graph.query(curr_query):
+    result_section.append(row.s)
+
+q_string = "SELECT * WHERE {?s rdf:type odml:Cell .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 1
+for row in use_graph.query(curr_query):
+    assert row.s in result_section
+
+# Test custom subclassing
+
+
+# Test inactivated subclassing
