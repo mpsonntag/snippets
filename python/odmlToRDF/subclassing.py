@@ -166,3 +166,26 @@ curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
 assert len(use_graph.query(curr_query)) == 0
 
 # -- Test inactivated subclassing
+doc = odml.Document()
+_ = odml.Section(name="test_regular_class", type="regular", parent=doc)
+_ = odml.Section(name="test_subclass", type="cell", parent=doc)
+
+rdf_writer = RDFWriter([doc], rdf_subclassing=False)
+_ = rdf_writer.get_rdf_str()
+
+use_graph = rdf_writer.graph
+DeductiveClosure(RDFS_Semantics).expand(use_graph)
+
+q_string = "SELECT * WHERE {?s rdf:type odml:Section .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 2
+
+q_string = "SELECT * WHERE {?s rdf:type odml:Cell .}"
+curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
+
+assert len(use_graph.query(curr_query)) == 0
+
+# -- Test Subclass definition entry
+
+
