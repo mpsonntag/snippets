@@ -330,7 +330,12 @@ be different crontabs under different users including root.
 `scp` ... provides remote access like ssh, but copies files instead of logging
         into the remote machine.
 
-`rsync` ...
+`rsync` ... Copy and update all files from a local directory to and at a remote directory
+- new files will be copied
+- files that were changed locally will overwrite the remote files
+- ideally run the command with the `dry-run` flag first to ensure that the update is save
+
+        rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
 
 `curl` ... run http requests from the command line
 
