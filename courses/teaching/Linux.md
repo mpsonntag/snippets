@@ -217,6 +217,15 @@ System disk usage; display system wide disk space usage
 
     df -h
 
+List all block devices
+
+    sudo sfdisk -l
+    lsblk -l
+
+List disk hardware
+
+    sudo lshw -short -C disk
+
 
 ## Server commands
 
