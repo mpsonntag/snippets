@@ -72,6 +72,10 @@ cp ${ROOT_DIR}/resources/test_nixodmlconv/example.odml.xml ${OUT_DIR}/
 cd ${OUT_DIR}
 
 echo
+echo "-- checking odml version"
+python -c "import odml; print('-- Testing against odml version v%s' % odml.VERSION)"
+
+echo
 echo "-- running nixodmlconverter help"
 nixodmlconverter -h
 

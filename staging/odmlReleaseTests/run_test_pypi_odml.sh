@@ -69,6 +69,11 @@ conda install -q -c pkgw-forge adwaita-icon-theme -y
 pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I odml-ui
 
 echo
+echo "-- checking odml version"
+python -c "import odml; print('-- Testing against odml version v%s' % odml.VERSION)"
+python -c "import odmlui; print('-- Testing against odmlui version v%s' % odmlui.info.VERSION)"
+
+echo
 echo "-- Running basic tests"
 cd ${ROOT_DIR}/resources/test_load
 BASIC_SCRIPT=${ROOT_DIR}/resources/scripts/test_odml_basics.py

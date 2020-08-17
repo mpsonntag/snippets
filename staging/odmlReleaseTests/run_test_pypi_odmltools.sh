@@ -69,6 +69,10 @@ mkdir -vp ${OUT_DIR}
 cd ${ROOT_DIR}/resources/test_odmltools
 
 echo
+echo "-- checking odml version"
+python -c "import odml; print('-- Testing against odml version v%s' % odml.VERSION)"
+
+echo
 echo "-- running odmltools conversion tests"
 odmlimportdatacite -o ${OUT_DIR} -r ./datacite
 odmlimportdatacite -o ${OUT_DIR} -r -f RDF ./datacite
