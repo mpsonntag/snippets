@@ -52,64 +52,85 @@ pip install -q --upgrade pip
 pip install -q ipython
 
 echo
-echo "-- Installing nixodmlconverter from PyPI test"
+echo "-- Installing odml from PyPI proper"
+echo
 
-pip install -q --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -I nixodmlconverter
+pip install -q odml
 
-if ! [[ -x "$(command -v nixodmlconverter)" ]]; then
-    conda deactivate
-    cd ${ROOT_DIR}
-    echo
-    echo "-- [FAILED] nixodmlconverter not installed"
-    exit
-fi
+echo
+echo "-- Installing dependencies and odml-ui from PyPI proper"
+echo
 
+conda install -q -c pkgw/label/superseded gtk3 -y
+conda install -q -c conda-forge pygobject -y
+conda install -q -c conda-forge gdk-pixbuf -y
+conda install -q -c pkgw-forge adwaita-icon-theme -y
 
-OUT_DIR=/tmp/odml/out/${PYVER}/nixodmlconverter
-mkdir -vp ${OUT_DIR}
-cp ${ROOT_DIR}/resources/test_nixodmlconv/example.odml.xml ${OUT_DIR}/
-
-cd ${OUT_DIR}
+pip install -q odml-ui
 
 echo
 echo "-- checking odml version"
 python -c "import odml; print('-- Testing against odml version v%s' % odml.VERSION)"
+python -c "import odmlui; print('-- Testing against odmlui version v%s' % odmlui.info.VERSION)"
 
 echo
-echo "-- running nixodmlconverter help"
-nixodmlconverter -h
+echo "-- Running basic tests"
+cd ${ROOT_DIR}/resources/test_load
+BASIC_SCRIPT=${ROOT_DIR}/resources/scripts/test_odml_basics.py
+python ${BASIC_SCRIPT}
 
-echo
-echo "-- running nixodmlconversion odml->nix"
-if [[ -f example.odml.nix ]]; then
-    rm example.odml.nix
-fi
-nixodmlconverter example.odml.xml
-
-if ! [[ -f example.odml.nix ]]; then
-    conda deactivate
+if [[ ! $? -eq 0 ]]; then
     cd ${ROOT_DIR}
+    conda deactivate
     echo
-    echo "-- [FAILED] nixodmlconverter conversion odml->nix"
+    echo "-- [FAILED] Encountered error in script ${BASIC_SCRIPT}"
     exit
 fi
 
-cp example.odml.nix export.odml.nix
+echo
+echo "-- Returning to root"
+cd ${ROOT_DIR}
 
 echo
-echo "-- running nixodmlconversion nix->odml"
-if [[ -f export.odml.xml ]]; then
-    rm export.odml.xml
-fi
-nixodmlconverter export.odml.nix
+echo "-- Creating convert output folder"
+OUT_DIR=/tmp/odml/out/${PYVER}/convert
+mkdir -vp ${OUT_DIR}
 
-if ! [[ -f export.odml.xml ]]; then
+echo
+echo "-- Running conversion script tests"
+
+if ! [[ -x "$(command -v odmlconvert)" ]]; then
     conda deactivate
     cd ${ROOT_DIR}
     echo
-    echo "-- [FAILED] nixodmlconverter conversion nix->odml"
+    echo "-- [FAILED] odmlconvert not installed"
     exit
 fi
+
+cd ${ROOT_DIR}/resources/test_convert_script
+odmlconvert -o ${OUT_DIR} -r .
+
+echo
+echo "-- Returning to root"
+cd ${ROOT_DIR}
+
+echo
+echo "-- Creating rdf output folder"
+OUT_DIR=/tmp/odml/out/${PYVER}/rdf
+mkdir -vp ${OUT_DIR}
+
+if ! [[ -x "$(command -v odmltordf)" ]]; then
+    conda deactivate
+    cd ${ROOT_DIR}
+    echo
+    echo "-- [FAILED] odmltordf not installed"
+    exit
+fi
+
+echo
+echo "-- Running rdf conversion script test"
+cd ${ROOT_DIR}/resources/test_rdf_export_script
+odmltordf -o ${OUT_DIR} -r .
 
 echo
 echo "-- Returning to root"

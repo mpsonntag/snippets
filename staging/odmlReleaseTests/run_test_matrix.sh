@@ -5,11 +5,12 @@ echo "-- Running python-odml package test installation matrix"
 
 print_options () {
     echo
-    echo "-- Missing or invalid test script selection letter (A|B|C|D), please provide one of the following"
+    echo "-- Missing or invalid test script selection letter (A|B|C|D|E), please provide one of the following"
     echo "     A: local install test (odml)"
     echo "     B: Test PyPI install test (odml)"
     echo "     C: Test PyPI install test (odmltools)"
     echo "     D: Test PyPI install test (nixodmlconverter)"
+    echo "     E: PyPI install test (odml)"
 }
 
 if [[ $# != 1 ]]; then
@@ -17,7 +18,7 @@ if [[ $# != 1 ]]; then
     exit 1
 fi
 
-TEST_ARRAY=("|A|B|C|D|")
+TEST_ARRAY=("|A|B|C|D|E|")
 TEST=$1
 
 if [[ ! "${TEST_ARRAY}" =~ "|${TEST}|" ]]; then
@@ -51,6 +52,13 @@ if [[ "${TEST}" == "D" ]]; then
     echo "-- Running PyPI test nixodmlconverter installations"
     LOG_DIR=/tmp/odml/pypi_test_install_nixodmlconverter
     SCRIPT=./run_test_pypi_nixodmlconverter.sh
+fi
+
+if [[ "${TEST}" == "E" ]]; then
+    echo
+    echo "-- Running PyPI odml installations"
+    LOG_DIR=/tmp/odml/pypi_install_odml
+    SCRIPT=./run_pypi_odml.sh
 fi
 
 ROOT_DIR=$(pwd)
