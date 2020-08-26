@@ -24,6 +24,10 @@ Remove container
 
     docker rm [container]
 
+Remove all stopped containers
+
+    docker rm $(docker ps -a -q)
+
 Remove image
 
     docker rmi [image]
