@@ -420,11 +420,9 @@ Find out when to use pointers to basic types
             fmt.Println("Pointer replace of struct vb:", vb)
         }
 
-- Note: Visibility of structs and their fields is defined by their first letter. If a struct or a field of a struct 
-starts with a capital letter, it is public and can be accessed outside of the package. If it starts with a lower case 
-letter, it is only accessible within the same package!
-
-[xxx] I'm here!
+NOTE: The visibility of structs and their fields is defined by the first letter of their variable name.
+If a struct or a field of a struct starts with a capital letter, it is public and can be accessed 
+outside of the package. If it starts with a lower case letter, it is only accessible within the same package!
 
 # Arrays
 - `[n]T` is an array of `n` values of type `T`.
@@ -442,9 +440,8 @@ letter, it is only accessible within the same package!
 
 ### Slices of an array
 - Slices point to arrays.
-- Slicing a slice will only change the pointer, but never the underlying array, 
-even if the slice only points to a portion of the array. 
-Until a slice points to a completely different array, the underlying array will always be kept in memory.
+- Slicing a slice will only change the pointer, but never the underlying array, even if the slice only points to a portion of the array.
+- Until a slice points to a completely different array, the underlying array will always be kept in memory.
 - `[]T` is a slice with elements of type `T`.
 
         primes := []int{2, 3, 5, 7, 11, 13}
@@ -474,7 +471,7 @@ Until a slice points to a completely different array, the underlying array will 
         s := []int{1, 2, 3, 4, 5, 6}
         fmt.Println(s[:3])
 
-- A missing `hi` index implies `len(s)`
+- A missing `hi` index implies the index `len(s)`
 
         s := []int{1, 2, 3, 4, 5, 6}
         fmt.Println(s[3:])
@@ -509,8 +506,7 @@ under the hood create a new array and reassign the pointer of the slice to the n
             fmt.Println("nil!")
         }
 
-- Slices can be used with range. When looping over a slice, 
-`range` returns the current index and the value of the slice at that index for each iteration.
+- Slices can be used with `range`. When looping over a slice, `range` returns the current index and the value of the slice at that index for each iteration.
 
         var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
     
@@ -542,7 +538,7 @@ under the hood create a new array and reassign the pointer of the slice to the n
 
 
 # Methods
-- Go does not provide classes, but `methods` can be defined for custom `types`.
+- Go does not provide classes, but "methods" can be defined for custom `types`.
 - Within a package, functions can be defined for "receivers" using syntax `func (valName receiverType) FuncName() returnType`
 - Methods can be called on an instance of their receiver.
 - In the following example, a method "FullName" is defined for a struct "Person". 
@@ -554,7 +550,7 @@ under the hood create a new array and reassign the pointer of the slice to the n
     
         // Define method for custom type
         func (p Person) FullName() string {
-            return p.fname +" "+ p.lname
+            return fmt.Sprintf("%s %s", p.fname, p.lname)
         }
     
         func main() {
