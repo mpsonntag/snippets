@@ -361,19 +361,20 @@ the end of the surrounding function.
             fmt.Println("x has value:\t", x)        // <nil>
     
             x = &i
-            fmt.Println("x has value:\t", x)        // [some address]
+            fmt.Println("x has value:\t", x)        // [memory address of 'i']
+            fmt.Println("&x has value:\t", &x)      // [memory address of 'x']
             fmt.Println("*x points to:\t", *x)      // 21
             fmt.Println("i before:\t", i)           // 21
     
             *x = 22
             fmt.Println("i after:\t", i)            // 22
-            fmt.Println("x has value:\t", x)        // [same address]
+            fmt.Println("x has value:\t", x)        // [memory address of 'i']
     
             *x = *x/2
             fmt.Println("i has been divided:\t", i) // 11
         }
 
-NOTE: pointers are usually used with `structs`, larger constructs that might have large
+NOTE: pointers are usually used with `structs` (see below), larger constructs that might have large
       memory requirements. Instead of passing the structs from function to function, it
       is probably more efficient to just pass the memory address to the struct and 
       fetch the content only where it is actually required.
@@ -397,9 +398,8 @@ Find out when to use pointers to basic types
 
 # Structs
 - A `struct` is a collection of fields.
-- The fields of a struct can be accessed using a dot. Struct fields can also be accessed via a struct pointer.
-- The fields of a struct will be initialized with default values according to the field type, 
-if they are not set at struct initialization.
+- The fields of a `struct` can be accessed using a dot. Struct fields can also be accessed via a struct pointer.
+- The fields of a `struct` will be initialized with default values according to the field type, if they are not set at struct initialization.
 
         type Vertex struct {
             X int
