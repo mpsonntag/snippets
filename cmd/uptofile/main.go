@@ -6,14 +6,26 @@ import (
 	"os"
 )
 
-func rootFunc(w http.ResponseWriter, r *http.Request){
+var port = ":3030"
+
+func rootFunc(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "It's alive!")
+}
+
+func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<html><body><form method=\"post\" action=\"/uploaded\"><input type=\"text\" name=\"content\" id=\"content\"><input type=\"submit\" value=\"Submit\"></form></body></html>")
+}
+
+func processUploadFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<h1>Upload received</h1><a href='upload'>Upload more</a>")
 }
 
 func main() {
 	http.HandleFunc("/", rootFunc)
+	http.HandleFunc("/upload", uploadFormFunc)
+	http.HandleFunc("/uploaded", processUploadFunc)
 	server := http.Server{
-		Addr: ":3030",
+		Addr: port,
 	}
 
 	fmt.Fprintln(os.Stdout, "[Start] Listen and serve")
