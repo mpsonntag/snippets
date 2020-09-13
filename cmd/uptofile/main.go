@@ -13,11 +13,13 @@ func rootFunc(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<html><body><form method=\"post\" action=\"/uploaded\"><input type=\"text\" name=\"content\" id=\"content\"><input type=\"submit\" value=\"Submit\"></form></body></html>")
+	fmt.Fprintf(w, "<html><body><form method='post' action='/uploaded'><input type='text' name='content' id='content'><input type='submit' value='Submit'></form></body></html>")
 }
 
 func processUploadFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<h1>Upload received</h1><a href='upload'>Upload more</a>")
+	content := r.FormValue("content")
+	fmt.Fprintf(os.Stdout, "\n[Info] received form value: %v", content)
+	fmt.Fprintf(w, "<html><body><h1>Upload received</h1><a href='upload'>Upload more</a></body></html>")
 }
 
 func main() {
