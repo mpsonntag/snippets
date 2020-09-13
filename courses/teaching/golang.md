@@ -709,17 +709,17 @@ look for an implementation of `error` before printing a value.
 can be accessed from outside of the package.
 - The same with an identifier starting with a lower case letter can only be accessed within the same package.
  
-         type notExported struct {}     //this struct is visible only in this package as it starts with small letter
+         type notExported struct {}     // this struct is visible only in this package since it starts with small letter
          
-         type Exported struct {         //variable starts with capital letter, so visible outside this package
-             notExportedVariable int    //variable starts with small letter, so NOT visible outside package
-             ExportedVariable int       //variable starts with capital letter, so visible outside package
-             s string                   //not exported
-             S string                   //exported
+         type Exported struct {         // struct starts with a capital letter, so its visible outside this package
+             notExportedVariable int    // variable starts with a small letter, so its NOT visible outside package
+             ExportedVariable int       // variable starts with a capital letter, so its visible outside package
+             s string                   // not exported
+             S string                   // exported
          }
 
-Definition can be found [here](https://golang.org/ref/spec#Exported_identifiers), examples from [here]
-(http://golangtutorials.blogspot.de/2011/06/structs-in-go-instead-of-classes-in.html)
+The definition can be found [here](https://golang.org/ref/spec#Exported_identifiers), examples from 
+[here](http://golangtutorials.blogspot.de/2011/06/structs-in-go-instead-of-classes-in.html)
 
 
 # Goroutines, Channels and Mutex
@@ -728,20 +728,20 @@ Definition can be found [here](https://golang.org/ref/spec#Exported_identifiers)
 
 Go is a concurrent language, multiple tasks are normally not executed side by side
 in independent threads, but is rather switching between the different tasks. Often 
-the two tasks are interdependent and need some for of communication between each
+the two tasks are interdependent and need some form of communication between each
 other to reach a final goal. Go reduces the amount of communication between the
 multiple, interdependent tasks by using `goroutines` and `channels`.
 
 goroutines can be started independently from one another. They can be coupled
 to channels to enable interaction with the main program or other goroutines.
 This way, a task can be broken down into subtasks, that can either be run concurrently, 
-dependent on one another or properly in parallel.
+dependent on one another or fully in parallel.
 
 Find a more detailed discussion [here](https://blog.golang.org/concurrency-is-not-parallelism).
 
 "[...]
 
-Concurrency is about dealing with a lots of things at once.
+Concurrency is about dealing with a lot of things at once.
 
 Parallelism is about doing lots of things at once.
 
@@ -749,10 +749,10 @@ Parallelism is about doing lots of things at once.
 
 
 ## Goroutine
-- A goroutine is a thread managed by the Go runtime - it is like launching a function with shell's `&` notation.
+- A goroutine is a thread managed by the Go runtime - it is like launching a function with shells `&` notation.
 - The execution of code within a goroutine happens parallel to any subsequent code after the routine has been started.
 - When a goroutine blocks, it does not affect other goroutines.
-- NOTE: Access to memory must be synchronized, if goroutines are used, since they run in the same address space!
+- NOTE: Access to memory must be synchronized if goroutines are used, since they run in the same address space!
 - Example:
 
         func say(s string) {
@@ -772,7 +772,7 @@ Parallelism is about doing lots of things at once.
 - A channel is a typed sender and receiver of data. Channels can be used to communicate between `goroutines`.
 - Values can be sent via a channel using the `<-` operator, information flows in the direction of the arrow.
 - Channels have to be created using `make` before they can be used, e.g: `ch := make(chan int)`.
-- Sends and receives block until the other side is ready.
+- Send and receive blocks until the other side is ready.
 
         ch <- v     // send v to channel ch
         v := <-ch   // receive data from channel ch and assign value to v
@@ -825,7 +825,7 @@ These can be used to properly parallelize computation. Example adapted from [her
 otherwise a deadlock fatal error will occur!
 
 ### Buffered channel
-- Channels can be created with a buffer to ensure, that not too many channels will be opened.
+- Channels can be created with a buffer to ensure that not too many channels will be opened.
 
         ch := make(chan int, 2)
         ch <- 1
@@ -835,11 +835,11 @@ otherwise a deadlock fatal error will occur!
         fmt.Println(<-ch)   // prints 2
         fmt.Println(<-ch)   // prints 3
 
-    
-## Channel close and range
-- A sender can close a channel. A receiver can test on his end, if a channel is still open.
 
-        // sender:
+## Channel close and range
+- A sender can close a channel. A receiver can test on its end, if a channel is still open.
+
+        // sender
         close(ch)
         // receiver
         v, ok := <-ch   // if the channel has been closed on the sender side, ok will be false.
@@ -878,7 +878,7 @@ Find a good introduction on this topic [here](https://www.dotnetperls.com/json-g
 
 # Tests
 - Test files have to reside in the same package as the go files that are to be tested.
-- Test files have the same name as the go files, with an additional "_test.go" ending.
+- Test files have the same name as the go files, with an additional "_test.go" suffix.
 
         file.go
         file_test.go
@@ -886,12 +886,12 @@ Find a good introduction on this topic [here](https://www.dotnetperls.com/json-g
 - Run tests for all packages from the commandline using
  
         go test ./...
-        
+
 - Run tests with more detailed information
 
         go test -v ./...
-        
-- Run only tests where the name of the function matches regular expression
+
+- Run only tests where the name of the function matches a regular expression
 
         go test -run="SomeFunctionNamePart" ./...
 
@@ -931,13 +931,13 @@ Go has really nice support for test coverage, find a detailed description in thi
 
 # Go initialization
 
-Go programs are executed in the order:
+Go programs are executed in the following order
 
 - package-level variables
 - init() function
 - main() function
 
-- if main imports dependencies,
+- if `main` imports dependencies,
     - each dependency is initialized
         - as first criteria if it is required by another
         - as second criteria in alphabetical order
@@ -1032,7 +1032,7 @@ So before checking in a file use the following lines of go code:
 - `gofmt -d [filename]`     displays all changes that would be done to `filename` if it would be reformatted
 - `gofmt -w [filename]`     automatically reformats `filename`
 - `gofmt -w .`              automatically reformats all go files recursively from the current directory
-- `goftm -l .`              lists all files that would be reformatted
+- `gofmt -l .`              lists all files that would be reformatted
 
 
 ## Tests
@@ -1056,8 +1056,6 @@ So before checking in a file use the following lines of go code:
 - a description of how to use the standard go log can be found 
     [here](https://www.goinggo.net/2013/11/using-log-package-in-go.html)
 - find an interesting view on logging [here](http://dave.cheney.net/2015/11/05/lets-talk-about-logging)
-- logrus is a pretty interesting logger also providing support for hooks
-    - find it [here](https://github.com/Sirupsen/logrus)
 - support for logrotate with go by [NYTimes](https://github.com/NYTimes/logrotate)
     - a description about logrotate itself can be found [here](http://www.thegeekstuff.com/2010/07/logrotate-examples/)
 
