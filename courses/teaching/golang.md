@@ -155,7 +155,7 @@ meaning, that the type will be inferred from whatever comes after this short ass
 
 - NOTE! `int, uint, uintptr` types are 32bit/64bit on 32/64bit systems respectively.
 - More information about strings, bytes and runes can be found [in this blog entry](https://blog.golang.org/strings).
-- Crashcourse about the difference of int and uint and how they can be represented in memory can be found [here](http://stackoverflow.com/a/13422442).
+- Crash course about the difference of int and uint and how they can be represented in memory can be found [here](http://stackoverflow.com/a/13422442).
 
 ### String, runes, UTF-8 code points
 - In Go a string is a read-only slice of bytes (of any format e.g. Unicode, UTF-8, etc).
@@ -567,11 +567,12 @@ has to be a pointer!
             fname, lname string
         }
     
-        func (p Person) PrintFullName() string {
-            p.fname = "Mr "+ p.fname
+        func (p Person) Salutation() string {
+            p.fname = "Hello, "+ p.fname
             return p.fname +" "+ p.lname
         }
-    
+
+        // note the pointer
         func (p *Person) UpdateFname() string {
             p.fname = "new"
             return p.fname +" "+ p.lname
@@ -579,7 +580,7 @@ has to be a pointer!
     
         func main() {
             p := Person{"Blub", "Blubberich"}
-            fmt.Println(p.PrintFullName(), p.fname) // p.fname has not changed
+            fmt.Println(p.Salutation(), p.fname) // p.fname has not changed
             fmt.Println(p.UpdateFname(), p.fname) // p.fname has been updated
         }
 
@@ -589,10 +590,10 @@ Go conveniently interprets "p" as "&p" in our example since the UpdateFname meth
 
 # Interfaces
 - An interface is a specific `type`, that is defined by / represents a set of method signatures.
-- Go interfaces are implemented implicitly. There is no statement, that a type is implementing an interface using 
+- Go interfaces are implemented implicitly. There is no statement that a type is implementing an interface using 
 e.g. an "implements" keyword. Only if a type actually implements all interface methods, it implements the interface. 
 - Example of an interface: *Stringers*; One of the most ubiquitous interfaces is Stringer, defined by the fmt package. 
-Before printing a value, fmt will check, if the value has implemented the `Stringer` interface
+Before printing a value, fmt will check if the value has implemented the `Stringer` interface
 and use the corresponding methods return value to print.
 
         type Stringer interface {
