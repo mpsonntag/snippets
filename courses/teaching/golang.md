@@ -110,7 +110,7 @@ that the anonymous function has been assigned to is accessed.
         var d int = 10
         func main() {
             var i int
-            fmt.Println("I spy with my little i", i, "which is", a, "ok and also very ", d, "dent")
+            fmt.Println("I spy with my little i", i, "which is", a, "ok and also very", d, "dent")
         }
 
 - NOTE: Depending on the type, the variables are initialized with initial values matching the type 
@@ -155,8 +155,7 @@ meaning, that the type will be inferred from whatever comes after this short ass
 
 - NOTE! `int, uint, uintptr` types are 32bit/64bit on 32/64bit systems respectively.
 - More information about strings, bytes and runes can be found [in this blog entry](https://blog.golang.org/strings).
-- Crashcourse about the difference of int and uint 
-and how they can be represented in memory can be found [here](http://stackoverflow.com/a/13422442).
+- Crashcourse about the difference of int and uint and how they can be represented in memory can be found [here](http://stackoverflow.com/a/13422442).
 
 ### String, runes, UTF-8 code points
 - In Go a string is a read-only slice of bytes (of any format e.g. Unicode, UTF-8, etc).
@@ -220,7 +219,7 @@ and read the [minimal unicode](http://www.joelonsoftware.com/articles/Unicode.ht
         }
         fmt.Println("And now she's having a break.")
 
-- The first and the last statement of a for loop is optional:
+- The first and the last statement of a `for` loop is optional:
 
         moreSitups := 4
         for moreSitups < 10 {
@@ -238,7 +237,7 @@ and read the [minimal unicode](http://www.joelonsoftware.com/articles/Unicode.ht
             fmt.Println("No, thank you!")
         }
 
-- There is a "short" statement, that can be executed immediately before an `if` condition.
+- There is a "short" statement that can be executed immediately before an `if` condition.
 
         func pow(x, n, lim float64) float64 {
             if v := math.Pow(x, n); v < lim {
@@ -320,10 +319,10 @@ the end of the surrounding function.
         fmt.Println(yy)
 
 - Defers are pushed onto a stack, which means: last in first out...
-- If a panic occurs
+- If a `panic` occurs
     - the surrounding function will stop
     - all deferred functions of the stopped function to this point will be executed
-    - the panic is then returned to the caller of the surrounding function and run up the stack until all functions
+    - the `panic` is then returned to the caller of the surrounding function and run up the stack until all functions
     of the current go routine have ended.
     - then the program crashes.
 
@@ -373,6 +372,12 @@ the end of the surrounding function.
             *x = *x/2
             fmt.Println("i has been divided:\t", i) // 11
         }
+
+NOTE: pointers are usually used with `structs`, larger constructs that might have large
+      memory requirements. Instead of passing the structs from function to function, it
+      is probably more efficient to just pass the memory address to the struct and 
+      fetch the content only where it is actually required.
+
 
 ### `new`
 - the `new` function can be used to get a pointer to a new value
