@@ -20,6 +20,8 @@ func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
 }
 
 func processUploadFunc(w http.ResponseWriter, r *http.Request) {
+	var outfilepath = filepath.Join(outdir, "outfile.txt")
+
 	content := r.FormValue("content")
 	fmt.Fprintf(os.Stdout, "\n[Info] Received form value: %v\n", content)
 	fmt.Fprintf(w, "<html><body><h1>Upload received</h1><a href='upload'>Upload more</a></body></html>")
@@ -28,6 +30,23 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	contentslice := strings.Split(strings.ReplaceAll(content, " ", ""), ",")
 	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced content: '%v'\n\n", contentslice)
 
+	// Write content to file
+	outfile, err := os.OpenFile(outfilepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile for writing: '%v'\n\n", err)
+		return
+	}
+	defer outfile.Close()
+	for _, v := range contentslice {
+		if v == "" {
+			continue
+		}
+		fmt.Fprintf(os.Stdout, "\n[Info] Writing value '%s' to file", v)
+		_, err = fmt.Fprintln(outfile, v)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", v, err)
+		}
+	}
 }
 
 func main() {
