@@ -22,9 +22,13 @@ const pagebody = `
 
 const uploadform = `
 {{ define "content" }}
+<h1>Email address upload form</h1>
+<p>Upload comma separated email addresses. Whitespaces and duplicates will be removed.</p>
 <form method='post' action='/uploaded'>
-	<input required type='text' name='content' id='content'>
-	<input required type='password' name='password' id='password'>
+	<label for='content'>Email addresses</label>
+	<input required type='email' multiple name='content' id='content' size='50'>
+	<label for='password'>Password</label>
+	<input required type='password' name='password' id='password' size='50'>
 	<input type='submit' value='Submit'>
 </form>
 {{ end }}
@@ -33,7 +37,7 @@ const uploadform = `
 const uploaded = `
 {{ define "content" }}
 <h1>Upload received</h1>
-<a href='upload'>Upload more</a>
+<p><a href='upload'>Back to the upload form</a></p>
 {{ end }}
 `
 
@@ -44,12 +48,6 @@ var password = "iamsecret"
 func basicFail() string {
 	return `<html>
 	<body><h1>500 Internal server error</h1></body>
-	</html>`
-}
-
-func unauthorized() string {
-	return `<html>
-	<body><h1>400 Unauthorized</h1></body>
 	</html>`
 }
 
