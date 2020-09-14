@@ -24,6 +24,7 @@ const uploadform = `
 {{ define "content" }}
 <form method='post' action='/uploaded'>
 	<input required type='text' name='content' id='content'>
+	<input required type='password' name='password' id='password'>
 	<input type='submit' value='Submit'>
 </form>
 {{ end }}
@@ -43,6 +44,12 @@ var password = "iamsecret"
 func basicFail() string {
 	return `<html>
 	<body><h1>500 Internal server error</h1></body>
+	</html>`
+}
+
+func unauthorized() string {
+	return `<html>
+	<body><h1>400 Unauthorized</h1></body>
 	</html>`
 }
 
@@ -77,6 +84,15 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	var outfilepath = filepath.Join(outdir, "outfile.txt")
 
 	content := r.FormValue("content")
+	pwd := r.FormValue("password")
+
+	// In case of an invalid password just redirect back to the upload form
+	if pwd != password {
+		fmt.Fprintln(os.Stdout, "[Warning] Invalid password received")
+		http.Redirect(w, r, "/upload", http.StatusSeeOther)
+		return
+	}
+
 	fmt.Fprintf(os.Stdout, "\n[Info] Received form value: %v\n", content)
 
 	tmpl := template.New("pagebody")
