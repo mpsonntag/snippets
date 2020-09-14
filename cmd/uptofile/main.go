@@ -7,17 +7,70 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 )
+
+const pagebody = `
+{{ define "pagebody" }}
+<html>
+<body>
+{{ template "content" }}
+</body>
+</html>
+{{ end }}
+`
+
+const uploadform = `
+{{ define "content" }}
+<form method='post' action='/uploaded'>
+	<input required type='text' name='content' id='content'>
+	<input type='submit' value='Submit'>
+</form>
+{{ end }}
+`
+
+const uploaded = `
+{{ define "content" }}
+<h1>Upload received</h1>
+<a href='upload'>Upload more</a>
+{{ end }}
+`
 
 var port = ":3030"
 var outdir = filepath.Join(os.Getenv("HOME"), "Chaos", "DL")
+var password = "iamsecret"
+
+func basicFail() string {
+	return `<html>
+	<body><h1>500 Internal server error</h1></body>
+	</html>`
+}
 
 func rootFunc(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "It's alive!")
 }
 
 func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<html><body><form method='post' action='/uploaded'><input required type='text' name='content' id='content'><input type='submit' value='Submit'></form></body></html>")
+	tmpl := template.New("pagebody")
+	tmpl, err := tmpl.Parse(pagebody)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+		return
+	}
+	tmpl, err = tmpl.Parse(uploadform)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	err = tmpl.Execute(w, map[string]interface{}{})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+	}
 }
 
 func processUploadFunc(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +78,27 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 
 	content := r.FormValue("content")
 	fmt.Fprintf(os.Stdout, "\n[Info] Received form value: %v\n", content)
-	fmt.Fprintf(w, "<html><body><h1>Upload received</h1><a href='upload'>Upload more</a></body></html>")
+
+	tmpl := template.New("pagebody")
+	tmpl, err := tmpl.Parse(pagebody)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+		return
+	}
+	tmpl, err = tmpl.Parse(uploaded)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	err = tmpl.Execute(w, map[string]interface{}{})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, basicFail())
+	}
 
 	// Sanitize input and split on comma
 	contentslice := strings.Split(strings.ReplaceAll(content, " ", ""), ",")
