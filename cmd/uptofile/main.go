@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -26,9 +27,23 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(os.Stdout, "\n[Info] Received form value: %v\n", content)
 	fmt.Fprintf(w, "<html><body><h1>Upload received</h1><a href='upload'>Upload more</a></body></html>")
 
-	// sanitize input and split on comma
+	// Sanitize input and split on comma
 	contentslice := strings.Split(strings.ReplaceAll(content, " ", ""), ",")
 	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced content: '%v'\n\n", contentslice)
+
+	var filedata string
+
+	// Read file data for exclusion of duplicates
+	if _, err := os.Stat(outfilepath); err == nil {
+		data, err := ioutil.ReadFile(outfilepath)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile: '%v'\n\n", err)
+			return
+		}
+		filedata = string(data)
+
+		fmt.Fprintf(os.Stdout, "\n[Info] File content: '%s'", filedata)
+	}
 
 	// Write content to file
 	outfile, err := os.OpenFile(outfilepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -41,7 +56,11 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 		if v == "" {
 			continue
 		}
-		fmt.Fprintf(os.Stdout, "\n[Info] Writing value '%s' to file", v)
+		if strings.Contains(filedata, v) {
+			fmt.Fprintf(os.Stdout, "\n[Info] Excluding existing value '%s'\n\n", v)
+			continue
+		}
+		fmt.Fprintf(os.Stdout, "\n[Info] Writing value '%s' to file\n\n", v)
 		_, err = fmt.Fprintln(outfile, v)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", v, err)
