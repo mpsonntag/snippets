@@ -1,11 +1,15 @@
 package main
 
 import (
+	"bufio"
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"text/template"
 )
@@ -26,7 +30,7 @@ const uploadform = `
 <p>Upload comma separated email addresses. Whitespaces and duplicates will be removed.</p>
 <form method='post' action='/uploaded'>
 	<label for='content'>Email addresses</label>
-	<input required type='email' multiple name='content' id='content' size='50'>
+	<textarea required name='content' id='content'></textarea>
 	<label for='password'>Password</label>
 	<input required type='password' name='password' id='password' size='50'>
 	<input type='submit' value='Submit'>
@@ -114,45 +118,68 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, basicFail())
 	}
 
-	// Sanitize input and split on comma
-	contentslice := strings.Split(strings.ReplaceAll(content, " ", ""), ",")
+	// Sanitize input and split on whitespaces, comma and semicolon
+	rstring := regexp.MustCompile(`[\s,;]+`)
+	sanstring := rstring.ReplaceAllString(content, " ")
+	contentslice := strings.Split(sanstring, " ")
 	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced content: '%v'\n\n", contentslice)
 
-	var filedata string
-
-	// Read file data for exclusion of duplicates
+	mailmap := make(map[string]interface{})
+	// The file is created below if it does not exist yet
 	if _, err := os.Stat(outfilepath); err == nil {
-		data, err := ioutil.ReadFile(outfilepath)
+		// Read file lines to map for duplicate entry exclusion
+		datafile, err := os.Open(outfilepath)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile: '%v'\n\n", err)
 			return
 		}
-		filedata = string(data)
+		fileScanner := bufio.NewScanner(datafile)
 
-		fmt.Fprintf(os.Stdout, "\n[Info] File content: '%s'", filedata)
+		// Populate data map
+		for fileScanner.Scan() {
+			mailmap[fileScanner.Text()] = nil
+		}
+
+		// No defer close since the same file is opened again and truncated below
+		datafile.Close()
 	}
 
-	// Write content to file
-	outfile, err := os.OpenFile(outfilepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// Reconcile stored and new data
+	for _, v := range contentslice {
+		if val, ok := mailmap[sha1String(v)]; ok {
+			fmt.Fprintf(os.Stdout, "\n[Info] Omitting duplicate entry '%v' for address: '%v'\n\n", val, v)
+		}
+		mailmap[sha1String(v)] = nil
+	}
+	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced, hashed content: '%v'\n\n", contentslice)
+
+	// Truncate output file and write all data to it
+	outfile, err := os.OpenFile(outfilepath, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile for writing: '%v'\n\n", err)
 		return
 	}
 	defer outfile.Close()
-	for _, v := range contentslice {
-		if v == "" {
+
+	for k := range mailmap {
+		if k == "" {
 			continue
 		}
-		if strings.Contains(filedata, v) {
-			fmt.Fprintf(os.Stdout, "\n[Info] Excluding existing value '%s'\n\n", v)
-			continue
-		}
-		fmt.Fprintf(os.Stdout, "\n[Info] Writing value '%s' to file\n\n", v)
-		_, err = fmt.Fprintln(outfile, v)
+		fmt.Fprintf(os.Stdout, "\n[Info] Writing '%s' to file\n\n", k)
+		_, err = fmt.Fprintln(outfile, k)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", v, err)
+			fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", k, err)
 		}
 	}
+}
+
+func sha1String(content string) string {
+	hasher := sha1.New()
+	io.WriteString(hasher, content)
+	hash := hasher.Sum(nil)
+	encoded := hex.EncodeToString(hash[:])
+
+	return encoded
 }
 
 func main() {
