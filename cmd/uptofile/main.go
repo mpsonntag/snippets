@@ -230,6 +230,33 @@ func handleWhitelistRegistration(input string) (bool, error) {
 	return registered, nil
 }
 
+/*
+func SignUpPost(c *context.Context, cpt *captcha.Captcha, f form.Register) {
+
+	// ...
+
+	if f.Password != f.Retype {
+		c.FormErr("Password")
+		c.RenderWithErr(c.Tr("form.password_not_match"), SIGNUP, &f)
+		return
+	}
+
+	ok, err := handleWhitelistRegistration(f.Email)
+	if err != nil {
+		// Not sure which error is best when the whitelist file cannot be read
+		c.FormErr("Email")
+		c.RenderWithErr("Email address could not be verified", SIGNUP, &f)
+		return
+	}
+	if !ok {
+		c.FormErr("Email")
+		c.RenderWithErr("Please use the email address you registered with the conference", SIGNUP, &f)
+		return
+	}
+
+	// ...
+*/
+
 func main() {
 	if _, err := os.Stat(outdir); os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "\n[Error] Output directory not found: '%v', abort...\n\n", outdir)
