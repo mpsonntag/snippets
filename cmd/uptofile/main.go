@@ -6,7 +6,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -177,21 +176,20 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRegistration(w http.ResponseWriter, r *http.Request) {
-	// get and print external file hash file content
-	content, err := http.Get(comparelist)
+	// Get and print external file hash file content
+	resp, err := http.Get(comparelist)
 	if err != nil {
-		fmt.Printf("Error fetching email whitelist: '%s'", err.Error())
+		fmt.Printf("Error fetching hashlist: '%s'", err.Error())
 		return
 	}
-	defer content.Body.Close()
+	defer resp.Body.Close()
 
-	responseContent, err := ioutil.ReadAll(content.Body)
-	if err != nil {
-		fmt.Printf("Error reading email whitelist: '%s'", err.Error())
-		return
+	respScan := bufio.NewScanner(resp.Body)
+
+	// Populate comparison hash map
+	for respScan.Scan() {
+		fmt.Printf("File content: '%s'\n", respScan.Text())
 	}
-
-	fmt.Printf("File content: \n%s", string(responseContent))
 }
 
 func sha1String(content string) string {
