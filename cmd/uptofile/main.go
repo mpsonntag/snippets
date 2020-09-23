@@ -179,26 +179,12 @@ func handleRegistration(w http.ResponseWriter, r *http.Request) {
 
 	compare := sha1String("icanhascheeseburger")
 
-	resp, err := http.Get(comparelist)
+	registered, err := handleWhitelistRegistration(compare)
 	if err != nil {
-		fmt.Printf("Error fetching hashlist: '%s'", err.Error())
+		fmt.Printf("Error handling whitelist: '%s'", err.Error())
 		return
 	}
-	defer resp.Body.Close()
 
-	respScan := bufio.NewScanner(resp.Body)
-
-	var registered bool
-	for respScan.Scan() {
-		curr := respScan.Text()
-		if curr == "" {
-			continue
-		}
-		if curr == compare {
-			registered = true
-			break
-		}
-	}
 	if !registered {
 		fmt.Printf("Provided address not in whitelist: '%s'", compare)
 		return
