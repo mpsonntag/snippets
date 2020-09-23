@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -13,6 +14,8 @@ import (
 	"strings"
 	"text/template"
 )
+
+const comparelist = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
 
 const pagebody = `
 {{ define "pagebody" }}
@@ -173,6 +176,24 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func handleRegistration(w http.ResponseWriter, r *http.Request) {
+	// get and print external file hash file content
+	content, err := http.Get(comparelist)
+	if err != nil {
+		fmt.Printf("Error fetching email whitelist: '%s'", err.Error())
+		return
+	}
+	defer content.Body.Close()
+
+	responseContent, err := ioutil.ReadAll(content.Body)
+	if err != nil {
+		fmt.Printf("Error reading email whitelist: '%s'", err.Error())
+		return
+	}
+
+	fmt.Printf("File content: \n%s", string(responseContent))
+}
+
 func sha1String(content string) string {
 	hasher := sha1.New()
 	io.WriteString(hasher, content)
@@ -191,6 +212,7 @@ func main() {
 	http.HandleFunc("/", rootFunc)
 	http.HandleFunc("/upload", uploadFormFunc)
 	http.HandleFunc("/uploaded", processUploadFunc)
+	http.HandleFunc("/register", handleRegistration)
 	server := http.Server{
 		Addr: port,
 	}
