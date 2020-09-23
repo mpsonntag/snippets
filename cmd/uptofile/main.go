@@ -176,8 +176,7 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRegistration(w http.ResponseWriter, r *http.Request) {
-
-	compare := sha1String("icanhascheeseburger")
+	compare := "icanhascheeseburger"
 
 	registered, err := handleWhitelistRegistration(compare)
 	if err != nil {
@@ -191,6 +190,14 @@ func handleRegistration(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("Registration address found in whitelist: '%s'\n", compare)
+
+	fmt.Println("\n-- Bool only check")
+	eligible := handleWhitelist(compare)
+	if !eligible {
+		fmt.Printf("Please use the email address you used to register with the conference. If you have further issues signing up, please contact us at gin@g-node.org.")
+		return
+	}
+	fmt.Printf("Email address is eligible for signup: '%s'", compare)
 }
 
 func sha1String(content string) string {
@@ -230,6 +237,37 @@ func handleWhitelistRegistration(input string) (bool, error) {
 	return registered, nil
 }
 
+func handleWhitelist(email string) bool {
+	const whitelistlocation = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
+
+	// Hash email address
+	hasher := sha1.New()
+	io.WriteString(hasher, email)
+	hash := hasher.Sum(nil)
+	compare := hex.EncodeToString(hash[:])
+
+	resp, err := http.Get(whitelistlocation)
+	if err != nil {
+		fmt.Printf("Error fetching whitelist: '%s'", err.Error())
+		return false
+	}
+	defer resp.Body.Close()
+
+	var registered bool
+	respScan := bufio.NewScanner(resp.Body)
+	for respScan.Scan() {
+		curr := respScan.Text()
+		if curr == "" {
+			continue
+		}
+		if curr == compare {
+			registered = true
+			break
+		}
+	}
+	return registered
+}
+
 /*
 func SignUpPost(c *context.Context, cpt *captcha.Captcha, f form.Register) {
 
@@ -250,7 +288,7 @@ func SignUpPost(c *context.Context, cpt *captcha.Captcha, f form.Register) {
 	}
 	if !ok {
 		c.FormErr("Email")
-		c.RenderWithErr("Please use the email address you registered with the conference", SIGNUP, &f)
+		c.RenderWithErr("Please use the email address you registered with the conference. If you feel this error has reached you bla, please contact us at gin@g-node.org", SIGNUP, &f)
 		return
 	}
 
