@@ -216,6 +216,34 @@ func sha1String(content string) string {
 	return encoded
 }
 
+func handleWhitelistRegistration(input string) (bool, error) {
+	const whitelistlocation = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
+	compare := sha1String(input)
+
+	resp, err := http.Get(whitelistlocation)
+	if err != nil {
+		return false, fmt.Errorf("Error fetching whitelist: '%s'", err.Error())
+	}
+
+	fmt.Printf("Current response header: '%v'", resp.Header)
+
+	defer resp.Body.Close()
+
+	var registered bool
+	respScan := bufio.NewScanner(resp.Body)
+	for respScan.Scan() {
+		curr := respScan.Text()
+		if curr == "" {
+			continue
+		}
+		if curr == compare {
+			registered = true
+			break
+		}
+	}
+	return registered, nil
+}
+
 func main() {
 	if _, err := os.Stat(outdir); os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "\n[Error] Output directory not found: '%v', abort...\n\n", outdir)
