@@ -176,6 +176,12 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRegistration(w http.ResponseWriter, r *http.Request) {
+
+	compare := sha1String("icanhascheeseburger")
+	notCompare := sha1String("iamnotinhere")
+
+	fmt.Printf("compares: '%s', notCompares: '%s'", compare, notCompare)
+
 	// Get and print external file hash file content
 	resp, err := http.Get(comparelist)
 	if err != nil {
@@ -188,7 +194,18 @@ func handleRegistration(w http.ResponseWriter, r *http.Request) {
 
 	// Populate comparison hash map
 	for respScan.Scan() {
-		fmt.Printf("File content: '%s'\n", respScan.Text())
+		curr := respScan.Text()
+		fmt.Printf("Current string '%s', compare against '%s', equal '%t'\n", curr, compare, curr == compare)
+		if curr == "" {
+			continue
+		}
+		if curr == compare {
+			fmt.Printf("Found hash in file: '%s/%s'", curr, compare)
+			break
+		}
+		if curr == notCompare {
+			fmt.Printf("Error: invalid comparison: '%s/%s'", curr, notCompare)
+		}
 	}
 }
 
