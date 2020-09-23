@@ -211,7 +211,7 @@ func handleWhitelistRegistration(input string) (bool, error) {
 		return false, fmt.Errorf("Error fetching whitelist: '%s'", err.Error())
 	}
 
-	fmt.Printf("Current response header: '%v'", resp.Header)
+	fmt.Printf("Current response header: '%v', Etag: '%v', Last-Modified: '%v/%T'", resp.Header, resp.Header["Etag"], resp.Header["Last-Modified"], resp.Header["Last-Modified"])
 
 	defer resp.Body.Close()
 
