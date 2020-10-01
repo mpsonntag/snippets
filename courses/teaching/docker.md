@@ -2,49 +2,61 @@
 
 ## Docker general usage
 
-Build a container with the source code found at a provided directory
+- create a docker build file named `Dockerfile` in the root of the project
+- run a docker build from the root of the project containing the docker build file
+
+- build a container with the source code found at a provided directory
 
     docker build -t [containername:label] [source_dir]
 
-Start a container in detached mode, remove it when it is stopped.
+- the configuration of a built docker container can be reviewed by using
+
+        docker inspect [container]
+
+- start a container in detached mode, remove it when it is stopped.
 
     docker run --rm -dit [container]
 
-List running containers
+- a built docker container can be run and accessed using the command. `-it` means interactive, `--entrypoint /bin/bash` opens the shell of the container giving cli access.
+- enter a container at startup to look around for any setup problems. This will not start the service since the `entrypoint` is overwritten by executing `/bin/bash`. The container can be left by typing in `exit`.
+
+    docker run -t --entrypoint=/bin/bash [container]
+
+- list running containers
 
     # -a ... lists also the stopped containers
     docker ps [-a]
 
-List images
+- list docker images
 
     # -a ... lists all containers
     docker images [-a]
 
-Remove container
+- remove a docker container container
 
     docker rm [container]
 
-Remove all stopped containers
+- remove all stopped containers
 
     docker rm $(docker ps -a -q)
 
-Remove image
+- remove an image
 
     docker rmi [image]
 
-Access log of a running container and follow
+- access log of a running container and follow
 
-    docker logs -f [container]
+    docker logs -f [container runtime name]
 
-Access a running container in interactive mode
+- access a running container in interactive mode
 
-    docker exec -it [container] /bin/bash
+    docker exec -it [container runtime name] /bin/bash
 
-List docker volumes
+- list docker volumes
 
     docker volume ls
 
-Remove volume
+- remove a docker volume
 
     docker volume rm [volumeName]
 
