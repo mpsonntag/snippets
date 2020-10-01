@@ -15,12 +15,23 @@
 
 - start a container in detached mode, remove it when it is stopped.
 
+    # -d ... detached mode
+    # -it ... interactive mode, access container at runtime and keep running after start script has run
+    # --rm ...remove container when stopped
     docker run --rm -dit [container]
 
 - a built docker container can be run and accessed using the command. `-it` means interactive, `--entrypoint /bin/bash` opens the shell of the container giving cli access.
 - enter a container at startup to look around for any setup problems. This will not start the service since the `entrypoint` is overwritten by executing `/bin/bash`. The container can be left by typing in `exit`.
 
     docker run -t --entrypoint=/bin/bash [container]
+
+- start a detached container with a specified runtime name
+
+    docker run -d --name [someName] [container]
+
+- stop a running container
+
+    docker stop [container runtime name]
 
 - list running containers
 
@@ -59,6 +70,16 @@
 - remove a docker volume
 
     docker volume rm [volumeName]
+
+- mounting directories from the docker container to the outside and vice versa; can be specified multiple times
+- NOTE: -v will always overwrite everything thats in the container target directory; it is actually not an overwrite, but the directory from the outside will be mounted "over" the directory inside the container. as long as it is mounted, the container directory is not removed, but not accessible.
+
+    docker run -it -v /path/on/host/:/path/on/container [container]
+
+- connect container and host ports; make sure exposing a port is really necessary before you do it!
+
+    docker run -it -p [host port]:[container port] [container]
+
 
 ### Thorough cleanup
 
