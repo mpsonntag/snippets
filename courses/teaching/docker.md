@@ -91,6 +91,18 @@ docker can be a bit messy with the images and containers it leaves behind. Norma
     # cleanup unused docker images
     docker images -f "dangling=true" -q | xargs docker rmi
 
+### Publishing a docker container
+- [publish a docker container](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
+
+- create a repo on dockerhub
+- locally docker login
+- create a tag from the to be published image - ideally use tagname "latest" if you want a docker pull to be easy.
+
+        docker tag [imageID] [dockerhubUsername]/[reponame]:[tagname]
+
+- push tag to dockerhub
+  
+        docker push [dockerhubUsername]/[reponame]:[tagname] 
 
 ### Various notes on docker usage
 
