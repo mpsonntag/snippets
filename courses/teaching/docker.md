@@ -116,11 +116,27 @@
 
 docker can be a bit messy with the images and containers it leaves behind. Normal cleanup with the `rm` command might not be enough.
 
-    # cleanup unused docker containers
+List all exited containers
+
+    docker ps -aq -f status=exited
+
+Remove stopped containers
+
     docker ps -aq --no-trunc -f status=exited | xargs docker rm
 
-    # cleanup unused docker images
+Cleanup dangling images
+
     docker images -f "dangling=true" -q | xargs docker rmi
+
+Remove unused data
+
+    docker system prune
+
+Cleanup pipe/script
+
+    docker ps -aq --no-trunc -f status=exited | xargs docker rm
+    docker images -f "dangling=true" -q | xargs docker rmi
+    docker system prune
 
 
 ### Publishing a docker container
