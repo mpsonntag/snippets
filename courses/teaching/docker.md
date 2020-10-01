@@ -71,17 +71,27 @@
 
     docker volume rm [volumeName]
 
-- mounting directories from the docker container to the outside and vice versa; can be specified multiple times
-- NOTE: -v will always overwrite everything thats in the container target directory; it is actually not an overwrite, but the directory from the outside will be mounted "over" the directory inside the container. as long as it is mounted, the container directory is not removed, but not accessible.
-
-    docker run -it -v /path/on/host/:/path/on/container [container]
-
 - connect container and host ports; make sure exposing a port is really necessary before you do it!
 
     docker run -it -p [host port]:[container port] [container]
 
 
-### Thorough cleanup
+## Docker volumes and file handling
+- mounting directories from the docker container to the outside and vice versa; can be specified multiple times
+
+        docker run -it -v /path/on/host/:/path/on/container [container]
+
+- NOTE: `-v` will always overwrite everything thats in the container target directory; it is actually not an overwrite, but the directory from the outside will be mounted "over" the directory inside the container. as long as it is mounted, the container directory is not removed, but not accessible.
+
+- NOTE: when using volumes, the directories on the host system need to be assigned either to a user that is in the user group or should be assigned to the docker group.
+
+- copy files from a running docker instance
+
+        docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+        docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+
+
+### Docker cleanup
 
 docker can be a bit messy with the images and containers it leaves behind. Normal cleanup with the `rm` command might not be enough.
 
@@ -90,6 +100,7 @@ docker can be a bit messy with the images and containers it leaves behind. Norma
 
     # cleanup unused docker images
     docker images -f "dangling=true" -q | xargs docker rmi
+
 
 ### Publishing a docker container
 - [publish a docker container](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
@@ -103,6 +114,7 @@ docker can be a bit messy with the images and containers it leaves behind. Norma
 - push tag to dockerhub
   
         docker push [dockerhubUsername]/[reponame]:[tagname] 
+
 
 ### Various notes on docker usage
 
@@ -122,10 +134,8 @@ Start docker containers defined in a `docker-compose.yml` file. This file has to
     # -d ... starts the containers in detached mode 
     docker-compose -p [projectname] up -d
 
-## Notes
-- when using volumes, the directories on the host system need to be assigned either to a user that is in the user group or should be assigned to the docker group.
 
-# docker installation
+# Docker installation
 
 ## Ubuntu linux
 
