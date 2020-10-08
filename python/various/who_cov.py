@@ -16,12 +16,20 @@ regions = {"amro": ["us"],
 
 w_dir = os.path.join(os.environ.get("HOME"), "Chaos", "DL")
 
-furl = "https://covid19.who.int/page-data/region/euro/country/at/page-data.json"
+furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 
-res = requests.get(furl)
+curr_url = furl % ("euro", "at")
 
+res = requests.get(curr_url)
 data = json.loads(res.text)
 
-print(data["result"]["pageContext"]["countryCode"])
+# data dimensions; (1) timestamp, (2), region, (3) deaths, (4) cumulative deaths,
+# (5) deaths last 7 days, (6) Deaths Last 7 Days Change, (7) Deaths Per Million, (8) Confirmed,
+# (9) Cumulative confirmed, (10) Cases Last 7 Days, (11) Cases Last 7 Days Change,
+# (12) Cases Per Million
 
-
+# Mangle to "timestamp: [confirmed, deaths]"
+curr = {}
+curr_data = data["result"]["pageContext"]["countryGroup"]["data"]["rows"]
+for i in curr_data:
+    curr[i[0]] = [i[7], i[2]]
