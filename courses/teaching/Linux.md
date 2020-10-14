@@ -328,23 +328,11 @@ http://www.linusakesson.net/programming/tty/index.php).
     ls -d [dir_path] | xargs -I {} echo {}
 
 
-## User and permission commands
+## User and permission handling
 
-`useradd` ... add a user
+Unix systems feature groups and users to handle any access permissions.
 
-`groupadd` ... add a user to a group
-
-`chown` ... change the user and group owners of a file or directory
-
-    chown [username]:[group] [file/dir]
-
-    # if a directory is provided, -R can also change ownership recursively for all children
-    chown -R fuseki:docker /some/directory
-
-`chmod` ... change file permissions; define which users and groups 
-            are allowed to access, change or execute a file.
-            Read up [here](https://www.linux.org/threads/file-permissions-chmod.4124/) 
-            on file permissions.
+### User specific commands
 
 `sudo` ... execute commands as a different user. default user is root which has administrative permissions.
 
@@ -363,6 +351,81 @@ http://www.linusakesson.net/programming/tty/index.php).
 `id` ... check if a user exists, list user id and groups
 
     id [username]
+
+### Users
+
+Every user belongs to a user group.
+
+- list all registered users including their userID and their groupID
+
+        cat /etc/passwd
+
+- display all active/available users:
+
+        users
+
+- add a new user w/o a home directory:
+
+        sudo useradd [new_username]
+
+- add a new user and create a home directory and a password for this user:
+
+        sudo useradd -m [new_username] -p [password]
+
+- modify the name of a user
+
+        usermod -l new_username old_username
+
+- check the id of a user and the groups a user is assigned to:
+
+        id [username]
+
+- modify the id of a user; use IDs 1000+, ids must be unique.
+
+        usermod -u [newID] [username]
+
+- add a user to an existing group
+
+        useradd -g [groupID] [username]
+
+
+### Groups
+
+users can belong to groups, permissions can be given via groups 
+to all users within a group.
+
+- show all registered groups
+
+        cat /etc/group
+
+- display all active/available groups
+
+        groups
+
+- add a new group
+
+        sudo groupadd [groupname]
+
+- change groupID
+
+        groupmod -g [newID] [group]
+
+
+### File permissions and ownership
+
+`chown` ... change the user and group owners of a file or directory
+
+    chown [username]:[group] [file/dir]
+
+    # if a directory is provided, -R can also change ownership recursively for all children
+    chown -R fuseki:docker /some/directory
+
+`chmod` ... change file permissions; define which users and groups 
+            are allowed to access, change or execute a file.
+            Read up [here](https://www.linux.org/threads/file-permissions-chmod.4124/) 
+            on file permissions.
+
+
 
 ## File commands
 
