@@ -90,6 +90,9 @@
         docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
         docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
 
+- NOTE: if frequently building docker containers, make sure that the docker volumes path is located at a partition that has enough space.
+    Find out where the current location of the docker volumes (`Docker Root Dir`) is via `docker info` and then checking the partition location via `df -T [path]`.
+    Space can be cleaned up via the command `docker system prune` that removes all unused docker resources.
 
 ## Docker networks
 
