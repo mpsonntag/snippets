@@ -198,6 +198,66 @@ will copy the file `2011_Science_2282772.pdf` from location `/home/user/chris/wo
 
         e.g. [chris@troll ~]$ man ls
 
+## Further basic Bash command line options:
+
+- `[command] > [filename]` ... will write the output of a specific `[command]` to a specific file.
+Note, that an already existing file with the same filename at the same location will be replaced!
+
+        e.g.    [chris@troll work]$echo hurray for icecream! > important.txt
+                [chris@troll work]$less important.txt
+                [chris@troll work]$echo another hurray for schnitzel! > important.txt
+                [chris@troll work]$less important.txt
+
+- `[command] >> [filename]` ... will append the output of a specific `[command]` to a specific file.
+If the file does not exist yet, it will be created.
+
+        e.g.    [chris@troll work]$echo chicken >> shopping_list.txt
+                [chris@troll work]$less shopping_list.txt
+                [chris@troll work]$echo onions >> shopping_list.txt
+                [chris@troll work]$echo lemons >> shopping_list.txt
+                [chris@troll work]$echo olive oil >> shopping_list.txt
+                [chris@troll work]$echo rosemary >> shopping_list.txt
+                [chris@troll work]$less shopping_list.txt
+
+- `[command] &` ... start a program running in the background, getting back the shell.
+
+        e.g.    [chris@troll work]$firefox &
+
+- `[command]` ... start a program
+
+        e.g.    [chris@troll work]$firefox
+
+- `ctr + z`         ... stop the execution of the program and keep it on hold in the background
+- `bg`              ... restart the program, but keep it running in the background (bg)
+
+                [chris@troll work]$bg
+
+- `fg`              ... if you have a program running in the background, get it back by fg (foreground)
+
+        e.g.    [chris@troll work]$fg
+
+- `command_1 | command_2` ... | ... "pipe". executes "command_1", directs the output of this command not to the screen, but the second command "command_2". Only then the output of "command_2" will be printed onto the screen.
+
+- `dd`          ... create a file with a specific size
+
+        # create 10MB file named 'out.txt' filled with zeros 
+        e.g. dd if=/dev/zero of=out.txt bs=1M count=10
+
+Output from commandline programs can easily be formatted to display as a table
+by piping it to the `column` command e.g.:
+
+    cat /etc/passwrd | column -t -s :
+
+### File content handling
+
+- replace spaces with tabs
+
+        cat textfile.txt | tr ':[space]:' '\t' > out.txt
+
+- convert a file to upper or lower case
+
+        cat textfile.txt | tr a-z A_Z > out.txt
+
 
 # Advanced commands and good to knows
 
@@ -286,7 +346,7 @@ http://www.linusakesson.net/programming/tty/index.php).
             Read up [here](https://www.linux.org/threads/file-permissions-chmod.4124/) 
             on file permissions.
 
-`sudo` ... execute commands as a different user. default user is root
+`sudo` ... execute commands as a different user. default user is root which has administrative permissions.
 
 `su` ... switch to a different user; can also run commands w/o opening a new shell
 
