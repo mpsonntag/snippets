@@ -9,11 +9,11 @@ Baby steps:
 3) get to know the basic shell commands described below
 4) script away
 
-## Opening a shell
+## Opening and closing a shell
 Under Ubuntu Linux a terminal can be opened by using `Ctrl + Alt + T`.
+The shell can again be closed by typing `exit`.
 
 ##  More resources:
-
 Understanding the unix file system (you should really read this):
 - http://www.december.com/unix/tutor/filesystem.html
 
@@ -22,6 +22,181 @@ and (if you are really interested)
 
 Shell Tutorials (you can work through this if you want to know more about using the shell)
 - https://linuxcommand.org/lc3_learning_the_shell.php
+
+## Navigating the filesystem:
+When you first open your shell you will see something like this:
+    
+    [chris@troll ~]$
+
+This means, that you are logged into a Linux network with username "chris",
+that you currently use the computer named "troll" and are currently within the space
+the filesystem has reserved as your workspace (indicated by "~").
+
+In a more abstract way you will always see the information like this:
+
+    [username@computername current_folder]$
+
+You can navigate through the filesystem by using the "cd" (change directory) command right after the "$" sign.
+Work yourself through the navigation introduction provided via the links above.
+
+
+## Linux nice to knows
+
+- Special characters which are not allowed in file- or folder names:
+
+    ` /, .., ~, *, ?, >, <, |, \`
+
+- Linux is case sensitive!
+    `Filename.txt` is not the same as `filename.txt`
+
+- Try to avoid blanks within file- or folder names, always use underscore or minus; especially,
+if you create folders or files using the filebrowser!
+
+        e.g.
+        do not use:
+        project computational systems biology
+        
+        use:
+        project_computational_systems_biology
+
+- Use the auto-complete function provided by the tabulator key:
+
+        [username@computername ~]$cd /h
+
+    hit "tab" once, it should auto-complete your entry to
+
+        [username@computername ~]$cd /home/
+
+    if you hit "tab" twice, it will display the contents of the directory, without disrupting your command entry
+
+        [username@listeria ~]$ cd /home/
+        admin/ apps/  conf/  edu/   proj/  user/
+        [username@listeria ~]$ cd /home/
+
+    if there are more than one files or directories with the same starting letters (e.g. `/home/` or `/hello/`) you will have to enter the next letter, before autocomplete will work
+
+        [username@listeria ~]$ cd /h    
+
+    "tab" will  not work
+    but:
+
+        [username@listeria ~]$ cd /he
+
+    "tab" returns:
+
+        [username@listeria ~]$ cd /hello/
+
+- Get help! : either by using "man" (manual) command:
+
+        [username@computername directory]$man [command]
+
+        e.g. [chris@troll ~]$man cp
+
+    or by using `--help` commandline option:
+
+        [username@computername directory]$[command] --help
+
+        e.g. [chris@troll ~]$cp --help
+
+- Most of the command line programs displaying the contents of text files can be ended by simply pressing "q".
+
+- How to end a running program:
+
+        ctrl + c
+
+- How to stop a running program (process will be on hold in the background):
+
+        ctrl + z
+
+- How to kill a running program (process will be terminated):
+
+        ctrl + d
+
+- No paper basket! If you remove files or directories using the shell, there is no easy recovery!
+
+## Basic Bash commands:
+
+- `ls`        ... display files and directories within your current directory
+- `ls -l`     ... like ls, but display additional information
+- `ls -a`     ... like ls, but also display hidden files and directories
+- `ls -l -a`  ... combination of `ls -l` and `ls -a`
+- `ls ../Foldername` ... display the contents of directory "Foldername" residing on the same
+hierarchical layer as the folder we are currently residing in
+- `ll` ... is an alias for `la -la`, might not be available in non-bash shells
+- `pwd` ... print working directory, prints the complete path from root until the directory we are currently residing in
+
+        e.g. [chris@troll papers]$pwd
+             /home/users/chris/papers/
+             [chris@troll papers]$
+
+- `cd [path]` ... change directory; move within the filesystem from your current directory to another directory specified in your [path]
+
+        e.g. [chris@troll ~]$ cd /home/user/bernd/
+
+- `cd ..`   ... change from the current directory to the directory directly above.
+
+- `mkdir foldername` ... create folder "foldername" at your current position within the filesystem
+
+        e.g. [chris@troll papers]$ mkdir cell_papers
+
+- `rmdir foldername` ... remove folder "foldername" from the filesystem. will only work, if the folder is empty.
+
+        e.g. [chris@troll papers]$ rmdir cell_papers
+
+- `rm filename` ... remove file "filename" from the filesystem.
+
+        e.g. [chris@troll papers]$ rm 2011_Science_2282772.pdf
+
+- `rm foldername -r` ... remove folder `foldername` from the filesystem including all files and folders it contains.
+
+        e.g. [chris@troll work]$ rm papers -r
+
+- `cp path1/source path2/target` ... copy file `source` residing at location `path1` to file `target`
+residing at location `path2`
+
+        e.g. [chris@troll work]$cp /home/user/chris/work/papers/2011_Science_2282772.pdf /home/users/chris/work/papers/science/2011_Science_2282772.pdf
+
+- `cp path1/source ./target` ... copy file `source` residing at location `path1` to file `target` at the current location
+
+        e.g. [chris@troll science]$ cp /home/user/chris/work/papers/2011_Science_2282772.pdf ./2011_Science_2282772.pdf
+
+will copy the file `2011_Science_2282772.pdf` from location `/home/user/chris/work/papers/` to location `/home/users/chris/work/papers/science/`
+
+- `cp path1/source .` ... copy file`source` residing at location `path1` to the current location, keeping the same filename.
+
+        e.g. [chris@troll science]$ cp /home/user/chris/work/papers/2011_Science_2282772.pdf .
+
+will copy the file `2011_Science_2282772.pdf` from location `/home/user/chris/work/papers/` to location `/home/users/chris/work/papers/science/`
+
+- `mv [Pfad-Quelle]/[Filename] [Pfad-Ziel]` ... same as "cp" command, but moves the file from one location to the other, deleting the original file.
+
+- `echo text` ... prints "text" onto the screen
+
+        e.g. [chris@troll work]$ echo hurray for icecream!
+        
+- `echo text > filename.txt` ... saves "text" into file "filename.txt" which will be created at the current filesystem location
+
+        e.g. [chris@troll work]$ echo hurray for icecream! > important.txt
+
+- `cat filename` ... prints the contents of file "filename" onto the screen.
+
+        e.g. [chris@troll work]$ cat important.txt
+
+- `less filename` ... displays the contents of file "filename" in the screen, contents are scrollable by using "up" and "down" keys. end this by pressing "q"
+
+        e.g. [chris@troll work]$ less important.txt
+
+- `history` ... list of all commands executed within this terminal
+
+        e.g. [chris@troll ~]$ history
+
+- `exit` ... close the shell
+
+        e.g. [chris@troll ~]$ exit
+
+- `man [program]` ... manual of a command line program. Displays a brief description and all command line options.
+
+        e.g. [chris@troll ~]$ man ls
 
 
 # Advanced commands and good to knows
