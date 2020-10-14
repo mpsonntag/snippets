@@ -1,7 +1,30 @@
-# Linux commands and paths
+Linux and using the Bash (Bourne Again Shell)
+=============================================
 
-... that are good to know and understand...
+#  Using the shell - a starters introduction
 
+Baby steps:
+1) get someone to show you how to open a shell and execute commands
+2) get to know the file system and how to navigate through it (see explanatory tutorial above)
+3) get to know the basic shell commands described below
+4) script away
+
+## Opening a shell
+Under Ubuntu Linux a terminal can be opened by using `Ctrl + Alt + T`.
+
+##  More resources:
+
+Understanding the unix file system (you should really read this):
+- http://www.december.com/unix/tutor/filesystem.html
+
+and (if you are really interested)
+- https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+
+Shell Tutorials (you can work through this if you want to know more about using the shell)
+- https://linuxcommand.org/lc3_learning_the_shell.php
+
+
+# Advanced commands and good to knows
 
 ## Job control
 
