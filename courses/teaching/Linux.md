@@ -217,6 +217,10 @@ System disk usage; display system wide disk space usage
 
     df -h
 
+Find out which partition a file or directory belongs to
+
+    df -T [dir_path]
+
 List all block devices
 
     sudo sfdisk -l
