@@ -1,6 +1,10 @@
 import json
-import os
 import requests
+
+from os import environ, path
+
+out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
+out_file_name = "cov19"
 
 euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": "Bulgaria",
         "hr": "Croatia", "cy": "Cyprus", "cz": "Czechia", "dk": "Denmark", "ee": "Estonia",
@@ -26,6 +30,7 @@ full_data = {"cases_data_description": cases_data_description,
 # (12) Cases Per Million
 furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 
+# Fetch and convert data from all regions of interest
 for reg in regions:
     for country_id in regions[reg]:
         country_name = "United States"
@@ -45,6 +50,6 @@ for reg in regions:
 
         full_data["countries"][country_id] = {"country_name": country_name, "cases": curr_country}
 
-w_dir = os.path.join(os.environ.get("HOME"), "Chaos", "DL")
-with open(os.path.join(w_dir, "covid19.json"), "w") as fp:
+# Save data structure to json file
+with open(path.join(out_dir, ("%s.json" % out_file_name)), "w") as fp:
     json.dump(full_data, fp)
