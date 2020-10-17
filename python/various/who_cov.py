@@ -44,3 +44,7 @@ for reg in regions:
             curr_country[i[0]] = [i[7], i[2]]
 
         full_data["countries"][country_id] = {"country_name": country_name, "cases": curr_country}
+
+w_dir = os.path.join(os.environ.get("HOME"), "Chaos", "DL")
+with open(os.path.join(w_dir, "covid19.json"), "w") as fp:
+    json.dump(full_data, fp)
