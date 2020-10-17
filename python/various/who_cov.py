@@ -19,9 +19,10 @@ regions = {"amro": ["us"],
            "euro": euro.keys()}
 
 # New data structure
-cases_data_description = {"key": ["unix_timestamp"],
-                          "values": ["cases_confirmed", "deaths-confirmed"]}
-full_data = {"cases_data_description": cases_data_description,
+cases_day_description = {"key": ["unix_timestamp"],
+                         "values": ["cases_per_day_confirmed", "cases_cumulative",
+                                    "deaths_per_day_confirmed", "deaths_cumulative"]}
+full_data = {"cases_per_day_data_description": cases_day_description,
              "countries": {}}
 
 # data dimensions; (1) timestamp, (2), region, (3) deaths, (4) cumulative deaths,
@@ -42,11 +43,11 @@ for reg in regions:
         print("Fetching country: '%s/%s' at \n\t%s" % (country_id, country_name, curr_url))
         data = json.loads(res.text)
 
-        # Reduce to "timestamp: [confirmed, deaths]"
+        # Reduce to "timestamp: [confirmed, confirmed_cumulative, deaths, deaths_cumulative]"
         curr_country = {}
         curr_data = data["result"]["pageContext"]["countryGroup"]["data"]["rows"]
         for i in curr_data:
-            curr_country[i[0]] = [i[7], i[2]]
+            curr_country[i[0]] = [i[7], i[8], i[2], i[3]]
 
         full_data["countries"][country_id] = {"country_name": country_name, "cases": curr_country}
 
