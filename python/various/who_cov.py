@@ -7,7 +7,7 @@ euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": 
         "fi": "Finland", "fr": "France", "de": "Germany", "gr": "Greece", "hu": "Hungary",
         "ie": "Ireland", "it": "Italy", "lv": "Latvia", "li": "Liechtenstein",
         "lt": "Lithuania", "lu": "Luxembourg", "nl": "Netherlands", "no": "Norway",
-        "po": "Poland", "pt": "Portugal", "ro": "Romania", "rs": "Serbia", "sk": "Slovakia",
+        "pl": "Poland", "pt": "Portugal", "ro": "Romania", "rs": "Serbia", "sk": "Slovakia",
         "si": "Slovenia", "es": "Spain", "se": "Sweden", "ch": "Switzerland",
         "gb": "United Kingdom"}
 
