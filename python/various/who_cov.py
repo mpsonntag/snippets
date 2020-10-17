@@ -18,6 +18,15 @@ euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": 
 regions = {"amro": ["us"],
            "euro": euro.keys()}
 
+population = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
+        "hr": 4190000, "cy": 1189265, "cz": 10637000, "dk": 5822000, "ee": 1323000,
+        "fi": 5517000, "fr": 66993000, "de": 83166000, "gr": 10277000, "hu": 9773000,
+        "ie": 4761000, "it": 60260000, "lv": 1934000, "li": 38000,
+        "lt": 2794000, "lu": 626000, "nl": 17290000, "no": 5367000,
+        "pl": 38386000, "pt": 10600000, "ro": 20121000, "rs": 7057000, "sk": 5450000,
+        "si": 2064000, "es": 47100000, "se": 10327000, "ch": 8601000,
+        "gb": 66435000, "us": 328000000}
+
 # New data structure
 cases_day_description = {"key": ["unix_timestamp"],
                          "values": ["cases_per_day_confirmed", "cases_cumulative",
@@ -49,8 +58,12 @@ for reg in regions:
         for i in curr_data:
             curr_country[i[0]] = [i[7], i[8], i[2], i[3]]
 
-        full_data["countries"][country_id] = {"country_name": country_name, "cases": curr_country}
+        full_data["countries"][country_id] = {"country_name": country_name,
+                                              "population": population[country_id],
+                                              "cases": curr_country}
 
 # Save data structure to json file
-with open(path.join(out_dir, ("%s.json" % out_file_name)), "w") as fp:
+fn = path.join(out_dir, ("%s.json" % out_file_name))
+print("\nWriting to file %s" % fn)
+with open(fn, "w") as fp:
     json.dump(full_data, fp)
