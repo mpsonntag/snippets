@@ -30,7 +30,9 @@ population = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
 # New data structure
 cases_day_description = {"key": ["unix_timestamp"],
                          "values": ["cases_per_day_confirmed", "cases_cumulative",
-                                    "deaths_per_day_confirmed", "deaths_cumulative"]}
+                                    "cases_cumulative_percent_population",
+                                    "deaths_per_day_confirmed", "deaths_cumulative",
+                                    "deaths_cumulative_permil_population"]}
 full_data = {"cases_per_day_data_description": cases_day_description,
              "countries": {}}
 
@@ -52,11 +54,18 @@ for reg in regions:
         print("Fetching country: '%s/%s' at \n\t%s" % (country_id, country_name, curr_url))
         data = json.loads(res.text)
 
-        # Reduce to "timestamp: [confirmed, confirmed_cumulative, deaths, deaths_cumulative]"
+        # Reduce to "timestamp: [confirmed, confirmed_cumulative,
+        #                        case_cumulative_percent_population,
+        #                        deaths, deaths_cumulative, death_cumulative_permil_population]"
         curr_country = {}
         curr_data = data["result"]["pageContext"]["countryGroup"]["data"]["rows"]
+        curr_perc_pop = population[country_id]/100
+        curr_perm_pop = population[country_id]/1000
         for i in curr_data:
-            curr_country[i[0]] = [i[7], i[8], i[2], i[3]]
+            case_perc_pop = round(i[8]/curr_perc_pop, 3)
+            death_perm_pop = round(i[3]/curr_perm_pop, 3)
+
+            curr_country[i[0]] = [i[7], i[8], case_perc_pop, i[2], i[3], death_perm_pop]
 
         full_data["countries"][country_id] = {"country_name": country_name,
                                               "population": population[country_id],
