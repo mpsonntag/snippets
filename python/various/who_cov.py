@@ -14,7 +14,11 @@ euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": 
 regions = {"amro": ["us"],
            "euro": euro.keys()}
 
-w_dir = os.path.join(os.environ.get("HOME"), "Chaos", "DL")
+# New data structure
+cases_data_description = {"key": ["unix_timestamp"],
+                          "values": ["cases_confirmed", "deaths-confirmed"]}
+full_data = {"cases_data_description": cases_data_description,
+             "countries": {}}
 
 furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 
