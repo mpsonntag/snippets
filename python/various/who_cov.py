@@ -82,7 +82,13 @@ with open(fn, "w") as fp:
 
 euro = {"country_name": "EU",
         "population": 0,
-        "cases": {}}
+        "cases_total": []}
 for i in full_data["countries"]:
     if i != "us":
         euro["population"] = euro["population"] + full_data["countries"][i]["population"]
+        curr_cases = full_data["countries"][i]["cases"]
+        if not euro["cases_total"]:
+            euro["cases_total"] = curr_cases[list(curr_cases.keys())[-1]]
+        else:
+            curr_list = curr_cases[list(curr_cases.keys())[-1]]
+            euro["cases_total"] = [sum(x) for x in zip(euro["cases_total"], curr_list)]
