@@ -26,10 +26,10 @@
  public | statelogentry          | table | play
  public | topic                  | table | play
 
+
 ## Tables
 
 ### Table abstract
-
        Column       |            Type             | Collation | Nullable | Default 
 --------------------+-----------------------------+-----------+----------+---------
  uuid               | character varying(255)      |           | not null | 
@@ -48,7 +48,6 @@
  ctime              | timestamp without time zone |           |          | 
 
 ### Table abstract_abstractgroup
-
      Column      |          Type          | Collation | Nullable | Default 
 -----------------+------------------------+-----------+----------+---------
  abstract_uuid   | character varying(255) |           | not null |              FK abstract 
