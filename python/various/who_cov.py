@@ -83,6 +83,7 @@ with open(fn, "w") as fp:
 euro = {"country_name": "EU",
         "population": 0,
         "cases_total": []}
+
 for i in full_data["countries"]:
     if i != "us":
         euro["population"] = euro["population"] + full_data["countries"][i]["population"]
@@ -92,3 +93,11 @@ for i in full_data["countries"]:
         else:
             curr_list = curr_cases[list(curr_cases.keys())[-1]]
             euro["cases_total"] = [sum(x) for x in zip(euro["cases_total"], curr_list)]
+
+# Fix percentages
+curr_perc_pop = euro["population"]/100
+curr_perm_pop = euro["population"]/1000
+
+# percentage cases total
+euro["cases_total"][2] = round(euro["cases_total"][1]/curr_perc_pop, 3)
+euro["cases_total"][5] = round(euro["cases_total"][4]/curr_perm_pop, 3)
