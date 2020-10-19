@@ -5,10 +5,11 @@ Unfortunately this increases the already long build time of the project to about
 major upgrade problems:
 
 activator
-- the tool we used to build the project, test and run the application does not exist any more
-- as far as I have been able to figure out, we need to move to plain sbt
-- don't know what that entails
-
+- the tool we used to build the project, test and run the application is discontinued
+- we therefore need to move to plain sbt as build tool for the project
+- the dependencies of the project are outdated and the CDNs for some of them are no longer available.
+- the required dependencies had to be hunted down on different CDNs where they partially moved to a different build framework as well (from Maven to Ivy style). 
+- to address the build time problem, the play framework itself should be brought to the latest version
 
 see here for details:
 https://www.lightbend.com/blog/introducing-a-new-way-to-get-started-with-lightbend-technologies-and-saying-goodbye-to-activator
