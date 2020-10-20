@@ -77,22 +77,31 @@ print("\nWriting to file %s" % fn)
 with open(fn, "w") as fp:
     json.dump(full_data, fp)
 
-# congregate data
-# get euro sum
+# congregate data; get euro sum
 
 euro = {"country_name": "EU",
         "population": 0,
-        "cases_total": []}
+        "cases_total": [],
+        "cases": {}}
 
 for i in full_data["countries"]:
     if i != "us":
         euro["population"] = euro["population"] + full_data["countries"][i]["population"]
         curr_cases = full_data["countries"][i]["cases"]
+
+        # Congregate latest total euro cases
         if not euro["cases_total"]:
             euro["cases_total"] = curr_cases[list(curr_cases.keys())[-1]]
         else:
             curr_list = curr_cases[list(curr_cases.keys())[-1]]
             euro["cases_total"] = [sum(x) for x in zip(euro["cases_total"], curr_list)]
+
+        # Congregate daily total euro cases
+        if not euro["cases"]:
+            euro["cases"] = curr_cases
+        else:
+            for j in curr_cases:
+                euro["cases"][j] = [sum(x) for x in zip(euro["cases"][j], curr_cases[j])]
 
 # Fix percentages
 curr_perc_pop = euro["population"]/100
