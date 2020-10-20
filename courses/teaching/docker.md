@@ -92,6 +92,8 @@
 
 - NOTE: if frequently building docker containers, make sure that the docker volumes path is located at a partition that has enough space.
     Find out where the current location of the docker volumes (`Docker Root Dir`) is via `docker info` and then checking the partition location via `df -T [path]`.
+
+- ALSO NOTE: that with the following command a lot of space can be freed up from currently unused resources. It will delete ALL UNUSED VOLUMES, so if there is a shut down container lying around maps to the outside and has usefull files still, be aware, that these data will be removed as well!
     Space can be cleaned up via the command `docker system prune` that removes all unused docker resources.
 
 ## Docker networks
