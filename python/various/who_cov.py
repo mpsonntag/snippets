@@ -103,10 +103,15 @@ for i in full_data["countries"]:
             for j in curr_cases:
                 euro["cases"][j] = [sum(x) for x in zip(euro["cases"][j], curr_cases[j])]
 
-# Fix percentages
+# Fix euro percentages
 curr_perc_pop = euro["population"]/100
 curr_perm_pop = euro["population"]/1000
 
-# percentage cases total
+# Euro percentage cases total
 euro["cases_total"][2] = round(euro["cases_total"][1]/curr_perc_pop, 3)
 euro["cases_total"][5] = round(euro["cases_total"][4]/curr_perm_pop, 3)
+
+# Euro percentages per day
+for i in euro["cases"]:
+    euro["cases"][i][2] = round(euro["cases"][i][1]/curr_perc_pop, 3)
+    euro["cases"][i][5] = round(euro["cases"][i][4]/curr_perm_pop, 3)
