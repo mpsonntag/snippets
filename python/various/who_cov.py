@@ -1,6 +1,7 @@
 import json
 import requests
 
+from datetime import datetime
 from os import environ, path
 
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
@@ -115,3 +116,23 @@ euro["cases_total"][5] = round(euro["cases_total"][4]/curr_perm_pop, 3)
 for i in euro["cases"]:
     euro["cases"][i][2] = round(euro["cases"][i][1]/curr_perc_pop, 3)
     euro["cases"][i][5] = round(euro["cases"][i][4]/curr_perm_pop, 3)
+
+# Basic plots - prepare data
+# europe data as example
+
+cases_dates = []
+confirmed = []
+confirmed_cumulative = []
+case_cumulative_percent_population = []
+deaths = []
+deaths_cumulative = []
+death_cumulative_permil_population = []
+
+for i in euro["cases"]:
+    cases_dates.append(datetime.fromtimestamp(i/1000))
+    confirmed.append(euro["cases"][i][0])
+    confirmed_cumulative.append(euro["cases"][i][1])
+    case_cumulative_percent_population.append(euro["cases"][i][2])
+    deaths.append(euro["cases"][i][3])
+    death_cumulative_permil_population.append(euro["cases"][i][4])
+    death_cumulative_permil_population.append(euro["cases"][i][5])
