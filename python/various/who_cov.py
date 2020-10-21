@@ -2,6 +2,7 @@ import json
 import requests
 
 from datetime import datetime
+from matplotlib import pyplot as plt
 from os import environ, path
 
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
@@ -136,3 +137,36 @@ for i in euro["cases"]:
     deaths.append(euro["cases"][i][3])
     death_cumulative_permil_population.append(euro["cases"][i][4])
     death_cumulative_permil_population.append(euro["cases"][i][5])
+
+# dirty fix to compare euro to us (us sometimes is a day ahead in terms of numbers.)
+last_euro_date = cases_dates[-1]
+
+us_cases = full_data["countries"]["us"]["cases"]
+
+uscases_dates = []
+usconfirmed = []
+usconfirmed_cumulative = []
+uscase_cumulative_percent_population = []
+usdeaths = []
+usdeaths_cumulative = []
+usdeath_cumulative_permil_population = []
+
+for i in us_cases:
+    usconfirmed.append(us_cases[i][0])
+    usconfirmed_cumulative.append(us_cases[i][1])
+    uscase_cumulative_percent_population.append(us_cases[i][2])
+    usdeaths.append(us_cases[i][3])
+    usdeath_cumulative_permil_population.append(us_cases[i][4])
+    usdeath_cumulative_permil_population.append(us_cases[i][5])
+    if last_euro_date == datetime.fromtimestamp(i/1000):
+        break
+
+title = "Per day Covid19 cases"
+x_label = "Date"
+
+plt.plot(cases_dates, confirmed, label="European zone")
+plt.plot(cases_dates, usconfirmed, label="United States")
+plt.title(title)
+plt.xlabel(x_label)
+plt.legend()
+plt.show()
