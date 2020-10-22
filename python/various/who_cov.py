@@ -48,8 +48,10 @@ furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 for reg in regions:
     for country_id in regions[reg]:
         country_name = "United States"
+        region = "euro"
         if country_id != "us":
             country_name = euro[country_id]
+            region = "america"
 
         curr_url = furl % (reg, country_id)
         res = requests.get(curr_url)
@@ -70,6 +72,7 @@ for reg in regions:
             curr_country[i[0]] = [i[7], i[8], case_perc_pop, i[2], i[3], death_perm_pop]
 
         full_data["countries"][country_id] = {"country_name": country_name,
+                                              "region": region,
                                               "population": population[country_id],
                                               "cases": curr_country}
 
