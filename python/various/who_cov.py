@@ -3,6 +3,7 @@ import requests
 
 from datetime import datetime
 from matplotlib import pyplot as plt
+from matplotlib.lines import Line2D
 from os import environ, path
 
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
@@ -175,6 +176,9 @@ plt.legend()
 plt.show()
 
 
+markers_available = list(Line2D.markers.keys())
+marker_idx = -1
+
 for j in full_data["countries"]:
     if full_data["countries"][j]["region"] == "america":
         continue
@@ -188,7 +192,9 @@ for j in full_data["countries"]:
     for i in curr_data:
         confirmed.append(curr_data[i][0])
 
-    plt.plot(cases_dates, confirmed, label=country)
+    # Handle individual markers
+    marker_idx = marker_idx + 1
+    plt.plot(cases_dates, confirmed, label=country, marker=markers_available[marker_idx])
 
 plt.title("Per day cases euro countries")
 plt.xlabel = "Date"
