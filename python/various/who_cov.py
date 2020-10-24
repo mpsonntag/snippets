@@ -1,3 +1,4 @@
+import copy
 import json
 import requests
 
@@ -94,7 +95,7 @@ euro_cases = {"country_name": "EU",
 for i in full_data["countries"]:
     if i != "us":
         euro_cases["population"] = euro_cases["population"] + full_data["countries"][i]["population"]
-        curr_cases = full_data["countries"][i]["cases"]
+        curr_cases = copy.deepcopy(full_data["countries"][i]["cases"])
 
         # Congregate latest total euro cases
         if not euro_cases["cases_total"]:
