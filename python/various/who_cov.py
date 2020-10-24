@@ -173,3 +173,24 @@ plt.title(title)
 plt.xlabel(x_label)
 plt.legend()
 plt.show()
+
+
+for j in full_data["countries"]:
+    if full_data["countries"][j]["region"] == "america":
+        continue
+
+    country = full_data["countries"][j]["country_name"]
+    print("Working on %s" % country)
+
+    confirmed = []
+
+    curr_data = full_data["countries"][j]["cases"]
+    for i in curr_data:
+        confirmed.append(curr_data[i][0])
+
+    plt.plot(cases_dates, confirmed, label=country)
+
+plt.title("Per day cases euro countries")
+plt.xlabel = "Date"
+plt.legend()
+plt.show()
