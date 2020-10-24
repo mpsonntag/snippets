@@ -72,6 +72,7 @@ for reg in regions:
 
             curr_country[i[0]] = [i[7], i[8], case_perc_pop, i[2], i[3], death_perm_pop]
 
+        print("\tLatest cases: %s" % curr_country[list(curr_country.keys())[-1]])
         full_data["countries"][country_id] = {"country_name": country_name,
                                               "region": region,
                                               "population": population[country_id],
