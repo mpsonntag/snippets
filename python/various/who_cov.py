@@ -86,42 +86,42 @@ with open(fn, "w") as fp:
 
 # congregate data; get euro sum
 
-euro = {"country_name": "EU",
-        "population": 0,
-        "cases_total": [],
-        "cases": {}}
+euro_cases = {"country_name": "EU",
+              "population": 0,
+              "cases_total": [],
+              "cases": {}}
 
 for i in full_data["countries"]:
     if i != "us":
-        euro["population"] = euro["population"] + full_data["countries"][i]["population"]
+        euro_cases["population"] = euro_cases["population"] + full_data["countries"][i]["population"]
         curr_cases = full_data["countries"][i]["cases"]
 
         # Congregate latest total euro cases
-        if not euro["cases_total"]:
-            euro["cases_total"] = curr_cases[list(curr_cases.keys())[-1]]
+        if not euro_cases["cases_total"]:
+            euro_cases["cases_total"] = curr_cases[list(curr_cases.keys())[-1]]
         else:
             curr_list = curr_cases[list(curr_cases.keys())[-1]]
-            euro["cases_total"] = [sum(x) for x in zip(euro["cases_total"], curr_list)]
+            euro_cases["cases_total"] = [sum(x) for x in zip(euro_cases["cases_total"], curr_list)]
 
         # Congregate daily total euro cases
-        if not euro["cases"]:
-            euro["cases"] = curr_cases
+        if not euro_cases["cases"]:
+            euro_cases["cases"] = curr_cases
         else:
             for j in curr_cases:
-                euro["cases"][j] = [sum(x) for x in zip(euro["cases"][j], curr_cases[j])]
+                euro_cases["cases"][j] = [sum(x) for x in zip(euro_cases["cases"][j], curr_cases[j])]
 
 # Fix euro percentages
-curr_perc_pop = euro["population"]/100
-curr_perm_pop = euro["population"]/1000
+curr_perc_pop = euro_cases["population"] / 100
+curr_perm_pop = euro_cases["population"] / 1000
 
 # Euro percentage cases total
-euro["cases_total"][2] = round(euro["cases_total"][1]/curr_perc_pop, 3)
-euro["cases_total"][5] = round(euro["cases_total"][4]/curr_perm_pop, 3)
+euro_cases["cases_total"][2] = round(euro_cases["cases_total"][1] / curr_perc_pop, 3)
+euro_cases["cases_total"][5] = round(euro_cases["cases_total"][4] / curr_perm_pop, 3)
 
 # Euro percentages per day
-for i in euro["cases"]:
-    euro["cases"][i][2] = round(euro["cases"][i][1]/curr_perc_pop, 3)
-    euro["cases"][i][5] = round(euro["cases"][i][4]/curr_perm_pop, 3)
+for i in euro_cases["cases"]:
+    euro_cases["cases"][i][2] = round(euro_cases["cases"][i][1] / curr_perc_pop, 3)
+    euro_cases["cases"][i][5] = round(euro_cases["cases"][i][4] / curr_perm_pop, 3)
 
 # Basic plots - prepare data
 # europe data as example
@@ -134,14 +134,14 @@ deaths = []
 deaths_cumulative = []
 death_cumulative_permil_population = []
 
-for i in euro["cases"]:
+for i in euro_cases["cases"]:
     cases_dates.append(datetime.fromtimestamp(i/1000))
-    confirmed.append(euro["cases"][i][0])
-    confirmed_cumulative.append(euro["cases"][i][1])
-    case_cumulative_percent_population.append(euro["cases"][i][2])
-    deaths.append(euro["cases"][i][3])
-    death_cumulative_permil_population.append(euro["cases"][i][4])
-    death_cumulative_permil_population.append(euro["cases"][i][5])
+    confirmed.append(euro_cases["cases"][i][0])
+    confirmed_cumulative.append(euro_cases["cases"][i][1])
+    case_cumulative_percent_population.append(euro_cases["cases"][i][2])
+    deaths.append(euro_cases["cases"][i][3])
+    death_cumulative_permil_population.append(euro_cases["cases"][i][4])
+    death_cumulative_permil_population.append(euro_cases["cases"][i][5])
 
 # dirty fix to compare euro to us (us sometimes is a day ahead in terms of numbers.)
 last_euro_date = cases_dates[-1]
@@ -187,15 +187,14 @@ for j in full_data["countries"]:
     country = full_data["countries"][j]["country_name"]
     print("Working on %s" % country)
 
-    confirmed = []
-
+    curr_confirmed = []
     curr_data = full_data["countries"][j]["cases"]
     for i in curr_data:
-        confirmed.append(curr_data[i][0])
+        curr_confirmed.append(curr_data[i][0])
 
     # Handle individual markers
     marker_idx = marker_idx + 1
-    plt.plot(cases_dates, confirmed, label=country, marker=markers_available[marker_idx])
+    plt.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
 
 plt.title("Per day cases euro countries")
 plt.xlabel = "Date"
