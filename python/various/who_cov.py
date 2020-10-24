@@ -48,10 +48,10 @@ furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 for reg in regions:
     for country_id in regions[reg]:
         country_name = "United States"
-        region = "euro"
+        region = "america"
         if country_id != "us":
             country_name = euro[country_id]
-            region = "america"
+            region = "euro"
 
         curr_url = furl % (reg, country_id)
         res = requests.get(curr_url)
