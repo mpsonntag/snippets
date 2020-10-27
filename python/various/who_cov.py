@@ -180,7 +180,6 @@ plt.show()
 
 markers_available = list(Line2D.markers.keys())
 marker_idx = -1
-
 for j in full_data["countries"]:
     if full_data["countries"][j]["region"] == "america":
         continue
@@ -198,6 +197,31 @@ for j in full_data["countries"]:
     plt.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
 
 plt.title("Per day cases euro countries")
+plt.xlabel = "Date"
+plt.legend()
+plt.show()
+
+# plot last 30 days euro zone
+curr_len = len(cases_dates)
+marker_idx = -1
+for j in full_data["countries"]:
+    if full_data["countries"][j]["region"] == "america":
+        continue
+
+    country = full_data["countries"][j]["country_name"]
+    print("Working on %s" % country)
+
+    curr_confirmed = []
+    curr_data = full_data["countries"][j]["cases"]
+    for i in curr_data:
+        curr_confirmed.append(curr_data[i][0])
+
+    # Handle individual markers
+    marker_idx = marker_idx + 1
+    plt.plot(cases_dates[curr_len-30:curr_len-1], curr_confirmed[curr_len-30:curr_len-1],
+             label=country, marker=markers_available[marker_idx])
+
+plt.title("Per day cases euro countries; last 30 days")
 plt.xlabel = "Date"
 plt.legend()
 plt.show()
