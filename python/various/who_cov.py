@@ -260,3 +260,19 @@ curr_date_string = datetime.fromtimestamp(use_date/1000)
 plt.title = "Cases overview (%s)" % curr_date_string
 plt.bar(x, euro_stat)
 plt.show()
+
+# table plot
+_, ax = plt.subplots()
+
+# Hide axes
+ax.xaxis.set_visible(False)
+ax.yaxis.set_visible(False)
+
+column_labels = labels
+row_labels = names
+tbl = ax.table(cellText=aggregated, rowLabels=row_labels, colLabels=column_labels, loc="center")
+tbl.auto_set_font_size(False)
+tbl.set_fontsize(10)
+
+plt.title = "Dashboard"
+plt.show()
