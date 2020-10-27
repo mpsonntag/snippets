@@ -233,3 +233,28 @@ print(np.get_printoptions())
 # set precision to 3
 np.set_printoptions(precision=3)
 
+# bar plot statistics current state
+use_date = list(euro_cases["cases"].keys())[-1]
+curr_cases = copy.deepcopy(full_data["countries"])
+
+euro_stat = euro_cases["cases"][use_date]
+us_stat = curr_cases["us"]["cases"][use_date]
+names = ["Europe", "United states"]
+
+aggregated = np.array(euro_stat)
+aggregated = np.concatenate((aggregated, np.array(us_stat)))
+
+for i in curr_cases:
+    if curr_cases[j]["region"] == "america":
+        continue
+    country = curr_cases[i]["country_name"]
+    print("Working on %s" % country)
+
+    names.append(country)
+    aggregated = np.concatenate((aggregated, np.array(curr_cases[i]["cases"][use_date])))
+
+labels = ["cases", "cumulative", "percent population", "deaths", "cumulative", "permil population"]
+curr_date_string = datetime.fromtimestamp(use_date/1000)
+plt.title = "Cases overview (%s)" % curr_date_string
+plt.bar([1, 2, 3, 4, 5, 6], height=6, tick_label=labels, data=aggregated[0:6])
+plt.show()
