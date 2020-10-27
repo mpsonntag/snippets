@@ -1,5 +1,6 @@
 import copy
 import json
+import numpy as np
 import requests
 
 from datetime import datetime
@@ -225,3 +226,10 @@ plt.title("Per day cases euro countries; last 30 days")
 plt.xlabel = "Date"
 plt.legend()
 plt.show()
+
+# display current numpy printoptions
+print(np.get_printoptions())
+
+# set precision to 3
+np.set_printoptions(precision=3)
+
