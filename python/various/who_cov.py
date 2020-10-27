@@ -241,20 +241,22 @@ euro_stat = euro_cases["cases"][use_date]
 us_stat = curr_cases["us"]["cases"][use_date]
 names = ["Europe", "United states"]
 
-aggregated = np.array(euro_stat)
-aggregated = np.concatenate((aggregated, np.array(us_stat)))
+aggregated = list()
+aggregated.append(euro_stat)
+aggregated.append(us_stat)
 
 for i in curr_cases:
-    if curr_cases[j]["region"] == "america":
+    if curr_cases[i]["region"] == "america":
         continue
     country = curr_cases[i]["country_name"]
     print("Working on %s" % country)
 
     names.append(country)
-    aggregated = np.concatenate((aggregated, np.array(curr_cases[i]["cases"][use_date])))
+    aggregated.append(curr_cases[i]["cases"][use_date])
 
 labels = ["cases", "cumulative", "percent population", "deaths", "cumulative", "permil population"]
+x = np.arange(len(labels))
 curr_date_string = datetime.fromtimestamp(use_date/1000)
 plt.title = "Cases overview (%s)" % curr_date_string
-plt.bar([1, 2, 3, 4, 5, 6], height=6, tick_label=labels, data=aggregated[0:6])
+plt.bar(x, euro_stat)
 plt.show()
