@@ -268,6 +268,10 @@ _, ax = plt.subplots()
 ax.xaxis.set_visible(False)
 ax.yaxis.set_visible(False)
 
+# Hide figure border
+for spine_location in ax.spines:
+    ax.spines[spine_location].set_visible(False)
+
 column_labels = labels
 row_labels = names
 tbl = ax.table(cellText=aggregated, rowLabels=row_labels, colLabels=column_labels, loc="center")
