@@ -254,7 +254,7 @@ for i in curr_cases:
     names.append(country)
     aggregated.append(curr_cases[i]["cases"][use_date])
 
-labels = ["cases", "cumulative", "percent population", "deaths", "cumulative", "permil population"]
+labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
 x = np.arange(len(labels))
 curr_date_string = datetime.fromtimestamp(use_date/1000)
 plt.title = "Cases overview (%s)" % curr_date_string
@@ -277,6 +277,8 @@ row_labels = names
 tbl = ax.table(cellText=aggregated, rowLabels=row_labels, colLabels=column_labels, loc="center")
 tbl.auto_set_font_size(False)
 tbl.set_fontsize(10)
+tbl.auto_set_column_width(range(len(labels)))
 
 plt.title = "Dashboard"
+plt.tight_layout()
 plt.show()
