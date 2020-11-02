@@ -1476,6 +1476,8 @@ Display hostname (computer name within network)
     # or
     hostnamectl
 
+- `hostnamectl` also displays whether the machine is a physical or a virtual machine.
+
 Display operating system details
 
     uname -a
