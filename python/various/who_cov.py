@@ -261,7 +261,16 @@ plt.title = "Cases overview (%s)" % curr_date_string
 plt.bar(x, euro_stat)
 plt.show()
 
+
 # table plot
+
+# format large numbers with comma as 1000 separator
+format_aggregated = copy.deepcopy(aggregated)
+for line_idx in range(len(format_aggregated)):
+    for val_idx in range(len(format_aggregated[line_idx])):
+        curr_val = format_aggregated[line_idx][val_idx]
+        format_aggregated[line_idx][val_idx] = f'{curr_val:,}'
+
 _, ax = plt.subplots()
 
 # Hide axes
@@ -274,7 +283,8 @@ for spine_location in ax.spines:
 
 column_labels = labels
 row_labels = names
-tbl = ax.table(cellText=aggregated, rowLabels=row_labels, colLabels=column_labels, loc="center")
+tbl = ax.table(cellText=format_aggregated, rowLabels=row_labels,
+               colLabels=column_labels, loc="center")
 tbl.auto_set_font_size(False)
 tbl.set_fontsize(10)
 tbl.auto_set_column_width(range(len(labels)))
