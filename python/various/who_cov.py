@@ -172,8 +172,8 @@ x_label = "Date"
 
 plt.plot(cases_dates, confirmed, label="European zone")
 plt.plot(cases_dates, usconfirmed, label="United States")
-plt.title(title)
-plt.xlabel(x_label)
+plt.title = title
+plt.xlabel = x_label
 plt.legend()
 plt.show()
 
@@ -196,7 +196,7 @@ for j in full_data["countries"]:
     marker_idx = marker_idx + 1
     plt.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
 
-plt.title("Per day cases euro countries")
+plt.title = "Per day cases euro countries"
 plt.xlabel = "Date"
 plt.legend()
 plt.show()
@@ -221,7 +221,7 @@ for j in full_data["countries"]:
     plt.plot(cases_dates[curr_len-30:curr_len-1], curr_confirmed[curr_len-30:curr_len-1],
              label=country, marker=markers_available[marker_idx])
 
-plt.title("Per day cases euro countries; last 30 days")
+plt.title = "Per day cases euro countries; last 30 days"
 plt.xlabel = "Date"
 plt.legend()
 plt.show()
