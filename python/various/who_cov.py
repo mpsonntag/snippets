@@ -170,13 +170,18 @@ for i in us_cases:
 title = "Per day Covid19 cases"
 x_label = "Date"
 
-plt.plot(cases_dates, confirmed, label="European zone")
-plt.plot(cases_dates, usconfirmed, label="United States")
-plt.title = title
-plt.xlabel = x_label
-plt.legend()
+fig = plt.figure()
+ax = plt.subplot(111)
+ax.plot(cases_dates, confirmed, label="European zone")
+ax.plot(cases_dates, usconfirmed, label="United States")
+ax.set_title(title)
+ax.set_xlabel(x_label)
+ax.legend(bbox_to_anchor=(1.1, 1.05))
 plt.show()
 
+
+fig2 = plt.figure()
+ax = plt.subplot(111)
 
 markers_available = list(Line2D.markers.keys())
 marker_idx = -1
@@ -194,14 +199,17 @@ for j in full_data["countries"]:
 
     # Handle individual markers
     marker_idx = marker_idx + 1
-    plt.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
+    ax.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
 
-plt.title = "Per day cases euro countries"
-plt.xlabel = "Date"
-plt.legend()
+ax.set_title("Per day cases euro countries")
+ax.set_xlabel("Date")
+ax.legend(bbox_to_anchor=(0.98, 1))
 plt.show()
 
 # plot last 30 days euro zone
+fig3 = plt.figure()
+ax = plt.subplot(111)
+
 curr_len = len(cases_dates)
 marker_idx = -1
 for j in full_data["countries"]:
@@ -218,12 +226,12 @@ for j in full_data["countries"]:
 
     # Handle individual markers
     marker_idx = marker_idx + 1
-    plt.plot(cases_dates[curr_len-30:curr_len-1], curr_confirmed[curr_len-30:curr_len-1],
-             label=country, marker=markers_available[marker_idx])
+    ax.plot(cases_dates[curr_len-30:curr_len-1], curr_confirmed[curr_len-30:curr_len-1],
+            label=country, marker=markers_available[marker_idx])
 
-plt.title = "Per day cases euro countries; last 30 days"
-plt.xlabel = "Date"
-plt.legend()
+ax.set_title("Per day cases euro countries; last 30 days")
+ax.set_xlabel("Date")
+plt.legend(bbox_to_anchor=(0.98, 1))
 plt.show()
 
 # display current numpy printoptions
@@ -255,15 +263,14 @@ for i in curr_cases:
 labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
 
 # bar plot statistics current state
-x = np.arange(len(labels))
-curr_date_string = datetime.fromtimestamp(use_date/1000)
-plt.title = "Cases overview (%s)" % curr_date_string
-plt.bar(x, euro_stat)
-plt.show()
+# x = np.arange(len(labels))
+# curr_date_string = datetime.fromtimestamp(use_date/1000)
+# plt.title = "Cases overview (%s)" % curr_date_string
+# plt.bar(x, euro_stat)
+# plt.show()
 
 
 # table plot
-
 # format large numbers with comma as 1000 separator
 format_aggregated = copy.deepcopy(aggregated)
 for line_idx in range(len(format_aggregated)):
@@ -289,6 +296,5 @@ tbl.auto_set_font_size(False)
 tbl.set_fontsize(10)
 tbl.auto_set_column_width(range(len(labels)))
 
-plt.title = "Dashboard"
 plt.tight_layout()
 plt.show()
