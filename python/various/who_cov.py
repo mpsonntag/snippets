@@ -87,7 +87,6 @@ with open(fn, "w") as fp:
     json.dump(full_data, fp)
 
 # congregate data; get euro sum
-
 euro_cases = {"country_name": "EU",
               "population": 0,
               "cases_total": [],
@@ -233,7 +232,6 @@ print(np.get_printoptions())
 # set precision to 3
 np.set_printoptions(precision=3)
 
-# bar plot statistics current state
 use_date = list(euro_cases["cases"].keys())[-1]
 curr_cases = copy.deepcopy(full_data["countries"])
 
@@ -255,6 +253,8 @@ for i in curr_cases:
     aggregated.append(curr_cases[i]["cases"][use_date])
 
 labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
+
+# bar plot statistics current state
 x = np.arange(len(labels))
 curr_date_string = datetime.fromtimestamp(use_date/1000)
 plt.title = "Cases overview (%s)" % curr_date_string
