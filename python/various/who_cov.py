@@ -176,7 +176,7 @@ ax.plot(cases_dates, confirmed, label="European zone")
 ax.plot(cases_dates, usconfirmed, label="United States")
 ax.set_title(title)
 ax.set_xlabel(x_label)
-ax.legend(bbox_to_anchor=(1.1, 1.05))
+ax.legend(loc='upper left', fontsize='xx-small')
 plt.show()
 
 
@@ -203,7 +203,7 @@ for j in full_data["countries"]:
 
 ax.set_title("Per day cases euro countries")
 ax.set_xlabel("Date")
-ax.legend(bbox_to_anchor=(0.98, 1))
+ax.legend(loc='upper left', fontsize='xx-small')
 plt.show()
 
 # plot last 30 days euro zone
@@ -231,7 +231,7 @@ for j in full_data["countries"]:
 
 ax.set_title("Per day cases euro countries; last 30 days")
 ax.set_xlabel("Date")
-plt.legend(bbox_to_anchor=(0.98, 1))
+ax.legend(loc='upper left', fontsize='xx-small')
 plt.show()
 
 # display current numpy printoptions
