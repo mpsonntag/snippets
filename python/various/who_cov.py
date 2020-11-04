@@ -298,3 +298,60 @@ tbl.auto_set_column_width(range(len(labels)))
 
 plt.tight_layout()
 plt.show()
+
+
+# different stats
+use_date = list(euro_cases["cases"].keys())[-1]
+sum_only_cases = copy.deepcopy(full_data["countries"])
+
+euro_stat = copy.deepcopy(euro_cases["cases"][use_date])
+euro_stat = [copy.deepcopy(euro_cases["population"]),
+             euro_stat[1], euro_stat[2], euro_stat[4], euro_stat[5]]
+us_stat = sum_only_cases["us"]["cases"][use_date]
+us_stat = [sum_only_cases["us"]["population"],
+           us_stat[1], us_stat[2], us_stat[4], us_stat[5]]
+names = ["Europe", "United states"]
+
+sum_only = list()
+sum_only.append(euro_stat)
+sum_only.append(us_stat)
+
+for i in sum_only_cases:
+    if sum_only_cases[i]["region"] == "america":
+        continue
+    curr_data = sum_only_cases[i]["cases"][use_date]
+    country = sum_only_cases[i]["country_name"]
+    print("Working on %s" % country)
+
+    names.append(country)
+    sum_only.append([sum_only_cases[i]["population"],
+                     curr_data[1], curr_data[2], curr_data[4], curr_data[5]])
+
+labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
+
+# format large numbers with comma as 1000 separator
+for line_idx in range(len(sum_only)):
+    for val_idx in range(len(sum_only[line_idx])):
+        curr_val = sum_only[line_idx][val_idx]
+        sum_only[line_idx][val_idx] = f'{curr_val:,}'
+
+_, ax = plt.subplots()
+
+# Hide axes
+ax.xaxis.set_visible(False)
+ax.yaxis.set_visible(False)
+
+# Hide figure border
+for spine_location in ax.spines:
+    ax.spines[spine_location].set_visible(False)
+
+column_labels = labels
+row_labels = names
+tbl = ax.table(cellText=sum_only, rowLabels=row_labels,
+               colLabels=column_labels, loc="center")
+tbl.auto_set_font_size(False)
+tbl.set_fontsize(10)
+tbl.auto_set_column_width(range(len(labels)))
+
+plt.tight_layout()
+plt.show()
