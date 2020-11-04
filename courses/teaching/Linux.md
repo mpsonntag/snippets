@@ -1436,6 +1436,10 @@ Change shell of a user
 
     sudo chsh [username]
 
+If this does not work e.g. because the user was created without a shell, run the following
+
+    sudo usermod -s /bin/bash [username]
+
 Change permissions of a group to the same as the user
 
     sudo chmod -R g=u
