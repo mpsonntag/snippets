@@ -301,39 +301,47 @@ plt.show()
 
 
 # different stats
+sum_only = list()
 use_date = list(euro_cases["cases"].keys())[-1]
 sum_only_cases = copy.deepcopy(full_data["countries"])
 
-euro_stat = copy.deepcopy(euro_cases["cases"][use_date])
-euro_stat = [copy.deepcopy(euro_cases["population"]),
-             euro_stat[1], euro_stat[2], euro_stat[4], euro_stat[5]]
-us_stat = sum_only_cases["us"]["cases"][use_date]
-us_stat = [sum_only_cases["us"]["population"],
-           us_stat[1], us_stat[2], us_stat[4], us_stat[5]]
-names = ["Europe", "United states"]
+# format large numbers with comma as 1000 separator
+curr_stat = copy.deepcopy(euro_cases["cases"][use_date])
+curr_pop = f'{copy.deepcopy(euro_cases["population"]):,}'
+curr_case_sum = f'{curr_stat[1]:,}'
+curr_case_per = f'{curr_stat[2]:,}'
+curr_death_sum = f'{curr_stat[4]:,}'
+curr_death_per = f'{curr_stat[5]:,}'
+sum_only.append([curr_pop, curr_case_sum, curr_case_per, curr_death_sum, curr_death_per])
 
-sum_only = list()
-sum_only.append(euro_stat)
-sum_only.append(us_stat)
+curr_stat = sum_only_cases["us"]["cases"][use_date]
+curr_pop = f'{sum_only_cases["us"]["population"]:,}'
+curr_case_sum = f'{curr_stat[1]:,}'
+curr_case_per = f'{curr_stat[2]:,}'
+curr_death_sum = f'{curr_stat[4]:,}'
+curr_death_per = f'{curr_stat[5]:,}'
+sum_only.append([curr_pop, curr_case_sum, curr_case_per, curr_death_sum, curr_death_per])
+
+names = ["Europe", "United states"]
 
 for i in sum_only_cases:
     if sum_only_cases[i]["region"] == "america":
         continue
-    curr_data = sum_only_cases[i]["cases"][use_date]
+
     country = sum_only_cases[i]["country_name"]
     print("Working on %s" % country)
 
+    curr_stat = sum_only_cases[i]["cases"][use_date]
+    curr_pop = f'{sum_only_cases[i]["population"]:,}'
+    curr_case_sum = f'{curr_stat[1]:,}'
+    curr_case_per = f'{curr_stat[2]:,}'
+    curr_death_sum = f'{curr_stat[4]:,}'
+    curr_death_per = f'{curr_stat[5]:,}'
+    sum_only.append([curr_pop, curr_case_sum, curr_case_per, curr_death_sum, curr_death_per])
+
     names.append(country)
-    sum_only.append([sum_only_cases[i]["population"],
-                     curr_data[1], curr_data[2], curr_data[4], curr_data[5]])
 
 labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
-
-# format large numbers with comma as 1000 separator
-for line_idx in range(len(sum_only)):
-    for val_idx in range(len(sum_only[line_idx])):
-        curr_val = sum_only[line_idx][val_idx]
-        sum_only[line_idx][val_idx] = f'{curr_val:,}'
 
 _, ax = plt.subplots()
 
