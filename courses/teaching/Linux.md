@@ -373,7 +373,9 @@ Unix systems feature groups and users to handle any access permissions.
 
 - add a user to an existing group
 
-        useradd -g [groupID] [username]
+        useradd -g [groupID/Name] [username]
+        # or
+        usermod -a -G [groupID/Name] [username]
 
 - work as a different user; can also run commands w/o opening a new shell
 
