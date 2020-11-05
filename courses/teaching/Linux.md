@@ -334,27 +334,14 @@ Unix systems feature groups and users to handle any access permissions.
 
 ### User specific commands
 
-`sudo` ... execute commands as a different user. default user is root which has administrative permissions.
 
-`su` ... switch to a different user; can also run commands w/o opening a new shell
+### Users and user specific commands
 
-    # switch to a different user, opening a new shell, stop with 'exit'
-    su - [username]
+- change the password of the active user
 
-    # run a command as specific user; requires password
-    # -m preserves the current environment except for $PATH
-    # -c invokes running a command
-    su [username] -m -c 'ls -la'
+        passwd
 
-`passwd` ... change password
-
-`id` ... check if a user exists, list user id and groups
-
-    id [username]
-
-### Users
-
-Every user belongs to a user group.
+- every user belongs to a user group.
 
 - list all registered users including their userID and their groupID
 
@@ -376,7 +363,7 @@ Every user belongs to a user group.
 
         usermod -l new_username old_username
 
-- check the id of a user and the groups a user is assigned to:
+- check if a user exists by name, list the id of a user and the groups a user is assigned to
 
         id [username]
 
@@ -388,6 +375,20 @@ Every user belongs to a user group.
 
         useradd -g [groupID] [username]
 
+- work as a different user; can also run commands w/o opening a new shell
+
+        # switch to a different user, opening a new shell, exit shell with 'exit'
+        su - [username]
+
+        # run a single command as specific user w/o opening a shell; requires password
+        # -m preserves the current environment except for $PATH
+        # -c invokes running a command
+        su [username] -m -c 'ls -la'
+
+- execute commands with `root` privileges; default user is root which has administrative permissions
+
+        sudo [command]
+
 
 ### Groups
 
@@ -398,7 +399,7 @@ to all users within a group.
 
         cat /etc/group
 
-- display all active/available groups
+- display all active/available groups of/for the active user
 
         groups
 
