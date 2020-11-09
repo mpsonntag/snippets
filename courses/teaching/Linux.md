@@ -377,6 +377,10 @@ Unix systems feature groups and users to handle any access permissions.
         # or
         usermod -a -G [groupID/Name] [username]
 
+- remove a user from all groups except their own group
+
+        usermod -G "" username
+
 - work as a different user; can also run commands w/o opening a new shell
 
         # switch to a different user, opening a new shell, exit shell with 'exit'
