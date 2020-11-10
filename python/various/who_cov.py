@@ -5,6 +5,7 @@ import requests
 
 from datetime import datetime
 from matplotlib import pyplot as plt
+from matplotlib import rcParams
 from matplotlib.lines import Line2D
 from os import environ, path
 
@@ -167,6 +168,10 @@ for i in us_cases:
     if last_euro_date == datetime.fromtimestamp(i/1000):
         break
 
+# change default figure size
+rcParams['figure.figsize'] = (8.5, 4.4)
+
+# prepare plot
 title = "Per day Covid19 cases"
 x_label = "Date"
 
