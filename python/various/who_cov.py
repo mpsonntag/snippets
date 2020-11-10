@@ -369,3 +369,16 @@ tbl.auto_set_column_width(range(len(col_labels)))
 
 plt.tight_layout()
 plt.show()
+
+
+# Using pandas to print tables
+d_sum_only = {}
+
+idx = 0
+for curr_list in sum_only:
+    d_sum_only[names[idx]] = curr_list
+    idx = idx + 1
+
+sum_frame = PanDataFrame(d_sum_only, col_labels)
+
+print(sum_frame.transpose().sort_values(by=["[%] population"], ascending=False))
