@@ -28,3 +28,10 @@ pip install --upgrade y_l
 - rename the resulting file
 
         yl [address] -o [output_name]
+
+
+## Other options
+
+- open dev tab
+- go to network settings
+- open content in new tab, remove "range"
