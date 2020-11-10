@@ -13,7 +13,7 @@ from pandas import DataFrame as PanDataFrame
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
 out_file_name = "cov19"
 
-euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": "Bulgaria",
+euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia", "bg": "Bulgaria",
         "hr": "Croatia", "cy": "Cyprus", "cz": "Czechia", "dk": "Denmark", "ee": "Estonia",
         "fi": "Finland", "fr": "France", "de": "Germany", "gr": "Greece", "hu": "Hungary",
         "ie": "Ireland", "it": "Italy", "lv": "Latvia", "li": "Liechtenstein",
