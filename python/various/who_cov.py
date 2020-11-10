@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 from matplotlib import rcParams
 from matplotlib.lines import Line2D
 from os import environ, path
+from pandas import DataFrame as PanDataFrame
 
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
 out_file_name = "cov19"
@@ -346,7 +347,7 @@ for i in sum_only_cases:
 
     names.append(country)
 
-labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
+col_labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
 
 _, ax = plt.subplots()
 
@@ -358,13 +359,13 @@ ax.yaxis.set_visible(False)
 for spine_location in ax.spines:
     ax.spines[spine_location].set_visible(False)
 
-column_labels = labels
+column_labels = col_labels
 row_labels = names
 tbl = ax.table(cellText=sum_only, rowLabels=row_labels,
                colLabels=column_labels, loc="center")
 tbl.auto_set_font_size(False)
 tbl.set_fontsize(10)
-tbl.auto_set_column_width(range(len(labels)))
+tbl.auto_set_column_width(range(len(col_labels)))
 
 plt.tight_layout()
 plt.show()
