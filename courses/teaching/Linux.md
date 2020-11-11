@@ -1427,9 +1427,9 @@ Delete user
 
     sudo userdel [username]
 
-Remove home directory of a removed user
+Remove home directory of a removed user recursively
 
-    sudo rm -r /home/[username]
+    sudo rm /home/[username] -r
 
 Modify username
 
