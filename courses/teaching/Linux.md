@@ -381,6 +381,10 @@ Unix systems feature groups and users to handle any access permissions.
 
         usermod -G "" username
 
+- remove a user from one specific group
+
+        gpasswd -d [username] [groupname]
+
 - work as a different user; can also run commands w/o opening a new shell
 
         # switch to a different user, opening a new shell, exit shell with 'exit'
