@@ -1502,3 +1502,13 @@ Display mac address
     ip link
     # or
     ifconfig -a
+
+
+# Exercises
+## User handling
+-[ ] create user
+-[ ] add to group sudo, docker
+-[ ] switch user, test sudo, create home ssh
+-[ ] remove from one group
+-[ ] delete user
+-[ ] remove home
