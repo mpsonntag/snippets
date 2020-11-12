@@ -1512,3 +1512,9 @@ Display mac address
 -[ ] remove from one group
 -[ ] delete user
 -[ ] remove home
+
+## system info
+-[ ] display machine information
+-[ ] display disk space
+-[ ] list crontab
+-[ ] access system logs
