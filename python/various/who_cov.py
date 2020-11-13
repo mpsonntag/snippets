@@ -1,13 +1,15 @@
 import copy
 import json
+
+from datetime import datetime
+from os import environ, path
+
 import numpy as np
 import requests
 
-from datetime import datetime
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 from matplotlib.lines import Line2D
-from os import environ, path
 from pandas import DataFrame as PanDataFrame
 
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
@@ -26,13 +28,13 @@ REGIONS = {"amro": ["us"],
            "euro": EURO_MAPPING.keys()}
 
 POPULATION = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
-        "hr": 4190000, "cy": 1189000, "cz": 10637000, "dk": 5822000, "ee": 1323000,
-        "fi": 5517000, "fr": 66993000, "de": 83166000, "gr": 10277000, "hu": 9773000,
-        "ie": 4761000, "it": 60260000, "lv": 1934000, "li": 38000,
-        "lt": 2794000, "lu": 626000, "nl": 17290000, "no": 5367000,
-        "pl": 38386000, "pt": 10600000, "ro": 20121000, "rs": 7057000, "sk": 5450000,
-        "si": 2064000, "es": 47100000, "se": 10327000, "ch": 8601000,
-        "gb": 66435000, "us": 328000000}
+              "hr": 4190000, "cy": 1189000, "cz": 10637000, "dk": 5822000, "ee": 1323000,
+              "fi": 5517000, "fr": 66993000, "de": 83166000, "gr": 10277000, "hu": 9773000,
+              "ie": 4761000, "it": 60260000, "lv": 1934000, "li": 38000,
+              "lt": 2794000, "lu": 626000, "nl": 17290000, "no": 5367000,
+              "pl": 38386000, "pt": 10600000, "ro": 20121000, "rs": 7057000, "sk": 5450000,
+              "si": 2064000, "es": 47100000, "se": 10327000, "ch": 8601000,
+              "gb": 66435000, "us": 328000000}
 
 # New data structure
 CASES_DAY_DESCRIPTION = {"key": ["unix_timestamp"],
