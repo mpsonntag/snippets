@@ -13,19 +13,19 @@ from pandas import DataFrame as PanDataFrame
 out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
 out_file_name = "cov19"
 
-euro = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": "Bulgaria",
-        "hr": "Croatia", "cy": "Cyprus", "cz": "Czechia", "dk": "Denmark", "ee": "Estonia",
-        "fi": "Finland", "fr": "France", "de": "Germany", "gr": "Greece", "hu": "Hungary",
-        "ie": "Ireland", "it": "Italy", "lv": "Latvia", "li": "Liechtenstein",
-        "lt": "Lithuania", "lu": "Luxembourg", "nl": "Netherlands", "no": "Norway",
-        "pl": "Poland", "pt": "Portugal", "ro": "Romania", "rs": "Serbia", "sk": "Slovakia",
-        "si": "Slovenia", "es": "Spain", "se": "Sweden", "ch": "Switzerland",
-        "gb": "United Kingdom"}
+EURO_MAPPING = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": "Bulgaria",
+                "hr": "Croatia", "cy": "Cyprus", "cz": "Czechia", "dk": "Denmark", "ee": "Estonia",
+                "fi": "Finland", "fr": "France", "de": "Germany", "gr": "Greece", "hu": "Hungary",
+                "ie": "Ireland", "it": "Italy", "lv": "Latvia", "li": "Liechtenstein",
+                "lt": "Lithuania", "lu": "Luxembourg", "nl": "Netherlands", "no": "Norway",
+                "pl": "Poland", "pt": "Portugal", "ro": "Romania", "rs": "Serbia", "sk": "Slovakia",
+                "si": "Slovenia", "es": "Spain", "se": "Sweden", "ch": "Switzerland",
+                "gb": "United Kingdom"}
 
-regions = {"amro": ["us"],
-           "euro": euro.keys()}
+REGIONS = {"amro": ["us"],
+           "euro": EURO_MAPPING.keys()}
 
-population = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
+POPULATION = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
         "hr": 4190000, "cy": 1189000, "cz": 10637000, "dk": 5822000, "ee": 1323000,
         "fi": 5517000, "fr": 66993000, "de": 83166000, "gr": 10277000, "hu": 9773000,
         "ie": 4761000, "it": 60260000, "lv": 1934000, "li": 38000,
@@ -35,12 +35,12 @@ population = {"at": 8901000, "be": 11431000, "ba": 3531000, "bg": 6951000,
         "gb": 66435000, "us": 328000000}
 
 # New data structure
-cases_day_description = {"key": ["unix_timestamp"],
+CASES_DAY_DESCRIPTION = {"key": ["unix_timestamp"],
                          "values": ["cases_per_day_confirmed", "cases_cumulative",
                                     "cases_cumulative_percent_population",
                                     "deaths_per_day_confirmed", "deaths_cumulative",
                                     "deaths_cumulative_permil_population"]}
-full_data = {"cases_per_day_data_description": cases_day_description,
+full_data = {"cases_per_day_data_description": CASES_DAY_DESCRIPTION,
              "countries": {}}
 
 # data dimensions; (1) timestamp, (2), region, (3) deaths, (4) cumulative deaths,
@@ -50,12 +50,12 @@ full_data = {"cases_per_day_data_description": cases_day_description,
 furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 
 # Fetch and convert data from all regions of interest
-for reg in regions:
-    for country_id in regions[reg]:
+for reg in REGIONS:
+    for country_id in REGIONS[reg]:
         country_name = "United States"
         region = "america"
         if country_id != "us":
-            country_name = euro[country_id]
+            country_name = EURO_MAPPING[country_id]
             region = "euro"
 
         curr_url = furl % (reg, country_id)
@@ -68,8 +68,8 @@ for reg in regions:
         #                        deaths, deaths_cumulative, death_cumulative_permil_population]"
         curr_country = {}
         curr_data = data["result"]["pageContext"]["countryGroup"]["data"]["rows"]
-        curr_perc_pop = population[country_id]/100
-        curr_perm_pop = population[country_id]/1000
+        curr_perc_pop = POPULATION[country_id] / 100
+        curr_perm_pop = POPULATION[country_id] / 1000
         for i in curr_data:
             case_perc_pop = round(i[8]/curr_perc_pop, 3)
             death_perm_pop = round(i[3]/curr_perm_pop, 3)
@@ -79,7 +79,7 @@ for reg in regions:
         print("\tLatest cases: %s" % curr_country[list(curr_country.keys())[-1]])
         full_data["countries"][country_id] = {"country_name": country_name,
                                               "region": region,
-                                              "population": population[country_id],
+                                              "population": POPULATION[country_id],
                                               "cases": curr_country}
 
 # Save data structure to json file
@@ -429,11 +429,11 @@ for j in full_data["countries"]:
     country = full_data["countries"][j]["country_name"]
     # print("Working on %s" % country)
 
-    population = full_data["countries"][j]["population"]
+    POPULATION = full_data["countries"][j]["population"]
     curr_per_day_perc = []
     curr_data = full_data["countries"][j]["cases"]
     for i in curr_data:
-        curr_val = round(curr_data[i][0]/(population/1000),3)
+        curr_val = round(curr_data[i][0] / (POPULATION / 1000), 3)
         curr_per_day_perc.append(curr_val)
 
     # Handle individual markers
