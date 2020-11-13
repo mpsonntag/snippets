@@ -12,8 +12,8 @@ from matplotlib import rcParams
 from matplotlib.lines import Line2D
 from pandas import DataFrame as PanDataFrame
 
-out_dir = path.join(environ.get("HOME"), "Chaos", "DL")
-out_file_name = "cov19"
+OUT_DIR = path.join(environ.get("HOME"), "Chaos", "DL")
+OUT_FILE_NAME = "cov19"
 
 EURO_MAPPING = {"at": "Austria", "be": "Belgium", "ba": "Bosnia and Herzegovina", "bg": "Bulgaria",
                 "hr": "Croatia", "cy": "Cyprus", "cz": "Czechia", "dk": "Denmark", "ee": "Estonia",
@@ -85,7 +85,7 @@ for reg in REGIONS:
                                               "cases": curr_country}
 
 # Save data structure to json file
-fn = path.join(out_dir, ("%s.json" % out_file_name))
+fn = path.join(OUT_DIR, ("%s.json" % OUT_FILE_NAME))
 print("\nWriting to file %s" % fn)
 with open(fn, "w") as fp:
     json.dump(full_data, fp)
@@ -98,7 +98,8 @@ euro_cases = {"country_name": "EU",
 
 for i in full_data["countries"]:
     if i != "us":
-        euro_cases["population"] = euro_cases["population"] + full_data["countries"][i]["population"]
+        euro_cases["population"] = euro_cases["population"] + \
+                                   full_data["countries"][i]["population"]
         curr_cases = copy.deepcopy(full_data["countries"][i]["cases"])
 
         # Congregate latest total euro cases
@@ -113,7 +114,8 @@ for i in full_data["countries"]:
             euro_cases["cases"] = curr_cases
         else:
             for j in curr_cases:
-                euro_cases["cases"][j] = [sum(x) for x in zip(euro_cases["cases"][j], curr_cases[j])]
+                euro_cases["cases"][j] = [sum(x) for x in
+                                          zip(euro_cases["cases"][j], curr_cases[j])]
 
 # Fix euro percentages
 curr_perc_pop = euro_cases["population"] / 100
@@ -408,7 +410,9 @@ for ccode in full_data["countries"]:
                         "perc_cases": perc_cases,
                         "cases": copy.deepcopy(curr_cases)
                        }
-    curr_plot[access_data["country_name"]] = [f'{access_data["population"]:,}', f'{sum_cases:,}', perc_cases]
+    curr_plot[access_data["country_name"]] = [f'{access_data["population"]:,}',
+                                              f'{sum_cases:,}',
+                                              perc_cases]
 
 # Add seven days info table
 day_col_labels = ["population", "cases last 7 days", "[%] population"]
