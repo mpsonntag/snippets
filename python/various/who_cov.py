@@ -416,3 +416,31 @@ sum_frame = PanDataFrame(curr_plot, day_col_labels)
 
 sum_frame.transpose().sort_values(by=["[%] population"], ascending=False)
 
+# per day percent plot to properly compare increase rates per citizen
+fig7 = plt.figure()
+ax = plt.subplot(111)
+
+markers_available = list(Line2D.markers.keys())
+marker_idx = -1
+for j in full_data["countries"]:
+    if full_data["countries"][j]["region"] == "america":
+        continue
+
+    country = full_data["countries"][j]["country_name"]
+    # print("Working on %s" % country)
+
+    population = full_data["countries"][j]["population"]
+    curr_per_day_perc = []
+    curr_data = full_data["countries"][j]["cases"]
+    for i in curr_data:
+        curr_val = round(curr_data[i][0]/(population/1000),3)
+        curr_per_day_perc.append(curr_val)
+
+    # Handle individual markers
+    marker_idx = marker_idx + 1
+    ax.plot(cases_dates, curr_per_day_perc, label=country, marker=markers_available[marker_idx])
+
+ax.set_title("Per day % population increase euro countries")
+ax.set_xlabel("Date")
+ax.legend(loc='upper left', fontsize='xx-small')
+plt.show()
