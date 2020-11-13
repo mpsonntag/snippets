@@ -371,7 +371,7 @@ plt.tight_layout()
 plt.show()
 
 
-# Using pandas to print tables
+# Using pandas to print table sorted by perc population descending
 d_sum_only = {}
 
 idx = 0
@@ -381,4 +381,38 @@ for curr_list in sum_only:
 
 sum_frame = PanDataFrame(d_sum_only, col_labels)
 
+sort_by = "[%] population"
+# sort_by = "[‰] population"
+sum_frame.transpose().sort_values(by=[sort_by], ascending=False)
+
+# calc sum infections last seven days
+days = list(full_data["countries"]["at"]["cases"].keys())[-8:-1]
+
+curr_data = {}
+curr_plot = {}
+for ccode in full_data["countries"]:
+    access_data = full_data["countries"][ccode]
+    curr_cases = {}
+
+    sum_cases = 0
+    for i in days:
+        curr_cases[i] = access_data["cases"][i]
+        sum_cases = sum_cases + access_data["cases"][i][0]
+
+    perc_cases = round(sum_cases / (access_data["population"]/100), 3)
+    curr_data[ccode] = {"country_name": access_data["country_name"],
+                        "population": f'{access_data["population"]:,}',
+                        "sum_cases": f'{sum_cases:,}',
+                        "perc_cases": perc_cases,
+                        "cases": copy.deepcopy(curr_cases)
+                       }
+    curr_plot[access_data["country_name"]] = [f'{access_data["population"]:,}', f'{sum_cases:,}', perc_cases]
+
+# Add seven days info table
+day_col_labels = ["population", "cases last 7 days", "[%] population"]
+
+
+sum_frame = PanDataFrame(curr_plot, day_col_labels)
+
 sum_frame.transpose().sort_values(by=["[%] population"], ascending=False)
+
