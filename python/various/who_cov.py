@@ -280,13 +280,12 @@ labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰
 # plt.show()
 
 
-# table plot
+# Table plots
 # format large numbers with comma as 1000 separator
 format_aggregated = copy.deepcopy(aggregated)
-for line_idx in range(len(format_aggregated)):
-    for val_idx in range(len(format_aggregated[line_idx])):
-        curr_val = format_aggregated[line_idx][val_idx]
-        format_aggregated[line_idx][val_idx] = f'{curr_val:,}'
+for line_idx, _ in enumerate(format_aggregated):
+    for val_idx, val in enumerate(format_aggregated[line_idx]):
+        format_aggregated[line_idx][val_idx] = f'{val:,}'
 
 _, ax = plt.subplots()
 
@@ -389,6 +388,7 @@ sort_by = "[%] population"
 # sort_by = "[‰] population"
 sum_frame.transpose().sort_values(by=[sort_by], ascending=False)
 
+
 # calc sum infections last seven days
 days = list(full_data["countries"]["at"]["cases"].keys())[-8:-1]
 
@@ -417,10 +417,9 @@ for ccode in full_data["countries"]:
 # Add seven days info table
 day_col_labels = ["population", "cases last 7 days", "[%] population"]
 
-
 sum_frame = PanDataFrame(curr_plot, day_col_labels)
-
 sum_frame.transpose().sort_values(by=["[%] population"], ascending=False)
+
 
 # per day percent plot to properly compare increase rates per citizen
 fig7 = plt.figure()
