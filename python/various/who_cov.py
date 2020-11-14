@@ -272,6 +272,23 @@ def get_aggregated(use_date, curr_cases, euro_cases):
     return names, aggregated
 
 
+def plot_single_country(full_data, country_code):
+    # individual country plot
+    ax = plt.subplot(111)
+
+    country_data = []
+    curr_data = full_data["countries"][country_code]
+    country_name = curr_data["country_name"]
+    for i in curr_data["cases"]:
+        country_data.append(curr_data["cases"][i][0])
+
+    ax.plot(cases_dates, country_data)
+
+    ax.set_title("Per day cases in %s/%s" % (country_code, country_name))
+    ax.set_xlabel("Date")
+    plt.show()
+
+
 def plot_cases_bar(euro_stat, labels, use_date):
     # bar plot statistics current state
     x = np.arange(len(labels))
@@ -469,6 +486,7 @@ rcParams['figure.figsize'] = (8.5, 4.4)
 plot_euro_us_comparison(cases_dates, confirmed, usconfirmed)
 plot_all_country_cases(full_data, cases_dates)
 plot_all_countries_last_month(full_data, cases_dates)
+plot_single_country(full_data, "at")
 
 # display current numpy print options
 print(np.get_printoptions())
@@ -477,7 +495,7 @@ np.set_printoptions(precision=3)
 
 use_date = list(euro_cases["cases"].keys())[-1]
 curr_cases = copy.deepcopy(full_data["countries"])
-names, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
+_, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
 
 labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
 # plot_table_country_statistics(names, labels, aggregated)
