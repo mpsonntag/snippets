@@ -185,7 +185,6 @@ def basic_data(euro_data, us_data):
 
 
 def plot_euro_us_comparison(dates, euro_confirmed, us_confirmed):
-    fig = plt.figure()
     ax = plt.subplot(111)
     ax.plot(dates, euro_confirmed, label="European zone")
     ax.plot(dates, us_confirmed, label="United States")
@@ -196,7 +195,6 @@ def plot_euro_us_comparison(dates, euro_confirmed, us_confirmed):
 
 
 def plot_all_country_cases(data, cases_dates):
-    fig2 = plt.figure()
     ax = plt.subplot(111)
 
     markers_available = list(Line2D.markers.keys())
@@ -225,7 +223,6 @@ def plot_all_country_cases(data, cases_dates):
 
 def plot_all_countries_last_month(full_data, cases_dates):
     # plot last 30 days euro zone
-    fig3 = plt.figure()
     ax = plt.subplot(111)
 
     curr_len = len(cases_dates)
