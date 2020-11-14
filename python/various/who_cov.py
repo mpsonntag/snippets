@@ -483,13 +483,12 @@ curr_cases = copy.deepcopy(full_data["countries"])
 names, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
 
 labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
-plot_table_country_statistics(names, labels, aggregated)
+# plot_table_country_statistics(names, labels, aggregated)
 
 sum_only, names = formatted_statistics(full_data, euro_cases)
 
 col_labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
-plot_table_formatted_country_statistics(sum_only, names, col_labels)
-
+# plot_table_formatted_country_statistics(sum_only, names, col_labels)
 pandas_formatted_country_statistics(sum_only, names, col_labels)
 
 curr_plot = formatted_statistics_last_week(full_data)
