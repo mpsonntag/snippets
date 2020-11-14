@@ -171,13 +171,13 @@ def basic_data(euro_data, us_data):
     usdeaths_cumulative = []
     usdeath_cumulative_permil_population = []
 
-    for i in us_cases:
-        usconfirmed.append(us_cases[i][0])
-        usconfirmed_cumulative.append(us_cases[i][1])
-        uscase_cumulative_percent_population.append(us_cases[i][2])
-        usdeaths.append(us_cases[i][3])
-        usdeaths_cumulative.append(us_cases[i][4])
-        usdeath_cumulative_permil_population.append(us_cases[i][5])
+    for i in us_data:
+        usconfirmed.append(us_data[i][0])
+        usconfirmed_cumulative.append(us_data[i][1])
+        uscase_cumulative_percent_population.append(us_data[i][2])
+        usdeaths.append(us_data[i][3])
+        usdeaths_cumulative.append(us_data[i][4])
+        usdeath_cumulative_permil_population.append(us_data[i][5])
         if last_euro_date == datetime.fromtimestamp(i/1000):
             break
 
@@ -254,7 +254,7 @@ def plot_all_countries_last_month(full_data, cases_dates):
     plt.show()
 
 
-def get_aggregated(use_date, curr_cases):
+def get_aggregated(use_date, curr_cases, euro_cases):
     euro_stat = euro_cases["cases"][use_date]
     us_stat = curr_cases["us"]["cases"][use_date]
     names = ["Europe", "United states"]
@@ -275,7 +275,7 @@ def get_aggregated(use_date, curr_cases):
     return names, aggregated
 
 
-def plot_cases_bar(euro_stat):
+def plot_cases_bar(euro_stat, labels, use_date):
     # bar plot statistics current state
     x = np.arange(len(labels))
     curr_date_string = datetime.fromtimestamp(use_date/1000)
@@ -305,7 +305,7 @@ def plot_table_country_statistics(row_labels, column_labels, aggregated):
                    colLabels=column_labels, loc="center")
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(10)
-    tbl.auto_set_column_width(range(len(labels)))
+    tbl.auto_set_column_width(range(len(column_labels)))
 
     plt.tight_layout()
     plt.show()
@@ -371,13 +371,13 @@ def plot_table_formatted_country_statistics(sum_only, row_labels, column_labels)
                    colLabels=column_labels, loc="center")
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(10)
-    tbl.auto_set_column_width(range(len(col_labels)))
+    tbl.auto_set_column_width(range(len(column_labels)))
 
     plt.tight_layout()
     plt.show()
 
 
-def pandas_formatted_country_statistics(sum_only):
+def pandas_formatted_country_statistics(sum_only, names, col_labels):
     # Using pandas to print table sorted by perc population descending
     d_sum_only = {}
 
@@ -430,7 +430,7 @@ def pandas_country_last_week(curr_plot):
     print(sum_frame.transpose().sort_values(by=["[%] population"], ascending=False))
 
 
-def plot_percent_countries(full_data):
+def plot_percent_countries(full_data, cases_dates):
     # per day percent plot to properly compare increase rates per citizen
     ax = plt.subplot(111)
 
@@ -462,6 +462,7 @@ def plot_percent_countries(full_data):
 
 full_data = fetch_data(full_data)
 save_to_json(full_data)
+
 euro_cases = congregate_euro_cases(full_data)
 us_cases = full_data["countries"]["us"]["cases"]
 cases_dates, confirmed, usconfirmed = basic_data(euro_cases, us_cases)
@@ -474,20 +475,25 @@ plot_all_countries_last_month(full_data, cases_dates)
 
 # display current numpy print options
 print(np.get_printoptions())
-
 # set precision to 3
 np.set_printoptions(precision=3)
 
 use_date = list(euro_cases["cases"].keys())[-1]
 curr_cases = copy.deepcopy(full_data["countries"])
-names, aggregated = get_aggregated(use_date, curr_cases)
+names, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
 
 labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
 plot_table_country_statistics(names, labels, aggregated)
+
 sum_only, names = formatted_statistics(full_data, euro_cases)
+
 col_labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
 plot_table_formatted_country_statistics(sum_only, names, col_labels)
-pandas_formatted_country_statistics(sum_only)
+
+pandas_formatted_country_statistics(sum_only, names, col_labels)
+
 curr_plot = formatted_statistics_last_week(full_data)
+
 pandas_country_last_week(curr_plot)
-plot_percent_countries(full_data)
+
+plot_percent_countries(full_data, cases_dates)
