@@ -956,6 +956,18 @@ Connect to one host via another one that is accessible from outside a network
 
     ssh -A -J username@gateway.org username@[ip address of target in closed network]
 
+An entry in `~/.ssh/config` can automate this process:
+
+    # entry in config file
+    Host [hostname]
+        User [Username]
+        HostName [IP of target machine]
+        Proxyjump proxyuser@[proxy IP]
+
+    # ssh and scp should now work directly without providing the proxy
+    ssh [username]@[hostname]
+    scp [file] [username]@[hostname]:/target/directory
+
 Find out which operating system is running
 
     uname -a
