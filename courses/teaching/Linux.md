@@ -575,6 +575,25 @@ List disk hardware
 `a2ensite` ... enable an available apache2 webservice configuration
 `a2disite` ... disable an available apache2 webservice configuration
 
+### Session handling
+
+When connected to a remote machine, it might be worthwhile to create a named session that keeps running if the connection is detached.
+
+- `screen` can be installed via apt-get
+
+    # start a named screen session
+    screen -S [some name]
+    # start working e.g. start a long running script
+
+    # detach from session but keep it running
+    Ctrl + d + a
+    
+    # re-attach to running session
+    screen -S [some name]
+
+    # end session
+    exit
+
 ### Webservice certificates for encryption via certbot
 
 When using certbot, make sure you have the latest version and some additional
@@ -1339,7 +1358,7 @@ The base64 RFC with the nittygritty details can be found [here](https://tools.ie
 Find a nice introduction [here](http://www.linuxhowtos.org/C_C++/socket.htm)
 
 
-## Customizing Ubuntu 16
+## Customizing Ubuntu 16+
 
 - open new instance of already open program e.g. Nautilus: middle click or shift+left click on icon in launcher
 
@@ -1522,3 +1541,6 @@ Display mac address
 -[ ] display disk space
 -[ ] list crontab
 -[ ] access system logs
+
+## session handling
+-[ ] create, detach and re-enter a detachable session using screen
