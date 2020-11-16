@@ -1478,6 +1478,10 @@ Change shell of a user
 
     sudo chsh [username]
 
+    # if this does not work, try
+    sudo usermod -s /bin/bash [username]
+
+
 If this does not work e.g. because the user was created without a shell, run the following
 
     sudo usermod -s /bin/bash [username]
