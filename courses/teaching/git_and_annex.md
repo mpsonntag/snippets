@@ -2,7 +2,13 @@
 
 All infos distilled from https://git-annex.branchable.com
 
-## File location
+## Key concept
+Annexing a file does three things:
+- it moves the content of the file into a key value store.
+- it creates a symlink that points to the content in the key-value store.
+- it replaces the file with a placeholder that contains the symlink location and checks this file into git.
+
+When such a repo now is pushed, the file containing the symlink is pushed, but the content is not and has to be uploaded to another remote specifically.
 
 ## File location
 The content of large files can be found in the `.git/annex` directory; the annex pointer files checked into git will point to these locations.
