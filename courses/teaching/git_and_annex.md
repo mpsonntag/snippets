@@ -36,3 +36,8 @@ The workflow is as follows when `git annex sync` is run
 
 Note that only `git annex sync --content` also transfers the actual content to other repos, by default only placeholder files are synced.
 Note that when the history of the git master branch is changed e.g. by dropping a commit, the `synced/master` branch will recreate this commit before an upload.
+Note that instead of `master` and `synced/master` it can also be `$currentbranch` and `synced/$currentbranch`.
+
+## File transfer
+Depending on the remote file content location git annex uses `rsync`, local copy (`cp`) or `curl` to retrieve the content of a a file.
+git annex ranks available multiple file content remotes and fetches the least expensive one.
