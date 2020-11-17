@@ -63,7 +63,7 @@ I am trying to upload files to a GIN repository, but files with a specific file 
 GIN is based on git and will respect if files have been excluded from git. Check if there is a ".gitignore" file at the root of your repository where these files have been excluded.
 
 
-## Modification of a dataset pubilished with GIN-DOI
+## Modification of a dataset published with GIN-DOI
 
 ### Q
 Once a DOI is issued for a dataset, can this dataset be modified in the future? I.e., can new data be added?
@@ -71,3 +71,25 @@ Once a DOI is issued for a dataset, can this dataset be modified in the future? 
 ### A
 The brief answer is, that the original GIN repository that was used to create the registered dataset can be changed after it has been used for a DOI publication. Further changes in the original GIN repository do not introduce changes in the published DOI dataset.
 Further there is no automatic way to update the DOI dataset after the DOI has been issued. We can issue a different DOI for the same data repository if changes need need to be published as well.
+
+
+## "Broken pipe" upload issue
+
+### Q
+On uploading to gin, we encounter the following error, what is the issue and how can it be resolved.
+
+    :: Uploading
+     Compressing OK
+     Connection to gin.g-node.org closed by remote host.
+    fatal: the remote end hung up unexpectedly
+    fatal: sha1 file '<stdout>' write error: Broken pipe
+    fatal: the remote end hung up unexpectedly
+      Pushing to origin failed.
+    git-annex: sync: 1 failed
+    
+    [error] 1 operation failed
+
+### A
+This error can occur when too many small files (each size < 10 MB) with a total sum size of > 4GiB have been committed with a single commit. Try splitting such a commit into multiple smaller ones so that the total sum size of committed files is below 4 GiB.
+
+The reason behind this issue is, that only files with size > 10MB are checked into git annex that handles large files well. Files with a smaller size are still checked into git, which does not handle many or large files nearly as well as git annex does. In the described case, git cannot handle the sum size of files any longer and will fail on upload.
