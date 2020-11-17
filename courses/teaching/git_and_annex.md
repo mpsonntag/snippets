@@ -30,3 +30,4 @@ The workflow is as follows when `git annex sync` is run
 - push `sync/master` to all defined remotes.
 
 Note that only `git annex sync --content` also transfers the actual content to other repos, by default only placeholder files are synced.
+Note that when the history of the git master branch is changed e.g. by dropping a commit, the `synced/master` branch will recreate this commit before an upload.
