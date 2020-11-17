@@ -17,6 +17,9 @@ To avoid having too many files in a single folder, the first 6 characters of the
 
 git annex keeps track which remotes contain the actual content of a file. On a content get, it will either fetch the content from any available remote that has the content or print which remote might have the content, that is currently unavailable. [???] This information is probably obtained and recorded whenever a git annex sync takes place, but still unclear where exactly this information is stored; in the file placeholder?
 
+### Copies of file content
+git annex by default will always try to keep at least one copy of file content remaining in all of the available remotes. So even when trying to do `git annex drop` on the last known file content, the command will refuse to drop the content.
+
 ## Automatic conflict resolution
 When two or more files have diverged, upon a merge, they will be renamed to `filename.variant-AAA`, `filename.variant-BBB`, etc; its up to the user to resolve the conflict at this point.
 
