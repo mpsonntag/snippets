@@ -242,7 +242,7 @@ def plot_all_countries_last_month(full_data, cases_dates):
 
         # Handle individual markers
         marker_idx = marker_idx + 1
-        ax.plot(cases_dates[curr_len-30:curr_len-1], curr_confirmed[curr_len-30:curr_len-1],
+        ax.plot(cases_dates[curr_len-30:curr_len], curr_confirmed[curr_len-30:curr_len],
                 label=country, marker=markers_available[marker_idx])
 
     ax.set_title("Per day cases euro countries; last 30 days")
@@ -409,7 +409,7 @@ def pandas_formatted_country_statistics(sum_only, names, col_labels):
 
 def formatted_statistics_last_week(full_data):
     # calc sum infections last seven days
-    days = list(full_data["countries"]["at"]["cases"].keys())[-8:-1]
+    days = list(full_data["countries"]["at"]["cases"].keys())[-7:0]
 
     curr_data = {}
     curr_plot = {}
