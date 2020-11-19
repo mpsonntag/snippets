@@ -975,6 +975,15 @@ Find out which operating system is running
     cat /etc/*_version
     cat /etc/*-release
 
+Creating dummy files of various sizes with `dd`
+
+    # Create a 1MB file
+    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=1024
+
+    # Create a 100MB file
+    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=$[1024*100]
+
+
 ## Using different java versions
 
 Currently there are a couple of java version from two main distributers (Oracle, OpenJava)
