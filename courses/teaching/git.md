@@ -67,6 +67,7 @@ git branch -D [branchName]  | delete branch [branchName]
 git remote -v               | shows, which repositories are added
 git log                     | displays commit history
 git log --oneline --graph   | displays shortened commit history
+git log --grep="phrase"     | searches through the commit history for "phrase"
 
 
 ## git add
