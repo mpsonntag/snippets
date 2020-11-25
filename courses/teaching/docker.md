@@ -176,6 +176,14 @@ Start docker containers defined in a `docker-compose.yml` file. This file has to
     # -d ... starts the containers in detached mode 
     docker-compose -p [projectname] up -d
 
+### Docker compose installation:
+
+https://docs.docker.com/compose/install/
+
+Usually install to `/usr/local/bin`
+
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
 
 # Docker installation
 
