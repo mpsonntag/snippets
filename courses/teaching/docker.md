@@ -185,6 +185,29 @@ Usually install to `/usr/local/bin`
     sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 
+### docker compose usage
+
+All commands work from the directory that contains the `docker-compose.yml` file.
+
+- pull all docker containers specified in the docker-compose file. fetches the `latest` tag by default.
+
+        docker-compose pull
+
+- pull only a specific container, if more containers are specified in the compose file.
+
+        docker-compose pull [container name]
+
+- start docker via docker-compose
+
+        # start all projects; detach from processes after start. leaving it running in the background
+        docker-compose -d up
+
+- start only a specific container, if more containers are specified in the compose file.
+
+        # again start and detach from process
+        docker-compoase -d up [container name]
+
+
 # Docker installation
 
 ## Ubuntu linux
