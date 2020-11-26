@@ -520,6 +520,10 @@ to any other branch.
 
 - git log should now show the commit applied to the top of the commit stash.
 
+- before doing a cherry-pick it might also be interesting to see which files are actually in a commit
+
+        # display files in a commit
+        git show --name-only [commit hash]
 
 # Transfer ownership from user to organization:
 
