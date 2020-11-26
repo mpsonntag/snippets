@@ -426,6 +426,10 @@ Source can be found [here](http://jk.gs/git-diff.html)
 
         git diff HEAD^ HEAD
 
+- show the difference between two branches for a specific file
+
+        git diff [branch name A] [branch name B] -- [filename]
+
 
 # git delete
 - delete local branch
