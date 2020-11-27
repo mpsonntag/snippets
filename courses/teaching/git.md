@@ -522,8 +522,10 @@ to any other branch.
 
 - before doing a cherry-pick it might also be interesting to see which files are actually in a commit
 
-        # display files in a commit
+        # display modified file names of a commit
         git show --name-only [commit hash]
+        # display file names and modfication status in a commit
+        git show --name-status [commit hash]
 
 - show the change status of files between two commits (M... modified, A ... added, D ... deleted)
 
