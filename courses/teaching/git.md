@@ -525,6 +525,11 @@ to any other branch.
         # display files in a commit
         git show --name-only [commit hash]
 
+- show the change status of files between two commits (M... modified, A ... added, D ... deleted)
+
+        git diff --name-status [hash earlier commit] [hash later commit]
+
+
 # Transfer ownership from user to organization:
 
 Distilled from [here](https://help.github.com/articles/transferring-a-repository/)
