@@ -1,31 +1,32 @@
 # -- Required fields
 
 # Automated registration id from "10.12751/g-node.[id]"
-REG_ID = "id"
+REG_ID = "__ID__"
 # Repository owner
-REPO_OWN = "own"
+REPO_OWN = "__OWN__"
 # Repository name
-REPO = "repo"
+REPO = "__REPO__"
 # Format YYYY-MM-DD
-REG_DATE = "date"
+REG_DATE = "__DATE__"
 
 # DOI requestee email address
-EMAIL = "mail"
+EMAIL = "__MAIL__"
 # DOI requestee full name
-USER_FULL_NAME = "full"
+USER_FULL_NAME = "__FULL__"
 # DOI request title
-TITLE = ""
+TITLE = "__TITLE__"
 # Author citation list; ideally analogous to the DOI landing page citation
-CITATION = ""
+CITATION = "__CITATION__"
 
 # Full ssh access name of the server hosting the DOI server instance
-DOI_SERVER = "ser.ver.org"
+DOI_SERVER = "__DOI.SERVER__"
 # User working on the DOI server
-SERVER_USER = ""
+SERVER_USER = "__SERVER_USER__"
 # Full name of the person handling the registration; used in email template text
-ADMIN_NAME = "Michael Sonntag"
+ADMIN_NAME = "__FIRST LAST__"
 
 OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
+print("-- Writing to file %s" % OUT_FILE)
 with open(OUT_FILE, "w") as f:
     text_block = """
 # Part 1 - pre registration
