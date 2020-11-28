@@ -1,0 +1,13 @@
+REG_ID = ""
+REPO_OWN = ""
+REPO = ""
+REG_DATE = ""
+
+EMAIL = ""
+USER_FULL_NAME = ""
+TITLE = ""
+CITATION = ""
+
+SERVER_USER = ""
+DOI_SERVER = ""
+ADMIN_NAME = ""
