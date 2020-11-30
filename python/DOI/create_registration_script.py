@@ -165,7 +165,7 @@ def print_part_pre_doi_full(fp):
 -[ ] edit /data/doi/10.12751/g-node.%s/doi.xml file 
      to include the actual size, the proper title and the proper license
 - move to local, create index.html from published doi.xml
--[ ] Create the DOI landing page in the local staging directory and move it to the doi server
+-[ ] Create the DOI landing page in the local staging directory and move it to the DOI server
     gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml
     scp index.html %s@%s:/home/%s/staging
     sudo mv index.html /data/doi/10.12751/g-node.%s/index.html
@@ -197,8 +197,8 @@ In the doi.xml the following changes were made and the index.html page has been 
 - Zip size was added.
 
 Best,
-Michael
-    """
+%s
+    """ % (ADMIN_NAME.split()[0])
     fp.write(text_block)
 
     text_block = """
@@ -256,9 +256,38 @@ def print_part_post_doi(fp):
     """ % (REG_ID, REG_ID, REG_ID, REG_ID)
     fp.write(text_block)
 
-    text_block = """
 
-    """
+def print_part_ready_email(fp):
+    text_block = """
+# Part 3 - eMail to user
+
+%s
+
+Subject: DOI registration complete - %s/%s
+
+Dear %s,
+
+Your dataset with title
+  %s
+
+has been successfully registered.
+
+The DOI for the dataset is
+  https://doi.org/10.12751/g-node.%s
+
+It can be viewed at
+  https://doi.gin.g-node.org/10.12751/g-node.%s.
+
+If this is data supplementing a publication and if you haven't done so already, we kindly request that you:
+- include the new DOI of this dataset in the publication as a reference, and
+- update the datacite file of the registered dataset to reference the publication, including its DOI, once it is known.
+
+The latter will result in a link in the Datacite database to your publication and will increase its discoverability.
+
+Best regards,
+  %s
+  German Neuroinformatics Node
+    """ % (EMAIL, REPO_OWN, REPO, USER_FULL_NAME, TITLE, REG_ID, REG_ID, ADMIN_NAME)
     fp.write(text_block)
 
 
@@ -268,5 +297,6 @@ with open(OUT_FILE, "w") as f:
     print_part_pre_doi(f)
     print_part_pre_doi_full(f)
     print_part_post_doi(f)
+    print_part_ready_email(f)
 
 print("-- Finished writing file %s" % OUT_FILE)
