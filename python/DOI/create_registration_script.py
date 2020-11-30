@@ -27,6 +27,9 @@ SERVER_USER = "__SERVER_USER__"
 # Full name of the person handling the registration; used in email template text
 ADMIN_NAME = "__FIRST LAST__"
 
+# DOI Server repo preparation directory
+DIR_DOI_PREP = "__DIR_DOI_PREP__"
+
 
 def print_part_pre_doi(fp):
     """
@@ -79,29 +82,29 @@ def print_part_pre_doi(fp):
 
     text_block = """
 -[ ] fetch content and upload to DOI repo
-    - cd /data/doiprep/
+    - cd %s/
     - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s_%s.log
-    """ % (REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
+    """ % (DIR_DOI_PREP, REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
     fp.write(text_block)
 
     text_block = """
 -[ ] tag release on the DOI repository; run all commands using `gin git ...` 
      to avoid issues with local git annex or differently logged in users.
-    -[ ] cd /data/doiprep/%s
+    -[ ] cd %s/%s
     -[ ] sudo gin git status
     -[ ] sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.%s
     -[ ] sudo gin git push --tags origin
-    """ % (REPO.lower(), REG_ID)
+    """ % (DIR_DOI_PREP, REPO.lower(), REG_ID)
     fp.write(text_block)
 
     text_block = """
 -[ ] cleanup directory once tagging is done
-    -[ ] sudo rm /data/doiprep/%s -r
-    -[ ] sudo mv /data/doiprep/%s*.log /home/%s/logs/
-    """ % (REPO.lower(), REPO_OWN, SERVER_USER)
+    -[ ] sudo rm %s/%s -r
+    -[ ] sudo mv %s/%s*.log /home/%s/logs/
+    """ % (DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
     fp.write(text_block)
 
     text_block = """
@@ -132,12 +135,13 @@ def print_part_pre_doi_full(fp):
 
     text_block = """
 -[ ] manually fork https://gin.g-node.org/%s/%s to DOI user
--[ ] log on to the DOI server (%s) and move to /data/doiprep
+-[ ] log on to the DOI server (%s) and move to %s
 -[ ] fetch content and upload annex data to the DOI repo on gin
     - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s-%s.log
-    """ % (REPO_OWN, REPO, DOI_SERVER, REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
+    """ % (REPO_OWN, REPO, DOI_SERVER, DIR_DOI_PREP, REPO_OWN.lower(),
+           REPO_OWN, REPO, REPO_OWN.lower(), REPO)
     fp.write(text_block)
 
     text_block = """
@@ -152,15 +156,16 @@ def print_part_pre_doi_full(fp):
     text_block = """
 -[ ] create a tag release on the DOI repository; run all commands using `gin git ...` 
      to avoid issues with local git annex or differently logged in gin/git users.
-    -[ ] cd /data/doiprep/%s
+    -[ ] cd %s/%s
     -[ ] sudo gin git status
     -[ ] sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.%s
     -[ ] sudo gin git push --tags origin
 -[ ] clean up directory once tagging is done
-    -[ ] sudo rm /data/doiprep/%s -r
-    -[ ] sudo mv /data/doiprep/%s*.log /home/%s/logs/
-    """ % (REPO.lower(), REG_ID, REPO.lower(), REPO_OWN, SERVER_USER)
+    -[ ] sudo rm %s/%s -r
+    -[ ] sudo mv %s/%s*.log /home/%s/logs/
+    """ % (DIR_DOI_PREP, REPO.lower(), REG_ID,
+           DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
     fp.write(text_block)
 
     text_block = """
