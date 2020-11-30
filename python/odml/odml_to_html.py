@@ -1,18 +1,24 @@
 import lxml.etree as ET
 
 
-def disp_html(xml_filename, xsl_filename):
-    dom = ET.parse(xml_filename)
-    xslt = ET.parse(xsl_filename)
-    transform = ET.XSLT(xslt)
+def odml_to_html(odml_filename):
+    # loading an odML xml file containing a full and valid stylesheet tag
+    dom = ET.parse(odml_filename)
+    style = dom.xpath("/odML")
+    if not style:
+        print("Could not find odML tag")
+        return
+    getstyle = style[0].findall("{http://www.w3.org/1999/XSL/Transform}stylesheet")
+    if not getstyle:
+        print("Could not find custom stylesheet tag")
+        return
+    transform = ET.XSLT(getstyle[0])
     newdom = transform(dom)
-    print(ET.tostring(newdom, pretty_print=True))
+    html = ET.tostring(newdom, pretty_print=True).decode()
+
+    outfile = "output.html"
+    with open(outfile, "w") as fip:
+        fip.write(html)
 
 
-def display_odML_as_html(odML_file, xsl_file='odml.xsl'):
-    # generate html representation from odML file and style sheet
-    dom = ET.parse(odML_file)
-    xslt = ET.parse(xsl_file)
-    transform = ET.XSLT(xslt)
-    newdom = transform(dom)    # display html
-    # display(HTML(ET.tostring(newdom, pretty_print=True).decode()))
+odml_to_html("resources/browser_display/custom_style.odml")
