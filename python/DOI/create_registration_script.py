@@ -207,10 +207,66 @@ Michael
     fp.write(text_block)
 
 
+def print_part_post_doi(fp):
+    text_block = """
+# Part 2 - post registration
+-[ ] connect to doi server (srv6) and update `/data/doi/index.html`; 
+     make sure there are no unintentional line breaks!
+                        <tr>
+                            <td><a href="https://doi.org/10.12751/g-node.%s">%s</a>
+                            <br>%s</td>
+                            <td>%s</td>
+                            <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
+                        </tr>
+    """ % (REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
+    fp.write(text_block)
+
+    text_block = """
+-[ ] update `/data/doi/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.%s
+-[ ] make sure github.com/G-Node/gin-doi is locally build and the `gindoid` executable available
+-[ ] gin get G-Node/DOImetadata to or refresh DOIMetadata repo in local staging directory
+-[ ] create empty "keywords" directory and run the following from it
+-[ ] /path/to/gindoid make-keyword-pages /path/to/DOImetadata/*.xml
+-[ ] scp -r keywords %s@%s:/home/%s/staging
+    """ % (REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER)
+    fp.write(text_block)
+
+    text_block = """
+-[ ] connect to DOI server (%s) and move to staging ground
+-[ ] sudo chown -R root:root keywords
+-[ ] sudo mv /data/doi/keywords /data/doi/keywords_
+-[ ] sudo mv keywords/ /data/doi
+-[ ] check landing page and keywords online: https://doi.gin.g-node.org
+-[ ] sudo rm /data/doi/keywords_ -r
+    """ % DOI_SERVER
+    fp.write(text_block)
+
+    text_block = """
+-[ ] git commit all changes in /data/doi
+    sudo git add 10.12751/g-node.%s/
+    sudo git commit -m "New dataset: 10.12751/g-node.%s"
+-[ ] commit keyword and index page changes
+    sudo git add --all
+    sudo git commit -m "Update index and keyword pages"
+-[ ] set zip to immutable
+    sudo chattr +i /data/doi/10.12751/g-node.%s/10.12751_g-node.%s.zip
+-[ ] cleanup any leftover directories from previous versions of this dataset
+-[ ] email to user (check below)
+-[ ] close all related issues on DOImetadata
+    """ % (REG_ID, REG_ID, REG_ID, REG_ID)
+    fp.write(text_block)
+
+    text_block = """
+
+    """
+    fp.write(text_block)
+
+
 OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
 print("-- Writing to file %s" % OUT_FILE)
 with open(OUT_FILE, "w") as f:
     print_part_pre_doi(f)
     print_part_pre_doi_full(f)
+    print_part_post_doi(f)
 
 print("-- Finished writing file %s" % OUT_FILE)
