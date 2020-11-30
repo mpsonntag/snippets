@@ -18,6 +18,8 @@ TITLE = "__TITLE__"
 # Author citation list; ideally analogous to the DOI landing page citation
 CITATION = "__CITATION__"
 
+# Full ssh access name of the server hosting the GIN server instance
+GIN_SERVER = "__GIN.SERVER__"
 # Full ssh access name of the server hosting the DOI server instance
 DOI_SERVER = "__DOI.SERVER__"
 # User working on the DOI server
@@ -118,24 +120,24 @@ Best,
 def print_part_pre_doi_full(fp):
     text_block = """
 ## Full DOI
--[ ] check that the annex content is fully available on the gin server (srv5)
+-[ ] check that the annex content is fully available on the gin server (%s)
     - cd /gindata
     - ./annexcheck /gindata/gin-repositories/%s
 -[ ] check the datacite content at https://gin.g-node.org/%s/%s
     - title is useful and has no typos
     - license title, license content and license link match
 -[ ] log onto https://gin.g-node.org using the "doi" user (check G-Node vault for pw)
-    """ % (REPO_OWN, REPO_OWN, REPO)
+    """ % (GIN_SERVER, REPO_OWN, REPO_OWN, REPO)
     fp.write(text_block)
 
     text_block = """
 -[ ] manually fork https://gin.g-node.org/%s/%s to DOI user
--[ ] log on to the doi server (srv6) and move to /data/doiprep
+-[ ] log on to the DOI server (%s) and move to /data/doiprep
 -[ ] fetch content and upload annex data to the DOI repo on gin
     - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s-%s.log
-    """ % (REPO_OWN, REPO, REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
+    """ % (REPO_OWN, REPO, DOI_SERVER, REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
     fp.write(text_block)
 
     text_block = """
@@ -210,7 +212,7 @@ Best,
 def print_part_post_doi(fp):
     text_block = """
 # Part 2 - post registration
--[ ] connect to doi server (srv6) and update `/data/doi/index.html`; 
+-[ ] connect to DOI server (%s) and update `/data/doi/index.html`; 
      make sure there are no unintentional line breaks!
                         <tr>
                             <td><a href="https://doi.org/10.12751/g-node.%s">%s</a>
@@ -218,7 +220,7 @@ def print_part_post_doi(fp):
                             <td>%s</td>
                             <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
                         </tr>
-    """ % (REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
+    """ % (DOI_SERVER, REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
     fp.write(text_block)
 
     text_block = """
