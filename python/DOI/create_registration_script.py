@@ -33,11 +33,11 @@ DIR_DOI_PREP = "__DIR_DOI_PREP__"
 DIR_DOI = "__DIR_DOI__"
 
 
-def print_part_pre_doi(fp):
+def print_part_pre_doi(fip):
     """
     Print pre-registration block to file
 
-    :param fp: filepointer
+    :param fip: filepointer
     """
     text_block = """
 # Part 1 - pre registration
@@ -52,7 +52,7 @@ def print_part_pre_doi(fp):
 
     - Request Date from DOI XML: %s
     """ % (REPO_OWN, REPO, USER_FULL_NAME, EMAIL, DOI_SERVER, REG_ID, REG_ID, REG_DATE)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 
@@ -60,7 +60,7 @@ def print_part_pre_doi(fp):
     - cd /gindata
     - ./annexcheck /gindata/gin-repositories/%s
     """ % REPO_OWN.lower()
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] check the datacite content at https://gin.g-node.org/%s/%s
@@ -68,7 +68,7 @@ def print_part_pre_doi(fp):
     - title is useful and has no typos
     - license title, license content and license link match
     """ % (REPO_OWN, REPO)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] check DOI directory content
@@ -80,7 +80,7 @@ def print_part_pre_doi(fp):
     -[ ] check zip download and suggested size
 -[ ] on gin.g-node.org, log in with "doi" user and fork https://gin.g-node.org/%s/%s
     """ % (REG_ID, REG_ID, REPO_OWN, REPO)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] fetch content and upload to DOI repo
@@ -89,7 +89,7 @@ def print_part_pre_doi(fp):
     - sudo su root
     - ./syncannex %s/%s > %s_%s.log
     """ % (DIR_DOI_PREP, REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] tag release on the DOI repository; run all commands using `gin git ...` 
@@ -100,14 +100,14 @@ def print_part_pre_doi(fp):
     -[ ] sudo gin git tag 10.12751/g-node.%s
     -[ ] sudo gin git push --tags origin
     """ % (DIR_DOI_PREP, REPO.lower(), REG_ID)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] cleanup directory once tagging is done
     -[ ] sudo rm %s/%s -r
     -[ ] sudo mv %s/%s*.log /home/%s/logs/
     """ % (DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] email to TWachtler
@@ -119,10 +119,15 @@ the repository should be prepared for the DOI registration.
 Best,
 %s
     """ % (ADMIN_NAME.split()[0])
-    fp.write(text_block)
+    fip.write(text_block)
 
 
-def print_part_pre_doi_full(fp):
+def print_part_pre_doi_full(fip):
+    """
+    Print optional full DOI pre-registration block to file.
+
+    :param fip: filepointer
+    """
     text_block = """
 ## Full DOI
 -[ ] check that the annex content is fully available on the gin server (%s)
@@ -133,7 +138,7 @@ def print_part_pre_doi_full(fp):
     - license title, license content and license link match
 -[ ] log onto https://gin.g-node.org using the "doi" user (check G-Node vault for pw)
     """ % (GIN_SERVER, REPO_OWN, REPO_OWN, REPO)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] manually fork https://gin.g-node.org/%s/%s to DOI user
@@ -144,7 +149,7 @@ def print_part_pre_doi_full(fp):
     - ./syncannex %s/%s > %s-%s.log
     """ % (REPO_OWN, REPO, DOI_SERVER, DIR_DOI_PREP, REPO_OWN.lower(),
            REPO_OWN, REPO, REPO_OWN.lower(), REPO)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] create DOI zip file
@@ -153,7 +158,7 @@ def print_part_pre_doi_full(fp):
     - sudo ./makezip %s
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
     """ % (REPO_OWN.lower(), REPO.lower(), REPO.lower(), DIR_DOI, REG_ID, REG_ID)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] create a tag release on the DOI repository; run all commands using `gin git ...` 
@@ -168,14 +173,14 @@ def print_part_pre_doi_full(fp):
     -[ ] sudo mv %s/%s*.log /home/%s/logs/
     """ % (DIR_DOI_PREP, REPO.lower(), REG_ID,
            DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] edit %s/10.12751/g-node.%s/doi.xml file 
      to include the actual size, the proper title and the proper license
 - move to local, create index.html from published doi.xml
     """ % (DIR_DOI, REG_ID)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] Create the DOI landing page in the local staging directory and move it to the DOI server
@@ -185,7 +190,7 @@ def print_part_pre_doi_full(fp):
     sudo chown root:root %s
     sudo chmod ugo+rX -R %s
     """ % (REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER, DIR_DOI, REG_ID, DIR_DOI, DIR_DOI)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 - https://doi.gin.g-node.org/10.12751/g-node.%s
@@ -193,7 +198,7 @@ def print_part_pre_doi_full(fp):
     -[ ] check all links
     -[ ] check zip download and suggested size
     """ % REG_ID
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] email TWachtler about the prepared DOI requests; use and forward the first registration request email
@@ -212,15 +217,20 @@ In the doi.xml the following changes were made and the index.html page has been 
 Best,
 %s
     """ % (ADMIN_NAME.split()[0])
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
     
     """
-    fp.write(text_block)
+    fip.write(text_block)
 
 
-def print_part_post_doi(fp):
+def print_part_post_doi(fip):
+    """
+    Print post-registration block to file.
+
+    :param fip: filepointer
+    """
     text_block = """
 # Part 2 - post registration
 -[ ] connect to DOI server (%s) and update `%s/index.html`; 
@@ -232,7 +242,7 @@ def print_part_post_doi(fp):
                             <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
                         </tr>
     """ % (DOI_SERVER, DIR_DOI, REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] update `%s/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.%s
@@ -242,7 +252,7 @@ def print_part_post_doi(fp):
 -[ ] /path/to/gindoid make-keyword-pages /path/to/DOImetadata/*.xml
 -[ ] scp -r keywords %s@%s:/home/%s/staging
     """ % (DIR_DOI, REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] connect to DOI server (%s) and move to staging ground
@@ -252,7 +262,7 @@ def print_part_post_doi(fp):
 -[ ] check landing page and keywords online: https://doi.gin.g-node.org
 -[ ] sudo rm %s/keywords_ -r
     """ % (DOI_SERVER, DIR_DOI, DIR_DOI, DIR_DOI, DIR_DOI)
-    fp.write(text_block)
+    fip.write(text_block)
 
     text_block = """
 -[ ] git commit all changes in %s
@@ -267,10 +277,15 @@ def print_part_post_doi(fp):
 -[ ] email to user (check below)
 -[ ] close all related issues on DOImetadata
     """ % (DIR_DOI, REG_ID, REG_ID, DIR_DOI, REG_ID, REG_ID)
-    fp.write(text_block)
+    fip.write(text_block)
 
 
-def print_part_ready_email(fp):
+def print_part_ready_email(fip):
+    """
+    Print DOI registration ready email block to file.
+
+    :param fip: filepointer
+    """
     text_block = """
 # Part 3 - eMail to user
 
@@ -301,7 +316,7 @@ Best regards,
   %s
   German Neuroinformatics Node
     """ % (EMAIL, REPO_OWN, REPO, USER_FULL_NAME, TITLE, REG_ID, REG_ID, ADMIN_NAME)
-    fp.write(text_block)
+    fip.write(text_block)
 
 
 OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
