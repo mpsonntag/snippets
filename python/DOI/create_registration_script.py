@@ -56,34 +56,38 @@ def print_part_pre_doi(fip):
 
     text_block = """
 
--[ ] gin server check annex content
+-[ ] GIN server (%s) check annex content
     - cd /gindata
     - ./annexcheck /gindata/gin-repositories/%s
-    """ % REPO_OWN.lower()
+    """ % (GIN_SERVER, REPO_OWN.lower())
     fip.write(text_block)
 
     text_block = """
--[ ] check the datacite content at https://gin.g-node.org/%s/%s
-    - check if the repo is eligible to be published on gin
-    - title is useful and has no typos
-    - license title, license content and license link match
+- check the datacite content at https://gin.g-node.org/%s/%s
+    -[ ] check if the repo is eligible to be published on gin
+    -[ ] title is useful and has no typos
+    -[ ] license title, license content and license link match
     """ % (REPO_OWN, REPO)
     fip.write(text_block)
 
     text_block = """
--[ ] check DOI directory content
-    -[ ] /data/doi/10.12751/g-node.%s
--[ ] remove `.htaccess`, check landing page and zip download
+- on the DOI server (%s) check the DOI directory content
+    -[ ] zip file created in /data/doi/10.12751/g-node.%s
+    -[ ] note zip size
+-[ ] remove `.htaccess`
 -[ ] access https://doi.gin.g-node.org/10.12751/g-node.%s
+    -[ ] check landing page in general
     -[ ] check title, license name
     -[ ] check all links
-    -[ ] check zip download and suggested size
+    -[ ] check zip download and compare size on server with size in `doi.xml`
 -[ ] on gin.g-node.org, log in with "doi" user and fork https://gin.g-node.org/%s/%s
-    """ % (REG_ID, REG_ID, REPO_OWN, REPO)
+    """ % (DOI_SERVER, REG_ID, REG_ID, REPO_OWN, REPO)
     fip.write(text_block)
 
     text_block = """
 -[ ] fetch content and upload to DOI repo
+     use screen to avoid large down- and uploads to be interrupted
+     use CTRL+a+d to switch out of screen sessions
     - cd %s/
     - screen -S %s
     - sudo su root
@@ -106,11 +110,14 @@ def print_part_pre_doi(fip):
 -[ ] cleanup directory once tagging is done
     -[ ] sudo rm %s/%s -r
     -[ ] sudo mv %s/%s*.log /home/%s/logs/
-    """ % (DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
+    """ % (DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP, REPO_OWN.lower(), SERVER_USER)
     fip.write(text_block)
 
     text_block = """
--[ ] email to TWachtler
+-[ ] email to TWachtler;
+     use and forward the first registration request email from G-Node/DOIMetadata
+
+To: gin@g-node.org
 
 Hi Thomas,
 
@@ -143,7 +150,9 @@ def print_part_pre_doi_full(fip):
     text_block = """
 -[ ] manually fork https://gin.g-node.org/%s/%s to DOI user
 -[ ] log on to the DOI server (%s) and move to %s
--[ ] fetch content and upload annex data to the DOI repo on gin
+-[ ] fetch content and upload to DOI repo
+     use screen to avoid large down- and uploads to be interrupted
+     use CTRL+a+d to switch out of screen sessions
     - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s-%s.log
@@ -201,7 +210,8 @@ def print_part_pre_doi_full(fip):
     fip.write(text_block)
 
     text_block = """
--[ ] email TWachtler about the prepared DOI requests; use and forward the first registration request email
+-[ ] email TWachtler about the prepared DOI requests;
+     use and forward the first registration request email from G-Node/DOIMetadata
 
 To: gin@g-node.org
 
