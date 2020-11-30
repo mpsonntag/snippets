@@ -29,6 +29,8 @@ ADMIN_NAME = "__FIRST LAST__"
 
 # DOI Server repo preparation directory
 DIR_DOI_PREP = "__DIR_DOI_PREP__"
+# DOI Server doi hosting directory
+DIR_DOI = "__DIR_DOI__"
 
 
 def print_part_pre_doi(fp):
@@ -149,8 +151,8 @@ def print_part_pre_doi_full(fp):
     - screen -S %s
     - sudo su root
     - sudo ./makezip %s
--[ ] sudo mv %s.zip /data/doi/10.12751/g-node.%s/10.12751_g-node.%s.zip
-    """ % (REPO_OWN.lower(), REPO.lower(), REPO.lower(), REG_ID, REG_ID)
+-[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
+    """ % (REPO_OWN.lower(), REPO.lower(), REPO.lower(), DIR_DOI, REG_ID, REG_ID)
     fp.write(text_block)
 
     text_block = """
@@ -169,16 +171,20 @@ def print_part_pre_doi_full(fp):
     fp.write(text_block)
 
     text_block = """
--[ ] edit /data/doi/10.12751/g-node.%s/doi.xml file 
+-[ ] edit %s/10.12751/g-node.%s/doi.xml file 
      to include the actual size, the proper title and the proper license
 - move to local, create index.html from published doi.xml
+    """ % (DIR_DOI, REG_ID)
+    fp.write(text_block)
+
+    text_block = """
 -[ ] Create the DOI landing page in the local staging directory and move it to the DOI server
     gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml
     scp index.html %s@%s:/home/%s/staging
-    sudo mv index.html /data/doi/10.12751/g-node.%s/index.html
-    sudo chown root:root /data/doi
-    sudo chmod ugo+rX -R /data/doi
-    """ % (REG_ID, REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER, REG_ID)
+    sudo mv index.html %s/10.12751/g-node.%s/index.html
+    sudo chown root:root %s
+    sudo chmod ugo+rX -R %s
+    """ % (REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER, DIR_DOI, REG_ID, DIR_DOI, DIR_DOI)
     fp.write(text_block)
 
     text_block = """
@@ -217,7 +223,7 @@ Best,
 def print_part_post_doi(fp):
     text_block = """
 # Part 2 - post registration
--[ ] connect to DOI server (%s) and update `/data/doi/index.html`; 
+-[ ] connect to DOI server (%s) and update `%s/index.html`; 
      make sure there are no unintentional line breaks!
                         <tr>
                             <td><a href="https://doi.org/10.12751/g-node.%s">%s</a>
@@ -225,42 +231,42 @@ def print_part_post_doi(fp):
                             <td>%s</td>
                             <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
                         </tr>
-    """ % (DOI_SERVER, REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
+    """ % (DOI_SERVER, DIR_DOI, REG_ID, TITLE, CITATION, REG_DATE, REG_ID, REG_ID)
     fp.write(text_block)
 
     text_block = """
--[ ] update `/data/doi/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.%s
--[ ] make sure github.com/G-Node/gin-doi is locally build and the `gindoid` executable available
--[ ] gin get G-Node/DOImetadata to or refresh DOIMetadata repo in local staging directory
+-[ ] update `%s/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.%s
+-[ ] make sure github.com/G-Node/gin-doi is locally built and the `gindoid` executable available
+-[ ] gin get G-Node/DOImetadata to local staging directory
 -[ ] create empty "keywords" directory and run the following from it
 -[ ] /path/to/gindoid make-keyword-pages /path/to/DOImetadata/*.xml
 -[ ] scp -r keywords %s@%s:/home/%s/staging
-    """ % (REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER)
+    """ % (DIR_DOI, REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER)
     fp.write(text_block)
 
     text_block = """
 -[ ] connect to DOI server (%s) and move to staging ground
 -[ ] sudo chown -R root:root keywords
--[ ] sudo mv /data/doi/keywords /data/doi/keywords_
--[ ] sudo mv keywords/ /data/doi
+-[ ] sudo mv %s/keywords %s/keywords_
+-[ ] sudo mv keywords/ %s
 -[ ] check landing page and keywords online: https://doi.gin.g-node.org
--[ ] sudo rm /data/doi/keywords_ -r
-    """ % DOI_SERVER
+-[ ] sudo rm %s/keywords_ -r
+    """ % (DOI_SERVER, DIR_DOI, DIR_DOI, DIR_DOI, DIR_DOI)
     fp.write(text_block)
 
     text_block = """
--[ ] git commit all changes in /data/doi
+-[ ] git commit all changes in %s
     sudo git add 10.12751/g-node.%s/
     sudo git commit -m "New dataset: 10.12751/g-node.%s"
 -[ ] commit keyword and index page changes
     sudo git add --all
     sudo git commit -m "Update index and keyword pages"
 -[ ] set zip to immutable
-    sudo chattr +i /data/doi/10.12751/g-node.%s/10.12751_g-node.%s.zip
+    sudo chattr +i %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
 -[ ] cleanup any leftover directories from previous versions of this dataset
 -[ ] email to user (check below)
 -[ ] close all related issues on DOImetadata
-    """ % (REG_ID, REG_ID, REG_ID, REG_ID)
+    """ % (DIR_DOI, REG_ID, REG_ID, DIR_DOI, REG_ID, REG_ID)
     fp.write(text_block)
 
 
