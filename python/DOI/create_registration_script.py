@@ -25,9 +25,13 @@ SERVER_USER = "__SERVER_USER__"
 # Full name of the person handling the registration; used in email template text
 ADMIN_NAME = "__FIRST LAST__"
 
-OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
-print("-- Writing to file %s" % OUT_FILE)
-with open(OUT_FILE, "w") as f:
+
+def print_part_one(f):
+    """
+    Print pre-registration block to file
+
+    :param f: filepointer
+    """
     text_block = """
 # Part 1 - pre registration
 
@@ -109,5 +113,11 @@ Best,
 %s
     """ % (ADMIN_NAME.split()[0])
     f.write(text_block)
+
+
+OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
+print("-- Writing to file %s" % OUT_FILE)
+with open(OUT_FILE, "w") as f:
+    print_part_one(f)
 
 print("-- Finished writing file %s" % OUT_FILE)
