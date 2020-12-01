@@ -265,6 +265,7 @@ def print_part_post_doi(fip):
     fip.write(text_block)
 
     text_block = """
+-[ ] ensure the data directory in 10.12751/g-node.%s/ has been removed
 -[ ] git commit all changes in %s
     sudo git add 10.12751/g-node.%s/
     sudo git commit -m "New dataset: 10.12751/g-node.%s"
@@ -275,7 +276,10 @@ def print_part_post_doi(fip):
     sudo chattr +i %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
 -[ ] cleanup any leftover directories from previous versions of this dataset
 -[ ] email to user (check below)
--[ ] close all related issues on DOImetadata""" % (DIR_DOI, REG_ID, REG_ID, DIR_DOI, REG_ID, REG_ID)
+-[ ] close all related issues on DOImetadata
+
+    Publication finished and user informed.""" % (REG_ID, DIR_DOI, REG_ID, REG_ID,
+                                                  DIR_DOI, REG_ID, REG_ID)
     fip.write(text_block)
 
 
@@ -287,6 +291,7 @@ def print_part_ready_email(fip):
     """
     text_block = """
 # Part 3 - eMail to user
+-[ ] make sure the publication reference text does apply, remove otherwise
 
 %s
 
