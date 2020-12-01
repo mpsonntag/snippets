@@ -31,6 +31,8 @@ ADMIN_NAME = "__FIRST LAST__"
 DIR_DOI_PREP = "__DIR_DOI_PREP__"
 # DOI Server doi hosting directory
 DIR_DOI = "__DIR_DOI__"
+# Local staging directory to create keyword pages
+DIR_LOCAL_STAGE = "__DIR_LOCAL_STAGE__"
 
 
 def print_part_pre_doi(fip):
@@ -250,8 +252,9 @@ def print_part_post_doi(fip):
 -[ ] make sure github.com/G-Node/gin-doi is locally built and the `gindoid` executable available
 -[ ] gin get G-Node/DOImetadata to local staging directory
 -[ ] create empty "keywords" directory and run the following from it
--[ ] /path/to/gindoid make-keyword-pages /path/to/DOImetadata/*.xml
--[ ] scp -r keywords %s@%s:/home/%s/staging""" % (DIR_DOI, REG_ID, SERVER_USER,
+-[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
+-[ ] scp -r keywords %s@%s:/home/%s/staging""" % (DIR_DOI, REG_ID, DIR_LOCAL_STAGE,
+                                                  DIR_LOCAL_STAGE, SERVER_USER,
                                                   DOI_SERVER, SERVER_USER)
     fip.write(text_block)
 
