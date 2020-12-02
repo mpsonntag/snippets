@@ -6,7 +6,7 @@ REG_ID = "__ID__"
 REPO_OWN = "__OWN__"
 # Repository name
 REPO = "__REPO__"
-# Format YYYY-MM-DD
+# DOI XML date issued; Format YYYY-MM-DD
 REG_DATE = "__DATE__"
 
 # DOI requestee email address
@@ -29,7 +29,7 @@ ADMIN_NAME = "__FIRST LAST__"
 
 # DOI Server repo preparation directory
 DIR_DOI_PREP = "__DIR_DOI_PREP__"
-# DOI Server doi hosting directory
+# DOI Server root doi hosting directory
 DIR_DOI = "__DIR_DOI__"
 # Local staging directory to create keyword pages
 DIR_LOCAL_STAGE = "__DIR_LOCAL_STAGE__"
@@ -74,14 +74,14 @@ def print_part_pre_doi(fip):
 - on the DOI server (%s) check the DOI directory content
     -[ ] zip file created in /data/doi/10.12751/g-node.%s
     -[ ] note zip size
--[ ] remove `.htaccess`
+-[ ] remove /data/doi/10.12751/g-node.%s/.htaccess
 -[ ] access https://doi.gin.g-node.org/10.12751/g-node.%s
     -[ ] check landing page in general
     -[ ] check title, license name
-    -[ ] check all links
+    -[ ] check all links that should work at this stage
     -[ ] check zip download and compare size on server with size in `doi.xml`
 -[ ] on gin.g-node.org, log in with "doi" user and fork https://gin.g-node.org/%s/%s""" % \
-                 (DOI_SERVER, REG_ID, REG_ID, REPO_OWN, REPO)
+                 (DOI_SERVER, REG_ID, REG_ID, REG_ID, REPO_OWN, REPO)
     fip.write(text_block)
 
     text_block = """
@@ -123,7 +123,9 @@ Hi Thomas,
 the repository should be prepared for the DOI registration.
 
 Best,
-%s""" % (ADMIN_NAME.split()[0])
+%s
+
+""" % (ADMIN_NAME.split()[0])
     fip.write(text_block)
 
 
@@ -199,7 +201,7 @@ def print_part_pre_doi_full(fip):
     text_block = """
 - https://doi.gin.g-node.org/10.12751/g-node.%s
     -[ ] check page access, size, title, license name
-    -[ ] check all links
+    -[ ] check all links that should work at this stage
     -[ ] check zip download and suggested size""" % REG_ID
     fip.write(text_block)
 
@@ -219,12 +221,9 @@ In the doi.xml the following changes were made and the index.html page has been 
 - Zip size was added.
 
 Best,
-%s""" % (ADMIN_NAME.split()[0])
-    fip.write(text_block)
+%s
 
-    text_block = """
-    
-    """
+""" % (ADMIN_NAME.split()[0])
     fip.write(text_block)
 
 
@@ -268,7 +267,7 @@ def print_part_post_doi(fip):
     fip.write(text_block)
 
     text_block = """
--[ ] ensure the data directory in 10.12751/g-node.%s/ has been removed
+-[ ] ensure the data directory in %s/10.12751/g-node.%s/ has been removed
 -[ ] git commit all changes in %s
     sudo git add 10.12751/g-node.%s/
     sudo git commit -m "New dataset: 10.12751/g-node.%s"
@@ -281,7 +280,7 @@ def print_part_post_doi(fip):
 -[ ] email to user (check below)
 -[ ] close all related issues on DOImetadata
 
-    Publication finished and user informed.""" % (REG_ID, DIR_DOI, REG_ID, REG_ID,
+    Publication finished and user informed.""" % (DIR_DOI, REG_ID, DIR_DOI, REG_ID, REG_ID,
                                                   DIR_DOI, REG_ID, REG_ID)
     fip.write(text_block)
 
