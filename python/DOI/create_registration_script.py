@@ -325,7 +325,14 @@ Best regards,
     fip.write(text_block)
 
 
-OUT_FILE = "%s_%s.md" % (REG_ID.lower(), REPO_OWN.lower())
+OWNER = REPO_OWN.lower()
+if len(REPO_OWN) > 5:
+    OWNER = OWNER[0:5]
+REPO_NAME = REPO.lower()
+if len(REPO) > 10:
+    REPO_NAME = REPO_NAME[0:10]
+
+OUT_FILE = "%s_%s_%s.md" % (REG_ID.lower(), OWNER, REPO_NAME)
 print("-- Writing to file %s" % OUT_FILE)
 with open(OUT_FILE, "w") as f:
     print_part_pre_doi(f)
