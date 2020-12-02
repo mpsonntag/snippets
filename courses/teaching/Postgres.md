@@ -1,6 +1,10 @@
 Postgres
 ========
 
+[Very good resource for postgres commands](
+https://www.postgresqltutorial.com/postgresql-cheat-sheet/
+)
+
 
 ## Install postgres (Linux)
 
