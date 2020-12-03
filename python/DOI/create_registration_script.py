@@ -6,7 +6,7 @@ REG_ID = "__ID__"
 REPO_OWN = "__OWN__"
 # Repository name
 REPO = "__REPO__"
-# DOI XML date issued; Format YYYY-MM-DD
+# date issued from doi.xml; Format YYYY-MM-DD
 REG_DATE = "__DATE__"
 
 # DOI requestee email address
@@ -66,6 +66,7 @@ def print_part_pre_doi(fip):
     text_block = """
 - check the datacite content at https://gin.g-node.org/%s/%s
     -[ ] check if the repo is eligible to be published on gin
+    -[ ] check if the resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
     -[ ] license title, license content and license link match""" % (REPO_OWN, REPO)
     fip.write(text_block)
@@ -296,6 +297,8 @@ def print_part_ready_email(fip):
 -[ ] make sure the publication reference text does apply, remove otherwise
 
 %s
+
+CC: gin@g-node.org
 
 Subject: DOI registration complete - %s/%s
 
