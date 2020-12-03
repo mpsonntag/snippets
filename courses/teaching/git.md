@@ -682,6 +682,16 @@ the head of branch_1:
     $[mergeBranch] git checkout branch_1 -- .
     $[mergeBranch] git diff mergeBranch..branch_1
 
+# Compare commits in two branches
+
+- show all commits that are in branchB but not in branchA; excluding merge commits; order is from oldest to newest
+
+        git checkout [branchA]
+        git cherry -v [branchB]
+
+- the same can be done without checking out a branch; this includes merge commits; order is from newest to oldest
+
+        git log [branchA]..[branchB] --oneline
 
 # Git tagging
 
