@@ -1378,6 +1378,11 @@ The base64 RFC with the nittygritty details can be found [here](https://tools.ie
 
 Find a nice introduction [here](http://www.linuxhowtos.org/C_C++/socket.htm)
 
+### Check automatic server updates 
+
+Check `less /var/log/unattended-upgrades/` whether automatic updates are run.
+These can cause problems on a server if they run unchecked.
+
 
 ## Customizing Ubuntu 16+
 
