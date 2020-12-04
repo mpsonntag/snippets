@@ -41,7 +41,7 @@ GIN_SERVER = "__GIN.SERVER__"
 DOI_SERVER = "__DOI.SERVER__"
 # User working on the DOI server
 SERVER_USER = "__SERVER_USER__"
-# Full name of the person handling the registration; used in email template text
+# Full name of the person handling the registration; used in email template texts
 ADMIN_NAME = "__FIRST LAST__"
 
 # DOI Server repo preparation directory
@@ -50,6 +50,35 @@ DIR_DOI_PREP = "__DIR_DOI_PREP__"
 DIR_DOI = "__DIR_DOI__"
 # Local staging directory to create keyword pages
 DIR_LOCAL_STAGE = "__DIR_LOCAL_STAGE__"
+
+# Default configuration struct containing non problematic test values
+CONF = {
+    "repo": {
+        "reg_id": "__ID__",         # Automated registration id from "10.12751/g-node.[id]"
+        "repo_own": "__OWN__",      # Repository owner
+        "repo": "__REPO__",         # Repository name
+        "reg_date": "__DATE__"      # Date issued from doi.xml; Format YYYY-MM-DD
+    }, "request": {
+        "email": "__MAIL__",                # DOI requestee email address
+        "user_full_name": "__USER_FULL__",  # DOI requestee full name
+        "title": "__TITLE__",               # DOI request title
+        # Author citation list; ideally analogous to the DOI landing page citation
+        "citation": "__CITATION__"
+    }, "server": {
+        # Full ssh access name of the server hosting the GIN server instance
+        "gin_server": "__GIN.SERVER__",\
+        # Full ssh access name of the server hosting the DOI server instance
+        "doi_server": "__DOI.SERVER__",
+        # User working on the DOI server
+        "server_user": "__SERVER_USER__",
+        # Full name of the person handling the registration; used in email template texts
+        "admin_name": "__FIRST LAST__"
+    }, "directories": {
+        "dir_doi_prep": "__DIR_DOI_PREP__",         # DOI Server repo preparation directory
+        "dir_doi": "__DIR_DOI__",                   # DOI Server root doi hosting directory
+        "dir_local_stage": "__DIR_LOCAL_STAGE__",   # Local staging dir to create keyword pages
+    }
+}
 
 
 def print_part_pre_doi(fip):
