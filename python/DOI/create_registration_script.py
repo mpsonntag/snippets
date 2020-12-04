@@ -388,15 +388,19 @@ def run():
     print("-- Finished writing file %s" % out_file)
 
 
-def update_conf(conf_file):
-    with open(conf_file, "r") as fip:
-        conf = y_load(fip, Loader=SafeLoader)
-
+def update_conf(conf):
     for val in conf:
         if val in CONF:
             CONF[val] = conf[val]
         else:
             print("-- WARN: ignoring unknown config field '%s'" % val)
+
+
+def update_conf_from_file(conf_file):
+    with open(conf_file, "r") as fip:
+        conf = y_load(fip, Loader=SafeLoader)
+
+    update_conf(conf)
 
 
 def parse_doi_xml(xml_string):
@@ -435,7 +439,7 @@ def parse_args(args):
             print("-- ERROR: Cannot open config file '%s'" % conf_file)
             exit(-1)
 
-        update_conf(conf_file)
+        update_conf_from_file(conf_file)
 
     if parser['--doi']:
         doi = parser['--doi']
@@ -447,6 +451,9 @@ def parse_args(args):
                   "make sure access is available.")
             exit(-1)
 
+        doi_conf = parse_doi_xml(res.text.encode())
+        update_conf(doi_conf)
+
     run()
 
 
@@ -456,7 +463,7 @@ if __name__ == "__main__":
     else:
         if os.path.isfile("conf.yaml"):
             print("-- Using local 'conf.yaml' file")
-            update_conf("conf.yaml")
+            update_conf_from_file("conf.yaml")
         else:
             print("-- Using script default config")
 
