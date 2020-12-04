@@ -1,0 +1,37 @@
+- repo:
+    # Automated registration id from "10.12751/g-node.[id]"
+    reg_id: "__Y_ID__"
+    # Repository owner
+    repo_own: "__Y_OWN__"
+    # Repository name
+    repo: "__Y_REPO__"
+    # date issued from doi.xml; Format YYYY-MM-DD
+    reg_date: "__Y_DATE__"
+
+- requestee:
+    # DOI requestee email address
+    email: "__Y_MAIL__"
+    # DOI requestee full name
+    user_full_name: "__Y_FULL__"
+    # DOI request title
+    title: "__Y_TITLE__"
+    # Author citation list; ideally analogous to the DOI landing page citation
+    citation: "__Y_CITATION__"
+
+- server:
+    # Full ssh access name of the server hosting the GIN server instance
+    gin_server: "__Y_GIN.SERVER__"
+    # Full ssh access name of the server hosting the DOI server instance
+    doi_server: "__Y_DOI.SERVER__"
+    # User working on the DOI server
+    server_user: "__Y_SERVER_USER__"
+    # Full name of the person handling the registration; used in email template texts
+    admin_name: "__Y_FIRST LAST__"
+
+- directories:
+    # DOI Server repo preparation directory
+    dir_doi_prep: "__Y_DIR_DOI_PREP__"
+    # DOI Server root doi hosting directory
+    dir_doi: "__Y_DIR_DOI__"
+    # Local staging directory to create keyword pages
+    dir_local_stage: "__Y_DIR_LOCAL_STAGE__"
