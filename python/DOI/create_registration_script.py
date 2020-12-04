@@ -2,15 +2,18 @@
 
 create_registration_script prints a checklist for DOI registrations.
 
-Usage: create_registration_script [--config CONFIG_FILE]
+Usage: create_registration_script [--config CONFIG_FILE] [--doi DOI_ID]
 
 Options:
     --config CONFIG_FILE    yaml file
+    --doi DOI_ID            unique string in a DOI e.g. g-node.eey1ny.
+                            Overrules config file entries.
     -h --help               Show this screen.
     --version               Show version.
 """
 
 import os
+import requests
 import sys
 
 from docopt import docopt
@@ -392,7 +395,7 @@ def update_conf(conf_file):
         if val in CONF:
             CONF[val] = conf[val]
         else:
-            print("-- Warning: ignoring unknown config field '%s'" % val)
+            print("-- WARN: ignoring unknown config field '%s'" % val)
 
 
 def parse_args(args):
@@ -400,10 +403,20 @@ def parse_args(args):
     if parser['--config']:
         conf_file = parser['--config']
         if not os.path.isfile(conf_file):
-            print("-- Error: Cannot open config file '%s'" % conf_file)
+            print("-- ERROR: Cannot open config file '%s'" % conf_file)
             exit(-1)
 
         update_conf(conf_file)
+
+    if parser['--doi']:
+        doi = parser['--doi']
+        print("-- Loading doi xml for '%s'" % doi)
+        doi_url = "https://doi.gin.g-node.org/10.12751/%s/doi.xml" % doi
+        res = requests.get(doi_url)
+        if res.status_code != 200:
+            print("-- ERROR: Status code (%s); could not access requested DOI; "
+                  "make sure access is available.")
+            exit(-1)
 
     run()
 
