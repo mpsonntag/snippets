@@ -18,51 +18,22 @@ from yaml import load as y_load
 from yaml import SafeLoader
 
 
-# -- Required fields
-
-# Automated registration id from "10.12751/g-node.[id]"
-REG_ID = "__ID__"
-# Repository owner
-REPO_OWN = "__OWN__"
-# Repository name
-REPO = "__REPO__"
-# date issued from doi.xml; Format YYYY-MM-DD
-REG_DATE = "__DATE__"
-
-# DOI requestee email address
-EMAIL = "__MAIL__"
-# DOI requestee full name
-USER_FULL_NAME = "__FULL__"
-# DOI request title
-TITLE = "__TITLE__"
-# Author citation list; ideally analogous to the DOI landing page citation
-CITATION = "__CITATION__"
-
-# Full ssh access name of the server hosting the GIN server instance
-GIN_SERVER = "__GIN.SERVER__"
-# Full ssh access name of the server hosting the DOI server instance
-DOI_SERVER = "__DOI.SERVER__"
-# User working on the DOI server
-SERVER_USER = "__SERVER_USER__"
-# Full name of the person handling the registration; used in email template texts
-ADMIN_NAME = "__FIRST LAST__"
-
-# DOI Server repo preparation directory
-DIR_DOI_PREP = "__DIR_DOI_PREP__"
-# DOI Server root doi hosting directory
-DIR_DOI = "__DIR_DOI__"
-# Local staging directory to create keyword pages
-DIR_LOCAL_STAGE = "__DIR_LOCAL_STAGE__"
-
 # Default configuration struct containing non problematic test values
 CONF = {
-        "reg_id": "__ID__",         # Automated registration id from "10.12751/g-node.[id]"
-        "repo_own": "__OWN__",      # Repository owner
-        "repo": "__REPO__",         # Repository name
-        "reg_date": "__DATE__",     # Date issued from doi.xml; Format YYYY-MM-DD
-        "email": "__MAIL__",                # DOI requestee email address
-        "user_full_name": "__USER_FULL__",  # DOI requestee full name
-        "title": "__TITLE__",               # DOI request title
+        # Automated registration id from "10.12751/g-node.[id]"
+        "reg_id": "__ID__",
+        # Repository owner
+        "repo_own": "__OWN__",
+        # Repository name
+        "repo": "__REPO__",
+        # Date issued from doi.xml; Format YYYY-MM-DD
+        "reg_date": "__DATE__",
+        # DOI requestee email address
+        "email": "__MAIL__",
+        # DOI requestee full name
+        "user_full_name": "__USER_FULL__",
+        # DOI request title
+        "title": "__TITLE__",
         # Author citation list; ideally analogous to the DOI landing page citation
         "citation": "__CITATION__",
         # Full ssh access name of the server hosting the GIN server instance
@@ -73,9 +44,12 @@ CONF = {
         "server_user": "__SERVER_USER__",
         # Full name of the person handling the registration; used in email template texts
         "admin_name": "__FIRST LAST__",
-        "dir_doi_prep": "__DIR_DOI_PREP__",         # DOI Server repo preparation directory
-        "dir_doi": "__DIR_DOI__",                   # DOI Server root doi hosting directory
-        "dir_local_stage": "__DIR_LOCAL_STAGE__"    # Local staging dir to create keyword pages
+        # DOI Server repo preparation directory
+        "dir_doi_prep": "__DIR_DOI_PREP__",
+        # DOI Server root doi hosting directory
+        "dir_doi": "__DIR_DOI__",
+        # Local staging dir to create keyword pages
+        "dir_local_stage": "__DIR_LOCAL_STAGE__"
 }
 
 
@@ -96,15 +70,16 @@ def print_part_pre_doi(fip):
     - DOI XML: %s:/data/doi/10.12751/g-node.%s/doi.xml
     - DOI target URL: https://doi.gin.g-node.org/10.12751/g-node.%s
 
-    - Request Date from DOI XML: %s""" % (REPO_OWN, REPO, USER_FULL_NAME, EMAIL,
-                                          DOI_SERVER, REG_ID, REG_ID, REG_DATE)
+    - Request Date from DOI XML: %s""" % (CONF["repo_own"], CONF["repo"], CONF["user_full_name"],
+                                          CONF["email"], CONF["doi_server"], CONF["reg_id"],
+                                          CONF["reg_id"], CONF["reg_date"])
     fip.write(text_block)
 
     text_block = """
 
 -[ ] GIN server (%s) check annex content
     - cd /gindata
-    - ./annexcheck /gindata/gin-repositories/%s""" % (GIN_SERVER, REPO_OWN.lower())
+    - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"], CONF["repo_own"].lower())
     fip.write(text_block)
 
     text_block = """
@@ -112,7 +87,7 @@ def print_part_pre_doi(fip):
     -[ ] check if the repo is eligible to be published on gin
     -[ ] check if the resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
-    -[ ] license title, license content and license link match""" % (REPO_OWN, REPO)
+    -[ ] license title, license content and license link match""" % (CONF["repo_own"], CONF["repo"])
     fip.write(text_block)
 
     text_block = """
@@ -126,7 +101,8 @@ def print_part_pre_doi(fip):
     -[ ] check all links that should work at this stage
     -[ ] check zip download and compare size on server with size in `doi.xml`
 -[ ] on gin.g-node.org, log in with "doi" user and fork https://gin.g-node.org/%s/%s""" % \
-                 (DOI_SERVER, REG_ID, REG_ID, REG_ID, REPO_OWN, REPO)
+                 (CONF["doi_server"], CONF["reg_id"], CONF["reg_id"],
+                  CONF["reg_id"], CONF["repo_own"], CONF["repo"])
     fip.write(text_block)
 
     text_block = """
@@ -136,8 +112,9 @@ def print_part_pre_doi(fip):
     - cd %s/
     - screen -S %s
     - sudo su root
-    - ./syncannex %s/%s > %s_%s.log""" % (DIR_DOI_PREP, REPO_OWN.lower(), REPO_OWN,
-                                          REPO, REPO_OWN.lower(), REPO)
+    - ./syncannex %s/%s > %s_%s.log""" % (CONF["dir_doi_prep"], CONF["repo_own"].lower(),
+                                          CONF["repo_own"], CONF["repo"], CONF["repo_own"].lower(),
+                                          CONF["repo"])
     fip.write(text_block)
 
     text_block = """
@@ -147,14 +124,16 @@ def print_part_pre_doi(fip):
     -[ ] sudo gin git status
     -[ ] sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.%s
-    -[ ] sudo gin git push --tags origin""" % (DIR_DOI_PREP, REPO.lower(), REG_ID)
+    -[ ] sudo gin git push --tags origin""" % (CONF["dir_doi_prep"], CONF["repo"].lower(),
+                                               CONF["reg_id"])
     fip.write(text_block)
 
     text_block = """
 -[ ] cleanup directory once tagging is done
     -[ ] sudo rm %s/%s -r
-    -[ ] sudo mv %s/%s*.log /home/%s/logs/""" % (DIR_DOI_PREP, REPO.lower(), DIR_DOI_PREP,
-                                                 REPO_OWN.lower(), SERVER_USER)
+    -[ ] sudo mv %s/%s*.log /home/%s/logs/""" % (CONF["dir_doi_prep"], CONF["repo"].lower(),
+                                                 CONF["dir_doi_prep"], CONF["repo_own"].lower(),
+                                                 CONF["server_user"])
     fip.write(text_block)
 
     text_block = """
@@ -170,7 +149,7 @@ the repository should be prepared for the DOI registration.
 Best,
 %s
 
-""" % (ADMIN_NAME.split()[0])
+""" % (CONF["admin_name"].split()[0])
     fip.write(text_block)
 
 
@@ -189,7 +168,7 @@ def print_part_pre_doi_full(fip):
     - title is useful and has no typos
     - license title, license content and license link match
 -[ ] log onto https://gin.g-node.org using the "doi" user (check G-Node vault for pw)""" % \
-                 (GIN_SERVER, REPO_OWN, REPO_OWN, REPO)
+                 (CONF["gin_server"], CONF["repo_own"], CONF["repo_own"], CONF["repo"])
     fip.write(text_block)
 
     text_block = """
@@ -200,8 +179,10 @@ def print_part_pre_doi_full(fip):
      use CTRL+a+d to switch out of screen sessions
     - screen -S %s
     - sudo su root
-    - ./syncannex %s/%s > %s-%s.log""" % (REPO_OWN, REPO, DOI_SERVER, DIR_DOI_PREP,
-                                          REPO_OWN.lower(), REPO_OWN, REPO, REPO_OWN.lower(), REPO)
+    - ./syncannex %s/%s > %s-%s.log""" % (CONF["repo_own"], CONF["repo"], CONF["doi_server"],
+                                          CONF["dir_doi_prep"], CONF["repo_own"].lower(),
+                                          CONF["repo_own"], CONF["repo"], CONF["repo_own"].lower(),
+                                          CONF["repo"])
     fip.write(text_block)
 
     text_block = """
@@ -210,7 +191,8 @@ def print_part_pre_doi_full(fip):
     - sudo su root
     - sudo ./makezip %s
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % \
-                 (REPO_OWN.lower(), REPO.lower(), REPO.lower(), DIR_DOI, REG_ID, REG_ID)
+                 (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["repo"].lower(),
+                  CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
     fip.write(text_block)
 
     text_block = """
@@ -223,14 +205,16 @@ def print_part_pre_doi_full(fip):
     -[ ] sudo gin git push --tags origin
 -[ ] clean up directory once tagging is done
     -[ ] sudo rm %s/%s -r
-    -[ ] sudo mv %s/%s*.log /home/%s/logs/""" % (DIR_DOI_PREP, REPO.lower(), REG_ID, DIR_DOI_PREP,
-                                                 REPO.lower(), DIR_DOI_PREP, REPO_OWN, SERVER_USER)
+    -[ ] sudo mv %s/%s*.log /home/%s/logs/""" % (CONF["dir_doi_prep"], CONF["repo"].lower(),
+                                                 CONF["reg_id"], CONF["dir_doi_prep"],
+                                                 CONF["repo"].lower(), CONF["dir_doi_prep"],
+                                                 CONF["repo_own"], CONF["server_user"])
     fip.write(text_block)
 
     text_block = """
 -[ ] edit %s/10.12751/g-node.%s/doi.xml file 
      to include the actual size, the proper title and the proper license
-- move to local, create index.html from published doi.xml""" % (DIR_DOI, REG_ID)
+- move to local, create index.html from published doi.xml""" % (CONF["dir_doi"], CONF["reg_id"])
     fip.write(text_block)
 
     text_block = """
@@ -239,15 +223,16 @@ def print_part_pre_doi_full(fip):
     scp index.html %s@%s:/home/%s/staging
     sudo mv index.html %s/10.12751/g-node.%s/index.html
     sudo chown root:root %s
-    sudo chmod ugo+rX -R %s""" % (REG_ID, SERVER_USER, DOI_SERVER, SERVER_USER,
-                                  DIR_DOI, REG_ID, DIR_DOI, DIR_DOI)
+    sudo chmod ugo+rX -R %s""" % (CONF["reg_id"], CONF["server_user"], CONF["doi_server"],
+                                  CONF["server_user"], CONF["dir_doi"], CONF["reg_id"],
+                                  CONF["dir_doi"], CONF["dir_doi"])
     fip.write(text_block)
 
     text_block = """
 - https://doi.gin.g-node.org/10.12751/g-node.%s
     -[ ] check page access, size, title, license name
     -[ ] check all links that should work at this stage
-    -[ ] check zip download and suggested size""" % REG_ID
+    -[ ] check zip download and suggested size""" % CONF["reg_id"]
     fip.write(text_block)
 
     text_block = """
@@ -268,7 +253,7 @@ In the doi.xml the following changes were made and the index.html page has been 
 Best,
 %s
 
-""" % (ADMIN_NAME.split()[0])
+""" % (CONF["admin_name"].split()[0])
     fip.write(text_block)
 
 
@@ -287,8 +272,9 @@ def print_part_post_doi(fip):
                             <br>%s</td>
                             <td>%s</td>
                             <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
-                        </tr>""" % (DOI_SERVER, DIR_DOI, REG_ID, TITLE, CITATION,
-                                    REG_DATE, REG_ID, REG_ID)
+                        </tr>""" % (CONF["doi_server"], CONF["dir_doi"], CONF["reg_id"],
+                                    CONF["title"], CONF["citation"], CONF["reg_date"],
+                                    CONF["reg_id"], CONF["reg_id"])
     fip.write(text_block)
 
     text_block = """
@@ -297,9 +283,9 @@ def print_part_post_doi(fip):
 -[ ] gin get G-Node/DOImetadata to local staging directory
 -[ ] create empty "keywords" directory and run the following from it
 -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
--[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (DIR_DOI, REG_ID, DIR_LOCAL_STAGE,
-                                                     DIR_LOCAL_STAGE, DIR_LOCAL_STAGE,
-                                                     SERVER_USER, DOI_SERVER, SERVER_USER)
+-[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (
+        CONF["dir_doi"], CONF["reg_id"], CONF["dir_local_stage"], CONF["dir_local_stage"],
+        CONF["dir_local_stage"], CONF["server_user"], CONF["doi_server"], CONF["server_user"])
     fip.write(text_block)
 
     text_block = """
@@ -308,8 +294,9 @@ def print_part_post_doi(fip):
 -[ ] sudo mv %s/keywords %s/keywords_
 -[ ] sudo mv /home/%s/staging/keywords/ %s
 -[ ] check landing page and keywords online: https://doi.gin.g-node.org
--[ ] sudo rm %s/keywords_ -r""" % (DOI_SERVER, SERVER_USER, DIR_DOI,
-                                   DIR_DOI, SERVER_USER, DIR_DOI, DIR_DOI)
+-[ ] sudo rm %s/keywords_ -r""" % (
+        CONF["doi_server"], CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"],
+        CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"])
     fip.write(text_block)
 
     text_block = """
@@ -329,8 +316,9 @@ def print_part_post_doi(fip):
 -[ ] email to user (check below)
 -[ ] close all related issues on DOImetadata
 
-    Publication finished and user informed.""" % (REPO.lower(), DIR_DOI, REG_ID, DIR_DOI, REG_ID,
-                                                  REG_ID, DIR_DOI, REG_ID, REG_ID, DIR_DOI)
+    Publication finished and user informed.""" % (
+        CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
+        CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
     fip.write(text_block)
 
 
@@ -372,19 +360,20 @@ The latter will result in a link in the Datacite database to your publication an
 Best regards,
   %s
   German Neuroinformatics Node
-""" % (EMAIL, REPO_OWN, REPO, USER_FULL_NAME, TITLE, REG_ID, REG_ID, ADMIN_NAME)
+""" % (CONF["email"], CONF["repo_own"], CONF["repo"], CONF["user_full_name"], CONF["title"],
+       CONF["reg_id"], CONF["reg_id"], CONF["admin_name"])
     fip.write(text_block)
 
 
 def run():
-    owner = REPO_OWN.lower()
-    if len(REPO_OWN) > 5:
+    owner = CONF["repo_own"].lower()
+    if len(CONF["repo_own"]) > 5:
         owner = owner[0:5]
-    repo_name = REPO.lower()
-    if len(REPO) > 10:
+    repo_name = CONF["repo"].lower()
+    if len(CONF["repo"]) > 10:
         repo_name = repo_name[0:10]
 
-    out_file = "%s_%s_%s.md" % (REG_ID.lower(), owner, repo_name)
+    out_file = "%s_%s_%s.md" % (CONF["reg_id"].lower(), owner, repo_name)
     print("-- Writing to file %s" % out_file)
     with open(out_file, "w") as fip:
         print_part_pre_doi(fip)
@@ -399,12 +388,11 @@ def update_conf(conf_file):
     with open(conf_file, "r") as fip:
         conf = y_load(fip, Loader=SafeLoader)
 
-        print(conf)
-        for val in conf:
-            if val in CONF:
-                CONF[val] = conf[val]
-            else:
-                print("-- Warning: ignoring unknown config field '%s'" % val)
+    for val in conf:
+        if val in CONF:
+            CONF[val] = conf[val]
+        else:
+            print("-- Warning: ignoring unknown config field '%s'" % val)
 
 
 def parse_args(args):
