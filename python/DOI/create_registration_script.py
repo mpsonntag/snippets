@@ -14,6 +14,9 @@ import os
 import sys
 
 from docopt import docopt
+from yaml import load as y_load
+from yaml import SafeLoader
+
 
 # -- Required fields
 
@@ -412,9 +415,15 @@ def update_conf(conf):
 def parse_args(args):
     parser = docopt(__doc__, argv=args, version="0.1.0")
     if parser['--config']:
-        if not os.path.isfile(parser['--config']):
-            print("Cannot open config file '%s'" % parser['--config'])
+        conf_file = parser['--config']
+        if not os.path.isfile(conf_file):
+            print("Cannot open config file '%s'" % conf_file)
             exit(-1)
+
+        with open(conf_file, "r") as fip:
+            conf = y_load(fip, Loader=SafeLoader)
+
+        update_conf(conf)
 
     run()
 
