@@ -17,6 +17,7 @@ import requests
 import sys
 
 from docopt import docopt
+from lxml import etree
 from yaml import load as y_load
 from yaml import SafeLoader
 
@@ -396,6 +397,34 @@ def update_conf(conf_file):
             CONF[val] = conf[val]
         else:
             print("-- WARN: ignoring unknown config field '%s'" % val)
+
+
+def parse_doi_xml(xml_string):
+    doi_conf = {}
+    dsns = "{http://datacite.org/schema/kernel-4}"
+
+    root = etree.fromstring(xml_string)
+    # Handle title
+    title = root.find("%stitles" % dsns).find("%stitle" % dsns).text
+    if title:
+        doi_conf["title"] = title
+
+    # Handle date
+    date = root.find("%sdates" % dsns).find("%sdate" % dsns).text
+    if date:
+        doi_conf["reg_date"] = date
+
+    # Handle citation
+    citation = ""
+    creators = root.find("%screators" % dsns).findall("%screator" % dsns)
+    for creator in creators:
+        curr = creator.find("%screatorName" % dsns).text
+        curr = curr.replace(",", "").split(" ")
+        citation = "%s, %s %s" % (citation, curr[0], curr[-1][0])
+    if citation:
+        doi_conf["citation"] = citation
+
+    return doi_conf
 
 
 def parse_args(args):
