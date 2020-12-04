@@ -253,36 +253,40 @@ def print_part_post_doi(fip):
 -[ ] gin get G-Node/DOImetadata to local staging directory
 -[ ] create empty "keywords" directory and run the following from it
 -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
--[ ] scp -r keywords %s@%s:/home/%s/staging""" % (DIR_DOI, REG_ID, DIR_LOCAL_STAGE,
-                                                  DIR_LOCAL_STAGE, SERVER_USER,
-                                                  DOI_SERVER, SERVER_USER)
+-[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (DIR_DOI, REG_ID, DIR_LOCAL_STAGE,
+                                                     DIR_LOCAL_STAGE, DIR_LOCAL_STAGE,
+                                                     SERVER_USER, DOI_SERVER, SERVER_USER)
     fip.write(text_block)
 
     text_block = """
--[ ] connect to DOI server (%s) and move to staging ground
--[ ] sudo chown -R root:root keywords
+-[ ] connect to DOI server (%s)
+-[ ] sudo chown -R root:root /home/%s/staging/keywords
 -[ ] sudo mv %s/keywords %s/keywords_
--[ ] sudo mv keywords/ %s
+-[ ] sudo mv /home/%s/staging/keywords/ %s
 -[ ] check landing page and keywords online: https://doi.gin.g-node.org
--[ ] sudo rm %s/keywords_ -r""" % (DOI_SERVER, DIR_DOI, DIR_DOI, DIR_DOI, DIR_DOI)
+-[ ] sudo rm %s/keywords_ -r""" % (DOI_SERVER, SERVER_USER, DIR_DOI,
+                                   DIR_DOI, SERVER_USER, DIR_DOI, DIR_DOI)
     fip.write(text_block)
 
     text_block = """
--[ ] ensure the data directory in %s/10.12751/g-node.%s/ has been removed
+-[ ] ensure the data directory "%s" in %s/10.12751/g-node.%s/ has been removed
 -[ ] git commit all changes in %s
     sudo git add 10.12751/g-node.%s/
     sudo git commit -m "New dataset: 10.12751/g-node.%s"
 -[ ] commit keyword and index page changes
-    sudo git add --all
+    sudo git add keywords/
+    sudo git add index.html
+    sudo git add urls.txt
     sudo git commit -m "Update index and keyword pages"
 -[ ] set zip to immutable
     sudo chattr +i %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
--[ ] cleanup any leftover directories from previous versions of this dataset
+-[ ] cleanup any leftover directories from previous versions 
+     of this dataset in the %s/10.12751/ directory
 -[ ] email to user (check below)
 -[ ] close all related issues on DOImetadata
 
-    Publication finished and user informed.""" % (DIR_DOI, REG_ID, DIR_DOI, REG_ID, REG_ID,
-                                                  DIR_DOI, REG_ID, REG_ID)
+    Publication finished and user informed.""" % (REPO.lower(), DIR_DOI, REG_ID, DIR_DOI, REG_ID,
+                                                  REG_ID, DIR_DOI, REG_ID, REG_ID, DIR_DOI)
     fip.write(text_block)
 
 
@@ -313,7 +317,7 @@ The DOI for the dataset is
   https://doi.org/10.12751/g-node.%s
 
 It can be viewed at
-  https://doi.gin.g-node.org/10.12751/g-node.%s.
+  https://doi.gin.g-node.org/10.12751/g-node.%s
 
 If this is data supplementing a publication and if you haven't done so already, we kindly request that you:
 - include the new DOI of this dataset in the publication as a reference, and
@@ -323,8 +327,8 @@ The latter will result in a link in the Datacite database to your publication an
 
 Best regards,
   %s
-  German Neuroinformatics Node""" % (EMAIL, REPO_OWN, REPO, USER_FULL_NAME,
-                                     TITLE, REG_ID, REG_ID, ADMIN_NAME)
+  German Neuroinformatics Node
+""" % (EMAIL, REPO_OWN, REPO, USER_FULL_NAME, TITLE, REG_ID, REG_ID, ADMIN_NAME)
     fip.write(text_block)
 
 
