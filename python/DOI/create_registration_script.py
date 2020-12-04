@@ -2,11 +2,12 @@
 
 create_registration_script prints a checklist for DOI registrations.
 
-Usage: create_registration_script [--config CONFIG_FILE] [--doi DOI_ID]
+Usage: create_registration_script [--config CONFIG_FILE] [--doi]
 
 Options:
     --config CONFIG_FILE    yaml file
-    --doi DOI_ID            unique string in a DOI e.g. g-node.eey1ny.
+    --doi                   fetch 'title', 'date' and 'citation' from doi.gin.g-node.org.
+                            The doi.xml file has to be accessible.
                             Overrules config file entries.
     -h --help               Show this screen.
     --version               Show version.
@@ -440,15 +441,17 @@ def parse_args(args):
             exit(-1)
 
         update_conf_from_file(conf_file)
+    elif os.path.isfile("conf.yaml"):
+        print("-- Using local 'conf.yaml' file")
+        update_conf_from_file("conf.yaml")
 
     if parser['--doi']:
-        doi = parser['--doi']
-        print("-- Loading doi xml for '%s'" % doi)
-        doi_url = "https://doi.gin.g-node.org/10.12751/%s/doi.xml" % doi
+        print("-- Loading doi xml for 'g-node.%s'" % CONF["reg_id"])
+        doi_url = "https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml" % CONF["reg_id"]
         res = requests.get(doi_url)
         if res.status_code != 200:
             print("-- ERROR: Status code (%s); could not access requested DOI; "
-                  "make sure access is available.")
+                  "make sure access is available." % res.status_code)
             exit(-1)
 
         doi_conf = parse_doi_xml(res.text.encode())
