@@ -56,31 +56,26 @@ DIR_LOCAL_STAGE = "__DIR_LOCAL_STAGE__"
 
 # Default configuration struct containing non problematic test values
 CONF = {
-    "repo": {
         "reg_id": "__ID__",         # Automated registration id from "10.12751/g-node.[id]"
         "repo_own": "__OWN__",      # Repository owner
         "repo": "__REPO__",         # Repository name
-        "reg_date": "__DATE__"      # Date issued from doi.xml; Format YYYY-MM-DD
-    }, "request": {
+        "reg_date": "__DATE__",     # Date issued from doi.xml; Format YYYY-MM-DD
         "email": "__MAIL__",                # DOI requestee email address
         "user_full_name": "__USER_FULL__",  # DOI requestee full name
         "title": "__TITLE__",               # DOI request title
         # Author citation list; ideally analogous to the DOI landing page citation
-        "citation": "__CITATION__"
-    }, "server": {
+        "citation": "__CITATION__",
         # Full ssh access name of the server hosting the GIN server instance
-        "gin_server": "__GIN.SERVER__",\
+        "gin_server": "__GIN.SERVER__",
         # Full ssh access name of the server hosting the DOI server instance
         "doi_server": "__DOI.SERVER__",
         # User working on the DOI server
         "server_user": "__SERVER_USER__",
         # Full name of the person handling the registration; used in email template texts
-        "admin_name": "__FIRST LAST__"
-    }, "directories": {
+        "admin_name": "__FIRST LAST__",
         "dir_doi_prep": "__DIR_DOI_PREP__",         # DOI Server repo preparation directory
         "dir_doi": "__DIR_DOI__",                   # DOI Server root doi hosting directory
-        "dir_local_stage": "__DIR_LOCAL_STAGE__",   # Local staging dir to create keyword pages
-    }
+        "dir_local_stage": "__DIR_LOCAL_STAGE__"    # Local staging dir to create keyword pages
 }
 
 
@@ -404,15 +399,12 @@ def update_conf(conf_file):
     with open(conf_file, "r") as fip:
         conf = y_load(fip, Loader=SafeLoader)
 
-    for category in conf:
-        if category in CONF:
-            for val in conf[category]:
-                if val in CONF[category]:
-                    CONF[category][val] = conf[category][val]
-                else:
-                    print("-- Warning: ignoring unknown config field '%s/%s'" % (category, val))
-        else:
-            print("-- Warning: ignoring unknown config category '%s'" % category)
+        print(conf)
+        for val in conf:
+            if val in CONF:
+                CONF[val] = conf[val]
+            else:
+                print("-- Warning: ignoring unknown config field '%s'" % val)
 
 
 def parse_args(args):
