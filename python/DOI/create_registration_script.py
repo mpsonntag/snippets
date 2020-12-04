@@ -397,6 +397,18 @@ def run():
     print("-- Finished writing file %s" % out_file)
 
 
+def update_conf(conf):
+    for category in conf:
+        if category in CONF:
+            for val in conf[category]:
+                if val in CONF[category]:
+                    CONF[category][val] = conf[category][val]
+                else:
+                    print("-- Warning: ignoring unknown config field '%s/%s'" % (category, val))
+        else:
+            print("-- Warning: ignoring unknown config category '%s'" % category)
+
+
 def parse_args(args):
     parser = docopt(__doc__, argv=args, version="0.1.0")
     if parser['--config']:
