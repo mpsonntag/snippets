@@ -1,3 +1,15 @@
+"""create_registration_script
+
+create_registration_script prints a checklist for DOI registrations.
+
+Usage: create_registration_script [--config CONFIG_FILE]
+
+Options:
+    --config CONFIG_FILE    yaml file
+    -h --help               Show this screen.
+    --version               Show version.
+"""
+
 import os
 import sys
 
