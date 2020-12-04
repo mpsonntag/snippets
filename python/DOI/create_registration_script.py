@@ -1,3 +1,8 @@
+import os
+import sys
+
+from docopt import docopt
+
 # -- Required fields
 
 # Automated registration id from "10.12751/g-node.[id]"
@@ -332,19 +337,37 @@ Best regards,
     fip.write(text_block)
 
 
-OWNER = REPO_OWN.lower()
-if len(REPO_OWN) > 5:
-    OWNER = OWNER[0:5]
-REPO_NAME = REPO.lower()
-if len(REPO) > 10:
-    REPO_NAME = REPO_NAME[0:10]
+def run():
+    owner = REPO_OWN.lower()
+    if len(REPO_OWN) > 5:
+        owner = owner[0:5]
+    repo_name = REPO.lower()
+    if len(REPO) > 10:
+        repo_name = repo_name[0:10]
 
-OUT_FILE = "%s_%s_%s.md" % (REG_ID.lower(), OWNER, REPO_NAME)
-print("-- Writing to file %s" % OUT_FILE)
-with open(OUT_FILE, "w") as f:
-    print_part_pre_doi(f)
-    print_part_pre_doi_full(f)
-    print_part_post_doi(f)
-    print_part_ready_email(f)
+    out_file = "%s_%s_%s.md" % (REG_ID.lower(), owner, repo_name)
+    print("-- Writing to file %s" % out_file)
+    with open(out_file, "w") as fip:
+        print_part_pre_doi(fip)
+        print_part_pre_doi_full(fip)
+        print_part_post_doi(fip)
+        print_part_ready_email(fip)
 
-print("-- Finished writing file %s" % OUT_FILE)
+    print("-- Finished writing file %s" % out_file)
+
+
+def parse_args(args):
+    parser = docopt(__doc__, argv=args, version="0.1.0")
+    if parser['--config']:
+        if not os.path.isfile(parser['--config']):
+            print("Cannot open config file '%s'" % parser['--config'])
+            exit(-1)
+
+    run()
+
+
+if __name__ == "__main__":
+    if sys.argv[1:]:
+        parse_args(sys.argv[1:])
+    else:
+        run()
