@@ -400,7 +400,10 @@ def run():
     print("-- Finished writing file %s" % out_file)
 
 
-def update_conf(conf):
+def update_conf(conf_file):
+    with open(conf_file, "r") as fip:
+        conf = y_load(fip, Loader=SafeLoader)
+
     for category in conf:
         if category in CONF:
             for val in conf[category]:
@@ -417,13 +420,10 @@ def parse_args(args):
     if parser['--config']:
         conf_file = parser['--config']
         if not os.path.isfile(conf_file):
-            print("Cannot open config file '%s'" % conf_file)
+            print("-- Error: Cannot open config file '%s'" % conf_file)
             exit(-1)
 
-        with open(conf_file, "r") as fip:
-            conf = y_load(fip, Loader=SafeLoader)
-
-        update_conf(conf)
+        update_conf(conf_file)
 
     run()
 
@@ -432,4 +432,10 @@ if __name__ == "__main__":
     if sys.argv[1:]:
         parse_args(sys.argv[1:])
     else:
+        if os.path.isfile("conf.yaml"):
+            print("-- Using local 'conf.yaml' file")
+            update_conf("conf.yaml")
+        else:
+            print("-- Using script default config")
+
         run()
