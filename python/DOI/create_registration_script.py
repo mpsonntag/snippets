@@ -14,11 +14,12 @@ Options:
 """
 
 import os
-import requests
 import sys
 
 from datetime import datetime
 from uuid import uuid4
+
+import requests
 
 from docopt import docopt
 from lxml import etree
@@ -342,8 +343,8 @@ def print_part_post_doi(fip):
   -[ ] create empty "keywords" directory and run the following from it
   -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
   -[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (
-        CONF["dir_doi"], CONF["reg_id"], CONF["dir_local_stage"], CONF["dir_local_stage"],
-        CONF["dir_local_stage"], CONF["server_user"], CONF["doi_server"], CONF["server_user"])
+      CONF["dir_doi"], CONF["reg_id"], CONF["dir_local_stage"], CONF["dir_local_stage"],
+      CONF["dir_local_stage"], CONF["server_user"], CONF["doi_server"], CONF["server_user"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
@@ -353,8 +354,8 @@ def print_part_post_doi(fip):
   -[ ] sudo mv /home/%s/staging/keywords/ %s
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
   -[ ] sudo rm %s/keywords_ -r""" % (
-        CONF["doi_server"], CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"],
-        CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"])
+      CONF["doi_server"], CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"],
+      CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
@@ -512,7 +513,7 @@ def parse_repo_datacite():
     if res.status_code != 200:
         print("-- ERROR: Status code (%s); could not access datacite file.\n"
               "\tMake sure to fill in 'title' and 'citation' in the checklist." % res.status_code)
-        return
+        return {}
 
     datacite = y_load(res.text, Loader=SafeLoader)
 
