@@ -63,6 +63,27 @@ CONF = {
 }
 
 
+def text_pre_check_annex():
+    text_block = """
+    -[ ] GIN server (%s) check annex content
+        - cd /gindata
+        - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"],
+                                                          CONF["repo_own"].lower())
+    return text_block
+
+
+def text_pre_check_datacite():
+    text_block = """
+    - check the datacite content at https://gin.g-node.org/%s/%s
+        -[ ] repo is eligible to be published on gin
+        -[ ] resourceType e.g. Dataset fits the repository
+        -[ ] title is useful and has no typos
+        -[ ] license title, license content and license link match""" % (
+        CONF["repo_own"], CONF["repo"])
+
+    return text_block
+
+
 def print_part_pre_doi(fip):
     """
     Print pre-registration block to file
@@ -89,18 +110,13 @@ def print_part_pre_doi(fip):
 
     text_block = """
 
-## Semi-automated DOI
--[ ] GIN server (%s) check annex content
-    - cd /gindata
-    - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"], CONF["repo_own"].lower())
+    ## Semi-automated DOI"""
     fip.write(text_block.encode("utf-8"))
 
-    text_block = """
-- check the datacite content at https://gin.g-node.org/%s/%s
-    -[ ] check if the repo is eligible to be published on gin
-    -[ ] check if the resourceType e.g. Dataset fits the repository
-    -[ ] title is useful and has no typos
-    -[ ] license title, license content and license link match""" % (CONF["repo_own"], CONF["repo"])
+    text_block = text_pre_check_annex()
+    fip.write(text_block.encode("utf-8"))
+
+    text_block = text_pre_check_datacite()
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
@@ -173,18 +189,22 @@ def print_part_pre_doi_full(fip):
     :param fip: filepointer
     """
     text_block = """
+
 ## Full DOI
--[ ] check that the annex content is fully available on the gin server (%s)
-    - cd /gindata
-    - ./annexcheck /gindata/gin-repositories/%s
--[ ] check the datacite content at https://gin.g-node.org/%s/%s
-    - title is useful and has no typos
-    - license title, license content and license link match
--[ ] log onto https://gin.g-node.org using the "doi" user (check G-Node vault for pw)""" % \
-                 (CONF["gin_server"], CONF["repo_own"], CONF["repo_own"], CONF["repo"])
+- This usually has to be done when
+  a) the semi-automated process has failed or
+  b) user requested changes but need to keep the originally issued DOI
+"""
+    fip.write(text_block.encode("utf-8"))
+
+    text_block = text_pre_check_annex()
+    fip.write(text_block.encode("utf-8"))
+
+    text_block = text_pre_check_datacite()
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
+-[ ] log onto https://gin.g-node.org using the "doi" user (check G-Node vault for pw)
 -[ ] manually fork https://gin.g-node.org/%s/%s to DOI user
 -[ ] log on to the DOI server (%s) and move to %s
 -[ ] fetch content and upload to DOI repo
@@ -203,6 +223,8 @@ def print_part_pre_doi_full(fip):
     - screen -S %s
     - sudo su root
     - sudo ./makezip %s
+-[ ] make sure there is no zip file in the target directory left 
+     from the previous registration process.
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % \
                  (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["repo"].lower(),
                   CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
@@ -225,9 +247,11 @@ def print_part_pre_doi_full(fip):
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
--[ ] edit %s/10.12751/g-node.%s/doi.xml file 
-     to include the actual size, the proper title and the proper license
-- move to local, create index.html from published doi.xml""" % (CONF["dir_doi"], CONF["reg_id"])
+-[ ] edit %s/10.12751/g-node.%s/doi.xml file to reflect any changes in the repo datacite.yml file.
+    - include the actual size of the zip file
+    - check proper title and proper license
+    - any added or updated funding or reference information
+    - any changes to the 'resourceType'""" % (CONF["dir_doi"], CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
