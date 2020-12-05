@@ -268,14 +268,17 @@ def print_part_pre_doi_full(fip):
 
     text_block = """
 
--[ ] create the DOI landing page in the local staging directory and move it to the DOI server
+- remove the .htaccess file
+- create the DOI landing page in the local staging directory and move it to the DOI server
+    -[ ] cd %s
     -[ ] gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml
-    -[ ] scp index.html %s@%s:/home/%s/staging
-    -[ ] sudo mv index.html %s/10.12751/g-node.%s/index.html
-    -[ ] sudo chown root:root %s
-    -[ ] sudo chmod ugo+rX -R %s""" % (CONF["reg_id"], CONF["server_user"], CONF["doi_server"],
-                                       CONF["server_user"], CONF["dir_doi"], CONF["reg_id"],
-                                       CONF["dir_doi"], CONF["dir_doi"])
+    -[ ] scp %s/10.12751/g-node.%s/index.html %s@%s:/home/%s/staging
+    - move to the DOI server staging directory
+    -[ ] sudo chown root:root index.html
+    -[ ] sudo mv index.html %s/10.12751/g-node.%s/index.html""" % (
+        CONF["dir_local_stage"], CONF["reg_id"], CONF["dir_local_stage"],
+        CONF["reg_id"], CONF["server_user"], CONF["doi_server"],
+        CONF["server_user"], CONF["dir_doi"], CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
