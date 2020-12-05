@@ -27,6 +27,8 @@ from yaml import SafeLoader
 
 # Default configuration struct containing non problematic test values
 CONF = {
+        # Paste basic information from corresponding issue on
+        #   https://gin.g-node.org/G-Node/DOIMetadata
         # Automated registration [id] from "10.12751/g-node.[id]"
         "reg_id": "__ID__",
         # Repository owner
@@ -41,7 +43,8 @@ CONF = {
         "user_full_name": "__USER_FULL__",
         # DOI request title; can be handled via --doi CL option
         "title": "__TITLE__",
-        # Author citation list; ideally analogous to the DOI landing page citation; can be handled via --doi CL option
+        # Author citation list; ideally analogous to the DOI landing page citation;
+        # can be handled via --doi CL option
         "citation": "__CITATION__",
         # Full ssh access name of the server hosting the GIN server instance
         "gin_server": "__GIN.SERVER__",
@@ -69,8 +72,10 @@ def print_part_pre_doi(fip):
     text_block = """
 # Part 1 - pre registration
 
-## Semi-automated DOI
--[ ] DOI request - paste from issue on https://gin.g-node.org/G-Node/DOIMetadata
+## Base request information
+-[ ] Check if the following information is correct; re-run script otherwise with fixed config
+
+    DOI request
     - Repository: %s/%s
     - User: (%s)
     - Email address: %s
@@ -84,6 +89,7 @@ def print_part_pre_doi(fip):
 
     text_block = """
 
+## Semi-automated DOI
 -[ ] GIN server (%s) check annex content
     - cd /gindata
     - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"], CONF["repo_own"].lower())
