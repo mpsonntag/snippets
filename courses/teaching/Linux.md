@@ -1343,6 +1343,14 @@ Interesting to manage forwarding rules
 - `lsusb -v` does the same as above, but includes more details about the devices
 - `lsusb -d [vendorID]:[deviceID] -v` gives a verbose description of just the specified device
 
+
+## Running processes
+
+Use `htop` to display running processes
+- press `t` for a treeview of all running processes
+- F3 to search for a specific process
+
+
 ## base64
 
 base64 encoding from the commandline
