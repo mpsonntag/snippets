@@ -1,6 +1,7 @@
 """create_registration_script
 
-create_registration_script prints a checklist for DOI registrations.
+create_registration_script prints a checklist for DOI registrations
+to an output file in the same directory.
 
 Usage: create_registration_script [--config CONFIG_FILE] [--doi]
 
@@ -550,6 +551,7 @@ def parse_args(args):
         print("-- Using local 'conf.yaml' file")
         update_conf_from_file("conf.yaml")
 
+    # This option is probably not required but can be used when datacite is not parsable
     if parser['--doi']:
         print("-- Loading doi xml for 'g-node.%s'" % CONF["reg_id"])
         doi_url = "https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml" % CONF["reg_id"]
@@ -562,17 +564,17 @@ def parse_args(args):
         doi_conf = parse_doi_xml(res.text.encode())
         update_conf(doi_conf)
 
-    run()
-
 
 if __name__ == "__main__":
     if sys.argv[1:]:
         parse_args(sys.argv[1:])
+    elif os.path.isfile("conf.yaml"):
+        print("-- Using local 'conf.yaml' file")
+        update_conf_from_file("conf.yaml")
     else:
-        if os.path.isfile("conf.yaml"):
-            print("-- Using local 'conf.yaml' file")
-            update_conf_from_file("conf.yaml")
-        else:
-            print("-- Using script default config")
+        print("-- Using script default config")
 
-        run()
+    # Update 'title' and 'citation' from repo datacite
+    update_conf(parse_repo_datacite())
+
+    run()
