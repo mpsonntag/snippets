@@ -1,9 +1,9 @@
-"""create_registration_script
+"""doireg_checklist
 
-create_registration_script prints a checklist for DOI registrations
+doireg_checklist prints a checklist for DOI registrations
 to an output file in the same directory.
 
-Usage: create_registration_script [--config CONFIG_FILE] [--doi]
+Usage: doireg_checklist [--config CONFIG_FILE] [--doi]
 
 Options:
     --config CONFIG_FILE    yaml file
@@ -558,7 +558,7 @@ def parse_args(args):
         res = requests.get(doi_url)
         if res.status_code != 200:
             print("-- ERROR: Status code (%s); could not access requested DOI; "
-                  "make sure access is available." % res.status_code)
+                  "          Make sure access is available." % res.status_code)
             exit(-1)
 
         doi_conf = parse_doi_xml(res.text.encode())
