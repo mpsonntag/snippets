@@ -25,7 +25,7 @@ from yaml import SafeLoader
 
 # Default configuration struct containing non problematic test values
 CONF = {
-        # Automated registration id from "10.12751/g-node.[id]"
+        # Automated registration [id] from "10.12751/g-node.[id]"
         "reg_id": "__ID__",
         # Repository owner
         "repo_own": "__OWN__",
@@ -37,9 +37,9 @@ CONF = {
         "email": "__MAIL__",
         # DOI requestee full name
         "user_full_name": "__USER_FULL__",
-        # DOI request title
+        # DOI request title; can be handled via --doi CL option
         "title": "__TITLE__",
-        # Author citation list; ideally analogous to the DOI landing page citation
+        # Author citation list; ideally analogous to the DOI landing page citation; can be handled via --doi CL option
         "citation": "__CITATION__",
         # Full ssh access name of the server hosting the GIN server instance
         "gin_server": "__GIN.SERVER__",

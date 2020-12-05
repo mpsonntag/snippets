@@ -1,4 +1,4 @@
-# Automated registration id from "10.12751/g-node.[id]"
+# Automated registration [id] from "10.12751/g-node.[id]"
 reg_id: "__CY_ID__"
 # Repository owner
 repo_own: "__CY_OWN__"
@@ -8,7 +8,7 @@ repo: "__CY_REPO__"
 email: "__CY_MAIL__"
 # DOI requestee full name
 user_full_name: "__CY_FULL__"
-# date issued from doi.xml; Format YYYY-MM-DD; can be handled via --doi CL option
+# date issued from doi.xml; Format YYYY-MM-DD
 reg_date: "__CY_DATE__"
 # DOI request title; can be handled via --doi CL option
 title: "__CY_TITLE__"
