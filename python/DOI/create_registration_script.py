@@ -376,9 +376,9 @@ def run():
         owner = owner[0:5]
     repo_name = CONF["repo"].lower()
     if len(CONF["repo"]) > 10:
-        repo_name = repo_name[0:10]
+        repo_name = repo_name[0:15]
 
-    out_file = "%s_%s_%s.md" % (CONF["reg_id"].lower(), owner, repo_name)
+    out_file = "%s-%s-%s.md" % (CONF["reg_id"].lower(), owner, repo_name)
     print("-- Writing to file %s" % out_file)
     with open(out_file, "w") as fip:
         print_part_pre_doi(fip)
