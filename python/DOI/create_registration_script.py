@@ -17,6 +17,8 @@ import os
 import requests
 import sys
 
+from datetime import datetime
+
 from docopt import docopt
 from lxml import etree
 from yaml import load as y_load
@@ -378,7 +380,8 @@ def run():
     if len(CONF["repo"]) > 10:
         repo_name = repo_name[0:15]
 
-    out_file = "%s-%s-%s.md" % (CONF["reg_id"].lower(), owner, repo_name)
+    c_date = datetime.now().strftime("%Y%m%d")
+    out_file = "%s_%s-%s-%s.md" % (c_date, CONF["reg_id"].lower(), owner, repo_name)
     print("-- Writing to file %s" % out_file)
     with open(out_file, "w") as fip:
         print_part_pre_doi(fip)
