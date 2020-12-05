@@ -11,9 +11,9 @@ email: "__CY_MAIL__"
 user_full_name: "__CY_FULL__"
 # date issued from doi.xml; Format YYYY-MM-DD
 reg_date: "__CY_DATE__"
-# DOI request title; can be handled via --doi CL option
+# DOI request title; usually handled automatically via repo datacite entry
 title: "__CY_TITLE__"
-# Author citation list; ideally analogous to the DOI landing page citation; can be handled via --doi CL option
+# Author citation list; usually handled automatically via repo datacite entry
 citation: "__CY_CITATION__"
 # Full ssh access name of the server hosting the GIN server instance
 gin_server: "__CY_GIN.SERVER__"

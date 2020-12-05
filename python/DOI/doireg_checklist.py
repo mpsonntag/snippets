@@ -20,7 +20,6 @@ from uuid import uuid4
 import requests
 
 from docopt import docopt
-from lxml import etree
 from yaml import load as y_load
 from yaml import SafeLoader
 
@@ -41,10 +40,9 @@ CONF = {
         "email": "__MAIL__",
         # DOI requestee full name
         "user_full_name": "__USER_FULL__",
-        # DOI request title; can be handled via --doi CL option
+        # DOI request title; usually handled automatically via repo datacite entry
         "title": "__TITLE__",
-        # Author citation list; ideally analogous to the DOI landing page citation;
-        # can be handled via --doi CL option
+        # Author citation list; usually handled automatically via repo datacite entry
         "citation": "__CITATION__",
         # Full ssh access name of the server hosting the GIN server instance
         "gin_server": "__GIN.SERVER__",
