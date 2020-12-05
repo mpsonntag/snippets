@@ -3,13 +3,10 @@
 doireg_checklist prints a checklist for DOI registrations
 to an output file in the same directory.
 
-Usage: doireg_checklist [--config CONFIG_FILE] [--doi]
+Usage: doireg_checklist [--config CONFIG_FILE]
 
 Options:
     --config CONFIG_FILE    yaml file
-    --doi                   fetch 'title', 'date' and 'citation' from doi.gin.g-node.org.
-                            The doi.xml file has to be accessible.
-                            Overrules config file entries.
     -h --help               Show this screen.
     --version               Show version.
 """
@@ -468,34 +465,6 @@ def update_conf_from_file(conf_file):
     update_conf(conf)
 
 
-def parse_doi_xml(xml_string):
-    doi_conf = {}
-    dsns = "{http://datacite.org/schema/kernel-4}"
-
-    root = etree.fromstring(xml_string)
-    # Handle title
-    title = root.find("%stitles" % dsns).find("%stitle" % dsns).text
-    if title:
-        doi_conf["title"] = title
-
-    # Handle date
-    date = root.find("%sdates" % dsns).find("%sdate" % dsns).text
-    if date:
-        doi_conf["reg_date"] = date
-
-    # Handle citation
-    citation = ""
-    creators = root.find("%screators" % dsns).findall("%screator" % dsns)
-    for creator in creators:
-        curr = creator.find("%screatorName" % dsns).text
-        curr = curr.replace(",", "").split(" ")
-        citation = "%s, %s %s" % (citation, curr[0], curr[-1][0])
-    if citation:
-        doi_conf["citation"] = citation
-
-    return doi_conf
-
-
 def parse_repo_datacite():
     """
     Tries to access the request repository datacite file and parse the 'title'
@@ -513,7 +482,8 @@ def parse_repo_datacite():
     # Return with an error message but continue the script on an access error
     if res.status_code != 200:
         print("-- ERROR: Status code (%s); could not access datacite file.\n"
-              "\tMake sure to fill in 'title' and 'citation' in the checklist." % res.status_code)
+              "          Make sure to fill in 'title' and 'citation' in the checklist." %
+              res.status_code)
         return {}
 
     datacite = y_load(res.text, Loader=SafeLoader)
@@ -550,19 +520,6 @@ def parse_args(args):
     elif os.path.isfile("conf.yaml"):
         print("-- Using local 'conf.yaml' file")
         update_conf_from_file("conf.yaml")
-
-    # This option is probably not required but can be used when datacite is not parsable
-    if parser['--doi']:
-        print("-- Loading doi xml for 'g-node.%s'" % CONF["reg_id"])
-        doi_url = "https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml" % CONF["reg_id"]
-        res = requests.get(doi_url)
-        if res.status_code != 200:
-            print("-- ERROR: Status code (%s); could not access requested DOI; "
-                  "          Make sure access is available." % res.status_code)
-            exit(-1)
-
-        doi_conf = parse_doi_xml(res.text.encode())
-        update_conf(doi_conf)
 
 
 if __name__ == "__main__":
