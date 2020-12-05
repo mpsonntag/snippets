@@ -494,6 +494,48 @@ def parse_doi_xml(xml_string):
     return doi_conf
 
 
+def parse_repo_datacite():
+    """
+    Tries to access the request repository datacite file and parse the 'title'
+    and the 'citation' from the files authors list.
+    If the file cannot be accessed or there are any issues the script continues
+    since both title and citation are not essential for the checklist.
+
+    :return: struct to update the main config
+    """
+    print("-- Loading datacite file for '%s/%s'" % (CONF["repo_own"], CONF["repo"]))
+    datacite_url = "https://gin.g-node.org/%s/%s/raw/master/datacite.yml" % (
+        CONF["repo_own"], CONF["repo"])
+    res = requests.get(datacite_url)
+
+    # Return with an error message but continue the script on an access error
+    if res.status_code != 200:
+        print("-- ERROR: Status code (%s); could not access datacite file.\n"
+              "\tMake sure to fill in 'title' and 'citation' in the checklist." % res.status_code)
+        return
+
+    datacite = y_load(res.text, Loader=SafeLoader)
+
+    doi_conf = {}
+
+    # Handle title
+    title = datacite["title"] if "title" in datacite else ""
+    if title:
+        doi_conf["title"] = title
+
+    # Handle citation
+    if "authors" in datacite:
+        cit = []
+        for creator in datacite["authors"]:
+            lan = creator["lastname"] if "lastname" in creator else ""
+            fin = " %s" % creator["firstname"][0] if "firstname" in creator else ""
+            if lan or fin:
+                cit.append("%s%s" % (lan, fin))
+        doi_conf["citation"] = ", ".join(cit)
+
+    return doi_conf
+
+
 def parse_args(args):
     parser = docopt(__doc__, argv=args, version="0.1.0")
     if parser['--config']:
