@@ -18,6 +18,7 @@ import requests
 import sys
 
 from datetime import datetime
+from uuid import uuid4
 
 from docopt import docopt
 from lxml import etree
@@ -80,11 +81,11 @@ def text_pre_fork_upload():
 -[ ] fetch git and annex content and upload annex content to the DOI fork repo
      use screen to avoid large down- and uploads to be interrupted
      use CTRL+a+d to switch out of screen sessions without interruption
-    - screen -S %s
+    - screen -S %s-%s
     - sudo su root
     - ./syncannex %s/%s > %s-%s.log""" % (
-        CONF["doi_server"], CONF["dir_doi_prep"], CONF["repo_own"].lower(), CONF["repo_own"],
-        CONF["repo"], CONF["repo_own"].lower(), CONF["repo"])
+        CONF["doi_server"], CONF["dir_doi_prep"], CONF["repo_own"].lower(), str(uuid4())[0:5],
+        CONF["repo_own"], CONF["repo"], CONF["repo_own"].lower(), CONF["repo"])
     return text_block
 
 
@@ -238,7 +239,7 @@ def print_part_pre_doi_full(fip):
     text_block = """
 
 -[ ] create DOI zip file
-    - screen -S %s
+    - screen -S %s-%s
     - sudo su root
     - sudo ./makezip %s
 
@@ -246,7 +247,7 @@ def print_part_pre_doi_full(fip):
      from the previous registration process.
 
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % (
-        CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["repo"].lower(),
+        CONF["repo_own"].lower(), str(uuid4())[0:5], CONF["repo"].lower(), CONF["repo"].lower(),
         CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
