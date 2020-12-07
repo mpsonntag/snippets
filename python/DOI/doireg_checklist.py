@@ -105,9 +105,9 @@ def text_pre_cleanup():
 
 - cleanup directory once tagging is done
     -[ ] sudo rm %s/%s -r
-    -[ ] sudo mv %s/%s*.log /home/%s/logs/""" % (CONF["dir_doi_prep"], CONF["repo"].lower(),
-                                                 CONF["dir_doi_prep"], CONF["repo_own"].lower(),
-                                                 CONF["server_user"])
+    -[ ] sudo mv %s/%s-%s*.log /home/%s/logs/""" % (
+        CONF["dir_doi_prep"], CONF["repo"].lower(), CONF["dir_doi_prep"],
+        CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["server_user"])
     return text_block
 
 
