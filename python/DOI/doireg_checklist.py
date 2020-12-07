@@ -199,7 +199,8 @@ def print_part_pre_doi_semi(fip):
     text_block = """
 
 -[ ] email to TWachtler;
-     use and forward the first registration request email from G-Node/DOIMetadata
+     use and forward the first registration request email from G-Node/DOIMetadata;
+     search for subject: New publication request: %s/%s (10.12751/g-node.%s)
 
 To: gin@g-node.org
 
@@ -210,7 +211,8 @@ the repository should be prepared for the DOI registration.
 Best,
 %s
 
-""" % (CONF["admin_name"].split()[0])
+""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"],
+       CONF["admin_name"].split()[0])
     fip.write(text_block.encode("utf-8"))
 
 
@@ -289,7 +291,8 @@ def print_part_pre_doi_full(fip):
     text_block = """
 
 -[ ] email TWachtler about the prepared DOI requests;
-     use and forward the first registration request email from G-Node/DOIMetadata
+     use and forward the first registration request email from G-Node/DOIMetadata;
+     search for subject: New publication request: %s/%s (10.12751/g-node.%s)
 
 To: gin@g-node.org
 
@@ -304,8 +307,8 @@ In the doi.xml the following changes were made and the index.html page has been 
 
 Best,
 %s
-
-""" % (CONF["admin_name"].split()[0])
+""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"],
+       CONF["admin_name"].split()[0])
     fip.write(text_block.encode("utf-8"))
 
 
