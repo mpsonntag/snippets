@@ -410,9 +410,6 @@ has been successfully registered.
 The DOI for the dataset is
   https://doi.org/10.12751/g-node.%s
 
-It can be viewed at
-  https://doi.gin.g-node.org/10.12751/g-node.%s
-
 If this is data supplementing a publication and if you haven't done so already, we kindly request that you:
 - include the new DOI of this dataset in the publication as a reference, and
 - update the datacite file of the registered dataset to reference the publication, including its DOI, once it is known.
@@ -422,8 +419,8 @@ The latter will result in a link in the Datacite database to your publication an
 Best regards,
   %s
   German Neuroinformatics Node
-""" % (CONF["email"], CONF["repo_own"], CONF["repo"], CONF["user_full_name"], CONF["title"],
-       CONF["reg_id"], CONF["reg_id"], CONF["admin_name"])
+""" % (CONF["email"], CONF["repo_own"], CONF["repo"], CONF["user_full_name"],
+       CONF["title"], CONF["reg_id"], CONF["admin_name"])
     fip.write(text_block.encode("utf-8"))
 
 
