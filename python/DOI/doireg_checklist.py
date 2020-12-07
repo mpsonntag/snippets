@@ -147,7 +147,7 @@ def print_part_pre_doi(fip):
 
 - check the datacite content at 
   https://gin.g-node.org/%s/%s
-    -[ ] repo is eligible to be published on gin
+    -[ ] repo is eligible to be published via GIN DOI
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
     -[ ] license title, license content and license link match""" % (CONF["repo_own"], CONF["repo"])
@@ -238,14 +238,14 @@ def print_part_pre_doi_full(fip):
 -[ ] create DOI zip file
     - screen -S %s-%s
     - sudo su root
-    - sudo ./makezip %s
+    - sudo ./makezip %s > %s-%s_zip.log
 
 -[ ] make sure there is no zip file in the target directory left 
      from the previous registration process.
 
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % (
-        CONF["repo_own"].lower(), str(uuid4())[0:5], CONF["repo"].lower(), CONF["repo"].lower(),
-        CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
+        CONF["repo_own"].lower(), str(uuid4())[0:5], CONF["repo"].lower(), CONF["repo_own"].lower(),
+        CONF["repo"].lower(), CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = text_pre_git_tag()
