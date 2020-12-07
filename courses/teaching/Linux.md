@@ -581,18 +581,21 @@ When connected to a remote machine, it might be worthwhile to create a named ses
 
 - `screen` can be installed via apt-get
 
-    # start a named screen session
-    screen -S [some name]
-    # start working e.g. start a long running script
-
-    # detach from session but keep it running
-    Ctrl + d + a
+        # start a named screen session
+        screen -S [some name]
+        # start working e.g. start a long running script
     
-    # re-attach to running session
-    screen -S [some name]
+        # detach from session but keep it running
+        Ctrl + d + a
+        
+        # re-attach to running session
+        screen -r [some name]
+    
+        # exit session without ending it
+        exit
 
-    # end session
-    exit
+        # list all running screen sessions
+        screen -ls
 
 ### Webservice certificates for encryption via certbot
 
