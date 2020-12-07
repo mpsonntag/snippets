@@ -238,7 +238,7 @@ def print_part_pre_doi_full(fip):
     text_block = """
 
 -[ ] create DOI zip file
-    - screen -S %s-%s
+    - screen -r %s-%s
     - sudo su root
     - sudo ./makezip %s > %s-%s_zip.log
 
@@ -381,9 +381,9 @@ def print_part_post_doi(fip):
 
 -[ ] close all related issues on DOImetadata
 
-    Publication finished and user informed.""" % (
-        CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
-        CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
+    Publication finished and user informed.
+""" % (CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
+       CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
     fip.write(text_block.encode("utf-8"))
 
 
