@@ -71,17 +71,17 @@ def text_pre_fork():
     return text_block
 
 
-def text_pre_fork_upload():
+def text_pre_fork_upload(screen_id):
     text_block = """
 
 -[ ] log on to the DOI server (%s) and move to %s
 -[ ] fetch git and annex content and upload annex content to the DOI fork repo
      use screen to avoid large down- and uploads to be interrupted
      use CTRL+a+d to switch out of screen sessions without interruption
-    - screen -S %s-%s
+    - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s-%s.log""" % (
-        CONF["doi_server"], CONF["dir_doi_prep"], CONF["repo_own"].lower(), str(uuid4())[0:5],
+        CONF["doi_server"], CONF["dir_doi_prep"], screen_id,
         CONF["repo_own"], CONF["repo"], CONF["repo_own"].lower(), CONF["repo"])
     return text_block
 
@@ -100,14 +100,16 @@ def text_pre_git_tag():
     return text_block
 
 
-def text_pre_cleanup():
+def text_pre_cleanup(screen_id):
     text_block = """
 
 - cleanup directory once tagging is done
     -[ ] sudo rm %s/%s -r
-    -[ ] sudo mv %s/%s-%s*.log /home/%s/logs/""" % (
+    -[ ] sudo mv %s/%s-%s*.log /home/%s/logs/
+-[ ] cleanup screen session
+    - screen -XS %s quit""" % (
         CONF["dir_doi_prep"], CONF["repo"].lower(), CONF["dir_doi_prep"],
-        CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["server_user"])
+        CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["server_user"], screen_id)
     return text_block
 
 
@@ -187,13 +189,14 @@ def print_part_pre_doi_semi(fip):
     text_block = text_pre_fork()
     fip.write(text_block.encode("utf-8"))
 
-    text_block = text_pre_fork_upload()
+    screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
+    text_block = text_pre_fork_upload(screen_id)
     fip.write(text_block.encode("utf-8"))
 
     text_block = text_pre_git_tag()
     fip.write(text_block.encode("utf-8"))
 
-    text_block = text_pre_cleanup()
+    text_block = text_pre_cleanup(screen_id)
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
@@ -232,13 +235,14 @@ def print_part_pre_doi_full(fip):
     text_block = text_pre_fork()
     fip.write(text_block.encode("utf-8"))
 
-    text_block = text_pre_fork_upload()
+    screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
+    text_block = text_pre_fork_upload(screen_id)
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
 
 -[ ] create DOI zip file
-    - screen -r %s-%s
+    - screen -r %s
     - sudo su root
     - sudo ./makezip %s > %s-%s_zip.log
 
@@ -246,14 +250,14 @@ def print_part_pre_doi_full(fip):
      from the previous registration process.
 
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % (
-        CONF["repo_own"].lower(), str(uuid4())[0:5], CONF["repo"].lower(), CONF["repo_own"].lower(),
-        CONF["repo"].lower(), CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
+        screen_id, CONF["repo"].lower(), CONF["repo_own"].lower(), CONF["repo"].lower(),
+        CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
     text_block = text_pre_git_tag()
     fip.write(text_block.encode("utf-8"))
 
-    text_block = text_pre_cleanup()
+    text_block = text_pre_cleanup(screen_id)
     fip.write(text_block.encode("utf-8"))
 
     text_block = """
