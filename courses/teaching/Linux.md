@@ -591,11 +591,18 @@ When connected to a remote machine, it might be worthwhile to create a named ses
         # re-attach to running session
         screen -r [some name]
     
-        # exit session without ending it
+        # exit a screen session and end it
         exit
 
         # list all running screen sessions
         screen -ls
+
+        # end a specific screen without attaching to it
+        screen -XS [some name] quit
+        
+        # if there are multiple screen sessions with an identical name, screen ls will 
+        # show additinal screen ids that can be used to end a specifc session
+        screen -XS [screenid.some name] quit
 
 ### Webservice certificates for encryption via certbot
 
