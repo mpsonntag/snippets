@@ -358,12 +358,17 @@ def print_part_post_doi(fip):
      of this dataset in the %s/10.12751/ directory
 
 -[ ] email to user (check below)
-
--[ ] close all related issues on DOImetadata
-
-    Publication finished and user informed.
 """ % (CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
        CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
+    fip.write(text_block.encode("utf-8"))
+
+    text_block = """
+
+-[ ] close all related issues on https://gin.g-node.org/G-Node/DOImetadata/issues
+     New publication request: %s/%s (10.12751/g-node.%s)
+
+    Publication finished and user informed.
+""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
     fip.write(text_block.encode("utf-8"))
 
 
