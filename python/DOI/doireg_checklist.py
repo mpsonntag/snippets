@@ -65,54 +65,51 @@ CONF = {
 
 
 def text_pre_fork():
-    text_block = """
+    text_block = f"""
 
 -[ ] manually fork repository to the 'doi' gin user
     - log on to gin.g-node.org using the "doi" user
-    - fork https://gin.g-node.org/%s/%s""" % (CONF["repo_own"], CONF["repo"])
+    - fork https://gin.g-node.org/{CONF["repo_own"]}/{CONF["repo"]}"""
 
     return text_block
 
 
 def text_pre_fork_upload(screen_id):
-    text_block = """
+    text_block = f"""
 
--[ ] log on to the DOI server (%s) and move to %s
+-[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
 -[ ] fetch git and annex content and upload annex content to the DOI fork repo
      use screen to avoid large down- and uploads to be interrupted
      use CTRL+a+d to switch out of screen sessions without interruption
-    - screen -S %s
+    - screen -S {screen_id}
     - sudo su root
-    - ./syncannex %s/%s > %s-%s.log""" % (
-        CONF["doi_server"], CONF["dir_doi_prep"], screen_id,
-        CONF["repo_own"], CONF["repo"], CONF["repo_own"].lower(), CONF["repo"])
+    - ./syncannex {CONF["repo_own"]}/{CONF["repo"]} > {CONF["repo_own"].lower()}-{CONF["repo"]}.log"""
+
     return text_block
 
 
 def text_pre_git_tag():
-    text_block = """
+    text_block = f"""
 
 - create release tag on the DOI repository; run all commands using `gin git ...` 
   to avoid issues with local git annex or other logged git users.
-    -[ ] cd %s/%s
+    -[ ] cd {CONF["dir_doi_prep"]}/{CONF["repo"].lower()}
     -[ ] sudo gin git status
     -[ ] sudo gin git remote -v
-    -[ ] sudo gin git tag 10.12751/g-node.%s
-    -[ ] sudo gin git push --tags origin""" % (CONF["dir_doi_prep"], CONF["repo"].lower(),
-                                               CONF["reg_id"])
+    -[ ] sudo gin git tag 10.12751/g-node.{CONF["reg_id"]}
+    -[ ] sudo gin git push --tags origin"""
     return text_block
 
 
 def text_pre_cleanup(screen_id):
-    text_block = """
+    text_block = f"""
 
 - cleanup directory once tagging is done
-    -[ ] sudo rm %s/%s -r
-    -[ ] sudo mv %s/%s-%s*.log /home/%s/logs/
+    -[ ] sudo rm {CONF["dir_doi_prep"]}/{CONF["repo"].lower()} -r
+    -[ ] sudo mv {CONF["dir_doi_prep"]}/{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log /home/{CONF["server_user"]}/logs/
 -[ ] cleanup screen session
-    - screen -XS %s quit""" % (
-        CONF["dir_doi_prep"], CONF["repo"].lower(), CONF["dir_doi_prep"],
-        CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["server_user"], screen_id)
+    - screen -XS {screen_id} quit"""
+
     return text_block
 
 
@@ -122,43 +119,41 @@ def print_part_pre_doi(fip):
 
     :param fip: filepointer
     """
-    text_block = """# Part 1 - pre registration
+    text_block = f"""# Part 1 - pre registration
 
 ## Base request information
 -[ ] check if the following information is correct; re-run script otherwise with updated config
 
     DOI request
-    - Repository: %s/%s
-    - User: (%s)
-    - Email address: %s
-    - DOI XML: %s:/data/doi/10.12751/g-node.%s/doi.xml
-    - DOI target URL: https://doi.gin.g-node.org/10.12751/g-node.%s
+    - Repository: {CONF["repo_own"]}/{CONF["repo"]}
+    - User: ({CONF["user_full_name"]})
+    - Email address: {CONF["email"]}
+    - DOI XML: {CONF["doi_server"]}:/data/doi/10.12751/g-node.{CONF["reg_id"]}/doi.xml
+    - DOI target URL: https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
 
-    - Request Date (as in doi.xml): %s
+    - Request Date (as in doi.xml): {CONF["reg_date"]}
 
-""" % (CONF["repo_own"], CONF["repo"], CONF["user_full_name"], CONF["email"],
-       CONF["doi_server"], CONF["reg_id"], CONF["reg_id"], CONF["reg_date"])
+"""
     fip.write(text_block)
 
     fip.write("## Base pre-registration checks")
 
-    text_block = """
--[ ] GIN server (%s) check annex content
+    text_block = f"""
+-[ ] GIN server ({CONF["gin_server"]}) check annex content
     - cd /gindata
-    - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"], CONF["repo_own"].lower())
+    - ./annexcheck /gindata/gin-repositories/{CONF["repo_own"].lower()}"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 - check the datacite content at 
-  https://gin.g-node.org/%s/%s
+  https://gin.g-node.org/{CONF["repo_own"]}/{CONF["repo"]}
     -[ ] repo is eligible to be published via GIN DOI
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
-    -[ ] license title, license content and license link match""" % (CONF["repo_own"], CONF["repo"])
+    -[ ] license title, license content and license link match
+"""
     fip.write(text_block)
-
-    fip.write("\n")
 
 
 def print_part_pre_doi_semi(fip):
@@ -173,26 +168,25 @@ def print_part_pre_doi_semi(fip):
   and skip the 'Full DOI' section."""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
-- on the DOI server (%s) check the DOI directory content
-    -[ ] zip file created in /data/doi/10.12751/g-node.%s
+- on the DOI server ({CONF["doi_server"]}) check the DOI directory content
+    -[ ] zip file created in /data/doi/10.12751/g-node.{CONF["reg_id"]}
     -[ ] note zip size
 
--[ ] remove /data/doi/10.12751/g-node.%s/.htaccess
+-[ ] remove /data/doi/10.12751/g-node.{CONF["reg_id"]}/.htaccess
 
-- access https://doi.gin.g-node.org/10.12751/g-node.%s
+- access https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
     -[ ] check landing page in general
     -[ ] check title, license name
     -[ ] check all links that should work at this stage
-    -[ ] check zip download and compare size on server with size in `doi.xml`""" % \
-                 (CONF["doi_server"], CONF["reg_id"], CONF["reg_id"], CONF["reg_id"])
+    -[ ] check zip download and compare size on server with size in `doi.xml`"""
     fip.write(text_block)
 
     text_block = text_pre_fork()
     fip.write(text_block)
 
-    screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
+    screen_id = f"{CONF['repo_own'].lower()}-{str(uuid4())[0:5]}"
     text_block = text_pre_fork_upload(screen_id)
     fip.write(text_block)
 
@@ -202,13 +196,13 @@ def print_part_pre_doi_semi(fip):
     text_block = text_pre_cleanup(screen_id)
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 -[ ] issue comment on https://gin.g-node.org/G-Node/DOImetadata/issues
-     New publication request: %s/%s (10.12751/g-node.%s)
+     New publication request: {CONF["repo_own"].lower()}/{CONF["repo"].lower()} (10.12751/g-node.{CONF["reg_id"]})
 
      This repository is prepared for the DOI registration.
-""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
+"""
     fip.write(text_block)
 
 
@@ -228,23 +222,21 @@ def print_part_pre_doi_full(fip):
     text_block = text_pre_fork()
     fip.write(text_block)
 
-    screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
+    screen_id = f"{CONF['repo_own'].lower()}-{str(uuid4())[0:5]}"
     text_block = text_pre_fork_upload(screen_id)
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 -[ ] create DOI zip file
-    - screen -r %s
+    - screen -r {screen_id}
     - sudo su root
-    - sudo ./makezip %s > %s-%s_zip.log
+    - sudo ./makezip {CONF["repo"].lower()} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}_zip.log
 
 -[ ] make sure there is no zip file in the target directory left 
      from the previous registration process.
 
--[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % (
-        screen_id, CONF["repo"].lower(), CONF["repo_own"].lower(), CONF["repo"].lower(),
-        CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
+-[ ] sudo mv {CONF["repo"].lower()}.zip {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/10.12751_g-node.{CONF["reg_id"]}.zip"""
     fip.write(text_block)
 
     text_block = text_pre_git_tag()
@@ -253,45 +245,42 @@ def print_part_pre_doi_full(fip):
     text_block = text_pre_cleanup(screen_id)
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
--[ ] edit %s/10.12751/g-node.%s/doi.xml file to reflect any changes in the repo datacite.yml file.
+-[ ] edit {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/doi.xml file to reflect any changes in the repo datacite.yml file.
     - include the actual size of the zip file
     - check proper title and proper license
     - any added or updated funding or reference information
-    - any changes to the 'resourceType'""" % (CONF["dir_doi"], CONF["reg_id"])
+    - any changes to the 'resourceType'"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 - remove the .htaccess file
 - create the DOI landing page in the local staging directory and move it to the DOI server
-    -[ ] cd %s
-    -[ ] gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml
-    -[ ] scp %s/10.12751/g-node.%s/index.html %s@%s:/home/%s/staging
+    -[ ] cd {CONF["dir_local_stage"]}
+    -[ ] gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}/doi.xml
+    -[ ] scp {CONF["dir_local_stage"]}/10.12751/g-node.{CONF["reg_id"]}/index.html {CONF["server_user"]}@{CONF["doi_server"]}:/home/{CONF["server_user"]}/staging
     - move to the DOI server staging directory
     -[ ] sudo chown root:root index.html
-    -[ ] sudo mv index.html %s/10.12751/g-node.%s/index.html""" % (
-        CONF["dir_local_stage"], CONF["reg_id"], CONF["dir_local_stage"],
-        CONF["reg_id"], CONF["server_user"], CONF["doi_server"],
-        CONF["server_user"], CONF["dir_doi"], CONF["reg_id"])
+    -[ ] sudo mv index.html {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/index.html"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
-- https://doi.gin.g-node.org/10.12751/g-node.%s
+- https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
     -[ ] check page access, size, title, license name
     -[ ] check all links that should work at this stage
-    -[ ] check zip download and suggested size""" % CONF["reg_id"]
+    -[ ] check zip download and suggested size"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 -[ ] issue comment on https://gin.g-node.org/G-Node/DOImetadata/issues
-     New publication request: %s/%s (10.12751/g-node.%s)
+     New publication request: {CONF["repo_own"].lower()}/{CONF["repo"].lower()} (10.12751/g-node.{CONF["reg_id"]})
 
      This repository is prepared for the DOI registration.
-""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
+"""
     fip.write(text_block)
 
 
@@ -301,52 +290,46 @@ def print_part_post_doi(fip):
 
     :param fip: filepointer
     """
-    text_block = """
+    text_block = f"""
 # Part 2 - post registration
--[ ] connect to DOI server (%s) and update `%s/index.html`; 
+-[ ] connect to DOI server ({CONF["doi_server"]}) and update `{CONF["dir_doi"]}/index.html`; 
      make sure there are no unintentional line breaks!
                         <tr>
-                            <td><a href="https://doi.org/10.12751/g-node.%s">%s</a>
-                            <br>%s</td>
-                            <td>%s</td>
-                            <td><a href="https://doi.org/10.12751/g-node.%s" class ="ui grey label">10.12751/g-node.%s</a></td>
-                        </tr>""" % (CONF["doi_server"], CONF["dir_doi"], CONF["reg_id"],
-                                    CONF["title"], CONF["citation"], CONF["reg_date"],
-                                    CONF["reg_id"], CONF["reg_id"])
+                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}">{CONF["title"]}</a>
+                            <br>{CONF["citation"]}</td>
+                            <td>{CONF["reg_date"]}</td>
+                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}" class ="ui grey label">10.12751/g-node.{CONF["reg_id"]}</a></td>
+                        </tr>"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
--[ ] update `%s/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.%s
+-[ ] update `{CONF["dir_doi"]}/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
 
 - re-create and deploy keywords if required
   -[ ] make sure github.com/G-Node/gin-doi is locally built and the `gindoid` executable available
   -[ ] gin get G-Node/DOImetadata to local staging directory
   -[ ] create empty "keywords" directory and run the following from it
-  -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
-  -[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (
-      CONF["dir_doi"], CONF["reg_id"], CONF["dir_local_stage"], CONF["dir_local_stage"],
-      CONF["dir_local_stage"], CONF["server_user"], CONF["doi_server"], CONF["server_user"])
+  -[ ] {CONF["dir_local_stage"]}/gindoid make-keyword-pages {CONF["dir_local_stage"]}/DOImetadata/*.xml
+  -[ ] scp -r {CONF["dir_local_stage"]}/keywords {CONF["server_user"]}@{CONF["doi_server"]}:/home/{CONF["server_user"]}/staging"""
     fip.write(text_block)
 
-    text_block = """
-  -[ ] connect to DOI server (%s)
-  -[ ] sudo chown -R root:root /home/%s/staging/keywords
-  -[ ] sudo mv %s/keywords %s/keywords_
-  -[ ] sudo mv /home/%s/staging/keywords/ %s
+    text_block = f"""
+  -[ ] connect to DOI server ({CONF["doi_server"]})
+  -[ ] sudo chown -R root:root /home/{CONF["server_user"]}/staging/keywords
+  -[ ] sudo mv {CONF["dir_doi"]}/keywords {CONF["dir_doi"]}/keywords_
+  -[ ] sudo mv /home/{CONF["server_user"]}/staging/keywords/ {CONF["dir_doi"]}
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
-  -[ ] sudo rm %s/keywords_ -r""" % (
-      CONF["doi_server"], CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"],
-      CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"])
+  -[ ] sudo rm {CONF["dir_doi"]}/keywords_ -r"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
--[ ] ensure the data directory "%s" in %s/10.12751/g-node.%s/ has been removed
+-[ ] ensure the data directory "{CONF["repo"].lower()}" in {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/ has been removed
 
--[ ] git commit all changes in %s
-    - sudo git add 10.12751/g-node.%s/
-    - sudo git commit -m "New dataset: 10.12751/g-node.%s"
+-[ ] git commit all changes in {CONF["dir_doi"]}
+    - sudo git add 10.12751/g-node.{CONF["reg_id"]}/
+    - sudo git commit -m "New dataset: 10.12751/g-node.{CONF["reg_id"]}"
 
 -[ ] commit keyword and index page changes
     - sudo git add keywords/
@@ -355,23 +338,22 @@ def print_part_post_doi(fip):
     - sudo git commit -m "Update index and keyword pages"
 
 -[ ] set zip to immutable
-    sudo chattr +i %s/10.12751/g-node.%s/10.12751_g-node.%s.zip
+    sudo chattr +i {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/10.12751_g-node.{CONF["reg_id"]}.zip
 
 -[ ] cleanup any leftover directories from previous versions 
-     of this dataset in the %s/10.12751/ directory
+     of this dataset in the {CONF["dir_doi"]}/10.12751/ directory
 
 -[ ] email to user (check below)
-""" % (CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
-       CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
+"""
     fip.write(text_block)
 
-    text_block = """
+    text_block = f"""
 
 -[ ] close all related issues on https://gin.g-node.org/G-Node/DOImetadata/issues
-     New publication request: %s/%s (10.12751/g-node.%s)
+     New publication request: {CONF["repo_own"].lower()}/{CONF["repo"].lower()} (10.12751/g-node.{CONF["reg_id"]})
 
     Publication finished and user informed.
-""" % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
+"""
     fip.write(text_block)
 
 
@@ -381,25 +363,25 @@ def print_part_ready_email(fip):
 
     :param fip: filepointer
     """
-    text_block = """
+    text_block = f"""
 # Part 3 - eMail to user
 -[ ] make sure the publication reference text does apply, remove otherwise
 
-%s
+{CONF["email"]}
 
 CC: gin@g-node.org
 
-Subject: DOI registration complete - %s/%s
+Subject: DOI registration complete - {CONF["repo_own"]}/{CONF["repo"]}
 
-Dear %s,
+Dear {CONF["user_full_name"]},
 
 Your dataset with title
-  %s
+  {CONF["title"]}
 
 has been successfully registered.
 
 The DOI for the dataset is
-  https://doi.org/10.12751/g-node.%s
+  https://doi.org/10.12751/g-node.{CONF["reg_id"]}
 
 If this is data supplementing a publication and if you haven't done so already, we kindly request that you:
 - include the new DOI of this dataset in the publication as a reference, and
@@ -408,10 +390,9 @@ If this is data supplementing a publication and if you haven't done so already, 
 The latter will result in a link in the Datacite database to your publication and will increase its discoverability.
 
 Best regards,
-  %s
+  {CONF["admin_name"]}
   German Neuroinformatics Node
-""" % (CONF["email"], CONF["repo_own"], CONF["repo"], CONF["user_full_name"],
-       CONF["title"], CONF["reg_id"], CONF["admin_name"])
+"""
     fip.write(text_block)
 
 
