@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """doireg_checklist
 
 doireg_checklist prints a checklist for DOI registrations
@@ -135,7 +137,7 @@ def print_part_pre_doi(fip):
 
 """ % (CONF["repo_own"], CONF["repo"], CONF["user_full_name"], CONF["email"],
        CONF["doi_server"], CONF["reg_id"], CONF["reg_id"], CONF["reg_date"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     fip.write("## Base pre-registration checks")
 
@@ -143,7 +145,7 @@ def print_part_pre_doi(fip):
 -[ ] GIN server (%s) check annex content
     - cd /gindata
     - ./annexcheck /gindata/gin-repositories/%s""" % (CONF["gin_server"], CONF["repo_own"].lower())
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -153,7 +155,7 @@ def print_part_pre_doi(fip):
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
     -[ ] license title, license content and license link match""" % (CONF["repo_own"], CONF["repo"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     fip.write("\n")
 
@@ -168,7 +170,7 @@ def print_part_pre_doi_semi(fip):
 ## Semi-automated DOI
 - use this section if there are no technical or other issues with the DOI request 
   and skip the 'Full DOI' section."""
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -184,20 +186,20 @@ def print_part_pre_doi_semi(fip):
     -[ ] check all links that should work at this stage
     -[ ] check zip download and compare size on server with size in `doi.xml`""" % \
                  (CONF["doi_server"], CONF["reg_id"], CONF["reg_id"], CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_fork()
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
     text_block = text_pre_fork_upload(screen_id)
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_git_tag()
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_cleanup(screen_id)
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -206,7 +208,7 @@ def print_part_pre_doi_semi(fip):
 
      This repository is prepared for the DOI registration.
 """ % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
 
 def print_part_pre_doi_full(fip):
@@ -220,14 +222,14 @@ def print_part_pre_doi_full(fip):
 - This usually has to be done when
   a) the semi-automated process has failed or
   b) the user requested changes but needs to keep the originally issued DOI"""
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_fork()
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     screen_id = "%s-%s" % (CONF["repo_own"].lower(), str(uuid4())[0:5])
     text_block = text_pre_fork_upload(screen_id)
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -242,13 +244,13 @@ def print_part_pre_doi_full(fip):
 -[ ] sudo mv %s.zip %s/10.12751/g-node.%s/10.12751_g-node.%s.zip""" % (
         screen_id, CONF["repo"].lower(), CONF["repo_own"].lower(), CONF["repo"].lower(),
         CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_git_tag()
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = text_pre_cleanup(screen_id)
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -257,7 +259,7 @@ def print_part_pre_doi_full(fip):
     - check proper title and proper license
     - any added or updated funding or reference information
     - any changes to the 'resourceType'""" % (CONF["dir_doi"], CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -272,7 +274,7 @@ def print_part_pre_doi_full(fip):
         CONF["dir_local_stage"], CONF["reg_id"], CONF["dir_local_stage"],
         CONF["reg_id"], CONF["server_user"], CONF["doi_server"],
         CONF["server_user"], CONF["dir_doi"], CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -280,7 +282,7 @@ def print_part_pre_doi_full(fip):
     -[ ] check page access, size, title, license name
     -[ ] check all links that should work at this stage
     -[ ] check zip download and suggested size""" % CONF["reg_id"]
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -289,7 +291,7 @@ def print_part_pre_doi_full(fip):
 
      This repository is prepared for the DOI registration.
 """ % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
 
 def print_part_post_doi(fip):
@@ -310,7 +312,7 @@ def print_part_post_doi(fip):
                         </tr>""" % (CONF["doi_server"], CONF["dir_doi"], CONF["reg_id"],
                                     CONF["title"], CONF["citation"], CONF["reg_date"],
                                     CONF["reg_id"], CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -324,7 +326,7 @@ def print_part_post_doi(fip):
   -[ ] scp -r %s/keywords %s@%s:/home/%s/staging""" % (
       CONF["dir_doi"], CONF["reg_id"], CONF["dir_local_stage"], CONF["dir_local_stage"],
       CONF["dir_local_stage"], CONF["server_user"], CONF["doi_server"], CONF["server_user"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
   -[ ] connect to DOI server (%s)
@@ -335,7 +337,7 @@ def print_part_post_doi(fip):
   -[ ] sudo rm %s/keywords_ -r""" % (
       CONF["doi_server"], CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"],
       CONF["server_user"], CONF["dir_doi"], CONF["dir_doi"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -360,7 +362,7 @@ def print_part_post_doi(fip):
 -[ ] email to user (check below)
 """ % (CONF["repo"].lower(), CONF["dir_doi"], CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"],
        CONF["reg_id"], CONF["dir_doi"], CONF["reg_id"], CONF["reg_id"], CONF["dir_doi"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
     text_block = """
 
@@ -369,7 +371,7 @@ def print_part_post_doi(fip):
 
     Publication finished and user informed.
 """ % (CONF["repo_own"].lower(), CONF["repo"].lower(), CONF["reg_id"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
 
 def print_part_ready_email(fip):
@@ -409,7 +411,7 @@ Best regards,
   German Neuroinformatics Node
 """ % (CONF["email"], CONF["repo_own"], CONF["repo"], CONF["user_full_name"],
        CONF["title"], CONF["reg_id"], CONF["admin_name"])
-    fip.write(text_block.encode("utf-8"))
+    fip.write(text_block)
 
 
 def run():
