@@ -1354,12 +1354,22 @@ Interesting to manage forwarding rules
 - `lsusb -d [vendorID]:[deviceID] -v` gives a verbose description of just the specified device
 
 
-## Running processes
+## Process handling
+### Running processes
 
 Use `htop` to display running processes
 - press `t` for a treeview of all running processes
 - F3 to search for a specific process
 
+### Ending processes
+
+- use `kill` to end a process via its PID; this will leave child processes in a process hierarchy running!
+
+        kill -SIGTERM [PID]
+
+- `kill` can end full process trees
+
+        kill -SIGTERM -- [PID]
 
 ## base64
 
