@@ -17,6 +17,7 @@ import os
 import sys
 
 from datetime import datetime
+from sys import version_info as pyver
 from uuid import uuid4
 
 import requests
@@ -508,6 +509,10 @@ def parse_args(args):
 
 
 if __name__ == "__main__":
+    if pyver.major < 3:
+        print("-- ERROR: invalid Python version. Use Python 3 to run this script")
+        exit(-1)
+
     if sys.argv[1:]:
         parse_args(sys.argv[1:])
     elif os.path.isfile("conf.yaml"):
