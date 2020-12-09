@@ -93,8 +93,7 @@ def text_pre_git_tag():
 - create release tag on the DOI repository; run all commands using `gin git ...` 
   to avoid issues with local git annex or other logged git users.
     -[ ] cd {CONF["dir_doi_prep"]}/{CONF["repo"].lower()}
-    -[ ] sudo gin git status
-    -[ ] sudo gin git remote -v
+    -[ ] check that "doi" is the set origin: sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.{CONF["reg_id"]}
     -[ ] sudo gin git push --tags origin"""
     return text_block
