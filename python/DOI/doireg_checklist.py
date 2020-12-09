@@ -106,8 +106,7 @@ def text_pre_cleanup(screen_id):
 - cleanup directory once tagging is done
     -[ ] sudo rm {CONF["dir_doi_prep"]}/{CONF["repo"].lower()} -r
     -[ ] sudo mv {CONF["dir_doi_prep"]}/{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log /home/{CONF["server_user"]}/logs/
--[ ] cleanup screen session
-    - screen -XS {screen_id} quit"""
+    -[ ] cleanup screen session: screen -XS {screen_id} quit"""
 
     return text_block
 
@@ -196,6 +195,9 @@ def print_part_pre_doi_semi(fip):
     fip.write(text_block)
 
     text_block = f"""
+
+-[ ] Check link to archive repo on the DOI landing page works:
+     https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
 
 -[ ] issue comment on https://gin.g-node.org/G-Node/DOImetadata/issues
      New publication request: {CONF["repo_own"].lower()}/{CONF["repo"].lower()} (10.12751/g-node.{CONF["reg_id"]})
