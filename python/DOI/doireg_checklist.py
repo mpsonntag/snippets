@@ -230,7 +230,6 @@ def print_part_pre_doi_full(fip):
 
 -[ ] create DOI zip file
     - screen -r {screen_id}
-    - sudo su root
     - sudo ./makezip {CONF["repo"].lower()} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}_zip.log
 
 -[ ] make sure there is no zip file in the target directory left 
