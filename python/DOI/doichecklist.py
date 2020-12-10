@@ -342,8 +342,7 @@ def print_part_post_doi(fip):
 -[ ] cleanup any leftover directories from previous versions 
      of this dataset in the {CONF["dir_doi"]}/10.12751/ directory
 
--[ ] email to user (check below)
-"""
+-[ ] email to user (check below)"""
     fip.write(text_block)
 
     text_block = f"""
