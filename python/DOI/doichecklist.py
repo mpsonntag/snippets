@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-"""doireg_checklist
+"""doichecklist
 
-doireg_checklist prints a checklist for DOI registrations
+doichecklist prints a checklist for DOI registrations
 to an output file in the same directory.
 
-Usage: doireg_checklist [--config CONFIG_FILE]
+Usage: doichecklist [--config CONFIG_FILE]
 
 Options:
     --config CONFIG_FILE    yaml file
