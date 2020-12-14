@@ -28,7 +28,8 @@ from yaml import SafeLoader
 
 # Default configuration struct containing non problematic test values
 CONF = {
-        # Paste basic information from corresponding issue on
+        # Entries required for every DOI request
+        # Paste basic information from the corresponding issue on
         #   https://gin.g-node.org/G-Node/DOIMetadata
         # Automated registration [id] from "10.12751/g-node.[id]"
         "reg_id": "__ID__",
@@ -42,24 +43,26 @@ CONF = {
         "email": "__MAIL__",
         # DOI requestee full name
         "user_full_name": "__USER_FULL__",
+        # Entries that are usually handled automatically via repo datacite entry
         # DOI request title; usually handled automatically via repo datacite entry
         "title": "__TITLE__",
         # Author citation list; usually handled automatically via repo datacite entry
         "citation": "__CITATION__",
-        # Full ssh access name of the server hosting the GIN server instance
-        "gin_server": "__GIN.SERVER__",
-        # Full ssh access name of the server hosting the DOI server instance
-        "doi_server": "__DOI.SERVER__",
+        # Entries that are set once and remain unchanged for future DOI requests
         # User working on the DOI server
         "server_user": "__SERVER_USER__",
         # Full name of the person handling the registration; used in email template texts
         "admin_name": "__FIRST LAST__",
+        # Local staging dir to create index and keyword pages
+        "dir_local_stage": "__DIR_LOCAL_STAGE__",
+        # Full ssh access name of the server hosting the GIN server instance
+        "gin_server": "__GIN.SERVER__",
+        # Full ssh access name of the server hosting the DOI server instance
+        "doi_server": "__DOI.SERVER__",
         # DOI Server repo preparation directory
         "dir_doi_prep": "__DIR_DOI_PREP__",
         # DOI Server root doi hosting directory
-        "dir_doi": "__DIR_DOI__",
-        # Local staging dir to create keyword pages
-        "dir_local_stage": "__DIR_LOCAL_STAGE__"
+        "dir_doi": "__DIR_DOI__"
 }
 
 
