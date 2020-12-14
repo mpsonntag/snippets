@@ -80,12 +80,13 @@ def text_pre_fork_upload(screen_id):
     text_block = f"""
 
 -[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
--[ ] fetch git and annex content and upload annex content to the DOI fork repo
-     use screen to avoid large down- and uploads to be interrupted
-     use CTRL+a+d to switch out of screen sessions without interruption
+-[ ] fetch git and annex content and upload annex content to the DOI fork repo.
+     use screen to avoid large down- and uploads to be interrupted.
+     use CTRL+a+d to switch out of screen sessions without interruption.
+     use either the logfile or 'htop' to check on the status of the download/upload.
     - screen -S {screen_id}
     - sudo su root
-    - ./syncannex {CONF["repo_own"]}/{CONF["repo"]} > {CONF["repo_own"].lower()}-{CONF["repo"]}.log"""
+    - ./syncannex {CONF["repo_own"]}/{CONF["repo"]} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
 
     return text_block
 
