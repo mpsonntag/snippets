@@ -1,5 +1,14 @@
 # GIN-DOI project structure
 
+## Project hierarchy
+
+main.go
+- web.go
+- register.go
+- genhtml.go
+- keywords.go
+
+
 ## main.go
 
 Base entry point to the project. Current commandline options for the built project:
