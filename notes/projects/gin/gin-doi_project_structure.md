@@ -1,0 +1,3 @@
+# GIN-DOI project structure
+
+
