@@ -1,5 +1,7 @@
 # GIN-DOI project structure
 
+Transmission of DOI request forms from GIN to DOI is encryted, using the DOI key entry.
+
 ## Project hierarchy
 
 main.go (main)
@@ -14,6 +16,16 @@ main.go (main)
     -> web.go:renderRequestPage()
     -> web.go:startDOIRegistration()
     -> assetserver.go:newAssetsFS()
+  - renderRequestPage()
+    -> dataset.go:RegistrationRequest
+    -> decryptRequestData()
+    -> template.reqfail.go
+    -> template.reqpage.go
+    -> template.info.go
+    -> dataset.go:readAndValidate()
+  - decryptRequestData()
+    -> G-Node/libgin.crypt.go:DecryptURLString
+    -> G-Node/libgin.doi.go:DOIRequestData
 
 - register.go (main)
 
@@ -52,11 +64,16 @@ main.go (main)
   - newDispatcher()
 
 -- dataset.go (main)
+  - type RegistrationRequest
+    -> G-Node/libgin.doi.go:DOIRequestData
+    -> G-Node/libgin.doi.go:RepositoryMetadata
   - readFileAtURL()
   - readFileAtPath()
   - createLandingPage()
     -> util.go:prepareTemplates()
     -> templates.info.go
+  - readAndValidate()
+    
 
 -- util.go (main)
   - tmplfuncs           ... name to function mapping for html templates
@@ -77,6 +94,10 @@ main.go (main)
     - Footer            ... footer
   - info.go (gdtmpl)
     - DOIInfo           ... DOI landing page wrapper used in various locations
+  - regfail.go (gdtmpl)
+  - reqpage.go (gdtmpl)
+
+- messages.go (main)
 
 ## main.go
 
@@ -92,7 +113,7 @@ Base entry point to the project. Current commandline options for the built proje
 
 Entry point to the actual DOI server.
 
-## web
+### web
 
 - loads server config
   - requires libgin and all values set as environmental variables
@@ -112,6 +133,23 @@ Entry point to the actual DOI server.
     "/submit"       ... web.go:startDOIRegistration()
     "/assets/"      ... serves assets files from the local file system
   - keep server alive for incoming traffic
+
+### renderRequestPage
+
+- parses received http request form content
+  - Field regrequest
+  - decrypt request content; required fields are username, repo, user email
+  - display gdtmpl.RequestFailurePage (regfail.go)
+  - TODO: the regfail page parses the Nav header part of the page, but does not display it in the template
+          -> check if the page works
+- checks the datacite.yaml content
+  - dataset.go:readAndValidate()
+  - display gdtmpl.RequestFailurePage (regfail.go) on failure
+  - display gdtmpl.DOIInfo (info.go) and gdtmpl.RequestPage (reqpage.go) on success
+  - TODO: the reqpage parses the Nav header part of the page, but does not display it in the template
+          -> check if the page works
+  - page is displayed with data from datacite.yaml rendered like the doi landing page
+  - submit will transmit the original encrypted information to the "/submit" route of the DOI server
 
 
 ## genhtml.go
@@ -142,3 +180,9 @@ Creates index.html pages for keywords found in provided doi.xml files.
 - cycle through keyword map and create landing pages for each keyword
   - creates a directory and and `index.html` file for every keyword
 - creates a keywords `index.html` file listing all keywords sorted by a) # of linked datasets and b) lexical order
+
+
+## dataset.go
+
+### readAndValidate()
+
