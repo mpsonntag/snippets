@@ -1,6 +1,7 @@
 # GIN-DOI project structure
 
-Transmission of DOI request forms from GIN to DOI is encryted, using the DOI key entry.
+- Transmission of DOI request forms from GIN to DOI is encryted, using the DOI key entry.
+- The validation process requires the contents of https://gin.g-node.org/G-Node/Info/src/master/licenses to compare license texts
 
 ## Project hierarchy
 
@@ -73,7 +74,28 @@ main.go (main)
     -> util.go:prepareTemplates()
     -> templates.info.go
   - readAndValidate()
-    
+    -> readFileAtURL()
+    -> readRepoYAML()
+    -> messages.go:msgNoLicenseFile
+    -> validation.go:checkLicenseMatch()
+    -> messages.go:msgLicenseMismatch
+    -> validation.go:validateDataCiteValues()
+    -> messages.go:msgInvalidDOI
+
+  - readRepoYAML()
+    -> G-Node/libgin.doi.go:RepositoryYAML
+    -> validation.go:checkMissingValues()
+
+-- validation.go (main)
+  - checkMissingValues()
+    -> messages.go:msgNoTitle
+    -> messages.go:msgNoAuthors
+    -> messages.go:msgInvalidAuthors
+    -> messages.go:msgNoDescription
+    -> messages.go:msgNoLicense
+    -> messages.go:msgInvalidReference
+  - validateDataCiteValues()
+    -> allowedValues
 
 -- util.go (main)
   - tmplfuncs           ... name to function mapping for html templates
@@ -185,4 +207,15 @@ Creates index.html pages for keywords found in provided doi.xml files.
 ## dataset.go
 
 ### readAndValidate()
+- read in datacite.yml from GIN repository
+- extract information from datacite.yml
+- checks contents of the datacite.yaml for missing entries and returns an error if required
+- checks whether repo contains a LICENSE file; returns an error otherwise
+- checks whether 
+  a) the datacite.yml licence file name can be found in https://gin.g-node.org/G-Node/Info/src/master/licenses
+  b) if yes, checks whether the content of LICENSE and the found license on GIN matches; returns an error otherwise
+  c) if no, will continue without raising an issue
+- checks if the following datacite keys contain only the allowed values and returns an error otherwise
+    "reftype":      {"IsSupplementTo", "IsDescribedBy", "IsReferencedBy", "IsVariantFormOf"},
+    "resourcetype": {"Dataset", "Software", "DataPaper", "Image", "Text"},
 
