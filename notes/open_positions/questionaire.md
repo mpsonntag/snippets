@@ -1,5 +1,4 @@
-
-none of this is important, more of getting a feel where the strength and blind spots are.
+None of this is important, more of getting a feel where the strength and blind spots are.
 
 ## Programming related - basic knowledge
 - lambda
@@ -10,6 +9,7 @@ none of this is important, more of getting a feel where the strength and blind s
 - auth via ssh keys
   - concept
   - detailed workflow
+- fully describe any familiar auth workflow
 
 ## technique checklist
 - programming languages, formats and markup
@@ -25,16 +25,19 @@ none of this is important, more of getting a feel where the strength and blind s
     -[ ] json
     -[ ] yaml
 
+- tests and linting
+  -[ ] automated tests: which for which language:
+  -[ ] linting; which for which language:
+
 - git and git techniques:
   -[ ] git
   -[ ] git annex, git lfs
-  -[ ] github, gitlab
+  -[ ] github, gitlab, hooks
   -[ ] Pull requests
-  -[ ]
-
-- tests and linting
-  -[ ] automated tests: which:
-  -[ ] linting; which:
+    -[ ] rebase vs pull
+    -[ ] working with multiple people on a git project
+    -[ ] cherry-pick
+  -[ ] releases, tagging, issues
 
 - CI:
   -[ ] travis
@@ -42,7 +45,23 @@ none of this is important, more of getting a feel where the strength and blind s
   -[ ] github actions
 
 - docker
-  -[ ] docker build, run, deployment
+  -[ ] docker run, deployment
+  -[ ] writing docker files
   -[ ] docker-compose
+  -[ ] docker hub
+
+- databases
+  -[ ] which
+  -[ ] SQL
+  -[ ] familiar with RDF
+
+- build tools
+  -[ ] which for which language
+  -[ ] familiar with make
 
 - server side skills
+  -[ ] ssh, scp, rsync
+  -[ ] systemctl
+  -[ ] journalctl
+  -[ ] apache
+  -[ ] automated backups
