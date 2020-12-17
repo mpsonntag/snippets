@@ -88,6 +88,32 @@ Base entry point to the project. Current commandline options for the built proje
 `gindoid make-keyword-pages [arg]`  ... runs `keywords.go:mkkeywords`; creates keyword pages from xml file content
 
 
+## web.go
+
+Entry point to the actual DOI server.
+
+## web
+
+- loads server config
+  - requires libgin and all values set as environmental variables
+  - sets maximum request queue
+  - set maximum number of concurrent workers
+
+  - sets up gin doi to gain access to gin via gin-cli
+    - handshakes with gin server and fetches gin hostkey
+    - creates an gin-cli client and logs in to the gin server with the doi user
+  - creates a job dispatcher with max number of workers and max number of jobs
+    - start the job dispatcher
+    - create workers to the maximum number of jobs
+    - worker idle until jobs come in
+  - create available server routes
+    "/"             ... serve storage at `config.Storage.StoreURL` (DOI root)
+    "/register"     ... web.go:renderRequestPage()
+    "/submit"       ... web.go:startDOIRegistration()
+    "/assets/"      ... serves assets files from the local file system
+  - keep server alive for incoming traffic
+
+
 ## genhtml.go
 
 Creates index.html pages for registered DOIs from provided doi.xml files.
