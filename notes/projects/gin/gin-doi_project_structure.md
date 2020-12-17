@@ -4,6 +4,16 @@
 
 main.go (main)
 - web.go (main)
+  - struct reqResultData
+  - web()
+    -> config.go:loadconfig()
+    -> G-Node/gin-cli.gin.go:Login()
+    -> workerdispatcher.go:newDispatcher()
+    -> workerdispatcher.go:newWorker()
+    -> workerdispatcher.go:Dispatcher.run()
+    -> web.go:renderRequestPage()
+    -> web.go:startDOIRegistration()
+    -> assetserver.go:newAssetsFS()
 
 - register.go (main)
 
@@ -26,6 +36,21 @@ main.go (main)
     -> util.go:KeywordPath()
     -> util.go:prepareTemplates()
 
+-- config.go (main)
+  -> G-Node/libgin.util.go:ReadConf()
+  -> G-Node/libgin.util.go:ReadConfDefault()
+  - loadconfig()
+    -> G-Node/gin-cli.config.config.go:ParseWebString()
+    -> G-Node/gin-cli.config.config.go:ParseGitString()
+    -> G-Node/gin-cli.git.keygen.go:GetHostKey()
+    -> G-Node/gin-cli.config.config.go:AddServerConf()
+    -> G-Node/gin-cli.git.keygen.go:WriteKnownHosts()
+    -> G-Node/gin-cli.gin.go:New()
+
+-- workerdipatcher.go (main)
+  - struct RegistrationJob
+  - newDispatcher()
+
 -- dataset.go (main)
   - readFileAtURL()
   - readFileAtPath()
@@ -40,6 +65,11 @@ main.go (main)
   - prepareTemplates()
     -> templates.common.go:Nav
     -> templates.common.go:Footer
+
+-- assetsserver.go (main)
+  - struct AssetFS
+  - newAssetFS()
+  - AssetFS.Open()
 
 - templates
   - common.go (gdtmpl)
