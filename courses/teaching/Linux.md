@@ -591,9 +591,13 @@ Show all settings of a service
 
     systemctl show [service]
 
-Enable or disable services to be run automatically
+Enable or disable services to be run automatically; enabled units will start automatically when the system boots
 
     systemctl [enable/disable] [service]
+
+List all units that have the "failed" status
+
+    systemctl --failed
 
 List all units and its current status
 
