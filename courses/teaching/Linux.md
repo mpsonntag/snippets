@@ -617,6 +617,13 @@ Show the dependencies of a service
 
     systemctl list-dependencies [--all] [service]
 
+Edit unit files w/o opening the file via its location
+
+    sudo systemctl edit [service]
+    # e.g. docker service unit file
+    sudo systemctl edit --full docker.service
+    # reload the service for the changes to take effect
+    sudo systemctl daemon-reload
 
 Find an introduction to systemctl [here](
 https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
