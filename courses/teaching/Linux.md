@@ -573,9 +573,58 @@ systemctl services can be custom made and be put on a timer as well. To list all
 
     systemctl list-timers
 
+### Handle systemctl logs
+
+The journald daemon follows logs from all running systemctl services; these journals can be accessed via `journalctl`.
+
 Follow all current systemctl logs
 
     journalctl -f
+
+Filter the logs by units AND follow e.g. by following the docker daemon
+
+    journalctl -u docker.service -f
+
+Filter logs for multiple units
+
+    journalctl -u docker.service -u apache2.service
+
+Display on the latest `n`, e.g. 100, lines
+
+    journalctl -n 100
+
+Display log in reverse order
+
+    journalctl -r
+
+Filter log for a rough timeframe using `--since`
+
+    # supported: yesterday, today, now, tomorrow
+    journalctl --since today
+    # use a specific date and time
+    journalctl --since "2020-12-12 12:12:12"
+
+Filter log for a specific timeframe
+
+    # use date and time
+    journalctl --since "2020-12-12" --until "2020-12-13 13:13"
+    # use keywords: n sec ago, min, hour, day, month, year 
+    journalctl --since 09:00 --until "1 hour ago"
+
+Display journalctl in a different format e.g. JSON
+
+    # supported: cat, export, json, json-pretty, json-sse, short, short-iso, short-precise, verbose
+    journalctl -o json-pretty
+
+Pipe the output to system out e.g. to consume in an automated script or for further filtering
+
+    journalctl --no-pager
+
+Find a more detailed introduction [here](
+https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
+) or [here](
+https://www.loggly.com/ultimate-guide/using-journalctl/
+).
 
 ## Running a webserver using apache2
 
