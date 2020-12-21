@@ -701,9 +701,12 @@ be different crontabs under different users including root.
 
 `ssh` ... log into a remote host. requires a private ssh key in ~/.ssh and
         the public key pendant in the ~/.ssh/authorized_keys file on the remote host.
+        See section below for a detailed introduction.
 
 `scp` ... provides remote access like ssh, but copies files instead of logging
         into the remote machine.
+
+### File copy with "rsync"
 
 `rsync` ... Copy and update all files from a local directory to and at a remote directory
 - new files will be copied
@@ -711,6 +714,8 @@ be different crontabs under different users including root.
 - ideally run the command with the `dry-run` flag first to ensure that the update is save
 
         rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
+
+### http requests with "curl" (commandline url)
 
 `curl` ... run http requests from the command line
 
@@ -723,8 +728,36 @@ be different crontabs under different users including root.
     # add content header
     curl -H "Content-Type: application/rdf+xml" [URL]
 
-Interesting for debugging with Chromium:
-- "Network" - right click request - Copy - Copy as curl
+Interesting for debugging with the Chromium browser:
+- "Network" - right click "request" - Copy - Copy as curl
+
+Read up on the http protocol if you are not familiar with it. 
+
+- commandline tool for sending a GET http request (GET is the default http request method for curl)
+
+        curl "http://www.hntoplinks.com"
+
+- include the http response headers: `-i`
+
+        curl -i "http://www.hntoplinks.com"
+
+- add a request header: `-H`
+
+        curl "http://www.hntoplinks.com" -H "Accept: application/json" 
+
+- use a different request method than GET: `-X`
+
+        curl -X POST "http://somewhere.com?value=key"
+
+- add a request body to the request: `-d`
+
+        curl -X POST "http://somewhere.com" -d "value=key"
+
+- add an http form body to the request: `-F`
+
+        curl -X POST "http://somewhere.com" -F user[lname]=Karl
+
+Find a very nice introduction to curl [here](http://conqueringthecommandline.com/book/curl).
 
 
 ## Secure connection and keys 
@@ -909,11 +942,11 @@ the actual location of the files
     /etc/aliases
 
 ### user and groups
-`/etc/group` ... contains all available groups and the ids of users that are part of a group
-`/etc/passwd` ... contains all users with their id, shell preference and home directory
+`/etc/group`            ... contains all available groups and the ids of users that are part of a group
+`/etc/passwd`           ... contains all users with their id, shell preference and home directory
 
-`/var/logs`
-`/home/[uname]/.ssh` ... directory containing user specific ssh keys
+`/var/logs`             ... contains various logfiles of interest
+`/home/[uname]/.ssh`    ... directory containing user specific ssh keys
 
 ### TTYs
 
@@ -1037,7 +1070,7 @@ If you are running sbt projects and you ever get errors along the line:
 
 'The java installation you have is not up to date
 Activator requires at least version 1.6+, you have
-version [xxx]'
+version [xyz]'
 
 then you need to switch your java alternatives and reset the JAVA_HOME environment
 variable and make sure the variable properly set via `.profile` or `.bash_alias`
@@ -1051,7 +1084,7 @@ e.g.
 
 ## Adding additional fonts
 
-The following notes are at least true for Ubunut 18
+The following notes are true for Ubuntu 18
 
 - create a folder in `/usr/share/fonts/truetype/newfonts`
 - move any new `.ttf` font files into this folder
@@ -1091,37 +1124,6 @@ The following notes are at least true for Ubunut 18
         # list all processes, sort by CPU usage
         ps aux | sort -rnk
         # list all processes, sort by Memory usage
-
-
-### curl (commandline url)
-
-Read up on the http protocol if you are not familiar with it. 
-
-- commandline tool for sending a GET http request (GET is the default http request method for curl)
-
-        curl "http://www.hntoplinks.com"
-
-- include the http response headers: `-i`
-
-        curl -i "http://www.hntoplinks.com"
-
-- add a request header: `-H`
-
-        curl "http://www.hntoplinks.com" -H "Accept: application/json" 
-
-- use a different request method than GET: `-X`
-
-        curl -X POST "http://somewhere.com?value=key"
-
-- add a request body to the request: `-d`
-
-        curl -X POST "http://somewhere.com" -d "value=key"
-
-- add an http form body to the request: `-F`
-
-        curl -X POST "http://somewhere.com" -F user[lname]=Karl
-
-Find a very nice introduction to curl [here](http://conqueringthecommandline.com/book/curl).
 
 
 ### stat - file information
