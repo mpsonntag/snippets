@@ -565,13 +565,62 @@ List disk hardware
 
 ## Running services with systemctl
 
-Start or stop a systemctl service; can also display the status of a service
+Start a service ("unit"); usually requires `sudo`
 
-    systemctl [start stop status] [service]
+    systemctl start [service]
+    # e.g. docker.service
+    systemctl start docker.service
+
+Stop a service
+
+    systemctl stop [service]
+
+Restart a service (= stop+start)
+
+    systemctl restart [service]
+
+Reload a service w/o interrupting the service
+
+    systemctl reload [service]
+
+Check the status of a service
+
+    systemctl status [service]
+
+Show all settings of a service
+
+    systemctl show [service]
+
+Enable or disable services to be run automatically
+
+    systemctl [enable/disable] [service]
+
+List all units and its current status
+
+    systemctl list-unit-files
+
+Lists all units; use the `--all` flag to also include disabled services
+
+    systemctl list-units [--all]
 
 systemctl services can be custom made and be put on a timer as well. To list all current timers:
 
     systemctl list-timers
+
+Inspect systemd unit files; this will also show the location of the unit file itself
+
+    systemctl cat [service]
+    # e.g. the docker service unit file
+    systemctl cat docker.service
+
+Show the dependencies of a service
+
+    systemctl list-dependencies [--all] [service]
+
+
+Find an introduction to systemctl [here](
+https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
+).
 
 ### Handle systemctl logs
 
