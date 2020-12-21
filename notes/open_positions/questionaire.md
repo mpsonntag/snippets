@@ -61,7 +61,6 @@ None of this is important, more of getting a feel where the strength and blind s
 
 - server side skills
   -[ ] ssh, scp, rsync
-  -[ ] systemctl
-  -[ ] journalctl
+  -[ ] systemd units, systemctl, journalctl, crontab
   -[ ] apache
   -[ ] automated backups
