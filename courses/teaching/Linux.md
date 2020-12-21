@@ -563,11 +563,21 @@ List disk hardware
     sudo lshw -short -C disk
 
 
-## Server commands
+## Running services with systemctl
 
-`systemctl [start stop] [service]`
+Start or stop a systemctl service; can also display the status of a service
 
-`journalctl -f`
+    systemctl [start stop status] [service]
+
+systemctl services can be custom made and be put on a timer as well. To list all current timers:
+
+    systemctl list-timers
+
+Follow all current systemctl logs
+
+    journalctl -f
+
+## Running a webserver using apache2
 
 `apache2 [start stop reload restart]`
 
