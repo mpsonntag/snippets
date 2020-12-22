@@ -686,13 +686,42 @@ https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-a
 https://www.loggly.com/ultimate-guide/using-journalctl/
 ).
 
+
 ## Running a webserver using apache2
 
-`apache2 [start stop reload restart]`
+Usually apache2 should be available as systemd service
 
-`a2enmod` ... enable an apache2 mod
-`a2ensite` ... enable an available apache2 webservice configuration
-`a2disite` ... disable an available apache2 webservice configuration
+    sudo systemctl [start stop reload restart] apache2.service
+
+Enable or disable apache2 mods and webservice configurations; an apache2 reload is required
+
+    # enable an apache2 mod
+    sudo a2enmod [mod]
+    # e.g. the rewrite module
+    sudo a2enmod rewrite
+    # disable an apache2 mod
+    sudo a2dismod [mod]
+
+    # enable a webservice configuration
+    sudo a2ensite [conf]
+    # disable a webservice configuration
+    sudo a2dissite [conf]
+
+After changing a mod or a site, apache requires a reload.
+
+Display loaded modules
+
+    apache2ctl -M
+    # alternatively
+    apache2ctl -t -D DUMP_MODULES
+
+All modules and sites can be found in the following paths
+
+    /etc/apache2/sites-available
+    /etc/apache2/sites-enabled
+    /etc/apache2/mods-available
+    /etc/apache2/mods-enabled
+
 
 ### Session handling
 
@@ -722,6 +751,7 @@ When connected to a remote machine, it might be worthwhile to create a named ses
         # if there are multiple screen sessions with an identical name, screen ls will 
         # show additinal screen ids that can be used to end a specifc session
         screen -XS [screenid.some name] quit
+
 
 ### Webservice certificates for encryption via certbot
 
@@ -755,6 +785,7 @@ the `apache` flag; this probably depends on the `cerbot` version in use, newer v
 appear to do this automatically.
 
     certbot renew --apache
+
 
 ### Scheduled jobs via `crontab`:
 
