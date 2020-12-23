@@ -141,8 +141,7 @@ def print_part_pre_doi(fip):
 
     text_block = f"""
 -[ ] GIN server ({CONF["gin_server"]}) check annex content
-    - cd /gindata
-    - ./annexcheck /gindata/gin-repositories/{CONF["repo_own"].lower()}"""
+    - /gindata/annexcheck /gindata/gin-repositories/{CONF["repo_own"].lower()}"""
     fip.write(text_block)
 
     text_block = f"""
