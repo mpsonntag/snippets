@@ -189,9 +189,15 @@ Entry point to the actual DOI server.
   - page is displayed with data from datacite.yaml rendered like the doi landing page
   - submit will transmit the original encrypted information to the "/submit" route of the DOI server
 
+### startDOIRegistration
+- parses and decrypts form data again
+  - returns request failed on decrypt error
+  - send email containing all information and create an issue on gin.g-node.org/G-Node/DOImetadata in any case & render result regardless if any further error occurs -> nail.go:notifyAdmin();
+  - mail and issue will only be sent when this function exits though; if it hangs, no email, no issue.
+    TODO - CONTINUE after `notifyAdmin()`
+
 
 ## genhtml.go
-
 Creates index.html pages for registered DOIs from provided doi.xml files.
 
 ### mkhtml
