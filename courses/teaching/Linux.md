@@ -689,6 +689,44 @@ https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-a
 https://www.loggly.com/ultimate-guide/using-journalctl/
 ).
 
+### An introduction to systemd and unit files
+
+`systemd` is a service manager for a wide range of Linux distributions. It is used to initialize and
+handle system services and provides a logging service. `systemctl` is used to handle the state of 
+services, `journalctl` is used to handle logs from the individual services.
+
+At the core of `systemd` services are the `unit` files. These are flat text files containing all
+information required to run a specific service. The extension of such a unit file describes
+which kind of service can be handled with it.
+
+#### systemd service types
+
+`systemd` supports the following types of services; all corresponding unit files have the file ending as listed below:
+- service   ... manage a constantly running service and its dependencies
+- timer     ... systemd managed time dependent service analogous to `cron` jobs.
+- socket    ... manage activity encountered at a specified socket. Needs an additional `.service` file to handle the required activity.
+- path      ... used for path based activation and requires a `.service` file; cf. `socket`.
+- target    ... synchronisation between units when booting or changing state
+- mount     ... manage mountpoints using systemd
+- automount ... requires a `.mount` unit and automatically handles the mountpoints described
+- device    ... handling dependencies accessing specific devices
+- swap      ... handle system swap space
+
+#### Unit files
+
+
+#### systemd paths
+
+The default systemd unit files are kept at `/lib/systemd/system` and should not be modified.
+Custom systemd unit files should be kept at `/etc/systemd/system`; files or directories in this
+directory will overrule files or directories found in the default location.
+
+Ideally use `systemctl` itself to create and modify `unit` files.
+
+Find a detailed introduction [here](
+https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
+)
+
 
 ## Running a webserver using apache2
 
