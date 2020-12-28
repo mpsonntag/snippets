@@ -151,11 +151,9 @@ Base entry point to the project. Current commandline options for the built proje
 
 
 ## web.go
-
 Entry point to the actual DOI server.
 
 ### web
-
 - loads server config
   - requires libgin and all values set as environmental variables
   - sets maximum request queue
@@ -176,7 +174,6 @@ Entry point to the actual DOI server.
   - keep server alive for incoming traffic
 
 ### renderRequestPage
-
 - parses received http request form content
   - Field regrequest
   - decrypt request content; required fields are username, repo, user email
@@ -211,7 +208,6 @@ Creates index.html pages for registered DOIs from provided doi.xml files.
 
 
 ## keywords.go
-
 Creates index.html pages for keywords found in provided doi.xml files.
 
 ### mkkeywords
@@ -255,7 +251,7 @@ Handles mails and open issues
    -> G-Node/gin-cli:web.go:Post() ... Post to gin
 
 ### getIssueID
-getIssueID returns the ID for an issue on a given repo that matches the given title. 
+getIssueID returns the ID for an issue on a given repo that matches the given title.
 It returns 0 if no issue matching the title is found.
 Uses the gin client to access the gin gogs api for the defined doi xml repository
 and accesses the repositories issues list. Compares the titles to the title of the current
@@ -267,5 +263,3 @@ DOI request
 
 GIN DOI -> request DOI
 -> gin-doi/register -> renderRequestPage -> gin-doi/submit -> startDOIRegistration
-
-
