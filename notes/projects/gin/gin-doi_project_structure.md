@@ -4,7 +4,6 @@
 - The validation process requires the contents of https://gin.g-node.org/G-Node/Info/src/master/licenses to compare license texts
 
 ## Project hierarchy
-
 main.go (main)
 - web.go (main)
   - struct reqResultData
@@ -27,6 +26,11 @@ main.go (main)
   - decryptRequestData()
     -> G-Node/libgin.crypt.go:DecryptURLString
     -> G-Node/libgin.doi.go:DOIRequestData
+  - startDOIRegistration()
+    -> G-Node/libgin.RepositoryMetadata
+    -> G-Node/libgin.DataCite
+    -> decryptRequestData()
+    -> mail.go:notifyAdmin()
 
 - register.go (main)
 
@@ -60,10 +64,6 @@ main.go (main)
     -> G-Node/gin-cli.git.keygen.go:WriteKnownHosts()
     -> G-Node/gin-cli.gin.go:New()
 
--- workerdipatcher.go (main)
-  - struct RegistrationJob
-  - newDispatcher()
-
 -- dataset.go (main)
   - type RegistrationRequest
     -> G-Node/libgin.doi.go:DOIRequestData
@@ -81,10 +81,33 @@ main.go (main)
     -> messages.go:msgLicenseMismatch
     -> validation.go:validateDataCiteValues()
     -> messages.go:msgInvalidDOI
-
   - readRepoYAML()
     -> G-Node/libgin.doi.go:RepositoryYAML
     -> validation.go:checkMissingValues()
+
+-- mail.go (main)
+  - notifyAdmin()
+    -> createIssue()
+    -> util.go:GetGINURL()
+    -> sendMail()
+  - createIssue()
+    -> getIssueID()
+    -> gogs/go-gogs-client:CreateIssueOption
+    -> G-Node/gin-cli:web.go:Post()
+  - getIssueID()
+    -> G-Node/gin-cli:web.go:Get()
+    -> gogs/go-gogs-client:Issue
+  - sendMail()
+
+-- util.go (main)
+  - tmplfuncs           ... name to function mapping for html templates
+  - templateMap         ... name to template mapping for html templates
+  - KeywordPath()
+  - prepareTemplates()
+    -> templates.common.go:Nav
+    -> templates.common.go:Footer
+  - GetGINURL()
+    
 
 -- validation.go (main)
   - checkMissingValues()
@@ -97,13 +120,9 @@ main.go (main)
   - validateDataCiteValues()
     -> allowedValues
 
--- util.go (main)
-  - tmplfuncs           ... name to function mapping for html templates
-  - templateMap         ... name to template mapping for html templates
-  - KeywordPath()
-  - prepareTemplates()
-    -> templates.common.go:Nav
-    -> templates.common.go:Footer
+-- workerdispatcher.go (main)
+  - struct RegistrationJob
+  - newDispatcher()
 
 -- assetsserver.go (main)
   - struct AssetFS
