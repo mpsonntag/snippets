@@ -565,6 +565,9 @@ List disk hardware
 
 ## Running services with systemctl
 
+`systemctl` is a service that is shipped with the `systemd` suit for handling services on a linux
+machine. `systemctl` specifically handles the state of system services (daemons) e.g. starting, stopping, etc.
+
 Start a service ("unit"); usually requires `sudo`
 
     systemctl start [service]
@@ -633,9 +636,9 @@ Find an introduction to systemctl [here](
 https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
 ).
 
-### Handle systemctl logs
+### Handle systemd logs using journalctl
 
-The journald daemon follows logs from all running systemctl services; these journals can be accessed via `journalctl`.
+The `journald` daemon follows logs from all running `systemd` services; these journals can be accessed using `journalctl`.
 
 Follow all current systemctl logs
 
