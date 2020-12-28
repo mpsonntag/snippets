@@ -219,3 +219,34 @@ Creates index.html pages for keywords found in provided doi.xml files.
     "reftype":      {"IsSupplementTo", "IsDescribedBy", "IsReferencedBy", "IsVariantFormOf"},
     "resourcetype": {"Dataset", "Software", "DataPaper", "Image", "Text"},
 
+
+## mail.go
+Handles mails and open issues
+
+### notifyAdmin
+- sends an email containing all DOI request information
+  - all errors and warnings are collected in the actual job and sent with the email
+- opens an issue on gin with the same information -> createIssue()
+
+### createIssue
+ -> getIssueID
+ - if an issue exists, add a comment to it.
+ - create an issue if no issue exists.
+   -> gogs/go-gogs-client:CreateIssueOption
+   -> G-Node/gin-cli:web.go:Post() ... Post to gin
+
+### getIssueID
+getIssueID returns the ID for an issue on a given repo that matches the given title. 
+It returns 0 if no issue matching the title is found.
+Uses the gin client to access the gin gogs api for the defined doi xml repository
+and accesses the repositories issues list. Compares the titles to the title of the current
+DOI request
+- returns the issue ID if found, -1 or 0 otherwise.
+
+
+## registration chain
+
+GIN DOI -> request DOI
+-> gin-doi/register -> renderRequestPage -> gin-doi/submit -> startDOIRegistration
+
+
