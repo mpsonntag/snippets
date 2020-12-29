@@ -27,10 +27,16 @@ main.go (main)
     -> G-Node/libgin.crypt.go:DecryptURLString
     -> G-Node/libgin.doi.go:DOIRequestData
   - startDOIRegistration()
-    -> G-Node/libgin.RepositoryMetadata
-    -> G-Node/libgin.DataCite
+    -> G-Node/libgin.doi.go:RepositoryMetadata
+    -> G-Node/libgin.datacite.go:DataCite
+    -> G-Node/libgin.doi.go:GINUser
     -> decryptRequestData()
     -> mail.go:notifyAdmin()
+    -> G-Node/libgin.doi.go:IsRegisteredDOI()
+    -> util.go:randAlnum()
+    -> G-Node/gin-cli.gin.go:RequestAccount()
+    -> G-Node/libgin.datacite.go:NewDataCiteFromYAML()
+    -> mail.go:notifyUser()
 
 - register.go (main)
 
@@ -107,7 +113,6 @@ main.go (main)
     -> templates.common.go:Nav
     -> templates.common.go:Footer
   - GetGINURL()
-    
 
 -- validation.go (main)
   - checkMissingValues()
@@ -194,7 +199,15 @@ Entry point to the actual DOI server.
   - returns request failed on decrypt error
   - send email containing all information and create an issue on gin.g-node.org/G-Node/DOImetadata in any case & render result regardless if any further error occurs -> nail.go:notifyAdmin();
   - mail and issue will only be sent when this function exits though; if it hangs, no email, no issue.
-    TODO - CONTINUE after `notifyAdmin()`
+  - create a new random doi and check via https://doi.org whether the created doi is registered or not.
+    - requires libgin.IsRegisteredDOI()
+  - check whether the account requesting the DOI actually exists
+    - requires gin-cli.RequestAccount()
+  - runs dataset.go:readAndValidate() again
+  - create DataCite struct
+    - requires libgin.datacite.go:NewDataCiteFromYAML()
+  - job is added to server `jobQueue`
+  - send email to user; mail.go:notifyUser()
 
 
 ## genhtml.go
