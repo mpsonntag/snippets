@@ -113,6 +113,26 @@ main.go (main)
     -> templates.common.go:Nav
     -> templates.common.go:Footer
   - GetGINURL()
+  - AwardNumber()
+    -> templates.info.go
+  - AuthorBlock()
+    -> templates.info.go
+  - FormatCitation()
+    -> templates.page.go (DOI Landingpage)
+  - FormatReferences()
+    -> templates.info.go
+  - FormatIssuedDate()
+    -> templates.keyword.go
+    -> templates.info.go
+  - KeywordPath()
+    -> templates.keyword.go
+    -> templates.info.go
+  - FormatAuthorList()
+    -> templates.keyword.go
+  - NewVersionLink()
+    -> templates.info.go
+  - OldVersionLink()
+    -> templates.info.go
 
 -- validation.go (main)
   - checkMissingValues()
