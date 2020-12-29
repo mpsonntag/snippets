@@ -333,7 +333,7 @@ GIN DOI -> request DOI
 -> gin-doi/register -> renderRequestPage -> gin-doi/submit -> startDOIRegistration
 
 
-## TODO
+## TODO list
 - util.go:readBody()
   check whether this piece of code can be removed
 - util.go:makeUUID()
@@ -348,3 +348,24 @@ GIN DOI -> request DOI
   check if it can be removed
   -> there is a reference in template.info.go to `funding.Funder` which cannot be found
     -> "Funder" should probably be "FunderName", since its also right next to AwardNumber
+
+- config.go:Configuration
+  - add `CloneDirectory` to the `Storage` struct
+
+- dataset.go:cloneAndZip
+  - create Job directory in `TargetDirectory` AND in `CloneDirectory`
+  - hand over `CloneDirectory/Job` to cloneRepo()
+  - change `repodir` to use `CloneDirectory`
+    -> zip should look in the correct dir and create in the correct dir
+
+- dataset.go:derepoCloneDir
+  - remove usage of this function
+  -> save code to somewhere or keep function with a comment
+
+- dataset.go:zip
+  - ignore still existing `.git` dir when creating zip file;
+  - actually the other way around: hand over all file paths except for the `.git` to be added to the zip file.
+
+- either workdispatcher.go:Worker.start() ignores the createRegisteredDataset error and should not
+  or
+  createRegisteredDataset should not return an error
