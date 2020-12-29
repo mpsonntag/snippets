@@ -369,6 +369,16 @@ NOT FUNCTIONAL UNTIL AUTOMATIC FORKING TO THE DOI USER IS IMPLEMENTED
 - walk through existing releases and return the latest
 
 
+## validation
+
+### collectWarnings
+- Funder has no ID
+- Reference uses "Name" instead of "Citation" (legacy issue)
+- Abstract is shorter than 80 char
+- check for existing forks of the current repository by the DOI user
+  -> dataset.go:getRepoForks()
+
+
 ## mail.go
 Handles mails and open issues
 
