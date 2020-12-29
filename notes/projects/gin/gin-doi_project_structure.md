@@ -282,3 +282,20 @@ DOI request
 
 GIN DOI -> request DOI
 -> gin-doi/register -> renderRequestPage -> gin-doi/submit -> startDOIRegistration
+
+
+## TODO
+- util.go:readBody()
+  check whether this piece of code can be removed
+- util.go:makeUUID()
+  check if it can be removed
+- util.go:ReferenceDescription
+  check if it can be removed
+- util.go:ReferenceSource
+  check if it can be removed
+- util.go:ReferenceID
+  check if it can be removed
+- gin-doi.util.go:FunderName
+  check if it can be removed
+  -> there is a reference in template.info.go to `funding.Funder` which cannot be found
+    -> "Funder" should probably be "FunderName", since its also right next to AwardNumber
