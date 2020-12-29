@@ -91,6 +91,29 @@ main.go (main)
     -> G-Node/libgin.doi.go:RepositoryYAML
     -> validation.go:checkMissingValues()
   - createRegisteredDataset()
+    -> prepDir()
+    -> cloneAndZip()
+    -> G-Node/libgin.datacite.go:AddURLs()
+      -> G-Node/libgin.util.go:GetArchiveSize()
+    -> getPreviousDOI()
+    -> createLandingPage()
+    -> mail.go:notifyAdmin()
+    -> validation.go:collectWarnings()
+  - prepDir()
+  - cloneAndZip()
+    -> cloneRepo()
+    -> derepoCloneDir()
+    -> zip()
+  - cloneRepo()
+    -> G-Node/gin-cli.ginclient.repos.go:CloneRepo()
+    -> G-Node/gin-cli.ginclient.repos.go:GetContent()
+  - derepoCloneDir()
+  - zip()
+    -> G-Node/libgin.archive.go:MakeZip
+  - getRepoForks()
+    -> getLatestDOITag()
+  - getLatestDOITag()
+    -> G-Node/gin-cli:web.go:Get()
 
 -- mail.go (main)
   - notifyAdmin()
@@ -145,6 +168,8 @@ main.go (main)
     -> messages.go:msgInvalidReference
   - validateDataCiteValues()
     -> allowedValues
+  - collectWarnings()
+    -> dataset.go:getRepoForks()
 
 -- workerdispatcher.go (main)
   - struct RegistrationJob
@@ -152,8 +177,6 @@ main.go (main)
   - Worker.start()
     - dataset.go:createRegisteredDataset()
   - worker.stop()
-
-  - TODO: describe Worker and its sub functions
 
 -- assetsserver.go (main)
   - struct AssetFS
