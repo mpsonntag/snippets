@@ -302,6 +302,72 @@ Creates index.html pages for keywords found in provided doi.xml files.
     "reftype":      {"IsSupplementTo", "IsDescribedBy", "IsReferencedBy", "IsVariantFormOf"},
     "resourcetype": {"Dataset", "Software", "DataPaper", "Image", "Text"},
 
+### createRegisteredDataset
+- prepare the landing directory in the DOI serve directory
+  -> prepDir()
+- clone the repository, unannex and create a zipfile with the contents
+  -> cloneAndZip()
+- handle 3 reference repo URLs (DOI origin, DOI fork, DOI zip)
+  -> G-Node/libgin.datacite.go:AddURLs()
+    -> G-Node/libgin.util.go:GetArchiveSize()
+- check if there is a previous version
+  -> getPreviousDOI()
+- create the landing page in the target directory
+  -> createLandingPage()
+- create the doi.xml file in the target directory
+  - on error call `notifyAdmin`, create issue and send email
+- write DataCite content to doi.xml file
+  -> validation.go:collectWarnings()
+  - if there are any errors or warnings, `notifyAdmin` to create issue and send email
+
+### prepDir
+- create the target directory
+- create the `.htaccess` file in it
+
+### cloneAndZip
+- create folder TargetDirectory/jobname
+- clone the repository; cloned directory name will be lower case
+  -> cloneRepo()
+- uninit repository
+  -> derepoCloneDir()
+- create zip file
+  -> zip()
+
+### cloneRepo
+- switch to target directory
+- clone the repository and get annex content
+  -> G-Node/gin-cli.ginclient.repos.go:CloneRepo()
+  -> G-Node/gin-cli.ginclient.repos.go:GetContent()
+
+### derepoCloneDir
+- switches to target dir
+- runs git annex uninit
+- sets file and dir permissions in .git dir able for deletion
+- removes .git dir
+
+### zip
+- check paths for zip file
+- create empty zip file
+- switch to cloning dir
+- zip content of cloning dir
+  -> G-Node/libgin.archive.go:MakeZip
+
+### getPreviousDOI
+NOT FUNCTIONAL UNTIL AUTOMATIC FORKING TO THE DOI USER IS IMPLEMENTED (I think)
+- fetches all forks of the current repo
+  -> getRepoForks()
+
+### getRepoForks
+- fetch forks of the current repo from gin as gogs.Repository list
+  -> G-Node/gi-cli.web.go:Get()
+- check if a user DOI has forked the repo and a tag exists
+  -> getLatestDOITag()
+
+### getLatestDOITag
+NOT FUNCTIONAL UNTIL AUTOMATIC FORKING TO THE DOI USER IS IMPLEMENTED
+- fetch releases of the forked repository
+- walk through existing releases and return the latest
+
 
 ## mail.go
 Handles mails and open issues
