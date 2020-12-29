@@ -90,6 +90,7 @@ main.go (main)
   - readRepoYAML()
     -> G-Node/libgin.doi.go:RepositoryYAML
     -> validation.go:checkMissingValues()
+  - createRegisteredDataset()
 
 -- mail.go (main)
   - notifyAdmin()
@@ -148,6 +149,11 @@ main.go (main)
 -- workerdispatcher.go (main)
   - struct RegistrationJob
   - newDispatcher()
+  - Worker.start()
+    - dataset.go:createRegisteredDataset()
+  - worker.stop()
+
+  - TODO: describe Worker and its sub functions
 
 -- assetsserver.go (main)
   - struct AssetFS
