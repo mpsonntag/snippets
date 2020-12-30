@@ -366,6 +366,8 @@ Unix systems feature groups and users to handle any access permissions.
 - check if a user exists by name, list the id of a user and the groups a user is assigned to
 
         id [username]
+        # alternativeley use getent
+        getent passwd [username]
 
 - modify the id of a user; use IDs 1000+, ids must be unique.
 
@@ -408,6 +410,10 @@ to all users within a group.
 - show all registered groups
 
         cat /etc/group
+
+- check if a group exists by name
+
+        getent group [groupname]
 
 - display all active/available groups of/for the active user
 
