@@ -8,7 +8,7 @@ else
   groupadd gindeploy
 fi
 
-if id gin >/dev/null 2>&1; then
+if [ $(getent passwd gin) ]; then
     echo "user gin already exists"
 else
     useradd -M -G docker,gindeploy gin
