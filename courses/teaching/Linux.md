@@ -328,6 +328,63 @@ http://www.linusakesson.net/programming/tty/index.php).
     ls -d [dir_path] | xargs -I {} echo {}
 
 
+## User management
+
+[TODO merge with block below]
+Display all users
+
+    getent passwd
+or
+
+    cat /etc/passwd 
+
+or
+
+    compgen -u
+
+Add a new user
+
+    # user friendly perl script using 'useradd' 
+    sudo adduser [new_username]
+
+or
+
+    # native binary compiled with the system
+    sudo useradd [new_username]
+
+Delete user
+
+    sudo userdel [username]
+
+Remove home directory of a removed user recursively
+
+    sudo rm /home/[username] -r
+
+Modify username
+
+    usermod -l [new_username] [old_username]
+
+Change Password
+
+    sudo passwd [username]
+
+Change shell of a user
+
+    sudo chsh [username]
+
+    # if this does not work, try
+    sudo usermod -s /bin/bash [username]
+
+
+If this does not work e.g. because the user was created without a shell, run the following
+
+    sudo usermod -s /bin/bash [username]
+
+Change permissions of a group to the same as the user
+
+    sudo chmod -R g=u
+
+
 ## User and permission handling
 
 Unix systems feature groups and users to handle any access permissions.
@@ -381,7 +438,7 @@ Unix systems feature groups and users to handle any access permissions.
 
 - remove a user from all groups except their own group
 
-        usermod -G "" username
+        usermod -G "" [username]
 
 - remove a user from one specific group
 
@@ -1674,62 +1731,6 @@ When redirecting to `/dev/null`, any command line output to `STDOUT` and `STDERR
 
     e.g. the output from wget will be suppressed
     wget -O libgit2.tar.gz -o /dev/null https://github.com/libgit2/libgit2/archive/v0.24.5.tar.gz
-
-
-## User management
-
-Display all users
-
-    getent passwd
-or
-
-    cat /etc/passwd 
-
-or
-
-    compgen -u
-
-Add a new user
-
-    # user friendly perl script using 'useradd' 
-    sudo adduser [new_username]
-
-or
-
-    # native binary compiled with the system
-    sudo useradd [new_username]
-
-Delete user
-
-    sudo userdel [username]
-
-Remove home directory of a removed user recursively
-
-    sudo rm /home/[username] -r
-
-Modify username
-
-    usermod -l [new_username] [old_username]
-
-Change Password
-
-    sudo passwd [username]
-
-Change shell of a user
-
-    sudo chsh [username]
-
-    # if this does not work, try
-    sudo usermod -s /bin/bash [username]
-
-
-If this does not work e.g. because the user was created without a shell, run the following
-
-    sudo usermod -s /bin/bash [username]
-
-Change permissions of a group to the same as the user
-
-    sudo chmod -R g=u
 
 
 ## Access System Error logs
