@@ -484,6 +484,10 @@ to all users within a group.
 
         groupmod -g [newID] [group]
 
+- delete a group
+
+        groupdel [group]
+
 
 ### File permissions and ownership
 
