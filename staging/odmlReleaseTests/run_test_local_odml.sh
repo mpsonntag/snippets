@@ -60,8 +60,12 @@ echo
 pip install .
 
 echo
+echo "-- Installing test dependencies"
+pip install owlrl requests pytest
+
+echo
 echo "-- Running tests"
-python setup.py test
+pytest -v
 
 conda deactivate
 
@@ -81,8 +85,12 @@ echo
 python setup.py install
 
 echo
+echo "-- Installing test dependencies"
+pip install owlrl requests pytest
+
+echo
 echo "-- Running tests"
-python setup.py test
+pytest -v
 
 conda deactivate
 
