@@ -35,6 +35,36 @@ macOS Catalina 10.15    macos-latest
 
 Check the following page which software packages [are available](https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners).
 
+## Reference workflow
+
+github action workflows are provided in a git repository as yaml files at a `.github/workflows` directory. 
+
+    # distinguish different workflows, the name can be freely chosen; this name is displayed on github
+    name: human-readable-name
+    # define when this workflow should be executed on github
+    # multiple actions can be chosen
+    # available actions are: push 
+    on: [push]
+    # list of jobs that are run
+    jobs:
+      # each job can have its own name and can be freely chosen
+      job-1:
+        # multiple operating systems can be chosen; see above which labels are available
+        runs-on: ubuntu-latest
+        # steps is a grouping container for all steps
+        steps:
+          # via 'uses' the step will fetch the defined action 'actions/checkout' at version 'v2'
+          # this action downloads the repository to the runner environment
+          - uses: actions/checkout@v2
+          # actions can also be named; the following action will setup python
+          - name: Setup Python 3.8
+            uses: actions/setup-python@v2
+            with:
+              python-version: 3.8
+          # run executes a command on the runner, can also be named
+          - name: Display installed Python version
+            run: python -c "import sys; print(sys.version)"
+
 
 # appveyor
 
