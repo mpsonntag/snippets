@@ -1803,6 +1803,14 @@ Upgrade core packages
     sudo apt-get dist-upgrade
 
 
+# Command line reboot
+
+Reboot a machine from the command line
+
+    sudo shutdown -r now
+    # or
+    sudo reboot
+
 # Exercises
 ## User handling
 -[ ] create user
