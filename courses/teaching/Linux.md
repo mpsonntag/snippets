@@ -1788,6 +1788,20 @@ Display mac address
     # or
     ifconfig -a
 
+# Command line package update
+
+Update the package index:
+
+    sudo apt-get update
+
+Upgrade installed packages
+
+    sudo apt-get upgrade
+
+Upgrade core packages
+
+    sudo apt-get dist-upgrade
+
 
 # Exercises
 ## User handling
