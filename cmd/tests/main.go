@@ -200,3 +200,25 @@ func testMissingJSONFields(b []byte) {
 func testWriteFile(content, filename string) error {
 	return ioutil.WriteFile(filename, []byte(content), 0666)
 }
+
+func testFileExclusionWrapper() {
+	test := []string{"ab", "cd", "ef"}
+	testFileExclusion(test, "one", "two", "three", "ab")
+}
+
+func testFileExclusion(exclude []string, source ...string) {
+	for _, src := range source {
+		var skip bool
+		for i := range exclude {
+			if exclude[i] == src {
+				skip = true
+				break
+			}
+		}
+		if !skip {
+			fmt.Println(src)
+		} else {
+			fmt.Printf("Excluding '%s'\n", src)
+		}
+	}
+
