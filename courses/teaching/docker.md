@@ -9,6 +9,10 @@
 
     docker build -t [containername:label] [source_dir]
 
+- to ensure a full, clean build use the `--no-cache` and `--pull` flags to ensure no stale dependent images are used
+
+    docker build -t --no-cache --pull [containername:label] [source_dir]
+
 - the configuration of a built docker container can be reviewed by using
 
         docker inspect [container]
