@@ -15,3 +15,14 @@ sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.
 
 jupyter should now be able to run a notebook using a go kernel.
 
+## Operating system dependencies
+
+The above example is true for setup on a Linux system. For other platforms check the jupyter notebook paths documentation (see linklist below).
+
+## References
+- [gophernotes](
+https://github.com/gopherdata/gophernotes
+)
+- [jupyter common directories](
+https://jupyter.readthedocs.io/en/latest/use/jupyter-directories.html
+)
