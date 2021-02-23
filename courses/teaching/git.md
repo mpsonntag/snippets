@@ -262,6 +262,23 @@ Once the branch version is functional, the changes can be merged with the last f
 # git rebase
 A very good explanation can be found [here](http://git-scm.com/book/de/v1/Git-Branching-Rebasing)
 
+# Saving work in progress
+To save work in progress that is not ready for proper commits but should be saved overnight, the following pipeline can be applied:
+
+```bash
+# checkout a temporary branch
+git checkout -b WIP
+# create a stash commit and push to offsite repo for safekeeping
+git commit -a -m "WIP"
+git push origin WIP
+
+# take a break; when coming back, unstash the changes
+git reset HEAD~1
+# return to working branch and cleanup
+git checkout [working branch]
+git branch -D WIP
+git push origin :WIP
+```
 
 # G-Node git pipeline
 - go to github
