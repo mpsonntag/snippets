@@ -221,4 +221,4 @@ func testFileExclusion(exclude []string, source ...string) {
 			fmt.Printf("Excluding '%s'\n", src)
 		}
 	}
-
+}
