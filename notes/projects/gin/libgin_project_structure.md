@@ -12,5 +12,9 @@ libgin is a core library used by various other gin related libraries.
 
 ## doi.go
 
-- RepoPathToUUID ... used in gogs
+- func RepoPathToUUID ... used in gogs
+
+## archive/archive
+
+- func MakeZip ... used in gin-doi
 
