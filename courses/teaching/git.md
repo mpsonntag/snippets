@@ -376,6 +376,14 @@ Move to folder where the submodule is supposed to be installed
 
 Detailed description [here](http://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
+To automatically check whether a repo contains submodules and which, either check the root of the repository for the `.gitmodules` file, that contains information about all contained submodules.
+Or use the following command from the repository to print all submodules:
+
+```bash
+git submodule status
+# optional
+git submodule status --recursive
+```
 
 # Create github repository from local
 
