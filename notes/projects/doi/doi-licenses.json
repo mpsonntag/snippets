@@ -1,14 +1,78 @@
 {
   "DOILicense": [
     {
-      "URL": "",
-      "Name": "",
-      "Alias": []
+      "URL":   "",
+      "Name":  "",
+      "Alias": [
+        "",
+        "",
+        "",
+        ""
+      ]
     },
     {
-      "URL": "",
-      "Name": "",
-      "Alias": []
+      "URL":   "https://creativecommons.org/publicdomain/zero/1.0/",
+      "Name":  "CC0 1.0 Universal",
+      "Alias": [
+        "CC0 1.0 Universal",
+        "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+        "Creative Commons CC0 1.0 Public Domain Dedication",
+        "CC0"
+      ]
+    },
+    {
+      "URL":   "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "Name":  "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License",
+      "Alias": [
+        "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License",
+        "Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+        "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+        "Attribution-NonCommercial-ShareAlike 4.0 International",
+        "CC-BY-NC-SA 4.0",
+        "CC-BY-NC-SA"
+      ]
+    },
+    {
+      "URL":   "https://creativecommons.org/licenses/by-nc-nd/4.0",
+      "Name":  "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License",
+      "Alias": [
+        "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License",
+        "Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
+        "CC-BY-NC-ND 4.0",
+        "CC-BY-NC-ND"
+      ]
+    },
+    {
+      "URL":   "https://creativecommons.org/licenses/by-nc/4.0",
+      "Name":  "Creative Commons Attribution-NonCommercial 4.0 International Public License",
+      "Alias": [
+        "Creative Commons Attribution-NonCommercial 4.0 International Public License",
+        "Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
+        "CC BY-NC 4.0",
+        "CC BY-NC"
+      ]
+    },
+    {
+      "URL":   "https://creativecommons.org/licenses/by-sa/4.0",
+      "Name":  "Creative Commons Attribution-ShareAlike 4.0 International Public License",
+      "Alias": [
+        "Creative Commons Attribution-ShareAlike 4.0 International Public License",
+        "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+        "Creative Commons Attribution-ShareAlike 4.0",
+        "CC BY-SA 4.0",
+        "CC BY-SA"
+      ]
+    },
+    {
+      "URL":   "https://creativecommons.org/licenses/by/4.0",
+      "Name":  "Creative Commons Attribution 4.0 International Public License",
+      "Alias": [
+        "Creative Commons Attribution 4.0 International Public License",
+        "Creative Commons Attribution 4.0 International License",
+        "Attribution 4.0 International (CC BY 4.0)",
+        "CC BY 4.0",
+        "CC BY"
+      ]
     }
   ]
 }
