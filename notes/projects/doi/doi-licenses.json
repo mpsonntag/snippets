@@ -11,6 +11,22 @@
       ]
     },
     {
+      "URL":   "https://opensource.org/licenses/BSD-3-Clause",
+      "Name":  "The 3-Clause BSD License",
+      "Alias": [
+        "The 3-Clause BSD License",
+        "BSD-3-Clause"
+      ]
+    },
+    {
+      "URL":   "https://www.gnu.org/licenses/gpl-3.0.en.html",
+      "Name":  "GNU General Public License v3.0",
+      "Alias": [
+        "GNU General Public License v3.0",
+        "GNU General Public License"
+      ]
+    },
+    {
       "URL":   "https://creativecommons.org/publicdomain/zero/1.0/",
       "Name":  "CC0 1.0 Universal",
       "Alias": [
