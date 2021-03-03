@@ -1,5 +1,4 @@
-{
-  "DOILicense": [
+[
     {
       "URL":   "http://www.apache.org/licenses/LICENSE-2.0",
       "Name":  "Apache License",
@@ -33,7 +32,7 @@
       ]
     },
     {
-      "URL":   "https://creativecommons.org/publicdomain/zero/1.0/",
+      "URL":   "https://creativecommons.org/publicdomain/zero/1.0",
       "Name":  "CC0 1.0 Universal",
       "Alias": [
         "CC0 1.0 Universal",
@@ -43,7 +42,7 @@
       ]
     },
     {
-      "URL":   "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "URL":   "https://creativecommons.org/licenses/by-nc-sa/4.0",
       "Name":  "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License",
       "Alias": [
         "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License",
@@ -97,4 +96,3 @@
       ]
     }
   ]
-}
