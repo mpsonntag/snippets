@@ -7,7 +7,7 @@
 GINSERVERALIAS=dev
 
 if [[ $# < 1 ]]; then
-  echo "... Need a path to a downloaded gin repository"
+  echo "... need a path to a downloaded gin repository"
   exit 1
 fi
 
@@ -18,24 +18,26 @@ if [ ! -d $REPOPATH ]; then
     exit 1
 fi
 
+echo "... checking gin client user"
 if ! gin info | grep -iq "user doi"; then
-  echo "... Please log in to GIN as the DOI user (with the gin client)"
+  echo "... please log in to GIN as the DOI user (with the gin client)"
   exit 1
 fi
 
 cd $REPOPATH
 REPO=$(basename "$PWD")
+echo "... working in directory $PWD"
 
-echo "... Download git changes from origin"
+echo "... download git changes from origin"
 gin download
 
-echo "... Download annex changes from origin"
+echo "... download annex changes from origin"
 gin get-content .
 
-echo "... Add DOI fork as remote"
+echo "... add DOI fork as remote"
 gin add-remote doi $GINSERVERALIAS:doi/$REPO
 
-echo "... Upload file content to DOI fork"
+echo "... upload file content to DOI fork"
 gin upload --to=doi
 
 echo "... Done!"
