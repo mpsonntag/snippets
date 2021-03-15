@@ -14,8 +14,21 @@ if ! gin info | grep -iq "user doi"; then
 fi
 
 REPOPATH=$1
+GINSERVERALIAS=dev
 
 cd $REPOPATH
 REPO=$(basename "$PWD")
+
+echo "Download git changes from origin"
+gin download
+
+echo "Download annex changes from origin"
+gin get-content .
+
+echo "Add DOI fork as remote"
+gin add-remote doi $GINSERVERALIAS:doi/$REPO
+
+echo "Upload to DOI fork"
+gin upload --to=doi
 
 echo "Done!"
