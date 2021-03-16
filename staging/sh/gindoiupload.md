@@ -6,6 +6,8 @@
 # server alias for uploads; should be 'gin'
 GINSERVERALIAS=dev
 
+echo "... working with gin server '$GINSERVERALIAS'"
+
 if [[ $# < 1 ]]; then
   echo "... need a path to a downloaded gin repository"
   exit 1
@@ -25,7 +27,14 @@ if ! gin info | grep -iq "user doi"; then
 fi
 
 cd $REPOPATH
+WORKIR=$PWD
 REPO=$(basename "$PWD")
+
+cd ..
+TAGNAME=10.12751/$(basename "$PWD")
+echo "... using tag name $TAGNAME"
+
+cd  $WORKDIR
 echo "... working in directory $PWD"
 
 echo "... checking doi fork"
