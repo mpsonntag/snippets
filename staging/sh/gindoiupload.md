@@ -28,6 +28,12 @@ cd $REPOPATH
 REPO=$(basename "$PWD")
 echo "... working in directory $PWD"
 
+echo "... checking doi fork"
+if ! gin repoinfo doi/$REPO | grep -w "[error]"; then
+  echo "... could not find fork doi/$REPO"
+  exit 1
+fi
+
 echo "... download git changes from origin"
 gin download
 
