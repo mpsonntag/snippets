@@ -38,7 +38,7 @@ cd  $WORKDIR
 echo "... working in directory $PWD"
 
 echo "... checking doi fork"
-if ! gin repoinfo doi/$REPO | grep -w "[error]"; then
+if ! gin repoinfo doi/$REPO | grep -iq "[error]"; then
   echo "... could not find fork doi/$REPO"
   exit 1
 fi
@@ -52,7 +52,12 @@ gin get-content .
 echo "... add DOI fork as remote"
 gin add-remote doi $GINSERVERALIAS:doi/$REPO
 
-echo "... upload file content to DOI fork"
-gin upload --to=doi
+echo "... switch remote and upload file content to DOI fork"
+gin use-remote doi
+gin upload .
+
+echo "... create and upload DOI tag"
+gin git tag $TAGNAME
+gin git push --tags doi
 
 echo "... Done!"
