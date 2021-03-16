@@ -43,11 +43,17 @@ if ! gin repoinfo doi/$REPO | grep -iq "[error]"; then
   exit 1
 fi
 
+ZIPCOMMIT=$(git log -1 --pretty=oneline | cut -d' ' -f1)
+
 echo "... download git changes from origin"
 gin download
 
 echo "... download annex changes from origin"
 gin get-content .
+
+DLCOMMIT=$(git log -1 --pretty=oneline | cut -d' ' -f1)
+echo "... zip file commit: $ZIPCOMMIT"
+echo "... latest commit:   $DLCOMMIT"
 
 echo "... add DOI fork as remote"
 gin add-remote doi $GINSERVERALIAS:doi/$REPO
