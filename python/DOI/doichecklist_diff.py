@@ -78,6 +78,7 @@ def text_pre_fork():
 
 def text_pre_fork_upload(screen_id):
     dir_path = f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}/{CONF["repo"]}"""
+    logfile = f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
     text_block = f"""
 
 -[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
@@ -87,11 +88,12 @@ def text_pre_fork_upload(screen_id):
      use either the logfile or 'htop' to check on the status of the download/upload.
     - screen -S {screen_id}
     - sudo su root
-    - ./doiforkupload {dir_path} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log
+    - ./doiforkupload {dir_path} > {logfile}
 -[ ] after detaching from the session, check the log file until the upload starts to avoid
-     any security check issues. Also read the commit hash comparison line to check if the
-     content of the repo has been changed after the DOI request has been submitted.
-     tail -f {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log
+     any security check issues.
+     Also read the commit hash comparison line to check if the content of the repo has been 
+     changed after the DOI request has been submitted.
+     tail -f {logfile}
 """
 
     return text_block
