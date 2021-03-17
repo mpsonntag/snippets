@@ -87,7 +87,7 @@ def text_pre_fork_upload(screen_id):
      use either the logfile or 'htop' to check on the status of the download/upload.
     - screen -S {screen_id}
     - sudo su root
-    - ./gindoiupload {dir_path} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
+    - ./doiforkupload {dir_path} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
 
     return text_block
 
