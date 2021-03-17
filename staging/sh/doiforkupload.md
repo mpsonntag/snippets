@@ -52,8 +52,12 @@ echo "... download annex changes from origin"
 gin get-content .
 
 DLCOMMIT=$(git log -1 --pretty=oneline | cut -d' ' -f1)
-echo "... zip file commit: $ZIPCOMMIT"
-echo "... latest commit:   $DLCOMMIT"
+echo "... checking repository state"
+if [[ $ZIPCOMMIT = $DLCOMMIT ]]; then
+  echo "... repo is at the DOI request state; commits are identical"
+else
+  echo "... repo is not at the DOI request state; expected commit: $ZIPCOMMIT; found commit: $DLCOMMIT"
+fi
 
 echo "... add DOI fork as remote"
 gin add-remote doi $GINSERVERALIAS:doi/$REPO
