@@ -95,8 +95,7 @@ def text_pre_fork_upload(screen_id):
      changed after the DOI request has been submitted.
      tail -f {logfile}
 -[ ] once the upload is done, check that the git tag has been created on the DOI fork repository at
-     https://gin.g-node.org/doi/{CONF["repo"]}.
-"""
+     https://gin.g-node.org/doi/{CONF["repo"]}."""
 
     return text_block
 
