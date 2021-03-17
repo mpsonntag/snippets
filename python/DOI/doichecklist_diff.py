@@ -94,12 +94,17 @@ def text_pre_fork_upload(screen_id):
      Also read the commit hash comparison line to check if the content of the repo has been 
      changed after the DOI request has been submitted.
      tail -f {logfile}
+-[ ] once the upload is done, check that the git tag has been created on the DOI fork repository at
+     https://gin.g-node.org/doi/{CONF["repo"]}.
 """
 
     return text_block
 
 
 def text_pre_git_tag():
+    """
+    This function is currently not used, but will is kept for reference.
+    """
     text_block = f"""
 
 - create release tag on the DOI repository; run all commands using `gin git ...` 
@@ -198,9 +203,6 @@ def print_part_pre_doi_semi(fip):
     text_block = text_pre_fork_upload(screen_id)
     fip.write(text_block)
 
-    text_block = text_pre_git_tag()
-    fip.write(text_block)
-
     text_block = text_pre_cleanup(screen_id)
     fip.write(text_block)
 
@@ -247,9 +249,6 @@ def print_part_pre_doi_full(fip):
      from the previous registration process.
 
 -[ ] sudo mv {CONF["repo"].lower()}.zip {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/10.12751_g-node.{CONF["reg_id"]}.zip"""
-    fip.write(text_block)
-
-    text_block = text_pre_git_tag()
     fip.write(text_block)
 
     text_block = text_pre_cleanup(screen_id)
