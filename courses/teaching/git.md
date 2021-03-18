@@ -395,6 +395,12 @@ To fetch the content in an existing git repository
 
     git submodule update --init --recursive
 
+After fetching the content checkout master to avoid working in a detached state
+
+    cd [submodule dir]
+    git checkout master
+
+
 # Create github repository from local
 
 From [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/#platform-linux).
