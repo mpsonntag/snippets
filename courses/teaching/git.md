@@ -385,6 +385,16 @@ git submodule status
 git submodule status --recursive
 ```
 
+## Fetching the content of a submodule
+
+To clone a repository and all its submodules
+
+    git clone --recursive <project url>
+
+To fetch the content in an existing git repository
+
+    git submodule update --init --recursive
+
 # Create github repository from local
 
 From [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/#platform-linux).
