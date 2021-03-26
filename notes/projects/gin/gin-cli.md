@@ -1,5 +1,14 @@
 # gin-cli notes
 
+## upload speed
+It's on a gigabit line, so if you're really close (or on the internal network), you can pretty much saturate that during a push.  Like I can get almost 100 MiB/s from my old workstation in the office.
+1:34
+let me see how fast I can upload from home
+1:36
+from home I can upload at 15~20 MiB/s.  It fluctuates a lot, but that's about my connection speed.  So his 2 MiB/s upload is on his end or just down to the route between him and the LRZ (edited) 
+1:36
+Hard limit on everything for gin is gigabit though
+
 ## paths
 - global settings are found in `$HOME/.config/g-node/gin`
 - logs are found in `$HOME/.cache/g-node/gin`
