@@ -4,6 +4,10 @@
 - global settings are found in `$HOME/.config/g-node/gin`
 - logs are found in `$HOME/.cache/g-node/gin`
 
+    - Windows: `C:\Users\<User>\AppData\Local\g-node\gin\gin.log`
+    - macOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
+    - Linux: `/home/<User>/.cache/g-node/gin/gin.log`Before checking the log, try to run 'gin upload' again to make sure that the failure 
+
 ### Windows
 - logs are found in `ls %localappdata%/g-node/gin/gin.log`
 
