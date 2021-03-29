@@ -1487,9 +1487,13 @@ This requires to manually add a repository to the apt-get list of installable pa
 
 ### Change permissions to read, write and delete for everyone:
 
-    chmod 777 filename
+    chmod 777 [filename]
 
 Find detailed description and examples [here](http://www.computerhope.com/unix/uchmod.htm)
+
+### Change file permission to executable
+
+    chmod +x [filename]
 
 
 ## SymLinks (Symbolic links) to files or folders
