@@ -77,6 +77,9 @@ def text_pre_fork():
 
 
 def text_pre_fork_upload(screen_id):
+    dir_path = f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}/{CONF["repo"].lower()}"""
+    logfile = f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
+
     text_block = f"""
 
 -[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
@@ -86,7 +89,18 @@ def text_pre_fork_upload(screen_id):
      use either the logfile or 'htop' to check on the status of the download/upload.
     - screen -S {screen_id}
     - sudo su root
-    - ./syncannex {CONF["repo_own"]}/{CONF["repo"]} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
+    - ./doiforkupload {dir_path} > {logfile}
+-[ ] after detaching from the session, check the log file until the upload starts to avoid
+     any security check issues.
+     Also read the commit hash comparison line to check if the content of the repo has
+     been changed after the DOI request has been submitted.
+     tail -f {logfile}
+-[ ] if the logfile contains the line "repo was not at the DOI request state" the
+     repository was changed after the DOI request and the uploaded archive content will
+     most likely differ from the zip file content. Use the 'makezip' bash script to
+     recreate the zip file and copy it to the the DOI hosting folder.
+-[ ] once the upload is done, check that the git tag has been created on the DOI fork repository at
+     https://gin.g-node.org/doi/{CONF["repo"]}."""
 
     return text_block
 
