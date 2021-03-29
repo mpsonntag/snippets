@@ -27,14 +27,14 @@ if ! gin info | grep -iq "user doi"; then
 fi
 
 cd $REPOPATH
-WORKIR=$PWD
+WORKDIR=$PWD
 REPO=$(basename "$PWD")
 
 cd ..
 TAGNAME=10.12751/$(basename "$PWD")
 echo "... using tag name $TAGNAME"
 
-cd  $WORKDIR
+cd $WORKDIR
 echo "... working in directory $PWD"
 
 echo "... checking doi fork"
@@ -55,8 +55,10 @@ DLCOMMIT=$(git log -1 --pretty=oneline | cut -d' ' -f1)
 echo "... checking repository state"
 if [[ $ZIPCOMMIT = $DLCOMMIT ]]; then
   echo "... repo is at the DOI request state; commits are identical"
+  REPODIFF="... repo was at the DOI request state; last commits were identical"
 else
   echo "... repo is not at the DOI request state; expected commit: $ZIPCOMMIT; found commit: $DLCOMMIT"
+  REPODIFF="... repo was not at the DOI request state; expected commit: $ZIPCOMMIT; found commit: $DLCOMMIT"
 fi
 
 echo "... add DOI fork as remote"
@@ -70,4 +72,5 @@ echo "... create and upload DOI tag"
 gin git tag $TAGNAME
 gin git push --tags doi
 
+echo $REPODIFF
 echo "... Done!"
