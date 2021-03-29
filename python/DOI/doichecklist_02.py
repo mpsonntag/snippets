@@ -134,12 +134,17 @@ def text_pre_git_tag():
     return text_block
 
 
-def text_pre_cleanup(screen_id):
+def text_pre_cleanup(screen_id, full_doi=False):
+    logfiles = f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log"""
+    dir_path = f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}"""
+    if full_doi:
+        dir_path = f"""{CONF["dir_doi_prep"]}/{CONF["repo"].lower()}"""
+
     text_block = f"""
 
 - cleanup directory once tagging is done
-    -[ ] sudo rm {CONF["dir_doi_prep"]}/{CONF["repo"].lower()} -r
-    -[ ] sudo mv {CONF["dir_doi_prep"]}/{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log /home/{CONF["server_user"]}/logs/
+    -[ ] sudo rm {dir_path} -r
+    -[ ] sudo mv {CONF["dir_doi_prep"]}/{logfiles} /home/{CONF["server_user"]}/logs/
     -[ ] cleanup screen session: screen -XS {screen_id} quit"""
 
     return text_block
