@@ -93,3 +93,14 @@ On uploading to gin, we encounter the following error, what is the issue and how
 This error can occur when too many small files (each size < 10 MB) with a total sum size of > 4GiB have been committed with a single commit. Try splitting such a commit into multiple smaller ones so that the total sum size of committed files is below 4 GiB.
 
 The reason behind this issue is, that only files with size > 10MB are checked into git annex that handles large files well. Files with a smaller size are still checked into git, which does not handle many or large files nearly as well as git annex does. In the described case, git cannot handle the sum size of files any longer and will fail on upload.
+
+
+## Slow upload speed
+
+### Q - My Upload speed is slow, what can you do
+
+I experience uploading speed of about 1-2 MiB/s. Can you help increase the upload speed?
+
+### A
+With respect to upload speed, there is not really anything we can do or debug from our end. The service can handle and has handled upload speeds of 20MiB/s-100MiB/s in the past depending on the connection.
+
