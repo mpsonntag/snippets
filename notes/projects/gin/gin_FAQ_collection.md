@@ -104,3 +104,21 @@ I experience uploading speed of about 1-2 MiB/s. Can you help increase the uploa
 ### A
 With respect to upload speed, there is not really anything we can do or debug from our end. The service can handle and has handled upload speeds of 20MiB/s-100MiB/s in the past depending on the connection.
 
+
+## Unspecified error
+
+### Q - The client returns with "[error] 1 operation failed"
+
+When trying to upload data to the GIN server, the gin client prompts "[error] 1 operation failed". What went wrong and how do we fix it.
+
+### A
+This error is displayed when a very unusual circumstance has happened. Usually there is no clear answer to this issue and needs further investigation.
+
+- the error has been linked to trying to upload many small files (individual size < 10MB) with a total size of >4GiB that have been added in one single commit, which is something git does not handle well. If this is the case, please try splitting the commit into a couple of commits with fewer files in each commit and try uploading again.
+
+- if this is not the case, please check the client logfile; the logfile contains more detailed information. Depending on the operating system the logfile can be found at:
+  - Windows: `c:\users\{user}\appdata\local\g-node\gin\gin.log`
+  - Linux: `/home/{user}/.cache/g-node/gin`
+  - MacOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
+
+- if the log shows an error after `git annex metadata --json --key=MD5-<hash>` you can try to manually upload again using the command `gin annex copy --to=origin <filename>` with the file that caused the issue.
