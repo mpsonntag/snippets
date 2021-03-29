@@ -187,7 +187,7 @@ def print_part_pre_doi(fip):
     -[ ] repo is eligible to be published via GIN DOI
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
-    -[ ] license title, license content and license link match
+    -[ ] automated issues are all addressed
 """
     fip.write(text_block)
 
@@ -199,18 +199,20 @@ def print_part_pre_doi_semi(fip):
     :param fip: filepointer
     """
     text_block = """
-## Semi-automated DOI
+## Semi-automated DOI or DOI update
 - use this section if there are no technical or other issues with the DOI request 
-  and skip the 'Full DOI' section."""
+  and skip the 'Full DOI' section.
+- also use this section if there were no issues and an update to an existing DOI has
+  been requested. The 'doiforkupload' script does both initial upload and update."""
     fip.write(text_block)
 
     text_block = f"""
 
 - on the DOI server ({CONF["doi_server"]}) check the DOI directory content
-    -[ ] zip file created in /data/doi/10.12751/g-node.{CONF["reg_id"]}
+    -[ ] zip file created in {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}
     -[ ] note zip size
 
--[ ] remove /data/doi/10.12751/g-node.{CONF["reg_id"]}/.htaccess
+-[ ] remove {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/.htaccess
 
 - access https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
     -[ ] check landing page in general
@@ -224,9 +226,6 @@ def print_part_pre_doi_semi(fip):
 
     screen_id = f"{CONF['repo_own'].lower()}-{str(uuid4())[0:5]}"
     text_block = text_pre_fork_upload(screen_id)
-    fip.write(text_block)
-
-    text_block = text_pre_git_tag()
     fip.write(text_block)
 
     text_block = text_pre_cleanup(screen_id)
@@ -280,12 +279,13 @@ def print_part_pre_doi_full(fip):
     text_block = text_pre_git_tag()
     fip.write(text_block)
 
-    text_block = text_pre_cleanup(screen_id)
+    text_block = text_pre_cleanup(screen_id, True)
     fip.write(text_block)
 
     text_block = f"""
 
--[ ] edit {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/doi.xml file to reflect any changes in the repo datacite.yml file.
+-[ ] edit {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/doi.xml file to reflect
+     any changes in the repo datacite.yml file.
     - include the actual size of the zip file
     - check proper title and proper license
     - any added or updated funding or reference information
