@@ -63,6 +63,38 @@ I am trying to upload files to a GIN repository, but files with a specific file 
 GIN is based on git and will respect if files have been excluded from git. Check if there is a ".gitignore" file at the root of your repository where these files have been excluded.
 
 
+## Files upload has failed
+
+### Q
+A `gin upload` of files has failed with an unspecified message:
+
+e.g.
+gin upload data_directory/*
+:: Adding file changes
+"data_directory/file_one.tif" failed
+"data_directory/two.tif" failed
+
+### A
+Run `gin sync` and check if this resolves the current upload issue. 
+This will download changes from the remote repositories and then 
+upload any local changes to the remotes.
+
+If it does not help, run `gin --version` and check the current 
+GIN client version number. If it is below 1.12, it might 
+be helpful to upgrade to the latest version of the client and
+run the upload again.
+
+Further check the client logfile; it can be found at the 
+following locations depending on the operating system:
+- Windows: `C:\Users\<User>\AppData\Local\g-node\gin\gin.log`
+- macOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
+- Linux: `/home/<User>/.cache/g-node/gin/gin.log`
+
+Before checking the log, try to run the upload command again 
+to make sure that the failure and any pertinent information 
+is included as the last entry in the logfile.
+
+
 ## Modification of a dataset published with GIN-DOI
 
 ### Q
