@@ -101,3 +101,15 @@ gin upload LICENSE
     - No description provided.
     - No valid license provided. Please specify a license URL and name and make sure it matches the license file in the repository.
     - Not all Reference entries are valid. Please provide the full citation and type of the reference.
+
+### Unsupported datacite.yaml test
+-[ ] add unsupported datacite file and upload; reload GIN page; request DOI
+```bash
+cp datacite_03_unsupported.yml datacite.yml
+gin commit .
+gin upload datacite.yml
+```
+-[ ] check DOI request failures:
+    - ResourceType must be one of the following: Dataset, Software, DataPaper, Image, Text
+    - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
+
