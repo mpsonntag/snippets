@@ -157,4 +157,14 @@ gin upload LICENSE
 -[ ] check that the DOI request was valid
 -[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
 -[ ] check that the repository on the DOI server is present in the doiprep folder
+
+-[ ] upload another file to the gin repository
+```bash
+touch tmp.yml
+gin commit .
+gin upload tmp.yml
+```
 -[ ] use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
+-[ ] check the DOI fork upload log for an annex upload.
+-[ ] note during the DOI fork upload that the logfile should show, that the repository was not at the
+    expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `tmp.yml` file.
