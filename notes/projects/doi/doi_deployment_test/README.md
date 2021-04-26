@@ -143,3 +143,18 @@ gin upload datacite.yml
     - Reference 9 uses old 'Name' field instead of 'Citation'
     - ResourceType is "DataPaper" (expected Dataset)
 -[ ] Check that reference 4 has been excluded from the created XML file on the DOI server
+
+
+### Valid datacite yaml test and registration procedure test
+- add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
+```bash
+cp datacite_05_valid.yml datacite.yml
+cp LICENSE_valid LICENSE
+gin commit .
+gin upload datacite.yml
+gin upload LICENSE
+```
+-[ ] check that the DOI request was valid
+-[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
+-[ ] check that the repository on the DOI server is present in the doiprep folder
+-[ ] use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
