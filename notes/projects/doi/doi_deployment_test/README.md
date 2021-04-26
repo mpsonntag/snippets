@@ -57,3 +57,22 @@ instances.
 - copy the contents of this directory and upload them to the GIN server instance.
 - ensure the repository is public.
 - ensure there is no DOI copy of this repository; if there is one, delete it.
+
+### Missing and broken datacite.yml file
+-[ ] remove LICENSE and datacite.yml file and upload
+```bash
+rm LICENSE
+rm datacite.yml
+gin commit .
+gin upload .
+```
+-[ ] switch to the GIN repo and check missing DOI request link due to missing datacite file
+
+-[ ] add datacite file and upload; reload the GIN page; request DOI
+```bash
+cp datacite_01_broken.yml datacite.yml
+gin commit .
+gin upload datacite.yml
+```
+-[ ] check DOI request failure due to broken datacite file:
+    `error while reading DOI info: yaml [...]`
