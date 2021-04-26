@@ -58,6 +58,7 @@ instances.
 - ensure the repository is public.
 - ensure there is no DOI copy of this repository; if there is one, delete it.
 
+
 ### Missing and broken datacite.yml file; Missing LICENSE file
 -[ ] remove LICENSE and datacite.yml file and upload
 ```bash
@@ -86,6 +87,7 @@ gin upload datacite.yml
 -[ ] check DOI request failure due to missing LICENSE file:
     `The LICENSE file is missing. The full text of the license is required to be in the repository when publishing`
 
+
 ### Invalid datacite.yaml test
 -[ ] add invalid LICENSE and unsupported datacite file and upload; reload GIN page; request DOI
 ```bash
@@ -102,6 +104,7 @@ gin upload LICENSE
     - No valid license provided. Please specify a license URL and name and make sure it matches the license file in the repository.
     - Not all Reference entries are valid. Please provide the full citation and type of the reference.
 
+
 ### Unsupported datacite.yaml test
 -[ ] add unsupported datacite file and upload; reload GIN page; request DOI
 ```bash
@@ -113,3 +116,30 @@ gin upload datacite.yml
     - ResourceType must be one of the following: Dataset, Software, DataPaper, Image, Text
     - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
 
+
+### Dubious datacite yaml test
+-[ ] add dubious datacite entries file and upload; reload GIN page; request DOI
+```bash
+cp datacite_04_dubious.yml datacite.yml
+gin commit .
+gin upload datacite.yml
+```
+-[ ] check that the DOI request was valid
+-[ ] check that both the admin email and the DOIMetadata issue contain the following warning messages
+    - Author 1 (MisterB) has ORCID-like unspecified ID: 0000-0002-7937-1095
+    - Authors 2 (MadamC) and 3 (MisterD) have the same ID: orcid:0000-0003-2524-3853
+    - Author 5 (MadamF) has unknown ID: idonotexist:1234
+    - Author 6 (MisterG) has empty ID value: ORCID:
+    - Abstract may be too short: 24 characters
+    - License file content header not found: 'This is not right Cr...'
+    - License URL/Name mismatch: 'CC0 1.0 Universal'/'Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License'
+    - License name/file header mismatch: 'Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License'/''
+    - Couldn't find funder ID for funder "Only funder ID is here"
+    - Couldn't find funder ID for funder "new style ID"
+    - Couldn't find funder ID for funder "old style ID"
+    - Reference 2 uses refType 'IsReferencedBy'
+    - Reference 4 has no related ID type: '10.12751/g-node.6953bb'; excluded from XML file
+    - Reference 5 uses refType 'IsReferencedBy'
+    - Reference 9 uses old 'Name' field instead of 'Citation'
+    - ResourceType is "DataPaper" (expected Dataset)
+-[ ] Check that reference 4 has been excluded from the created XML file on the DOI server
