@@ -1,0 +1,153 @@
+# Metadata for DOI registration according to DataCite Metadata Schema 4.1.
+# For detailed schema description see https://doi.org/10.5438/0014
+
+## Required fields
+
+# The main researchers involved. Include digital identifier (e.g., ORCID)
+# if possible, including the prefix to indicate its type.
+# -- check missing author ID prefix
+# -- check author ID prefix with missing value
+# -- check duplicate author ID; check lower case prefix
+# -- check researcherid works
+# -- check uncommon ID prefix handling --> should elicit warning
+authors:
+  -
+    firstname: "aaa"
+    lastname: "MadamA"
+    affiliation: "Department of Test simple author"
+  - 
+    firstname: "bbb"
+    lastname: "MisterB"
+    affiliation: "Department of Test missing ID prefix"
+    id: "0000-0002-7937-1095"
+  -
+    firstname: "ccc"
+    lastname: "MadamC"
+    affiliation: "Institute over there tests duplicate IDs"
+    id: "ORCID:0000-0003-2524-3853"
+  -
+    firstname: "ddd"
+    lastname: "MisterD"
+    affiliation: "Institute over there tests duplicate IDs"
+    id: "orcid:0000-0003-2524-3853"
+  -
+    firstname: "eee"
+    lastname: "MadamE"
+    affiliation: "Intitute of testing researcherid"
+    id: "ResearcherID:D-1234-5678"
+  -
+    firstname: "fff"
+    lastname: "MadamF"
+    affiliation: "Institute of unknown author ID"
+    id: "idonotexist:1234"
+  - 
+    firstname: "ggg"
+    lastname: "MisterG"
+    affiliation: "Department of missing author ID"
+    id: "ORCID:"
+
+# A title to describe the published resource.
+title: "Doi test"
+  
+# List of keywords the resource should be associated with.
+# Give as many keywords as possible, to make the resource findable.
+keywords:
+  - Neuroscience
+
+# -- checking short title is picked up
+description: I am a short description
+
+# License information for this resource. Please provide the license name and/or a link to the license.
+# Please add also a corresponding LICENSE file to the repository.
+# -- checking mismatch yURL/yName/file content
+license:
+  name: "CC-BY-NC-ND"
+  url: "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+
+## Optional Fields
+# -- checking 
+#    -- funding name only; -- funding names not in list -- funding old style (',' as sep); -- funding new style (';' as sep)
+#    -- duplicate award number 
+funding:
+  - "Only funder ID is here"
+  - "new style ID; new style, number"
+  - "old style ID, old style, number"
+  - "BMBF; duplicate award num"
+  - "BMBF; duplicate award num"
+  - "BMBF; non-duplicate award num"
+
+# Funding information for this resource.
+# Separate funder name and grant number by comma.
+
+# Related publications. reftype might be: IsSupplementTo, IsDescribedBy, IsReferencedBy.
+# Please provide digital identifier (e.g., DOI) if possible.
+# Add a prefix to the ID, separated by a colon, to indicate the source.
+# Supported sources are: DOI, arXiv, PMID
+# In the citation field, please provide the full reference, including title, authors, journal etc.
+# -- check template text
+# -- check unsupported reference prefix
+# -- check missing prefix
+# -- check invalid id
+# -- check warning on reftype != IsSupplementTo
+# -- check valid entries for all reference types
+# -- check "old-style" citation field name usage
+references:
+  -
+    id: "doi:10.xxx/zzzz"
+    reftype: "IsSupplementTo"
+    citation: "Citation1 DOI template text check"
+  -
+    id: "arxiv:mmmm.nnnn"
+    reftype: "IsSupplementTo"
+    citation: "Citation2 arxiv template text check"
+  -
+    id: "pmid:nnnnnnnn"
+    reftype: "IsReferencedBy"
+    citation: "Citation3 pmid template text check"
+  - 
+    id: "unsupported:idnumber"
+    reftype: "IsSupplementTo"
+    citation: "unsupported reference prefix check"
+  - 
+    id: "10.12751/g-node.6953bb"
+    reftype: "IsSupplementTo"
+    citation: "missing prefix check"
+  - 
+    id: "doi:10.12751/g-node.6953bb"
+    reftype: "IsReferencedBy"
+    citation: "non-isSupplementTo check"
+  - 
+    id: "doi:invalid"
+    reftype: "IsSupplementTo"
+    citation: "invalid doi value check"
+  - 
+    id: "arxiv:invalid"
+    reftype: "IsSupplementTo"
+    citation: "invalid arxiv value check"
+  - 
+    id: "pmid:invalid"
+    reftype: "IsSupplementTo"
+    citation: "invalid pmid value check"
+  - 
+    id: "doi:10.12751/g-node.6953bb"
+    reftype: "IsSupplementTo"
+    name: "old style citation field name check"
+  - 
+    id: "doi:10.12751/g-node.6953bb"
+    reftype: "IsSupplementTo"
+    citation: "Valid DOI entry check"
+  - 
+    id: "arXiv:2010.00541v2"
+    reftype: "IsSupplementTo"
+    citation: "Valid arxiv entry check"
+  -
+    id: "pmid:28202729"
+    reftype: "IsSupplementTo"
+    citation: "Valid pmid entry check"
+
+# Resource type. Default is Dataset, other possible values are Software, DataPaper, Image, Text.
+# -- check other than 'Dataset' warning
+resourcetype: DataPaper
+
+# Do not edit or remove the following line
+templateversion: 1.2

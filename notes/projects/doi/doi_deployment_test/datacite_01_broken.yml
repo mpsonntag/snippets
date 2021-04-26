@@ -1,0 +1,16 @@
+# Metadata for DOI registration according to DataCite Metadata Schema 4.1.
+# For detailed schema description see https://doi.org/10.5438/0014
+
+## -- This is a broken yaml file and should lead to a DOI request error
+
+## Required fields
+
+# The main researchers involved. Include digital identifier (e.g., ORCID)
+# if possible, including the prefix to indicate its type.
+authors
+  
+    affiliation: "Missing author name"
+  -
+    lastname: "lname"
+    affiliation: "Missing author first name"
+

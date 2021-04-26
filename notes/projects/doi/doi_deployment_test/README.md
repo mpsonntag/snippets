@@ -33,13 +33,13 @@ The repository contains the following files:
   ... datacite file used for the DOI requests; copy over this file
 - datacite_01_broken.yml
   ... a datacite file that is not a valid yaml file; checks broken yaml response
-- datacite_02_invalid.yml
+- datacite_02_unsupported.yml
+  ... a datacite file that contains unsupported datacite field value entries leading to a
+      rejection of the DOI request.
+- datacite_03_invalid.yml
   ... a datacite file that contains invalid datacite entries leading to a rejection of the
       DOI request. This file should catch all invalid entries leading to a request rejection.
-- datacite_03_unsupported.yml
-  ... a datacite file that contains unsupported datacite field value entries leading to a
-      rejection of the DOI request. For code reasons this is still separated from the previous
-      step.
+      Due to implementation reasons still separated from the previous step.
 - datacite_04_dubious.yml
   ... a datacite file containing all entries that will lead to a successful DOI request,
       but will elicit warning messages to the admin. This file should cover all admin warnings.
@@ -58,7 +58,7 @@ instances.
 - ensure the repository is public.
 - ensure there is no DOI copy of this repository; if there is one, delete it.
 
-### Missing and broken datacite.yml file
+### Missing and broken datacite.yml file; Missing LICENSE file
 -[ ] remove LICENSE and datacite.yml file and upload
 ```bash
 rm LICENSE

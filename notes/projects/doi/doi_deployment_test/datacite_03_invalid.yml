@@ -1,0 +1,62 @@
+# Metadata for DOI registration according to DataCite Metadata Schema 4.1.
+# For detailed schema description see https://doi.org/10.5438/0014
+
+## Required fields
+
+# The main researchers involved. Include digital identifier (e.g., ORCID)
+# if possible, including the prefix to indicate its type.
+# -- check missing author name variants
+authors:
+  -
+    affiliation: "Missing author name"
+  -
+    lastname: "lname"
+    affiliation: "Missing author first name"
+  -
+    firstname: "fname"
+    affiliation: "Missing author last name"
+
+# --Check no title
+# title: "Doi test"
+  
+# List of keywords the resource should be associated with.
+# Give as many keywords as possible, to make the resource findable.
+keywords:
+  - Neuroscience
+
+# -- checking no description
+# description: I am a short description
+
+# License information for this resource. Please provide the license name and/or a link to the license.
+# Please add also a corresponding LICENSE file to the repository.
+# -- checking no license
+#license:
+#  name: "CC-BY-NC-ND"
+#  url: "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+
+## Optional Fields
+
+# Funding information for this resource.
+# Separate funder name and grant number by comma.
+
+# Related publications. reftype might be: IsSupplementTo, IsDescribedBy, IsReferencedBy.
+# Please provide digital identifier (e.g., DOI) if possible.
+# Add a prefix to the ID, separated by a colon, to indicate the source.
+# Supported sources are: DOI, arXiv, PMID
+# In the citation field, please provide the full reference, including title, authors, journal etc.
+# -- check citation field missing
+# -- check reftype field missing
+references:
+  -
+    id: "doi:10.xxx/zzzz"
+    reftype: "IsSupplementTo"
+  -
+    id: "arxiv:mmmm.nnnn"
+    citation: "Citation2 arxiv template text check"
+
+# Resource type. Default is Dataset, other possible values are Software, DataPaper, Image, Text.
+# -- check unsupportedType
+resourcetype: unsupportedType
+
+# Do not edit or remove the following line
+templateversion: 1.2
