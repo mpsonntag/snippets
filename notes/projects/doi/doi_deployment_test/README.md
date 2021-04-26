@@ -1,4 +1,4 @@
-### GIN-DOI deployment checklist
+# GIN-DOI deployment checklist
 
 This document describes the manual tests that should be run in the
 dev and test deployment before deploying a new version of the 
@@ -13,8 +13,8 @@ run the tests:
 docker-compose logs -f --tail=200
 ```
 
-## Test directory contents
 
+## Test directory contents
 This directory contains all files required to run a minimal set of manual
 tests from a running GIN instance to a running GIN-DOI instance.
 Upload the content of this directory to the running GIN instance and use
@@ -45,3 +45,16 @@ The repository contains the following files:
       but will elicit warning messages to the admin. This file should cover all admin warnings.
 - datacite_05_valid.yml
   ... a datacite file leading to a clean DOI request
+
+
+## Deployment tests
+The following describes the full rundown of all deployment tests. These tests require
+a full test setup of a GIN server, a DOI server and a GIN CLI set up to work with these
+instances. Copy the contents of this directory and upload them to the GIN server instance.
+
+Make sure the GIN Cli is set up to work with the test instance of GIN before starting the tests.
+
+The following checklist assumes the following URL for the GIN instance; replace 
+in the checklist as appropriate if necessary.
+- gin.dev.g-node.org/msonntag/doi_deployment_test
+
