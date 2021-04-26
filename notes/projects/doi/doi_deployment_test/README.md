@@ -33,12 +33,12 @@ The repository contains the following files:
   ... datacite file used for the DOI requests; copy over this file
 - datacite_01_broken.yml
   ... a datacite file that is not a valid yaml file; checks broken yaml response
-- datacite_02_unsupported.yml
-  ... a datacite file that contains unsupported datacite field value entries leading to a
-      rejection of the DOI request.
-- datacite_03_invalid.yml
+- datacite_02_invalid.yml
   ... a datacite file that contains invalid datacite entries leading to a rejection of the
       DOI request. This file should catch all invalid entries leading to a request rejection.
+- datacite_03_unsupported.yml
+  ... a datacite file that contains unsupported datacite field value entries leading to a
+      rejection of the DOI request.
       Due to implementation reasons still separated from the previous step.
 - datacite_04_dubious.yml
   ... a datacite file containing all entries that will lead to a successful DOI request,
@@ -76,3 +76,12 @@ gin upload datacite.yml
 ```
 -[ ] check DOI request failure due to broken datacite file:
     `error while reading DOI info: yaml [...]`
+
+-[ ] add valid datacite file and upload; reload GIN page; request DOI
+```bash
+cp datacite_05_valid.yml datacite.yml
+gin commit .
+gin upload datacite.yml
+```
+-[ ] check DOI request failure due to missing LICENSE file:
+    `The LICENSE file is missing. The full text of the license is required to be in the repository when publishing`
