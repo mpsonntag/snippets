@@ -12,3 +12,36 @@ run the tests:
 # Run the command from the folder containing the gin-doi docker-compose file
 docker-compose logs -f --tail=200
 ```
+
+## Test directory contents
+
+This directory contains all files required to run a minimal set of manual
+tests from a running GIN instance to a running GIN-DOI instance.
+Upload the content of this directory to the running GIN instance and use
+it to simulate DOI requests and the appropriate responses to failure and 
+success. The undocumented files simulate data files and test download, upload
+and packaging of git and annex files.
+
+The repository contains the following files:
+- LICENSE
+  ... license file used for the DOI requests; copy over this file
+- LICENSE_invalid
+  ... license file with an invalid header - should be caught by the DOI server on request
+- LICENSE_valid
+  ... valid CC0 license
+- datacite.yml
+  ... datacite file used for the DOI requests; copy over this file
+- datacite_01_broken.yml
+  ... a datacite file that is not a valid yaml file; checks broken yaml response
+- datacite_02_invalid.yml
+  ... a datacite file that contains invalid datacite entries leading to a rejection of the
+      DOI request. This file should catch all invalid entries leading to a request rejection.
+- datacite_03_unsupported.yml
+  ... a datacite file that contains unsupported datacite field value entries leading to a
+      rejection of the DOI request. For code reasons this is still separated from the previous
+      step.
+- datacite_04_dubious.yml
+  ... a datacite file containing all entries that will lead to a successful DOI request,
+      but will elicit warning messages to the admin. This file should cover all admin warnings.
+- datacite_05_valid.yml
+  ... a datacite file leading to a clean DOI request
