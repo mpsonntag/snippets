@@ -50,11 +50,10 @@ The repository contains the following files:
 ## Deployment tests
 The following describes the full rundown of all deployment tests. These tests require
 a full test setup of a GIN server, a DOI server and a GIN CLI set up to work with these
-instances. Copy the contents of this directory and upload them to the GIN server instance.
+instances.
 
-Make sure the GIN Cli is set up to work with the test instance of GIN before starting the tests.
-
-The following checklist assumes the following URL for the GIN instance; replace 
-in the checklist as appropriate if necessary.
-- gin.dev.g-node.org/msonntag/doi_deployment_test
-
+### Pre-requisites
+- ensure the GIN client is set up to work with the test instance of GIN before starting the tests.
+- copy the contents of this directory and upload them to the GIN server instance.
+- ensure the repository is public.
+- ensure there is no DOI copy of this repository; if there is one, delete it.
