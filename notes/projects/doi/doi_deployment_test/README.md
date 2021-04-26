@@ -85,3 +85,19 @@ gin upload datacite.yml
 ```
 -[ ] check DOI request failure due to missing LICENSE file:
     `The LICENSE file is missing. The full text of the license is required to be in the repository when publishing`
+
+### Invalid datacite.yaml test
+-[ ] add invalid LICENSE and unsupported datacite file and upload; reload GIN page; request DOI
+```bash
+cp LICENSE_invalid LICENSE
+cp datacite_02_invalid.yml datacite.yml
+gin commit .
+gin upload datacite.yml
+gin upload LICENSE
+```
+-[ ] check DOI request failures:
+    - No title provided.
+    - Not all authors valid. Please provide at least a last name and a first name.
+    - No description provided.
+    - No valid license provided. Please specify a license URL and name and make sure it matches the license file in the repository.
+    - Not all Reference entries are valid. Please provide the full citation and type of the reference.
