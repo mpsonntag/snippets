@@ -24,13 +24,13 @@ and packaging of git and annex files.
 
 The repository contains the following files:
 - LICENSE
-  ... license file used for the DOI requests; copy over this file
+  ... license file used for DOI requests; replace this file
 - LICENSE_invalid
   ... license file with an invalid header - should be caught by the DOI server on request
 - LICENSE_valid
   ... valid CC0 license
 - datacite.yml
-  ... datacite file used for the DOI requests; copy over this file
+  ... datacite file used for DOI requests; replace this file
 - datacite_01_broken.yml
   ... a datacite file that is not a valid yaml file; checks broken yaml response
 - datacite_02_invalid.yml
@@ -61,35 +61,42 @@ instances.
 
 ### Missing and broken datacite.yml file; Missing LICENSE file
 -[ ] remove LICENSE and datacite.yml file and upload
+
 ```bash
 rm LICENSE
 rm datacite.yml
 gin commit .
 gin upload .
 ```
+
 -[ ] switch to the GIN repo and check missing DOI request link due to missing datacite file
 
 -[ ] add datacite file and upload; reload the GIN page; request DOI
+
 ```bash
 cp datacite_01_broken.yml datacite.yml
 gin commit .
 gin upload datacite.yml
 ```
+
 -[ ] check DOI request failure due to broken datacite file:
     `error while reading DOI info: yaml [...]`
 
 -[ ] add valid datacite file and upload; reload GIN page; request DOI
+
 ```bash
 cp datacite_05_valid.yml datacite.yml
 gin commit .
 gin upload datacite.yml
 ```
+
 -[ ] check DOI request failure due to missing LICENSE file:
     `The LICENSE file is missing. The full text of the license is required to be in the repository when publishing`
 
 
 ### Invalid datacite.yaml test
 -[ ] add invalid LICENSE and unsupported datacite file and upload; reload GIN page; request DOI
+
 ```bash
 cp LICENSE_invalid LICENSE
 cp datacite_02_invalid.yml datacite.yml
@@ -97,6 +104,7 @@ gin commit .
 gin upload datacite.yml
 gin upload LICENSE
 ```
+
 -[ ] check DOI request failures:
     - No title provided.
     - Not all authors valid. Please provide at least a last name and a first name.
@@ -107,11 +115,13 @@ gin upload LICENSE
 
 ### Unsupported datacite.yaml test
 -[ ] add unsupported datacite file and upload; reload GIN page; request DOI
+
 ```bash
 cp datacite_03_unsupported.yml datacite.yml
 gin commit .
 gin upload datacite.yml
 ```
+
 -[ ] check DOI request failures:
     - ResourceType must be one of the following: Dataset, Software, DataPaper, Image, Text
     - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
@@ -119,11 +129,13 @@ gin upload datacite.yml
 
 ### Dubious datacite yaml test
 -[ ] add dubious datacite entries file and upload; reload GIN page; request DOI
+
 ```bash
 cp datacite_04_dubious.yml datacite.yml
 gin commit .
 gin upload datacite.yml
 ```
+
 -[ ] check that the DOI request was valid
 -[ ] check that both the admin email and the DOIMetadata issue contain the following warning messages
     - Author 1 (MisterB) has ORCID-like unspecified ID: 0000-0002-7937-1095
@@ -146,7 +158,8 @@ gin upload datacite.yml
 
 
 ### Valid datacite yaml test and registration procedure test
-- add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
+-[ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
+
 ```bash
 cp datacite_05_valid.yml datacite.yml
 cp LICENSE_valid LICENSE
@@ -154,16 +167,19 @@ gin commit .
 gin upload datacite.yml
 gin upload LICENSE
 ```
+
 -[ ] check that the DOI request was valid
 -[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
 -[ ] check that the repository on the DOI server is present in the doiprep folder
 
 -[ ] upload another file to the gin repository
+
 ```bash
 touch tmp.yml
 gin commit .
 gin upload tmp.yml
 ```
+
 -[ ] use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
 -[ ] check the DOI fork upload log for an annex upload.
 -[ ] note during the DOI fork upload that the logfile should show, that the repository was not at the
