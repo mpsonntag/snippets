@@ -3,7 +3,8 @@
 """doichecklist
 
 doichecklist prints a checklist for DOI registrations
-to an output file in the same directory.
+to an output file in the same directory. This script
+works with gin-doi versions until the 2020-09-14 release.
 
 Usage: doichecklist [--config CONFIG_FILE]
 
