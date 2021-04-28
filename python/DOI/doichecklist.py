@@ -400,6 +400,9 @@ def print_part_ready_email(fip):
 
     :param fip: filepointer
     """
+    # a bit nasty but I think good enough
+    cite_year = datetime.now().strftime("%Y")
+
     text_block = f"""
 # Part 3 - eMail to user
 -[ ] make sure the publication reference text does apply, remove otherwise
@@ -419,6 +422,12 @@ has been successfully registered.
 
 The DOI for the dataset is
   https://doi.org/10.12751/g-node.{CONF["reg_id"]}
+
+Please always reference the dataset by its DOI (not the link to the
+repository) and cite the dataset as
+  {CONF["citation"]} ({cite_year})
+  {CONF["title"]}
+  G-Node. https://doi.org/10.12751/g-node.{CONF["reg_id"]}
 
 If this is data supplementing a publication and if you haven't done so already, we kindly request that you:
 - include the new DOI of this dataset in the publication as a reference, and
