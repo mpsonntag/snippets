@@ -330,20 +330,6 @@ def print_part_post_doi(fip):
     """
     text_block = f"""
 # Part 2 - post registration
--[ ] connect to DOI server ({CONF["doi_server"]}) and update `{CONF["dir_doi"]}/index.html`; 
-     make sure there are no unintentional line breaks!
-                        <tr>
-                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}">{CONF["title"]}</a>
-                            <br>{CONF["citation"]}</td>
-                            <td>{CONF["reg_date"]}</td>
-                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}" class ="ui grey label">10.12751/g-node.{CONF["reg_id"]}</a></td>
-                        </tr>"""
-    fip.write(text_block)
-
-    text_block = f"""
-
--[ ] update `{CONF["dir_doi"]}/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}
-
 - re-create and deploy keywords if required
   -[ ] make sure github.com/G-Node/gin-doi is locally built and the `gindoid` executable available
   -[ ] gin get G-Node/DOImetadata to local staging directory
@@ -359,6 +345,20 @@ def print_part_post_doi(fip):
   -[ ] sudo mv /home/{CONF["server_user"]}/staging/keywords/ {CONF["dir_doi"]}
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
   -[ ] sudo rm {CONF["dir_doi"]}/keywords_ -r"""
+    fip.write(text_block)
+
+    text_block = f"""
+
+-[ ] connect to DOI server ({CONF["doi_server"]}) and update `{CONF["dir_doi"]}/index.html`; 
+     make sure there are no unintentional line breaks!
+                        <tr>
+                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}">{CONF["title"]}</a>
+                            <br>{CONF["citation"]}</td>
+                            <td>{CONF["reg_date"]}</td>
+                            <td><a href="https://doi.org/10.12751/g-node.{CONF["reg_id"]}" class ="ui grey label">10.12751/g-node.{CONF["reg_id"]}</a></td>
+                        </tr>
+
+-[ ] update `{CONF["dir_doi"]}/urls.txt`: https://doi.gin.g-node.org/10.12751/g-node.{CONF["reg_id"]}"""
     fip.write(text_block)
 
     text_block = f"""
