@@ -363,8 +363,6 @@ def print_part_post_doi(fip):
 
     text_block = f"""
 
--[ ] ensure the data directory "{CONF["repo"].lower()}" in {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/ has been removed
-
 -[ ] git commit all changes in {CONF["dir_doi"]}
     - sudo git add 10.12751/g-node.{CONF["reg_id"]}/
     - sudo git commit -m "New dataset: 10.12751/g-node.{CONF["reg_id"]}"
