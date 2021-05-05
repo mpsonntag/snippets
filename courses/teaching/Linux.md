@@ -1043,6 +1043,14 @@ Find a very nice introduction to curl [here](http://conqueringthecommandline.com
 
         scp [remote_username]@[remote_machine_name]:[remote_directory] [local_directory]
 
+- Copy directories recursively to copy whole directory trees (`-r` ... recursive)
+
+        scp -r [remote_machine]:[remote_dir]/* [local_dir]
+
+- Copy directories recursively and preserve file metadata (modes, access times etc, `-p` ... preserve)
+
+        scp -rp [remote_machine]:[remote_dir]/* [local_dir]
+
 ### SSH keys
 
 - For some secure connections, specific SSH keys are required e.g. to use the ssh option with github.
