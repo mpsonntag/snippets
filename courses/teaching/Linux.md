@@ -1034,10 +1034,14 @@ Find a very nice introduction to curl [here](http://conqueringthecommandline.com
 
 - Use a secure connection to copy files from or to a remote machine
 
-        scp [computername]:[remote_directory]/[filename] [current_directory]
+        scp [remote_machine_name]:[remote_directory]/[filename] [local_directory]
 
         e.g.
         [chris@troll work]scp server4:/temp/work/* /home/user/chris/work/
+
+- Add the username of a user on the remote server to provide specific permissions for the copy operation
+
+        scp [remote_username]@[remote_machine_name]:[remote_directory] [local_directory]
 
 ### SSH keys
 
