@@ -104,10 +104,12 @@ def text_pre_fork_upload(screen_id):
      Also read the commit hash comparison line to check if the content of the repo has
      been changed after the DOI request has been submitted.
      tail -f {logfile}
--[ ] if the logfile contains the line "repo was not at the DOI request state" the
+-[ ] if a) the logfile contains the line "repo was not at the DOI request state" the
      repository was changed after the DOI request and the uploaded archive content will
-     most likely differ from the zip file content. Use the 'makezip' bash script to
-     recreate the zip file and copy it to the the DOI hosting folder.
+     most likely differ from the zip file content. If b) the 'tree' command showed symlinks or 
+     missing content, the zip file will also not contain the file content for all files.
+       In this case use the 'makezip' bash script to recreate the zip file and 
+     copy it to the the DOI hosting folder.
 -[ ] once the upload is done, check that the git tag has been created on the DOI fork repository at
      https://gin.g-node.org/doi/{CONF["repo"]}."""
 
