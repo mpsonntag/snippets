@@ -210,6 +210,8 @@ def print_part_pre_doi_semi(fip):
 
 - on the DOI server ({CONF["doi_server"]}) check the DOI directory content
     -[ ] zip file created in {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}
+    -[ ] check zip file content
+         unzip -vl {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/g-node.{CONF["reg_id"]}.zip
     -[ ] note zip size
 
 -[ ] remove {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/.htaccess
