@@ -524,9 +524,14 @@ def parse_repo_datacite():
         cit = []
         for creator in datacite["authors"]:
             lan = creator["lastname"] if "lastname" in creator else ""
-            fin = " %s" % creator["firstname"][0] if "firstname" in creator else ""
+            # fin = " %s" % creator["firstname"][0] if "firstname" in creator else ""
+            fin = ""
+            if "firstname" in creator:
+                for init in creator["firstname"].split():
+                    fin = "%s%s" % (fin, init[0])
+
             if lan or fin:
-                cit.append("%s%s" % (lan, fin))
+                cit.append(" ".join([lan, fin.strip()]).strip())
         doi_conf["citation"] = ", ".join(cit)
 
     return doi_conf
