@@ -83,6 +83,15 @@ def text_pre_fork_upload(screen_id):
     text_block = f"""
 
 -[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
+- Make sure all information has been properly downloaded to the staging directory and
+  all annex files are unlocked and the content is present:
+    -[ ] tree --du -h {CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}
+    -[ ] check that there are no symlinks listed
+    -[ ] check that the content size of the repository and the created zip file matches
+    -[ ] if there still are symlinks present or the content size does not match up, the zip
+         file does not contain all required data. Run the next steps - the script will
+         download all missing information and upload to the DOI fork. When recreating the
+         zip file, all files will be manually unlocked first.
 -[ ] fetch git and annex content and upload annex content to the DOI fork repo.
      use screen to avoid large down- and uploads to be interrupted.
      use CTRL+a+d to switch out of screen sessions without interruption.
