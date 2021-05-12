@@ -133,19 +133,16 @@ gin.g-node.org/g-node/bc20data ... startpage.md & landing-page.md are just infos
 
 ## Setup notes
 
-server prerequisites
-- apache2
-  - required modules
-- certbot
-- docker
-- docker-compose version >= 1.27.4
-- deploy user:
-    deploy:x:1000:1000:gin deploy,,,:/opt/deploy:/bin/nologin
-- deploy group:
-    deploy:x:1000:achilleas,msonntag
-- user in sudo, docker, deploy groups
+### Server prerequisites:
+Setup and prepare the server as described in opsdocs:admin/server-setup.md.
 
-server setup:
-- create storage location
-    mkdir /gin/posters
-    
+### Server setup
+- create storage locations
+
+        PROJ_ROOT=/data/dev/bc_posters
+        mkdir $PROJ_ROOT
+        mkdir $PROJ_ROOT/volumes
+        mkdir $PROJ_ROOT/config
+        mkdir $PROJ_ROOT/dockerfile
+        mkdir $PROJ_ROOT/data
+
