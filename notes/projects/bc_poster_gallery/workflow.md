@@ -130,3 +130,22 @@ org/home.tmpl ... javascript redirect ... to avoid users seeing the repositories
 
 gin.g-node.org/g-node/bc20data ... startpage.md & landing-page.md are just infos from BCOS, not actively used anywhere
 
+
+## Setup notes
+
+server prerequisites
+- apache2
+  - required modules
+- certbot
+- docker
+- docker-compose version >= 1.27.4
+- deploy user:
+    deploy:x:1000:1000:gin deploy,,,:/opt/deploy:/bin/nologin
+- deploy group:
+    deploy:x:1000:achilleas,msonntag
+- user in sudo, docker, deploy groups
+
+server setup:
+- create storage location
+    mkdir /gin/posters
+    
