@@ -146,3 +146,19 @@ Setup and prepare the server as described in opsdocs:admin/server-setup.md.
         mkdir $PROJ_ROOT/dockerfile
         mkdir $PROJ_ROOT/data
 
+
+### Build poster gallery specific gin-web container from source
+
+If the container is not already built and available, locally build it from source,
+push it to dockerhub and pull on the server that is hosting the container.
+
+
+    git clone git@github.com:G-Node/gogs.git
+    cd gogs
+    git fetch --all
+    # Checkout the poster gallery specific branch
+    git checkout bc20
+    # build the docker images
+    docker build -t gnode/gin-web:posters .
+    # push the built container
+    docker push gnode/gin-web:posters
