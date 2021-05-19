@@ -143,12 +143,37 @@ Setup users and groups analogous to the normal gin setup as described in opsdocs
 ### Server setup
 - create storage locations
 
-        PROJ_ROOT=/data/dev/bc_posters
-        mkdir $PROJ_ROOT
-        mkdir $PROJ_ROOT/volumes
-        mkdir $PROJ_ROOT/config
-        mkdir $PROJ_ROOT/dockerfile
-        mkdir $PROJ_ROOT/data
+```bash
+PROJ_ROOT=/data/dev/posters
+
+mkdir -vp $PROJ_ROOT/volumes
+mkdir -vp $PROJ_ROOT/data/posters-data
+mkdir -vp $PROJ_ROOT/data/posters-tmp
+mkdir -vp $PROJ_ROOT/data/posters-postgresdb
+```
+
+- clone the repo G-Node/gin-bc20 from gin.g-node.org and copy the contents (minus the git directory) to $PROJ_ROOT directory on the server.
+- update the docker-compose file 
+  - to match the appropriate docker containers
+    - gnode/gin-web:posters
+    - gnode/bc20-uploader:latest
+  - to match the ids of the local `gin` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate ids.
+  - make sure the used IP addresses do not overlap with already running docker containers
+  - make sure to use ssh ports that do not overlap with any other ssh port in use e.g. -> needs to be adjusted in the gin client later on as well
+    - "141.84.41.217:2323:22"
+  - make sure the local directories match the local setup
+    - ./data/posters-data
+    - ./data/posters-tmp
+    - ./data/posters-postgresdb
+  - change aliases to
+    - posterginweb
+    - posterpgres
+
+- rename `$PROJ_ROOT/config/gogs/conf/app.ini` to `reference_app.ini` to avoid it being overwritten after initializing the docker container.
+
+- change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group
+
+    sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
 
 
 ### Build poster gallery specific gin-web container from source
@@ -156,13 +181,16 @@ Setup users and groups analogous to the normal gin setup as described in opsdocs
 If the container is not already built and available, locally build it from source,
 push it to dockerhub and pull on the server that is hosting the container.
 
+```bash
+git clone git@github.com:G-Node/gogs.git
+cd gogs
+git fetch --all
+# Checkout the poster gallery specific branch
+git checkout bc20
+# build the docker images
+docker build -t gnode/gin-web:posters .
+# push the built container
+docker push gnode/gin-web:posters
+```
 
-    git clone git@github.com:G-Node/gogs.git
-    cd gogs
-    git fetch --all
-    # Checkout the poster gallery specific branch
-    git checkout bc20
-    # build the docker images
-    docker build -t gnode/gin-web:posters .
-    # push the built container
-    docker push gnode/gin-web:posters
+
