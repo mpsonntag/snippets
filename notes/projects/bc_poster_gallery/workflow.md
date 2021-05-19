@@ -193,4 +193,29 @@ docker build -t gnode/gin-web:posters .
 docker push gnode/gin-web:posters
 ```
 
+### Poster upload codes workflow
 
+[finetune description]
+
+To create the poster upload codes run the `mkuploadcodes.py` script in the G-Node/BC20 repo. The script requires a json file with all posters. It creates a json file with all posters including the upload codes. These upload codes have to be entered into the posters tsv file. The resulting posters.json file from this tsv file has to be put in the config folder of the uploader server.
+
+The required uploadersalt file is found in gin.g-node.org/G-Node/gin-bc20.
+The script requires a poster.json file that has been created via the `tojson.py` script from the poster.tsv file.
+
+### From tsv to gallery
+
+The github repository G-Node/BC20 contains all scripts required to create and upload the poster gallery pages. Check the `makefile` at the root of the repository. It can be run to create and upload all files in one go.
+
+The following describes how to run the individual steps manually:
+
+#### Create the raw json files from tsv
+
+- running the following creates a "raw" `posters.json` file
+```bash
+python tojson.py posters.tsv
+```
+
+- running the following creates a "raw" `workshops.json` file
+```bash
+python tojson.py workshops.tsv
+```
