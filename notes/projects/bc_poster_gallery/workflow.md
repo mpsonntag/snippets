@@ -133,8 +133,12 @@ gin.g-node.org/g-node/bc20data ... startpage.md & landing-page.md are just infos
 
 ## Setup notes
 
-### Server prerequisites:
+Uploaderserver and gin-poster server need to be on the same machine since the posters that people upload via the uploaderserver are linked via the poster server if I understand the setup correctly.
+
+### Server prerequisites
+
 Setup and prepare the server as described in opsdocs:admin/server-setup.md.
+Setup users and groups analogous to the normal gin setup as described in opsdocs:dev/gin-setup.md.
 
 ### Server setup
 - create storage locations
