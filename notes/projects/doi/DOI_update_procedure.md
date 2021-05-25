@@ -20,3 +20,25 @@ sudo unzip /data/doi/10.12751/g-node.wvr3jf/10.12751_g-node.wvr3jf.zip -d /data/
 ## remove this step in final script version
 sudo mv /data/doiprep/rezip/g-node.wvr3jf/wvr3jf_unzip.log /data/doiprep/rezip
 ```
+  - download latest repo version to srv6
+```bash
+cd /data/doiprep/rezip
+# check gin-cli logged in as doi
+sudo gin servers
+# fetch the upstream repository - git only; no annex content
+sudo gin get NeuroGroup_TUNI/Comparative_MEA_dataset
+cd Comparative_MEA_dataset
+# define tag
+TAGNAME=10.12751/g-node.wvr3jf
+# add and set doi remote
+gin add-remote doi gin:doi/Comparative_MEA_dataset
+gin use-remote doi
+# remove tag from doi remote 
+gin git tag -d $TAGNAME
+gin git push --delete doi
+# upload new commits to doi
+gin upload .
+# re-create tag at latest commit
+gin git tag $TAGNAME
+gin git push --tags doi
+```
