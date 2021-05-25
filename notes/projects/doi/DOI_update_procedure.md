@@ -42,3 +42,19 @@ gin upload .
 gin git tag $TAGNAME
 gin git push --tags doi
 ```
+  - copy new files to zip directory
+```bash
+cd /data/doiprep/rezip
+SOURCE=/data/doiprep/rezip/Comparative_MEA_dataset
+TARGET=/data/doiprep/rezip/g-node.wvr3jf
+sudo cp $SOURCE/LICENSE $TARGET/LICENSE
+sudo cp $SOURCE/README.md $TARGET/README.md
+sudo cp $SOURCE/datacite.yml $TARGET/datacite.yml
+sudo cp $SOURCE/Data/LICENSE.txt $TARGET/Data/LICENSE.txt
+```
+  - create new zip file
+```bash
+screen -r neurogroup_tuni-459ce
+cd /data/doiprep/rezip/Comparative_MEA_dataset
+zip /data/doiprep/rezip/10.12751_g-node.wvr3jf.zip -Z store -x "*.git*" -r . > /data/doiprep/rezip/wvr3jf_zip.log
+```
