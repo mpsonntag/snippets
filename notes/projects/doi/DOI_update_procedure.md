@@ -58,3 +58,24 @@ screen -r neurogroup_tuni-459ce
 cd /data/doiprep/rezip/Comparative_MEA_dataset
 zip /data/doiprep/rezip/10.12751_g-node.wvr3jf.zip -Z store -x "*.git*" -r . > /data/doiprep/rezip/wvr3jf_zip.log
 ```
+  - handle modified zip file
+```bash
+DOIPREP=/data/doiprep/rezip
+DOIHOST=/data/doi/10.12751/g-node.4zw2lt
+ZIPNAME=10.12751_g-node.4zw2lt
+# Make hosted zip file mutable again
+sudo chattr -i $DOIHOST/$ZIPNAME.zip
+# Rename old zipfile but keep for now
+sudo mv $DOIHOST/$ZIPNAME.zip $DOIHOST/old_$ZIPNAME.zip
+# Move new zip file to hosting location
+sudo mv $DOIPREP/$ZIPNAME.zip $DOIHOST/$ZIPNAME.zip
+# Make new zip file immutable
+sudo chattr +i $DOIHOST/$ZIPNAME.zip
+# Remove old zipfile
+sudo rm $DOIHOST/old_$ZIPNAME.zip
+```
+  - cleanup
+```bash
+screen -XS neurogroup_tuni-459ce quit
+sudo rm /data/doiprep/rezip -r
+```
