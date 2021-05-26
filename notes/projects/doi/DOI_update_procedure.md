@@ -15,32 +15,29 @@ screen -S neurogroup_tuni-459ce
 sudo su root
 sudo unzip /data/doi/10.12751/g-node.wvr3jf/10.12751_g-node.wvr3jf.zip -d /data/doiprep/rezip/g-node.wvr3jf/ > /data/doiprep/rezip/wvr3jf_unzip.log
 ```
-  - once done
-```bash
-## remove this step in final script version
-sudo mv /data/doiprep/rezip/g-node.wvr3jf/wvr3jf_unzip.log /data/doiprep/rezip
-```
   - download latest repo version to srv6
 ```bash
 cd /data/doiprep/rezip
-# check gin-cli logged in as doi
+# check gin-cli logged in as doi - note the set server alias - should be gin
 sudo gin servers
 # fetch the upstream repository - git only; no annex content
 sudo gin get NeuroGroup_TUNI/Comparative_MEA_dataset
 cd Comparative_MEA_dataset
+# check current remotes
+sudo gin remotes
 # define tag
 TAGNAME=10.12751/g-node.wvr3jf
-# add and set doi remote
-gin add-remote doi gin:doi/Comparative_MEA_dataset
-gin use-remote doi
+# add and set doi remote - make sure to use the correct server alias as prefix e.g. "gin:"
+sudo gin add-remote doi gin:doi/Comparative_MEA_dataset
+sudo gin use-remote doi
 # remove tag from doi remote 
-gin git tag -d $TAGNAME
-gin git push --delete doi
+sudo gin git tag -d $TAGNAME
+sudo gin git push --delete doi $TAGNAME
 # upload new commits to doi
-gin upload .
+sudo gin upload .
 # re-create tag at latest commit
-gin git tag $TAGNAME
-gin git push --tags doi
+sudo gin git tag $TAGNAME
+sudo gin git push --tags doi
 ```
   - copy new files to zip directory
 ```bash
@@ -52,17 +49,17 @@ sudo cp $SOURCE/README.md $TARGET/README.md
 sudo cp $SOURCE/datacite.yml $TARGET/datacite.yml
 sudo cp $SOURCE/Data/LICENSE.txt $TARGET/Data/LICENSE.txt
 ```
-  - create new zip file
+  - create new zip file (use exact same command as the "makezip" script does to keep it consistent)
 ```bash
 screen -r neurogroup_tuni-459ce
-cd /data/doiprep/rezip/Comparative_MEA_dataset
+cd /data/doiprep/rezip/g-node.wvr3jf
 zip /data/doiprep/rezip/10.12751_g-node.wvr3jf.zip -Z store -x "*.git*" -r . > /data/doiprep/rezip/wvr3jf_zip.log
 ```
   - handle modified zip file
 ```bash
 DOIPREP=/data/doiprep/rezip
-DOIHOST=/data/doi/10.12751/g-node.4zw2lt
-ZIPNAME=10.12751_g-node.4zw2lt
+DOIHOST=/data/doi/10.12751/g-node.wvr3jf
+ZIPNAME=10.12751_g-node.wvr3jf
 # Make hosted zip file mutable again
 sudo chattr -i $DOIHOST/$ZIPNAME.zip
 # Rename old zipfile but keep for now
