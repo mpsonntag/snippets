@@ -135,6 +135,16 @@ gin.g-node.org/g-node/bc20data ... startpage.md & landing-page.md are just infos
 
 Uploaderserver and gin-poster server need to be on the same machine since the posters that people upload via the uploaderserver are linked via the poster server if I understand the setup correctly.
 
+Currently the Uploader service has to be up and running and the email address of the first admin user has to be in the hosted emailwhitelist before the gogs service can be set up and an admin created.
+
+To manually create a gogs user with admin privileges after the gogs service has been set up:
+
+```bash
+docker exec -it posters_web_1 /bin/bash
+su git
+./gogs admin create-user --name tmpuser --password tmppassword --admin --email email@example.com
+```
+
 ### Server prerequisites
 
 Setup and prepare the server as described in opsdocs:admin/server-setup.md.
