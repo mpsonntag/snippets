@@ -216,6 +216,52 @@ sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 - run the setup procedure for gin-web:b20; follow the procedure in the [dev:gin-web setup description](../dev/gin-setup.md) with the following changes
 
+- fetch all required containers from the docker-gin directory
+
+        cd $DIR_GINROOT/gin-dockerfile
+        docker-compose pull
+
+- prepare the postgres database container for the first gin setup
+
+```bash
+docker-compose up -d db
+docker exec -it posters_db_1 /bin/bash
+su -l postgres
+createuser -P gin
+# enter password for new role and save it before using it - e.g. somethingSecret
+# note this password, it will later be used on the initial gin setup page
+createdb -O gin gin
+exit
+exit
+```
+
+- launch gin-web docker container
+
+        docker-compose up web
+
+- start the gin setup via the browser at bc20.dev.g-node.org
+    - db:               postgres
+    - host:             posterpgres:5432
+    - user:             gin
+    - password:         [used during database setup]
+    - database name:    gin
+    - app name:         Bernstein Poster Gallery
+    - repo root:        as defined in docker-compose on the container side e.g. /data/repos
+    - domain:           bc20.dev.g-node.org
+    - create an administration user; do not use 'admin'; if the database is restored from the live server, this user will be overwritten.
+
+- NOTE: DO NOT change the application URL during the initial setup - otherwise the default admin cannot be properly set up
+
+- save; this might redirect to an error page, but this is inconsequential
+- check that the page is running at bc20.dev.g-node.org
+- on the dev server, stop all containers
+
+    ```
+    cd $DIR_GINROOT/gin-dockerfile
+    docker-compose down
+    ```
+
+
 ### Build poster gallery specific gin-web container from source
 
 If the container is not already built and available, locally build it from source,
