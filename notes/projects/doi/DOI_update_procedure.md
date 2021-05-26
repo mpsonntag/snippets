@@ -76,3 +76,12 @@ sudo rm $DOIHOST/old_$ZIPNAME.zip
 screen -XS neurogroup_tuni-459ce quit
 sudo rm /data/doiprep/rezip -r
 ```
+  - manually update `doi.xml` and `index.html` to reflect the introduced changes:
+```bash
+cd /data/doi/10.12751/g-node.wvr3jf
+# commit changes after editing is done
+cd /data/doi
+sudo git add /data/doi/10.12751/g-node.wvr3jf/doi.xml
+sudo git add /data/doi/10.12751/g-node.wvr3jf/index.html
+sudo git commit -m "Update dataset: 10.12751/g-node.wvr3jf"
+```
