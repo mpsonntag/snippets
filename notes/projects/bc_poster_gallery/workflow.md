@@ -185,6 +185,36 @@ sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
     sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
 
+- pull all required docker containers (db, gin-web:bc20, bc20-uploader)
+
+    cd $PROJ_ROOT
+    docker-compose pull
+
+- add apache configuration files and run certbot for these files - the configuration might need to be a bit different on the dev server compared to a live machine.
+
+- create apache configurations for bc20 and bc20-posters in /etc/apache2/sites-available
+
+- create certbot certificates (certbot command might differ depending on OS)
+
+    # Stop apache
+    sudo systemctl stop apache2
+    sudo certbot certonly
+    # Manually select apache (1); Make sure to use the same domain as specified in the apache2 config files 
+    # add domain as appropriate: bc20.dev.g-node.org
+    # Run the same setup again for domain: bc20-posters.dev.g-node.org
+    # Check that both certificates have been added:
+    sudo ls -lart /etc/letsencrypt/live/
+    # Start apache
+    sudo systemctl start apache2
+
+- Chrome needs a restart to properly accept renewed certificates.
+
+- enable bc20.dev.g-node.org via apache2
+
+    sudo a2ensite bc20.dev.g-node.org.conf
+    sudo systemctl reload apache2
+
+- run the setup procedure for gin-web:b20; follow the procedure in the [dev:gin-web setup description](../dev/gin-setup.md) with the following changes
 
 ### Build poster gallery specific gin-web container from source
 
@@ -229,3 +259,8 @@ python tojson.py posters.tsv
 ```bash
 python tojson.py workshops.tsv
 ```
+
+# Config files
+
+
+
