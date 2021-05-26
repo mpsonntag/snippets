@@ -262,5 +262,66 @@ python tojson.py workshops.tsv
 
 # Config files
 
+## Docker file (DEV server)
+
+version: '2.4'
+services:
+
+  web:
+    image: gnode/gin-web:bc20
+    volumes:
+      - ./config/gogs:/custom:rw
+      - ./data/posters-data:/data/repos:rw
+      - ./volumes/posterweb:/data:rw
+      - gintmp:/data/tmp:rw
+    restart: always
+    environment:
+      - PUID=999      # 'gin' user id
+      - PGID=2139     # 'gindeploy' group id
+      - GOGS_CUSTOM=/custom
+    ports:
+      - "2323:22"
+    networks:
+      net:
+        ipv4_address: 172.29.0.10
+        aliases:
+          - posterginweb
+    depends_on:
+      - db
+
+  uploader:
+    image: gnode/bc20-uploader:latest
+    entrypoint: ["/bin/uploader", "-config", "/srvcfg/config"]
+    volumes:
+      - ./config/uploader:/srvcfg:ro
+      - ./volumes/uploader:/uploads:rw
+    restart: always
+    networks:
+      net:
+        ipv4_address: 172.29.0.20
+        aliases:
+          - uploader
+  db:
+    image: postgres:11
+    env_file: ./config/postgres/pgressecrets.env
+    restart: always
+    networks:
+      net:
+        aliases:
+          - posterpgres
+    volumes:
+      - ./data/posters-postgresdb:/var/lib/postgresql/data:rw
+
+volumes:
+  gintmp:
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.0.0/16
+          gateway: 172.29.0.254
 
 
+## Apache config files (DEV Server)
