@@ -156,10 +156,10 @@ Setup users and groups analogous to the normal gin setup as described in opsdocs
 ```bash
 PROJ_ROOT=/data/dev/posters
 
-mkdir -vp $PROJ_ROOT/volumes
-mkdir -vp $PROJ_ROOT/data/posters-data
-mkdir -vp $PROJ_ROOT/data/posters-tmp
-mkdir -vp $PROJ_ROOT/data/posters-postgresdb
+sudo mkdir -vp $PROJ_ROOT/volumes
+sudo mkdir -vp $PROJ_ROOT/data/posters-data
+sudo mkdir -vp $PROJ_ROOT/data/posters-tmp
+sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 ```
 
 - clone the repo G-Node/gin-bc20 from gin.g-node.org and copy the contents (minus the git directory) to $PROJ_ROOT directory on the server.
