@@ -93,32 +93,36 @@ at the beginning of the file and the list of files to copy into the new zip file
 
 ```bash
 # File this script will be written to; will replace an existing file
-#SCRIPTFILE=/data/doi/doiprep/rezip_script
+SCRIPTFILE=/data/doi/doiprep/rezip_script
 SCRIPTFILE=/home/sommer/Chaos/DL/rezip_script
 
-DOIROOT=/data/doi
-REZIPDIR=/data/doiprep/rezip
 # unique 6-letter id of the doi: g-node.[id]
 DOIID=__someid__
-DOIDIR=${DOIROOT}/10.12751/g-node.${DOIID}
-ZIPNAME=10.12751_g-node.${DOIID}
-TAGNAME=10.12751/g-node.${DOIID}
 # repo owner in gin.g-node.org/[repo owner]/[reponame]
 REPOOWNER=__somerepoowner__
 # repo name in gin.g-node.org/[repo owner]/[reponame]
 REPONAME=__somereponame__
 
+DOIROOT=/data/doi
+REZIPDIR=/data/doiprep/rezip
+
+DOIDIR=${DOIROOT}/10.12751/g-node.${DOIID}
+ZIPNAME=10.12751_g-node.${DOIID}
+TAGNAME=10.12751/g-node.${DOIID}
+
 echo "# prepare rezip working directory" > ${SCRIPTFILE}
 echo "sudo mkdir -vp ${REZIPDIR}" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - unzip zip file; exit 'screen' with Alt+a+d without ending the session" >> ${SCRIPTFILE}
+echo "- unzip zip file; exit 'screen' with Alt+a+d without ending the session" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "screen -S ${REPOOWNER}-${DOIID}-rezip" >> ${SCRIPTFILE}
 echo "sudo su root" >> ${SCRIPTFILE}
 echo "sudo unzip ${DOIDIR}/${ZIPNAME}.zip -d ${REZIPDIR}/g-node.${DOIID}/ > ${REZIPDIR}/${DOIID}_unzip.log" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - download latest repo version" >> ${SCRIPTFILE}
+echo "- download latest repo version" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "cd ${REZIPDIR}" >> ${SCRIPTFILE}
 echo "# check gin-cli logged in as doi - note the set server alias - should be gin" >> ${SCRIPTFILE}
 echo "sudo gin servers" >> ${SCRIPTFILE}
@@ -141,20 +145,23 @@ echo "sudo gin git tag ${TAGNAME}" >> ${SCRIPTFILE}
 echo "sudo gin git push --tags doi" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - copy new files to zip directory" >> ${SCRIPTFILE}
+echo "- copy new files to zip directory" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "cd $REZIPDIR" >> ${SCRIPTFILE}
 echo "# edit and add files as required" >> ${SCRIPTFILE}
 echo "sudo cp $REZIPDIR/$REPONAME/LICENSE $REZIPDIR/g-node.$DOIID/LICENSE" >> ${SCRIPTFILE}
 echo "sudo cp $REZIPDIR/$REPONAME/README.md $REZIPDIR/g-node.$DOIID/README.md" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - create new zip file (use exact same command as the 'makezip' script does to keep it consistent)" >> ${SCRIPTFILE}
+echo "- create new zip file (use exact same command as the 'makezip' script does to keep it consistent)" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "screen -r ${REPOOWNER}-${DOIID}-rezip" >> ${SCRIPTFILE}
 echo "cd ${REZIPDIR}/g-node.${DOIID}" >> ${SCRIPTFILE}
 echo "zip ${REZIPDIR}/${ZIPNAME}.zip -Z store -x '*.git*' -r . > ${REZIPDIR}/${DOIID}_zip.log" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - handle modified zip file" >> ${SCRIPTFILE}
+echo "- handle modified zip file" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "# Make hosted zip file mutable again" >> ${SCRIPTFILE}
 echo "sudo chattr -i ${DOIDIR}/${ZIPNAME}.zip" >> ${SCRIPTFILE}
 echo "# Rename old zipfile but keep for now" >> ${SCRIPTFILE}
@@ -167,13 +174,15 @@ echo "# Remove old zipfile" >> ${SCRIPTFILE}
 echo "sudo rm ${DOIDIR}/old_${ZIPNAME}.zip" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - cleanup" >> ${SCRIPTFILE}
+echo "- cleanup" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "screen -XS ${REPOOWNER}-${DOIID}-rezip quit" >> ${SCRIPTFILE}
 echo "sudo rm ${REZIPDIR}/g-node.${DOIID} -r" >> ${SCRIPTFILE}
 echo "sudo rm ${REZIPDIR}/g-node.${REPONAME} -r" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
-echo "  - manually update 'doi.xml' and 'index.html' to reflect the introduced changes:" >> ${SCRIPTFILE}
+echo "- manually update 'doi.xml' and 'index.html' to reflect the introduced changes:" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 echo "cd ${DOIDIR}" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
@@ -182,4 +191,5 @@ echo "cd ${DOIROOT}" >> ${SCRIPTFILE}
 echo "sudo git add ${DOIDIR}/doi.xml" >> ${SCRIPTFILE}
 echo "sudo git add ${DOIDIR}/index.html" >> ${SCRIPTFILE}
 echo "sudo git commit -m 'Update dataset: ${TAGNAME}'" >> ${SCRIPTFILE}
+echo "" >> ${SCRIPTFILE}
 ```
