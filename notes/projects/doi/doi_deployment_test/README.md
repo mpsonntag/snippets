@@ -127,16 +127,18 @@ gin upload datacite.yml
     - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
 
 
-### Dubious datacite yaml test
+### Dubious datacite yaml / git submodules warning test
 -[ ] add dubious datacite entries file and upload; reload GIN page; request DOI
 
 ```bash
 cp datacite_04_dubious.yml datacite.yml
+touch .gitmodules
 gin commit .
 gin upload datacite.yml
 ```
 
 -[ ] check that the DOI request was valid
+-[ ] Check that the git submodules warning is displayed at the top of the page
 -[ ] check that both the admin email and the DOIMetadata issue contain the following warning messages
     - Author 1 (MisterB) has ORCID-like unspecified ID: 0000-0002-7937-1095
     - Authors 2 (MadamC) and 3 (MisterD) have the same ID: orcid:0000-0003-2524-3853
@@ -155,12 +157,13 @@ gin upload datacite.yml
     - Reference 9 uses old 'Name' field instead of 'Citation'
     - ResourceType is "DataPaper" (expected Dataset)
 -[ ] Check that reference 4 has been excluded from the created XML file on the DOI server
-
+-[ ] Check that the git submodules warning is displayed at the top of the page
 
 ### Valid datacite yaml test and registration procedure test
 -[ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
 
 ```bash
+rm .gitmodules
 cp datacite_05_valid.yml datacite.yml
 cp LICENSE_valid LICENSE
 gin commit .
@@ -169,6 +172,7 @@ gin upload LICENSE
 ```
 
 -[ ] check that the DOI request was valid
+-[ ] Check that no git submodules warning is displayed at the top of the page
 -[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
 -[ ] check that the repository on the DOI server is present in the doiprep folder
 
