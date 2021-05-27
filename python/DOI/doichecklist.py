@@ -390,7 +390,8 @@ def print_part_post_doi(fip):
     sudo chattr +i {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/10.12751_g-node.{CONF["reg_id"]}.zip
 
 -[ ] cleanup any leftover directories from previous versions 
-     of this dataset in the {CONF["dir_doi"]}/10.12751/ directory
+     of this dataset in the {CONF["dir_doi"]}/10.12751/ and 
+    {CONF["dir_doi_prep"]}/10.12751/ directories.
 
 -[ ] email to user (check below)"""
     fip.write(text_block)
