@@ -34,16 +34,12 @@ The repository contains the following files:
 - datacite_01_broken.yml
   ... a datacite file that is not a valid yaml file; checks broken yaml response
 - datacite_02_invalid.yml
-  ... a datacite file that contains invalid datacite entries leading to a rejection of the
-      DOI request. This file should catch all invalid entries leading to a request rejection.
-- datacite_03_unsupported.yml
-  ... a datacite file that contains unsupported datacite field value entries leading to a
-      rejection of the DOI request.
-      Due to implementation reasons still separated from the previous step.
-- datacite_04_dubious.yml
+  ... a datacite file that contains invalid and unsupported datacite entries leading to a rejection 
+      of the DOI request. This file should catch all invalid entries leading to a request rejection.
+- datacite_03_dubious.yml
   ... a datacite file containing all entries that will lead to a successful DOI request,
       but will elicit warning messages to the admin. This file should cover all admin warnings.
-- datacite_05_valid.yml
+- datacite_04_valid.yml
   ... a datacite file leading to a clean DOI request
 
 
@@ -85,7 +81,7 @@ gin upload datacite.yml
 -[ ] add valid datacite file and upload; reload GIN page; request DOI
 
 ```bash
-cp datacite_05_valid.yml datacite.yml
+cp datacite_04_valid.yml datacite.yml
 gin commit .
 gin upload datacite.yml
 ```
@@ -111,27 +107,14 @@ gin upload LICENSE
     - No description provided.
     - No valid license provided. Please specify a license URL and name and make sure it matches the license file in the repository.
     - Not all Reference entries are valid. Please provide the full citation and type of the reference.
-
-
-### Unsupported datacite.yaml test
--[ ] add unsupported datacite file and upload; reload GIN page; request DOI
-
-```bash
-cp datacite_03_unsupported.yml datacite.yml
-gin commit .
-gin upload datacite.yml
-```
-
--[ ] check DOI request failures:
     - ResourceType must be one of the following: Dataset, Software, DataPaper, Image, Text
     - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
-
 
 ### Dubious datacite yaml / git submodules warning test
 -[ ] add dubious datacite entries file and upload; reload GIN page; request DOI
 
 ```bash
-cp datacite_04_dubious.yml datacite.yml
+cp datacite_03_dubious.yml datacite.yml
 touch .gitmodules
 gin commit .
 gin upload datacite.yml
@@ -164,7 +147,7 @@ gin upload datacite.yml
 
 ```bash
 rm .gitmodules
-cp datacite_05_valid.yml datacite.yml
+cp datacite_04_valid.yml datacite.yml
 cp LICENSE_valid LICENSE
 gin commit .
 gin upload datacite.yml
