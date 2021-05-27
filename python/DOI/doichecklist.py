@@ -85,11 +85,8 @@ def text_pre_fork_upload(screen_id):
 -[ ] log on to the DOI server ({CONF["doi_server"]}) and move to {CONF["dir_doi_prep"]}
 - Make sure all information has been properly downloaded to the staging directory and
   all annex files are unlocked and the content is present:
-    -[ ] check that there are no symlinks listed
-        tree --du -h {CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}
-    -[ ] a hit with the following points to the existence of an annex pointer file; 
-         the annex content is not fully downloaded yet
-        tree --du -h {CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]} | grep 65]
+    -[ ] find {CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]} -type l -print
+    -[ ] grep annex.objects $(find {CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]} -type f -size -100c -print)
     -[ ] check that the content size of the repository and the created zip file matches
     -[ ] if there still are symlinks present or the content size does not match up, the zip
          file does not contain all required data. Run the next steps - the script will
