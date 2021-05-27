@@ -11,20 +11,17 @@ Use the following bash script to create a script checklist file; adjust the vari
 at the beginning of the file and the list of files to copy into the new zip file in the middle of the script.
 
 ```bash
-# File this script will be written to; will replace an existing file
-SCRIPTFILE=/data/doi/doiprep/rezip_script
-SCRIPTFILE=rezip_script
 # unique 6-letter id of the doi: g-node.[id]
 DOIID=__someid__
-DOIID=wvr3jf
 # repo owner in gin.g-node.org/[repo owner]/[reponame]
 REPOOWNER=__somerepoowner__
-REPOOWNER=NeuroGroup_TUNI
 # repo name in gin.g-node.org/[repo owner]/[reponame]
 REPONAME=__somereponame__
-REPONAME=Comparative_MEA_dataset
-DOIROOT=/data/doi
-REZIPDIR=/data/doiprep/rezip
+
+DOIROOT=/data/dev/gin/doidata/doi
+REZIPDIR=/data/dev/gin/doidata/rezip
+# File this script will be written to; will replace an existing file
+SCRIPTFILE=${REZIPDIR}/rezip_script_${DOIID}
 
 DOIDIR=${DOIROOT}/10.12751/g-node.${DOIID}
 ZIPNAME=10.12751_g-node.${DOIID}
