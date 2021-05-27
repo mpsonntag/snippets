@@ -13,14 +13,16 @@ at the beginning of the file and the list of files to copy into the new zip file
 ```bash
 # File this script will be written to; will replace an existing file
 SCRIPTFILE=/data/doi/doiprep/rezip_script
-
+SCRIPTFILE=rezip_script
 # unique 6-letter id of the doi: g-node.[id]
 DOIID=__someid__
+DOIID=wvr3jf
 # repo owner in gin.g-node.org/[repo owner]/[reponame]
 REPOOWNER=__somerepoowner__
+REPOOWNER=NeuroGroup_TUNI
 # repo name in gin.g-node.org/[repo owner]/[reponame]
 REPONAME=__somereponame__
-
+REPONAME=Comparative_MEA_dataset
 DOIROOT=/data/doi
 REZIPDIR=/data/doiprep/rezip
 
@@ -76,6 +78,8 @@ echo "" >> ${SCRIPTFILE}
 echo "screen -r ${REPOOWNER}-${DOIID}-rezip" >> ${SCRIPTFILE}
 echo "cd ${REZIPDIR}/g-node.${DOIID}" >> ${SCRIPTFILE}
 echo "zip ${REZIPDIR}/${ZIPNAME}.zip -Z store -x '*.git*' -r . > ${REZIPDIR}/${DOIID}_zip.log" >> ${SCRIPTFILE}
+echo "# check the zip file after the procedure is done" >> ${SCRIPTFILE}
+echo "unzip -vl ${REZIPDIR}/${ZIPNAME}.zip" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
 echo "- handle modified zip file" >> ${SCRIPTFILE}
@@ -88,6 +92,7 @@ echo "# Move new zip file to hosting location" >> ${SCRIPTFILE}
 echo "sudo mv ${REZIPDIR}/${ZIPNAME}.zip ${DOIDIR}/${ZIPNAME}.zip" >> ${SCRIPTFILE}
 echo "# Make new zip file immutable" >> ${SCRIPTFILE}
 echo "sudo chattr +i ${DOIDIR}/${ZIPNAME}.zip" >> ${SCRIPTFILE}
+echo "# check manual download from https://doi.gin.g-node.org/${TAGNAME}" >> ${SCRIPTFILE}
 echo "# Remove old zipfile" >> ${SCRIPTFILE}
 echo "sudo rm ${DOIDIR}/old_${ZIPNAME}.zip" >> ${SCRIPTFILE}
 
@@ -96,7 +101,8 @@ echo "- cleanup" >> ${SCRIPTFILE}
 echo "" >> ${SCRIPTFILE}
 echo "screen -XS ${REPOOWNER}-${DOIID}-rezip quit" >> ${SCRIPTFILE}
 echo "sudo rm ${REZIPDIR}/g-node.${DOIID} -r" >> ${SCRIPTFILE}
-echo "sudo rm ${REZIPDIR}/g-node.${REPONAME} -r" >> ${SCRIPTFILE}
+echo "sudo rm ${REZIPDIR}/${REPONAME} -r" >> ${SCRIPTFILE}
+echo "sudo rm ${REZIPDIR}/*.log" >> ${SCRIPTFILE}
 
 echo "" >> ${SCRIPTFILE}
 echo "- manually update 'doi.xml' and 'index.html' to reflect the introduced changes:" >> ${SCRIPTFILE}
