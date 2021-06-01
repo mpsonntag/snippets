@@ -18,4 +18,4 @@ ssh ${SUSER}@${BACKUP} 'ls -lart ${BACKUPLOCATION}' >> ${STATS_FILE}
 # fetch server space stats
 echo "" >> ${STATS_FILE}
 echo "Meta space stat" >> ${STATS_FILE}
-ssh ${SUSER}@${META} 'df -h' >> ${STATS_FILE}
+ssh ${SUSER}@${META} 'df -h | grep -v "/dev/loop" | grep -v "tmpfs"' >> ${STATS_FILE}
