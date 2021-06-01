@@ -8,12 +8,12 @@ source ${ENV_FILE}
 # append to report
 echo "" >> ${STATS_FILE}
 echo "" >> ${STATS_FILE}
-date '+%Y-%m-%d %H:%M' >> ${STATS_FILE}
+echo "... Report `date '+%Y-%m-%d %H:%M'`" >> ${STATS_FILE}
 
 # check backups
 echo "" >> ${STATS_FILE}
 echo "Backups stats" >> ${STATS_FILE}
-ssh ${SUSER}@${BACKUP} 'ls -lart ${BACKUPLOCATION}' >> ${STATS_FILE}
+ssh ${SUSER}@${BACKUP} 'ls -lart ${BACKUPLOCATION} | tail -n 5' >> ${STATS_FILE}
 
 # fetch server space stats
 echo "" >> ${STATS_FILE}
