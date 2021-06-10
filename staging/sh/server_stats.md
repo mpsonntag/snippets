@@ -20,7 +20,12 @@ echo "" >> ${STATS_FILE}
 echo "Meta space stat" >> ${STATS_FILE}
 ssh ${SUSER}@${META} 'df -h | grep -v "/dev/loop" | grep -v "tmpfs"' >> ${STATS_FILE}
 
-# Check docker status
+# Check docker running status
 echo "" >> ${STATS_FILE}
 echo "Meta docker stat" >> ${STATS_FILE}
 ssh ${SUSER}@${META} 'docker ps' >> ${STATS_FILE}
+
+# Check docker resource status
+echo "" >> ${STATS_FILE}
+echo "Meta docker resource stats" >> ${STATS_FILE}
+ssh ${SUSER}@${META} 'docker stats --no-stream' >> ${STATS_FILE}
