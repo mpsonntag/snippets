@@ -171,6 +171,21 @@ https://blog.adriel.co.nz/2018/01/25/change-docker-data-directory-in-debian-jess
 When having an external storage location for files via ` -v /external:/internal`, the content of `/external` is mounted into the docker volume `/internal`, which resides in `/var/lib/docker`.
 
 
+### Docker logs
+
+By default docker logs can be found at `/var/lib/docker/containers/[container-id]/[container-id]-json.log`. If the docker storage has been moved from the default location to another due to space issues, the logfiles will be found there.
+
+Docker writes `json` files by default; the format can be checked using the command 
+```
+docker info --format '{{.LoggingDriver}}'
+# or
+docker info | grep Logging
+```
+
+Check the size of these log files e.g. with tree
+```tree --du -h /var/lib/docker/containers```
+
+
 ## Docker compose
 
 Start docker containers defined in a `docker-compose.yml` file. This file has to reside in the directory where the following command is executed. Any `.env` file providing environment variables for the services have to reside in the same directory as well.
