@@ -342,6 +342,11 @@ services:
           - posterginweb
     depends_on:
       - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
 
   uploader:
     image: gnode/bc20-uploader:latest
@@ -355,6 +360,12 @@ services:
         ipv4_address: 172.29.0.20
         aliases:
           - uploader
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
+
   db:
     image: postgres:11
     env_file: ./config/postgres/pgressecrets.env
@@ -365,6 +376,11 @@ services:
           - posterpgres
     volumes:
       - ./data/posters-postgresdb:/var/lib/postgresql/data:rw
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
 
 volumes:
   gintmp:
