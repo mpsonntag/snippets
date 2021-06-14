@@ -270,6 +270,23 @@ cd $PROJ_ROOT
 docker-compose up -d
 ```
 
+## ssh access for cloning, local editing and pushing
+
+- copy ssh git key to the gogs user's settings
+- create a repo via the webinterface
+- clone it locally; use the appropriate port number - in our example it was 2323
+```bash
+    git clone ssh://git@bc20.dev.g-node.org:2323/[owner]/[reponame].git
+```
+
+- to clone the wiki, it has to be initialized via the web service as well
+  - bc20.dev.g-node.org/[owner]/[reponame]/wiki
+  - create a page
+  - clone locally:
+```bash
+git clone ssh://bc20.dev.g-node.org:2323/[owner]/[reponame].wiki.git
+```
+
 ### Build poster gallery specific gin-web container from source
 
 If the container is not already built and available, locally build it from source,
