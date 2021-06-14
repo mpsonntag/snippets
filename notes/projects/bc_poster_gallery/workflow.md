@@ -432,3 +432,141 @@ networks:
 ```
 
 ## Apache config files (DEV Server)
+
+
+
+
+## BC main page code
+
+```markdown
+![Bernstein Conference 2020](https://bc20.g-node.org/img/BC20_Online_Abstract_Header.jpg)
+
+## Gallery: Posters and talks
+### September, 29 - October, 1, 2020
+
+Here you will find all posters, talks and workshops of this year’s Bernstein Conference.
+The platform allows access to all abstracts of the Bernstein Conference – with special features to facilitate the overview and sorting.
+
+Browse, read, watch or participate via directlink.
+
+<div class="banner">
+<a href="https://bc20.g-node.org/BernsteinConference2020/InvitedTalks/wiki"><img width=300 alt="Section: Invited Talks" src="https://bc20.g-node.org/img/Section-Invited-talks.jpg"/>
+</div>
+<div class="banner">
+<a href="https://bc20.g-node.org/BernsteinConference2020/ContributedTalks/wiki"><img width=300 alt="Section: Contributed Talks" src="https://bc20.g-node.org/img/Section-Contributed-talks.jpg"/>
+</div>
+
+<div class="banner">
+<a href="https://bc20.g-node.org/BernsteinConference2020/Posters/wiki"><img width=300 alt="Section: Posters" src="https://bc20.g-node.org/img/Section-Posters.jpg"/>
+</div>
+<div class="banner">
+<a href="https://bc20.g-node.org/BernsteinConference2020/Workshops/wiki"><img width=300 alt="Section: Workshops" src="https://bc20.g-node.org/img/Section-Workshops.jpg"/>
+</div>
+```
+
+### BC invited talks introduction
+
+```markdown
+![Invited talks](https://bc20.g-node.org/img/BC20_Header_invited.png)
+
+The video links to the invited talks for which we have the speakers’ consent can only be accessed here.  Please note, these links must not be published anywhere else.  Links will appear successively in the Gallery – all assigned to their respective talks. They will remain accessible until October 2.
+```
+
+### BC contributed talks introduction incl example links
+![Contributed talks](https://bc20.g-node.org/img/BC20_Header_contributed.png)
+
+The video links to the contributed talks for which we have the speakers’ consent can only be accessed here. Please note, these links must not be published anywhere else. Links will appear successively in the Gallery – all assigned to their respective talks. They will remain accessible until October 2.
+
+**[Manifold GPLVMs for discovering non-Euclidean latent structure in neural data](/wiki/Contributed1)**  
+Kristopher T. Jensen, Ta-Chu Kao, Marco Tripodi, Guillaume Hennequin  
+**Contributed Talk 1** | [![Data analysis, machine learning, neuroinformatics](/BernsteinConference2020/posters/raw/master/banners/icon-blue.png) Data analysis, machine learning, neuroinformatics](/wiki/)  
+
+**[Drifting assemblies for persistent memory](/wiki/Contributed2)**  
+Felipe Yaroslav Kalle Kossio, Sven Goedeke, Christian Klos, Raoul-Martin Memmesheimer  
+**Contributed Talk 2** | [![Learning, plasticity and memory](/BernsteinConference2020/posters/raw/master/banners/icon-red.png) Learning, plasticity and memory](/wiki/)  
+
+
+### BC workshops introduction
+
+```markdown
+![Workshops](https://bc20.g-node.org/img/BC20_Header_workshops.png)
+
+The video links to the talks for which we have the speakers’ consent can only be accessed here. Please note, these links must not be published anywhere else. Links will appear successively in the Gallery – all assigned to their respective talks. They will remain accessible until October 2.
+```
+
+### BC Posters
+
+```markdown
+![Posters](https://bc20.g-node.org/img/BC20_Header_posters.png)
+
+Posters can be sorted either by topic or the poster session in which they are presented. To facilitate the overview and sorting of the many posters, they have been assigned to 10 different color-coded topics.
+
+## [Browse all posters](/wiki/List)
+
+## [Browse posters by Topic](/wiki/Topics)
+
+## [Browse posters by Session](/wiki/Sessions)
+```
+
+
+#### BC Posters by topic
+
+```markdown
+# Poster topics
+
+<div class="banner">
+<a href="Neurons-networks-dynamical-systems"><img width=300 alt="Topic: Neurons, networks, dynamical systems" src="/BernsteinConference2020/posters/raw/master/banners/yellow.png"/>
+<div class="title">Neurons, networks, dynamical systems</div>
+<div class="text">97 Posters</div></a></div><div class="banner">
+<a href="Data-analysis-machine-learning-neuroinformatics"><img width=300 alt="Topic: Data analysis, machine learning, neuroinformatics" src="/BernsteinConference2020/posters/raw/master/banners/blue.png"/>
+<div class="title">Data analysis, machine learning, neuroinformatics</div>
+<div class="text">43 Posters</div></a></div><div class="banner">
+<a href="Learning-plasticity-and-memory"><img width=300 alt="Topic: Learning, plasticity and memory" src="/BernsteinConference2020/posters/raw/master/banners/red.png"/>
+<div class="title">Learning, plasticity and memory</div>
+<div class="text">35 Posters</div></a></div><div class="banner">
+<a href="Sensory-processing-and-perception"><img width=300 alt="Topic: Sensory processing and perception" src="/BernsteinConference2020/posters/raw/master/banners/green.png"/>
+<div class="title">Sensory processing and perception</div>
+<div class="text">37 Posters</div></a></div><div class="banner">
+<a href="Attention-reward-decision-making"><img width=300 alt="Topic: Attention, reward, decision making" src="/BernsteinConference2020/posters/raw/master/banners/orange.png"/>
+<div class="title">Attention, reward, decision making</div>
+<div class="text">13 Posters</div></a></div><div class="banner">
+<a href="Behaviour-and-cognition"><img width=300 alt="Topic: Behaviour and cognition" src="/BernsteinConference2020/posters/raw/master/banners/lightblue.png"/>
+<div class="title">Behaviour and cognition</div>
+<div class="text">11 Posters</div></a></div><div class="banner">
+<a href="Brain-disease-network-dysfunction-and-intervention"><img width=300 alt="Topic: Brain disease, network dysfunction and intervention" src="/BernsteinConference2020/posters/raw/master/banners/turquoise.png"/>
+<div class="title">Brain disease, network dysfunction and intervention</div>
+<div class="text">11 Posters</div></a></div><div class="banner">
+<a href="Computational-connectomics"><img width=300 alt="Topic: Computational connectomics" src="/BernsteinConference2020/posters/raw/master/banners/grey.png"/>
+<div class="title">Computational connectomics</div>
+<div class="text">9 Posters</div></a></div><div class="banner">
+<a href="Motor-control-movement-navigation"><img width=300 alt="Topic: Motor control, movement, navigation" src="/BernsteinConference2020/posters/raw/master/banners/purple.png"/>
+<div class="title">Motor control, movement, navigation</div>
+<div class="text">13 Posters</div></a></div><div class="banner">
+<a href="Other"><img width=300 alt="Topic: Other" src="/BernsteinConference2020/posters/raw/master/banners/darkblue.png"/>
+<div class="title">Other</div>
+<div class="text">3 Posters</div></a></div>
+```
+#### BC Posters by session
+
+```markdown
+# Poster Sessions
+## Session I
+70 posters  
+**Time:** Wed, Sep 30, 14.15-15.30 (CEST)  
+[Browse Session I posters](wiki/Session-I)
+
+## Session II
+67 posters  
+**Time:** Wed, Sep 30, 18.00-19.15 (CEST)  
+[Browse Session II posters](wiki/Session-II)
+
+## Session III
+65 posters  
+**Time:** Thu, Oct 1, 14.15-15.30 (CEST)  
+[Browse Session III posters](wiki/Session-III)
+
+## Session IV
+70 posters  
+**Time:** Thu, Oct 1, 18.00-19.15 (CEST)  
+[Browse Session IV posters](wiki/Session-IV)
+```
