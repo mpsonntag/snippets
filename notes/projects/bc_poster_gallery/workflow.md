@@ -307,6 +307,17 @@ Main
 
 - create the first wiki page for all repos via the web interface
 
+### ToDos
+- custom gogs keys for the bernstein conference
+  - whitelist url
+  - conference website
+
+DISABLE REPOSITORY CREATE! BUT HOW?
+-> remove "+" access via custom templates?
+
+whitelist server down message display not fully functional yet
+
+
 ### Build poster gallery specific gin-web container from source
 
 If the container is not already built and available, locally build it from source,
