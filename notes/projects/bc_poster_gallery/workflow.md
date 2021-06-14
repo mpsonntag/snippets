@@ -181,9 +181,10 @@ sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 - rename `$PROJ_ROOT/config/gogs/conf/app.ini` to `reference_app.ini` to avoid it being overwritten after initializing the docker container.
 
-- change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group
+- change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group; also make sure people in the same group may edit
 
     sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+    sudo chmod g+w $PROJ_ROOT -R
 
 - pull all required docker containers (db, gin-web:bc20, bc20-uploader)
 
