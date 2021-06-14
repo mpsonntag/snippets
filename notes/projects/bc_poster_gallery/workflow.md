@@ -287,6 +287,26 @@ docker-compose up -d
 git clone ssh://bc20.dev.g-node.org:2323/[owner]/[reponame].wiki.git
 ```
 
+## Create all required repos and wikis
+
+ADJUST ONCE THE GOGS TEMPLATES HAVE BEEN MODIFIED TO BE LESS CONFERENCE SPECIFIC
+
+- create the following organization via the Web interface:
+
+BernsteinConference2020
+
+- adjust the BernsteinConference organization logo
+
+- create the following repositories using the "BernsteinConference" organization:
+
+InvitedTalks
+ContributedTalks
+Posters
+Workshops
+Main
+
+- create the first wiki page for all repos via the web interface
+
 ### Build poster gallery specific gin-web container from source
 
 If the container is not already built and available, locally build it from source,
