@@ -182,14 +182,10 @@ sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 - rename `$PROJ_ROOT/config/gogs/conf/app.ini` to `reference_app.ini` to avoid it being overwritten after initializing the docker container.
 
 - change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group; also make sure people in the same group may edit
-
-    sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
-    sudo chmod g+w $PROJ_ROOT -R
-
-- pull all required docker containers (db, gin-web:bc20, bc20-uploader)
-
-    cd $PROJ_ROOT
-    docker-compose pull
+```bash
+sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+sudo chmod g+w $PROJ_ROOT -R
+```
 
 - add apache configuration files and run certbot for these files - the configuration might need to be a bit different on the dev server compared to a live machine.
 
@@ -197,33 +193,35 @@ sudo mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 - create certbot certificates (certbot command might differ depending on OS)
 
-    # Stop apache
-    sudo systemctl stop apache2
-    sudo certbot certonly
-    # Manually select apache (1); Make sure to use the same domain as specified in the apache2 config files 
-    # add domain as appropriate: bc20.dev.g-node.org
-    # Run the same setup again for domain: bc20-posters.dev.g-node.org
-    # Check that both certificates have been added:
-    sudo ls -lart /etc/letsencrypt/live/
-    # Start apache
-    sudo systemctl start apache2
-
+```bash
+# Stop apache
+sudo systemctl stop apache2
+sudo certbot certonly
+# Manually select apache (1); Make sure to use the same domain as specified in the apache2 config files 
+# add domain as appropriate: bc20.dev.g-node.org
+# Run the same setup again for domain: bc20-posters.dev.g-node.org
+# Check that both certificates have been added:
+sudo ls -lart /etc/letsencrypt/live/
+# Start apache
+sudo systemctl start apache2
+```
 - Chrome needs a restart to properly accept renewed certificates.
 
 - enable bc20.dev.g-node.org via apache2
-
-    sudo a2ensite bc20.dev.g-node.org.conf
-    sudo systemctl reload apache2
+```bash
+sudo a2ensite bc20.dev.g-node.org.conf
+sudo systemctl reload apache2
+```
 
 - run the setup procedure for gin-web:b20; follow the procedure in the [dev:gin-web setup description](../dev/gin-setup.md) with the following changes
 
-- fetch all required containers from the docker-gin directory
-
-        cd $DIR_GINROOT/gin-dockerfile
-        docker-compose pull
+- pull all required docker containers (db, gin-web:bc20, bc20-uploader)
+```bash
+cd $PROJ_ROOT
+docker-compose pull
+```
 
 - prepare the postgres database container for the first gin setup
-
 ```bash
 docker-compose up -d db
 docker exec -it posters_db_1 /bin/bash
@@ -237,8 +235,9 @@ exit
 ```
 
 - launch gin-web docker container
-
-        docker-compose up web
+```bash
+docker-compose up web
+```
 
 - start the gin setup via the browser at bc20.dev.g-node.org
     - db:               postgres
@@ -249,19 +248,27 @@ exit
     - app name:         Bernstein Poster Gallery
     - repo root:        as defined in docker-compose on the container side e.g. /data/repos
     - domain:           bc20.dev.g-node.org
-    - create an administration user; do not use 'admin'; if the database is restored from the live server, this user will be overwritten.
+    - create an administration user "bcadmin".
 
 - NOTE: DO NOT change the application URL during the initial setup - otherwise the default admin cannot be properly set up
 
 - save; this might redirect to an error page, but this is inconsequential
 - check that the page is running at bc20.dev.g-node.org
 - on the dev server, stop all containers
+```bash
+cd $PROJ_ROOT
+docker-compose down
+```
 
-    ```
-    cd $DIR_GINROOT/gin-dockerfile
-    docker-compose down
-    ```
+- modify the $PROJ_ROOT/config/gogs/config/app.ini to mimic the reference.app ini
 
+- copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to $PROJ_ROOT/config/templates
+
+- restart all services
+```bash
+cd $PROJ_ROOT
+docker-compose up -d
+```
 
 ### Build poster gallery specific gin-web container from source
 
@@ -310,7 +317,7 @@ python tojson.py workshops.tsv
 # Config files
 
 ## Docker file (DEV server)
-
+```yaml
 version: '2.4'
 services:
 
@@ -369,6 +376,6 @@ networks:
       config:
         - subnet: 172.29.0.0/16
           gateway: 172.29.0.254
-
+```
 
 ## Apache config files (DEV Server)
