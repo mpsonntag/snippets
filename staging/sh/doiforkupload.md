@@ -29,6 +29,10 @@ fi
 cd $REPOPATH
 WORKDIR=$PWD
 REPO=$(basename "$PWD")
+if [[ $# > 1 ]]; then
+  REPO=$2
+  echo "... using alternative DOI repository at $REPO"
+fi
 
 cd ..
 TAGNAME=10.12751/$(basename "$PWD")
