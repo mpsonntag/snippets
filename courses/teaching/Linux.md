@@ -963,6 +963,18 @@ be different crontabs under different users including root.
 
         rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
 
+- Useful flags description
+  - t ... preserve timestamp; avoid issues when writing back and forth between multiple machines
+  - i ... show reason for action
+  - v ... verbose
+  - r ... recursive
+  - u ... update only - do not overwrite newer in target
+  - n ... dry run
+
+# Copy directory COPY_DIR from a local to remote; dry-run, update only, show reason for change, preserve timestamp
+rsync -ivrtu -e "ssh -i /home/$USER/.ssh/" /home/$USER/COPY_DIR/ $USER@$REMOTE:/home/$USER/COPY_DIR/ -n
+
+
 ### http requests with "curl" (commandline url)
 
 `curl` ... run http requests from the command line
