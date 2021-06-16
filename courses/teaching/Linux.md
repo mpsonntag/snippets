@@ -960,8 +960,9 @@ be different crontabs under different users including root.
 - new files will be copied
 - files that were changed locally will overwrite the remote files
 - ideally run the command with the `dry-run` flag first to ensure that the update is save
-
-        rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
+  ```bash
+  rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
+  ```
 
 - Useful flags description
   - t ... preserve timestamp; avoid issues when writing back and forth between multiple machines
@@ -971,8 +972,43 @@ be different crontabs under different users including root.
   - u ... update only - do not overwrite newer in target
   - n ... dry run
 
+```bash
 # Copy directory COPY_DIR from a local to remote; dry-run, update only, show reason for change, preserve timestamp
-rsync -ivrtu -e "ssh -i /home/$USER/.ssh/" /home/$USER/COPY_DIR/ $USER@$REMOTE:/home/$USER/COPY_DIR/ -n
+rsync -ivrut -e "ssh -i /home/$USER/.ssh/" /home/$USER/COPY_DIR/ $USER@$REMOTE:/home/$USER/COPY_DIR/ -n
+```
+
+- itemize output; a good description of the itemize output can be found [here](http://www.staroceans.org/e-book/understanding-the-output-of-rsync-itemize-changes.html)
+  ```
+  YXcstpoguax  path/to/file
+  |||||||||||
+  `----------- the type of update being done::
+   ||||||||||   <: file is being transferred to the remote host (sent).
+   ||||||||||   >: file is being transferred to the local host (received).
+   ||||||||||   c: local change/creation for the item, such as:
+   ||||||||||      - the creation of a directory
+   ||||||||||      - the changing of a symlink,
+   ||||||||||      - etc.
+   ||||||||||   h: the item is a hard link to another item (requires --hard-links).
+   ||||||||||   .: the item is not being updated (though it might have attributes that are being modified).
+   ||||||||||   *: means that the rest of the itemized-output area contains a message (e.g. "deleting").
+   ||||||||||
+   `---------- the file type:
+    |||||||||   f for a file,
+    |||||||||   d for a directory,
+    |||||||||   L for a symlink,
+    |||||||||   D for a device,
+    |||||||||   S for a special file (e.g. named sockets and fifos).
+    |||||||||
+    `--------- c: different checksum (for regular files)
+     ||||||||     changed value (for symlink, device, and special file)
+     `-------- s: Size is different
+      `------- t: Modification time is different
+       `------ p: Permission are different
+        `----- o: Owner is different
+         `---- g: Group is different
+          `--- u: The u slot is reserved for future use.
+           `-- a: The ACL information changed
+  ```
 
 
 ### http requests with "curl" (commandline url)
