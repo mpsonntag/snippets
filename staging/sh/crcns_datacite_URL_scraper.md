@@ -3,7 +3,8 @@
 CRCNS_URL=https://crcns.org/data-sets
 FILE_MAIN=crcns_main
 FILE_CATEGORY_URLS=crcns_categories
-FILE_DOI_URLS=crcns_dois
+FILE_DOI_LOG=crcns_doi_id_log
+FILE_DOI_ID=crcns_doi_id
 DATACITE_XML_DIR=datacite
 
 #-- prepare output directory
@@ -25,21 +26,22 @@ done
 
 #-- fetch xml id from about page
 #-- there are two variants of the "about" page - plain "/about" and /about-{set-id}
-#-- reset DOI URLs file
-echo "" > ${FILE_DOI_URLS}
+#-- reset DOI id files; log file is kept for back checks which ids might be missing
+echo "" > ${FILE_DOI_ID}
+echo "" > ${FILE_DOI_LOG}
 LINES_CATEGORIES=$(cat $FILE_CATEGORY_URLS)
 for LINE in ${LINES_CATEGORIES}
 do
-  echo "... handling ${LINE}" >> ${FILE_DOI_URLS}
-  #-- handle "/about" link variant
-  curl ${LINE}/about | grep "doi.org/10.6080" | awk -F "doi.org/" '{print $2}' | awk -F "<" '{print $1}' >> ${FILE_DOI_URLS}
-  #-- handle "/about-[set-id]" link variant
   CURR_ID=$(echo $LINE | sed 's/https:\/\/crcns.org\/data-sets\/[a-zA-Z\-]*\///g')
-  curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080" | awk -F "doi.org/" '{print $2}' | awk -F "<" '{print $1}' >> ${FILE_DOI_URLS}
+  echo "... handling (${CURR_ID}) ${LINE}" >> ${FILE_DOI_LOG}
+  #-- handle "/about" link variant
+  curl ${LINE}/about | grep "doi.org/10.6080" | awk -F "doi.org/" '{print $2}' | awk -F "<" '{print $1}' | tee -a ${FILE_DOI_ID} >> ${FILE_DOI_LOG}
+  #-- handle "/about-[set-id]" link variant
+  curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080" | awk -F "doi.org/" '{print $2}' | awk -F "<" '{print $1}' | tee -a ${FILE_DOI_ID} >> ${FILE_DOI_LOG}
 done
 
 #-- fetch datacite xml files
-LINES_DOI=$(cat $FILE_DOI_URLS)
+LINES_DOI=$(cat $FILE_DOI_ID)
 for LINE in ${LINES_DOI}
 do
   if [[ ${LINE} = 10.6080* ]]; then
@@ -60,4 +62,3 @@ curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080
 curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K05D8PS8 > ${DATACITE_XML_DIR}/K05D8PS8.xml
 curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0VQ30V9 > ${DATACITE_XML_DIR}/K0VQ30V9.xml
 curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K04B2ZJ5 > ${DATACITE_XML_DIR}/K04B2ZJ5.xml
-
