@@ -29,19 +29,13 @@ echo "" > ${FILE_DOI_URLS}
 LINES_CATEGORIES=$(cat $FILE_CATEGORY_URLS)
 for LINE in ${LINES_CATEGORIES}
 do
-  echo "... handling ${LINE}"
+  echo "... handling ${LINE}" >> ${FILE_DOI_URLS}
   #-- handle "/about" link variant
-  curl ${LINE}/about | grep "doi.org/10.6080"
+  curl ${LINE}/about | grep "doi.org/10.6080" | awk -F "dx.doi.org/" '{print $2}' | awk -F "<" '{print $1}' >> ${FILE_DOI_URLS}
   #-- handle "/about-[set-id]" link variant
   CURR_ID=$(echo $LINE | sed 's/https:\/\/crcns.org\/data-sets\/[a-zA-Z]*\///g')
-  curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080"
+  curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080" | awk -F "dx.doi.org/" '{print $2}' | awk -F "<" '{print $1}' >> ${FILE_DOI_URLS}
 done
-
-
-ABOUT=https://crcns.org/data-sets/vc/pvc-12/about
-ABOUT_ALT=https://crcns.org/data-sets/vc/pvc-13/about-pvc-13
-
-curl ${ABOUT} | grep "doi.org"
 
 #-- fetch xml from datacite
 curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/k0nk3c7j > k0nk3c7j.xml
