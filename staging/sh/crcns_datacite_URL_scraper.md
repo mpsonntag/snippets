@@ -4,6 +4,7 @@ CRCNS_URL=https://crcns.org/data-sets
 FILE_MAIN=crcns_main
 FILE_CATEGORY_URLS=crcns_categories
 FILE_DOI_URLS=crcns_dois
+DATACITE_XML_DIR=datacite
 
 #-- fetch main category URLs
 curl ${CRCNS_URL} | grep "${CRCNS_URL}/" | grep '  href=' | sed 's/"//g' | sed 's/^\s*href=//g' > ${FILE_MAIN}
@@ -24,7 +25,7 @@ done
 
 #-- fetch xml id from about page
 #-- there are two variants of the "about" page - plain "/about" and /about-{set-id}
-#-- reset categories file
+#-- reset DOI URLs file
 echo "" > ${FILE_DOI_URLS}
 LINES_CATEGORIES=$(cat $FILE_CATEGORY_URLS)
 for LINE in ${LINES_CATEGORIES}
@@ -37,5 +38,12 @@ do
   curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080" | awk -F "dx.doi.org/" '{print $2}' | awk -F "<" '{print $1}' >> ${FILE_DOI_URLS}
 done
 
-#-- fetch xml from datacite
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/k0nk3c7j > k0nk3c7j.xml
+#-- fetch datacite xml files
+LINES_DOI=$(cat $FILE_DOI_URLS)
+for LINE in ${LINES_DOI}
+do
+  if [[ ${LINE} = 10.6080* ]]; then
+    CURR_ID=$(echo ${LINE} | sed 's/10.6080\///g' | sed 's/\s*$//g')
+    curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/${CURR_ID} > ${DATACITE_XML_DIR}/${CURR_ID}.xml
+  fi
+done
