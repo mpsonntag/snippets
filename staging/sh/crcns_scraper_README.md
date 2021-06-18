@@ -12,17 +12,10 @@ https://crcns.org/data-sets/methods/cai-3/about-ret-2       http://dx.doi.org/10
 
 https://crcns.org/data-sets/bst/vta-2/vta-2                 https://doi.org/10.6080/K0VQ30V9
 
+
 #-- note the doi syntax
 https://crcns.org/data-sets/bst/rrf-1/about-rrf-1           https://doi.org/doi:10.6080/K04B2ZJ5
 
-
-#-- could be removed by splitting only by "doi.org/" and not "dx.doi.org/"
-https://crcns.org/data-sets/methods/eeg-1/about-eeg-1       https://doi.org/10.6080/K0N8780K
-https://crcns.org/data-sets/bst/pag-2/about-pag-2           https://doi.org/10.6080/K0833Q7F
-https://crcns.org/data-sets/bf/bf-3/about-bf-3              https://doi.org/10.6080/K0HH6H8V
-https://crcns.org/data-sets/hc/hc-26/about-hc-26            https://doi.org/10.6080/K0D798NB
-https://crcns.org/data-sets/hc/hc-25/about-hc-25            https://doi.org/10.6080/K0TD9VJG
-https://crcns.org/data-sets/hc/hc-24/about-hc-24            https://doi.org/10.6080/K0K35RVG
 
 #-- not published as CRCNS.org / via datacite
 https://crcns.org/data-sets/vc/v4-1/about-v4-1      https://doi.org/10.6084/m9.figshare.12269513.v1
@@ -34,5 +27,3 @@ https://crcns.org/data-sets/movements/dream
 https://crcns.org/data-sets/movements/zipser-1
 https://crcns.org/data-sets/tools/mesmerize
 https://crcns.org/data-sets/tunicates/ci-1/about-ci-1   https://doi.org/10.6084/m9.figshare.10289162
-
-
