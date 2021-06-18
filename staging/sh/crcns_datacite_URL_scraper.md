@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
 
+#-- working directory; current directory by default
+WORK_DIR=$(pwd)
+
+#-- output datacite xml files directory
+DATACITE_XML_DIR=${WORK_DIR}/datacite
+
+#-- URLs
 CRCNS_URL=https://crcns.org/data-sets
-FILE_MAIN=crcns_main
-FILE_CATEGORY_URLS=crcns_categories
-FILE_DOI_LOG=crcns_doi_id_log
-FILE_DOI_ID=crcns_doi_id
-DATACITE_XML_DIR=datacite
 DATACITE_API_URL=https://api.datacite.org/dois/application/vnd.datacite.datacite+xml
 
+#-- output files
+FILE_MAIN=${WORK_DIR}/crcns_main
+FILE_CATEGORY_URLS=${WORK_DIR}/crcns_categories
+FILE_DOI_LOG=${WORK_DIR}/crcns_doi_id_log
+FILE_DOI_ID=${WORK_DIR}/crcns_doi_id
+
 #-- prepare output directory
-mkdir -vp $(pwd)/datacite
+mkdir -vp ${DATACITE_XML_DIR}
 
 #-- fetch main category URLs
 curl ${CRCNS_URL} | grep "${CRCNS_URL}/" | grep '  href=' | sed 's/"//g' | sed 's/^\s*href=//g' > ${FILE_MAIN}
