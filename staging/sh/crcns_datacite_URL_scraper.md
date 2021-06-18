@@ -3,30 +3,45 @@
 CRCNS_URL=https://crcns.org/data-sets
 FILE_MAIN=crcns_main
 FILE_CATEGORY_URLS=crcns_categories
+FILE_DOI_URLS=crcns_dois
 
-# fetch main category URLs
-curl ${CRCNS_URL} | grep '${CRCNS_URL}/' | grep '  href=' | sed 's/"//g' | sed 's/^\s*href=//g' > ${FILE_MAIN}
+#-- fetch main category URLs
+curl ${CRCNS_URL} | grep "${CRCNS_URL}/" | grep '  href=' | sed 's/"//g' | sed 's/^\s*href=//g' > ${FILE_MAIN}
 
-LINES_MAIN=$(cat $MAIN_FILE)
-# reset categories file
+#-- fetch all subcategory links
+LINES_MAIN=$(cat $FILE_MAIN)
+#-- reset categories file
 echo "" > ${FILE_CATEGORY_URLS}
 for LINE in $LINES_MAIN
-# fetch all subcategory links
 do
   echo "... handling dataset category $LINE"
-  # append to common file
-  curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\/about/g' >> ${FILE_CATEGORY_URLS}
-  # add to separate files
-  FILE_CURR_CATEGORY=$(echo ${LINE} | sed 's/https:\/\/crcns.org\/data-sets\///g')
-  curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\//g' > crcns_category_${FILE_CURR_CATEGORY}
+  #-- append to common file
+  curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\//g' >> ${FILE_CATEGORY_URLS}
+  #-- add to separate files
+  #FILE_CURR_CATEGORY=$(echo ${LINE} | sed 's/https:\/\/crcns.org\/data-sets\///g')
+  #curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\//g' > crcns_category_${FILE_CURR_CATEGORY}
 done
 
-# fetch xml id from about page
-# there are two variants of the "about" page - plain "/about" and /about-{set-id}
+#-- fetch xml id from about page
+#-- there are two variants of the "about" page - plain "/about" and /about-{set-id}
+#-- reset categories file
+echo "" > ${FILE_DOI_URLS}
+LINES_CATEGORIES=$(cat $FILE_CATEGORY_URLS)
+for LINE in ${LINES_CATEGORIES}
+do
+  echo "... handling ${LINE}"
+  #-- handle "/about" link variant
+  curl ${LINE}/about | grep "doi.org/10.6080"
+  #-- handle "/about-[set-id]" link variant
+  CURR_ID=$(echo $LINE | sed 's/https:\/\/crcns.org\/data-sets\/[a-zA-Z]*\///g')
+  curl ${LINE}/about-${CURR_ID} | grep "doi.org/10.6080"
+done
+
+
 ABOUT=https://crcns.org/data-sets/vc/pvc-12/about
 ABOUT_ALT=https://crcns.org/data-sets/vc/pvc-13/about-pvc-13
 
 curl ${ABOUT} | grep "doi.org"
 
-# fetch xml from datacite
-https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/k0nk3c7j
+#-- fetch xml from datacite
+curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/k0nk3c7j > k0nk3c7j.xml
