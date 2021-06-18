@@ -6,6 +6,7 @@ FILE_CATEGORY_URLS=crcns_categories
 FILE_DOI_LOG=crcns_doi_id_log
 FILE_DOI_ID=crcns_doi_id
 DATACITE_XML_DIR=datacite
+DATACITE_API_URL=https://api.datacite.org/dois/application/vnd.datacite.datacite+xml
 
 #-- prepare output directory
 mkdir -vp $(pwd)/datacite
@@ -46,19 +47,19 @@ for LINE in ${LINES_DOI}
 do
   if [[ ${LINE} = 10.6080* ]]; then
     CURR_ID=$(echo ${LINE} | sed 's/10.6080\///g' | sed 's/\s*$//g')
-    curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/${CURR_ID} > ${DATACITE_XML_DIR}/${CURR_ID}.xml
+    curl ${DATACITE_API_URL}/10.6080/${CURR_ID} > ${DATACITE_XML_DIR}/${CURR_ID}.xml
   fi
 done
 
 #-- check README for details on deviating URL syntax and datasets not published via datacite
 #-- fetch datacite files for datasets with deviating URL syntax
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0H12ZXD > ${DATACITE_XML_DIR}/K0H12ZXD.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0B27SHN > ${DATACITE_XML_DIR}/K0B27SHN.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0ZW1HVD > ${DATACITE_XML_DIR}/K0ZW1HVD.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0V40S4D > ${DATACITE_XML_DIR}/K0V40S4D.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0VM49GF > ${DATACITE_XML_DIR}/K0VM49GF.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0NK3BZJ > ${DATACITE_XML_DIR}/K0NK3BZJ.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0R49NQV > ${DATACITE_XML_DIR}/K0R49NQV.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K05D8PS8 > ${DATACITE_XML_DIR}/K05D8PS8.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K0VQ30V9 > ${DATACITE_XML_DIR}/K0VQ30V9.xml
-curl https://api.datacite.org/dois/application/vnd.datacite.datacite+xml/10.6080/K04B2ZJ5 > ${DATACITE_XML_DIR}/K04B2ZJ5.xml
+curl ${DATACITE_API_URL}/10.6080/K0H12ZXD > ${DATACITE_XML_DIR}/K0H12ZXD.xml
+curl ${DATACITE_API_URL}/10.6080/K0B27SHN > ${DATACITE_XML_DIR}/K0B27SHN.xml
+curl ${DATACITE_API_URL}/10.6080/K0ZW1HVD > ${DATACITE_XML_DIR}/K0ZW1HVD.xml
+curl ${DATACITE_API_URL}/10.6080/K0V40S4D > ${DATACITE_XML_DIR}/K0V40S4D.xml
+curl ${DATACITE_API_URL}/10.6080/K0VM49GF > ${DATACITE_XML_DIR}/K0VM49GF.xml
+curl ${DATACITE_API_URL}/10.6080/K0NK3BZJ > ${DATACITE_XML_DIR}/K0NK3BZJ.xml
+curl ${DATACITE_API_URL}/10.6080/K0R49NQV > ${DATACITE_XML_DIR}/K0R49NQV.xml
+curl ${DATACITE_API_URL}/10.6080/K05D8PS8 > ${DATACITE_XML_DIR}/K05D8PS8.xml
+curl ${DATACITE_API_URL}/10.6080/K0VQ30V9 > ${DATACITE_XML_DIR}/K0VQ30V9.xml
+curl ${DATACITE_API_URL}/10.6080/K04B2ZJ5 > ${DATACITE_XML_DIR}/K04B2ZJ5.xml
