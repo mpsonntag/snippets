@@ -11,20 +11,15 @@ LINES_MAIN=$(cat $MAIN_FILE)
 # reset categories file
 echo "" > ${FILE_CATEGORY_URLS}
 for LINE in $LINES_MAIN
+# fetch all subcategory links
 do
   echo "... handling dataset category $LINE"
   # append to common file
   curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\/about/g' >> ${FILE_CATEGORY_URLS}
   # add to separate files
   FILE_CURR_CATEGORY=$(echo ${LINE} | sed 's/https:\/\/crcns.org\/data-sets\///g')
-  curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\/about/g' > crcns_category_${FILE_CURR_CATEGORY}
+  curl ${LINE} | grep "${LINE}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\//g' > crcns_category_${FILE_CURR_CATEGORY}
 done
-
-CURR=https://crcns.org/data-sets/vc
-OUT=vc
-
-# fetch sub category URLs
-curl ${CURR} | grep "${CURR}/" | grep "<a href" | sed 's/^\s*<a href="//g' | sed 's/"/\/about/g' > crcns_${OUT}_out
 
 # fetch xml id from about page
 # there are two variants of the "about" page - plain "/about" and /about-{set-id}
