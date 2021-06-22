@@ -16,25 +16,30 @@ if ! gin repoinfo G-Node/DOIMetadata | grep -iq "[error]"; then
 fi
 
 # paths and scripts
-ROOT=/home/$USER/Chaos/staging/meta_source
-CRCNS_SCRIPT_LOCACTION=/home/$USER/Chaos/work/snippets/staging/sh/meta_source/
+ROOT=/home/${USER}/Chaos/staging/meta_source
+CRCNS_SCRIPT_LOCACTION=/home/${USER}/Chaos/work/snippets/staging/sh/meta_source/
 CRCNS_SCRIPT=crcns_scrape_datacite
 
 # create main file structure
-mkdir -vp $ROOT/datacite/crcns
-mkdir -vp $ROOT/datacite/gnode
-mkdir -vp $ROOT/odml/crcns
-mkdir -vp $ROOT/odml/gnode
-mkdir -vp $ROOT/rdf/crcns
-mkdir -vp $ROOT/rdf/gnode
+mkdir -vp ${ROOT}/datacite/crcns
+mkdir -vp ${ROOT}/datacite/gnode
+mkdir -vp ${ROOT}/odml/crcns
+mkdir -vp ${ROOT}/odml/gnode
+mkdir -vp ${ROOT}/rdf/crcns
+mkdir -vp ${ROOT}/rdf/gnode
 
-# collect all script files
-cp $CRCNS_SCRIPT_LOCATION$CRCNS_SCRIPT $ROOT
+# collect script files
+cp ${CRCNS_SCRIPT_LOCATION}${CRCNS_SCRIPT} ${ROOT}/
 
 # fetch CRCNS datacite files
-cd $ROOT/datacite/crcns
-bash $ROOT/$CRCNS_SCRIPT
+echo "... collecting CRCNS datacite files to ${ROOT}/datacite/crcns/datacite"
+cd ${ROOT}/datacite/crcns
+bash ${ROOT}/${CRCNS_SCRIPT}
+echo "... collected CRCNS datacite files; there should be >= 130 files available"
+ls ${ROOT}/datacite/crcns/datacite | wc
+echo "... check README for details"
 
 # fetch DOIMetadata repository
-cd $ROOT/datacite/gnode
+echo "... fetching G-Node datacite files to ${ROOT}/datacite/gnode/DOIMetadata"
+cd ${ROOT}/datacite/gnode
 gin get G-Node/DOIMetadata
