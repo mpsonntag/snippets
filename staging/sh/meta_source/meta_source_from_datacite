@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# paths and scripts
+ROOT=/home/$USER/Chaos/staging/meta_source
+CRCNS_SCRIPT=/home/$USER/Chaos/work/snippets/staging/sh/meta_source/crcns_scrape_datacite
+
+# create main file structure
+mkdir -vp $ROOT/datacite/crcns
+mkdir -vp $ROOT/datacite/gnode
+mkdir -vp $ROOT/odml/crcns
+mkdir -vp $ROOT/odml/gnode
+mkdir -vp $ROOT/rdf/crcns
+mkdir -vp $ROOT/rdf/gnode
