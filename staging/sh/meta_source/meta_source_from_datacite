@@ -3,6 +3,11 @@
 # There still is the issue of differing odml ids if the same files are converted
 # multiple times from datacite to odml and imported as rdf.
 # Ideally old files are kept and only new files are imported.
+# Maybe there should be a private gin repo that contains all required scripts
+# and already converted odml / rdf files -> probably feasible approach.
+
+# script requires an installed gin client with a logged in user able to
+# to download the gin:G-Node/DOIMetadata and gin:G-Node/meta-source repositories.
 
 # paths and scripts
 ROOT=/home/$USER/Chaos/staging/meta_source
@@ -23,3 +28,7 @@ cp $CRCNS_SCRIPT_LOCATION$CRCNS_SCRIPT $ROOT
 # fetch CRCNS datacite files
 cd $ROOT/datacite/crcns
 bash $ROOT/$CRCNS_SCRIPT
+
+# fetch DOIMetadata repository
+cd $ROOT/datacite/gnode
+gin get G-Node/DOIMetadata
