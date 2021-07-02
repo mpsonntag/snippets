@@ -23,7 +23,7 @@ CRCNS_SCRIPT=crcns_scrape_datacite
 
 # create main file structure
 mkdir -vp ${ROOT}/datacite/crcns/datacite_exported
-mkdir -vp ${ROOT}/datacite/gnode
+mkdir -vp ${ROOT}/datacite/gnode/datacite_exported
 mkdir -vp ${ROOT}/odml/crcns
 mkdir -vp ${ROOT}/odml/gnode
 mkdir -vp ${ROOT}/rdf/crcns
@@ -52,3 +52,9 @@ wc -l ${ROOT}/datacite/crcns/datacite/crcns_new_files
 echo "... fetching G-Node datacite files to ${ROOT}/datacite/gnode/DOIMetadata"
 cd ${ROOT}/datacite/gnode
 gin get G-Node/DOIMetadata
+
+echo "... running new G-Node files check"
+diff ${ROOT}/datacite/gnode/DOIMetadata/ ${ROOT}/datacite/gnode/datacite_exported/ | grep '.xml' | awk '{print $4}' > ${ROOT}/datacite/gnode/gnode_new_files
+
+echo "... new G-Node datacite files:"
+wc -l ${ROOT}/datacite/gnode/gnode_new_files
