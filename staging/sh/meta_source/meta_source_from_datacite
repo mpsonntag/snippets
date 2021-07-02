@@ -22,7 +22,7 @@ CRCNS_SCRIPT_LOCATION=/home/${USER}/Chaos/work/snippets/staging/sh/meta_source/
 CRCNS_SCRIPT=crcns_scrape_datacite
 
 # create main file structure
-mkdir -vp ${ROOT}/datacite/crcns
+mkdir -vp ${ROOT}/datacite/crcns/datacite_exported
 mkdir -vp ${ROOT}/datacite/gnode
 mkdir -vp ${ROOT}/odml/crcns
 mkdir -vp ${ROOT}/odml/gnode
@@ -40,7 +40,13 @@ bash ${ROOT}/${CRCNS_SCRIPT}
 echo "... collected CRCNS datacite files; there should be >= 130 files available"
 ls ${ROOT}/datacite/crcns/datacite | wc
 
-echo "... check README for details"
+echo "... check ${ROOT}/datacite/crcns/datacite/crcns_doi_id_log for details on potentially missing Datacite files"
+
+echo "... running new crcns files check"
+diff ${ROOT}/datacite/crcns/datacite/ ${ROOT}/datacite/crcns/datacite_exported/ | awk '{print $4}' > ${ROOT}/datacite/crcns/datacite/crcns_new_files
+
+echo "... new CRCNS datacite files:"
+wc -l ${ROOT}/datacite/crcns/datacite/crcns_new_files
 
 # fetch DOIMetadata repository
 echo "... fetching G-Node datacite files to ${ROOT}/datacite/gnode/DOIMetadata"
