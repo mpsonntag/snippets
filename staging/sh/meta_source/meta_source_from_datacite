@@ -16,6 +16,7 @@ if ! gin repoinfo G-Node/DOIMetadata | grep -iq "[error]"; then
 fi
 
 # paths and scripts
+# TODO change when using gin repo as base for script and already available files
 ROOT=/home/${USER}/Chaos/staging/tmp/meta_source
 CRCNS_SCRIPT_LOCATION=/home/${USER}/Chaos/work/snippets/staging/sh/meta_source/
 CRCNS_SCRIPT=crcns_scrape_datacite
@@ -35,8 +36,10 @@ cp ${CRCNS_SCRIPT_LOCATION}${CRCNS_SCRIPT} ${ROOT}/
 echo "... collecting CRCNS datacite files to ${ROOT}/datacite/crcns/datacite"
 cd ${ROOT}/datacite/crcns
 bash ${ROOT}/${CRCNS_SCRIPT}
+
 echo "... collected CRCNS datacite files; there should be >= 130 files available"
 ls ${ROOT}/datacite/crcns/datacite | wc
+
 echo "... check README for details"
 
 # fetch DOIMetadata repository
