@@ -79,16 +79,6 @@ do
   cp -vn ${ROOT}/import_tmp/crcns/${LINE} ${ROOT}/datacite/crcns/
 done
 
-echo "... batch conversion to RDF"
-odmltordf -o ${ROOT}/import_tmp/rdf ${ROOT}/import_tmp/odml
-
-echo "... cp odml files to collection folder; do not replace, IDs of existing files must not be overwritten"
-cp -vn ${ROOT}/import_tmp/odml/*.xml ${ROOT}/odml
-
-echo "... cp rdf files to collection folder; do not replace, IDs of existing files must not be overwritten"
-# odmltordf creates nested output structures; requires "find" for easy copy
-find "$ROOT/import_tmp/rdf" -name '*.rdf' -exec cp -vnt $ROOT/rdf {} +
-
 echo "... converting gnode files to odml"
 LINES_GNODE=$(cat ${ROOT}/import_tmp/gnode_new_files)
 for LINE in ${LINES_GNODE}
@@ -99,3 +89,13 @@ do
   # do not replace in target
   cp -vn ${ROOT}/import_tmp/gnode/DOIMetadata/${LINE} ${ROOT}/datacite/gnode/
 done
+
+echo "... batch conversion to RDF"
+odmltordf -o ${ROOT}/import_tmp/rdf ${ROOT}/import_tmp/odml
+
+echo "... cp odml files to collection folder; do not replace, IDs of existing files must not be overwritten"
+cp -vn ${ROOT}/import_tmp/odml/*.xml ${ROOT}/odml
+
+echo "... cp rdf files to collection folder; do not replace, IDs of existing files must not be overwritten"
+# odmltordf creates nested output structures; requires "find" for easy copy
+find "$ROOT/import_tmp/rdf" -name '*.rdf' -exec cp -vnt $ROOT/rdf {} +
