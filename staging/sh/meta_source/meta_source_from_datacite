@@ -16,7 +16,6 @@ if ! gin repoinfo G-Node/DOIMetadata | grep -iq "[error]"; then
 fi
 
 # paths and scripts
-# TODO change when using gin repo as base for script and already available files
 ROOT=/home/${USER}/Chaos/staging/tmp/meta_source
 CRCNS_PYTHON_LOCATION=/home/${USER}/Chaos/work/snippets/python/odmlFromDatacite/
 CRCNS_PYTHON_SCRIPT=crcns_parse_and_fetch.py
@@ -24,12 +23,12 @@ CRCNS_PYTHON_SCRIPT=crcns_parse_and_fetch.py
 # create main file structure
 mkdir -vp ${ROOT}/import_tmp/crcns
 mkdir -vp ${ROOT}/import_tmp/gnode
+mkdir -vp ${ROOT}/import_tmp/odml
+mkdir -vp ${ROOT}/import_tmp/rdf
 mkdir -vp ${ROOT}/datacite/crcns
 mkdir -vp ${ROOT}/datacite/gnode
-mkdir -vp ${ROOT}/odml/crcns
-mkdir -vp ${ROOT}/odml/gnode
-mkdir -vp ${ROOT}/rdf/crcns
-mkdir -vp ${ROOT}/rdf/gnode
+mkdir -vp ${ROOT}/odml
+mkdir -vp ${ROOT}/rdf
 
 # collect script files
 cp ${CRCNS_PYTHON_LOCATION}${CRCNS_PYTHON_SCRIPT} ${ROOT}/
@@ -64,3 +63,31 @@ diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' 
 
 echo "... new G-Node datacite files"
 wc -l ${ROOT}/import_tmp/gnode_new_files
+
+echo "... installing odmlimportdatacite from odmltools"
+pip install odmltools
+
+echo "... converting CRCNS files to odml"
+LINES_CRCNS=$(cat ${ROOT}/import_tmp/crcns_new_files)
+for LINE in ${LINES_CRCNS}
+do
+  echo "... converting file ${LINE}"
+  # CRNCS features datasets published with previous datacite kernel version - need to escape these
+  odmlimportdatacite -o ${ROOT}/import_tmp/odml -n http://datacite.org/schema/kernel-2.2 ${ROOT}/import_tmp/crcns/${LINE}
+  echo "... copy file to datacite collection folder"
+  # do not replace in target
+  cp -n ${ROOT}/import_tmp/crcns/${LINE} ${ROOT}/datacite/crcns/
+done
+
+echo "... converting gnode files to odml"
+LINES_GNODE=$(cat ${ROOT}/import_tmp/gnode_new_files)
+for LINE in ${LINES_GNODE}
+do
+  echo "... converting file ${LINE}"
+  odmlimportdatacite -o ${ROOT}/import_tmp/odml ${ROOT}/import_tmp/gnode/DOIMetadata/${LINE}
+  echo "... copy file to datacite collection folder"
+  # do not replace in target
+  cp -n ${ROOT}/import_tmp/gnode/DOIMetadata/${LINE} ${ROOT}/datacite/gnode/
+done
+
+# odml.save(odml.load('${ROOT}/import_tmp/odml/${LINE}'), '${ROOT}/import_tmp/rdf/${LINE}.rdf', 'RDF')
