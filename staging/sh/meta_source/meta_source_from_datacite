@@ -18,8 +18,6 @@ fi
 # paths and scripts
 # TODO change when using gin repo as base for script and already available files
 ROOT=/home/${USER}/Chaos/staging/tmp/meta_source
-CRCNS_SCRIPT_LOCATION=/home/${USER}/Chaos/work/snippets/staging/sh/meta_source/
-CRCNS_SCRIPT=crcns_scrape_datacite
 CRCNS_PYTHON_LOCATION=/home/${USER}/Chaos/work/snippets/python/odmlFromDatacite/
 CRCNS_PYTHON_SCRIPT=crcns_parse_and_fetch.py
 
@@ -42,10 +40,10 @@ cd ${ROOT}/import_tmp/crcns
 python ${ROOT}/${CRCNS_PYTHON_SCRIPT}
 
 echo "... collected CRCNS datacite files"
-ls ${ROOT}/import_tmp/crcns/datacite | wc
+ls ${ROOT}/import_tmp/crcns | wc -l
 
 echo "... running new CRCNS files check"
-diff ${ROOT}/datacite/crcns/ ${ROOT}/import_tmp/crcns/datacite/ | awk '{print $4}' > ${ROOT}/import_tmp/crcns_new_files
+diff ${ROOT}/datacite/crcns/ ${ROOT}/import_tmp/crcns/ | grep ${ROOT}/import_tmp/crcns/ | awk '{print $4}' > ${ROOT}/import_tmp/crcns_new_files
 
 echo "... new CRCNS datacite files"
 wc -l ${ROOT}/import_tmp/crcns_new_files
@@ -62,7 +60,7 @@ rm .git -rf
 cd ${ROOT}
 
 echo "... running new G-Node files check"
-diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' | awk '{print $4}' > ${ROOT}/import_tmp/gnode_new_files
+diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' | grep ${ROOT}/import_tmp/gnode/DOIMetadata | awk '{print $4}' > ${ROOT}/import_tmp/gnode_new_files
 
 echo "... new G-Node datacite files"
 wc -l ${ROOT}/import_tmp/gnode_new_files
