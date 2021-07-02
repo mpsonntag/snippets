@@ -102,3 +102,5 @@ cp -vn ${ROOT}/import_tmp/odml/*.xml ${ROOT}/odml
 echo "... cp rdf files to collection folder; do not replace, IDs of existing files must not be overwritten"
 # odmltordf creates nested output structures; requires "find" for easy copy
 find "$ROOT/import_tmp/rdf" -name '*.rdf' -exec cp -vnt $ROOT/rdf {} +
+
+echo "... Done"
