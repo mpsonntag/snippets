@@ -31,10 +31,14 @@ mkdir -vp ${ROOT}/odml
 mkdir -vp ${ROOT}/rdf
 
 # collect script files
-cp ${CRCNS_PYTHON_LOCATION}${CRCNS_PYTHON_SCRIPT} ${ROOT}/
+echo "... collecting script files"
+cp -v ${CRCNS_PYTHON_LOCATION}${CRCNS_PYTHON_SCRIPT} ${ROOT}/
+
+echo "... installing dependencies"
+pip install requests odmltools
 
 # fetch CRCNS datacite files
-echo "... collecting CRCNS datacite files to ${ROOT}/import_tmp/crcns/datacite"
+echo "... collecting CRCNS datacite files to ${ROOT}/import_tmp/crcns"
 cd ${ROOT}/import_tmp/crcns
 python ${ROOT}/${CRCNS_PYTHON_SCRIPT}
 
@@ -65,7 +69,6 @@ echo "... new G-Node datacite files"
 wc -l ${ROOT}/import_tmp/gnode_new_files
 
 echo "... installing odmlimportdatacite from odmltools"
-pip install odmltools
 
 echo "... converting CRCNS files to odml"
 LINES_CRCNS=$(cat ${ROOT}/import_tmp/crcns_new_files)
