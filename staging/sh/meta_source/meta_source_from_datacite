@@ -55,6 +55,12 @@ echo "... fetching G-Node datacite files to ${ROOT}/import_tmp/gnode/DOIMetadata
 cd ${ROOT}/import_tmp/gnode
 gin get G-Node/DOIMetadata
 
+# a little pre cleanup
+cd ${ROOT}/import_tmp/gnode/DOIMetadata
+gin git annex uninit
+rm .git -rf
+cd ${ROOT}
+
 echo "... running new G-Node files check"
 diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' | awk '{print $4}' > ${ROOT}/import_tmp/gnode_new_files
 
