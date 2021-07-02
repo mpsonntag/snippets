@@ -8,7 +8,8 @@ import datacite
 # Adjust as required
 OUTPUT_DIR = os.path.join(os.sep, "tmp", "datacite")
 DATACITE_API_ENDPOINT = "https://api.datacite.org/dois"
-DATACITE_QUERY = "?query=publisher:CRCNS.org"
+# Page size might be required to be increased at some point
+DATACITE_QUERY = "?query=publisher:CRCNS.org&page[size]=100"
 
 
 def fetch_datacite():
