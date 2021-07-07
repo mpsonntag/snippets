@@ -15,4 +15,4 @@ The script should be set up to never overwrite existing files in the `odml` or `
 
 Provided no RDF files are overwritten, keeping the odml IDs intact and unchanged, all files in the `rdf` folder can be uploaded to the RDF server. Duplicate entries will not be added to the database.
 
-The files have to be manually uploaded at the hidden administrative panel meta.g-node.org/manage.html using the "upload data" feature. The upload requires the admin password that can be found either in the shiroi.ini file on the server or the gnode password database.
+The files have to be manually uploaded at the hidden administrative panel meta.g-node.org/admin_dataset.html using the "upload files" feature. The upload requires the admin password that can be found either in the shiroi.ini file on the server or the gnode password database.
