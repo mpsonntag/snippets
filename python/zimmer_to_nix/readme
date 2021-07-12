@@ -1,0 +1,56 @@
+Information taken from Matlab/development/calcium_imaging/PlotCaImagingData_MSv106.m
+
+%--------------------------------------------------------------------------
+%-- Requirements:
+%-- 2) requires at least two calcium imaging logfiles
+%-- 3) required calcium imaging logfile structure - 9 columns
+%-- 3.1) thresholded tracking format:
+%-- [currFrame], [timeElapsed], [objSubstracted], [substrValue], [objValue],
+%-- [objSize], [backgroundValue], [xOld], [yOld]
+%-- objSubstracted ... background substracted intensity
+%-- substrValue ... value substracted (backgroundValue * objSize)
+%-- xOld, yOld ... current object position
+
+%-- 3.2) average tracking format:
+%-- [currFrame], [timeElapsed], [objSubstracted], [backgroundValue],
+%-- [objValue], [objSize], [backgroundValue], [xOld], [yOld]
+%-- objSubstracted ... objValue - backgroundValue
+%-- substrValue ... value substracted (backgroundValue * objSize)
+%-- xOld, yOld ... current object position
+
+%-- 3.3) dynamic thresholding format:
+%-- [activePlane], [timeElapsed], [objSubstracted], [substrValue],
+%-- [objValue], [objSize], [backgroundValue], [xOld], [yOld],
+%-- [objectAbsValue], [objThreshSizeValue]
+
+%-- activePlane ... current frame
+%-- timeElapsed ... self explanatory
+%-- object substracted ... objectValue - substrValue
+%-- substr value ... = backgroundValue * objThreshSizeValue
+%-- object value ... ShowRegionStatistics.Average of thresholded area
+%-- object size ... ShowRegionStatistics.Area (whole area of region of interest)
+%-- background value ... ShowRegionStatistics.Average (average of designated background region)
+%-- xold ... old x position
+%-- yold ... old y position
+%-- object absolute value ... ShowRegionStatistics.Average (average of the whole region of interest)
+%-- object threshold size value ... ShowRegionStatistics.ThresholdedArea (only pixels above threshold in region of interest)
+
+%-- how the threshold is calculated dynamically every frame:
+%-- calculateDynamicThreshold ... ShowRegionStatistics.Minimum + (((ShowRegionStatistics.Maximum - ShowRegionStatistics.Minimum)/100)*30)
+
+
+
+%-- AUC: use trapezoidal rule, rectangle method or simpson's rule
+% http://cnx.org/content/m41454/latest/?collection=col11371/latest
+
+%-- calculate AUC:
+% trapz(1:length(FL(1,:)),FL(1,:))
+%-- calculate AUC for only part of the curve:
+% trapz(1:length(FL(1,100:800)),FL(1,100:800))
+
+%-- signal to noise ratio in imaging:
+%-- average signal value / standard deviation of the background
+%-- but probably only comparable, if the same area is measured, no?
+
+%--------------------------------------------------------------------------
+
