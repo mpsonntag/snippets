@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 
 import nixio
@@ -84,5 +85,18 @@ da.label = "previous ROI y position"
 da.append_sampled_dimension(1, label="frame", offset=1)
 
 g.data_arrays.append(da)
+
+# make an example plot
+b = nf.blocks[0]
+da = b.data_arrays["CA-data.20120705.W8-obj-sub"]
+x_axis = da.dimensions[0]
+x = x_axis.axis(da.data.shape[0])
+y = da.data[:]
+
+plt.plot(x, y, label=da.name)
+plt.xlabel(x_axis.label)
+plt.ylabel(da.label)
+plt.legend()
+plt.show()
 
 nf.close()
