@@ -57,9 +57,27 @@ WHERE {
   ?p odml:hasValue ?v .
   {?v rdfs:member "Neuroscience"} UNION {?v rdfs:member "Electrophysiology"} .
   ?v rdfs:member ?keyword .
-BIND(CONCAT("https://doi.org/", ?doi_val) AS ?doi_link)
+  BIND(CONCAT("https://doi.org/", ?doi_val) AS ?doi_link)
 }
 ORDER BY ?file
 LIMIT 100
 
+
+#-- query with DOI as proper URI
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?subject ?prop ?name ?doi ?doi_link
+WHERE {
+  ?subject rdf:type odml:Identifier .
+  ?subject odml:hasProperty ?prop .
+  ?prop odml:hasName "identifier" .
+  ?prop odml:hasValue ?val .
+  ?val rdfs:member ?doi .
+  BIND(URI(CONCAT("https://doi.org/", ?doi)) AS ?doi_link)
+}
+ORDER BY ?subject
+LIMIT 100
 
