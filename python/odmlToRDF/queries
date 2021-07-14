@@ -1,0 +1,13 @@
+#-- Use this query + dependent queries to explain how using OWL can ease exploring the
+#-- data structure as well as the content of the graph.
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?type
+WHERE {
+  ?subject rdf:type ?type .
+}
+GROUP by ?type ORDER BY ?type
+
