@@ -11,3 +11,55 @@ WHERE {
 }
 GROUP by ?type ORDER BY ?type
 
+
+#-- alternative keywords query using odml subclass
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?available_keywords (COUNT(?available_keywords) as ?num_keywords)
+WHERE {
+  ?sec rdf:type odml:Subject .
+  ?sec odml:hasProperty ?property .
+  ?property odml:hasValue ?value .
+  ?value rdfs:member ?available_keywords .
+}
+GROUP BY ?available_keywords ORDER BY DESC( ?num_keywords )
+
+
+#-- Query using odml:Identifier subclass to simplify keyword query
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?file ?keyword ?id_type_value ?doi_link
+WHERE {
+  ?doc rdf:type odml:Document .
+  ?doc odml:hasFileName ?file .
+  ?doc odml:hasSection ?s .
+  ?s odml:hasSection ?ids .
+  ?ids rdf:type odml:Identifier .
+  ?ids odml:hasProperty ?idp .
+  ?idp odml:hasName "identifier" .
+  ?idp odml:hasValue ?doival .
+  ?ids odml:hasProperty ?pt .
+  ?pt odml:hasName "identifierType" .
+  ?pt odml:hasValue ?idtype .
+  ?idtype rdfs:member ?id_type_value .
+  ?doival rdfs:member ?doi_val .
+  ?s odml:hasSection ?subcont .
+  ?s odml:hasName ?sec_name .
+  ?subcont odml:hasSection ?subj .
+  ?subj odml:hasProperty ?p .
+  ?p odml:hasName ?prop_name .
+  ?p odml:hasValue ?v .
+  {?v rdfs:member "Neuroscience"} UNION {?v rdfs:member "Electrophysiology"} .
+  ?v rdfs:member ?keyword .
+BIND(CONCAT("https://doi.org/", ?doi_val) AS ?doi_link)
+}
+ORDER BY ?file
+LIMIT 100
+
+
