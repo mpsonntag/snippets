@@ -81,3 +81,33 @@ WHERE {
 ORDER BY ?subject
 LIMIT 100
 
+
+#-- Author information query
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?sec ?pnval ?n ?subval
+WHERE {
+  ?sec rdf:type odml:Creator .
+  ?sec odml:hasProperty ?p .
+  ?p odml:hasName ?pn .
+  ?p odml:hasValue ?pnv .
+  ?pnv rdfs:member ?pnval .
+  ?sec odml:hasSection ?subsec .
+  ?subsec odml:hasProperty ?prop .
+  ?prop odml:hasName ?n .
+  ?prop odml:hasValue ?subv .
+  ?subv rdfs:member ?subval .
+}
+order by ?sec ?n
+LIMIT 100
+
+
+#-- TODO:
+#-- find section via value in property
+#-- find all sections via property name
+#-- find section via section type
+#-- - print all property names and concatenated values
+
