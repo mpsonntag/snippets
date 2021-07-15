@@ -107,6 +107,24 @@ LIMIT 100
 
 #-- TODO:
 #-- find section via value in property
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?sec ?sec_name ?prop_name ?val_str
+WHERE {
+  ?sec odml:hasName ?sec_name .
+  ?sec odml:hasProperty ?prop .
+  ?prop odml:hasName ?prop_name .
+  ?prop odml:hasValue ?val .
+  ?val rdfs:member ?val_str .
+  FILTER(STRSTARTS(?val_str, "Ludwig"))
+}
+ORDER BY ?sec_name ?prop_name ?val_str
+LIMIT 100
+
+
 #-- find all sections via property name
 #-- find section via section type
 #-- - print all property names and concatenated values
