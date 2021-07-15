@@ -146,3 +146,17 @@ GROUP BY ?sec ?sec_name ORDER BY DESC(?child_prop) ?sec_name
 LIMIT 100
 
 
+#-- display all available odml types
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+# Count and display all odml specific types in the graph as well as their RDF class.
+SELECT ?subClass ?sec_type (COUNT(?sec_type) AS ?section_type_count)
+WHERE {
+  {?sec rdf:type ?subClass} UNION { ?sec rdf:type odml:Section }.
+  ?sec rdf:type ?subClass .
+  ?sec odml:hasType ?sec_type .
+}
+GROUP BY ?subClass ?sec_type ORDER BY DESC(?section_type_count)
+LIMIT 100
