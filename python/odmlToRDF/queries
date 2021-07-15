@@ -155,7 +155,7 @@ prefix odml: <https://g-node.org/odml-rdf#>
 # Count and display all odml specific types in the graph as well as their RDF class.
 SELECT ?subClass ?sec_type (COUNT(?sec_type) AS ?section_type_count)
 WHERE {
-  {?sec rdf:type ?subClass} UNION { ?sec rdf:type odml:Section }.
+  {?subClass rdfs:subClassOf odml:Section} UNION { ?sec rdf:type odml:Section } .
   ?sec rdf:type ?subClass .
   ?sec odml:hasType ?sec_type .
 }
@@ -169,7 +169,7 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix odml: <https://g-node.org/odml-rdf#>
 
-# find all sections by specific odml section types
+# Find all sections by specific odml section types
 SELECT ?sec ?sec_name
 WHERE {
   ?sec rdf:type odml:Section .
