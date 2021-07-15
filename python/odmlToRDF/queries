@@ -105,7 +105,6 @@ order by ?sec ?n
 LIMIT 100
 
 
-#-- TODO:
 #-- find section via value in property
 
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -126,6 +125,24 @@ LIMIT 100
 
 
 #-- find all sections via property name
-#-- find section via section type
-#-- - print all property names and concatenated values
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?sec ?sec_name (COUNT(DISTINCT ?cs) AS ?child_sec) (COUNT(DISTINCT ?cp) AS ?child_prop)
+WHERE {
+  ?sec odml:hasName ?sec_name .
+  OPTIONAL {?sec odml:hasSection ?cs .}
+  ?sec odml:hasProperty ?cp .
+  {
+    SELECT ?sec WHERE {
+      ?sec odml:hasProperty ?prop .
+      ?prop odml:hasName "identifier" .
+    }
+  }
+}
+GROUP BY ?sec ?sec_name ORDER BY DESC(?child_prop) ?sec_name
+LIMIT 100
+
 
