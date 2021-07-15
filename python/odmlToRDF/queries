@@ -147,6 +147,7 @@ LIMIT 100
 
 
 #-- display all available odml types
+
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix odml: <https://g-node.org/odml-rdf#>
@@ -160,3 +161,20 @@ WHERE {
 }
 GROUP BY ?subClass ?sec_type ORDER BY DESC(?section_type_count)
 LIMIT 100
+
+
+#-- find sections via their odml section type
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+# find all sections by specific odml section types
+SELECT ?sec ?sec_name
+WHERE {
+  ?sec rdf:type odml:Section .
+  ?sec odml:hasName ?sec_name .
+  ?sec odml:hasType "datacite/titles" .
+}
+LIMIT 100
+
