@@ -214,3 +214,29 @@ WHERE {
 }
 GROUP BY ?prop ORDER BY DESC(?val_num) ?prop
 LIMIT 500
+
+
+#-- Print all property names and concatenated values of a section
+
+prefix odml: <https://g-node.org/odml-rdf#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Congregate all subsections and values of a specific parent section.
+SELECT ?sec ?val_str (GROUP_CONCAT(CONCAT(?subprop_name, ': ', ?subval_str); SEPARATOR=" | ") AS ?props)
+WHERE {
+  ?sec rdf:type odml:Creator .
+  ?sec odml:hasProperty ?prop .
+  ?prop odml:hasName ?prop_name .
+  ?prop odml:hasValue ?val .
+  ?val rdfs:member ?val_str .
+  ?sec odml:hasSection ?subsec .
+  ?subsec odml:hasName ?subsec_name .
+  ?subsec odml:hasProperty ?subprop .
+  ?subprop odml:hasName ?subprop_name .
+  ?subprop odml:hasValue ?subval .
+  ?subval rdfs:member ?subval_str .
+}
+GROUP BY ?sec ?val_str ORDER BY ?sec ?subprop_name
+LIMIT 100
+
