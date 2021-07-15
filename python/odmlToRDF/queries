@@ -240,3 +240,24 @@ WHERE {
 GROUP BY ?sec ?val_str ORDER BY ?sec ?subprop_name
 LIMIT 100
 
+
+#-- Simplified query - skipping accross section levels
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX odml: <https://g-node.org/odml-rdf#>
+
+SELECT ?file ?sec_type (GROUP_CONCAT(?kwd; SEPARATOR="; ") as ?keyword)
+WHERE {
+  ?doc rdf:type odml:Document .
+  ?doc odml:hasFileName ?file .
+  ?doc odml:hasSection* ?sec_subj .
+  ?sec_subj rdf:type ?sec_type .
+  ?sec_subj odml:hasProperty ?prp_subj .
+  ?prp_subj odml:hasValue ?val_subj .
+  ?val_subj ?pred_subj ?kwd .
+  {?val_subj ?pred_subj "Neuroscience"} UNION
+  {?val_subj ?pred_subj "Electrophysiology"} .
+}
+GROUP BY ?file ?sec_type ORDER BY ?file
+LIMIT 100
+
