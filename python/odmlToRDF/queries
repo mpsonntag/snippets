@@ -178,3 +178,39 @@ WHERE {
 }
 LIMIT 100
 
+
+#-- All values of a Property
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml: <https://g-node.org/odml-rdf#>
+
+# Display all concatenated values of a property in a single column as well as a values count.
+SELECT ?prop ?prop_name (GROUP_CONCAT(?val_str; SEPARATOR=" | ") as ?values) (COUNT(?val_str) as ?val_num)
+WHERE {
+  ?prop rdf:type odml:Property .
+  ?prop odml:hasName ?prop_name .
+  ?prop odml:hasValue ?val .
+  ?val rdfs:member ?val_str .
+}
+GROUP BY ?prop ?prop_name ORDER BY ?prop DESC(?val_num)
+LIMIT 500
+
+
+#-- Alternative values example
+
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix odml2: <https://g-node.org/projects/odml-rdf#>
+
+# Display all congregated values of a property and a values count.
+SELECT ?prop (GROUP_CONCAT(?val_str; SEPARATOR=" | ") as ?values) (COUNT(?val_str) as ?val_num)
+WHERE {
+  ?prop rdf:type odml2:Property .
+  ?prop odml2:hasName "File" .
+  ?prop odml2:hasValue ?val .
+  ?val rdfs:member ?val_str .
+  ?val ?pred ?val_str .
+}
+GROUP BY ?prop ORDER BY DESC(?val_num) ?prop
+LIMIT 500
