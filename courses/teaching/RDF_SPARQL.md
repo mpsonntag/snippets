@@ -284,6 +284,17 @@ whether there is at least one result for the connected query or not.
 - `DESCRIBE` ... returns an RDF graph that describes a resource.
 - `CONSTRUCT` ... used to construct a new graph from the data returned by the query.
 
+### SPARQL OPTIONAL
+
+- OPTIONAL can be used in queries when certain variables are allowed to not return a result.
+
+  SELECT ?first_name ?last_name
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+    OPTIONAL {?x pref:hasFirstName ?first_name .}
+  }
+
+
 ## SPARQL protocol
 
 SPARQL queries can be done via simple http requests!
