@@ -350,9 +350,10 @@ whether there is at least one result for the connected query or not.
   ORDER BY ?last_name DESC(?first_name)
 ```
 
-### Binding values
-
-- the BIND keyword can be used to assign the output of a function to a variable
+### Label functions and binding values
+- `CONCAT()` concatenates labels with strings or other labels
+- `STRLEN()` returns the label length
+- the `BIND` keyword can be used to assign the output of a function to a variable
 
 ```
   SELECT ?annotated_name
@@ -361,6 +362,11 @@ whether there is at least one result for the connected query or not.
     BIND(CONCAT("Last name: ", ?last_name) AS ?annotated_name)
   }
 ```
+
+- list of available string functions: `STRLEN, SUBSTR, UCASE, LCASE, STRSTARTS, STRENDS, CONTAINS, STRBEFORE, STRAFTER, CONCAT, ENCODE_FOR_URI`
+- list of available math functions: `ABS, ROUND, CEIL, FLOOR, RAND`
+- list of available data/time functions: `now, year, month, day, hours, minutes, seconds, timezone, tz`
+
 
 ### Aggregation functions
 
