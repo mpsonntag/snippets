@@ -362,8 +362,27 @@ whether there is at least one result for the connected query or not.
   }
 ```
 
+### Aggregation functions
 
-## SPARQL protocol
+- SPARQL supports the following aggregation functions
+  - `MIN`
+  - `MAX`
+  - `SUM`
+  - `AVG`
+  - `COUNT`
+  - `GROUP_CONCAT`
+  - `SAMPLE`
+
+- `COUNT` example
+```
+  SELECT (COUNT(?last_name) as ?name_count)
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+    FILTER (?last_name = "Lovecraft")
+  }
+```
+
+## Running SPARQL queries against an endpoint
 
 SPARQL queries can be done via simple http requests!
 
