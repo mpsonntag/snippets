@@ -111,6 +111,7 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix odml: <https://g-node.org/odml-rdf#>
 
+# Identify odml:Section via odml:Property value
 SELECT ?sec ?sec_name ?prop_name ?val_str
 WHERE {
   ?sec odml:hasName ?sec_name .
@@ -130,6 +131,7 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix odml: <https://g-node.org/odml-rdf#>
 
+# Identify all parent odml:Sections from odml:Property name
 SELECT ?sec ?sec_name (COUNT(DISTINCT ?cs) AS ?child_sec) (COUNT(DISTINCT ?cp) AS ?child_prop)
 WHERE {
   ?sec odml:hasName ?sec_name .
@@ -222,14 +224,14 @@ prefix odml: <https://g-node.org/odml-rdf#>
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# Congregate all subsections and values of a specific parent section.
-SELECT ?sec ?val_str (GROUP_CONCAT(CONCAT(?subprop_name, ': ', ?subval_str); SEPARATOR=" | ") AS ?props)
+# Congregate all subsections and values of a specific parent section (example class: odml:Creator).
+SELECT ?sec ?creator_name (GROUP_CONCAT(CONCAT(?subprop_name, ': ', ?subval_str); SEPARATOR=" | ") AS ?property_values)
 WHERE {
   ?sec rdf:type odml:Creator .
   ?sec odml:hasProperty ?prop .
   ?prop odml:hasName ?prop_name .
   ?prop odml:hasValue ?val .
-  ?val rdfs:member ?val_str .
+  ?val rdfs:member ?creator_name .
   ?sec odml:hasSection ?subsec .
   ?subsec odml:hasName ?subsec_name .
   ?subsec odml:hasProperty ?subprop .
@@ -237,11 +239,11 @@ WHERE {
   ?subprop odml:hasValue ?subval .
   ?subval rdfs:member ?subval_str .
 }
-GROUP BY ?sec ?val_str ORDER BY ?sec ?subprop_name
+GROUP BY ?sec ?creator_name ORDER BY ?sec ?subprop_name
 LIMIT 100
 
 
-#-- Simplified query - skipping accross section levels
+#-- Simplified query - skipping across section levels
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX odml: <https://g-node.org/odml-rdf#>
