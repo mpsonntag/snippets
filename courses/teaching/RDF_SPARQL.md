@@ -345,6 +345,18 @@ WHERE {
   ORDER BY ?last_name DESC(?first_name)
 ```
 
+### Binding values
+
+- the BIND keyword can be used to assign the output of a function to a variable
+
+```
+  SELECT ?annotated_name
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+    BIND(CONCAT("Last name: ", ?last_name) AS ?annotated_name)
+  }
+```
+
 
 ## SPARQL protocol
 
