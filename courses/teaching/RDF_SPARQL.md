@@ -381,7 +381,6 @@ moderately complex class relationships, use OWL 2 / QL.
 - http://www.cambridgesemantics.com/semantic-university/rdfs-introduction
 - http://www.cambridgesemantics.com/semantic-university/owl-reference-humans
 - https://jena.apache.org/tutorials/rdf_api.html
-- [SPARQL functions reference](https://graphdb.ontotext.com/documentation/free/sparql-functions-reference.html)
 
 ## RDF libraries
 
@@ -393,3 +392,7 @@ moderately complex class relationships, use OWL 2 / QL.
 
 - [RDF and SPARQL with Sesame and python](http://www.jenitennison.com/2011/01/25/getting-started-with-rdf-and-sparql-using-sesame-and-python.html)
 - [SPARQL tutorial](https://docs.data.world/tutorials/sparql/)
+
+## SPARQL tutorials
+- [SPARQL functions reference](https://graphdb.ontotext.com/documentation/free/sparql-functions-reference.html)
+- [stardog graph engine SPARQL tutorial](https://www.stardog.com/tutorials/sparql/)
