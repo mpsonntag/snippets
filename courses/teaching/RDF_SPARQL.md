@@ -382,6 +382,24 @@ whether there is at least one result for the connected query or not.
   }
 ```
 
+### Property path handling in queries
+
+- using the `*` symbol allows for recursive paths - following the same predicate multiple times.
+
+```
+# this query returns all odml:Section children of odml:Document even if they are nested
+# e.g. odml:Document odml:hasSection odml:Section odml:hasSection odml:Section
+
+SELECT ?doc ?sec_id
+WHERE {
+  ?doc rdf:type odml:Document .
+  ?doc odml:hasSection* ?sec_id .
+}
+```
+
+- using the `^` symbol allows for querying inverse paths.
+
+
 ## Running SPARQL queries against an endpoint
 
 SPARQL queries can be done via simple http requests!
