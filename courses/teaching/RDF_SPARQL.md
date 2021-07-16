@@ -322,6 +322,29 @@ WHERE {
 }
 ```
 
+### Order and limit
+
+- LIMIT will return only as many resulting lines as specified
+
+```
+  SELECT ?last_name
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+  }
+  LIMIT 10
+```
+
+- ORDER BY will sort the result by the specified variables. Adding the DESC() function will sort descending.
+
+```
+  SELECT ?last_name ?first_name
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+    ?x pref:hasFirstName ?first_name .
+  }
+  ORDER BY ?last_name DESC(?first_name)
+```
+
 
 ## SPARQL protocol
 
