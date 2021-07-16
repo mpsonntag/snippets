@@ -6,8 +6,8 @@ RDFS ... RDF schema
 SPARQL ... SPARQL protocol and RDF query language
 
 # RDF
-- All RDF data is stored as a graph
-- An RDF graph is a set of RDF triples
+- All RDF data is stored as triples in the form `subject - predicate -object`
+- These triples can be connected to form a graph
 
 
 ## RDF term syntax
@@ -240,10 +240,10 @@ e.g.
     exp:Fred exp:Mother exp:Franny
     exp:Fred exp:Father exp:Bert
 
-We use searching for exp:Mother to get the Mother of Fred, we use searching for exp:Father to get the Father of Fred,
-we use searching for exp:Parent to get both parents of Fred even though `exp:Fred exp:Parent exp:Franny`
-and `exp:Fred exp:Parent exp:Bert` are not explicitly stored in the database!
-
+We use searching for exp:Mother to get the Mother of Fred. We use searching for exp:Father 
+to get the Father of Fred, and exp:Parent to get both parents of Fred even though 
+`exp:Fred exp:Parent exp:Franny` and `exp:Fred exp:Parent exp:Bert` are not explicitly 
+stored in the database.
 
 
 ## Turtle language features
@@ -262,12 +262,11 @@ A Turtle document is a collection of RDF statements in the format
         "10"^^<.../XMLSchema#decimal>
 
 
-
 # SPARQL (SPARQL Protocol and RDF Query Language)
 - Query language for data stored in RDF databases. Can be translated into SQL statements to also access relational databases
-e.g. MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "subject-predicate-object" triples.
+e.g., MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "subject-predicate-object" triples.
 - SPARQL queries actually look for "graph patterns" in an RDF graph.
-- Variables in SPARQL queries start with a question mark; e.g. `?x`
+- Variables in SPARQL queries start with a question mark; e.g. `?x`.
 
 ### Full SPARQL query example
 
@@ -280,8 +279,8 @@ e.g. MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "subj
     ORDER BY ?name
 
 ### SPARQL return clauses
-- `ASK` ... `ASK` can be used instead of `SELECT`. It returns a boolean value depending
-if there is at least one result for the connected query or not.
+- `ASK` ... `ASK` can be used instead of `SELECT`. It returns a boolean value depending on
+whether there is at least one result for the connected query or not.
 - `DESCRIBE` ... returns an RDF graph that describes a resource.
 - `CONSTRUCT` ... used to construct a new graph from the data returned by the query.
 
@@ -343,6 +342,7 @@ moderately complex class relationships, use OWL 2 / QL.
 - http://www.cambridgesemantics.com/semantic-university/rdfs-introduction
 - http://www.cambridgesemantics.com/semantic-university/owl-reference-humans
 - https://jena.apache.org/tutorials/rdf_api.html
+- [SPARQL functions reference](https://graphdb.ontotext.com/documentation/free/sparql-functions-reference.html)
 
 ## RDF libraries
 
@@ -353,4 +353,4 @@ moderately complex class relationships, use OWL 2 / QL.
 ## RDF library tutorials
 
 - [RDF and SPARQL with Sesame and python](http://www.jenitennison.com/2011/01/25/getting-started-with-rdf-and-sparql-using-sesame-and-python.html)
-
+- [SPARQL tutorial](https://docs.data.world/tutorials/sparql/)
