@@ -38,26 +38,26 @@ There are specific rules how an IRI has to be constructed:
 - http://www.w3.org/TR/rdf-sparql-query/#rIRIref
 
 In detail:
-
-    [67]    IRIref          ::=     IRI_REF | PrefixedName
-    [68]    PrefixedName    ::=     PNAME_LN | PNAME_NS
-    [69]    BlankNode       ::=     BLANK_NODE_LABEL | ANON
-    [70]    IRI_REF         ::=     '<' ([^<>"{}|^`\]-[#x00-#x20])* '>'
-    [71]    PNAME_NS        ::=     PN_PREFIX? ':'
-    [72]    PNAME_LN        ::=     PNAME_NS PN_LOCAL
-
+```
+  [67]    IRIref          ::=     IRI_REF | PrefixedName
+  [68]    PrefixedName    ::=     PNAME_LN | PNAME_NS
+  [69]    BlankNode       ::=     BLANK_NODE_LABEL | ANON
+  [70]    IRI_REF         ::=     '<' ([^<>"{}|^`\]-[#x00-#x20])* '>'
+  [71]    PNAME_NS        ::=     PN_PREFIX? ':'
+  [72]    PNAME_LN        ::=     PNAME_NS PN_LOCAL
+```
 e.g. `<http://example.org/book/book1>`
 
 There are different ways how to make the IRI above relative. These two ways require the keywords `BASE` and `PREFIX`:
-
-    BASE <http://example.org/book/>
-    <book1>
-
+```
+  BASE <http://example.org/book/>
+  <book1>
+```
 or
-
-    PREFIX book: <http://example.org/book/>
-    book:book1
-
+```
+  PREFIX book: <http://example.org/book/>
+  book:book1
+```
 ### Literals
 Literals are used for values such as strings, numbers and dates.
 
@@ -77,14 +77,14 @@ The literal value associated with a literal has to be interpreted depending on t
 Subjects can have properties, which are called "predicates"
 
 e.g.
+```
+  subject ... rdf:Description
+  predicate ... feature:size
 
-    subject ... rdf:Description
-    predicate ... feature:size
-
-    <rdf:Description>
-        <feature:size>12</>
-    </rdf:Description>
-
+  <rdf:Description>
+      <feature:size>12</>
+  </rdf:Description>
+```
 
 ### OWL properties/predicates can be divided into two groups
 - Object properties (owl:ObjectProperty) relates individuals (instances) of two OWL classes.
@@ -102,12 +102,12 @@ objects. In graphical representations resources are depicted by ovals.
 ### Breaking Down An RDF Statement
 Here you see the subject of the statement (what the statement is about) and the two forms of predicates
 (literal values and resources, which reference other RDF statements).
-
-    <rdf:Description rdf:about="subject">
-        <predicate rdf:resource="object" />
-        <predicate>literal value</predicate>
-    <rdf:Description>
-
+```
+  <rdf:Description rdf:about="subject">
+      <predicate rdf:resource="object" />
+      <predicate>literal value</predicate>
+  <rdf:Description>
+```
 
 
 ## Nice to Know:
@@ -158,15 +158,15 @@ e.g. the hashURI of rdf:type is:
 RDF:type is an RDFS property, that defines the CLASS of a resource. one resource can have multiple classes
 
 e.g.
+```
+  @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+  @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix exp: <someURI/example> .
 
-    @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-    @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
-    @prefix exp: <someURI/example> .
-
-    exp:MyHondaCivic RDF:type exp:UsedCarForSale
-    exp:MyHondaCivic RDF:type exp:PassengerVehicle
-    exp:MyHondaCivic RDF:type exp:ThingForSale
-
+  exp:MyHondaCivic RDF:type exp:UsedCarForSale
+  exp:MyHondaCivic RDF:type exp:PassengerVehicle
+  exp:MyHondaCivic RDF:type exp:ThingForSale
+```
 
 ### RDF:Class, RDFS:Property, RDFS:Domain and RDFS:Range
 
@@ -185,24 +185,24 @@ to know to which class they belong to.
 - `RDFS:Range` states which data types can be excepted by the current property.
 
 e.g.
+```
+  @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+  @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+  @prefix exp: <someURI/example> .
 
-    @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-    @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
-    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-    @prefix exp: <someURI/example> .
-
-    exp:UsedCarForSale RDF:Type RDF:Class       ... define class UsedCarForSale within "namespace" exp
-    exp:Person RDF:Type RDF:Class               ... define class Person within "namespace" exp
-    exp:Price RDF:Type RDFS:Property            ... define property Price within "namespace" exp
-    exp:PastOwners RDF:Type RDFS:Property       ... define property PastOwners within "namespace" exp
-    exp:Price RDFS:Domain exp:UsedCarForSale    ... define that "exp:Price" (which is a property in our case)
-                                                ... applies to "exp:UsedCarForSale" (which is a class in our case)
-                                                ... meaning: exp:Price is a property of exp:UsedCarForSale
-    exp:Price RDFS:Range XSD:int                ... define that "exp:Price" accepts only XSD:int as value,
-                                                ... more than one Ranges can be defined for a property
-                                                ... meaning exp:Price accepts XSD:int
-    exp:PastOwners RDFS:Range exp:Person        ... define that "exp:PastOwners" accepts only exp:Persons as value
-
+  exp:UsedCarForSale RDF:Type RDF:Class       # ... define class UsedCarForSale within "namespace" exp
+  exp:Person RDF:Type RDF:Class               # ... define class Person within "namespace" exp
+  exp:Price RDF:Type RDFS:Property            # ... define property Price within "namespace" exp
+  exp:PastOwners RDF:Type RDFS:Property       # ... define property PastOwners within "namespace" exp
+  exp:Price RDFS:Domain exp:UsedCarForSale    # ... define that "exp:Price" (which is a property in our case)
+                                              # ... applies to "exp:UsedCarForSale" (which is a class in our case)
+                                              # ... meaning: exp:Price is a property of exp:UsedCarForSale
+  exp:Price RDFS:Range XSD:int                # ... define that "exp:Price" accepts only XSD:int as value,
+                                              # ... more than one Ranges can be defined for a property
+                                              # ... meaning exp:Price accepts XSD:int
+  exp:PastOwners RDFS:Range exp:Person        # ... define that "exp:PastOwners" accepts only exp:Persons as value
+```
 
 ### RDFS:subClassOf
 
@@ -210,23 +210,23 @@ e.g.
 have all properties of Y in addition to all properties of X.
 
 e.g.
+```
+  @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+  @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+  @prefix exp: <someURI/example> .
 
-    @prefix RDF: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-    @prefix RDFS: <http://www.w3.org/2000/01/rdf-schema#> .
-    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-    @prefix exp: <someURI/example> .
+  exp:ThingsForSale RDF:type RDF:Class
+  exp:Car RDF:type RDF:Class
+  exp:UsedCarForSale RDF:type RDF:Class
 
-    exp:ThingsForSale RDF:type RDF:Class
-    exp:Car RDF:type RDF:Class
-    exp:UsedCarForSale RDF:type RDF:Class
+  exp:Price RDF:type RDFS:Property
+  exp:MilesPerGallon RDF:type RDFS:Property
 
-    exp:Price RDF:type RDFS:Property
-    exp:MilesPerGallon RDF:type RDFS:Property
-
-    exp:Price RDFS:Domain exp:ThingForSale                          ... Price is a property of ThingsForSale
-    exp:MilesPerGallon RDFS:Domain exp:Car                          ... MilesPerGallon is a property of Car
-    exp:UsedCarForSale RDFS:subClassOf exp:Car, exp:ThingForSale    ... UsedCarForSale has properties Price and MilesPerGallon
-
+  exp:Price RDFS:Domain exp:ThingForSale                          # ... Price is a property of ThingsForSale
+  exp:MilesPerGallon RDFS:Domain exp:Car                          # ... MilesPerGallon is a property of Car
+  exp:UsedCarForSale RDFS:subClassOf exp:Car, exp:ThingForSale    # ... UsedCarForSale has properties Price and MilesPerGallon
+```
 
 ### RDFS:subPropertyOf
 
@@ -235,11 +235,12 @@ making them all available by a common superProperty.
 
 e.g.
 
-    exp:Mother RDFS:subPropertyOf exp:Parent
+```
+  exp:Mother RDFS:subPropertyOf exp:Parent
 
-    exp:Fred exp:Mother exp:Franny
-    exp:Fred exp:Father exp:Bert
-
+  exp:Fred exp:Mother exp:Franny
+  exp:Fred exp:Father exp:Bert
+```
 We use searching for exp:Mother to get the Mother of Fred. We use searching for exp:Father 
 to get the Father of Fred, and exp:Parent to get both parents of Fred even though 
 `exp:Fred exp:Parent exp:Franny` and `exp:Fred exp:Parent exp:Bert` are not explicitly 
@@ -250,16 +251,18 @@ stored in the database.
 
 A Turtle document is a collection of RDF statements in the format
 
-    <sub> <pred> <obj> .
-
+```
+  <sub> <pred> <obj> .
+```
 - subject and predicate must be represented by a URI
 - object can be a URI or a literal
 - a URI has to be enclosed in `<>` brackets.
 - a statement has to end with a period
 - a language specific literal is marked by an @ followed by the language shorthand e.g. `"this is english"@en`
 - specific data types are denoted by `^^` and the URI of the corresponding data type
-
-        "10"^^<.../XMLSchema#decimal>
+  ```
+  "10"^^<.../XMLSchema#decimal>
+  ```
 
 
 # SPARQL (SPARQL Protocol and RDF Query Language)
@@ -270,14 +273,15 @@ e.g., MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "sub
 
 ### Full SPARQL query example
 
-    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-    SELECT ?name
-    FROM <http://example.com/dataset.rdf>
-    WHERE {
-      ?x foaf:name ?name .
-    }
-    ORDER BY ?name
-
+```
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  SELECT ?name
+  FROM <http://example.com/dataset.rdf>
+  WHERE {
+    ?x foaf:name ?name .
+  }
+  ORDER BY ?name
+```
 Note that not all graph engines support all of the described options and functions.
 
 ### SPARQL return clauses
@@ -288,17 +292,18 @@ whether there is at least one result for the connected query or not.
 
 ### SPARQL OPTIONAL
 
-- OPTIONAL can be used in queries when certain variables are allowed to not return a result.
+- `OPTIONAL` can be used in queries when certain variables are allowed to not return a result.
 
+```
   SELECT ?first_name ?last_name
   WHERE {
     ?x pref:hasLastName ?last_name .
     OPTIONAL {?x pref:hasFirstName ?first_name .}
   }
-
+```
 ### SPARQL FILTER
 
-- FILTER can be used to narrow down results; FILTER supports the following operators
+- `FILTER` can be used to narrow down results; `FILTER` supports the following operators
   - comparison: `=`, `!=`, `<`, `<=`, `>`, `>=`
   - logical: `&&`, `||`, `!`
   - mathematical: `+`, `-`, `/`, `*`
@@ -311,15 +316,15 @@ whether there is at least one result for the connected query or not.
   }
 ```
 
-- FILTER supports NOT EXISTS
+- `FILTER` supports `NOT EXISTS` negation
 
 ```
-SELECT *
-WHERE {
-  ?sec a odml:Section .
-  ?sec odml:hasName ?sec_name
-  FILTER NOT EXISTS {?sec odml:hasProperty ?prop}
-}
+  SELECT *
+  WHERE {
+    ?sec a odml:Section .
+    ?sec odml:hasName ?sec_name
+    FILTER NOT EXISTS {?sec odml:hasProperty ?prop}
+  }
 ```
 
 ### Order and limit
@@ -363,9 +368,9 @@ WHERE {
 SPARQL queries can be done via simple http requests!
 
 Example:
-
-    curl –I http://dbpedia.org/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0ASELECT%20*%20WHERE%20%7B%0A%3Fcity%20rdf%3Atype%20%3Chttp%3A%2F%2Fdbpedia.org%2Fclass%2Fyago%2FCitiesInTexas%3E%0A%7D%0A
-
+```
+  curl –I http://dbpedia.org/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0ASELECT%20*%20WHERE%20%7B%0A%3Fcity%20rdf%3Atype%20%3Chttp%3A%2F%2Fdbpedia.org%2Fclass%2Fyago%2FCitiesInTexas%3E%0A%7D%0A
+```
 
 # OWL
 
