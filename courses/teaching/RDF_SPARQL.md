@@ -275,13 +275,16 @@ e.g., MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "sub
 
 ```
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+  # Very basic query
   SELECT ?name
   FROM <http://example.com/dataset.rdf>
   WHERE {
-    ?x foaf:name ?name .
+    ?x foaf:name ?name . # inline comment example
   }
   ORDER BY ?name
 ```
+Comments can be added as full line or inline.
 Note that not all graph engines support all of the described options and functions.
 
 ### SPARQL return clauses
