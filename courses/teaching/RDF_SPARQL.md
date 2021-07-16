@@ -278,6 +278,8 @@ e.g., MongoDB, Cassandra. SPARQL access data stored as "key-value" pairs or "sub
     }
     ORDER BY ?name
 
+Note that not all graph engines support all of the described options and functions.
+
 ### SPARQL return clauses
 - `ASK` ... `ASK` can be used instead of `SELECT`. It returns a boolean value depending on
 whether there is at least one result for the connected query or not.
@@ -293,6 +295,32 @@ whether there is at least one result for the connected query or not.
     ?x pref:hasLastName ?last_name .
     OPTIONAL {?x pref:hasFirstName ?first_name .}
   }
+
+### SPARQL FILTER
+
+- FILTER can be used to narrow down results; FILTER supports the following operators
+  - comparison: `=`, `!=`, `<`, `<=`, `>`, `>=`
+  - logical: `&&`, `||`, `!`
+  - mathematical: `+`, `-`, `/`, `*`
+
+```
+  SELECT ?last_name
+  WHERE {
+    ?x pref:hasLastName ?last_name .
+    FILTER (?last_name = "Lovecraft")
+  }
+```
+
+- FILTER supports NOT EXISTS
+
+```
+SELECT *
+WHERE {
+  ?sec a odml:Section .
+  ?sec odml:hasName ?sec_name
+  FILTER NOT EXISTS {?sec odml:hasProperty ?prop}
+}
+```
 
 
 ## SPARQL protocol
