@@ -191,7 +191,7 @@ sudo chmod g+w $PROJ_ROOT -R
 
 - create apache configurations for bc20 and bc20-posters in /etc/apache2/sites-available
 
-- create certbot certificates (certbot command might differ depending on OS)
+- create certbot certificates (certbot command might differ depending on OS) -> need to upgrade certbot to latest version anyway
 
 ```bash
 # Stop apache
@@ -205,6 +205,17 @@ sudo ls -lart /etc/letsencrypt/live/
 # Start apache
 sudo systemctl start apache2
 ```
+
+- to renew certificates apache does not have to be stopped or started; with the new certbot use the following to renew
+
+```bash
+# run test
+sudo certbot renew --apache --dry-run
+# run renewal
+sudo certbot renew --apache
+# can also be used in crontab e.g "0 1 * * 6 certbot renew --apache"
+```
+
 - Chrome needs a restart to properly accept renewed certificates.
 
 - enable bc20.dev.g-node.org via apache2
