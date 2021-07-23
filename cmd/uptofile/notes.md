@@ -1,3 +1,13 @@
+### server layout
+
+- upload page
+  - schachtel selection list
+  - new schachtel field (+)
+  - schnippsel field
+  - code form field
+  - hidden code form field
+- serve file -> requires auth
+
 ### data model
 
 - add as RDF triples
