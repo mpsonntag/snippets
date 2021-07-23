@@ -40,3 +40,34 @@ metadata approaches
 (?) function to print full sec-prop tree?
 
 Usage concept: copy metadata from file to file
+
+### Metadata concepts
+
+    - Experiment
+    - Software
+    - Hardware
+    - Stimuli
+    - Subjects
+    - Protocols
+
+... import existing
+- from file
+- from server
+- from templates/terminologies
+
+Metadata collection approaches
+
+(A) easiest: dump info in one field (sec - prop - value containing everything)
++ easy to do
++ easy to retrieve
+- hard to fine grain filter
+- hard to reuse
+    [s]name [p]name [p]type [p]description -> text
+
+(B) complex tree:
+[s] software
+  [s] metamorph-versionA
+    [p] name
+    [p] version
+    [s] settings - fixed
+  [s] metamorph-versionB
