@@ -4,16 +4,17 @@
 - use namespace "miso"; http://mpsmiso/notesgraph
 
 - main graph layout
-  - category
-    - pred name
+  - schachtel
+    - pred name -> text
   - gifterl
-    - pred status - active/inactive
-    - pred date_created
-    - pred date_changed
-  - snippet
-    - pred tagged
-      -> category (circular graph?)
-    - pred content
+    - pred active -> bool
+    - pred date_created -> date
+    - pred date_changed -> rdf:Seq -> date
+    - pred geschichte -> rdf:Seq -> inhalt_text
+  - schnippsel
+    - pred tagged -> category (circular graph?)
+    - pred inhalt -> text
 
 ### various concepts
 - current/offset day date as pass-part
+- hiddenVal-date-knownVal
