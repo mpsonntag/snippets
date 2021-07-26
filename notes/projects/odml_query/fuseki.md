@@ -156,6 +156,12 @@ b) Setup a server from an existing database (Option: `Initialize meta server fro
    In this case the required files directory needs to contain the
    additional file `config.ttl` and the directories `configuration` and `database` containing
    the graph database from an earlier backup.
+c) NOTE: when run as a Docker container, the fuseki server will create multiple `tdb.lock` files 
+     for the server setup and each hosted graph. These lock files contain the PID the fuseki server runs
+     as and is not cleaned up when the docker container is stopped! Since these files are linked 
+     to the outside to make the graph persistent, it can happen, that on an update to the docker container
+     the PID of the running server will no longer match the PID of the lock files.
+     Due to this the Docker container will remove all `tdb.lock` files on startup.
 
 Both init schemas will by default create all required directories in
 `/web/meta`, create and setup the required user, copy all required files and
