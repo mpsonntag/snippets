@@ -7,7 +7,7 @@ To provide the appropriate prefix there needs to be an edit in:
 
 FUSEKIHOME/webapp/js/app/qonsole-config.js:
 
-adding the line `"odml":     "https://g-node.org/projects/odml-rdf#"` where appropriate.
+adding the line `"odml":     "https://g-node.org/odml-rdf#"` where appropriate.
 
 fuseki setup
 
@@ -17,7 +17,7 @@ fuseki setup
 
 // make sure a suitable run directory is already available somewhere
 
-    export FUSEKI_BASE=/home/msonntag/Chaos/DL/fuseki
+    export FUSEKI_BASE=/home/$USER/Chaos/DL/fuseki
 
 Use the following users and permissions to prohibit unwanted modification of 
 data via the webinterface in `shiro.ini`.
@@ -58,9 +58,9 @@ data via the webinterface in `shiro.ini`.
 
     docker build -t fuseki .
     docker image ls
-    docker run -p 4044:4044 -it -v /home/msonntag/Chaos/DL/fuseki:/content fuseki
+    docker run -p 4044:4044 -it -v /home/$USER/Chaos/DL/fuseki:/content fuseki
 
-    docker run -dit --rm --name fuseki_bee -p 4044:4044 -v /home/msonntag/Chaos/DL/fuseki:/content fuseki
+    docker run -dit --rm --name fuseki_bee -p 4044:4044 -v /home/$USER/Chaos/DL/fuseki:/content fuseki
 
 ## Running fuseki
 
@@ -199,33 +199,34 @@ set the required permissions and pull and start the specified docker container.
 
 - create user fuseki and add to docker group
 
-    sudo useradd -M -G docker fuseki
+    sudo useradd -M -G docker meta
 
 - if it already exists, we can add it to the docker group
 
-    sudo usermod -a -G docker fuseki
+    sudo usermod -a -G docker meta
 
 - disable login for user
 
-    sudo usermod -L fuseki
+    sudo usermod -L meta
 
 - create work folder
 
-    mkdir -p /web/fuseki
+    mkdir -p /web/meta
 
 - change permissions so our process can write to this folder when starting the service
 
-    sudo chown -R fuseki:docker /web/fuseki
+    sudo chown -R meta:docker /web/meta
 
 - run docker command:
 
-METAIMG=mpsonntag/fuseki:latest
-METANAME=fuseki_bee
+METAIMG=gnode/meta:latest
+METANAME=meta
+# use the port only in local tests, not for deployment!
 docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
 
 ## Data upload notes:
 
-currently uploading larger files causes a Bad Gateway 502 error.
+Currently, upload of larger files causes a Bad Gateway 502 error.
 
 Checking `sudo watch tail /var/log/apache2/error.log` returns the message
 
@@ -247,7 +248,7 @@ Might also be a problem with an upload size limit (`LimitRequestBody`) or with u
 #### this one works
 curl -X POST --data "dbType=tdb&dbName=metadb" localhost:4044/$/datasets
 
-curl -i -X POST -H "Content-Type:application/n-quads" --data-binary "@/home/msonntag/Chaos/staging/fuseki/setup/new2.nq" localhost:4044/$/new2/update
+curl -i -X POST -H "Content-Type:application/n-quads" --data-binary "@/home/$USER/Chaos/staging/fuseki/setup/new2.nq" localhost:4044/$/new2/update
 
 curl -X POST localhost:4044/$/backup/metadb
 
@@ -319,8 +320,6 @@ services:
 
   meta:
     image: ${METAIMG}
-    ports:
-      - "4044:4044"
     networks:
       metanet:
         ipv4_address: 172.23.0.3
