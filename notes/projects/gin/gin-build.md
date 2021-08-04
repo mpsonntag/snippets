@@ -88,96 +88,75 @@ git checkout master
     git cherry-pick --continue
     ```
 
-setting up gogs on dev
-    - problem of the gogs ORM connecting to the database in the database container
-snippet: connect to DB from outside the container
-    psql -h 172.24.0.1 -U postgres -d gin
-problem is with the new ORM - might be that the latest state of gogs does not work yet at all (there is still an open ORM PR)
-    - we should always only merge in gogs upstream changes when a release comes out to
-avoid ending up in a non working state
-    - check the gogs release branch or the gogs releases directly
-G-Node/gogs
-    - git branches ... use gogs-cherry-pick to keep up to date with the upstream changes
-ok. plan
-    - keep the gogs-cherry-pick up with gogs main to
-docker tagging
-    - gin-web:live-YYYY-MM-DD       ... to tag the version that is actually deployed
-    - gin-web:cherry-YYYY-MM-DD     ... to tag the version that is to be tested with gogs upstream changes
+##### Common merge conflict examples
 
+gogs/gogs specific imports have to be adjusted for usage in g-node/gogs. When imports are affected by a commit, these imports have to be first adjusted and then moved to the G-Node project.
 
-- how to handle upstream merges
-  - for each cherry-picked commit, first check which and how many files are affected
+- Import fix example of an import that was deleted upstream:
+    ```bash
+    <<<<<<< HEAD
+        "github.com/G-Node/gogs/internal/conf"
+        "github.com/G-Node/gogs/internal/db/errors"
+        "github.com/G-Node/gogs/internal/lazyregexp"
+        "github.com/G-Node/gogs/internal/tool"
+    =======
+        "gogs.io/gogs/internal/conf"
+        "gogs.io/gogs/internal/lazyregexp"
+        "gogs.io/gogs/internal/tool"
+    >>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+    ```
 
-        git show --name-only [commit id]
-
-  - pick the commit
-
-        git cherry-pick [commit id]
-
-- resolve any merge conflicts and once done add the resolved files, `git cherry-pick --continue`
-- if there is a large list of files, continuously `git add ...` the resolved files to not loose track of which have already been resolved.
-
-- gogs specific imports have to be adjusted to match the G-Node project of gogs. When imports are affected by a commit, these imports have to be first adjusted and then moved to the G-Node project.
-
-  - Import fix example of an import that was deleted upstream:
-<<<<<<< HEAD
-	"github.com/G-Node/gogs/internal/conf"
-	"github.com/G-Node/gogs/internal/db/errors"
-	"github.com/G-Node/gogs/internal/lazyregexp"
-	"github.com/G-Node/gogs/internal/tool"
-=======
-	"gogs.io/gogs/internal/conf"
-	"gogs.io/gogs/internal/lazyregexp"
-	"gogs.io/gogs/internal/tool"
->>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
-
-1) remove the import from the G-Node list of imports that was first removed by the upstream imports
-
-<<<<<<< HEAD
+    1) remove the import from the G-Node list of imports that was first removed by the upstream imports
+    ```bash
+    <<<<<<< HEAD
+        "github.com/G-Node/gogs/internal/conf"
+        "github.com/G-Node/gogs/internal/lazyregexp"
+        "github.com/G-Node/gogs/internal/tool"
+    =======
+        "gogs.io/gogs/internal/conf"
+        "gogs.io/gogs/internal/lazyregexp"
+        "gogs.io/gogs/internal/tool"
+    >>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+    ```
+    
+    2) remove the upstream imports and leave only the G-Node ones
+    ```bash
     "github.com/G-Node/gogs/internal/conf"
     "github.com/G-Node/gogs/internal/lazyregexp"
     "github.com/G-Node/gogs/internal/tool"
-=======
-    "gogs.io/gogs/internal/conf"
-    "gogs.io/gogs/internal/lazyregexp"
-    "gogs.io/gogs/internal/tool"
->>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+    ```
 
-2) remove the upstream imports and leave only the G-Node ones
+- import fix example of an import that was added upstream:
+    ```bash
+    <<<<<<< HEAD
+        "github.com/G-Node/gogs/internal/conf"
+    =======
+        "gogs.io/gogs/internal/conf"
+        "gogs.io/gogs/internal/errutil"
+    >>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+    ```
 
-    "github.com/G-Node/gogs/internal/conf"
-    "github.com/G-Node/gogs/internal/lazyregexp"
-    "github.com/G-Node/gogs/internal/tool"
+    1) add the import on the G-Node list of imports
+    ```bash
+    <<<<<<< HEAD
+        "github.com/G-Node/gogs/internal/conf"
+        "github.com/G-Node/gogs/internal/errutil"
+    =======
+        "gogs.io/gogs/internal/conf"
+        "gogs.io/gogs/internal/errutil"
+    >>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+    ```
 
-
-  - import fix example of an import that was added upstream:
-
-<<<<<<< HEAD
-    "github.com/G-Node/gogs/internal/conf"
-=======
-    "gogs.io/gogs/internal/conf"
-    "gogs.io/gogs/internal/errutil"
->>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
-
-1) add the import on the G-Node list of imports
-
-<<<<<<< HEAD
-    "github.com/G-Node/gogs/internal/conf"
-    "github.com/G-Node/gogs/internal/errutil"
-=======
-    "gogs.io/gogs/internal/conf"
-    "gogs.io/gogs/internal/errutil"
->>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
-
-2) remove the upstream imports
-
+    2) remove the upstream imports
+    ```bash
     "github.com/G-Node/gogs/internal/conf"
     "github.com/G-Node/gogs/internal/errutil"
-
+    ```
 
 - show diff between upstream and our state for a specific file to identify GIN specific code snippets in large changes
-
+    ```bash
     git diff 6437d01 master -- public/js/gogs.js
+    ```
 
 
 - after doing `make` or `make test`, `go.mod` and `go.sum` might be different. In this case do `go mod tidy` to clean it up again.
