@@ -118,7 +118,7 @@ gogs/gogs specific imports have to be adjusted for usage in g-node/gogs. When im
         "gogs.io/gogs/internal/tool"
     >>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
     ```
-    
+
     2) remove the upstream imports and leave only the G-Node ones
     ```bash
     "github.com/G-Node/gogs/internal/conf"
@@ -158,17 +158,28 @@ gogs/gogs specific imports have to be adjusted for usage in g-node/gogs. When im
     git diff 6437d01 master -- public/js/gogs.js
     ```
 
+#### Unsorted notes
 
-- after doing `make` or `make test`, `go.mod` and `go.sum` might be different. In this case do `go mod tidy` to clean it up again.
+setting up gogs on dev
+    - problem of the gogs ORM connecting to the database in the database container
+snippet: connect to DB from outside the container
+    psql -h 172.24.0.1 -U postgres -d gin
+problem is with the new ORM - might be that the latest state of gogs does not work yet at all (there is still an open ORM PR)
+    - we should always only merge in gogs upstream changes when a release comes out to
+avoid ending up in a non working state
+    - check the gogs release branch or the gogs releases directly
+G-Node/gogs
+    - git branches ... use gogs-cherry-pick to keep up to date with the upstream changes
+ok. plan
+    - keep the gogs-cherry-pick up with gogs main to
+docker tagging
+    - gin-web:live-YYYY-MM-DD       ... to tag the version that is actually deployed
+    - gin-web:cherry-YYYY-MM-DD     ... to tag the version that is to be tested with gogs upstream changes
 
 
 - gin user specific code in files to document:
   internal/db/user.go
   - func IsBlockedDomain(email string) bool {
-
-- if a make ever fails and functions in the code are supposedly missing force the generation of all `_gen.go` files again
-
-    make generate
 
 
 -[x] GIN (GOGS)
@@ -178,7 +189,6 @@ gogs/gogs specific imports have to be adjusted for usage in g-node/gogs. When im
     - run build after the commit to catch obvious merge problems
     - check for reference with this PR: https://github.com/G-Node/gogs/pull/88
 
-These are commits showing up when doing `git cherry -v upmaster` from the `live` branch supposedly showing all commits that were added by the g-node team
 
 dumdribille  3:17 PM
 git cherry  from the live branch towards current master  should tell which commits to cherry-pick from live, right?
