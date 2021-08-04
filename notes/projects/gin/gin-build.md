@@ -25,6 +25,161 @@
   - merge the `live` branch into `master`
   - merge `master` into `live`
 
+  upstream merge
+  - merge gogs main into our gogs branch `upmaster`
+  - check `git merge-base master upmaster`
+  - check `tig [latest master commit]..[latest upmaster commit]`
+  - we are cherry picking not rebasing so, suck! we need to find our master commit and make sure we find the same in upmaster, then go from there
+  - github.com/G-Node/gogs/pull/88
+  - every couple of picked commits do a ```make``` and ```go build``` to make sure nothing breaks
+  - every 60 commits deploy and test our features incl DOI
+
+
+- gnode: gogs upstream merge                                                    (--6h30--)
+  - fetch all
+  - checkout upstream/master
+  - gitlog ... find latest commit from gogs and note the title
+  - checkout upstream/upmaster
+  - git pull gogs main
+  - gitlog ... find the commit that corresponds to the gogs commit identified above
+  - get the full gitlog list from this commit to the latest
+  - checkout master
+  - before cherry-pick check `git show --name-only [commit]` to see the files that have been touched and be warned ahead of time
+  - git cherry-pick starting with the commit identified above and work through to the latest in gogs/main
+  - if there are merge conflicts in `_gen` files, remove these, do `make` and `git checkout` the files that have not been touched by this commit; then `git cherry-pick --continue`
+
+
+  - problems with the upstream gogs/main branch - does not seem to be functional for postgres
+  - rebased from last functional upstream gogs release
+  - new PR with rebased branch
+  - deployment version on dev
+setting up gogs on dev
+    - problem of the gogs ORM connecting to the database in the database container
+snippet: connect to DB from outside the container
+    psql -h 172.24.0.1 -U postgres -d gin
+problem is with the new ORM - might be that the latest state of gogs does not work yet at all (there is still an open ORM PR)
+    - we should always only merge in gogs upstream changes when a release comes out to
+avoid ending up in a non working state
+    - check the gogs release branch or the gogs releases directly
+G-Node/gogs
+    - git branches ... use gogs-cherry-pick to keep up to date with the upstream changes
+ok. plan
+    - keep the gogs-cherry-pick up with gogs main to
+docker tagging
+    - gin-web:live-YYYY-MM-DD       ... to tag the version that is actually deployed
+    - gin-web:cherry-YYYY-MM-DD     ... to tag the version that is to be tested with gogs upstream changes
+
+
+- how to handle upstream merges
+  - for each cherry-picked commit, first check which and how many files are affected
+
+        git show --name-only [commit id]
+
+  - pick the commit
+
+        git cherry-pick [commit id]
+
+- resolve any merge conflicts and once done add the resolved files, `git cherry-pick --continue`
+- if there is a large list of files, continuously `git add ...` the resolved files to not loose track of which have already been resolved.
+
+- gogs specific imports have to be adjusted to match the G-Node project of gogs. When imports are affected by a commit, these imports have to be first adjusted and then moved to the G-Node project.
+
+  - Import fix example of an import that was deleted upstream:
+<<<<<<< HEAD
+	"github.com/G-Node/gogs/internal/conf"
+	"github.com/G-Node/gogs/internal/db/errors"
+	"github.com/G-Node/gogs/internal/lazyregexp"
+	"github.com/G-Node/gogs/internal/tool"
+=======
+	"gogs.io/gogs/internal/conf"
+	"gogs.io/gogs/internal/lazyregexp"
+	"gogs.io/gogs/internal/tool"
+>>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+
+1) remove the import from the G-Node list of imports that was first removed by the upstream imports
+
+<<<<<<< HEAD
+    "github.com/G-Node/gogs/internal/conf"
+    "github.com/G-Node/gogs/internal/lazyregexp"
+    "github.com/G-Node/gogs/internal/tool"
+=======
+    "gogs.io/gogs/internal/conf"
+    "gogs.io/gogs/internal/lazyregexp"
+    "gogs.io/gogs/internal/tool"
+>>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+
+2) remove the upstream imports and leave only the G-Node ones
+
+    "github.com/G-Node/gogs/internal/conf"
+    "github.com/G-Node/gogs/internal/lazyregexp"
+    "github.com/G-Node/gogs/internal/tool"
+
+
+  - import fix example of an import that was added upstream:
+
+<<<<<<< HEAD
+    "github.com/G-Node/gogs/internal/conf"
+=======
+    "gogs.io/gogs/internal/conf"
+    "gogs.io/gogs/internal/errutil"
+>>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+
+1) add the import on the G-Node list of imports
+
+<<<<<<< HEAD
+    "github.com/G-Node/gogs/internal/conf"
+    "github.com/G-Node/gogs/internal/errutil"
+=======
+    "gogs.io/gogs/internal/conf"
+    "gogs.io/gogs/internal/errutil"
+>>>>>>> 9e9ca6646... refactor: unify error handling in routing layer
+
+2) remove the upstream imports
+
+    "github.com/G-Node/gogs/internal/conf"
+    "github.com/G-Node/gogs/internal/errutil"
+
+
+- show diff between upstream and our state for a specific file to identify GIN specific code snippets in large changes
+
+    git diff 6437d01 master -- public/js/gogs.js
+
+
+- after doing `make` or `make test`, `go.mod` and `go.sum` might be different. In this case do `go mod tidy` to clean it up again.
+
+
+- gin user specific code in files to document:
+  internal/db/user.go
+  - func IsBlockedDomain(email string) bool {
+
+- if a make ever fails and functions in the code are supposedly missing force the generation of all `_gen.go` files again
+
+    make generate
+
+
+-[x] GIN (GOGS)
+  - gogs update integration
+    - now all add code is either comment marked or moved to their own files/functions
+    - now cherry pick each commit from gogs/master to our branch
+    - run build after the commit to catch obvious merge problems
+    - check for reference with this PR: https://github.com/G-Node/gogs/pull/88
+
+These are commits showing up when doing `git cherry -v upmaster` from the `live` branch supposedly showing all commits that were added by the g-node team
+
+dumdribille  3:17 PM
+git cherry  from the live branch towards current master  should tell which commits to cherry-pick from live, right?
+3:18
+I can pack that into the current PR as well
+3:18
+maybe ideally before removing the dav code
+achilleas  3:24 PM
+Not sure what git cherry live master would show exactly in this case.  git log 4cbb0d4..live are the commits in live that diverge from master.
+3:26
+git cherry master live shows me 19 commits.
+git log --oneline $(git merge-base live master)..live shows me 26. (updated: local clone was out of date) (edited) 
+dumdribille  3:26 PM
+cherry does the same as log but without the merge commits it seems
+
 
 ## local deployment notes
 
