@@ -1,4 +1,5 @@
 ## gin-web build process
+
 - in a new go project, run `go mod init` in the project root to automatically create the `go.mod` file listing the project dependencies.
 - `go build` also creates and updates the `go.mod` file as well as the `go.sum` file.
 - use `go -u get ./...` to force an update on the dependencies.
@@ -10,6 +11,11 @@
 
 - make sure the go version and the go tool version are up to date and have the same version number
 - run `make` to ensure that the build runs without problems; `make` will create the custom files mentioned above.
+- after doing `make` or `make test`, `go.mod` and `go.sum` might be different. In this case do `go mod tidy` to clean it up again.
+- if a `make` ever fails and functions in the code are supposedly missing force the generation of all `_gen.go` files again
+  ```bash
+  make generate
+  ```
 
 
 ## Keeping GOGS up with upstream
