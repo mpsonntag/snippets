@@ -37,9 +37,16 @@
   - check `tig [latest master commit]..[latest upmaster commit]`
   - we are cherry picking not rebasing so, suck! we need to find our master commit and make sure we find the same in upmaster, then go from there
   - github.com/G-Node/gogs/pull/88
-  - every couple of picked commits do a ```make``` and ```go build``` to make sure nothing breaks
+  - every couple of picked commits do a `make` and `go build` to make sure nothing breaks
   - every 60 commits deploy and test our features incl DOI
 
+- Identify a list of GIN specific commits
+  ```bash
+  # checkout the live branch that contains the latest tested version of gin-web
+  git checkout live
+  # compare the branch to the upmaster branch, that contains gogs/gogs only commits
+  git cherry -v upmaster
+  ```
 
 #### gogs/gogs to g-node/gogs cherry pick preparations
 
