@@ -11,6 +11,21 @@
 - make sure the go version and the go tool version are up to date and have the same version number
 - run `make` to ensure that the build runs without problems; `make` will create the custom files mentioned above.
 
+
+## Keeping GOGS up with upstream
+- currently all custom GIN code is either comment marked or moved to their own files/functions.
+- cherry pick each commit from `GOGS/master` to our branch.
+- run `build` after the commit to catch obvious merge problems
+- check for reference with this PR: https://github.com/G-Node/gogs/pull/88
+
+- the current workflow to add new gin features
+  - add it to the `live` branch
+  - test
+  - deploy
+  - merge the `live` branch into `master`
+  - merge `master` into `live`
+
+
 ## local deployment notes
 
 - run a local gogs service from a staging directory with the following structure:
