@@ -35,24 +35,45 @@
   - every 60 commits deploy and test our features incl DOI
 
 
-- gnode: gogs upstream merge                                                    (--6h30--)
-  - fetch all
-  - checkout upstream/master
-  - gitlog ... find latest commit from gogs and note the title
-  - checkout upstream/upmaster
-  - git pull gogs main
-  - gitlog ... find the commit that corresponds to the gogs commit identified above
-  - get the full gitlog list from this commit to the latest
-  - checkout master
-  - before cherry-pick check `git show --name-only [commit]` to see the files that have been touched and be warned ahead of time
-  - git cherry-pick starting with the commit identified above and work through to the latest in gogs/main
-  - if there are merge conflicts in `_gen` files, remove these, do `make` and `git checkout` the files that have not been touched by this commit; then `git cherry-pick --continue`
+#### gogs/gogs to g-node/gogs cherry pick preparations
+
+```bash
+# todo: add lines to clone gin-web and add gogs as remote
+# fetch all branches from gnode/gogs and gogs/gogs
+git fetch --all
+# checkout gin-web master
+git checkout upstream/master
+# find latest commit from gogs and note the title
+git log --oneline --graph
+# checkout gogs main branch we keep in the gin-web repo
+git checkout upstream/upmaster
+# fetch the latest changes in the gogs/gogs main branch
+# be aware that this branch is not necessarily runnable!
+# might be worth to actually check the gogs releases and checkout the main branch at the latest release commit.
+git pull gogs main
+# find the commit that corresponds to the gin-web master commit identifier above
+git log --oneline --graph
+# get the full git log list-of-commits from the gin-web master commit until the latest gogs/main commit
+# todo add command for the description above
+git checkout master
+# start cherry picking the list of commits from earliest to latest
+```
+
+#### gogs/gogs to g-node/gogs cherry pick process
+
+- before doing an actual pick, check the commit to see and note the files that have been touched for later merge conflict resolve.
+```bash
+git show --name-only [commit]
+```
+- on merge conflicts in `_gen` files run the following from the root of the repository.
+```bash
+make
+# checkout all files that have not been touched by this commit
+git checkout [...]
+git cherry-pick --continue
+```
 
 
-  - problems with the upstream gogs/main branch - does not seem to be functional for postgres
-  - rebased from last functional upstream gogs release
-  - new PR with rebased branch
-  - deployment version on dev
 setting up gogs on dev
     - problem of the gogs ORM connecting to the database in the database container
 snippet: connect to DB from outside the container
