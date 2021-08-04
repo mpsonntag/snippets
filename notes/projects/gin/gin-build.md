@@ -75,17 +75,18 @@ git checkout master
 #### gogs/gogs to g-node/gogs cherry pick process
 
 - before doing an actual pick, check the commit to see and note the files that have been touched for later merge conflict resolve.
-```bash
-git show --name-only [commit]
-```
+    ```bash
+    git show --name-only [commit]
+    ```
 - on merge conflicts in `_gen` files run the following from the root of the repository.
-```bash
-make
-# checkout all files that have not been touched by this commit
-git checkout [...]
-git cherry-pick --continue
-```
-
+    ```bash
+    make
+    # checkout all files that have not been touched by this commit
+    git checkout [...]
+    # resolve any further merge conflicts
+    # if there is a large list of files, continuously `git add ...` the resolved files to not loose track of which have already been resolved.
+    git cherry-pick --continue
+    ```
 
 setting up gogs on dev
     - problem of the gogs ORM connecting to the database in the database container
