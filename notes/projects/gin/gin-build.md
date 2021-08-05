@@ -1,44 +1,43 @@
-## gin-web build process
+## GIN development and maintenance notes
 
-- in a new go project, run `go mod init` in the project root to automatically create the `go.mod` file listing the project dependencies.
+### gin-web build process
+
+General notes on 
+- in a new go project, run `go mod init` from the project root to automatically create the `go.mod` file listing all project dependencies.
 - `go build` also creates and updates the `go.mod` file as well as the `go.sum` file.
-- use `go -u get ./...` to force an update on the dependencies.
+- use `go -u get ./...` to force a dependencies update.
 - changes to the `go.mod` file are only appended but not cleaned up with respect to unused dependencies. Run `go mod tidy` to clean up an existing `go.mod` file.
 
 - check the `Makefile` at the project root for assets compilation of non go files.
 - a build compiles these files into generated go files that are then used by the service; e.g. `internal/assets/public/public_gen.go`. The catch is that these files will differ when merging upstream changes into a branch. Ideally re-compiling will properly update, but it might be necessary to delete the existing files.
-- for the re-build these are the gogs host dependencies for a local build; take care not to use `go-bindata/go-bindata`: https://github.com/gogs/gogs/blob/main/docs/dev/local_development.md#ubuntu; use `go get -u github.com/kevinburke/go-bindata/...` instead.
+- for a re-build these are the gogs host dependencies for a local build; take care not to use `go-bindata/go-bindata`: https://github.com/gogs/gogs/blob/main/docs/dev/local_development.md#ubuntu; use `go get -u github.com/kevinburke/go-bindata/...` instead.
 
 - make sure the go version and the go tool version are up to date and have the same version number
 - run `make` to ensure that the build runs without problems; `make` will create the custom files mentioned above.
-- after doing `make` or `make test`, `go.mod` and `go.sum` might be different. In this case do `go mod tidy` to clean it up again.
-- if a `make` ever fails and functions in the code are supposedly missing force the generation of all `_gen.go` files again
-  ```bash
-  make generate
-  ```
+- after running `make` or `make test`, `go.mod` and `go.sum` might have changed; in this case run `go mod tidy`.
+- if a `make` run ever fails and functions in the code are supposedly missing, force the generation of all `_gen.go` files again running `make generate`.
 
 
-## Keeping GOGS up with upstream
-- currently all custom GIN code is either comment marked or moved to their own files/functions.
-- cherry pick each commit from `GOGS/master` to our branch.
-- run `build` after the commit to catch obvious merge problems
-- check for reference with this PR: https://github.com/G-Node/gogs/pull/88
+### Keeping gnode/gogs up with gogs/gogs - general notes
+- most custom GIN code should be either comment marked or moved to their own files/functions.
+- cherry pick each commit from `gogs/gogs:main` to our branch.
+- run `build` after a cherry-pick to catch obvious merge problems.
+- check this PR as reference: https://github.com/G-Node/gogs/pull/88
 
-- the current workflow to add new gin features
-  - add it to the `live` branch
+- the current workflow to add new GIN features
+  - add features to the `live` branch
   - test
   - deploy
   - merge the `live` branch into `master`
   - merge `master` into `live`
-
-  upstream merge
-  - merge gogs main into our gogs branch `upmaster`
+  
+- upstream merge workflow
+  - merge gogs `main` branch into the gnode gogs branch `upmaster`
   - check `git merge-base master upmaster`
   - check `tig [latest master commit]..[latest upmaster commit]`
-  - we are cherry picking not rebasing so, suck! we need to find our master commit and make sure we find the same in upmaster, then go from there
-  - github.com/G-Node/gogs/pull/88
-  - every couple of picked commits do a `make` and `go build` to make sure nothing breaks
-  - every 60 commits deploy and test our features incl DOI
+  - the process is cherry-pick and not rebase! find the latest gnode/gogs master commit and make sure to find the same in `upmaster`, then go from there (as reference see github.com/G-Node/gogs/pull/88)
+  - every couple of picked commits run `make` and `go build` to make sure nothing breaks
+  - every ~60 commits deploy and test the G-Node specific features including DOI
 
 - Identify a list of GIN specific commits
   ```bash
@@ -88,7 +87,7 @@ git checkout master
     git cherry-pick --continue
     ```
 
-##### Common merge conflict examples
+#### Common merge conflict examples
 
 gogs/gogs specific imports have to be adjusted for usage in g-node/gogs. When imports are affected by a commit, these imports have to be first adjusted and then moved to the G-Node project.
 
@@ -286,9 +285,7 @@ networks:
         // could be narrowed down to en only
 
 
-## gin build issues
+### GIN build issues
 
-take care not to use `go-bindata/go-bindata`: https://github.com/gogs/gogs/blob/main/docs/dev/local_development.md#ubuntu
-
-use `go get -u github.com/kevinburke/go-bindata/...` instead
-
+Take care not to use `go-bindata/go-bindata`: https://github.com/gogs/gogs/blob/main/docs/dev/local_development.md#ubuntu
+Use `go get -u github.com/kevinburke/go-bindata/...` instead.
