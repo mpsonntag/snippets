@@ -3,7 +3,7 @@ import pandas as pd
 
 import nixio
 
-head_col = ['curr_frame', 'time_elapsed', 'obj_substracted', 'substracted_value',
+head_col = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
             'obj_value', 'obj_size', 'background_value', 'xold', 'yold']
 
 ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
@@ -29,18 +29,18 @@ da.append_sampled_dimension(1, label="frame", offset=1)
 
 g.data_arrays.append(da)
 
-# object substracted value data
-da = b.create_data_array(name=f"{basic_name}-obj-sub", array_type="CA.object_substracted",
-                         data=ca_data["obj_substracted"])
+# object subtracted value data
+da = b.create_data_array(name=f"{basic_name}-obj-sub", array_type="CA.object_subtracted",
+                         data=ca_data["obj_subtracted"])
 da.label = " F object value minus background value"
 da.append_sampled_dimension(1, label="frame", offset=1)
 
 g.data_arrays.append(da)
 
-# substracted value
-da = b.create_data_array(name=f"{basic_name}-sub-val", array_type="CA.substracted_value",
-                         data=ca_data["substracted_value"])
-da.label = "F value substracted"
+# subtracted value
+da = b.create_data_array(name=f"{basic_name}-sub-val", array_type="CA.subtracted_value",
+                         data=ca_data["subtracted_value"])
+da.label = "F value subtracted"
 da.append_sampled_dimension(1, label="frame", offset=1)
 
 g.data_arrays.append(da)
