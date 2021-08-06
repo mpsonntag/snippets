@@ -9,7 +9,14 @@ head_col = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
 ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
                       header=None, names=head_col)
 
+# ToDo
+# - walk across multiple files and different protocols
+# - second version with only one DataArray but 3 dims -> time as sampled, data as second and set with labels as third
+# - add data arrays for stimulus protocols and use them as tags / multitags on all matching data for later filtering
+# - add metadata for each worm -> think about how this can be structured
+
 filename = "/home/msonntag/Chaos/DL/ca_imaging.nix"
+
 nf = nixio.File.open(filename, nixio.FileMode.Overwrite)
 
 # Main block holding CA experiment data
