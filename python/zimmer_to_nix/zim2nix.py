@@ -107,4 +107,47 @@ plt.ylabel(da.label)
 plt.legend()
 plt.show()
 
+
+files = ["/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W7URXx2.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W8URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W14URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W15URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W17URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W18URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W21URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W4URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W5URX.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121123Pflp178GCaMP5kN2shift210421W1_2ndurx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W3urx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W4urx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W5urx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W8urx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W2urx.log"
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log"
+]
+
+# dict reference: date, strain, genetic modification, stimulus protocol,
+file_dict = {
+"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W7URXx2.log": ["20120705", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W7"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W8URX.log": ["20120705", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W14URX.log": ["20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W14"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W15URX.log": ["20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W15"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W17URX.log": ["20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W17"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W18URX.log": ["20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W18"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W21URX.log": ["20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W21"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W4URX.log": ["20120823", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W5URX.log": ["20120823", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121123Pflp178GCaMP5kN2shift210421W1_2ndurx.log": ["20121123", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W3urx.log": ["20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W4urx.log": ["20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W5urx.log": ["20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W8urx.log": ["20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W2urx.log": ["20120805", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"]
+,"/home/msonntag/Chaos/DL/ca-imaging/calcium_imaging/results/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log": ["20120805", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"]
+}
+
+for f in files:
+    curr_data = pd.read_csv(f, header=None, names=head_col)
+
+
 nf.close()
