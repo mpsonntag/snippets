@@ -20,7 +20,8 @@ filename = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nf = nixio.File.open(filename, nixio.FileMode.Overwrite)
 
 # Main block holding CA experiment data
-b = nf.create_block(name="ca_imaging_data")
+
+b = nf.create_block(name="ca_imaging_data", type_="CA-primary-data")
 
 basic_name = "CA-data.20120705.W8"
 
