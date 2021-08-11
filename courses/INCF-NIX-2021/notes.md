@@ -1,5 +1,10 @@
 # various notes for the INCF-NIX workshop 2021
 
+## noteworthy things:
+
+when creating a block, one has to provide both name AND type. Otherwise name will be the ID even if a name has been provided.
+
+
 ## zimmer data notes
 
 document metamorph metadata
