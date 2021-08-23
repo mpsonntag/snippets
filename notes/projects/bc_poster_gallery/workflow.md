@@ -235,7 +235,7 @@ docker-compose pull
 - prepare the postgres database container for the first gin setup
 ```bash
 docker-compose up -d db
-docker exec -it posters_db_1 /bin/bash
+docker exec -it bc_db_1 /bin/bash
 su -l postgres
 createuser -P gin
 # enter password for new role and save it before using it - e.g. somethingSecret
@@ -274,6 +274,11 @@ docker-compose down
 - modify the $PROJ_ROOT/config/gogs/config/app.ini to mimic the reference.app ini
 
 - copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to $PROJ_ROOT/config/templates
+
+- ensure all directories are owned by users and groups that docker has access to via the docker-compose file
+```bash
+sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+```
 
 - restart all services
 ```bash
