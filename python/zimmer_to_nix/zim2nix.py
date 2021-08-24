@@ -84,7 +84,7 @@ def add_data(b, g, basic_name, basic_type, ca_data):
     g.data_arrays.append(da)
 
 
-def run_single_raw():
+def run_single_raw(nf):
     ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
                           header=None, names=head_col)
     # Main block holding CA experiment data
@@ -109,10 +109,25 @@ def run_single_raw():
     plt.show()
 
 
-def run_multiple_raw():
-    # dict reference: date, strain, genetic modification, stimulus protocol,
-    path_base = "/home/msonntag/Chaos/DL/calcium_imaging/results"
+def run_multiple_raw(nf, file_dict, prot_type, prot_switch, strain, neuron):
+    b = nf.create_block(name=f"Ca_imaging_data_{prot_type}_{prot_switch}",
+                        type_=f"Ca.raw.{prot_type}.{prot_switch}")
+    g = b.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
+    for fname in file_dict:
+        ffname = f"{path_base_raw_files}{fname}"
+        curr_data = pd.read_csv(ffname, header=None, names=head_col)
+        print(file_dict[fname])
 
+        # use date and worm number as name
+        basic_name = f"Ca.{file_dict[fname][0]}.{file_dict[fname][5]}"
+        basic_type = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}"
+
+        # Group data by experiment data arrays
+        add_data(b, g, basic_name, basic_type, curr_data)
+
+
+def run_n2_shift_urx(nf):
+    # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W7URXx2.log": [
             "20120705", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W7"],
@@ -153,24 +168,12 @@ def run_multiple_raw():
     strain = "N2"
     neuron = "URX"
 
-    b = nf.create_block(name=f"Ca_imaging_data_{prot_type}_{prot_switch}",
-                        type_=f"Ca.raw.{prot_type}.{prot_switch}")
-    g = b.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
-    for fname in file_dict:
-        ffname = f"{path_base}{fname}"
-        curr_data = pd.read_csv(ffname, header=None, names=head_col)
-        print(file_dict[fname])
-
-        # use date and worm number as name
-        basic_name = f"Ca.{file_dict[fname][0]}.{file_dict[fname][5]}"
-        basic_type = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}"
-
-        # Group data by experiment data arrays
-        add_data(b, g, basic_name, basic_type, curr_data)
+    run_multiple_raw(nf, file_dict, prot_type, prot_switch, strain, neuron)
 
 
+path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
-nf = nixio.File.open(out_file, nixio.FileMode.Overwrite)
-run_single_raw()
-#run_multiple_raw()
-nf.close()
+nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
+#run_single_raw(nif)
+run_n2_shift_urx(nif)
+nif.close()
