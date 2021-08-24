@@ -109,10 +109,8 @@ def run_single_raw(nf):
     plt.show()
 
 
-def run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
-    b = nf.create_block(name=f"Ca_imaging_data_{prot_type}_{prot_switch}",
-                        type_=f"Ca.raw.{prot_type}.{prot_switch}")
-    g = b.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
+def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
+    g = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
         ffname = f"{path_base_raw_files}{spec_path}{fname}"
         curr_data = pd.read_csv(ffname, header=None, names=head_col)
@@ -123,10 +121,10 @@ def run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, n
         basic_type = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}"
 
         # Group data by experiment data arrays
-        add_data(b, g, basic_name, basic_type, curr_data)
+        add_data(block, g, basic_name, basic_type, curr_data)
 
 
-def run_shift_n2_urx(nf):
+def run_shift_n2_urx(block):
     spec_path = "/N2/urx/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
@@ -169,10 +167,44 @@ def run_shift_n2_urx(nf):
     strain = "N2"
     neuron = "URX"
 
-    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
-def run_ramp_n2_urx(nf):
+def run_shift_egl3_urx(block):
+    spec_path = "/egl3/urx/shift210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120906Pflp178GCaMP5kegl3Shift210421W2URX.log": [
+            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121017Pflp178GCaMP5kegl3Shift210421W2urx.log": [
+            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W5_lowSigurx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W11urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W11"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W4urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
+        "20121017Pflp178GCaMP5kegl3Shift210421W1URX.log": [
+            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W1urx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W8urx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W1urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W6_lowSigurx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W6"]
+    }
+
+    prot_type = "shift"
+    prot_switch = "210421"
+    strain = "egl3"
+    neuron = "URX"
+
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+
+
+def run_ramp_n2_urx(block):
     spec_path = "/N2/urx/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
@@ -215,44 +247,10 @@ def run_ramp_n2_urx(nf):
     strain = "N2"
     neuron = "URX"
 
-    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
-def run_shift_egl3_urx(nf):
-    spec_path = "/egl3/urx/shift210421/"
-    # dict reference: date, strain, genetic modification, stimulus protocol,
-    file_dict = {
-        "20120906Pflp178GCaMP5kegl3Shift210421W2URX.log": [
-            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
-        "20121017Pflp178GCaMP5kegl3Shift210421W2urx.log": [
-            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
-        "20121202Pflp178GCaMP5kegl3shift_210421W5_lowSigurx.log": [
-            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"],
-        "20121205Pflp178GCaMP5kegl3shift_210421W11urx.log": [
-            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W11"],
-        "20121205Pflp178GCaMP5kegl3shift_210421W4urx.log": [
-            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
-        "20121017Pflp178GCaMP5kegl3Shift210421W1URX.log": [
-            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
-        "20121202Pflp178GCaMP5kegl3shift_210421W1urx.log": [
-            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
-        "20121202Pflp178GCaMP5kegl3shift_210421W8urx.log": [
-            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"],
-        "20121205Pflp178GCaMP5kegl3shift_210421W1urx.log": [
-            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
-        "20121205Pflp178GCaMP5kegl3shift_210421W6_lowSigurx.log": [
-            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W6"]
-    }
-
-    prot_type = "shift"
-    prot_switch = "210421"
-    strain = "egl3"
-    neuron = "URX"
-
-    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
-
-
-def run_ramp_egl3_urx(nf):
+def run_ramp_egl3_urx(block):
     spec_path = "/egl3/urx/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
@@ -287,15 +285,22 @@ def run_ramp_egl3_urx(nf):
     strain = "egl3"
     neuron = "URX"
 
-    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
 #run_single_raw(nif)
-run_shift_n2_urx(nif)
-run_ramp_n2_urx(nif)
-run_shift_egl3_urx(nif)
-run_ramp_egl3_urx(nif)
+
+b = nif.create_block(name=f"Ca_imaging_data_shift_210421",
+                     type_=f"Ca.raw.shift.210421")
+run_shift_n2_urx(b)
+run_shift_egl3_urx(b)
+
+b = nif.create_block(name=f"Ca_imaging_data_ramp_210421",
+                     type_=f"Ca.raw.ramp.210421")
+run_ramp_n2_urx(b)
+run_ramp_egl3_urx(b)
+
 nif.close()
