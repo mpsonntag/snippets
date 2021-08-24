@@ -116,8 +116,9 @@ def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain
         curr_data = pd.read_csv(ffname, header=None, names=head_col)
         print(file_dict[fname])
 
-        # use date and worm number as name
-        basic_name = f"Ca.{file_dict[fname][0]}.{file_dict[fname][1]}"
+        # since all data arrays live on the same block, the individual names
+        # have to be very distinct to avoid duplicate name issues
+        basic_name = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}.{file_dict[fname][0]}.{file_dict[fname][1]}"
         basic_type = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}"
 
         # Group data by experiment data arrays
@@ -225,7 +226,7 @@ def run_shift_egl3_bag(block):
         "20121202Pflp178GCaMP5kegl3shift_210421W7bag.log": ["20121202", "W7"],
         "20121202Pflp178GCaMP5kegl3shift_210421W8bag.log": ["20121202", "W8"],
         "20121205Pflp178GCaMP5kegl3shift_210421W2_sigLowbag.log": ["20121205", "W2"],
-        "20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag_add20frm_at_beg.log": ["20121205", "W3"],
+        #"20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag_add20frm_at_beg.log": ["20121205", "W3"], # duplicate name issue with next log
         "20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag.log": ["20121205", "W3"],
         "20121205Pflp178GCaMP5kegl3shift_210421W5bag.log": ["20121205", "W5"],
         "20121205Pflp178GCaMP5kegl3shift_210421W7bag.log": ["20121205", "W7"],
@@ -371,7 +372,6 @@ def run_ramp_egl3_bag(block):
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
-#run_single_raw(nif)
 
 b = nif.create_block(name=f"Ca_imaging_data_shift_210421",
                      type_=f"Ca.raw.shift.210421")
@@ -386,5 +386,7 @@ run_ramp_n2_urx(b)
 run_ramp_egl3_urx(b)
 run_ramp_n2_bag(b)
 run_ramp_egl3_bag(b)
+
+#run_single_raw(nif)
 
 nif.close()
