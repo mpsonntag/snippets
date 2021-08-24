@@ -128,4 +128,76 @@ file_dict = {
 ,"/home/msonntag/Chaos/DL/calcium_imaging/results/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log": ["20120805", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"]
 }
 
+
+def add_data(b, g, basic_name, basic_type, ca_data):
+    # time elapsed data
+    da = b.create_data_array(name=f"{basic_name}-time", array_type=f"{basic_type}.time_elapsed",
+                             data=ca_data["time_elapsed"])
+    da.label = "time elapsed"
+    da.unit = "ms"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # object subtracted value data
+    da = b.create_data_array(name=f"{basic_name}-obj-sub",
+                             array_type=f"{basic_type}.object_subtracted",
+                             data=ca_data["obj_subtracted"])
+    da.label = " F object value minus background value"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # subtracted value
+    da = b.create_data_array(name=f"{basic_name}-sub-val",
+                             array_type=f"{basic_type}.subtracted_value",
+                             data=ca_data["subtracted_value"])
+    da.label = "F value subtracted"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # object value
+    da = b.create_data_array(name=f"{basic_name}-obj-val", array_type=f"{basic_type}.object_value",
+                             data=ca_data["obj_value"])
+    da.label = "F object value absolute"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # object size
+    da = b.create_data_array(name=f"{basic_name}-obj-size", array_type=f"{basic_type}.object_size",
+                             data=ca_data["obj_size"])
+    da.label = "object size"
+    da.unit = "pixel"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # background value
+    da = b.create_data_array(name=f"{basic_name}-bgd-val",
+                             array_type=f"{basic_type}.background_value",
+                             data=ca_data["background_value"])
+    da.label = "F background value average"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # previous ROI x position
+    da = b.create_data_array(name=f"{basic_name}-roi-old-x", array_type=f"{basic_type}.ROI_old_x",
+                             data=ca_data["xold"])
+    da.label = "previous ROI x position"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+    # previous ROI y position
+    da = b.create_data_array(name=f"{basic_name}-roi-old-y", array_type=f"{basic_type}.ROI_old_y",
+                             data=ca_data["yold"])
+    da.label = "previous ROI y position"
+    da.append_sampled_dimension(1, label="frame", offset=1)
+
+    g.data_arrays.append(da)
+
+
 nf.close()
