@@ -200,4 +200,18 @@ def add_data(b, g, basic_name, basic_type, ca_data):
     g.data_arrays.append(da)
 
 
+b = nf.create_block(name="Ca_imaging_data_shift_210421", type_="Ca.raw.shift.210421")
+g = b.create_group(name="Ca.N2.URX", type_="Ca.N2.URX")
+for fname in file_dict:
+    curr_data = pd.read_csv(fname, header=None, names=head_col)
+    print(file_dict[fname])
+
+    # use date and worm number as name
+    basic_name = f"Ca.{file_dict[fname][0]}.{file_dict[fname][5]}"
+    basic_type = "Ca.shift.210421.N2.URX"
+
+    # Group data by experiment data arrays
+    add_data(b, g, basic_name, basic_type, curr_data)
+
+
 nf.close()
