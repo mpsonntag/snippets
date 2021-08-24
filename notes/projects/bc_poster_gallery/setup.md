@@ -65,3 +65,70 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
 sudo chmod g+w $PROJ_ROOT -R
 ```
+
+### Run initial gin service setup
+
+- pull all required docker containers (db, gin-web:bc20, bc20-uploader)
+```bash
+cd $PROJ_ROOT
+docker-compose pull
+```
+
+- prepare the postgres database container for the first gin setup
+```bash
+docker-compose up -d db
+docker exec -it bc_db_1 /bin/bash
+su -l postgres
+createuser -P gin
+# enter password for new role and save it before using it - e.g. somethingSecret
+# note this password, it will later be used on the initial gin setup page
+createdb -O gin gin
+exit
+exit
+```
+
+- launch gin-web docker container
+```bash
+docker-compose up web
+```
+
+- start the gin setup via the browser at bc.g-node.org
+    - db:               postgres
+    - host:             posterpgres:5432
+    - user:             gin
+    - password:         [used during database setup]
+    - database name:    gin
+    - app name:         Bernstein Poster Gallery
+    - repo root:        as defined in docker-compose on the container side e.g. /data/repos
+    - domain:           bc.g-node.org
+    - create an administration user "bcadmin".
+
+- NOTE: DO NOT change the application URL during the initial setup - otherwise the default admin cannot be properly set up
+
+- save; this might redirect to an error page, but this is inconsequential
+- check that the page is running at bc.g-node.org
+- on the dev server, stop all containers
+```bash
+cd $PROJ_ROOT
+docker-compose down
+```
+
+- modify the `$PROJ_ROOT/config/gogs/config/app.ini` to mimic the `reference_app.ini`. To ensure custom templates and assets are properly loaded, the ini file's [server] section should contain the lines:
+```
+  LOAD_ASSETS_FROM_DISK = true
+  STATIC_ROOT_PATH = /custom/
+```
+
+- copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to `$PROJ_ROOT/config/templates`
+- update the custom templates and images in `$PROJ_ROOT/config/templates` so links, times and dates match the 
+
+- ensure all directories are owned by users and groups that docker has access to via the docker-compose file
+```bash
+sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+```
+
+- restart all services
+```bash
+cd $PROJ_ROOT
+docker-compose up -d
+```
