@@ -82,9 +82,6 @@ on machine bc20.g-node.org
 directory /data
 directory /gin-bc20 ... contains docker volumes and docker config files ... this is a copy of the files on gin.g-node.org/G-node/gin-bc20
 
-msonntag ... admin
-bc20
-
 repos on bc20.g-node.org
 - Invited Talks ... https://bc20.g-node.org/BernsteinConference2020/InvitedTalks/wiki ... rendered
 
