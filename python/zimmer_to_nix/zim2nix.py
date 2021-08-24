@@ -109,12 +109,12 @@ def run_single_raw(nf):
     plt.show()
 
 
-def run_multiple_raw(nf, file_dict, prot_type, prot_switch, strain, neuron):
+def run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
     b = nf.create_block(name=f"Ca_imaging_data_{prot_type}_{prot_switch}",
                         type_=f"Ca.raw.{prot_type}.{prot_switch}")
     g = b.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
-        ffname = f"{path_base_raw_files}{fname}"
+        ffname = f"{path_base_raw_files}{spec_path}{fname}"
         curr_data = pd.read_csv(ffname, header=None, names=head_col)
         print(file_dict[fname])
 
@@ -126,40 +126,41 @@ def run_multiple_raw(nf, file_dict, prot_type, prot_switch, strain, neuron):
         add_data(b, g, basic_name, basic_type, curr_data)
 
 
-def run_n2_shift_urx(nf):
+def run_shift_n2_urx(nf):
+    spec_path = "/N2/urx/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
-        "/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W7URXx2.log": [
+        "20120705Pflp178GCaMP5kshift210421W7URXx2.log": [
             "20120705", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W7"],
-        "/N2/urx/shift210421/20120705Pflp178GCaMP5kshift210421W8URX.log": [
+        "20120705Pflp178GCaMP5kshift210421W8URX.log": [
             "20120705", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"],
-        "/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W14URX.log": [
+        "20120807Pflp178GCaMP5kShift210421W14URX.log": [
             "20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W14"],
-        "/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W15URX.log": [
+        "20120807Pflp178GCaMP5kShift210421W15URX.log": [
             "20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W15"],
-        "/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W17URX.log": [
+        "20120807Pflp178GCaMP5kShift210421W17URX.log": [
             "20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W17"],
-        "/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W18URX.log": [
+        "20120807Pflp178GCaMP5kShift210421W18URX.log": [
             "20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W18"],
-        "/N2/urx/shift210421/20120807Pflp178GCaMP5kShift210421W21URX.log": [
+        "20120807Pflp178GCaMP5kShift210421W21URX.log": [
             "20120807", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W21"],
-        "/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W4URX.log": [
+        "20120823Pflp178GCaMP5kShift210421W4URX.log": [
             "20120823", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
-        "/N2/urx/shift210421/20120823Pflp178GCaMP5kShift210421W5URX.log": [
+        "20120823Pflp178GCaMP5kShift210421W5URX.log": [
             "20120823", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"],
-        "/N2/urx/shift210421/20121123Pflp178GCaMP5kN2shift210421W1_2ndurx.log": [
+        "20121123Pflp178GCaMP5kN2shift210421W1_2ndurx.log": [
             "20121123", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
-        "/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W3urx.log": [
+        "20121202Pflp178GCaMP5kN2shift_210421W3urx.log": [
             "20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"],
-        "/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W4urx.log": [
+        "20121202Pflp178GCaMP5kN2shift_210421W4urx.log": [
             "20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
-        "/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W5urx.log": [
+        "20121202Pflp178GCaMP5kN2shift_210421W5urx.log": [
             "20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"],
-        "/N2/urx/shift210421/20121202Pflp178GCaMP5kN2shift_210421W8urx.log": [
+        "20121202Pflp178GCaMP5kN2shift_210421W8urx.log": [
             "20120802", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"],
-        "/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W2urx.log": [
+        "20121205Pflp178GCaMP5kN2shift_210421W2urx.log": [
             "20120805", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
-        "/N2/urx/shift210421/20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log": [
+        "20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log": [
             "20120805", "N2", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"]
     }
 
@@ -168,12 +169,58 @@ def run_n2_shift_urx(nf):
     strain = "N2"
     neuron = "URX"
 
-    run_multiple_raw(nf, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+
+
+def run_ramp_n2_urx(nf):
+    spec_path = "/N2/urx/ramp210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120703Pflp178GCaMP5kRamp210421W2URX.log": [
+            "20120703", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W2"],
+        "20120703Pflp178GCaMP5kRamp210421W6URX.log": [
+            "20120703", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W6"],
+        "20120807Pflp178GCaMP5kRamp210421W11URXl.log": [
+            "20120807", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W11"],
+        "20120807Pflp178GCaMP5kRamp210421W6URXl.log": [
+            "20120807", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W6"],
+        "20121116Pflp178GCaMP5kN2Ramp210421W3urx.log": [
+            "20121116", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W3"],
+        "20121128Pflp178GCaMP5kN2Ramp_2_210421W3urx.log": [
+            "20121128", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W3"],
+        "20120703Pflp178GCaMP5kRamp210421W3URX.log": [
+            "20120703", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W3"],
+        "20120705Pflp178GCaMP5kRamp210421W3URX.log": [
+            "20120705", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W3"],
+        "20120807Pflp178GCaMP5kRamp210421W1URX.log": [
+            "20120807", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W1"],
+        "20121108Pflp178GCaMP5kN2Ramp210421W2urx.log": [
+            "20121108", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W2"],
+        "20121123Pflp178GCaMP5kN2Ramp210421W1urx.log": [
+            "20121123", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W1"],
+        "20120703Pflp178GCaMP5kRamp210421W4URX.log": [
+            "20120703", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W4"],
+        "20120705Pflp178GCaMP5kRamp210421W4URX.log": [
+            "20120705", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W4"],
+        "20120807Pflp178GCaMP5kRamp210421W2URX1.log": [
+            "20120807", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W2"],
+        "20121108Pflp178GCaMP5kN2Ramp210421W3urx.log": [
+            "20121108", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W3"],
+        "20121128Pflp178GCaMP5kN2Ramp_2_210421W2urx.log": [
+            "20121128", "N2", "Pflp178GCaMP5k", "O2-ramp-210421", "URX", "W2"]
+    }
+
+    prot_type = "ramp"
+    prot_switch = "210421"
+    strain = "N2"
+    neuron = "URX"
+
+    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
 #run_single_raw(nif)
-run_n2_shift_urx(nif)
+run_shift_n2_urx(nif)
 nif.close()
