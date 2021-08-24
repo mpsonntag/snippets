@@ -132,3 +132,23 @@ sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
 cd $PROJ_ROOT
 docker-compose up -d
 ```
+
+
+## Required repository setup
+
+### ssh access for cloning, local editing and pushing
+
+- copy ssh git key to the gogs user's settings
+- create a repo via the webinterface
+- clone it locally; use the appropriate port number - in our example it was 2424
+```bash
+    git clone ssh://git@bc.g-node.org:2424/[owner]/[reponame].git
+```
+
+- to clone the wiki, it has to be initialized via the web service as well
+  - bc.g-node.org/[owner]/[reponame]/wiki
+  - create a page
+  - clone locally:
+```bash
+git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
+```
