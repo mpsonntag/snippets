@@ -218,9 +218,84 @@ def run_ramp_n2_urx(nf):
     run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
+def run_shift_egl3_urx(nf):
+    spec_path = "/egl3/urx/shift210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120906Pflp178GCaMP5kegl3Shift210421W2URX.log": [
+            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121017Pflp178GCaMP5kegl3Shift210421W2urx.log": [
+            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W5_lowSigurx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W5"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W11urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W11"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W4urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
+        "20121017Pflp178GCaMP5kegl3Shift210421W1URX.log": [
+            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W1urx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121202Pflp178GCaMP5kegl3shift_210421W8urx.log": [
+            "20121202", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W8"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W1urx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20121205Pflp178GCaMP5kegl3shift_210421W6_lowSigurx.log": [
+            "20121205", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W6"]
+    }
+
+    prot_type = "shift"
+    prot_switch = "210421"
+    strain = "egl3"
+    neuron = "URX"
+
+    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+
+
+def run_ramp_egl3_urx(nf):
+    spec_path = "/egl3/urx/ramp210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120906Pflp178GCaMP5kegl3Ramp210421W3URX.log": [
+            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"],
+        "20121017Pflp178GCaMP5kegl3Ramp210421W3urx.log": [
+            "20121017", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"],
+        "20121108Pflp178GCaMP5kegl3Ramp210421W3urx.log": [
+            "20121108", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"],
+        "20121116Pflp178GCaMP5kegl3Ramp210421W3urx.log": [
+            "20121116", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W3"],
+        "20120906Pflp178GCaMP5kegl3Ramp210421W4URX.log": [
+            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
+        "20121023Pflp178GCaMP5kegl3Ramp210421W2urx.log": [
+            "20121023", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121108Pflp178GCaMP5kegl3Ramp210421W4urx.log": [
+            "20121108", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W1urx.log": [
+            "20121128", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W1"],
+        "20120906Pflp178GCaMP5kegl3Ramp210421W7URX.log": [
+            "20120906", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W7"],
+        "20121023Pflp178GCaMP5kegl3Ramp210421W4urx.log": [
+            "20121023", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W4"],
+        "20121116Pflp178GCaMP5kegl3Ramp210421W2urx.log": [
+            "20121116", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W2"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W6urx.log": [
+            "20121128", "egl3", "Pflp178GCaMP5k", "O2-shift-210421", "URX", "W6"]
+    }
+
+    prot_type = "ramp"
+    prot_switch = "210421"
+    strain = "egl3"
+    neuron = "URX"
+
+    run_multiple_raw(nf, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+
+
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
 #run_single_raw(nif)
 run_shift_n2_urx(nif)
+run_ramp_n2_urx(nif)
+run_shift_egl3_urx(nif)
+run_ramp_egl3_urx(nif)
 nif.close()
