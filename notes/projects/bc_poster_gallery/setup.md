@@ -152,3 +152,18 @@ docker-compose up -d
 ```bash
 git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 ```
+
+### Create all required repos and wikis
+
+- create the following organizations via the Web interface: "BernsteinConference", "G-Node"
+- adjust the BernsteinConference organization logo
+- create the "Info" repository using the "G-Node" organization and initialize the wiki
+- clone the G-Node/Info.wiki.git using git locally and add the footer pages using the files from gin.g-node.org.
+- create the following repositories using the "BernsteinConference" organization:
+  - InvitedTalks
+  - ContributedTalks
+  - Posters
+  - Workshops
+  - Main
+  - create the first wiki page for all repos via the web interface
+
