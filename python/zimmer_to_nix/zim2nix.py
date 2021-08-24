@@ -302,6 +302,72 @@ def run_ramp_egl3_urx(block):
                      prot_type, prot_switch, strain, neuron, marker)
 
 
+def run_ramp_n2_bag(block):
+    spec_path = "/N2/bag/ramp210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120703Pflp178GCaMP5kRamp210421W2BAG.log": ["20120703", "W2"],
+        "20120703Pflp178GCaMP5kRamp210421W5BAG.log": ["20120703", "W5"],
+        "20120703Pflp178GCaMP5kRamp210421W6BAG.log": ["20120703", "W6"],
+        "20120705Pflp178GCaMP5kRamp210421W1BAG.log": ["20120705", "W1"],
+        "20120705Pflp178GCaMP5kRamp210421W2upperBAG.log": ["20120705", "W2"],
+        "20120705Pflp178GCaMP5kRamp210421W3BAG.log": ["20120705", "W3"],
+        "20120705Pflp178GCaMP5kRamp210421W5BAGu.log": ["20120705", "W5"],
+        "20120726Pflp178GCaMP5kRamp210421W2BAG.log": ["20120726", "W2"],
+        "20120807Pflp178GCaMP5kRamp210421W10BAG.log": ["20120807", "W10"],
+        "20120807Pflp178GCaMP5kRamp210421W12BAG.log": ["20120807", "W12"],
+        "20120807Pflp178GCaMP5kRamp210421W5BAGu.log": ["20120807", "W5"],
+        "20120807Pflp178GCaMP5kRamp210421W8BAG.log": ["20120807", "W8"],
+        "20120823Pflp178GCaMP5kRamp210421W6BAG.log": ["20120823", "W6"],
+        "20121116Pflp178GCaMP5kN2Ramp210421W1bag.log": ["20121116", "W1"],
+        "20121116Pflp178GCaMP5kN2Ramp210421W2bag.log": ["20121116", "W2"],
+        "20121116Pflp178GCaMP5kN2Ramp210421W3bag.log": ["20121116", "W3"],
+        "20121128Pflp178GCaMP5kN2Ramp_2_210421W1bag.log": ["20121128", "W1"]
+    }
+
+    prot_type = "ramp"
+    prot_switch = "210421"
+    strain = "N2"
+    neuron = "BAG"
+    marker = "Pflp178GCaMP5k"
+
+    run_multiple_raw(block, spec_path, file_dict,
+                     prot_type, prot_switch, strain, neuron, marker)
+
+
+def run_ramp_egl3_bag(block):
+    spec_path = "/egl3/bag/ramp210421/"
+    # dict reference: date, strain, genetic modification, stimulus protocol,
+    file_dict = {
+        "20120904Pflp178GCaMP5kegl3Ramp210421W12BAG.log": ["20120904", "W12"],
+        "20120906Pflp178GCaMP5kegl3Ramp210421W3BAG.log": ["20120906", "W3"],
+        "20120906Pflp178GCaMP5kegl3Ramp210421W4BAG.log": ["20120906", "W4"],
+        "20120906Pflp178GCaMP5kegl3Ramp210421W5BAG.log": ["20120906", "W5"],
+        "20121023Pflp178GCaMP5kegl3Ramp210421W1bag.log": ["20121023", "W1"],
+        "20121023Pflp178GCaMP5kegl3Ramp210421W3bag.log": ["20121023", "W3"],
+        "20121023Pflp178GCaMP5kegl3Ramp210421W5bag.log": ["20121023", "W5"],
+        "20121108Pflp178GCaMP5kegl3Ramp210421W1bag.log": ["20121108", "W1"],
+        "20121108Pflp178GCaMP5kegl3Ramp210421W4bag.log": ["20121108", "W4"],
+        "20121116Pflp178GCaMP5kegl3Ramp210421W1bag.log": ["20121116", "W1"],
+        "20121116Pflp178GCaMP5kegl3Ramp210421W3bag.log": ["20121116", "W3"],
+        "20121116Pflp178GCaMP5kegl3Ramp210421W4bag.log": ["20121116", "W4"],
+        "20121123Pflp178GCaMP5kegl3Ramp210421W2bag.log": ["20121123", "W2"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W1bag.log": ["20121128", "W1"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W2bag.log": ["20121128", "W2"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W4bag.log": ["20121128", "W4"],
+        "20121128Pflp178GCaMP5kegl3Ramp_2_210421W5bag.log": ["20121128", "W5"]
+    }
+
+    prot_type = "ramp"
+    prot_switch = "210421"
+    strain = "egl3"
+    neuron = "BAG"
+    marker = "Pflp178GCaMP5k"
+
+    run_multiple_raw(block, spec_path, file_dict,
+                     prot_type, prot_switch, strain, neuron, marker)
+
+
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
@@ -318,5 +384,7 @@ b = nif.create_block(name=f"Ca_imaging_data_ramp_210421",
                      type_=f"Ca.raw.ramp.210421")
 run_ramp_n2_urx(b)
 run_ramp_egl3_urx(b)
+run_ramp_n2_bag(b)
+run_ramp_egl3_bag(b)
 
 nif.close()
