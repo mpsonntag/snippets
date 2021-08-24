@@ -1,3 +1,7 @@
+# Bernstein conference Poster gallery setup notes
+
+This file describes the setup of the Bernstein conference variant of the GIN service.
+
 
 ## Installation requirements
 
