@@ -191,7 +191,7 @@ sudo chmod g+w $PROJ_ROOT -R
 
 - create apache configurations for bc20 and bc20-posters in /etc/apache2/sites-available
 
-- create certbot certificates (certbot command might differ depending on OS) -> need to upgrade certbot to latest version anyway
+- create certbot certificates (certbot command might differ depending on OS) -> need to upgrade certbot to the latest version anyway
 
 ```bash
 # Stop apache
