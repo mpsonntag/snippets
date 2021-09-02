@@ -179,8 +179,9 @@ TDB
 ## Prepare the wiki update scripts
 
 - prepare a spreadsheet with all required information
+- the spreadsheet can contain additional columns, but these are the columns that have to be provided and the column titles have to be present and the text has to match; the order can differ
 
-  TDB spreadsheet format
+  "abstract no NEW", "title", "authors", "email", "topic", "id", "session", "time"
 
 - locally clone the BC20 repo from github (https://github.com/G-Node/BC20)
   - initialize and fetch all submodules
@@ -188,3 +189,9 @@ TDB
 - locally clone the BC20data repo from gin (https://gin.g-node.org/G-Node/BC20data)
   - cleanup from the last conference if required
   - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone
+
+- save the spreadsheet to tsv
+- cleanup the tsv that only the columns noted above are in the tsv file
+- run the `tojson.py` script
+- with the output run the `mkuploadcodes.py` script
+- move the resulting json file to file `posters.json` the uploader config directory on the server. Restart should not be necessary, but it does not hurt to test.
