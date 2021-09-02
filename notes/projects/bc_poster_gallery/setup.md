@@ -196,6 +196,10 @@ TDB
 - with the output run the `mkuploadcodes.py` script
 - move the resulting json file to file `posters.json` the uploader config directory on the server. Restart should not be necessary, but it does not hurt to test.
 
+- download the abstract texts from the GCA server; make sure you have the credentials prepared -> check the GCA-Client github README for details
+  - ./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json
+  - make sure that all abstracts on the server have been REVIEWED. InReview and InPreparation are skipped.
+  
 - prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
 
 - update `mkgalleries.py`:
