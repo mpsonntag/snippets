@@ -171,3 +171,20 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   - Main
   - create the first wiki page for all repos via the web interface
 
+
+## Update the uploader service
+
+TDB
+
+## Prepare the wiki update scripts
+
+- prepare a spreadsheet with all required information
+
+  TDB spreadsheet format
+
+- locally clone the BC20 repo from github (https://github.com/G-Node/BC20)
+  - initialize and fetch all submodules
+
+- locally clone the BC20data repo from gin (https://gin.g-node.org/G-Node/BC20data)
+  - cleanup from the last conference if required
+  - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone
