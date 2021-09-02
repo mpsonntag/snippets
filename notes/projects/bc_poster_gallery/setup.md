@@ -195,3 +195,13 @@ TDB
 - run the `tojson.py` script
 - with the output run the `mkuploadcodes.py` script
 - move the resulting json file to file `posters.json` the uploader config directory on the server. Restart should not be necessary, but it does not hurt to test.
+
+- prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
+
+- update `mkgalleries.py`:
+  - URLs, repos 
+  - topics
+  - session times
+  - item types
+  - index_text
+  - withdrawn
