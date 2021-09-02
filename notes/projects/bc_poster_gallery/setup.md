@@ -202,6 +202,12 @@ TDB
   
 - prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
 
+- prepare gin repos and wiki remotes
+    git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].git
+    # move the repo name to ALL LOWERCASE otherwise the mkgallery script will create files in other lowercase dirs.
+    # cd into the directory; add wiki as remote
+    git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
+
 - update `mkgalleries.py`:
   - URLs, repos 
   - topics
