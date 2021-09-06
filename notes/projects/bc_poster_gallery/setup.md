@@ -111,7 +111,7 @@ docker-compose up web
 
 - save; this might redirect to an error page, but this is inconsequential
 - check that the page is running at bc.g-node.org
-- on the dev server, stop all containers
+- on the server, stop all containers
 ```bash
 cd $PROJ_ROOT
 docker-compose down
@@ -121,6 +121,11 @@ docker-compose down
 ```
   LOAD_ASSETS_FROM_DISK = true
   STATIC_ROOT_PATH = /custom/
+```
+
+  - the `service` section has to contain `REQUIRE_SIGN_IN = true` to ensure, that only logged in users have access to the repositories
+```
+  REQUIRE_SIGNIN_VIEW    = true
 ```
 
 - copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to `$PROJ_ROOT/config/templates`
@@ -201,6 +206,15 @@ TDB
   - make sure that all abstracts on the server have been REVIEWED. InReview and InPreparation are skipped.
   
 - prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
+
+- copy "assets" and "banners" from a previous conference to the "posters" repository, commit and push
+  -> these are required for the banners on the poster topic pages and poster topic thumbnails
+- for the poster thumbnail conversion to work, you need 
+  - imagemagick installed
+  - set the security policy to allow PDFs to be accessed by imagemagick `convert`;
+    - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
+    - the policy file can be found by running `convert -list policy`
+    - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
 
 - prepare gin repos and wiki remotes
     git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].git
