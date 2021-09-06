@@ -229,3 +229,15 @@ TDB
   - item types
   - index_text
   - withdrawn
+
+- run the following to create poster, contributed and invited talks files
+  `python mkgalleries.py [path to json file] [path to galleries root]`
+- run the following to download PDFs and create thumbnails for these PDFs
+  `python mkgalleries.py --download [path to json file] [path to galleries root]`
+- run the following to create images for equations in the abstracts of the posters
+
+- once all this is done commit and upload the changes:
+  git add --all
+  git commit -m "Updates"
+  git push origin master
+  git push wiki master
