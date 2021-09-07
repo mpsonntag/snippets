@@ -169,11 +169,12 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 - create the "Info" repository using the "G-Node" organization and initialize the wiki
 - clone the G-Node/Info.wiki.git using git locally and add the footer pages using the files from gin.g-node.org.
 - create the following repositories using the "BernsteinConference" organization:
+  - Main
+  - Posters
   - InvitedTalks
   - ContributedTalks
-  - Posters
   - Workshops
-  - Main
+  - Exhibitors
   - create the first wiki page for all repos via the web interface
 
 
@@ -202,13 +203,15 @@ TDB
 - move the resulting json file to file `posters.json` the uploader config directory on the server. Restart should not be necessary, but it does not hurt to test.
 
 - download the abstract texts from the GCA server; make sure you have the credentials prepared -> check the GCA-Client github README for details
-  - ./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json
+  - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
   - make sure that all abstracts on the server have been REVIEWED. InReview and InPreparation are skipped.
   
 - prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
 
 - copy "assets" and "banners" from a previous conference to the "posters" repository, commit and push
   -> these are required for the banners on the poster topic pages and poster topic thumbnails
+  -> the images can also be found in the gin.g-node.org/G-Node/bc20data repository.
+
 - for the poster thumbnail conversion to work, you need 
   - imagemagick installed
   - set the security policy to allow PDFs to be accessed by imagemagick `convert`;
@@ -237,7 +240,9 @@ TDB
 - run the following to create images for equations in the abstracts of the posters
 
 - once all this is done commit and upload the changes:
+```bash
   git add --all
   git commit -m "Updates"
   git push origin master
   git push wiki master
+```
