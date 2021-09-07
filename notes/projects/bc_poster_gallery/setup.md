@@ -182,32 +182,54 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 
 TDB
 
-## Prepare the wiki update scripts
+## Poster gallery wiki preparations
 
-- prepare a spreadsheet with all required information
-- the spreadsheet can contain additional columns, but these are the columns that have to be provided and the column titles have to be present and the text has to match; the order can differ
-
-  "abstract no NEW", "title", "authors", "email", "topic", "id", "session", "time"
-
-- locally clone the BC20 repo from github (https://github.com/G-Node/BC20)
+- locally clone the BC20 repo from github https://github.com/G-Node/BC20
   - initialize and fetch all submodules
 
 - locally clone the BC20data repo from gin (https://gin.g-node.org/G-Node/BC20data)
   - cleanup from the last conference if required
-  - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone
+  - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone or work directly within this clone.
 
-- save the spreadsheet to tsv
-- cleanup the tsv that only the columns noted above are in the tsv file
-- run the `tojson.py` script
-- with the output run the `mkuploadcodes.py` script
-- move the resulting json file to file `posters.json` the uploader config directory on the server. Restart should not be necessary, but it does not hurt to test.
+- the following preparations require a couple of manual steps between the main `json` file and a spreadsheet shared with BCOS. The main `json`file will change multiple times before it contains all information required to create the poster gallery. 
+- prepare a spreadsheet with all required information (posters, invited talks, contributed talks); ideally this spreadsheet is available online e.g. via sciebo and is shared with BCOS.
+- the following are the required columns and the column titles have to match exactly; the order can differ and there may be additional columns that will be ignored; NOTE: column title "abstract no NEW" will be transformed to column title "abstract_number" by the `tojson.py` script. Some columns are empty for now and will be manually filled during the next steps.
 
-- download the abstract texts from the GCA server; make sure you have the credentials prepared -> check the GCA-Client github README for details
+  "abstract no NEW", "title", "authors", "email", "topic", "id", "session", "time", "upload_key", " "vimeo link", "link hopin", "individual video link" "repo_link"
+
+- save the spreadsheet to a tab separated csv file.
+- move to the `scripts` folder of the github "BC20" repository
+- run the `tojson.py` script providing the tsv file saved in the step above.
+  ```bash
+  python tojson.py posters.csv 
+  ```
+- with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The uploadcodes require a salt file for the code creation.
+  ```bash
+  python mkuploadcodes.py [uploadsalt file] [posters.json]
+  ```
+- move the resulting json file to file `posters.json` in the uploader config directory (`[path]/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
+- add the upload codes to the online spreadsheet "upload_key" column.
+- make sure the spreadsheet also contains invited and contributed talks
+- download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client github README for details.
   - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
-  - make sure that all abstracts on the server have been REVIEWED. InReview and InPreparation are skipped.
-  
-- prepare a sheet that contains all posters, invited and contributed talks; add the upload_key if applicable
+  - make sure that all abstracts on the server have been REVIEWED. Abstracts in state InReview and InPreparation are skipped.
 
+- update information in the BC20 repo in `scripts/mkgalleries.py` to accommodate the new conference:
+  - URLs, repos 
+  - topics
+  - session times
+  - item types
+  - index_text
+  - withdrawn
+
+- create a "galleries" directory in the BC20 repository
+- prepare bc.g-node.org repos and wiki remotes; clone all galleries ("posters", "invitedtalks", "contributedtalks", "main", "workshops", "exhibitors") into the BC20 repo "galleries" directory
+- after cloning, move the repo name to ALL LOWERCASE, otherwise the mkgallery script will create files in other lowercase dirs; `cd` into the directory; add wiki as remote
+  ```bash
+  git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].git
+  # rename and move to repo
+  git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
+  ```
 - copy "assets" and "banners" from a previous conference to the "posters" repository, commit and push
   -> these are required for the banners on the poster topic pages and poster topic thumbnails
   -> the images can also be found in the gin.g-node.org/G-Node/bc20data repository.
@@ -219,19 +241,6 @@ TDB
     - the policy file can be found by running `convert -list policy`
     - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
 
-- prepare gin repos and wiki remotes
-    git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].git
-    # move the repo name to ALL LOWERCASE otherwise the mkgallery script will create files in other lowercase dirs.
-    # cd into the directory; add wiki as remote
-    git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
-
-- update `mkgalleries.py`:
-  - URLs, repos 
-  - topics
-  - session times
-  - item types
-  - index_text
-  - withdrawn
 
 - run the following to create poster, contributed and invited talks files
   `python mkgalleries.py [path to json file] [path to galleries root]`
