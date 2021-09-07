@@ -256,6 +256,9 @@ TDB
   `python mkgalleries.py --render-equations [path to json file] [path to galleries root]`
 
 - workshops have their own spreadsheet and get their own run `tojson` and conversion to a gallery using the `mkworkshopgallery.py` script.
+  - the workshop tsv file has to contain "workshops" in its filename before it will be correctly converted to json by the `tojson.py` script.
+  - the workshop spreadsheet has to contain the following named columns:
+    "workshop number", "workshop name", "organisers", "info url", "talk title", "speakers", "recording status", "recording url"
 
 - once all this is done commit and upload the changes for all changed galleries:
 ```bash
@@ -272,5 +275,5 @@ TDB
   - merge abstract texts with json file
   - download PDFs and render equations
   - make galleries
-  - if required update workshops as well: DL tsv, `tojson`, `mkworkshopgallery`
+  - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
