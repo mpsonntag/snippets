@@ -213,6 +213,10 @@ TDB
 - download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client github README for details.
   - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
   - make sure that all abstracts on the server have been REVIEWED. Abstracts in state InReview and InPreparation are skipped.
+- from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstracts information. It will create a `posters-abstracts.json` file containing all posters information with the abstracts texts.
+  ```bash
+  python mergeabstracts.py abstracts.json posters.json
+  ```
 
 - update information in the BC20 repo in `scripts/mkgalleries.py` to accommodate the new conference:
   - URLs, repos 
@@ -224,15 +228,18 @@ TDB
 
 - create a "galleries" directory in the BC20 repository
 - prepare bc.g-node.org repos and wiki remotes; clone all galleries ("posters", "invitedtalks", "contributedtalks", "main", "workshops", "exhibitors") into the BC20 repo "galleries" directory
-- after cloning, move the repo name to ALL LOWERCASE, otherwise the mkgallery script will create files in other lowercase dirs; `cd` into the directory; add wiki as remote
   ```bash
-  git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].git
+  e.g.; adjust server name and port as required
+  git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/Main.git
+  ```
+- after cloning, move the repo names to ALL LOWERCASE, otherwise the `mkgallery.py` script will create files in other lowercase dirs; `cd` into the directory; add `wiki` as an additional git remote.
+  ```bash
   # rename and move to repo
   git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
   ```
-- copy "assets" and "banners" from a previous conference to the "posters" repository, commit and push
-  -> these are required for the banners on the poster topic pages and poster topic thumbnails
-  -> the images can also be found in the gin.g-node.org/G-Node/bc20data repository.
+- copy `assets` and `banners` directories from a previous conference to the "posters" repository, commit and push
+  - these are required for the banners on the poster topic pages and poster topic thumbnails
+  - the images can also be found in the gin.g-node.org/G-Node/BC20data repository.
 
 - for the poster thumbnail conversion to work, you need 
   - imagemagick installed
@@ -240,13 +247,13 @@ TDB
     - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
     - the policy file can be found by running `convert -list policy`
     - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
-
-
+  
 - run the following to create poster, contributed and invited talks files
-  `python mkgalleries.py [path to json file] [path to galleries root]`
-- run the following to download PDFs and create thumbnails for these PDFs
+  `python mkgalleries.py [path to main/abstracts json file] [path to galleries root]`
+- run the following to download PDFs from the PDF upload server and create thumbnails for these PDFs
   `python mkgalleries.py --download [path to json file] [path to galleries root]`
-- run the following to create images for equations in the abstracts of the posters
+- run the following to create images for any latex equations in the abstracts texts of the posters
+  `python mkgalleries.py --render-equations [path to json file] [path to galleries root]`
 
 - once all this is done commit and upload the changes:
 ```bash
