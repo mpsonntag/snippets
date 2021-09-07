@@ -255,10 +255,22 @@ TDB
 - run the following to create images for any latex equations in the abstracts texts of the posters
   `python mkgalleries.py --render-equations [path to json file] [path to galleries root]`
 
-- once all this is done commit and upload the changes:
+- workshops have their own spreadsheet and get their own run `tojson` and conversion to a gallery using the `mkworkshopgallery.py` script.
+
+- once all this is done commit and upload the changes for all changed galleries:
 ```bash
   git add --all
   git commit -m "Updates"
   git push origin master
   git push wiki master
 ```
+
+- whenever new changes come in - either via the shared spreadsheet e.g. when the hopin links are provided, if any changes in the abstracts texts are done or if PDFs have been changed, rinse and repeat the following:
+  - download shared spreadsheet as tab separated csv
+  - run `tojson.py`
+  - fetch abstract texts
+  - merge abstract texts with json file
+  - download PDFs and render equations
+  - make galleries
+  - if required update workshops as well: DL tsv, `tojson`, `mkworkshopgallery`
+  - commit and upload changes to the wiki
