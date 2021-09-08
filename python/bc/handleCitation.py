@@ -1,5 +1,7 @@
 import json
 
+from datetime import date
+
 fname = "/home/msonntag/Chaos/staging/posters2021/BC20data/abstracts.json"
 
 with open(fname) as jfp:
@@ -17,3 +19,10 @@ for item in data:
     doi_item = ""
     if "doi" in item.keys() and item["doi"] and len(item["doi"]) > 0:
         doi_item = f' doi: <a href="https://doi.org/{item["doi"]}">{item["doi"]}</a>'
+
+    year = date.today().year
+    copy_item = f"Copyright: © ({year}) {cit_list}"
+    cit_item = f"Citation: {cit_list} ({year}) {item['title']}. " \
+               f"Bernstein Conference {year}.{doi_item}"
+
+    print(f"{copy_item}\n{cit_item}")
