@@ -14,3 +14,6 @@ for item in data:
             mid_name = f" {auth['middleName'][0]}."
         citation = f"{auth['lastName']}{first_name}{mid_name}"
         cit_list = f"{cit_list}, {citation}" if len(cit_list) > 0 else citation
+    doi_item = ""
+    if "doi" in item.keys() and item["doi"] and len(item["doi"]) > 0:
+        doi_item = f' doi: <a href="https://doi.org/{item["doi"]}">{item["doi"]}</a>'
