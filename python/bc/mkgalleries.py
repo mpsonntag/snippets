@@ -12,7 +12,7 @@ import pathlib as pl
 import subprocess as sp
 
 from datetime import date
-from typing import List, Dict, Callable, Optional
+from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import quote as urlquote
 
 from latex2svg.latex2svg import latex2svg
@@ -53,6 +53,11 @@ INDEX_TEXT = {
 }
 # use NEW abstract numbers
 WITHDRAWN = [65]
+WORKSHOP_RECORD_MSG = {
+    "recording": "Video recording will be available",
+    "no recording": "Video recording will not be made available",
+    "waiting": "",
+}
 
 
 def runcmd(*args):
@@ -467,16 +472,85 @@ def filter_withdrawn(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return data
 
 
+def make_workshop_pages(data: List[Dict[str, str]], targetdir: pl.Path):
+    workshops: Dict[str, Dict[str, Any]] = dict()
+    home_fname = "Home.md"
+    list_content: List[str] = list()
+
+    for item in data:
+        num = item["workshop number"]
+        name = item["workshop name"]
+        organisers = item["organisers"]
+        url = item["info url"]
+        if num not in workshops:
+            workshops[num] = dict()
+            workshops[num]["name"] = name
+            workshops[num]["organisers"] = organisers
+            workshops[num]["url"] = url
+            workshops[num]["talks"] = list()
+
+        workshops[num]["talks"].append({
+            "title": item["talk title"],
+            "speakers": item["speakers"],
+            "recording": item["recording status"],
+            "videourl": item["recording url"],
+        })
+
+    for num, ws in workshops.items():
+        name = ws["name"]
+        organisers = ws["organisers"]
+        url = ws["url"]
+        ntalks = len(ws["talks"])
+        entry = f"**[{name}](wiki/Workshop{num})**  \n"
+        entry += f"{organisers}  \n"
+        entry += f"**Workshop {num}** | {ntalks} talks\n\n"
+        list_content.append(entry)
+
+        content = list()
+        content.append(f"# {name}\n\n")
+        content.append(f"Organizers: {organisers}   \n")
+        content.append(f"**[Workshop {num} abstract and schedule]({url})**\n\n")
+
+        for idx, talk in enumerate(ws["talks"]):
+            title = talk["title"]
+            speakers = talk["speakers"]
+            recstatus = talk["recording"]
+            content.append(f"{idx+1}. {title}  \n")
+            content.append(f"{speakers}  \n")
+            if vidurl := talk["videourl"]:
+                content.append(f"[Video recording]({vidurl})\n")
+            elif recmsg := WORKSHOP_RECORD_MSG[recstatus]:
+                content.append(f"*{recmsg}*\n")
+            content.append("\n")
+
+        fname = f"Workshop{num}.md"
+        file_path = targetdir.joinpath(fname)
+        with open(file_path, "w") as wsfile:
+            wsfile.write("".join(content))
+
+    list_path = targetdir.joinpath(home_fname)
+    head_text = INDEX_TEXT["workshops"]
+    head_img = section_header("workshops")
+    with open(list_path, "w") as listfile:
+        listfile.write(f"![Workshops]({head_img})\n\n")
+        listfile.write(head_text + "\n\n")
+        listfile.write("\n".join(list_content))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--download", dest="download", action="store_true",
                         help="Download new files from upload service")
     parser.add_argument("--render-equations", dest="equations", action="store_true",
                         help="Create pngs for LaTeX equations in abstracts")
+    parser.add_argument("--workshops", dest="workshops", action="store_true",
+                        help="Create workshop pages instead of posters")
     parser.add_argument("jsonfile", help="JSON file with the poster data")
     parser.add_argument("targetdir",
                         help="Directory in which to create galleries")
     args = parser.parse_args()
+
+    workshops = args.workshops
 
     download = args.download
     equations = args.equations
@@ -486,6 +560,15 @@ def main():
         data = json.load(jfp)
 
     targetdir.mkdir(parents=True, exist_ok=True)
+    # special handling of workshops
+    if workshops:
+        print("Creating workshop pages ...")
+        workshopsdir = targetdir.joinpath("workshops")
+        workshopsdir.mkdir(parents=True, exist_ok=True)
+
+        make_workshop_pages(data, workshopsdir)
+        return
+
     postersdir = targetdir.joinpath("posters")
     postersdir.mkdir(parents=True, exist_ok=True)
     invtalksdir = targetdir.joinpath("invitedtalks")
