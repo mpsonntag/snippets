@@ -525,12 +525,14 @@ def make_workshop_pages(data: List[Dict[str, str]], targetdir: pl.Path):
 
         fname = f"Workshop{num}.md"
         file_path = targetdir.joinpath(fname)
+        print(f"Creating landing page {file_path}")
         with open(file_path, "w") as wsfile:
             wsfile.write("".join(content))
 
     list_path = targetdir.joinpath(home_fname)
     head_text = INDEX_TEXT["workshops"]
     head_img = section_header("workshops")
+    print(f"Creating file {list_path} ...")
     with open(list_path, "w") as listfile:
         listfile.write(f"![Workshops]({head_img})\n\n")
         listfile.write(head_text + "\n\n")
@@ -560,13 +562,27 @@ def main():
         data = json.load(jfp)
 
     targetdir.mkdir(parents=True, exist_ok=True)
-    # special handling of workshops
+    # Specific handling of workshops
     if workshops:
+        # Sanity check to avoid writing invalid workshop galleries
+        # Field "workshop number" is 'workshops' specific.
         print("Creating workshop pages ...")
+        if not data or "workshop number" not in data[0].keys():
+            print(f"'{jsonfile}' does not seem to be a valid WORKSHOPS file ...")
+            print("Aborting ...")
+            return
+
         workshopsdir = targetdir.joinpath("workshops")
         workshopsdir.mkdir(parents=True, exist_ok=True)
 
         make_workshop_pages(data, workshopsdir)
+        return
+
+    # Sanity check to avoid writing invalid poster galleries
+    # Field "abstract_number" is 'poster' specific.
+    if not data or "abstract_number" not in data[0].keys():
+        print(f"'{jsonfile}' does not seem to be a valid POSTERS file ...")
+        print("Aborting ...")
         return
 
     postersdir = targetdir.joinpath("posters")
