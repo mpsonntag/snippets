@@ -174,13 +174,9 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   - InvitedTalks
   - ContributedTalks
   - Workshops
-  - Exhibitors
+  - Exhibition
   - create the first wiki page for all repos via the web interface
 
-
-## Update the uploader service
-
-TDB
 
 ## Poster gallery wiki preparations
 
@@ -255,10 +251,19 @@ TDB
 - run the following to create images for any latex equations in the abstracts texts of the posters
   `python mkgalleries.py --render-equations [path to json file] [path to galleries root]`
 
-- workshops have their own spreadsheet and get their own run `tojson` and conversion to a gallery using the `mkworkshopgallery.py` script.
+- workshops and exhibitions have their own spreadsheet and get their own `tojson` run:
   - the workshop tsv file has to contain "workshops" in its filename before it will be correctly converted to json by the `tojson.py` script.
   - the workshop spreadsheet has to contain the following named columns:
     "workshop number", "workshop name", "organisers", "info url", "talk title", "speakers", "recording status", "recording url"
+  - to create the workshops pages, run the `mkgalleries.py` script with the `--workshops` flag
+    ```bash
+    python mkgalleries.py --workshop [path to workshops json file] [path to galleries root]
+    ```
+  - the exhibition tsv file has to contain "exhibition" in its filename before it will be correctly converted to json by the `tojson.py` script.
+  - the exhibition spreadsheet has to contain the following named columns:
+    TBA
+  - to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
+  
 
 - once all this is done commit and upload the changes for all changed galleries:
 ```bash
