@@ -19,6 +19,9 @@ from latex2svg.latex2svg import latex2svg
 
 
 POSTER_SERVER = "posters.bc.g-node.org"
+GALLERY_SERVER = "https://bc.g-node.org"
+POSTER_REPO = "BernsteinConference/posters"
+VIDEO_ICON_URL = f"{GALLERY_SERVER}/img/play.png"
 TOPIC_COLOURS = {
     "Networks, dynamical systems": "yellow",
     "Data analysis, machine learning, neuroinformatics": "blue",
@@ -31,8 +34,6 @@ TOPIC_COLOURS = {
     "Motor control, movement, navigation": "purple",
     #"Other": "darkblue",
 }
-POSTER_REPO = "BernsteinConference/posters"
-VIDEO_ICON_URL = "https://bc.g-node.org/img/play.png"
 SESSION_TIMES = {
     "I": "Wed, Sep 22, 14:15 CEST",
     "II": "Wed, Sep 22, 18:00 CEST",
@@ -90,7 +91,7 @@ def topic_filename(topic: str) -> str:
 
 
 def section_header(section: str) -> str:
-    return f"https://bc.g-node.org/img/BC_Header_{section}.jpg"
+    return f"{GALLERY_SERVER}/img/BC_Header_{section}.jpg"
 
 
 def make_sorter(keyname: str, apply: Callable = None) -> Callable:
