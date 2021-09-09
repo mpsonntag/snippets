@@ -50,6 +50,7 @@ INDEX_TEXT = {
     "invited": "Video links of invited talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
     "contributed": "Video links of contributed talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
     "workshops": "Video links of workshop talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
+    "exhibition": "Welcome to the exhibition page"
 }
 # use NEW abstract numbers
 WITHDRAWN = [65]
@@ -537,6 +538,47 @@ def make_workshop_pages(data: List[Dict[str, str]], targetdir: pl.Path):
         listfile.write(f"![Workshops]({head_img})\n\n")
         listfile.write(head_text + "\n\n")
         listfile.write("\n".join(list_content))
+
+
+def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
+    exhibitors: Dict[str, Dict[str, Any]] = dict()
+    home_fname = "Home.md"
+    list_content: List[str] = list()
+
+    idx = 0
+    for item in data:
+        idx = idx + 1
+        company = item["company_name"]
+        logo = item["logo"]
+        website = item["website"]
+        desc = item["description"]
+
+        # List page content
+        # TODO use ordered dict
+        entry = f"**[{company}](wiki/Exhibition{idx})**  \n"
+        entry += f"{desc}\n\n\n"
+
+        # Landing page content
+        content = list()
+        content.append(f"# {company}\n\n")
+        content.append(f"{desc}\n\n")
+        if website:
+            content.append(f"[Exhibitor website]({website})")
+
+        fname = f"Exhibition{idx}.md"
+        file_path = targetdir.joinpath(fname)
+        print(f"Creating landing page {file_path}")
+        with open(file_path, "w") as exhib_file:
+            exhib_file.write("".join(content))
+
+    list_path = targetdir.joinpath(home_fname)
+    head_text = INDEX_TEXT["exhibition"]
+    head_img = section_header("exhibition")
+    print(f"Creating file {list_path} ...")
+    with open(list_path, "w") as list_file:
+        list_file.write(f"![Exhibition]({head_img})\n\n")
+        list_file.write(head_text + "\n\n")
+        list_file.write("\n".join(list_content))
 
 
 def main():
