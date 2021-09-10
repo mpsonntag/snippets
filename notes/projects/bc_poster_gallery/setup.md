@@ -18,15 +18,14 @@ apache2, certbot, docker, docker-compose
 ### Required registered domains
 
 The following domains need to be registered before the services can be deployed and https certificates issued via certbot.
+- bc.g-node.org
+- posters.bc.g-node.org
 
-bc.g-node.org
-posters.bc.g-node.org
+### Set up apache2 configurations and https certificates
 
-### Set up apache configurations and https certificates
-
-- Set up apache configuration files for the two domains listed above.
-- Run certbot for both domains once both configurations have been enabled for apache.
-- Again for details check the general installation instructions in server-setup.md
+- Set up apache2 configuration files for the two domains listed above.
+- Run certbot for both domains once both configurations have been enabled for apache2.
+- Again, for details check the general installation instructions in server-setup.md.
 
 ## Service installation
 
@@ -65,36 +64,40 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 - rename `$PROJ_ROOT/config/gogs/conf/app.ini` to `reference_app.ini` to avoid it being overwritten after initializing the docker container.
 
 - change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group; also make sure people that may want to edit files are in the same group
-```bash
-sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
-sudo chmod g+w $PROJ_ROOT -R
-```
+
+  ```bash
+  sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+  sudo chmod g+w $PROJ_ROOT -R
+  ```
 
 ### Run initial gin service setup
 
 - pull all required docker containers (db, gin-web:bc20, bc20-uploader)
-```bash
-cd $PROJ_ROOT
-docker-compose pull
-```
+
+  ```bash
+  cd $PROJ_ROOT
+  docker-compose pull
+  ```
 
 - prepare the postgres database container for the first gin setup
-```bash
-docker-compose up -d db
-docker exec -it bc_db_1 /bin/bash
-su -l postgres
-createuser -P gin
-# enter password for new role and save it before using it - e.g. somethingSecret
-# note this password, it will later be used on the initial gin setup page
-createdb -O gin gin
-exit
-exit
-```
+
+  ```bash
+  docker-compose up -d db
+  docker exec -it bc_db_1 /bin/bash
+  su -l postgres
+  createuser -P gin
+  # enter password for new role and save it before using it - e.g. somethingSecret
+  # note this password, it will later be used on the initial gin setup page
+  createdb -O gin gin
+  exit
+  exit
+  ```
 
 - launch gin-web docker container
-```bash
-docker-compose up web
-```
+
+  ```bash
+  docker-compose up web
+  ```
 
 - start the gin setup via the browser at bc.g-node.org
     - db:               postgres
@@ -112,35 +115,40 @@ docker-compose up web
 - save; this might redirect to an error page, but this is inconsequential
 - check that the page is running at bc.g-node.org
 - on the server, stop all containers
-```bash
-cd $PROJ_ROOT
-docker-compose down
-```
 
-- modify the `$PROJ_ROOT/config/gogs/config/app.ini` to mimic the `reference_app.ini`. To ensure custom templates and assets are properly loaded, the ini file's [server] section should contain the lines:
-```
-  LOAD_ASSETS_FROM_DISK = true
-  STATIC_ROOT_PATH = /custom/
-```
+  ```bash
+  cd $PROJ_ROOT
+  docker-compose down
+  ```
 
-  - the `service` section has to contain `REQUIRE_SIGN_IN = true` to ensure, that only logged in users have access to the repositories
-```
-  REQUIRE_SIGNIN_VIEW    = true
-```
+- modify the `$PROJ_ROOT/config/gogs/conf/app.ini` to mimic the `reference_app.ini`:
+  - To ensure custom templates and assets are properly loaded, the ini file's `[server]` section should contain the lines:
+    ```
+      LOAD_ASSETS_FROM_DISK = true
+      STATIC_ROOT_PATH = /custom/
+    ```
+  - the `[service]` section has to contain `REQUIRE_SIGN_IN = true` to ensure, that only logged in users have access to the repositories:
+    ```
+      REQUIRE_SIGNIN_VIEW    = true
+    ```
 
-- copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to `$PROJ_ROOT/config/templates`
-- update the custom templates and images in `$PROJ_ROOT/config/templates` so links, times and dates match the 
+- if this is not already the case, copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to `$PROJ_ROOT/config/gogs/templates`.
+- update the custom templates and images in `$PROJ_ROOT/config/gogs/templates` so links, times and dates match the current conference requirements.
+
+- update the content of the `$PROJ_ROOT/config/uploader` config file to match the current conference requirements.
 
 - ensure all directories are owned by users and groups that docker has access to via the docker-compose file
-```bash
-sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
-```
+
+  ```bash
+  sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
+  ```
 
 - restart all services
-```bash
-cd $PROJ_ROOT
-docker-compose up -d
-```
+
+  ```bash
+  cd $PROJ_ROOT
+  docker-compose up -d
+  ```
 
 
 ## Required repository setup
@@ -204,7 +212,7 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   ```bash
   python mkuploadcodes.py [uploadsalt file] [posters.json]
   ```
-- move the resulting json file to file `posters.json` in the uploader config directory (`[path]/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
+- move the resulting json file to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
 - add the upload codes to the online spreadsheet "upload_key" column.
 - make sure the spreadsheet also contains invited and contributed talks
 - download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client github README for details.
@@ -244,13 +252,22 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
     - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
     - the policy file can be found by running `convert -list policy`
     - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
-  
-- run the following to create poster, contributed and invited talks files
-  `python mkgalleries.py [path to main/abstracts json file] [path to galleries root]`
+
+- run the following to create poster, contributed and invited talks files.
+
+  ```bash
+  python mkgalleries.py [path to posters/abstracts json file] [path to galleries root]
+  ```
+
 - run the following to download PDFs from the PDF upload server and create thumbnails for these PDFs
-  `python mkgalleries.py --download [path to json file] [path to galleries root]`
+  ```bash
+  python mkgalleries.py --download [path to json file] [path to galleries root]
+  ```
+
 - run the following to create images for any latex equations in the abstracts texts of the posters
-  `python mkgalleries.py --render-equations [path to json file] [path to galleries root]`
+  ```bash
+  python mkgalleries.py --render-equations [path to json file] [path to galleries root]
+  ```
 
 - workshops and exhibitions have their own spreadsheet and get their own `tojson` run:
   - the workshop tsv file has to contain "workshops" in its filename before it will be correctly converted to json by the `tojson.py` script.
@@ -268,12 +285,12 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 
 - once all this is done commit and upload the changes for all changed galleries:
 
-```bash
-  git add --all
-  git commit -m "Updates"
-  git push origin master
-  git push wiki master
-```
+  ```bash
+    git add --all
+    git commit -m "Updates"
+    git push origin master
+    git push wiki master
+  ```
 
 - whenever new changes come in - either via the shared spreadsheet e.g. when the hopin links are provided, if any changes in the abstracts texts are done or if PDFs have been changed, rinse and repeat the following:
   - download shared spreadsheet as tab separated csv
