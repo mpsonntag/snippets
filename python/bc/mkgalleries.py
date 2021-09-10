@@ -50,7 +50,7 @@ INDEX_TEXT = {
     "invited": "Video links of invited talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
     "contributed": "Video links of contributed talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
     "workshops": "Video links of workshop talks will appear successively in the repository. We only record talks for which we have the speakers’ consent. Please note, these links must not be published anywhere else.",
-    "exhibition": "Welcome to the exhibition page"
+    "exhibition": "Here you will find information about the Bernstein Conference exhibitors. They inform about their services and products, and supply supplemental material."
 }
 # use NEW abstract numbers
 WITHDRAWN = [65]
@@ -551,10 +551,11 @@ def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
         company = item["company_name"]
         logo = item["logo"]
         website = item["website"]
+        headline = item["headline"]
         desc = item["description"]
+        hopin = item["hopin"]
 
         # List page content
-        # TODO use ordered dict
         entry = f"**[{company}](wiki/Exhibition{idx})**  \n"
         entry += f"{desc}\n\n\n"
 
@@ -589,12 +590,15 @@ def main():
                         help="Create pngs for LaTeX equations in abstracts")
     parser.add_argument("--workshops", dest="workshops", action="store_true",
                         help="Create workshop pages instead of posters")
+    parser.add_argument("--exhibition", dest="exhibition", action="store_true",
+                        help="Create exhibition pages instead of posters")
     parser.add_argument("jsonfile", help="JSON file with the poster data")
     parser.add_argument("targetdir",
                         help="Directory in which to create galleries")
     args = parser.parse_args()
 
     workshops = args.workshops
+    exhibition = args.exhibition
 
     download = args.download
     equations = args.equations
@@ -620,6 +624,22 @@ def main():
         make_workshop_pages(data, workshopsdir)
         return
 
+    # Specific handling of exhibition
+    if exhibition:
+        # Sanity check to avoid writing invalid exhibition galleries
+        # Field "company_name" is 'exhibition' specific.
+        print("Creating exhibition pages ...")
+        if not data or "company_name" not in data[0].keys():
+            print(f"'{jsonfile}' does not seem to be a valid EXHIBITION file ...")
+            print("Aborting ...")
+            return
+
+        exhib_dir = targetdir.joinpath("exhibition")
+        exhib_dir.mkdir(parents=True, exist_ok=True)
+
+        make_exhibition_pages(data, exhib_dir)
+        return
+
     # Sanity check to avoid writing invalid poster galleries
     # Field "abstract_number" is 'poster' specific.
     if not data or "abstract_number" not in data[0].keys():
@@ -639,6 +659,10 @@ def main():
         download_pdfs(data, postersdir)
         print("Done")
 
+    # TODO the current setup does not distinguish between posters, invited talks
+    # or contributed talks.
+    # Which means, that contributed talks or invited talks will replace images for
+    # posters in the posters folder and quite frankly mess things up.
     create_equation_images(data, postersdir, equations)
 
     posterdata = list(filter(lambda item: item["short"] == "P", data))
