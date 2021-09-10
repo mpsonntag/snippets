@@ -557,7 +557,8 @@ def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
 
         # List page content
         entry = f"**[{company}](wiki/Exhibition{idx})**  \n"
-        entry += f"{desc}\n\n\n"
+        entry += f"{headline}\n\n\n"
+        list_content.append(entry)
 
         # Landing page content
         content = list()
