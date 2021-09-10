@@ -199,9 +199,10 @@ def download_pdfs(data: List[Dict[str, str]], targetdir: pl.Path):
     print()
 
 
-def create_equation_images(data: List[Dict[str, str]], targetdir: pl.Path, create: bool):
+def create_equation_images(data: List[Dict[str, str]], targetdir: Dict[str, pl.Path],
+                           create: bool):
+
     for item in data:
-        print(f"Creating equation image for {item['abstract_number']}")
         text = texify(item, targetdir, create)
         item["abstract"] = text
 
@@ -223,16 +224,18 @@ def sanitize_tex(eqn: str) -> str:
     return eqn
 
 
-def texify(item: Dict[str, str], targetdir: pl.Path, create: bool) -> str:
+def texify(item: Dict[str, str], targetdir: Dict[str, pl.Path], create: bool) -> str:
     """
     Replace LaTeX math snippets with images.
     """
     number = item["abstract_number"]
     text = item["abstract"]
+    short = item["short"] if item["short"] in ITEM_TYPES.keys() else "P"
 
-    eqndir = targetdir.joinpath("equations")
+    eqndir = targetdir[short].joinpath("equations")
     eqndir.mkdir(exist_ok=True)
     if match := re.findall(r"\${1,2}.*?\${1,2}", text):
+        print(f"Handling equation image for {item['short']}/{item['abstract_number']}")
         for idx, group in enumerate(match):
             imgbasename = f"{number}-{idx}"
             if create:
@@ -660,11 +663,9 @@ def main():
         download_pdfs(data, postersdir)
         print("Done")
 
-    # TODO the current setup does not distinguish between posters, invited talks
-    # or contributed talks.
-    # Which means, that contributed talks or invited talks will replace images for
-    # posters in the posters folder and quite frankly mess things up.
-    create_equation_images(data, postersdir, equations)
+    # Hack to deal with equations for all posters and talk types
+    equation_dirs = {"P": postersdir, "C": contribtalksdir, "I": invtalksdir}
+    create_equation_images(data, equation_dirs, equations)
 
     posterdata = list(filter(lambda item: item["short"] == "P", data))
     posterdata = sorted(posterdata,
