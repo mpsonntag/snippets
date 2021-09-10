@@ -267,6 +267,7 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   
 
 - once all this is done commit and upload the changes for all changed galleries:
+
 ```bash
   git add --all
   git commit -m "Updates"
@@ -284,70 +285,73 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
 
+
 ### Full bash script to fetch, create and upload the poster gallery
+
 - download all spreadsheet data as tab separated csv files; use "workshops" and "exhibition" in the file names.
 - run the following after adjusting the directories appropriately.
-```bash
-FILES_DIR=/home/$USER/path/to/csv/files
-MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
-GCA_CLIENT=/home/$USER/path/to/gca-client
 
-.$GCA_CLIENT https://abstracts.g-node.org abstracts conferenceShort > $FILES_DIR/abstracts.json
-
-python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
-python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
-python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/exhibition.csv
-
-python $MAIN_ROOT/scripts/mergeabstracts.py $FILES_DIR/abstracts.json $FILES_DIR/posters.json
-
-python $MAIN_ROOT/scripts/mkgalleries.py $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-python $MAIN_ROOT/scripts/mkgalleries.py --download $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-python $MAIN_ROOT/scripts/mkgalleries.py --render-equations $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-
-python $MAIN_ROOT/scripts/mkgalleries.py --workshops $FILES_DIR/workshops.json $MAIN_ROOT/galleries/
-
-python $MAIN_ROOT/scripts/mkgalleries.py --exhibition $FILES_DIR/exhibition.json $MAIN_ROOT/galleries/
-
-# Check changes before commit
-POSTERS_DIR=$MAIN_ROOT/galleries/posters
-INV_TALKS_DIR=$MAIN_ROOT/galleries/invitedtalks
-CON_TALKS_DIR=$MAIN_ROOT/galleries/contributedtalks
-WORK_DIR=$MAIN_ROOT/galleries/workshops
-EXHIB_DIR=$MAIN_ROOT/galleries/exhibition
-
-git -C $POSTERS_DIR status
-
-git -C $INV_TALKS_DIR status
-
-git -C $CON_TALKS_DIR status
-
-git -C $WORK_DIR status
-
-git -C $EXHIB_DIR status
-
-# Commit and push
-git -C $POSTERS_DIR add --all
-git -C $POSTERS_DIR commit -m "Updates"
-git -C $POSTERS_DIR push origin master
-git -C $POSTERS_DIR push wiki master
-
-git -C $INV_TALKS_DIR add --all
-git -C $INV_TALKS_DIR commit -m "Updates"
-git -C $INV_TALKS_DIR push origin master
-git -C $INV_TALKS_DIR push wiki master
-
-git -C $CON_TALKS_DIR add --all
-git -C $CON_TALKS_DIR commit -m "Updates"
-git -C $CON_TALKS_DIR push origin master
-git -C $CON_TALKS_DIR push wiki master
-
-git -C $WORK_DIR add --all
-git -C $WORK_DIR commit -m "Updates"
-git -C $WORK_DIR push origin master
-git -C $WORK_DIR push wiki master
-
-git -C $EXHIB_DIR add --all
-git -C $EXHIB_DIR commit -m "Updates"
-git -C $EXHIB_DIR push origin master
-git -C $EXHIB_DIR push wiki master
-```
+    ```bash
+    FILES_DIR=/home/$USER/path/to/csv/files
+    MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
+    GCA_CLIENT=/home/$USER/path/to/gca-client
+    
+    .$GCA_CLIENT https://abstracts.g-node.org abstracts conferenceShort > $FILES_DIR/abstracts.json
+    
+    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
+    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
+    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/exhibition.csv
+    
+    python $MAIN_ROOT/scripts/mergeabstracts.py $FILES_DIR/abstracts.json $FILES_DIR/posters.json
+    
+    python $MAIN_ROOT/scripts/mkgalleries.py $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+    python $MAIN_ROOT/scripts/mkgalleries.py --download $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+    python $MAIN_ROOT/scripts/mkgalleries.py --render-equations $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+    
+    python $MAIN_ROOT/scripts/mkgalleries.py --workshops $FILES_DIR/workshops.json $MAIN_ROOT/galleries/
+    
+    python $MAIN_ROOT/scripts/mkgalleries.py --exhibition $FILES_DIR/exhibition.json $MAIN_ROOT/galleries/
+    
+    # Check changes before commit
+    POSTERS_DIR=$MAIN_ROOT/galleries/posters
+    INV_TALKS_DIR=$MAIN_ROOT/galleries/invitedtalks
+    CON_TALKS_DIR=$MAIN_ROOT/galleries/contributedtalks
+    WORK_DIR=$MAIN_ROOT/galleries/workshops
+    EXHIB_DIR=$MAIN_ROOT/galleries/exhibition
+    
+    git -C $POSTERS_DIR status
+    
+    git -C $INV_TALKS_DIR status
+    
+    git -C $CON_TALKS_DIR status
+    
+    git -C $WORK_DIR status
+    
+    git -C $EXHIB_DIR status
+    
+    # Commit and push
+    git -C $POSTERS_DIR add --all
+    git -C $POSTERS_DIR commit -m "Updates"
+    git -C $POSTERS_DIR push origin master
+    git -C $POSTERS_DIR push wiki master
+    
+    git -C $INV_TALKS_DIR add --all
+    git -C $INV_TALKS_DIR commit -m "Updates"
+    git -C $INV_TALKS_DIR push origin master
+    git -C $INV_TALKS_DIR push wiki master
+    
+    git -C $CON_TALKS_DIR add --all
+    git -C $CON_TALKS_DIR commit -m "Updates"
+    git -C $CON_TALKS_DIR push origin master
+    git -C $CON_TALKS_DIR push wiki master
+    
+    git -C $WORK_DIR add --all
+    git -C $WORK_DIR commit -m "Updates"
+    git -C $WORK_DIR push origin master
+    git -C $WORK_DIR push wiki master
+    
+    git -C $EXHIB_DIR add --all
+    git -C $EXHIB_DIR commit -m "Updates"
+    git -C $EXHIB_DIR push origin master
+    git -C $EXHIB_DIR push wiki master
+    ```
