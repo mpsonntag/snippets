@@ -572,7 +572,8 @@ def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
         # special bullet point handling for the mathworks description
         if company.lower() == "mathworks":
             desc = desc.replace(" o ", "\n- ")
-        content.append(f"{desc}\n\n---\n")
+        content.append(f"{desc}\n")
+        content.append("<div class='ui dividing header'></div>")
 
         if website:
             content.append(f"For more information visit the [exhibitor website]({website}).\n\n")
