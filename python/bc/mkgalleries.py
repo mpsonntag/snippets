@@ -544,7 +544,6 @@ def make_workshop_pages(data: List[Dict[str, str]], targetdir: pl.Path):
 
 
 def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
-    exhibitors: Dict[str, Dict[str, Any]] = dict()
     home_fname = "Home.md"
     list_content: List[str] = list()
 
@@ -565,10 +564,20 @@ def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
 
         # Landing page content
         content = list()
+        if logo:
+            content.append(f"![](/raw/master/img/{logo})\n")
+
         content.append(f"# {company}\n\n")
-        content.append(f"{desc}\n\n")
+
+        # special bullet point handling for the mathworks description
+        if company.lower() == "mathworks":
+            desc = desc.replace(" o ", "\n- ")
+        content.append(f"{desc}\n\n---\n")
         if website:
-            content.append(f"[Exhibitor website]({website})")
+            content.append(f"For more information visit the [exhibitors website]({website}).\n\n")
+        if hopin:
+            content.append(f"If you have any questions, discuss them with "
+                           f"moderators at the [exhibitor booth on Hopin]({hopin}).\n")
 
         fname = f"Exhibition{idx}.md"
         file_path = targetdir.joinpath(fname)
