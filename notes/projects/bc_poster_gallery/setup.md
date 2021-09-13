@@ -2,6 +2,8 @@
 
 This file describes the setup of the Bernstein conference variant of the GIN service.
 
+Further it documents the workflow required to populate the conference galleries hosted by this service.
+
 
 ## Installation requirements
 
@@ -49,14 +51,17 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   - to match the appropriate docker containers e.g.:
     - gnode/gin-web:posters
     - gnode/bc20-uploader:latest
+
   - to match the ids of the local `gnode` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate ids.
   - make sure the used IP addresses do not overlap with already running docker containers
   - make sure to use ssh ports that do not overlap with any other ssh port in use e.g. -> needs to be adjusted in the gin client later on as well
     - "141.84.41.217:2424:22"
+
   - make sure the local directories match the local setup
     - ./data/posters-data
     - ./data/posters-tmp
     - ./data/posters-postgresdb
+
   - change aliases to
     - posterginweb
     - posterpgres
@@ -158,17 +163,19 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 - copy ssh git key to the gogs user's settings
 - create a repo via the webinterface
 - clone it locally; use the appropriate port number - in our example it was 2424
-```bash
-    git clone ssh://git@bc.g-node.org:2424/[owner]/[reponame].git
-```
+
+  ```bash
+      git clone ssh://git@bc.g-node.org:2424/[owner]/[reponame].git
+  ```
 
 - to clone the wiki, it has to be initialized via the web service as well
   - bc.g-node.org/[owner]/[reponame]/wiki
   - create a page
   - clone locally:
-```bash
-git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
-```
+
+  ```bash
+  git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
+  ```
 
 ### Create all required repos and wikis
 
@@ -195,7 +202,7 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   - cleanup from the last conference if required
   - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone or work directly within this clone.
 
-- the following preparations require a couple of manual steps between the main `json` file and a spreadsheet shared with BCOS. The main `json`file will change multiple times before it contains all information required to create the poster gallery.
+- the following preparations require a couple of manual steps between the main `json` file and a spreadsheet shared with BCOS. The main `json` file will change multiple times before it contains all information required to create the poster gallery.
 - As a general note for spreadsheet entries that deal with LINKS: they all HAVE to start with "http" or "https"; Otherwise links in the created markdown files will not create working links.
 - prepare a spreadsheet with all required information (posters, invited talks, contributed talks); ideally this spreadsheet is available online e.g. via sciebo and is shared with BCOS.
 - the following are the required columns and the column titles have to match exactly; the order can differ and there may be additional columns that will be ignored; NOTE: column title "abstract no NEW" will be transformed to column title "abstract_number" by the `tojson.py` script. Some columns are empty for now and will be manually filled during the next steps.
@@ -205,26 +212,32 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 - save the spreadsheet to a tab separated csv file.
 - move to the `scripts` folder of the github "BC20" repository
 - run the `tojson.py` script providing the tsv file saved in the step above.
+
   ```bash
   python tojson.py posters.csv 
   ```
+
 - with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The uploadcodes require a salt file for the code creation.
+
   ```bash
   python mkuploadcodes.py [uploadsalt file] [posters.json]
   ```
+
 - move the resulting json file to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
 - add the upload codes to the online spreadsheet "upload_key" column.
 - make sure the spreadsheet also contains invited and contributed talks
 - download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client github README for details.
   - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
   - make sure that all abstracts on the server have been REVIEWED. Abstracts in state InReview and InPreparation are skipped.
+
 - from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstracts information. It will create a `posters-abstracts.json` file containing all posters information with the abstracts texts.
+
   ```bash
   python mergeabstracts.py abstracts.json posters.json
   ```
 
 - update information in the BC20 repo in `scripts/mkgalleries.py` to accommodate the new conference:
-  - URLs, repos 
+  - URLs, repos
   - topics
   - session times
   - item types
@@ -233,15 +246,19 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 
 - create a "galleries" directory in the BC20 repository
 - prepare bc.g-node.org repos and wiki remotes; clone all galleries ("posters", "invitedtalks", "contributedtalks", "main", "workshops", "exhibitors") into the BC20 repo "galleries" directory
+
   ```bash
   e.g.; adjust server name and port as required
   git clone ssh://git@bc.g-node.org:[port]/BernsteinConference/Main.git
   ```
+
 - after cloning, move the repo names to ALL LOWERCASE, otherwise the `mkgallery.py` script will create files in other lowercase dirs; `cd` into the directory; add `wiki` as an additional git remote.
+
   ```bash
   # rename and move to repo
   git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
   ```
+
 - copy `assets` and `banners` directories from a previous conference to the "posters" repository, commit and push
   - these are required for the banners on the poster topic pages and poster topic thumbnails
   - the images can also be found in the gin.g-node.org/G-Node/BC20data repository.
@@ -249,9 +266,9 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
 - for the poster thumbnail conversion to work, you need 
   - imagemagick installed
   - set the security policy to allow PDFs to be accessed by imagemagick `convert`;
-    - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
-    - the policy file can be found by running `convert -list policy`
-    - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
+  - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
+  - the policy file can be found by running `convert -list policy`
+  - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
 
 - run the following to create poster, contributed and invited talks files.
 
@@ -264,7 +281,7 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   python mkgalleries.py --download [path to json file] [path to galleries root]
   ```
 
-- run the following to create images for any latex equations in the abstracts texts of the posters
+- run the following to create images for any latex equations in the abstracts texts of the posters. A sidenote at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
   ```bash
   python mkgalleries.py --render-equations [path to json file] [path to galleries root]
   ```
@@ -274,14 +291,15 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
   - the workshop spreadsheet has to contain the following named columns:
     "workshop number", "workshop name", "organisers", "info url", "talk title", "speakers", "recording status", "recording url"
   - to create the workshops pages, run the `mkgalleries.py` script with the `--workshops` flag
+
     ```bash
     python mkgalleries.py --workshop [path to workshops json file] [path to galleries root]
     ```
+
   - the exhibition tsv file has to contain "exhibition" in its filename before it will be correctly converted to json by the `tojson.py` script.
   - the exhibition spreadsheet has to contain the following named columns:
     TBA
   - to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
-  
 
 - once all this is done commit and upload the changes for all changed galleries:
 
@@ -313,7 +331,7 @@ git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
     MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
     GCA_CLIENT=/home/$USER/path/to/gca-client
     
-    .$GCA_CLIENT https://abstracts.g-node.org abstracts conferenceShort > $FILES_DIR/abstracts.json
+    $GCA_CLIENT https://abstracts.g-node.org abstracts conferenceShort > $FILES_DIR/abstracts.json
     
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
