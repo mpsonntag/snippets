@@ -573,11 +573,26 @@ def make_exhibition_pages(data: List[Dict[str, str]], targetdir: pl.Path):
         if company.lower() == "mathworks":
             desc = desc.replace(" o ", "\n- ")
         content.append(f"{desc}\n\n---\n")
+
         if website:
-            content.append(f"For more information visit the [exhibitors website]({website}).\n\n")
+            content.append(f"For more information visit the [exhibitor website]({website}).\n\n")
+
         if hopin:
             content.append(f"If you have any questions, discuss them with "
                            f"moderators at the [exhibitor booth on Hopin]({hopin}).\n")
+
+        # handle materials list
+        materials = list(filter(lambda mat: mat.startswith("material_"), data[0].keys()))
+        mat_content = list()
+        for mat in materials:
+            if item[mat]:
+                mat_content.append(f"- ![{item[mat]}](/raw/master/materials/{item[mat]})\n")
+
+        if mat_content:
+            content.append("## Exhibition materials\n")
+            content.append("For your convenience you can access the following "
+                           "exhibition materials\n\n")
+            content.extend(mat_content)
 
         fname = f"Exhibition{idx}.md"
         file_path = targetdir.joinpath(fname)
