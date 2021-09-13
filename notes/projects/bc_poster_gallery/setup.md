@@ -202,6 +202,8 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   - cleanup from the last conference if required
   - when making changes to this repository, make sure to update the corresponding submodule in the BC20 clone or work directly within this clone.
 
+- NOTE: due to certain code features, the Python scripts require Python version 3.8+.
+
 - the following preparations require a couple of manual steps between the main `json` file and a spreadsheet shared with BCOS. The main `json` file will change multiple times before it contains all information required to create the poster gallery.
 - As a general note for spreadsheet entries that deal with LINKS: they all HAVE to start with "http" or "https"; Otherwise links in the created markdown files will not create working links.
 - prepare a spreadsheet with all required information (posters, invited talks, contributed talks); ideally this spreadsheet is available online e.g. via sciebo and is shared with BCOS.
