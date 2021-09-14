@@ -537,7 +537,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     head_img = section_header("posters")
     head_text = INDEX_TEXT["posters"]
     with open(home_path, "w") as home_file:
-        home_file.write(f"![Posters]({head_img})\n\n")
+        home_file.write(f"[![Posters]({head_img})](/wiki)\n\n")
         home_file.write(head_text + "\n\n")
 
         for name, fname in index_links.items():
@@ -584,7 +584,7 @@ def make_talks_index(data: List[Dict[str, str]], target_dir: pl.Path):
     head_text = INDEX_TEXT[key]
 
     with open(list_path, "w") as list_file:
-        list_file.write(f"![{key.capitalize()} talks]({head_img})\n\n")
+        list_file.write(f"[![{key.capitalize()} talks]({head_img})](/wiki)\n\n")
         list_file.write(head_text + "\n\n")
         list_file.write("\n".join(list_content))
 
@@ -670,7 +670,7 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
     head_img = section_header("workshops")
     print(f"Creating file {list_path} ...")
     with open(list_path, "w") as list_file:
-        list_file.write(f"![Workshops]({head_img})\n\n")
+        list_file.write(f"[![Workshops]({head_img})](/wiki)\n\n")
         list_file.write(head_text + "\n\n")
         list_file.write("\n".join(list_content))
 
@@ -757,7 +757,7 @@ def handle_exhibition_data(data: List[Dict[str, str]], target_dir: pl.Path):
     list_path = target_dir.joinpath("Home.md")
     print(f"Creating file {list_path} ...")
     with open(list_path, "w") as list_file:
-        list_file.write(f'![Exhibition]({section_header("exhibition")})\n\n')
+        list_file.write(f'[![Exhibition]({section_header("exhibition")})](/wiki)\n\n')
         list_file.write(f'{INDEX_TEXT["exhibition"]}\n\n')
         list_file.write("\n".join(list_content))
 
