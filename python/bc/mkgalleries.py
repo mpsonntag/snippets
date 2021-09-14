@@ -755,7 +755,7 @@ def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
 
 def handle_poster_data(data: List[Dict[str, str]], posters_dir: pl.Path):
     """
-    Filter a list for poster specific items and create index and landing pages.
+    Filters a list for poster specific items and creates index and landing pages.
     :param data: list containing poster dictionary items.
     :param posters_dir: directory to save the files to.
     """
@@ -773,11 +773,11 @@ def handle_poster_data(data: List[Dict[str, str]], posters_dir: pl.Path):
 def handle_talks_data(data: List[Dict[str, str]], target_dir: pl.Path,
                       filter_string: str, msg: str):
     """
-    Filter a list for talk specific items and create index and landing pages.
+    Filters a list for talk specific items and creates index and landing pages.
     :param data: list containing talks dictionary items.
     :param target_dir: directory to save the files to.
     :param filter_string: valid entries: "C", "I"
-    :param msg: String displayed in command line prompt
+    :param msg: String displayed in command line print.
     """
     filtered_data = list(filter(lambda item: item["short"] == filter_string, data))
     filtered_data = sorted(filtered_data, key=make_sorter("abstract_number", apply=int))
@@ -788,6 +788,24 @@ def handle_talks_data(data: List[Dict[str, str]], target_dir: pl.Path,
         make_landing_pages(filtered_data, target_dir)
     else:
         print(f"WARNING: could not find {msg} talks")
+
+
+def content_check(data: List[Dict[str, str]], check: str,
+                  json_file: str, msg: str) -> bool:
+    """
+    Checks whether a dictionary contains a column specific to expected data and returns
+    a corresponding boolean value. This avoids writing files of an invalid gallery type.
+    :param data: list containing poster dictionary items.
+    :param check: name of the column that is supposed to be found in the dictionary items.
+    :param json_file: name of the file containing the data
+    :param msg: String displayed in command line print.
+    :return: True if the column was found in the data, False otherwise.
+    """
+    if not data or check not in data[0].keys():
+        print(f"'{json_file}' does not seem to be a valid {msg} file ...")
+        print("Aborting ...")
+        return False
+    return True
 
 
 def main():
@@ -804,8 +822,7 @@ def main():
     parser.add_argument("--exhibition", dest="exhibition", action="store_true",
                         help="Create exhibition pages instead of posters")
     parser.add_argument("jsonfile", help="JSON file with the poster data")
-    parser.add_argument("targetdir",
-                        help="Directory in which to create galleries")
+    parser.add_argument("targetdir", help="Directory in which to create galleries")
     args = parser.parse_args()
 
     workshops = args.workshops
@@ -813,20 +830,17 @@ def main():
 
     download = args.download
     equations = args.equations
-    json_file = args.jsonfile
+
     target_dir = pl.Path(args.targetdir)
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    json_file = args.jsonfile
     with open(json_file) as jfp:
         data = json.load(jfp)
 
-    target_dir.mkdir(parents=True, exist_ok=True)
     # Specific handling of workshops
     if workshops:
-        # Sanity check to avoid writing invalid workshop galleries
-        # Field "workshop number" is 'workshops' specific.
-        print("Creating workshop pages ...")
-        if not data or "workshop number" not in data[0].keys():
-            print(f"'{json_file}' does not seem to be a valid WORKSHOPS file ...")
-            print("Aborting ...")
+        if not content_check(data, "workshop number", json_file, "WORKSHOP"):
             return
 
         workshops_dir = target_dir.joinpath("workshops")
@@ -837,12 +851,7 @@ def main():
 
     # Specific handling of exhibition
     if exhibition:
-        # Sanity check to avoid writing invalid exhibition galleries
-        # Field "company_name" is 'exhibition' specific.
-        print("Creating exhibition pages ...")
-        if not data or "company_name" not in data[0].keys():
-            print(f"'{json_file}' does not seem to be a valid EXHIBITION file ...")
-            print("Aborting ...")
+        if not content_check(data, "company_name", json_file, "EXHIBITION"):
             return
 
         exhib_dir = target_dir.joinpath("exhibition")
@@ -851,11 +860,8 @@ def main():
         make_exhibition_pages(data, exhib_dir)
         return
 
-    # Sanity check to avoid writing invalid poster galleries
-    # Field "abstract_number" is 'poster' specific.
-    if not data or "abstract_number" not in data[0].keys():
-        print(f"'{json_file}' does not seem to be a valid POSTERS file ...")
-        print("Aborting ...")
+    # Sanity check to avoid writing invalid poster galleries.
+    if not content_check(data, "abstract_number", json_file, "POSTERS"):
         return
 
     posters_dir = target_dir.joinpath("posters")
