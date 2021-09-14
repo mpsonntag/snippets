@@ -839,8 +839,8 @@ def main():
     create_equation_images(data, equation_dirs, equations)
 
     poster_data = list(filter(lambda item: item["short"] == "P", data))
-    poster_data = sorted(poster_data,
-                         key=make_sorter("abstract_number", apply=int))
+    poster_data = sorted(poster_data, key=make_sorter("abstract_number", apply=int))
+
     print("Filtering poster data ...")
     poster_data = filter_withdrawn(poster_data)
     print("Creating poster index ...")
@@ -849,8 +849,7 @@ def main():
     make_landing_pages(poster_data, posters_dir)
 
     invited_data = list(filter(lambda item: item["short"] == "I", data))
-    contrib_data = list(filter(lambda item: item["short"] == "C", data))
-
+    invited_data = sorted(invited_data, key=make_sorter("abstract_number", apply=int))
     if invited_data:
         print("Creating invited talks index ...")
         make_talks_index(invited_data, invtalks_dir)
@@ -859,6 +858,8 @@ def main():
     else:
         print("WARNING: could not find invited talks")
 
+    contrib_data = list(filter(lambda item: item["short"] == "C", data))
+    contrib_data = sorted(contrib_data, key=make_sorter("abstract_number", apply=int))
     if contrib_data:
         print("Creating contributed talks index ...")
         make_talks_index(contrib_data, contribtalks_dir)
