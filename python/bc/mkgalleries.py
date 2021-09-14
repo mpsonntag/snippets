@@ -675,82 +675,90 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
         list_file.write("\n".join(list_content))
 
 
-def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
+    """
+    Creates exhibition item landing page.
+    :param item: exhibition dictionary item.
+    :param target_dir: directory to save the file to.
+    :param idx: Index of the current exhibition item.
+    """
+    company = item["company_name"]
+    logo = item["logo"]
+    website = item["website"]
+    desc = item["description"]
+    hopin = item["hopin"]
+
+    content = list()
+    if logo:
+        image_url = f"/BernsteinConference/Exhibition/raw/master/img/{logo}"
+        content.append(f'<img height=100 alt="Exhibition: {company}" '
+                       f'src="{image_url}"/>\n')
+
+    content.append(f"# {company}\n\n")
+
+    # Mathworks description requires content bullet point conversion to markdown
+    if company.lower() == "mathworks":
+        desc = desc.replace(" o ", "\n- ")
+
+    content.append(f"{desc}\n\n")
+    content.append("<div class='ui dividing header'></div>")
+    content.append("\n\n")
+
+    if website:
+        content.append(f"For more information visit the [exhibitor website]("
+                       f"{website}).\n\n")
+
+    if hopin:
+        content.append(f"If you have any questions, discuss them with "
+                       f"moderators at the [exhibitor booth on Hopin]({hopin}).\n")
+
+    # handle materials list
+    materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
+    mat_content = list()
+    for mat in materials:
+        if item[mat]:
+            mat_list = f"- ![{item[mat]}](/raw/master/materials/{item[mat]})\n"
+            mat_content.append(mat_list)
+
+    if mat_content:
+        content.append("## Exhibition materials\n")
+        content.append("For your convenience you can access the following "
+                       "exhibition materials\n\n")
+        content.extend(mat_content)
+
+    file_path = target_dir.joinpath(f"Exhibition{idx}.md")
+    print(f"Creating landing page {file_path}")
+    with open(file_path, "w") as exhib_file:
+        exhib_file.write("".join(content))
+
+
+def handle_exhibition_data(data: List[Dict[str, str]], target_dir: pl.Path):
     """
     Creates the exhibition main and item pages.
     :param data: list containing a dictionary of exhibition items.
     :param target_dir: directory to save the files to.
     """
-    home_fname = "Home.md"
     list_content: List[str] = list()
 
     idx = 0
     for item in data:
         idx = idx + 1
         company = item["company_name"]
-        logo = item["logo"]
-        website = item["website"]
         headline = item["headline"]
-        desc = item["description"]
-        hopin = item["hopin"]
 
         # List page content
         entry = f"**[{company}](wiki/Exhibition{idx})**  \n"
         entry += f"{headline}\n\n\n"
         list_content.append(entry)
 
-        # Landing page content
-        content = list()
-        if logo:
-            image_url = f"/BernsteinConference/Exhibition/raw/master/img/{logo}"
-            content.append(f'<img height=100 alt="Exhibition: {company}" '
-                           f'src="{image_url}"/>\n')
+        # Create exhibition item landing page
+        make_exhibition_page(item, target_dir, idx)
 
-        content.append(f"# {company}\n\n")
-
-        # special bullet point handling for the mathworks description
-        if company.lower() == "mathworks":
-            desc = desc.replace(" o ", "\n- ")
-
-        content.append(f"{desc}\n\n")
-        content.append("<div class='ui dividing header'></div>")
-        content.append("\n\n")
-
-        if website:
-            content.append(f"For more information visit the [exhibitor website]("
-                           f"{website}).\n\n")
-
-        if hopin:
-            content.append(f"If you have any questions, discuss them with "
-                           f"moderators at the [exhibitor booth on Hopin]({hopin}).\n")
-
-        # handle materials list
-        materials = list(filter(lambda cur: cur.startswith("material_"), data[0].keys()))
-        mat_content = list()
-        for mat in materials:
-            if item[mat]:
-                mat_list = f"- ![{item[mat]}](/raw/master/materials/{item[mat]})\n"
-                mat_content.append(mat_list)
-
-        if mat_content:
-            content.append("## Exhibition materials\n")
-            content.append("For your convenience you can access the following "
-                           "exhibition materials\n\n")
-            content.extend(mat_content)
-
-        fname = f"Exhibition{idx}.md"
-        file_path = target_dir.joinpath(fname)
-        print(f"Creating landing page {file_path}")
-        with open(file_path, "w") as exhib_file:
-            exhib_file.write("".join(content))
-
-    list_path = target_dir.joinpath(home_fname)
-    head_text = INDEX_TEXT["exhibition"]
-    head_img = section_header("exhibition")
+    list_path = target_dir.joinpath("Home.md")
     print(f"Creating file {list_path} ...")
     with open(list_path, "w") as list_file:
-        list_file.write(f"![Exhibition]({head_img})\n\n")
-        list_file.write(head_text + "\n\n")
+        list_file.write(f'![Exhibition]({section_header("exhibition")})\n\n')
+        list_file.write(f'{INDEX_TEXT["exhibition"]}\n\n')
         list_file.write("\n".join(list_content))
 
 
@@ -858,7 +866,7 @@ def main():
         exhib_dir = target_dir.joinpath("exhibition")
         exhib_dir.mkdir(parents=True, exist_ok=True)
 
-        make_exhibition_pages(data, exhib_dir)
+        handle_exhibition_data(data, exhib_dir)
         return
 
     # Sanity check to avoid writing invalid poster galleries.
