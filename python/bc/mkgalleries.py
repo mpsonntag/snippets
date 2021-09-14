@@ -5,11 +5,11 @@ Individual pages for each poster with all their info.  Directory structure for
 browsing.
 """
 
-import json
 import argparse
-import re
 import http.client
+import json
 import pathlib as pl
+import re
 import subprocess as sp
 
 from datetime import date
@@ -73,6 +73,10 @@ WORKSHOP_RECORD_MSG = {
 
 
 def run_cmd(*args):
+    """
+    Runs a terminal command and prints feedback to the command line
+    in case of any error.
+    """
     ret = sp.run(args, check=False, stdout=sp.PIPE, stderr=sp.PIPE)
     if ret.returncode:
         cmd_str = " ".join(str(arg) for arg in args)
@@ -109,10 +113,18 @@ def topic_filename(topic: str) -> str:
 
 
 def section_header(section: str) -> str:
+    """
+    Returns a markdown image string.
+    """
     return f"{GALLERY_SERVER}/img/BC_Header_{section}.jpg"
 
 
 def make_sorter(key_name: str, apply: Callable = None) -> Callable:
+    """
+    Returns a sorter function that applies a sort mechanism to a specific column.
+    :param key_name: name of the column used in sorting
+    :param apply: sort mechanism applied
+    """
     def sorter(row):
         sort_val = row[key_name]
         if apply:
@@ -123,32 +135,48 @@ def make_sorter(key_name: str, apply: Callable = None) -> Callable:
 
 
 def md_table_row(values: List[str]) -> str:
+    """
+    Returns all values in a list as a single string formatted as a markdown table.
+    """
     return "| " + " | ".join(values) + " |"
 
 
 def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
+    """
+    Returns a single markdown formatted line.
+    :param item: dictionary containing a single poster item.
+    :param omit: Exclude information from the markdown line.
+                 Valid content is "topic" and "session".
+    """
     topic = item["topic"]
     session = item["session"]
     abs_no = item["abstract_number"]
     item_type = ITEM_TYPES[item["short"]]
 
-    infoline = f"**{item_type} {abs_no}**"
+    info_line = f"**{item_type} {abs_no}**"
     if topic and omit != "topic":
         topic_link = ""
         if item["short"] == "P":
             topic_link = topic_filename(topic)
         colour = TOPIC_COLOURS[topic]
         icon_url = f"/{POSTER_REPO}/raw/master/banners/icon-{colour}.png"
-        infoline += f" | [![{topic}]({icon_url}) {topic}](/wiki/{topic_link})"
+        info_line += f" | [![{topic}]({icon_url}) {topic}](/wiki/{topic_link})"
 
     if omit != "session":
         session_link = session_filename(session)
-        infoline += f" | [{item_type} session {session}](/wiki/{session_link})"
+        info_line += f" | [{item_type} session {session}](/wiki/{session_link})"
 
-    return f"{infoline}  \n"
+    return f"{info_line}  \n"
 
 
 def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
+    """
+    Returns multiple markdown formatted lines containing poster wiki link, title, author
+    and additional information.
+    :param item: dictionary containing a single poster item.
+    :param omit: Leads to information excluded from the info line;
+                 valid entries are "session" and "topic".
+    """
     page = urlquote(f"/wiki/{item_filename(item)}")
     title = item["title"]
     authors = item["authors"]
@@ -232,12 +260,27 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
 
 def create_equation_images(data: List[Dict[str, str]], target_dir: Dict[str, pl.Path],
                            create: bool):
+    """
+    Replaces Latex formatted content within the abstract texts of poster items.
+    If specified, the Latex formatted content is also converted to and saved as images.
+    :param data: list containing a dictionary of poster items.
+    :param target_dir: directory to create equation images in.
+    :param create: if this is True, the equation images will be created.
+                   If this is False, only the Latex occurrences in the abstract
+                   text is replaced.
+    """
     for item in data:
         text = texify(item, target_dir, create)
         item["abstract"] = text
 
 
 def read_local_url(fname: str, target_dir: pl.Path) -> str:
+    """
+    Open a local file and return its content.
+    :param fname: file name to be opened.
+    :param target_dir: directory where the file can be found.
+    :return: file content.
+    """
     poster_dir = target_dir.joinpath("posters")
     url_file = poster_dir.joinpath(f"{fname}.url")
     if not url_file.exists():
@@ -248,6 +291,10 @@ def read_local_url(fname: str, target_dir: pl.Path) -> str:
 
 
 def sanitize_tex(eqn: str) -> str:
+    """
+    Returns sanitized common greek alphabet letters.
+    :param eqn: Latex formatted text
+    """
     eqn = eqn.replace("σ", r"\sigma").replace("β", r"\beta").replace("λ", r"\lambda")
     eqn = eqn.replace("ζ", r"\zeta")
     eqn = eqn.replace(r"\tag{1}", "(1)")
@@ -285,7 +332,12 @@ def texify(item: Dict[str, str], target_dir: Dict[str, pl.Path], create: bool) -
 
 def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
         -> Optional[pl.Path]:
-
+    """
+    Writes a poster landing page and returns its file name.
+    :param item: dictionary containing a poster item.
+    :param target_dir: directory to save the file to.
+    :return: name of the created file.
+    """
     title = item["title"]
     authors = item["authors"]
     number = item["abstract_number"]
@@ -356,6 +408,12 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
 
 
 def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
+    """
+    Creates poster topic index file and one file per topic listing all
+    Posters within each topic.
+    :param data: list containing a dictionary of poster items.
+    :param filepath: directory to save the files to.
+    """
     topic_posters: Dict[str, List[Dict[str, str]]] = {
         topic: list() for topic in TOPIC_COLOURS
     }
@@ -402,6 +460,12 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
 
 
 def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
+    """
+    Creates poster session index file and one file per session listing all
+    Posters within each session.
+    :param data: list containing a dictionary of poster items.
+    :param filepath: directory to save the files to.
+    """
     session_posters: Dict[str, List[Dict[str, str]]] = dict()
     for item in data:
         session = item["session"]
@@ -442,6 +506,11 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
 
 
 def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Creates the main poster landing page and a page listing all posters.
+    :param data: list containing a dictionary of poster items.
+    :param target_dir: directory to save the files to.
+    """
     list_content: List[str] = list()
     for item in data:
         list_content.append(make_list_item(item))
@@ -478,6 +547,12 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
 
 
 def make_landing_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Walks through all poster items and calls the function to create their
+    landing pages. Writes the progress to the command line.
+    :param data: list containing a dictionary of poster items.
+    :param target_dir: directory to save the files to.
+    """
     print(f"Creating {len(data)} landing pages")
     for idx, item in enumerate(data):
         if idx and not idx % 100:
@@ -488,6 +563,11 @@ def make_landing_pages(data: List[Dict[str, str]], target_dir: pl.Path):
 
 
 def make_talks_index(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Creates the contributed and invited talks index pages
+    :param data: list containing a dictionary of contributed or invited talk items.
+    :param target_dir: directory to save the files to.
+    """
     home_fname = "Home.md"
     list_content: List[str] = list()
 
@@ -523,6 +603,11 @@ def filter_withdrawn(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
 
 
 def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Creates the workshop main and item pages.
+    :param data: list containing a dictionary of workshop items.
+    :param target_dir: directory to save the files to.
+    """
     home_fname = "Home.md"
 
     workshops: Dict[str, Dict[str, Any]] = dict()
@@ -592,6 +677,11 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
 
 
 def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Creates the exhibition main and item pages.
+    :param data: list containing a dictionary of exhibition items.
+    :param target_dir: directory to save the files to.
+    """
     home_fname = "Home.md"
     list_content: List[str] = list()
 
@@ -623,7 +713,7 @@ def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
 
         content.append(f"{desc}\n\n")
         content.append("<div class='ui dividing header'></div>")
-        content.append(f"\n\n")
+        content.append("\n\n")
 
         if website:
             content.append(f"For more information visit the [exhibitor website]("
@@ -664,6 +754,9 @@ def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
 
 
 def main():
+    """
+    Handles the command line arguments.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--download", dest="download", action="store_true",
                         help="Download new files from upload service")
