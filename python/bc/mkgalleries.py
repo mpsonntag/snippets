@@ -715,16 +715,27 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
     # handle materials list
     materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
     mat_content = list()
+    mat_links = list()
     for mat in materials:
-        if item[mat]:
-            mat_list = f"- ![{item[mat]}](/raw/master/materials/{item[mat]})\n"
-            mat_content.append(mat_list)
+        if curr := item[mat]:
+            # links and material items might not come in order
+            if curr.startswith("http"):
+                mat_links.append(f"- [{curr}]({curr})\n")
+            else:
+                mat_item = f"- ![{curr}](/src/master/materials/{curr})\n"
+                mat_content.append(mat_item)
 
-    if mat_content:
+    if mat_content or mat_links:
         content.append("## Exhibition materials\n")
-        content.append("For your convenience you can access the following "
-                       "exhibition materials\n\n")
-        content.extend(mat_content)
+        if mat_content:
+            content.append("For your convenience you can access the following "
+                           "exhibition material\n\n")
+            content.extend(mat_content)
+        if mat_links:
+            pre_space = "\n\n" if mat_content else ""
+            content.append(f"{pre_space}The following link list refers to additional "
+                           f"external resources\n\n")
+            content.extend(mat_links)
 
     file_path = target_dir.joinpath(f"Exhibition{idx}.md")
     print(f"Creating landing page {file_path}")
