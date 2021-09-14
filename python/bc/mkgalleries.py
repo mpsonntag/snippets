@@ -183,6 +183,7 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
     conn = http.client.HTTPSConnection(POSTER_SERVER, timeout=60)
     poster_dir = target_dir.joinpath("posters")
     poster_dir.mkdir(parents=True, exist_ok=True)
+    missing = ""
 
     def download(uuid: str, fname: str, extension: str) -> Optional[pl.Path]:
         nonlocal conn
@@ -217,8 +218,12 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
             create_thumbnail(pdf_path)
         else:
             print(".", end="", flush=True)
+            # collect all missing PDFs
+            missing += f"{uuid} - {number}\n"
         download(uuid, number, "url")
     print()
+
+    return missing
 
 
 def create_equation_images(data: List[Dict[str, str]], target_dir: Dict[str, pl.Path],
@@ -333,8 +338,9 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
         poster_page.write("\n\n")
 
         if time:
-            poster_page.write(f"**Session time**: {time} | "
-                              f"[Hopin roundtable]({hopin_url})\n\n")
+            curr_txt = f"**Session time**: {time} | [Hopin roundtable]({hopin_url})\n\n"
+            poster_page.write(curr_txt)
+
         poster_page.write("## Abstract\n\n")
         poster_page.write(text)
         poster_page.write("\n\n---\n\n")
@@ -438,8 +444,8 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
 
     list_fname = "List.md"
     list_path = target_dir.joinpath(list_fname)
-    with open(list_path, "w") as listfile:
-        listfile.write("\n".join(list_content))
+    with open(list_path, "w") as list_file:
+        list_file.write("\n".join(list_content))
 
     index_links: Dict[str, str] = dict()
     index_links["Browse all posters"] = list_fname
@@ -673,23 +679,23 @@ def main():
 
     download = args.download
     equations = args.equations
-    jsonfile = args.jsonfile
-    targetdir = pl.Path(args.targetdir)
-    with open(jsonfile) as jfp:
+    json_file = args.jsonfile
+    target_dir = pl.Path(args.targetdir)
+    with open(json_file) as jfp:
         data = json.load(jfp)
 
-    targetdir.mkdir(parents=True, exist_ok=True)
+    target_dir.mkdir(parents=True, exist_ok=True)
     # Specific handling of workshops
     if workshops:
         # Sanity check to avoid writing invalid workshop galleries
         # Field "workshop number" is 'workshops' specific.
         print("Creating workshop pages ...")
         if not data or "workshop number" not in data[0].keys():
-            print(f"'{jsonfile}' does not seem to be a valid WORKSHOPS file ...")
+            print(f"'{json_file}' does not seem to be a valid WORKSHOPS file ...")
             print("Aborting ...")
             return
 
-        workshops_dir = targetdir.joinpath("workshops")
+        workshops_dir = target_dir.joinpath("workshops")
         workshops_dir.mkdir(parents=True, exist_ok=True)
 
         make_workshop_pages(data, workshops_dir)
@@ -701,11 +707,11 @@ def main():
         # Field "company_name" is 'exhibition' specific.
         print("Creating exhibition pages ...")
         if not data or "company_name" not in data[0].keys():
-            print(f"'{jsonfile}' does not seem to be a valid EXHIBITION file ...")
+            print(f"'{json_file}' does not seem to be a valid EXHIBITION file ...")
             print("Aborting ...")
             return
 
-        exhib_dir = targetdir.joinpath("exhibition")
+        exhib_dir = target_dir.joinpath("exhibition")
         exhib_dir.mkdir(parents=True, exist_ok=True)
 
         make_exhibition_pages(data, exhib_dir)
@@ -714,21 +720,22 @@ def main():
     # Sanity check to avoid writing invalid poster galleries
     # Field "abstract_number" is 'poster' specific.
     if not data or "abstract_number" not in data[0].keys():
-        print(f"'{jsonfile}' does not seem to be a valid POSTERS file ...")
+        print(f"'{json_file}' does not seem to be a valid POSTERS file ...")
         print("Aborting ...")
         return
 
-    posters_dir = targetdir.joinpath("posters")
+    posters_dir = target_dir.joinpath("posters")
     posters_dir.mkdir(parents=True, exist_ok=True)
-    invtalks_dir = targetdir.joinpath("invitedtalks")
+    invtalks_dir = target_dir.joinpath("invitedtalks")
     invtalks_dir.mkdir(parents=True, exist_ok=True)
-    contribtalks_dir = targetdir.joinpath("contributedtalks")
+    contribtalks_dir = target_dir.joinpath("contributedtalks")
     contribtalks_dir.mkdir(parents=True, exist_ok=True)
 
     if download:
-        print("Downloading posters and URLs")
-        download_pdfs(data, posters_dir)
-        print("Done")
+        print("Downloading posters and URLs ...")
+        amiss = download_pdfs(data, posters_dir)
+        print("Done ...")
+        print(f"PDFs missing:\n{amiss}")
 
     # Hack to deal with equations for all posters and talk types
     equation_dirs = {"P": posters_dir, "C": contribtalks_dir, "I": invtalks_dir}
