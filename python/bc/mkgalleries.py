@@ -601,44 +601,16 @@ def filter_withdrawn(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return data
 
 
-def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+def make_workshop_page(workshops: Dict[str, Dict[str, Any]], target_dir: pl.Path):
     """
-    Creates the workshop main and item pages.
-    :param data: list containing a dictionary of workshop items.
-    :param target_dir: directory to save the files to.
+    Creates workshop item landing page.
+    :param workshops: dictionary containing workshop dictionary items.
+    :param target_dir: directory to save the file to.
     """
-    home_fname = "Home.md"
-
-    workshops: Dict[str, Dict[str, Any]] = dict()
-    for item in data:
-        num = item["workshop number"]
-        name = item["workshop name"]
-        organisers = item["organisers"]
-        url = item["info url"]
-        if num not in workshops:
-            workshops[num] = dict()
-            workshops[num]["name"] = name
-            workshops[num]["organisers"] = organisers
-            workshops[num]["url"] = url
-            workshops[num]["talks"] = list()
-
-        workshops[num]["talks"].append({
-            "title": item["talk title"],
-            "speakers": item["speakers"],
-            "recording": item["recording status"],
-            "videourl": item["recording url"],
-        })
-
-    list_content: List[str] = list()
     for num, ws_item in workshops.items():
         name = ws_item["name"]
         organisers = ws_item["organisers"]
         url = ws_item["url"]
-        ntalks = len(ws_item["talks"])
-        entry = f"**[{name}](wiki/Workshop{num})**  \n"
-        entry += f"{organisers}  \n"
-        entry += f"**Workshop {num}** | {ntalks} talks\n\n"
-        list_content.append(entry)
 
         content = list()
         content.append(f"# {name}\n\n")
@@ -665,7 +637,46 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
         with open(file_path, "w") as ws_file:
             ws_file.write("".join(content))
 
-    list_path = target_dir.joinpath(home_fname)
+
+def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
+    """
+    Creates the workshop main and item pages.
+    :param data: list containing a dictionary of workshop items.
+    :param target_dir: directory to save the files to.
+    """
+    # Prepare workshop items
+    workshops: Dict[str, Dict[str, Any]] = dict()
+    for item in data:
+        num = item["workshop number"]
+        name = item["workshop name"]
+        organisers = item["organisers"]
+        url = item["info url"]
+        if num not in workshops:
+            workshops[num] = dict()
+            workshops[num]["name"] = name
+            workshops[num]["organisers"] = organisers
+            workshops[num]["url"] = url
+            workshops[num]["talks"] = list()
+
+        workshops[num]["talks"].append({
+            "title": item["talk title"],
+            "speakers": item["speakers"],
+            "recording": item["recording status"],
+            "videourl": item["recording url"],
+        })
+
+    # Create landing pages
+    make_workshop_page(workshops, target_dir)
+
+    # Create workshops index page
+    list_content: List[str] = list()
+    for num, ws_item in workshops.items():
+        entry = f'**[{ws_item["name"]}](wiki/Workshop{num})**  \n'
+        entry += f'{ws_item["organisers"]}  \n'
+        entry += f'**Workshop {num}** | {len(ws_item["talks"])} talks\n\n'
+        list_content.append(entry)
+
+    list_path = target_dir.joinpath("Home.md")
     head_text = INDEX_TEXT["workshops"]
     head_img = section_header("workshops")
     print(f"Creating file {list_path} ...")
