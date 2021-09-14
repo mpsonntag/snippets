@@ -209,6 +209,10 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
         return f_path
 
     for idx, item in enumerate(data):
+        # PDF download is only useful for posters ("P"); ignore other categories
+        if item["short"] != "P":
+            continue
+
         if idx and not idx % 100:
             print(f" {idx}")
         uuid = item["id"]
@@ -734,7 +738,7 @@ def main():
     if download:
         print("Downloading posters and URLs ...")
         amiss = download_pdfs(data, posters_dir)
-        print("Done ...")
+        print("Done ...\n")
         print(f"PDFs missing:\n{amiss}")
 
     # Hack to deal with equations for all posters and talk types
