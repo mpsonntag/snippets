@@ -702,7 +702,9 @@ def make_exhibition_pages(data: List[Dict[str, str]], target_dir: pl.Path):
         # Landing page content
         content = list()
         if logo:
-            content.append(f"![](/raw/master/img/{logo})\n")
+            image_url = f"/BernsteinConference/Exhibition/raw/master/img/{logo}"
+            content.append(f'<img height=100 alt="Exhibition: {company}" '
+                           f'src="{image_url}"/>\n')
 
         content.append(f"# {company}\n\n")
 
