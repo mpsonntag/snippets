@@ -398,9 +398,8 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
             poster_page.write(curr_txt)
 
         poster_page.write("## Abstract\n\n")
-        poster_page.write(text)
-        poster_page.write("\n\n---\n\n")
-
+        poster_page.write(f"{text}\n\n")
+        poster_page.write("<div class='ui dividing header'></div>")
         poster_page.write(f"{copy_item}\n")
         poster_page.write(f"{cit_item}\n\n")
 
