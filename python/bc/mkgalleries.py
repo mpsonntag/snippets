@@ -33,6 +33,7 @@ TOPIC_COLOURS = {
     "Brain disease, network dysfunction and intervention": "turquoise",
     "Single neurons, biophysics": "grey",
     "Motor control, movement, navigation": "purple",
+    "Other": "darkblue",
 }
 SESSION_TIMES = {
     "I": "Wed, Sep 22, 14:15 CEST",
@@ -425,20 +426,23 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
     with open(filepath, "w") as topics_file:
         topics_file.write("# Poster topics\n\n")
         for topic, colour in TOPIC_COLOURS.items():
-            topics_file.write('<div class="banner">\n')
-
-            topic_url = urlquote(topic_filename(topic))
-            topics_file.write(f'<a href="{topic_url}">')
-
-            image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}.png"
-            top_img = f'<img width=300 alt="Topic: {topic}" src="{image_url}"/>\n'
-            topics_file.write(top_img)
-            topics_file.write(f'<div class="title">{topic}</div>\n')
-
+            # Support default poster category "Other",
+            # but display it only if there are actual posters.
             num_posters = len(topic_posters[topic])
-            topics_file.write(f'<div class="text">{num_posters} Posters</div></a>')
+            if num_posters > 0:
+                topics_file.write('<div class="banner">\n')
 
-            topics_file.write("</div>")
+                topic_url = urlquote(topic_filename(topic))
+                topics_file.write(f'<a href="{topic_url}">')
+
+                image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}.png"
+                top_img = f'<img width=300 alt="Topic: {topic}" src="{image_url}"/>\n'
+                topics_file.write(top_img)
+                topics_file.write(f'<div class="title">{topic}</div>\n')
+
+                topics_file.write(f'<div class="text">{num_posters} Posters</div></a>')
+
+                topics_file.write("</div>")
 
     # One page per topic with listing
     for topic, items in topic_posters.items():
