@@ -382,7 +382,7 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
     filename = target_dir.joinpath(f"{file_basename}.md")
     with open(filename, "w") as poster_page:
         poster_page.write(f"# {title}\n\n")
-        poster_page.write(f"_{authors}_\n\n")
+        poster_page.write(f"_{authors.strip()}_\n\n")
 
         if item["short"] == "P":
             poster_page.write(make_infoline(item) + "\n\n")
