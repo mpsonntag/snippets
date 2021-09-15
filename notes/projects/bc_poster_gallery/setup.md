@@ -284,6 +284,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   ```
 
 - run the following to create images for any latex equations in the abstracts texts of the posters. A sidenote at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
+  Note that this step requires an existing, full installation of `latex`.
   ```bash
   python mkgalleries.py --render-equations [path to json file] [path to galleries root]
   ```
