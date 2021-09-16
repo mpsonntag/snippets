@@ -154,6 +154,15 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     abs_no = item["abstract_number"]
     item_type = ITEM_TYPES[item["short"]]
 
+    # An unwise hack to enable special categories within invited talks
+    # and adjust the talk numbers accordingly.
+    if item["short"] == "I":
+        abs_no = abs_no - 1
+        if abs_no == 0:
+            item_type = "Keynote lecture"
+        elif abs_no == 11:
+            item_type = "Breitenberg award"
+
     info_line = f"**{item_type} {abs_no}**"
     if topic and omit != "topic":
         topic_link = ""
