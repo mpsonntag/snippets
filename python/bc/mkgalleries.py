@@ -415,7 +415,7 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
     :param filepath: directory to save the files to.
     """
     topic_posters: Dict[str, List[Dict[str, str]]] = {
-        topic: list() for topic in TOPIC_COLOURS
+        topic: [] for topic in TOPIC_COLOURS
     }
     for item in data:
         topic = item["topic"]
@@ -448,7 +448,7 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
     for topic, items in topic_posters.items():
         topic_fname = topic_filename(topic)
         filepath = filepath.parent.joinpath(topic_fname).with_suffix(".md")
-        list_content: List[str] = list()
+        list_content: List[str] = []
         for item in items:
             list_item = make_list_item(item, omit="topic")
             list_content.append(list_item)
@@ -469,13 +469,13 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
     :param data: list containing a dictionary of poster items.
     :param filepath: directory to save the files to.
     """
-    session_posters: Dict[str, List[Dict[str, str]]] = dict()
+    session_posters: Dict[str, List[Dict[str, str]]] = {}
     for item in data:
         session = item["session"]
         if not session:
             continue
         if session not in session_posters:
-            session_posters[session] = list()
+            session_posters[session] = []
         session_posters[session].append(item)
 
     with open(filepath, "w") as sessions_file:
@@ -498,7 +498,7 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
         fname = session_filename(session)
         filepath = filepath.parent.joinpath(fname).with_suffix(".md")
 
-        list_content: List[str] = list()
+        list_content: List[str] = []
         for item in items:
             list_item = make_list_item(item, omit="session")
             list_content.append(list_item)
@@ -514,7 +514,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     :param data: list containing a dictionary of poster items.
     :param target_dir: directory to save the files to.
     """
-    list_content: List[str] = list()
+    list_content: List[str] = []
     for item in data:
         list_content.append(make_list_item(item))
 
@@ -523,7 +523,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     with open(list_path, "w") as list_file:
         list_file.write("\n".join(list_content))
 
-    index_links: Dict[str, str] = dict()
+    index_links: Dict[str, str] = {}
     index_links["Browse all posters"] = list_fname
 
     topics_fname = "Topics.md"
@@ -572,7 +572,7 @@ def make_talks_index(data: List[Dict[str, str]], target_dir: pl.Path):
     :param target_dir: directory to save the files to.
     """
     home_fname = "Home.md"
-    list_content: List[str] = list()
+    list_content: List[str] = []
 
     for item in data:
         list_content.append(make_list_item(item, omit="session"))
@@ -616,7 +616,7 @@ def make_workshop_page(workshops: Dict[str, Dict[str, Any]], target_dir: pl.Path
         organisers = ws_item["organisers"]
         url = ws_item["url"]
 
-        content = list()
+        content = []
         content.append(f"# {name}\n\n")
         content.append(f"Organizers: {organisers}   \n")
         content.append(f"**[Workshop {num} abstract and schedule]({url})**\n\n")
@@ -649,18 +649,18 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
     :param target_dir: directory to save the files to.
     """
     # Prepare workshop items
-    workshops: Dict[str, Dict[str, Any]] = dict()
+    workshops: Dict[str, Dict[str, Any]] = {}
     for item in data:
         num = item["workshop number"]
         name = item["workshop name"]
         organisers = item["organisers"]
         url = item["info url"]
         if num not in workshops:
-            workshops[num] = dict()
+            workshops[num] = {}
             workshops[num]["name"] = name
             workshops[num]["organisers"] = organisers
             workshops[num]["url"] = url
-            workshops[num]["talks"] = list()
+            workshops[num]["talks"] = []
 
         workshops[num]["talks"].append({
             "title": item["talk title"],
@@ -673,7 +673,7 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
     make_workshop_page(workshops, target_dir)
 
     # Create workshops index page
-    list_content: List[str] = list()
+    list_content: List[str] = []
     for num, ws_item in workshops.items():
         entry = f'**[{ws_item["name"]}](wiki/Workshop{num})**  \n'
         entry += f'{ws_item["organisers"]}  \n'
@@ -719,7 +719,7 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
     desc = item["description"]
     hopin = item["hopin"]
 
-    content = list()
+    content = []
     if logo:
         image_url = f"/BernsteinConference/Exhibition/raw/master/img/{logo}"
         content.append(f'<img height=100 alt="Exhibition: {company}" '
@@ -743,8 +743,8 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
 
     # handle materials list
     materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
-    mat_content = list()
-    mat_links = list()
+    mat_content = []
+    mat_links = []
     for mat in materials:
         if curr := item[mat]:
             # links and material items might not come in order
@@ -778,7 +778,7 @@ def handle_exhibition_data(data: List[Dict[str, str]], target_dir: pl.Path):
     :param data: list containing a dictionary of exhibition items.
     :param target_dir: directory to save the files to.
     """
-    list_content: List[str] = list()
+    list_content: List[str] = []
 
     idx = 0
     for item in data:
