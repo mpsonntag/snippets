@@ -690,6 +690,22 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
         list_file.write("\n".join(list_content))
 
 
+def handle_exhibition_desc(company: str, desc: str) -> str:
+    """
+    Handles exhibition description special formatting needs.
+    Returns the updated description.
+    :param company: company name
+    :param desc: company description
+    """
+    if company.lower() == "mathworks":
+        desc = desc.replace(" o ", "\n- ")
+
+    if company.lower() == "simulation and data lab neuroscience":
+        desc = desc.replace("\n•", "\n- ")
+
+    return desc
+
+
 def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
     """
     Creates exhibition item landing page.
@@ -711,12 +727,7 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
 
     content.append(f"# {company}\n\n")
 
-    # Mathworks description requires content bullet point conversion to markdown
-    if company.lower() == "mathworks":
-        desc = desc.replace(" o ", "\n- ")
-    # simulab requires content bullet point handling as well
-    if company.lower() == "simulation and data lab neuroscience":
-        desc = desc.replace("\n•", "\n- ")
+    desc = handle_exhibition_desc(company, desc)
 
     content.append(f"{desc}\n\n")
     content.append("<div class='ui dividing header'></div>")
