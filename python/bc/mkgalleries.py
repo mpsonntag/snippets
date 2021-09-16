@@ -714,6 +714,9 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
     # Mathworks description requires content bullet point conversion to markdown
     if company.lower() == "mathworks":
         desc = desc.replace(" o ", "\n- ")
+    # simulab requires content bullet point handling as well
+    if company.lower() == "simulation and data lab neuroscience":
+        desc = desc.replace("\n•", "\n- ")
 
     content.append(f"{desc}\n\n")
     content.append("<div class='ui dividing header'></div>")
