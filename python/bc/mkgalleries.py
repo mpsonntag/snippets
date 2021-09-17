@@ -72,7 +72,7 @@ WORKSHOP_RECORD_MSG = {
     "waiting": "",
 }
 # special handling for the invited talks info line
-# adjust talk number; use 'Keynote' and 'Breitenberg award' texts
+# adjust talk number; use 'Keynote' and 'Braitenberg award' texts
 INVITED_TALKS_ADJUST = True
 
 
@@ -166,7 +166,7 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
         if abs_no == 0:
             info_line = "**Keynote lecture**"
         elif abs_no == 11:
-            info_line = "**Breitenberg award**"
+            info_line = "**Braitenberg Award Lecture**"
 
     if topic and omit != "topic":
         topic_link = ""
