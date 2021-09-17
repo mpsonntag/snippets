@@ -196,6 +196,8 @@ def print_part_pre_doi(fip):
 - check the datacite content at 
   https://gin.g-node.org/{CONF["repo_own"]}/{CONF["repo"]}
     -[ ] repo is eligible to be published via GIN DOI
+    -[ ] the repo name is sufficiently unique to avoid clashes when 
+         forking to the DOI GIN user.
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
     -[ ] automated issues are all addressed
