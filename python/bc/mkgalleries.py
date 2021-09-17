@@ -71,6 +71,9 @@ WORKSHOP_RECORD_MSG = {
     "no recording": "Video recording will not be made available",
     "waiting": "",
 }
+# special handling for the invited talks info line
+# adjust talk number; use 'Keynote' and 'Breitenberg award' texts
+INVITED_TALKS_ADJUST = True
 
 
 def run_cmd(*args):
@@ -157,7 +160,7 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     info_line = f"**{item_type} {abs_no}**"
     # An unwise hack to enable special categories within invited talks
     # and adjust the talk numbers accordingly.
-    if item["short"] == "I":
+    if item["short"] == "I" and INVITED_TALKS_ADJUST:
         abs_no = int(abs_no) - 1
         info_line = f"**{item_type} {abs_no}**"
         if abs_no == 0:
