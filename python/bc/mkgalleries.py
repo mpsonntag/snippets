@@ -13,6 +13,7 @@ import re
 import subprocess as sp
 
 from datetime import date
+from os.path import getsize as getfilesize
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import quote as urlquote
 
@@ -225,6 +226,7 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
     conn = http.client.HTTPSConnection(POSTER_SERVER, timeout=60)
     poster_dir = target_dir.joinpath("posters")
     poster_dir.mkdir(parents=True, exist_ok=True)
+    # collect and return missing or empty PDFs
     missing = ""
 
     def download(uuid: str, fname: str, extension: str) -> Optional[pl.Path]:
@@ -257,15 +259,23 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
 
         if idx and not idx % 100:
             print(f" {idx}")
+
         uuid = item["id"]
         number = item["abstract_number"]
+
+        info_rune = "•"
         if pdf_path := download(uuid, number, "pdf"):
-            print("•", end="", flush=True)
-            create_thumbnail(pdf_path)
+            # create thumbnail only if downloaded PDF has content
+            if getfilesize(pdf_path) == 0:
+                info_rune = "0"
+                missing += f"{uuid} - {number} - PDF file issue\n"
+            else:
+                create_thumbnail(pdf_path)
         else:
-            print(".", end="", flush=True)
-            # collect all missing PDFs
+            info_rune = "."
             missing += f"{uuid} - {number}\n"
+
+        print(info_rune, end="", flush=True)
         download(uuid, number, "url")
     print()
 
