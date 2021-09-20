@@ -939,12 +939,14 @@ def main():
         print("Downloading posters and URLs ...")
         amiss = download_pdfs(data, posters_dir)
         print("Done ...\n")
-        print(f"PDFs missing:\n{amiss}")
+        miss_num = amiss.count("\n")
+        print(f"{miss_num} PDFs missing:\n{amiss}")
 
     # Hack to deal with equations for all posters and talk types
     equation_dirs = {"P": posters_dir, "C": contribtalks_dir, "I": invtalks_dir}
     create_equation_images(data, equation_dirs, equations)
 
+    print("")
     handle_poster_data(data, posters_dir)
     handle_talks_data(data, invtalks_dir, "I", "invited")
     handle_talks_data(data, contribtalks_dir, "C", "contributed")
