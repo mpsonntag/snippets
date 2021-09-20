@@ -728,6 +728,7 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
     """
     company = item["company_name"]
     logo = item["logo"]
+    headline = item["headline"]
     website = item["website"]
     desc = item["description"]
     hopin = item["hopin"]
@@ -739,6 +740,7 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
                        f'src="{image_url}"/>\n')
 
     content.append(f"# {company}\n\n")
+    content.append(f"\n\n{headline}\n\n")
 
     desc = handle_exhibition_desc(company, desc)
 
