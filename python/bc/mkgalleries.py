@@ -879,6 +879,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--download", dest="download", action="store_true",
                         help="Download new files from upload service")
+    parser.add_argument("--single-download", dest="sdl", type=str,
+                        help="Download single abstract files providing the abstract UUID")
     parser.add_argument("--render-equations", dest="equations", action="store_true",
                         help="Create pngs for LaTeX equations in abstracts")
     parser.add_argument("--workshops", dest="workshops", action="store_true",
@@ -893,6 +895,7 @@ def main():
     exhibition = args.exhibition
 
     download = args.download
+    sdl = args.sdl
     equations = args.equations
 
     target_dir = pl.Path(args.targetdir)
@@ -934,6 +937,14 @@ def main():
     invtalks_dir.mkdir(parents=True, exist_ok=True)
     contribtalks_dir = target_dir.joinpath("contributedtalks")
     contribtalks_dir.mkdir(parents=True, exist_ok=True)
+
+    # enable the download of single abstract files (PDF and URL)
+    if sdl:
+        filtered_data = list(filter(lambda item: item["id"] == sdl, data))
+        print(f"Download files for abstract {sdl} ...")
+        _ = download_pdfs(filtered_data, posters_dir)
+        print("Done ...")
+        return
 
     if download:
         print("Downloading posters and URLs ...")
