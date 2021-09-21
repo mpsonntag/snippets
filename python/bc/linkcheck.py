@@ -8,12 +8,23 @@ import json
 from typing import Dict, List
 
 
+def handle_link_item(item: Dict[str, str], item_key: str) -> str:
+    """
+    Checks whether the item content for a provided dict key is a url
+    and returns the url or an empty string if the check fails.
+    :param item: a dictionary item.
+    :param item_key: dictionary item key; the corresponding dictionary value
+                     is checked whether it is a url.
+    :return: url string
+    """
+    url = ""
+    if item_key in item.keys() and item[item_key] and item[item_key].startswith("http"):
+        url = item[item_key]
+    return url
+
+
 def handle_poster(data: List[Dict[str, str]]):
-    """
-    Iterate over all provided poster items and check the http.StatusOK for
-    every full and derivative link item.
-    :param data: list containing poster dictionary items.
-    """
+    pass
 
 
 def content_check(data: List[Dict[str, str]], check: str,
@@ -58,6 +69,7 @@ def main():
         if not content_check(data, "workshop number", json_file, "WORKSHOP"):
             return
 
+        print("Done ...")
         return
 
     if exhibition:
@@ -65,6 +77,7 @@ def main():
         if not content_check(data, "company_name", json_file, "EXHIBITION"):
             return
 
+        print("Done ...")
         return
 
     print("Handling poster data ...")
@@ -72,6 +85,7 @@ def main():
         return
 
     handle_poster(data)
+    print("Done ...")
 
 
 if __name__ == "__main__":
