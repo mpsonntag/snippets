@@ -25,26 +25,28 @@ def handle_link_item(item: Dict[str, str], item_key: str) -> str:
     return url
 
 
-def handle_url_check(url: str, info_line: str):
+def handle_url_check(url: str, info_line: str) -> str:
     """
     Checks a provided url for http.Status codes other than 200
-    and redirects and prints the result to the command line.
+    and redirects and returns the result as string.
     :param url: URL to be checked.
     :param info_line: Formatted line to identify the item the URL belongs to.
+    :return: formatted str on error, empty str on success.
     """
     # Provide a user agent since some pages deny access when none is available.
     req = Request(url, headers={'User-Agent': 'PYTHON/3.9'})
     try:
         res = urlopen(req)
     except urllib.error.HTTPError as exc:
-        print(f"Code {exc} | {info_line}")
-        return
+        return f"Code {exc} | {info_line}\n"
 
     if res.getcode() != 200:
-        print(f"Code {res.getcode()} | {info_line}")
+        return f"Code {res.getcode()} | {info_line}\n"
 
     if res.geturl() != url:
-        print(f"Redirect {res.geturl()} | {info_line}")
+        return f"Redirect {res.geturl()} | {info_line}\n"
+
+    return ""
 
 
 def handle_poster(data: List[Dict[str, str]]):
@@ -54,13 +56,25 @@ def handle_poster(data: List[Dict[str, str]]):
     :param data: list containing poster dictionary items.
     """
     print("Processing poster item links ...")
-    for item in data:
+    fails = ""
+    for idx, item in enumerate(data):
         abs_num = item['abstract_number']
         abs_id = item['id']
+        info_rune = "•"
+
         for url_key in ["vimeo link", "individual video link"]:
+            # check link availability
             if check_url := handle_link_item(item, url_key):
                 info_line = f"Poster {abs_num}|{abs_id} {url_key}({check_url})"
-                handle_url_check(check_url, info_line)
+                # check url and process resulting error messages
+                if err := handle_url_check(check_url, info_line):
+                    info_rune = "x"
+                    fails += err
+
+        if idx and not idx % 100:
+            print(f" {idx}")
+        print(info_rune, end="", flush=True)
+    print(f"\n{fails}")
 
 
 def handle_workshop(data: List[Dict[str, str]]):
@@ -70,12 +84,24 @@ def handle_workshop(data: List[Dict[str, str]]):
     :param data: list containing workshop dictionary items.
     """
     print("Processing workshop item links ...")
-    for item in data:
+    fails = ""
+    for idx, item in enumerate(data):
         item_num = item['workshop number']
+        info_rune = "•"
+
         for url_key in ["info url", "recording url"]:
+            # check link availability
             if check_url := handle_link_item(item, url_key):
                 info_line = f"Workshop {item_num} {url_key}({check_url})"
-                handle_url_check(check_url, info_line)
+                # check url and process resulting error messages
+                if err := handle_url_check(check_url, info_line):
+                    info_rune = "x"
+                    fails += err
+
+        if idx and not idx % 100:
+            print(f" {idx}")
+        print(info_rune, end="", flush=True)
+    print(f"\n{fails}")
 
 
 def handle_exhibition(data: List[Dict[str, str]]):
@@ -85,16 +111,26 @@ def handle_exhibition(data: List[Dict[str, str]]):
     :param data: list containing exhibition dictionary items.
     """
     print("Processing exhibition item links ...")
-    for item in data:
+    fails = ""
+    for idx, item in enumerate(data):
         item_num = item['company_name']
+        info_rune = "•"
 
-        # exhibition has a number of 'material_' keys where urls can be contained
+        # exhibition has a number of 'material_' keys where urls can be referenced
         materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
         materials.append("website")
         for url_key in materials:
             if check_url := handle_link_item(item, url_key):
                 info_line = f"Exhibition {item_num} | {url_key}({check_url})"
-                handle_url_check(check_url, info_line)
+                # check url and process resulting error messages
+                if err := handle_url_check(check_url, info_line):
+                    info_rune = "x"
+                    fails += err
+
+        if idx and not idx % 100:
+            print(f" {idx}")
+        print(info_rune, end="", flush=True)
+    print(f"\n{fails}")
 
 
 def content_check(data: List[Dict[str, str]], check: str,
