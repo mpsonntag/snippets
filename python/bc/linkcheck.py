@@ -164,7 +164,7 @@ def main():
     exhibition = args.exhibition
 
     json_file = args.jsonfile
-    with open(json_file) as jfp:
+    with open(json_file, "r", encoding="utf-8") as jfp:
         data = json.load(jfp)
 
     if workshops:
