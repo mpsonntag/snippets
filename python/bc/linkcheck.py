@@ -25,12 +25,11 @@ def handle_link_item(item: Dict[str, str], item_key: str) -> str:
     return url
 
 
-def handle_url_check(url: str, info_line: str) -> str:
+def handle_url_check(url: str) -> str:
     """
     Checks a provided url for http.Status codes other than 200
     and redirects and returns the result as string.
     :param url: URL to be checked.
-    :param info_line: Formatted line to identify the item the URL belongs to.
     :return: formatted str on error, empty str on success.
     """
     # Provide a user agent since some pages deny access when none is available.
@@ -38,13 +37,13 @@ def handle_url_check(url: str, info_line: str) -> str:
     try:
         res = urlopen(req)
     except urllib.error.HTTPError as exc:
-        return f"Code {exc} | {info_line}\n"
+        return f"Code {exc}"
 
     if res.getcode() != 200:
-        return f"Code {res.getcode()} | {info_line}\n"
+        return f"Code {res.getcode()}"
 
     if res.geturl() != url:
-        return f"Redirect {res.geturl()} | {info_line}\n"
+        return f"Redirect {res.geturl()}"
 
     return ""
 
@@ -65,11 +64,10 @@ def handle_poster(data: List[Dict[str, str]]):
         for url_key in ["vimeo link", "individual video link"]:
             # check link availability
             if check_url := handle_link_item(item, url_key):
-                info_line = f"Poster {abs_num}|{abs_id} {url_key}({check_url})"
                 # check url and process resulting error messages
-                if err := handle_url_check(check_url, info_line):
+                if err := handle_url_check(check_url):
                     info_rune = "x"
-                    fails += err
+                    fails += f"{err} | Poster {abs_num}|{abs_id} {url_key}({check_url})\n"
 
         if idx and not idx % 100:
             print(f" {idx}")
@@ -92,11 +90,10 @@ def handle_workshop(data: List[Dict[str, str]]):
         for url_key in ["info url", "recording url"]:
             # check link availability
             if check_url := handle_link_item(item, url_key):
-                info_line = f"Workshop {item_num} {url_key}({check_url})"
                 # check url and process resulting error messages
-                if err := handle_url_check(check_url, info_line):
+                if err := handle_url_check(check_url):
                     info_rune = "x"
-                    fails += err
+                    fails += f"{err} | Workshop {item_num} {url_key}({check_url})\n"
 
         if idx and not idx % 100:
             print(f" {idx}")
@@ -120,12 +117,12 @@ def handle_exhibition(data: List[Dict[str, str]]):
         materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
         materials.append("website")
         for url_key in materials:
+            # check link availability
             if check_url := handle_link_item(item, url_key):
-                info_line = f"Exhibition {item_num} | {url_key}({check_url})"
                 # check url and process resulting error messages
-                if err := handle_url_check(check_url, info_line):
+                if err := handle_url_check(check_url):
                     info_rune = "x"
-                    fails += err
+                    fails += f"{err} | Exhibition {item_num} | {url_key}({check_url})\n"
 
         if idx and not idx % 100:
             print(f" {idx}")
