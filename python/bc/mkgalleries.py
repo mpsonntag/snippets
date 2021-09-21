@@ -651,7 +651,8 @@ def make_workshop_page(workshops: Dict[str, Dict[str, Any]], target_dir: pl.Path
             content.append(f"{idx+1}. {title}  \n")
             content.append(f"{speakers}  \n")
 
-            if vid_url := talk["videourl"]:
+            # if videourl has been provided and looks like a valid link
+            if (vid_url := talk["videourl"]).startswith("http"):
                 content.append(f"[Video recording]({vid_url})\n")
             elif rec_msg := WORKSHOP_RECORD_MSG[rec_status]:
                 content.append(f"*{rec_msg}*\n")
