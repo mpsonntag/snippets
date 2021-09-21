@@ -4,8 +4,10 @@ for non http.StatusOK codes.
 """
 import argparse
 import json
+import urllib.error
 
 from typing import Dict, List
+from urllib.request import urlopen
 
 
 def handle_link_item(item: Dict[str, str], item_key: str) -> str:
@@ -21,6 +23,26 @@ def handle_link_item(item: Dict[str, str], item_key: str) -> str:
     if item_key in item.keys() and item[item_key] and item[item_key].startswith("http"):
         url = item[item_key]
     return url
+
+
+def handle_url_check(url: str, info_line: str):
+    """
+    Checks a provided url for http.Status codes other than 200
+    and redirects and prints the result to the command line.
+    :param url: URL to be checked.
+    :param info_line: Formatted line to identify the item the URL belongs to.
+    """
+    try:
+        res = urlopen(url)
+    except urllib.error.HTTPError as exc:
+        print(f"Code {exc} | {info_line}")
+        return
+
+    if res.getcode() != 200:
+        print(f"Code {res.getcode()} | {info_line}")
+
+    if res.geturl() != url:
+        print(f"Redirect {res.geturl()} | {info_line}")
 
 
 def handle_poster(data: List[Dict[str, str]]):
