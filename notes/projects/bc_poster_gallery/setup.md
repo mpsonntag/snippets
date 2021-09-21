@@ -304,6 +304,13 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     TBA
   - to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
 
+- check the original data for broken external links using the `linkcheck.py` script:
+  ```bash
+    python linkcheck.py [path to posters/abstracts json file]
+    python linkcheck.py --workshops [path to workshops json file]
+    python linkcheck.py --exhibition [path to exhibition json file]
+  ```
+
 - once all this is done commit and upload the changes for all changed galleries:
 
   ```bash
@@ -334,7 +341,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
     GCA_CLIENT=/home/$USER/path/to/gca-client
     
-    $GCA_CLIENT https://abstracts.g-node.org abstracts conferenceShort > $FILES_DIR/abstracts.json
+    $GCA_CLIENT https://abstracts.g-node.org abstracts [conferenceShort] > $FILES_DIR/abstracts.json
     
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
@@ -349,7 +356,12 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     python $MAIN_ROOT/scripts/mkgalleries.py --workshops $FILES_DIR/workshops.json $MAIN_ROOT/galleries/
     
     python $MAIN_ROOT/scripts/mkgalleries.py --exhibition $FILES_DIR/exhibition.json $MAIN_ROOT/galleries/
-    
+
+    # Check external links to identify potential 404s
+    python $MAIN_ROOT/scripts/linkcheck.py $FILES_DIR/posters-abstracts.json
+    python $MAIN_ROOT/scripts/linkcheck.py --workshops $FILES_DIR/workshops.json
+    python $MAIN_ROOT/scripts/linkcheck.py --exhibition $FILES_DIR/exhibition.json
+  
     # Check changes before commit
     POSTERS_DIR=$MAIN_ROOT/galleries/posters
     INV_TALKS_DIR=$MAIN_ROOT/galleries/invitedtalks
