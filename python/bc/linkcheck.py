@@ -53,16 +53,14 @@ def handle_poster(data: List[Dict[str, str]]):
     every valid url item.
     :param data: list containing poster dictionary items.
     """
-    print("Checking poster item links ...")
+    print("Processing poster item links ...")
     for item in data:
         abs_num = item['abstract_number']
         abs_id = item['id']
-        if check_url := handle_link_item(item, "vimeo link"):
-            info_line = f"Poster {abs_num}|{abs_id} vimeo link({check_url})"
-            handle_url_check(check_url, info_line)
-        if check_url := handle_link_item(item, "individual video link"):
-            info_line = f"Poster {abs_num}|{abs_id} individual video link({check_url})"
-            handle_url_check(check_url, info_line)
+        for url_key in ["vimeo link", "individual video link"]:
+            if check_url := handle_link_item(item, url_key):
+                info_line = f"Poster {abs_num}|{abs_id} {url_key}({check_url})"
+                handle_url_check(check_url, info_line)
 
 
 def handle_workshop(data: List[Dict[str, str]]):
@@ -71,15 +69,13 @@ def handle_workshop(data: List[Dict[str, str]]):
     every valid url item.
     :param data: list containing workshop dictionary items.
     """
-    print("Checking workshop item links ...")
+    print("Processing workshop item links ...")
     for item in data:
         item_num = item['workshop number']
-        if check_url := handle_link_item(item, "info url"):
-            info_line = f"Workshop {item_num} info url({check_url})"
-            handle_url_check(check_url, info_line)
-        if check_url := handle_link_item(item, "recording url"):
-            info_line = f"Workshop {item_num} recording url({check_url})"
-            handle_url_check(check_url, info_line)
+        for url_key in ["info url", "recording url"]:
+            if check_url := handle_link_item(item, url_key):
+                info_line = f"Workshop {item_num} {url_key}({check_url})"
+                handle_url_check(check_url, info_line)
 
 
 def handle_exhibition(data: List[Dict[str, str]]):
@@ -88,17 +84,16 @@ def handle_exhibition(data: List[Dict[str, str]]):
     every valid url item.
     :param data: list containing exhibition dictionary items.
     """
-    print("Checking exhibition item links ...")
+    print("Processing exhibition item links ...")
     for item in data:
         item_num = item['company_name']
-        if check_url := handle_link_item(item, "website"):
-            info_line = f"Exhibition {item_num} | website({check_url})"
-            handle_url_check(check_url, info_line)
 
+        # exhibition has a number of 'material_' keys where urls can be contained
         materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
-        for mat in materials:
-            if check_url := handle_link_item(item, mat):
-                info_line = f"Exhibition {item_num} | {mat}({check_url})"
+        materials.append("website")
+        for url_key in materials:
+            if check_url := handle_link_item(item, url_key):
+                info_line = f"Exhibition {item_num} | {url_key}({check_url})"
                 handle_url_check(check_url, info_line)
 
 
