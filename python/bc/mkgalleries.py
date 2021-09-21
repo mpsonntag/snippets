@@ -77,17 +77,19 @@ WORKSHOP_RECORD_MSG = {
 INVITED_TALKS_ADJUST = True
 
 
-def run_cmd(*args):
+def run_cmd(*args) -> str:
     """
-    Runs a terminal command and prints feedback to the command line
-    in case of any error.
+    Runs a terminal command and returns feedback in case of any error.
     """
+    err = ""
     ret = sp.run(args, check=False, stdout=sp.PIPE, stderr=sp.PIPE)
     if ret.returncode:
         cmd_str = " ".join(str(arg) for arg in args)
-        print(f"Command {cmd_str} failed")
-        print(ret.stdout)
-        print(ret.stderr)
+        err = f"Command {cmd_str} failed"
+        err += f"{str(ret.stdout)}\n"
+        err += f"{str(ret.stderr)}\n"
+
+    return err
 
 
 def item_filename(item: Dict[str, str]) -> str:
@@ -203,7 +205,7 @@ def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
     return title_line + author_line + info_line
 
 
-def create_thumbnail(pdf_path: pl.Path) -> pl.Path:
+def create_thumbnail(pdf_path: pl.Path) -> str:
     """
     Creates a gif thumbnail for a PDF poster and returns the path of the new
     file.  The new file is created in a subdirectory of the PDF path called
@@ -214,9 +216,7 @@ def create_thumbnail(pdf_path: pl.Path) -> pl.Path:
     thumb_dir.mkdir(exist_ok=True)
     thumb_path = thumb_dir.joinpath(gif_name)
 
-    run_cmd("convert", "-delay", "100", pdf_path, "-thumbnail", "x120", thumb_path)
-
-    return thumb_path
+    return run_cmd("convert", "-delay", "100", pdf_path, "-thumbnail", "x120", thumb_path)
 
 
 def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
@@ -228,6 +228,9 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
     poster_dir.mkdir(parents=True, exist_ok=True)
     # collect and return missing or empty PDFs
     missing = ""
+    # collect thumbnail creation errors and display them after
+    # all posters have been handled.
+    thumb_err = ""
 
     def download(uuid: str, fname: str, extension: str) -> Optional[pl.Path]:
         nonlocal conn
@@ -263,21 +266,25 @@ def download_pdfs(data: List[Dict[str, str]], target_dir: pl.Path):
         uuid = item["id"]
         number = item["abstract_number"]
 
+        # default to the all-is-well info_rune
         info_rune = "•"
         if pdf_path := download(uuid, number, "pdf"):
             # create thumbnail only if downloaded PDF has content
             if getfilesize(pdf_path) == 0:
                 info_rune = "0"
                 missing += f"{uuid} - {number} - PDF file issue\n"
-            else:
-                create_thumbnail(pdf_path)
+            # create thumbnail and report in case of an issue
+            elif err := create_thumbnail(pdf_path):
+                info_rune = "x"
+                thumb_err += f"{err}\n"
         else:
             info_rune = "."
             missing += f"{uuid} - {number}\n"
 
         print(info_rune, end="", flush=True)
         download(uuid, number, "url")
-    print()
+
+    print(f"\n{thumb_err}")
 
     return missing
 
@@ -340,16 +347,19 @@ def texify(item: Dict[str, str], target_dir: Dict[str, pl.Path], create: bool) -
         print(f"Handling equation image for {item['short']}/{item['abstract_number']}")
         for idx, group in enumerate(match):
             img_basename = f"{number}-{idx}"
+            url = f"/raw/master/equations/{img_basename}.png"
+            text = text.replace(group, f"![]({url})")
+
             if create:
                 sanitized = sanitize_tex(group)
                 svg = latex2svg(sanitized)["svg"]
                 svg_path = eqn_dir.joinpath(f"{img_basename}.svg")
                 with open(svg_path, "w") as svgfile:
                     svgfile.write(svg)
+
                 png_path = eqn_dir.joinpath(f"{img_basename}.png")
-                run_cmd("convert", f"{svg_path}", f"{png_path}")
-            url = f"/raw/master/equations/{img_basename}.png"
-            text = text.replace(group, f"![]({url})")
+                if err := run_cmd("convert", f"{svg_path}", f"{png_path}"):
+                    print(f"\n{err}")
 
     return text
 
