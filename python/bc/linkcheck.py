@@ -67,7 +67,7 @@ def handle_workshop(data: List[Dict[str, str]]):
     """
     Iterates over all provided poster items and checks the http.StatusOK for
     every valid url item.
-    :param data: list containing poster dictionary items.
+    :param data: list containing workshop dictionary items.
     """
     print("Checking workshop item links ...")
     for item in data:
@@ -78,6 +78,26 @@ def handle_workshop(data: List[Dict[str, str]]):
         if check_url := handle_link_item(item, "recording url"):
             info_line = f"Workshop {item_num} recording url({check_url})"
             handle_url_check(check_url, info_line)
+
+
+def handle_exhibition(data: List[Dict[str, str]]):
+    """
+    Iterates over all provided exhibition items and checks the http.StatusOK for
+    every valid url item.
+    :param data: list containing exhibition dictionary items.
+    """
+    print("Checking exhibition item links ...")
+    for item in data:
+        item_num = item['company_name']
+        if check_url := handle_link_item(item, "website"):
+            info_line = f"Exhibition {item_num} | website({check_url})"
+            handle_url_check(check_url, info_line)
+
+        materials = list(filter(lambda cur: cur.startswith("material_"), item.keys()))
+        for mat in materials:
+            if check_url := handle_link_item(item, mat):
+                info_line = f"Exhibition {item_num} | {mat}({check_url})"
+                handle_url_check(check_url, info_line)
 
 
 def content_check(data: List[Dict[str, str]], check: str,
@@ -131,6 +151,7 @@ def main():
         if not content_check(data, "company_name", json_file, "EXHIBITION"):
             return
 
+        handle_exhibition(data)
         print("Done ...")
         return
 
