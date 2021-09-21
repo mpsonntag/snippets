@@ -35,15 +35,15 @@ def handle_url_check(url: str) -> str:
     # Provide a user agent since some pages deny access when none is available.
     req = Request(url, headers={'User-Agent': 'PYTHON/3.9'})
     try:
-        res = urlopen(req)
+        with urlopen(req) as res:
+            if res.getcode() != 200:
+                return f"Code {res.getcode()}"
+
+            if res.geturl() != url:
+                return f"Redirect {res.geturl()}"
+
     except urllib.error.HTTPError as exc:
         return f"Code {exc}"
-
-    if res.getcode() != 200:
-        return f"Code {res.getcode()}"
-
-    if res.geturl() != url:
-        return f"Redirect {res.geturl()}"
 
     return ""
 
