@@ -46,7 +46,21 @@ def handle_url_check(url: str, info_line: str):
 
 
 def handle_poster(data: List[Dict[str, str]]):
-    pass
+    """
+    Iterates over all provided poster items and checks the http.StatusOK for
+    every valid url item.
+    :param data: list containing poster dictionary items.
+    """
+    print("Checking item links ...")
+    for item in data:
+        abs_num = item['abstract_number']
+        abs_id = item['id']
+        if check_url := handle_link_item(item, "vimeo link"):
+            info_line = f"Poster {abs_num}|{abs_id} vimeo link({check_url})"
+            handle_url_check(check_url, info_line)
+        if check_url := handle_link_item(item, "individual video link"):
+            info_line = f"Poster {abs_num}|{abs_id} individual video link({check_url})"
+            handle_url_check(check_url, info_line)
 
 
 def content_check(data: List[Dict[str, str]], check: str,
