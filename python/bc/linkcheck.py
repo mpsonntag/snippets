@@ -51,7 +51,7 @@ def handle_poster(data: List[Dict[str, str]]):
     every valid url item.
     :param data: list containing poster dictionary items.
     """
-    print("Checking item links ...")
+    print("Checking poster item links ...")
     for item in data:
         abs_num = item['abstract_number']
         abs_id = item['id']
@@ -60,6 +60,23 @@ def handle_poster(data: List[Dict[str, str]]):
             handle_url_check(check_url, info_line)
         if check_url := handle_link_item(item, "individual video link"):
             info_line = f"Poster {abs_num}|{abs_id} individual video link({check_url})"
+            handle_url_check(check_url, info_line)
+
+
+def handle_workshop(data: List[Dict[str, str]]):
+    """
+    Iterates over all provided poster items and checks the http.StatusOK for
+    every valid url item.
+    :param data: list containing poster dictionary items.
+    """
+    print("Checking workshop item links ...")
+    for item in data:
+        item_num = item['workshop number']
+        if check_url := handle_link_item(item, "info url"):
+            info_line = f"Workshop {item_num} info url({check_url})"
+            handle_url_check(check_url, info_line)
+        if check_url := handle_link_item(item, "recording url"):
+            info_line = f"Workshop {item_num} recording url({check_url})"
             handle_url_check(check_url, info_line)
 
 
@@ -105,6 +122,7 @@ def main():
         if not content_check(data, "workshop number", json_file, "WORKSHOP"):
             return
 
+        handle_workshop(data)
         print("Done ...")
         return
 
