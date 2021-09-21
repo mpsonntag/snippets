@@ -423,7 +423,11 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
             poster_page.write(f"[![Poster]({poster_thumb_url})]({poster_url}) ")
 
         if video_url:
-            poster_page.write(f"[![Video]({VIDEO_ICON_URL})]({video_url})")
+            vid_text = f"[![Video]({VIDEO_ICON_URL})]({video_url})"
+            # table hack to enable "no video" notice for Contributed and Invited talks
+            if item["short"] in ["C", "I"] and video_url == "no recording":
+                vid_text = "Video recording will not be made available\n\n"
+            poster_page.write(vid_text)
 
         poster_page.write("\n\n")
 
