@@ -7,7 +7,7 @@ import json
 import urllib.error
 
 from typing import Dict, List
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 
 def handle_link_item(item: Dict[str, str], item_key: str) -> str:
@@ -32,8 +32,10 @@ def handle_url_check(url: str, info_line: str):
     :param url: URL to be checked.
     :param info_line: Formatted line to identify the item the URL belongs to.
     """
+    # Provide a user agent since some pages deny access when none is available.
+    req = Request(url, headers={'User-Agent': 'PYTHON/3.9'})
     try:
-        res = urlopen(url)
+        res = urlopen(req)
     except urllib.error.HTTPError as exc:
         print(f"Code {exc} | {info_line}")
         return
