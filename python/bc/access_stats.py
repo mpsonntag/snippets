@@ -7,6 +7,17 @@ import json
 from typing import Dict, List
 
 
+def order_print(data: Dict[str, int]):
+    """
+    Sorts the dictionary content by key and prints the resulting dictionary.
+    :param data: Dict containing distinct addresses and their occurrence.
+    """
+    print()
+    print("Individual views ...")
+    for dat in sorted(data):
+        print(f"{dat}: {data[dat]}")
+
+
 def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     """
     Parses the accessed URL from the docker log string, counts the
