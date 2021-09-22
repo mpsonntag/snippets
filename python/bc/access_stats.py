@@ -29,6 +29,24 @@ def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     return counter_dict
 
 
+def filter_print(data: List[Dict[str, str]], fil_str: str,
+                 print_msg: str) -> Dict[str, int]:
+    """
+    Reduces a dictionary to items that contain the passed filter string, calls the
+    parse_stats func with the resulting dict and prints the length of the results.
+    :param data: list containing docker log dictionaries.
+    :param fil_str: string that has to be found in the "log" entry string.
+    :param print_msg: Prefix before printing the number of results.
+    :return: Dict containing distinct addresses and their occurrence.
+    """
+    fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
+    parse_dat = parse_stats(fil_dat)
+
+    print(f"{print_msg}:{str(len(parse_dat)).rjust(25-len(print_msg))}")
+
+    return parse_dat
+
+
 def main():
     """
     Parse command line arguments and run the URL checks with the data provided.
@@ -59,27 +77,14 @@ def main():
     # or when the poster is downloaded;
     # The download rate per poster could be approximated by subtracting src access from
     # raw access.
-    pdf_raw_dat = list(filter(lambda log_entry: "raw" in log_entry["log"], pdf_dat))
+    filter_print(pdf_dat, "raw", "Raw PDF")
     # Filter for pdf view on the page
-    pdf_src_dat = list(filter(lambda log_entry: "src" in log_entry["log"], pdf_dat))
-    curr = "BernsteinConference/Posters/wiki/Poster"
-    pos_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
-    curr = "BernsteinConference/InvitedTalks/wiki/Invited"
-    inv_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
-    curr = "BernsteinConference/ContributedTalks/wiki/Contributed"
-    con_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
-    curr = "BernsteinConference/Workshops/wiki/Workshop"
-    wor_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
-    curr = "BernsteinConference/Exhibition/wiki/Exhibition"
-    exh_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
-
-    print(f"Raw PDF: {len(parse_stats(pdf_raw_dat))}")
-    print(f"View PDF: {len(parse_stats(pdf_src_dat))}")
-    print(f"Poster: {len(parse_stats(pos_dat))}")
-    print(f"Invited Talks: {len(parse_stats(inv_dat))}")
-    print(f"Contributed Talks: {len(parse_stats(con_dat))}")
-    print(f"Workshops: {len(parse_stats(wor_dat))}")
-    print(f"Exhibition: {len(parse_stats(exh_dat))}")
+    filter_print(pdf_dat, "src", "View PDF")
+    filter_print(fil_com_dat, "Posters/wiki/Poster", "Posters")
+    filter_print(fil_com_dat, "InvitedTalks/wiki/Invited", "Invited Talks")
+    filter_print(fil_com_dat, "ContributedTalks/wiki/Contributed", "Contributed Talks")
+    filter_print(fil_com_dat, "Workshops/wiki/Workshop", "Workshops")
+    filter_print(fil_com_dat, "Exhibition/wiki/Exhibition", "Exhibition")
 
 
 if __name__ == "__main__":
