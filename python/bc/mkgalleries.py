@@ -66,7 +66,9 @@ INDEX_TEXT = {
                   "and supply supplemental material."
 }
 # use NEW abstract numbers
-WITHDRAWN = [65]
+WITHDRAWN = [65, 75]
+# WARNING: these PDF links will not appear on the landing page
+MISSING_PDF = [107, 109, 20, 31, 129, 144, 145, 146, 148, 190]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
@@ -420,7 +422,9 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
 
         if item["short"] == "P":
             poster_page.write(make_infoline(item) + "\n\n")
-            poster_page.write(f"[![Poster]({poster_thumb_url})]({poster_url}) ")
+            # do not add poster PDF links if the PDF is missing
+            if int(number) not in MISSING_PDF:
+                poster_page.write(f"[![Poster]({poster_thumb_url})]({poster_url}) ")
 
         if video_url:
             vid_text = f"[![Video]({VIDEO_ICON_URL})]({video_url})"
