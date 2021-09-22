@@ -4,6 +4,30 @@ Extract infos from docker json logfiles
 import argparse
 import json
 
+from typing import Dict, List
+
+
+def print_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
+    """
+    Parses the accessed URL from the docker log string, counts the
+    distinct occurrences and returns the resulting dictionary.
+    The log string is formatted as: "[logger] [date] [time] [request status]
+    [request type] [address]".
+    Dependent on "[request status]" the next items are for "Started": "for [IP address]"
+    and for "Completed": "[http.StatusCode] [http.Status] in [request time]"
+    :param logs: List of docker log dicts; its keys are "log", "stream", "time".
+    :return: Dict containing distinct addresses and their occurrence.
+    """
+    counter_dict = {}
+    for item in logs:
+        curr = item["log"].split(" ")
+        if not curr[5] in counter_dict.keys():
+            counter_dict[curr[5]] = 1
+        else:
+            counter_dict[curr[5]] = counter_dict[curr[5]] + 1
+
+    return counter_dict
+
 
 def main():
     """
@@ -28,6 +52,16 @@ def main():
     # Filter all categories
     curr = ".pdf"
     pdf_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    # Filter loading the pdf view plugin entries
+    curr = "/plugins"
+    pdf_dat = list(filter(lambda log_entry: curr not in log_entry["log"], pdf_dat))
+    # Filter for raw pdf access -> happens when the Poster landing page is opened
+    # or when the poster is downloaded;
+    # The download rate per poster could be approximated by subtracting src access from
+    # raw access.
+    pdf_raw_dat = list(filter(lambda log_entry: "raw" in log_entry["log"], pdf_dat))
+    # Filter for pdf view on the page
+    pdf_src_dat = list(filter(lambda log_entry: "src" in log_entry["log"], pdf_dat))
     curr = "BernsteinConference/Posters/wiki/Poster"
     pos_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
     curr = "BernsteinConference/InvitedTalks/wiki/Invited"
@@ -38,6 +72,14 @@ def main():
     wor_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
     curr = "BernsteinConference/Exhibition/wiki/Exhibition"
     exh_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+
+    print(f"Raw PDF: {len(print_stats(pdf_raw_dat))}")
+    print(f"View PDF: {len(print_stats(pdf_src_dat))}")
+    print(f"Poster: {len(print_stats(pos_dat))}")
+    print(f"Invited Talks: {len(print_stats(inv_dat))}")
+    print(f"Contributed Talks: {len(print_stats(con_dat))}")
+    print(f"Workshops: {len(print_stats(wor_dat))}")
+    print(f"Exhibition: {len(print_stats(exh_dat))}")
 
 
 if __name__ == "__main__":
