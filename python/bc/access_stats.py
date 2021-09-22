@@ -68,8 +68,7 @@ def process_data(data: List[Dict[str, str]]):
     :param data: list containing docker log dictionaries.
     """
     pdf_dat = list(filter(lambda log_entry: ".pdf" in log_entry["log"], data))
-    # Filter loading the pdf view plugin entries
-    pdf_dat = list(filter(lambda log_entry: "/plugins" not in log_entry["log"], pdf_dat))
+
     # Filter for raw pdf access -> happens when the Poster landing page is opened
     # or when the poster is downloaded;
     # The download rate per poster could be approximated by subtracting src access from
@@ -97,14 +96,17 @@ def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     Initial data cleanup.  Filter all logs that deal with accessing a
     "BernsteinConference" page and that contain "Completed" to remove
-    "Started" duplicates.
+    "Started" duplicates. Further remove "/plugins" to filter loading
+    the PDF viewer load logs.
     :param data: list containing docker log dictionaries.
     :return: list containing docker log dictionaries.
     """
     fil_str = "BernsteinConference"
     fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
+    fil_dat = list(filter(lambda log_entry: "Completed" in log_entry["log"], fil_dat))
+    fil_dat = list(filter(lambda log_entry: "/plugins" not in log_entry["log"], fil_dat))
 
-    return list(filter(lambda log_entry: "Completed" in log_entry["log"], fil_dat))
+    return fil_dat
 
 
 def main():
