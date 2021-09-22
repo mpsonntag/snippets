@@ -117,7 +117,23 @@ def print_ip_data(data: List[Dict[str, str]]):
     Count all IP related actions and print results
     :param data: list containing docker log dictionaries.
     """
+    # filter IP related data
     ip_data = list(filter(lambda log_entry: " for " in log_entry["log"], data))
+
+    # strip spammy data
+    curr = "GET /img"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+    curr = "GET /assets"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+    curr = "GET /js"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+    curr = "/user/login"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+    curr = "/BernsteinConference/Main/raw/master/img"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+    curr = "/BernsteinConference/posters/raw/master/banners"
+    ip_data = list(filter(lambda log_entry: curr not in log_entry["log"], ip_data))
+
     counter_dict = {}
     for item in ip_data:
         curr = item["log"].split(" ")[7].strip()
