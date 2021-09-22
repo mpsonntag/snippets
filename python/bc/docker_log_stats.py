@@ -61,11 +61,13 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     return parse_dat
 
 
-def process_data(data: List[Dict[str, str]]):
+def process_data(data: List[Dict[str, str]], details: bool = False):
     """
     Process docker log data into different categories of interest and produce
     and print corresponding statistics.
     :param data: list containing docker log dictionaries.
+    :param details: boolean value to switch whether to print details or not.
+    Default is False.
     """
     pdf_dat = list(filter(lambda log_entry: ".pdf" in log_entry["log"], data))
 
@@ -83,13 +85,14 @@ def process_data(data: List[Dict[str, str]]):
     wor_dat = filter_print(data, "Workshops/wiki/Workshop")
     exh_dat = filter_print(data, "Exhibition/wiki/Exhibition")
 
-    order_print(raw_dat)
-    order_print(src_dat)
-    order_print(pos_dat)
-    order_print(inv_dat)
-    order_print(con_dat)
-    order_print(wor_dat)
-    order_print(exh_dat)
+    if details:
+        order_print(raw_dat)
+        order_print(src_dat)
+        order_print(pos_dat)
+        order_print(inv_dat)
+        order_print(con_dat)
+        order_print(wor_dat)
+        order_print(exh_dat)
 
 
 def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
@@ -135,8 +138,15 @@ def main():
     Parse command line arguments and run the URL checks with the data provided.
     """
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--details", dest="details", action="store_true",
+                        help="Print details for all categories")
+    parser.add_argument("--ip", dest="handle_ip", action="store_true",
+                        help="Print IP address statistics")
     parser.add_argument("json_file", help="Docker logs JSON file")
     args = parser.parse_args()
+
+    details = args.details
+    handle_ip = args.handle_ip
 
     json_file = args.json_file
     with open(json_file, "r", encoding="utf-8") as jfp:
@@ -146,9 +156,10 @@ def main():
     # Reduce raw dictionary and remove interfering log entries
     fil_dat = reduce_raw_dict(data)
     # Process reduced data and print statistics
-    process_data(fil_dat)
+    process_data(fil_dat, details)
 
-    print_ip_data(data)
+    if handle_ip:
+        print_ip_data(data)
 
 
 if __name__ == "__main__":
