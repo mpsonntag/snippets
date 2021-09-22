@@ -32,7 +32,7 @@ def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     counter_dict = {}
     for item in logs:
         curr = item["log"].split(" ")
-        if not curr[5] in counter_dict.keys():
+        if not curr[5] in counter_dict:
             counter_dict[curr[5]] = 1
         else:
             counter_dict[curr[5]] = counter_dict[curr[5]] + 1
