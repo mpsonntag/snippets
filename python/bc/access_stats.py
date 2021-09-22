@@ -18,7 +18,26 @@ def main():
         data_string = jfp.read().replace('}\n{', '},\n{')
         data = json.loads(f"[{data_string}]")
 
-    print(len(data))
+    # Filter all logs that deal with accessing a BernsteinConference page
+    fil_str = "BernsteinConference"
+    fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
+
+    # Filter all logs that contain "Completed" to remove "Started" duplicates
+    fil_com_dat = list(filter(lambda log_entry: "Completed" in log_entry["log"], fil_dat))
+
+    # Filter all categories
+    curr = ".pdf"
+    pdf_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    curr = "BernsteinConference/Posters/wiki/Poster"
+    pos_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    curr = "BernsteinConference/InvitedTalks/wiki/Invited"
+    inv_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    curr = "BernsteinConference/ContributedTalks/wiki/Contributed"
+    con_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    curr = "BernsteinConference/Workshops/wiki/Workshop"
+    wor_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    curr = "BernsteinConference/Exhibition/wiki/Exhibition"
+    exh_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
 
 
 if __name__ == "__main__":
