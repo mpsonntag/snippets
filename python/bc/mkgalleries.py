@@ -416,7 +416,7 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
 
     file_basename = item_filename(item)
     filename = target_dir.joinpath(f"{file_basename}.md")
-    with open(filename, "w") as poster_page:
+    with open(filename, "w", encoding="utf-8") as poster_page:
         poster_page.write(f"# {title}\n\n")
         poster_page.write(f"_{authors.strip()}_\n\n")
 
@@ -464,7 +464,7 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
             topic = "Other"
         topic_posters[topic].append(item)
 
-    with open(filepath, "w") as topics_file:
+    with open(filepath, "w", encoding="utf-8") as topics_file:
         topics_file.write("# Poster topics\n\n")
         for topic, colour in TOPIC_COLOURS.items():
             # Support default poster category "Other",
@@ -494,7 +494,7 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
             list_item = make_list_item(item, omit="topic")
             list_content.append(list_item)
 
-        with open(filepath, "w") as topic_file:
+        with open(filepath, "w", encoding="utf-8") as topic_file:
             colour = TOPIC_COLOURS[topic]
             image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}-wide.png"
             topic_file.write(f'<img height=150 width=1000 alt="Topic: {topic}" '
@@ -519,7 +519,7 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             session_posters[session] = []
         session_posters[session].append(item)
 
-    with open(filepath, "w") as sessions_file:
+    with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
         for session in session_posters:
             sessions_file.write(f"## Session {session}\n")
@@ -544,7 +544,7 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             list_item = make_list_item(item, omit="session")
             list_content.append(list_item)
 
-        with open(filepath, "w") as session_file:
+        with open(filepath, "w", encoding="utf-8") as session_file:
             session_file.write(f"# Posters in Session {session}\n\n")
             session_file.write("\n".join(list_content) + "\n")
 
@@ -561,7 +561,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
 
     list_fname = "List.md"
     list_path = target_dir.joinpath(list_fname)
-    with open(list_path, "w") as list_file:
+    with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write("\n".join(list_content))
 
     index_links: Dict[str, str] = {}
@@ -581,7 +581,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     home_path = target_dir.joinpath(home_fname)
     head_img = section_header("posters")
     head_text = INDEX_TEXT["posters"]
-    with open(home_path, "w") as home_file:
+    with open(home_path, "w", encoding="utf-8") as home_file:
         home_file.write(f"[![Posters]({head_img})](/wiki)\n\n")
         home_file.write(head_text + "\n\n")
 
@@ -628,7 +628,7 @@ def make_talks_index(data: List[Dict[str, str]], target_dir: pl.Path):
     head_img = section_header(key)
     head_text = INDEX_TEXT[key]
 
-    with open(list_path, "w") as list_file:
+    with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write(f"[![{key.capitalize()} talks]({head_img})](/wiki)\n\n")
         list_file.write(head_text + "\n\n")
         list_file.write("\n".join(list_content))
@@ -680,7 +680,7 @@ def make_workshop_page(workshops: Dict[str, Dict[str, Any]], target_dir: pl.Path
         fname = f"Workshop{num}.md"
         file_path = target_dir.joinpath(fname)
         print(f"Creating landing page {file_path}")
-        with open(file_path, "w") as ws_file:
+        with open(file_path, "w", encoding="utf-8") as ws_file:
             ws_file.write("".join(content))
 
 
@@ -726,7 +726,7 @@ def make_workshop_pages(data: List[Dict[str, str]], target_dir: pl.Path):
     head_text = INDEX_TEXT["workshops"]
     head_img = section_header("workshops")
     print(f"Creating file {list_path} ...")
-    with open(list_path, "w") as list_file:
+    with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write(f"[![Workshops]({head_img})](/wiki)\n\n")
         list_file.write(head_text + "\n\n")
         list_file.write("\n".join(list_content))
@@ -812,7 +812,7 @@ def make_exhibition_page(item: Dict[str, str], target_dir: pl.Path, idx: int):
 
     file_path = target_dir.joinpath(f"Exhibition{idx}.md")
     print(f"Creating landing page {file_path}")
-    with open(file_path, "w") as exhib_file:
+    with open(file_path, "w", encoding="utf-8") as exhib_file:
         exhib_file.write("".join(content))
 
 
@@ -840,7 +840,7 @@ def handle_exhibition_data(data: List[Dict[str, str]], target_dir: pl.Path):
 
     list_path = target_dir.joinpath("Home.md")
     print(f"Creating file {list_path} ...")
-    with open(list_path, "w") as list_file:
+    with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write(f'[![Exhibition]({section_header("exhibition")})](/wiki)\n\n')
         list_file.write(f'{INDEX_TEXT["exhibition"]}\n\n')
         list_file.write("\n".join(list_content))
@@ -931,7 +931,7 @@ def main():
     target_dir.mkdir(parents=True, exist_ok=True)
 
     json_file = args.jsonfile
-    with open(json_file) as jfp:
+    with open(json_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
     # Specific handling of workshops
