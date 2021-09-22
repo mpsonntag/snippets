@@ -7,7 +7,7 @@ import json
 from typing import Dict, List
 
 
-def print_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
+def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     """
     Parses the accessed URL from the docker log string, counts the
     distinct occurrences and returns the resulting dictionary.
@@ -73,13 +73,13 @@ def main():
     curr = "BernsteinConference/Exhibition/wiki/Exhibition"
     exh_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
 
-    print(f"Raw PDF: {len(print_stats(pdf_raw_dat))}")
-    print(f"View PDF: {len(print_stats(pdf_src_dat))}")
-    print(f"Poster: {len(print_stats(pos_dat))}")
-    print(f"Invited Talks: {len(print_stats(inv_dat))}")
-    print(f"Contributed Talks: {len(print_stats(con_dat))}")
-    print(f"Workshops: {len(print_stats(wor_dat))}")
-    print(f"Exhibition: {len(print_stats(exh_dat))}")
+    print(f"Raw PDF: {len(parse_stats(pdf_raw_dat))}")
+    print(f"View PDF: {len(parse_stats(pdf_src_dat))}")
+    print(f"Poster: {len(parse_stats(pos_dat))}")
+    print(f"Invited Talks: {len(parse_stats(inv_dat))}")
+    print(f"Contributed Talks: {len(parse_stats(con_dat))}")
+    print(f"Workshops: {len(parse_stats(wor_dat))}")
+    print(f"Exhibition: {len(parse_stats(exh_dat))}")
 
 
 if __name__ == "__main__":
