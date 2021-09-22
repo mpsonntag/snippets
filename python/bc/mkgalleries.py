@@ -521,10 +521,10 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
 
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
-        for session in session_posters:
+        for session, items in session_posters.items():
             sessions_file.write(f"## Session {session}\n")
 
-            num_posters = len(session_posters[session])
+            num_posters = len(items)
             sessions_file.write(f"{num_posters} posters  \n")
 
             time = SESSION_TIMES[session]
