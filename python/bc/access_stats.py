@@ -61,6 +61,20 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     return parse_dat
 
 
+def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """
+    Initial data cleanup.  Filter all logs that deal with accessing a
+    "BernsteinConference" page and that contain "Completed" to remove
+    "Started" duplicates.
+    :param data: list containing docker log dictionaries.
+    :return: list containing docker log dictionaries.
+    """
+    fil_str = "BernsteinConference"
+    fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
+
+    return list(filter(lambda log_entry: "Completed" in log_entry["log"], fil_dat))
+
+
 def main():
     """
     Parse command line arguments and run the URL checks with the data provided.
@@ -74,16 +88,11 @@ def main():
         data_string = jfp.read().replace('}\n{', '},\n{')
         data = json.loads(f"[{data_string}]")
 
-    # Filter all logs that deal with accessing a BernsteinConference page
-    fil_str = "BernsteinConference"
-    fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
-
-    # Filter all logs that contain "Completed" to remove "Started" duplicates
-    fil_com_dat = list(filter(lambda log_entry: "Completed" in log_entry["log"], fil_dat))
+    fil_dat = reduce_raw_dict(data)
 
     # Filter all categories
     curr = ".pdf"
-    pdf_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_com_dat))
+    pdf_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_dat))
     # Filter loading the pdf view plugin entries
     curr = "/plugins"
     pdf_dat = list(filter(lambda log_entry: curr not in log_entry["log"], pdf_dat))
@@ -94,11 +103,11 @@ def main():
     raw_dat = filter_print(pdf_dat, "raw", "Raw PDF")
     # Filter for pdf view on the page
     src_dat = filter_print(pdf_dat, "src", "View PDF")
-    pos_dat = filter_print(fil_com_dat, "Posters/wiki/Poster")
-    inv_dat = filter_print(fil_com_dat, "InvitedTalks/wiki/Invited")
-    con_dat = filter_print(fil_com_dat, "ContributedTalks/wiki/Contributed")
-    wor_dat = filter_print(fil_com_dat, "Workshops/wiki/Workshop")
-    exh_dat = filter_print(fil_com_dat, "Exhibition/wiki/Exhibition")
+    pos_dat = filter_print(fil_dat, "Posters/wiki/Poster")
+    inv_dat = filter_print(fil_dat, "InvitedTalks/wiki/Invited")
+    con_dat = filter_print(fil_dat, "ContributedTalks/wiki/Contributed")
+    wor_dat = filter_print(fil_dat, "Workshops/wiki/Workshop")
+    exh_dat = filter_print(fil_dat, "Exhibition/wiki/Exhibition")
 
     order_print(raw_dat)
     order_print(src_dat)
