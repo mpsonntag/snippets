@@ -61,6 +61,38 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     return parse_dat
 
 
+def process_data(data: List[Dict[str, str]]):
+    """
+    Process docker log data into different categories of interest and produce
+    and print corresponding statistics.
+    :param data: list containing docker log dictionaries.
+    """
+    pdf_dat = list(filter(lambda log_entry: ".pdf" in log_entry["log"], data))
+    # Filter loading the pdf view plugin entries
+    pdf_dat = list(filter(lambda log_entry: "/plugins" not in log_entry["log"], pdf_dat))
+    # Filter for raw pdf access -> happens when the Poster landing page is opened
+    # or when the poster is downloaded;
+    # The download rate per poster could be approximated by subtracting src access from
+    # raw access.
+    raw_dat = filter_print(pdf_dat, "raw", "Raw PDF")
+    # Filter for pdf view on the page
+    src_dat = filter_print(pdf_dat, "src", "View PDF")
+
+    pos_dat = filter_print(data, "Posters/wiki/Poster")
+    inv_dat = filter_print(data, "InvitedTalks/wiki/Invited")
+    con_dat = filter_print(data, "ContributedTalks/wiki/Contributed")
+    wor_dat = filter_print(data, "Workshops/wiki/Workshop")
+    exh_dat = filter_print(data, "Exhibition/wiki/Exhibition")
+
+    order_print(raw_dat)
+    order_print(src_dat)
+    order_print(pos_dat)
+    order_print(inv_dat)
+    order_print(con_dat)
+    order_print(wor_dat)
+    order_print(exh_dat)
+
+
 def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     Initial data cleanup.  Filter all logs that deal with accessing a
@@ -88,34 +120,10 @@ def main():
         data_string = jfp.read().replace('}\n{', '},\n{')
         data = json.loads(f"[{data_string}]")
 
+    # Reduce raw dictionary and remove interfering log entries
     fil_dat = reduce_raw_dict(data)
-
-    # Filter all categories
-    curr = ".pdf"
-    pdf_dat = list(filter(lambda log_entry: curr in log_entry["log"], fil_dat))
-    # Filter loading the pdf view plugin entries
-    curr = "/plugins"
-    pdf_dat = list(filter(lambda log_entry: curr not in log_entry["log"], pdf_dat))
-    # Filter for raw pdf access -> happens when the Poster landing page is opened
-    # or when the poster is downloaded;
-    # The download rate per poster could be approximated by subtracting src access from
-    # raw access.
-    raw_dat = filter_print(pdf_dat, "raw", "Raw PDF")
-    # Filter for pdf view on the page
-    src_dat = filter_print(pdf_dat, "src", "View PDF")
-    pos_dat = filter_print(fil_dat, "Posters/wiki/Poster")
-    inv_dat = filter_print(fil_dat, "InvitedTalks/wiki/Invited")
-    con_dat = filter_print(fil_dat, "ContributedTalks/wiki/Contributed")
-    wor_dat = filter_print(fil_dat, "Workshops/wiki/Workshop")
-    exh_dat = filter_print(fil_dat, "Exhibition/wiki/Exhibition")
-
-    order_print(raw_dat)
-    order_print(src_dat)
-    order_print(pos_dat)
-    order_print(inv_dat)
-    order_print(con_dat)
-    order_print(wor_dat)
-    order_print(exh_dat)
+    # Process reduced data and print statistics
+    process_data(fil_dat)
 
 
 if __name__ == "__main__":
