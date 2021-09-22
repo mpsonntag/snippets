@@ -31,11 +31,11 @@ def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     """
     counter_dict = {}
     for item in logs:
-        curr = item["log"].split(" ")
-        if not curr[5] in counter_dict:
-            counter_dict[curr[5]] = 1
+        curr = item["log"].split(" ")[5]
+        if curr not in counter_dict:
+            counter_dict[curr] = 1
         else:
-            counter_dict[curr[5]] = counter_dict[curr[5]] + 1
+            counter_dict[curr] = counter_dict[curr] + 1
 
     return counter_dict
 
@@ -109,6 +109,27 @@ def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return fil_dat
 
 
+def print_ip_data(data: List[Dict[str, str]]):
+    """
+    Count all IP related actions and print results
+    :param data: list containing docker log dictionaries.
+    """
+    ip_data = list(filter(lambda log_entry: " for " in log_entry["log"], data))
+    counter_dict = {}
+    for item in ip_data:
+        curr = item["log"].split(" ")[7].strip()
+        if curr not in counter_dict:
+            counter_dict[curr] = 1
+        else:
+            counter_dict[curr] = counter_dict[curr] + 1
+
+    print()
+    print(f"IP access; {len(counter_dict)} total IP addresses ...")
+    new_dat = dict(sorted(counter_dict.items(), key=lambda ipa: ipa[1]))
+    for dat in new_dat:
+        print(f"{dat}\t{new_dat[dat]}")
+
+
 def main():
     """
     Parse command line arguments and run the URL checks with the data provided.
@@ -126,6 +147,8 @@ def main():
     fil_dat = reduce_raw_dict(data)
     # Process reduced data and print statistics
     process_data(fil_dat)
+
+    print_ip_data(data)
 
 
 if __name__ == "__main__":
