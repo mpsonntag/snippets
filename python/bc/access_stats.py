@@ -88,14 +88,22 @@ def main():
     # or when the poster is downloaded;
     # The download rate per poster could be approximated by subtracting src access from
     # raw access.
-    filter_print(pdf_dat, "raw", "Raw PDF")
+    raw_dat = filter_print(pdf_dat, "raw", "Raw PDF")
     # Filter for pdf view on the page
-    filter_print(pdf_dat, "src", "View PDF")
-    filter_print(fil_com_dat, "Posters/wiki/Poster", "Posters")
-    filter_print(fil_com_dat, "InvitedTalks/wiki/Invited", "Invited Talks")
-    filter_print(fil_com_dat, "ContributedTalks/wiki/Contributed", "Contributed Talks")
-    filter_print(fil_com_dat, "Workshops/wiki/Workshop", "Workshops")
-    filter_print(fil_com_dat, "Exhibition/wiki/Exhibition", "Exhibition")
+    src_dat = filter_print(pdf_dat, "src", "View PDF")
+    pos_dat = filter_print(fil_com_dat, "Posters/wiki/Poster")
+    inv_dat = filter_print(fil_com_dat, "InvitedTalks/wiki/Invited")
+    con_dat = filter_print(fil_com_dat, "ContributedTalks/wiki/Contributed")
+    wor_dat = filter_print(fil_com_dat, "Workshops/wiki/Workshop")
+    exh_dat = filter_print(fil_com_dat, "Exhibition/wiki/Exhibition")
+
+    order_print(raw_dat)
+    order_print(src_dat)
+    order_print(pos_dat)
+    order_print(inv_dat)
+    order_print(con_dat)
+    order_print(wor_dat)
+    order_print(exh_dat)
 
 
 if __name__ == "__main__":
