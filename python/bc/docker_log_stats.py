@@ -1,5 +1,5 @@
 """
-Extract infos from docker json logfiles
+Extract infos from gogs docker json logfiles
 """
 import argparse
 import json
@@ -15,7 +15,7 @@ def order_print(data: Dict[str, int]):
     print()
     print("Individual views ...")
     for dat in sorted(data):
-        print(f"{dat}: {data[dat]}")
+        print(f"{dat}\t{data[dat]}")
 
 
 def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
