@@ -41,7 +41,7 @@ def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
 
 
 def filter_print(data: List[Dict[str, str]], fil_str: str,
-                 print_msg: str) -> Dict[str, int]:
+                 print_msg: str = "") -> Dict[str, int]:
     """
     Reduces a dictionary to items that contain the passed filter string, calls the
     parse_stats func with the resulting dict and prints the length of the results.
@@ -50,6 +50,9 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     :param print_msg: Prefix before printing the number of results.
     :return: Dict containing distinct addresses and their occurrence.
     """
+    if not print_msg:
+        print_msg = fil_str.split("/")[0]
+
     fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
     parse_dat = parse_stats(fil_dat)
 
