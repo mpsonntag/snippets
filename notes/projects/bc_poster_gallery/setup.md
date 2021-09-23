@@ -330,6 +330,16 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
 
+- the script `docker_log_stats.py` can be used to get basic access statistics out of the gogs docker logs.
+  - on the gogs host type `docker ps`; note the container ID
+  - run `ls /var/lib/docker` to identify the full [docker ID]
+  - the log files can be found at `/var/lib/docker/[docker ID]/[docker ID]-json.log`
+  - if there are multiple docker log files, concatenate them before running the `docker_log_stats` script:
+    
+  ```bash
+  python docker_logs_stats.py [path/to/docker-json.log]  
+  ```
+
 
 ### Full bash script to fetch, create and upload the poster gallery
 
