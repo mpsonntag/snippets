@@ -7,16 +7,17 @@ import json
 from typing import Dict, List
 
 
-def ordered_print(data: Dict[str, int]):
+def ordered_print(data: Dict[str, int], trim_string: str = ""):
     """
     Sorts the dictionary content by key and prints the resulting dictionary.
     :param data: Dict containing distinct addresses and their occurrence.
+    :param trim_string: String to remove from the first column string.
     """
     print()
     print("Individual views ...")
     new_dat = dict(sorted(data.items(), key=lambda ipa: ipa[1]))
     for dat in new_dat:
-        print(f"{dat}\t{new_dat[dat]}")
+        print(f"{dat.replace(trim_string, '')}\t{new_dat[dat]}")
 
 
 def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
@@ -87,13 +88,13 @@ def process_data(data: List[Dict[str, str]], details: bool = False):
     exh_dat = filter_print(data, "Exhibition/wiki/Exhibition")
 
     if details:
-        ordered_print(raw_dat)
-        ordered_print(src_dat)
-        ordered_print(pos_dat)
-        ordered_print(inv_dat)
-        ordered_print(con_dat)
-        ordered_print(wor_dat)
-        ordered_print(exh_dat)
+        ordered_print(raw_dat, "/BernsteinConference/Posters/raw/master/")
+        ordered_print(src_dat, "/BernsteinConference/Posters/src/master/")
+        ordered_print(pos_dat, "/BernsteinConference/Posters/wiki/")
+        ordered_print(inv_dat, "/BernsteinConference/InvitedTalks/wiki/")
+        ordered_print(con_dat, "/BernsteinConference/ContributedTalks/wiki/")
+        ordered_print(wor_dat, "/BernsteinConference/Workshops/wiki/")
+        ordered_print(exh_dat, "/BernsteinConference/Exhibition/wiki/")
 
 
 def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
