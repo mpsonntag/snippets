@@ -65,17 +65,18 @@ INDEX_TEXT = {
                   "exhibitors. They inform about their services and products, "
                   "and supply supplemental material."
 }
-# use NEW abstract numbers
+# List[int] - use NEW abstract numbers
 WITHDRAWN = [65, 75]
-# WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [107, 109, 20, 31, 129, 144, 145, 146, 148, 190]
+# List[int] - WARNING: these PDF links will not appear on the landing page
+MISSING_PDF = [107, 109, 20, 31, 144, 145, 148, 190]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
     "waiting": "",
 }
-# special handling for the invited talks info line
-# adjust talk number; use 'Keynote' and 'Braitenberg award' texts
+# Special handling for the invited talks info line: if required adjust talk numbers
+# and 'Keynote' / 'Braitenberg award' texts where the INVITED_TALKS_ADJUST variable
+# is used.
 INVITED_TALKS_ADJUST = True
 
 
@@ -341,7 +342,7 @@ def texify(item: Dict[str, str], target_dir: Dict[str, pl.Path], create: bool) -
     """
     number = item["abstract_number"]
     text = item["abstract"]
-    short = item["short"] if item["short"] in ITEM_TYPES.keys() else "P"
+    short = item["short"] if item["short"] in ITEM_TYPES else "P"
 
     eqn_dir = target_dir[short].joinpath("equations")
     eqn_dir.mkdir(exist_ok=True)
@@ -564,8 +565,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write("\n".join(list_content))
 
-    index_links: Dict[str, str] = {}
-    index_links["Browse all posters"] = list_fname
+    index_links = {"Browse all posters": list_fname}
 
     topics_fname = "Topics.md"
     topics_path = target_dir.joinpath(topics_fname)
@@ -657,10 +657,9 @@ def make_workshop_page(workshops: Dict[str, Dict[str, Any]], target_dir: pl.Path
         organisers = ws_item["organisers"]
         url = ws_item["url"]
 
-        content = []
-        content.append(f"# {name}\n\n")
-        content.append(f"Organizers: {organisers}   \n")
-        content.append(f"**[Workshop {num} abstract and schedule]({url})**\n\n")
+        content = [f"# {name}\n\n",
+                   f"Organizers: {organisers}   \n",
+                   f"**[Workshop {num} abstract and schedule]({url})**\n\n"]
 
         for idx, talk in enumerate(ws_item["talks"]):
             title = talk["title"]
