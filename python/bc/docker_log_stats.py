@@ -7,15 +7,16 @@ import json
 from typing import Dict, List
 
 
-def order_print(data: Dict[str, int]):
+def ordered_print(data: Dict[str, int]):
     """
     Sorts the dictionary content by key and prints the resulting dictionary.
     :param data: Dict containing distinct addresses and their occurrence.
     """
     print()
     print("Individual views ...")
-    for dat in sorted(data):
-        print(f"{dat}\t{data[dat]}")
+    new_dat = dict(sorted(data.items(), key=lambda ipa: ipa[1]))
+    for dat in new_dat:
+        print(f"{dat}\t{new_dat[dat]}")
 
 
 def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
@@ -86,13 +87,13 @@ def process_data(data: List[Dict[str, str]], details: bool = False):
     exh_dat = filter_print(data, "Exhibition/wiki/Exhibition")
 
     if details:
-        order_print(raw_dat)
-        order_print(src_dat)
-        order_print(pos_dat)
-        order_print(inv_dat)
-        order_print(con_dat)
-        order_print(wor_dat)
-        order_print(exh_dat)
+        ordered_print(raw_dat)
+        ordered_print(src_dat)
+        ordered_print(pos_dat)
+        ordered_print(inv_dat)
+        ordered_print(con_dat)
+        ordered_print(wor_dat)
+        ordered_print(exh_dat)
 
 
 def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
@@ -144,9 +145,7 @@ def print_ip_data(data: List[Dict[str, str]]):
 
     print()
     print(f"IP access; {len(counter_dict)} total IP addresses ...")
-    new_dat = dict(sorted(counter_dict.items(), key=lambda ipa: ipa[1]))
-    for dat in new_dat:
-        print(f"{dat}\t{new_dat[dat]}")
+    ordered_print(counter_dict)
 
 
 def main():
