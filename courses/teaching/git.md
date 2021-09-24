@@ -754,6 +754,10 @@ List all available tags of a repository in alphabetical order
 
         git tag
 
+List all tags with additional information
+
+        git tag -ln
+
 ### Ligthweight tags:
 
 Lightweight tags are created by simply adding a name to the `git tag` command
