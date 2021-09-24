@@ -54,7 +54,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
   - to match the ids of the local `gnode` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate ids.
   - make sure the used IP addresses do not overlap with already running docker containers
-  - make sure to use ssh ports that do not overlap with any other ssh port in use e.g. -> needs to be adjusted in the gin client later on as well
+  - make sure to use ssh ports that do not overlap with any other ssh port in use e.g., -> needs to be adjusted in the gin client later on as well
     - "141.84.41.217:2424:22"
 
   - make sure the local directories match the local setup
@@ -111,7 +111,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     - password:         [used during database setup]
     - database name:    gin
     - app name:         Bernstein Poster Gallery
-    - repo root:        as defined in docker-compose on the container side e.g. /data/repos
+    - repo root:        as defined in docker-compose on the container side e.g., /data/repos
     - domain:           bc.g-node.org
     - create an administration user "bcadmin".
 
@@ -195,7 +195,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 ## Poster gallery wiki preparations
 
-- locally clone the BC20 repo from github https://github.com/G-Node/BC20
+- locally clone the BC20 repo from GitHub https://github.com/G-Node/BC20
   - initialize and fetch all submodules
 
 - locally clone the BC20data repo from gin (https://gin.g-node.org/G-Node/BC20data)
@@ -206,20 +206,20 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 - the following preparations require a couple of manual steps between the main `json` file and a spreadsheet shared with BCOS. The main `json` file will change multiple times before it contains all information required to create the poster gallery.
 - As a general note for spreadsheet entries that deal with LINKS: they all HAVE to start with "http" or "https"; Otherwise links in the created markdown files will not create working links.
-- prepare a spreadsheet with all required information (posters, invited talks, contributed talks); ideally this spreadsheet is available online e.g. via sciebo and is shared with BCOS.
-- the following are the required columns and the column titles have to match exactly; the order can differ and there may be additional columns that will be ignored; NOTE: column title "abstract no NEW" will be transformed to column title "abstract_number" by the `tojson.py` script. Some columns are empty for now and will be manually filled during the next steps.
+- prepare a spreadsheet with all required information (posters, invited talks, contributed talks); ideally this spreadsheet is available online e.g., via sciebo and is shared with BCOS.
+- the following are the required columns, and the column titles have to match exactly; the order can differ and there may be additional columns that will be ignored; NOTE: column title "abstract no NEW" will be transformed to column title "abstract_number" by the `tojson.py` script. Some columns are empty for now and will be manually filled during the next steps.
 
   "abstract no NEW", "title", "authors", "email", "topic", "id", "session", "time", "upload_key", " "vimeo link", "link hopin", "individual video link" "repo_link"
 
 - save the spreadsheet to a tab separated csv file.
-- move to the `scripts` folder of the github "BC20" repository
+- move to the `scripts` folder of the GitHub "BC20" repository
 - run the `tojson.py` script providing the tsv file saved in the step above.
 
   ```bash
   python tojson.py posters.csv 
   ```
 
-- with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The uploadcodes require a salt file for the code creation.
+- with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The upload-codes require a salt file for the code creation.
 
   ```bash
   python mkuploadcodes.py [uploadsalt file] [posters.json]
@@ -228,15 +228,17 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 - move the resulting json file to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
 - add the upload codes to the online spreadsheet "upload_key" column.
 - make sure the spreadsheet also contains invited and contributed talks
-- download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client github README for details.
+- download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client GitHub README for details.
   - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
   - make sure that all abstracts on the server have been REVIEWED. Abstracts in state InReview and InPreparation are skipped.
 
-- from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstracts information. It will create a `posters-abstracts.json` file containing all posters information with the abstracts texts.
+- from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstract information. It will create a `posters-abstracts.json` file containing all poster information with the abstracts texts.
 
   ```bash
   python mergeabstracts.py abstracts.json posters.json
   ```
+
+- copy the `posters-abstracts.json` again to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org); users uploading a poster PDF will now get a complete review page including the abstract after the upload is done.
 
 - update information in the BC20 repo in `scripts/mkgalleries.py` to accommodate the new conference:
   - URLs, repos
@@ -283,7 +285,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   python mkgalleries.py --download [path to json file] [path to galleries root]
   ```
 
-- run the following to create images for any latex equations in the abstracts texts of the posters. A sidenote at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
+- run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
   Note that this step requires an existing, full installation of `latex`.
   ```bash
   python mkgalleries.py --render-equations [path to json file] [path to galleries root]
@@ -320,7 +322,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     git push wiki master
   ```
 
-- whenever new changes come in - either via the shared spreadsheet e.g. when the hopin links are provided, if any changes in the abstracts texts are done or if PDFs have been changed, rinse and repeat the following:
+- whenever new changes come in - either via the shared spreadsheet e.g., when the hopin links are provided, if any changes in the abstracts texts are done or if PDFs have been changed, rinse and repeat the following:
   - download shared spreadsheet as tab separated csv
   - run `tojson.py`
   - fetch abstract texts
