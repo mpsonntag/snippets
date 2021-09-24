@@ -45,7 +45,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 ### Prepare required files
 
-- clone the repo G-Node/gin-bc20 from gin.g-node.org and copy the contents (minus the git directory) to $PROJ_ROOT directory on the server.
+- clone the repo G-Node/gin-bc20 from gin.g-node.org and copy the contents (minus the git directory) to the `$PROJ_ROOT` directory on the server.
 - update the `.env` file content
 - update the `docker-compose.yml` file 
   - to match the appropriate docker containers e.g.:
@@ -137,7 +137,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
       REQUIRE_SIGNIN_VIEW    = true
     ```
 
-- if this is not already the case, copy the latest page templates from https://gin.g-node.org/G-Node/gin-bc20 to `$PROJ_ROOT/config/gogs/templates`.
+- if this is not already the case from a previous step, copy the gogs images and templates "gin.g-node.org/G-Node/gin-bc20:/config/gogs" to `$PROJ_ROOT/config/gogs/` on the server.
 - update the custom templates and images in `$PROJ_ROOT/config/gogs/templates` so links, times and dates match the current conference requirements.
 
 - update the content of the `$PROJ_ROOT/config/uploader` config file to match the current conference requirements.
@@ -263,9 +263,8 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
   ```
 
-- copy `assets` and `banners` directories from a previous conference to the "posters" repository, commit and push
+- copy `assets` and `banners` directories from the "gin.g-node.org/G-Node/gin-bc20:/config/gogs/public" directory to the "galleries/posters" repository, commit and push.
   - these are required for the banners on the poster topic pages and poster topic thumbnails
-  - the images can also be found in the gin.g-node.org/G-Node/BC20data repository.
 
 - for the poster thumbnail conversion to work, you need 
   - imagemagick installed
@@ -341,6 +340,11 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   ```bash
   python docker_logs_stats.py [path/to/docker-json.log]  
   ```
+
+### After-conference handling
+
+- backup the csv files and galleries to a new folder in the gin.g-node.org/G-Node/BC20data repository.
+- backup the added images and template updates from the server at `$ROOT/config/gogs` to the gin.g-node.org/G-Node/gin-bc20 repository.
 
 
 ### Full bash script to fetch, create and upload the poster gallery
