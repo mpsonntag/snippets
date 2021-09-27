@@ -3,11 +3,15 @@ import json
 from datetime import date
 from typing import Dict, Any
 
+FNAME = "/home/msonntag/Chaos/staging/posters2021/BC20data/abstracts.json"
+
 
 def citation_info(item: Dict[str, Any]) -> (str, str):
     cit_list = ""
     for auth in item["authors"]:
-        first_name = f" {auth['firstName'][0]}." if "firstName" in auth.keys() and len(auth["firstName"]) > 0 else ""
+        first_name = ""
+        if "firstName" in auth.keys() and len(auth["firstName"]) > 0:
+            first_name = f" {auth['firstName'][0]}."
         mid_name = ""
         if "middleName" in auth.keys() and auth["middleName"] and len(auth["middleName"]) > 0:
             mid_name = f" {auth['middleName'][0]}."
@@ -20,17 +24,20 @@ def citation_info(item: Dict[str, Any]) -> (str, str):
     return cit_list, doi_item
 
 
-fname = "/home/msonntag/Chaos/staging/posters2021/BC20data/abstracts.json"
+def main():
+    with open(FNAME) as jfp:
+        data = json.load(jfp)
 
-with open(fname) as jfp:
-    data = json.load(jfp)
+    for item in data:
+        cit_list, doi_item = citation_info(item)
 
-for item in data:
-    cit_list, doi_item = citation_info(item)
+        year = date.today().year
+        copy_item = f"Copyright: © ({year}) {cit_list}" if cit_list else ""
+        cit_item = f"Citation: {cit_list} ({year}) {item['title']}. " \
+                   f"Bernstein Conference {year}.{doi_item}"
 
-    year = date.today().year
-    copy_item = f"Copyright: © ({year}) {cit_list}" if cit_list else ""
-    cit_item = f"Citation: {cit_list} ({year}) {item['title']}. " \
-               f"Bernstein Conference {year}.{doi_item}"
+        print(f"{copy_item}\n{cit_item}")
 
-    print(f"{copy_item}\n{cit_item}")
+
+if __name__ == "__main__":
+    main()
