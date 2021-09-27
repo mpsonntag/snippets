@@ -9,6 +9,8 @@ import requests
 
 from lxml import etree
 
+DATACITE_NAMESPACE = "{http://datacite.org/schema/kernel-4}"
+GNODE_DOI_URL = "https://doi.gin.g-node.org/10.12751/"
 CONF = {"reg_id": "__ID__"}
 
 
@@ -20,7 +22,7 @@ def parse_doi_xml(xml_string):
     :return: dict containing the parsed XML information.
     """
     doi_conf = {}
-    dsns = "{http://datacite.org/schema/kernel-4}"
+    dsns = DATACITE_NAMESPACE
 
     root = etree.fromstring(xml_string)
     # Handle title
@@ -51,7 +53,7 @@ def run():
     Fetches the XML file for a specific G-Node DOI id and parses the XML content.
     """
     print(f"-- Loading doi xml for 'g-node.{CONF['reg_id']}'")
-    doi_url = f"https://doi.gin.g-node.org/10.12751/g-node.{CONF['reg_id']}/doi.xml"
+    doi_url = f"{GNODE_DOI_URL}g-node.{CONF['reg_id']}/doi.xml"
     res = requests.get(doi_url)
     if res.status_code != 200:
         print(f"-- ERROR: Status code {res.status_code}; could not access requested DOI")
