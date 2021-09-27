@@ -3,6 +3,7 @@ Ripped code to load specific data from an online doi.xml file. Might be useful
 at some point in the future.
 """
 
+import argparse
 import sys
 
 import requests
@@ -11,7 +12,6 @@ from lxml import etree
 
 DATACITE_NAMESPACE = "{http://datacite.org/schema/kernel-4}"
 GNODE_DOI_URL = "https://doi.gin.g-node.org/10.12751/"
-CONF = {"reg_id": "__ID__"}
 
 
 def parse_doi_xml(xml_string):
@@ -52,11 +52,16 @@ def run():
     """
     Fetches the XML file for a specific G-Node DOI id and parses the XML content.
     """
-    print(f"-- Loading doi xml for 'g-node.{CONF['reg_id']}'")
-    doi_url = f"{GNODE_DOI_URL}g-node.{CONF['reg_id']}/doi.xml"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("doi_id", help="G-Node DOI id; required format: 'g-node.[id]'")
+    args = parser.parse_args()
+
+    doi_id = args.doi_id
+    doi_url = f"{GNODE_DOI_URL}{doi_id}/doi.xml"
+    print(f"-- Loading '{doi_url}'")
     res = requests.get(doi_url)
     if res.status_code != 200:
-        print(f"-- ERROR: Status code {res.status_code}; could not access requested DOI")
+        print(f"-- ERROR: Status code {res.status_code}; could not access requested DOI.")
         sys.exit(-1)
 
     _ = parse_doi_xml(res.text.encode())
