@@ -1,3 +1,7 @@
+"""
+Parse DOI information from entries in a json file and print all formatted DOI
+citations to the command line.
+"""
 import json
 
 from datetime import date
@@ -7,6 +11,12 @@ FNAME = "/home/msonntag/Chaos/staging/posters2021/BC20data/abstracts.json"
 
 
 def citation_info(item: Dict[str, Any]) -> (str, str):
+    """
+    Parse citation information from a dict item and return a formatted list
+    entry and doi item
+    :param item: Dictionary containing author and DOI information.
+    :return: tuple containing a citation list item string and a DOI item string
+    """
     cit_list = ""
     for auth in item["authors"]:
         first_name = ""
@@ -25,7 +35,11 @@ def citation_info(item: Dict[str, Any]) -> (str, str):
 
 
 def main():
-    with open(FNAME) as jfp:
+    """
+    Parse DOI information from entries in a json file and print all formatted DOI
+    citations to the command line.
+    """
+    with open(FNAME, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
     for item in data:
