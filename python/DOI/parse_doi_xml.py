@@ -3,6 +3,8 @@ Ripped code to load specific data from an online doi.xml file. Might be useful
 at some point in the future.
 """
 
+import sys
+
 import requests
 
 from lxml import etree
@@ -11,27 +13,33 @@ CONF = {"reg_id": "__ID__"}
 
 
 def parse_doi_xml(xml_string):
+    """
+    Parses title, dates, creators and citation from an XML string and
+    returns this information as dict.
+    :param xml_string: XML string containing G-Node DOI metadata.
+    :return: dict containing the parsed XML information.
+    """
     doi_conf = {}
     dsns = "{http://datacite.org/schema/kernel-4}"
 
     root = etree.fromstring(xml_string)
     # Handle title
-    title = root.find("%stitles" % dsns).find("%stitle" % dsns).text
+    title = root.find(f"{dsns}titles").find(f"{dsns}title").text
     if title:
         doi_conf["title"] = title
 
     # Handle date
-    date = root.find("%sdates" % dsns).find("%sdate" % dsns).text
+    date = root.find(f"{dsns}dates").find(f"{dsns}date").text
     if date:
         doi_conf["reg_date"] = date
 
     # Handle citation
     citation = ""
-    creators = root.find("%screators" % dsns).findall("%screator" % dsns)
+    creators = root.find(f"{dsns}creators").findall(f"{dsns}creator")
     for creator in creators:
-        curr = creator.find("%screatorName" % dsns).text
+        curr = creator.find(f"{dsns}creatorName").text
         curr = curr.replace(",", "").split(" ")
-        citation = "%s, %s %s" % (citation, curr[0], curr[-1][0])
+        citation = f"{citation}, {curr[0]} {curr[-1][0]}"
     if citation:
         doi_conf["citation"] = citation
 
@@ -39,13 +47,15 @@ def parse_doi_xml(xml_string):
 
 
 def run():
-    print("-- Loading doi xml for 'g-node.%s'" % CONF["reg_id"])
-    doi_url = "https://doi.gin.g-node.org/10.12751/g-node.%s/doi.xml" % CONF["reg_id"]
+    """
+    Fetches the XML file for a specific G-Node DOI id and parses the XML content.
+    """
+    print(f"-- Loading doi xml for 'g-node.{CONF['reg_id']}'")
+    doi_url = f"https://doi.gin.g-node.org/10.12751/g-node.{CONF['reg_id']}/doi.xml"
     res = requests.get(doi_url)
     if res.status_code != 200:
-        print("-- ERROR: Status code (%s); could not access requested DOI; "
-              "          Make sure access is available." % res.status_code)
-        exit(-1)
+        print(f"-- ERROR: Status code {res.status_code}; could not access requested DOI")
+        sys.exit(-1)
 
     _ = parse_doi_xml(res.text.encode())
 
