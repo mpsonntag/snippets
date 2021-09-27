@@ -2,12 +2,11 @@
 Parse DOI information from entries in a json file and print all formatted DOI
 citations to the command line.
 """
+import argparse
 import json
 
 from datetime import date
 from typing import Dict, Any
-
-FNAME = "/home/msonntag/Chaos/staging/posters2021/BC20data/abstracts.json"
 
 
 def citation_info(item: Dict[str, Any]) -> (str, str):
@@ -39,7 +38,12 @@ def main():
     Parse DOI information from entries in a json file and print all formatted DOI
     citations to the command line.
     """
-    with open(FNAME, encoding="utf-8") as jfp:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("json_file", help="JSON file containing abstracts data")
+    args = parser.parse_args()
+
+    in_file = args.json_file
+    with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
     for item in data:
