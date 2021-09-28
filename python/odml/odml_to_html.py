@@ -1,3 +1,8 @@
+"""
+Load an odML xml file containing a full and valid stylesheet tag and
+use the stylesheet information to transform the odml document to html.
+"""
+
 from lxml import etree
 
 
@@ -22,7 +27,7 @@ def odml_to_html(odml_filename):
     html = etree.tostring(newdom, pretty_print=True).decode()
 
     outfile = "output.html"
-    with open(outfile, "w") as fip:
+    with open(outfile, "w", encoding="utf-8") as fip:
         fip.write(html)
 
 
