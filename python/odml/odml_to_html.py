@@ -2,8 +2,12 @@
 Load an odML xml file containing a full and valid stylesheet tag and
 use the stylesheet information to transform the odml document to html.
 """
+import argparse
 
 from lxml import etree
+
+
+LOCAL_FILE = "resources/browser_display/custom_style.odml"
 
 
 def odml_to_html(odml_filename):
@@ -31,4 +35,17 @@ def odml_to_html(odml_filename):
         fip.write(html)
 
 
-odml_to_html("resources/browser_display/custom_style.odml")
+def run():
+    """
+    Handle command line arguments.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("odml_file", help="odml file containing custom stylesheet")
+    args = parser.parse_args()
+
+    odml_file = args.odml_file
+    odml_to_html(odml_file)
+
+
+if __name__ == "__main__":
+    run()
