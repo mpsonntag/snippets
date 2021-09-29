@@ -119,6 +119,32 @@ def run_single_raw(nif):
     plt.show()
 
 
+def parse_protocol_from_path(spec_path, protocol_info):
+    """
+    Parses a specific CA imaging protocol information from a given path.
+    :param spec_path: path containing the protocol information. e.g. "/egl3/urx/ramp210421/"
+    :param protocol_info: information to be retrieved. Valid entries are
+    "strain", "neuron", "prot_type", "o2conc".
+    :return: string with the requested information or an empty string if the information
+    could not be parsed.
+    """
+    prot_items = spec_path.split("/")
+    ret_val = ""
+    if protocol_info == "strain":
+        ret_val = prot_items[0]
+    elif protocol_info == "neuron":
+        ret_val = prot_items[1]
+    elif protocol_info == "prot_type":
+        if "ramp" in prot_items[2].lower():
+            ret_val = "ramp"
+        elif "shift" in prot_items[2].lower():
+            ret_val = "shift"
+    elif protocol_info == "o2conc":
+        ret_val = prot_items[2].lower().replace("shift", "").replace("ramp", "")
+
+    return ret_val
+
+
 def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
     nig = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
@@ -137,7 +163,6 @@ def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain
 
 
 def run_shift_n2_urx(block):
-    spec_path = "/N2/urx/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120705Pflp178GCaMP5kshift210421W7URXx2.log": ["20120705", "W7"],
@@ -158,6 +183,7 @@ def run_shift_n2_urx(block):
         "20121205Pflp178GCaMP5kN2shift_210421W3urx_probably_saturated.log": ["20120805", "W3"]
     }
 
+    spec_path = "/N2/urx/shift210421/"
     prot_type = "shift"
     prot_switch = "210421"
     strain = "N2"
@@ -167,7 +193,6 @@ def run_shift_n2_urx(block):
 
 
 def run_shift_egl3_urx(block):
-    spec_path = "/egl3/urx/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120906Pflp178GCaMP5kegl3Shift210421W2URX.log": ["20120906", "W2"],
@@ -187,11 +212,11 @@ def run_shift_egl3_urx(block):
     strain = "egl3"
     neuron = "URX"
 
+    spec_path = "/egl3/urx/shift210421/"
     run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_shift_n2_bag(block):
-    spec_path = "/N2/bag/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120705Pflp178GCaMP5kshift210421W8BAG.log": ["20120705", "W8"],
@@ -210,6 +235,7 @@ def run_shift_n2_bag(block):
         "20121205Pflp178GCaMP5kN2shift_210421W5bag.log": ["20121205", "W5"]
     }
 
+    spec_path = "/N2/bag/shift210421/"
     prot_type = "shift"
     prot_switch = "210421"
     strain = "N2"
@@ -219,7 +245,6 @@ def run_shift_n2_bag(block):
 
 
 def run_shift_egl3_bag(block):
-    spec_path = "/egl3/bag/shift210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120904Pflp178GCaMP5kegl3Shift210421W11BAG.log": ["20120904", "W11"],
@@ -244,11 +269,11 @@ def run_shift_egl3_bag(block):
     strain = "egl3"
     neuron = "BAG"
 
+    spec_path = "/egl3/bag/shift210421/"
     run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_ramp_n2_urx(block):
-    spec_path = "/N2/urx/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120703Pflp178GCaMP5kRamp210421W2URX.log": ["20120703", "W2"],
@@ -269,6 +294,7 @@ def run_ramp_n2_urx(block):
         "20121128Pflp178GCaMP5kN2Ramp_2_210421W3urx.log": ["20121128", "W3"]
     }
 
+    spec_path = "/N2/urx/ramp210421/"
     prot_type = "ramp"
     prot_switch = "210421"
     strain = "N2"
@@ -278,7 +304,6 @@ def run_ramp_n2_urx(block):
 
 
 def run_ramp_egl3_urx(block):
-    spec_path = "/egl3/urx/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120906Pflp178GCaMP5kegl3Ramp210421W3URX.log": ["20120906", "W3"],
@@ -295,6 +320,7 @@ def run_ramp_egl3_urx(block):
         "20121128Pflp178GCaMP5kegl3Ramp_2_210421W6urx.log": ["20121128", "W6"]
     }
 
+    spec_path = "/egl3/urx/ramp210421/"
     prot_type = "ramp"
     prot_switch = "210421"
     strain = "egl3"
@@ -304,7 +330,6 @@ def run_ramp_egl3_urx(block):
 
 
 def run_ramp_n2_bag(block):
-    spec_path = "/N2/bag/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120703Pflp178GCaMP5kRamp210421W2BAG.log": ["20120703", "W2"],
@@ -326,6 +351,7 @@ def run_ramp_n2_bag(block):
         "20121128Pflp178GCaMP5kN2Ramp_2_210421W1bag.log": ["20121128", "W1"]
     }
 
+    spec_path = "/N2/bag/ramp210421/"
     prot_type = "ramp"
     prot_switch = "210421"
     strain = "N2"
@@ -335,7 +361,6 @@ def run_ramp_n2_bag(block):
 
 
 def run_ramp_egl3_bag(block):
-    spec_path = "/egl3/bag/ramp210421/"
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120904Pflp178GCaMP5kegl3Ramp210421W12BAG.log": ["20120904", "W12"],
@@ -357,6 +382,7 @@ def run_ramp_egl3_bag(block):
         "20121128Pflp178GCaMP5kegl3Ramp_2_210421W5bag.log": ["20121128", "W5"]
     }
 
+    spec_path = "/egl3/bag/ramp210421/"
     prot_type = "ramp"
     prot_switch = "210421"
     strain = "egl3"
