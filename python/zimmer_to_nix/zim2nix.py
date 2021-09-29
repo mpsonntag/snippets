@@ -1,3 +1,10 @@
+"""
+Parse raw calcium imaging files acquired using different stimulus
+protocols into a NIX file. The raw csv files require the following
+columns:
+'curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
+'obj_value', 'obj_size', 'background_value', 'xold', 'yold'
+"""
 import argparse
 
 import matplotlib.pyplot as plt
@@ -22,6 +29,15 @@ HEAD_COL = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
 
 
 def add_data(nib, nig, basic_name, basic_type, ca_data):
+    """
+    Save raw calcium imaging data in a NIX block and group them
+    via NIX groups.
+    :param nib: NIX block to save the data in.
+    :param nig: NIX group to group the data in.
+    :param basic_name: base of all created NIX data array names.
+    :param basic_type: base of all created NIX data array types.
+    :param ca_data: dict containing the calcium data parsed from raw imaging files.
+    """
     # time elapsed data
     nida = nib.create_data_array(name=f"{basic_name}-time",
                                  array_type=f"{basic_type}.time_elapsed",
@@ -98,6 +114,11 @@ def add_data(nib, nig, basic_name, basic_type, ca_data):
 
 
 def plot_single_raw(nif):
+    """
+    Parse a single calcium imaging csv file, save the details to a NIX file
+    and plot the object substracted data.
+    :param nif: open NIX file object
+    """
     ca_data = pd.read_csv(DEFAULT_SINGLE_RAW_FILE, header=None, names=HEAD_COL)
 
     # Main block holding CA experiment data
@@ -149,6 +170,14 @@ def parse_protocol_from_path(spec_path, protocol_info):
 
 
 def run_multiple_raw(block, spec_path, file_dict):
+    """
+    Reads raw calcium imaging data for all files in a provided file dict,
+    stores the loaded data in a provided NIX block and groups all data in
+    a newly created NIX group.
+    :param block: NIX block to save data in.
+    :param spec_path: path containing the protocol information. e.g. "/egl3/urx/ramp210421/"
+    :param file_dict: dictionary mapping raw file names to date and subjects.
+    """
     prot_type = parse_protocol_from_path(spec_path, "prot_type")
     prot_switch = parse_protocol_from_path(spec_path, "o2conc")
     strain = parse_protocol_from_path(spec_path, "strain")
@@ -171,6 +200,11 @@ def run_multiple_raw(block, spec_path, file_dict):
 
 
 def run_shift_n2_urx(block):
+    """
+    Parse and save raw N2 URX shift calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120705Pflp178GCaMP5kshift210421W7URXx2.log": ["20120705", "W7"],
@@ -196,6 +230,11 @@ def run_shift_n2_urx(block):
 
 
 def run_shift_egl3_urx(block):
+    """
+    Parse and save raw egl3 URX shift calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120906Pflp178GCaMP5kegl3Shift210421W2URX.log": ["20120906", "W2"],
@@ -215,6 +254,11 @@ def run_shift_egl3_urx(block):
 
 
 def run_shift_n2_bag(block):
+    """
+    Parse and save raw N2 BAG shift calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120705Pflp178GCaMP5kshift210421W8BAG.log": ["20120705", "W8"],
@@ -238,6 +282,11 @@ def run_shift_n2_bag(block):
 
 
 def run_shift_egl3_bag(block):
+    """
+    Parse and save raw egl3 BAG shift calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120904Pflp178GCaMP5kegl3Shift210421W11BAG.log": ["20120904", "W11"],
@@ -262,6 +311,11 @@ def run_shift_egl3_bag(block):
 
 
 def run_ramp_n2_urx(block):
+    """
+    Parse and save raw N2 URX ramp calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120703Pflp178GCaMP5kRamp210421W2URX.log": ["20120703", "W2"],
@@ -287,6 +341,11 @@ def run_ramp_n2_urx(block):
 
 
 def run_ramp_egl3_urx(block):
+    """
+    Parse and save raw egl3 URX ramp calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120906Pflp178GCaMP5kegl3Ramp210421W3URX.log": ["20120906", "W3"],
@@ -308,6 +367,11 @@ def run_ramp_egl3_urx(block):
 
 
 def run_ramp_n2_bag(block):
+    """
+    Parse and save raw N2 BAG ramp calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120703Pflp178GCaMP5kRamp210421W2BAG.log": ["20120703", "W2"],
@@ -334,6 +398,11 @@ def run_ramp_n2_bag(block):
 
 
 def run_ramp_egl3_bag(block):
+    """
+    Parse and save raw egl3 BAG ramp calcium imaging data to a NIX block.
+    Location and filenames of the raw files are provided by this function.
+    :param block: NIX block to store the data in.
+    """
     # dict reference: date, strain, genetic modification, stimulus protocol,
     file_dict = {
         "20120904Pflp178GCaMP5kegl3Ramp210421W12BAG.log": ["20120904", "W12"],
@@ -381,7 +450,7 @@ def handle_raw_directory(nif):
 
 def handle_file(plot_single_file):
     """
-    Creates a NIX file and adds calcium imaging data from raw cs files to it.
+    Creates a NIX file and adds calcium imaging data from raw csv files to it.
     """
     with nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite) as nix_file:
         if plot_single_file:
