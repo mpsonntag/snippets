@@ -3,7 +3,10 @@ import pandas as pd
 
 import nixio
 
-head_col = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
+DEFAULT_RAW_FILES = "/home/msonntag/Chaos/DL/calcium_imaging/results"
+DEFAULT_OUT_FILE = "/home/msonntag/Chaos/DL/ca_imaging.nix"
+
+HEAD_COL = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
             'obj_value', 'obj_size', 'background_value', 'xold', 'yold']
 
 # Open points:
@@ -93,7 +96,7 @@ def add_data(nib, nig, basic_name, basic_type, ca_data):
 
 def run_single_raw(nif):
     ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
-                          header=None, names=head_col)
+                          header=None, names=HEAD_COL)
     # Main block holding CA experiment data
     nib = nif.create_block(name="ca_imaging_data", type_="CA-primary-data")
     basic_name = "CA-data.20120705.W8"
@@ -119,8 +122,8 @@ def run_single_raw(nif):
 def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
     nig = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
-        ffname = f"{path_base_raw_files}{spec_path}{fname}"
-        curr_data = pd.read_csv(ffname, header=None, names=head_col)
+        ffname = f"{DEFAULT_RAW_FILES}{spec_path}{fname}"
+        curr_data = pd.read_csv(ffname, header=None, names=HEAD_COL)
         print(file_dict[fname])
 
         # since all data arrays live on the same block, the individual names
@@ -362,23 +365,34 @@ def run_ramp_egl3_bag(block):
     run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
-path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
-out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
-nix_file = nixio.File.open(out_file, nixio.FileMode.Overwrite)
+def handle_file():
+    nix_file = nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite)
 
-block_shift = nix_file.create_block(name="Ca_imaging_data_shift_210421",
-                                    type_="Ca.raw.shift.210421")
-run_shift_n2_urx(block_shift)
-run_shift_egl3_urx(block_shift)
-run_shift_n2_bag(block_shift)
-run_shift_egl3_bag(block_shift)
+    block_shift = nix_file.create_block(name="Ca_imaging_data_shift_210421",
+                                        type_="Ca.raw.shift.210421")
+    run_shift_n2_urx(block_shift)
+    run_shift_egl3_urx(block_shift)
+    run_shift_n2_bag(block_shift)
+    run_shift_egl3_bag(block_shift)
 
-block_ramp = nix_file.create_block(name="Ca_imaging_data_ramp_210421", type_="Ca.raw.ramp.210421")
-run_ramp_n2_urx(block_ramp)
-run_ramp_egl3_urx(block_ramp)
-run_ramp_n2_bag(block_ramp)
-run_ramp_egl3_bag(block_ramp)
+    block_ramp = nix_file.create_block(name="Ca_imaging_data_ramp_210421",
+                                       type_="Ca.raw.ramp.210421")
+    run_ramp_n2_urx(block_ramp)
+    run_ramp_egl3_urx(block_ramp)
+    run_ramp_n2_bag(block_ramp)
+    run_ramp_egl3_bag(block_ramp)
 
-# run_single_raw(nix_file)
+    # run_single_raw(nix_file)
 
-nix_file.close()
+    nix_file.close()
+
+
+def run():
+    """
+    Script entry point
+    """
+    handle_file()
+
+
+if __name__ == "__main__":
+    run()
