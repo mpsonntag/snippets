@@ -6,111 +6,118 @@ import nixio
 head_col = ['curr_frame', 'time_elapsed', 'obj_subtracted', 'subtracted_value',
             'obj_value', 'obj_size', 'background_value', 'xold', 'yold']
 
-# ToDo
+# Open points:
 # - walk across multiple files and different protocols
-# - second version with only one DataArray but 3 dims -> time as sampled, data as second and set with labels as third
-# - add data arrays for stimulus protocols and use them as tags / multitags on all matching data for later filtering
+# - second version with only one DataArray but 3 dims -> time as sampled, data as second and
+#       set with labels as third
+# - add data arrays for stimulus protocols and use them as tags / multitags on all matching data
+#       for later filtering
 # - add metadata for each worm -> think about how this can be structured
 
 
-def add_data(b, g, basic_name, basic_type, ca_data):
+def add_data(nib, nig, basic_name, basic_type, ca_data):
     # time elapsed data
-    da = b.create_data_array(name=f"{basic_name}-time", array_type=f"{basic_type}.time_elapsed",
-                             data=ca_data["time_elapsed"])
-    da.label = "time elapsed"
-    da.unit = "ms"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-time",
+                                 array_type=f"{basic_type}.time_elapsed",
+                                 data=ca_data["time_elapsed"])
+    nida.label = "time elapsed"
+    nida.unit = "ms"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # object subtracted value data
-    da = b.create_data_array(name=f"{basic_name}-obj-sub",
-                             array_type=f"{basic_type}.object_subtracted",
-                             data=ca_data["obj_subtracted"])
-    da.label = " F object value minus background value"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-obj-sub",
+                                 array_type=f"{basic_type}.object_subtracted",
+                                 data=ca_data["obj_subtracted"])
+    nida.label = " F object value minus background value"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # subtracted value
-    da = b.create_data_array(name=f"{basic_name}-sub-val",
-                             array_type=f"{basic_type}.subtracted_value",
-                             data=ca_data["subtracted_value"])
-    da.label = "F value subtracted"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-sub-val",
+                                 array_type=f"{basic_type}.subtracted_value",
+                                 data=ca_data["subtracted_value"])
+    nida.label = "F value subtracted"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # object value
-    da = b.create_data_array(name=f"{basic_name}-obj-val", array_type=f"{basic_type}.object_value",
-                             data=ca_data["obj_value"])
-    da.label = "F object value absolute"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-obj-val",
+                                 array_type=f"{basic_type}.object_value",
+                                 data=ca_data["obj_value"])
+    nida.label = "F object value absolute"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # object size
-    da = b.create_data_array(name=f"{basic_name}-obj-size", array_type=f"{basic_type}.object_size",
-                             data=ca_data["obj_size"])
-    da.label = "object size"
-    da.unit = "pixel"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-obj-size",
+                                 array_type=f"{basic_type}.object_size",
+                                 data=ca_data["obj_size"])
+    nida.label = "object size"
+    nida.unit = "pixel"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # background value
-    da = b.create_data_array(name=f"{basic_name}-bgd-val",
-                             array_type=f"{basic_type}.background_value",
-                             data=ca_data["background_value"])
-    da.label = "F background value average"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-bgd-val",
+                                 array_type=f"{basic_type}.background_value",
+                                 data=ca_data["background_value"])
+    nida.label = "F background value average"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # previous ROI x position
-    da = b.create_data_array(name=f"{basic_name}-roi-old-x", array_type=f"{basic_type}.ROI_old_x",
-                             data=ca_data["xold"])
-    da.label = "previous ROI x position"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-roi-old-x",
+                                 array_type=f"{basic_type}.ROI_old_x",
+                                 data=ca_data["xold"])
+    nida.label = "previous ROI x position"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
     # previous ROI y position
-    da = b.create_data_array(name=f"{basic_name}-roi-old-y", array_type=f"{basic_type}.ROI_old_y",
-                             data=ca_data["yold"])
-    da.label = "previous ROI y position"
-    da.append_sampled_dimension(1, label="frame", offset=1)
+    nida = nib.create_data_array(name=f"{basic_name}-roi-old-y",
+                                 array_type=f"{basic_type}.ROI_old_y",
+                                 data=ca_data["yold"])
+    nida.label = "previous ROI y position"
+    nida.append_sampled_dimension(1, label="frame", offset=1)
 
-    g.data_arrays.append(da)
+    nig.data_arrays.append(nida)
 
 
-def run_single_raw(nf):
+def run_single_raw(nif):
     ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
                           header=None, names=head_col)
     # Main block holding CA experiment data
-    b = nf.create_block(name="ca_imaging_data", type_="CA-primary-data")
+    nib = nif.create_block(name="ca_imaging_data", type_="CA-primary-data")
     basic_name = "CA-data.20120705.W8"
     # Group data by experiment data arrays
-    g = b.create_group(name=basic_name, type_="CA-primary-data")
+    nig = nib.create_group(name=basic_name, type_="CA-primary-data")
 
-    add_data(b, g, basic_name, "CA", ca_data)
+    add_data(nib, nig, basic_name, "CA", ca_data)
 
     # make an example plot
-    b = nf.blocks[0]
-    da = b.data_arrays["CA-data.20120705.W8-obj-sub"]
-    x_axis = da.dimensions[0]
-    x = x_axis.axis(da.data.shape[0])
-    y = da.data[:]
+    nib = nif.blocks[0]
+    nida = nib.data_arrays["CA-data.20120705.W8-obj-sub"]
+    x_axis = nida.dimensions[0]
+    x_data = x_axis.axis(nida.data.shape[0])
+    y_data = nida.data[:]
 
-    plt.plot(x, y, label=da.name)
+    plt.plot(x_data, y_data, label=nida.name)
     plt.xlabel(x_axis.label)
-    plt.ylabel(da.label)
+    plt.ylabel(nida.label)
     plt.legend()
     plt.show()
 
 
-def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron, marker):
-    g = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
+def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
+    nig = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
         ffname = f"{path_base_raw_files}{spec_path}{fname}"
         curr_data = pd.read_csv(ffname, header=None, names=head_col)
@@ -118,11 +125,12 @@ def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain
 
         # since all data arrays live on the same block, the individual names
         # have to be very distinct to avoid duplicate name issues
-        basic_name = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}.{file_dict[fname][0]}.{file_dict[fname][1]}"
+        basic_name = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}.{file_dict[fname][0]}." \
+                     f"{file_dict[fname][1]}"
         basic_type = f"Ca.{prot_type}.{prot_switch}.{strain}.{neuron}"
 
         # Group data by experiment data arrays
-        add_data(block, g, basic_name, basic_type, curr_data)
+        add_data(block, nig, basic_name, basic_type, curr_data)
 
 
 def run_shift_n2_urx(block):
@@ -151,10 +159,8 @@ def run_shift_n2_urx(block):
     prot_switch = "210421"
     strain = "N2"
     neuron = "URX"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict, 
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_shift_egl3_urx(block):
@@ -177,10 +183,8 @@ def run_shift_egl3_urx(block):
     prot_switch = "210421"
     strain = "egl3"
     neuron = "URX"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict, 
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_shift_n2_bag(block):
@@ -207,10 +211,8 @@ def run_shift_n2_bag(block):
     prot_switch = "210421"
     strain = "N2"
     neuron = "BAG"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict,
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_shift_egl3_bag(block):
@@ -226,7 +228,8 @@ def run_shift_egl3_bag(block):
         "20121202Pflp178GCaMP5kegl3shift_210421W7bag.log": ["20121202", "W7"],
         "20121202Pflp178GCaMP5kegl3shift_210421W8bag.log": ["20121202", "W8"],
         "20121205Pflp178GCaMP5kegl3shift_210421W2_sigLowbag.log": ["20121205", "W2"],
-        #"20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag_add20frm_at_beg.log": ["20121205", "W3"], # duplicate name issue with next log
+        # "20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag_add20frm_at_beg.log":
+        # ["20121205", "W3"], # duplicate name issue with next log
         "20121205Pflp178GCaMP5kegl3shift_210421W3_2SECLATEbag.log": ["20121205", "W3"],
         "20121205Pflp178GCaMP5kegl3shift_210421W5bag.log": ["20121205", "W5"],
         "20121205Pflp178GCaMP5kegl3shift_210421W7bag.log": ["20121205", "W7"],
@@ -237,10 +240,8 @@ def run_shift_egl3_bag(block):
     prot_switch = "210421"
     strain = "egl3"
     neuron = "BAG"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict,
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_ramp_n2_urx(block):
@@ -269,10 +270,8 @@ def run_ramp_n2_urx(block):
     prot_switch = "210421"
     strain = "N2"
     neuron = "URX"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict, 
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_ramp_egl3_urx(block):
@@ -297,10 +296,8 @@ def run_ramp_egl3_urx(block):
     prot_switch = "210421"
     strain = "egl3"
     neuron = "URX"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict, 
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_ramp_n2_bag(block):
@@ -330,10 +327,8 @@ def run_ramp_n2_bag(block):
     prot_switch = "210421"
     strain = "N2"
     neuron = "BAG"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict,
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 def run_ramp_egl3_bag(block):
@@ -363,30 +358,27 @@ def run_ramp_egl3_bag(block):
     prot_switch = "210421"
     strain = "egl3"
     neuron = "BAG"
-    marker = "Pflp178GCaMP5k"
 
-    run_multiple_raw(block, spec_path, file_dict,
-                     prot_type, prot_switch, strain, neuron, marker)
+    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
 
 
 path_base_raw_files = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 out_file = "/home/msonntag/Chaos/DL/ca_imaging.nix"
-nif = nixio.File.open(out_file, nixio.FileMode.Overwrite)
+nix_file = nixio.File.open(out_file, nixio.FileMode.Overwrite)
 
-b = nif.create_block(name=f"Ca_imaging_data_shift_210421",
-                     type_=f"Ca.raw.shift.210421")
-run_shift_n2_urx(b)
-run_shift_egl3_urx(b)
-run_shift_n2_bag(b)
-run_shift_egl3_bag(b)
+block_shift = nix_file.create_block(name="Ca_imaging_data_shift_210421",
+                                    type_="Ca.raw.shift.210421")
+run_shift_n2_urx(block_shift)
+run_shift_egl3_urx(block_shift)
+run_shift_n2_bag(block_shift)
+run_shift_egl3_bag(block_shift)
 
-b = nif.create_block(name=f"Ca_imaging_data_ramp_210421",
-                     type_=f"Ca.raw.ramp.210421")
-run_ramp_n2_urx(b)
-run_ramp_egl3_urx(b)
-run_ramp_n2_bag(b)
-run_ramp_egl3_bag(b)
+block_ramp = nix_file.create_block(name="Ca_imaging_data_ramp_210421", type_="Ca.raw.ramp.210421")
+run_ramp_n2_urx(block_ramp)
+run_ramp_egl3_urx(block_ramp)
+run_ramp_n2_bag(block_ramp)
+run_ramp_egl3_bag(block_ramp)
 
-#run_single_raw(nif)
+# run_single_raw(nix_file)
 
-nif.close()
+nix_file.close()
