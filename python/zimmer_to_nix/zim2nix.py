@@ -380,13 +380,9 @@ def handle_file():
     """
     Creates a NIX file and adds calcium imaging data from raw cs files to it.
     """
-    nix_file = nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite)
-
-    handle_raw_directory(nix_file)
-
-    # run_single_raw(nix_file)
-
-    nix_file.close()
+    with nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite) as nix_file:
+        handle_raw_directory(nix_file)
+        # run_single_raw(nix_file)
 
 
 def run():
