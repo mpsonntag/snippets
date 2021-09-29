@@ -1,3 +1,5 @@
+import argparse
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -95,8 +97,9 @@ def add_data(nib, nig, basic_name, basic_type, ca_data):
     nig.data_arrays.append(nida)
 
 
-def run_single_raw(nif):
+def plot_single_raw(nif):
     ca_data = pd.read_csv(DEFAULT_SINGLE_RAW_FILE, header=None, names=HEAD_COL)
+
     # Main block holding CA experiment data
     nib = nif.create_block(name="ca_imaging_data", type_="CA-primary-data")
     basic_name = "CA-data.20120705.W8"
@@ -376,20 +379,28 @@ def handle_raw_directory(nif):
     run_ramp_egl3_bag(block_ramp)
 
 
-def handle_file():
+def handle_file(plot_single_file):
     """
     Creates a NIX file and adds calcium imaging data from raw cs files to it.
     """
     with nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite) as nix_file:
-        handle_raw_directory(nix_file)
-        # run_single_raw(nix_file)
+        if plot_single_file:
+            plot_single_raw(nix_file)
+        else:
+            handle_raw_directory(nix_file)
 
 
 def run():
     """
     Script entry point
     """
-    handle_file()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--plot-file", dest="single", action="store_true",
+                        help="Parse single file only")
+    args = parser.parse_args()
+
+    plot_raw = args.single
+    handle_file(plot_raw)
 
 
 if __name__ == "__main__":
