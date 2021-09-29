@@ -128,12 +128,12 @@ def parse_protocol_from_path(spec_path, protocol_info):
     :return: string with the requested information or an empty string if the information
     could not be parsed.
     """
-    prot_items = spec_path.split("/")
+    prot_items = spec_path.strip("/").split("/")
     ret_val = ""
     if protocol_info == "strain":
         ret_val = prot_items[0]
     elif protocol_info == "neuron":
-        ret_val = prot_items[1]
+        ret_val = prot_items[1].upper()
     elif protocol_info == "prot_type":
         if "ramp" in prot_items[2].lower():
             ret_val = "ramp"
@@ -145,7 +145,12 @@ def parse_protocol_from_path(spec_path, protocol_info):
     return ret_val
 
 
-def run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron):
+def run_multiple_raw(block, spec_path, file_dict):
+    prot_type = parse_protocol_from_path(spec_path, "prot_type")
+    prot_switch = parse_protocol_from_path(spec_path, "o2conc")
+    strain = parse_protocol_from_path(spec_path, "strain")
+    neuron = parse_protocol_from_path(spec_path, "neuron")
+
     nig = block.create_group(name=f"Ca.{strain}.{neuron}", type_=f"Ca.{strain}.{neuron}")
     for fname in file_dict:
         ffname = f"{DEFAULT_RAW_FILES}{spec_path}{fname}"
@@ -184,12 +189,7 @@ def run_shift_n2_urx(block):
     }
 
     spec_path = "/N2/urx/shift210421/"
-    prot_type = "shift"
-    prot_switch = "210421"
-    strain = "N2"
-    neuron = "URX"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_shift_egl3_urx(block):
@@ -207,13 +207,8 @@ def run_shift_egl3_urx(block):
         "20121205Pflp178GCaMP5kegl3shift_210421W11urx.log": ["20121205", "W11"]
     }
 
-    prot_type = "shift"
-    prot_switch = "210421"
-    strain = "egl3"
-    neuron = "URX"
-
     spec_path = "/egl3/urx/shift210421/"
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_shift_n2_bag(block):
@@ -236,12 +231,7 @@ def run_shift_n2_bag(block):
     }
 
     spec_path = "/N2/bag/shift210421/"
-    prot_type = "shift"
-    prot_switch = "210421"
-    strain = "N2"
-    neuron = "BAG"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_shift_egl3_bag(block):
@@ -264,13 +254,8 @@ def run_shift_egl3_bag(block):
         "20121205Pflp178GCaMP5kegl3shift_210421W8bag.log": ["20121205", "W8"]
     }
 
-    prot_type = "shift"
-    prot_switch = "210421"
-    strain = "egl3"
-    neuron = "BAG"
-
     spec_path = "/egl3/bag/shift210421/"
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_ramp_n2_urx(block):
@@ -295,12 +280,7 @@ def run_ramp_n2_urx(block):
     }
 
     spec_path = "/N2/urx/ramp210421/"
-    prot_type = "ramp"
-    prot_switch = "210421"
-    strain = "N2"
-    neuron = "URX"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_ramp_egl3_urx(block):
@@ -321,12 +301,7 @@ def run_ramp_egl3_urx(block):
     }
 
     spec_path = "/egl3/urx/ramp210421/"
-    prot_type = "ramp"
-    prot_switch = "210421"
-    strain = "egl3"
-    neuron = "URX"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_ramp_n2_bag(block):
@@ -352,12 +327,7 @@ def run_ramp_n2_bag(block):
     }
 
     spec_path = "/N2/bag/ramp210421/"
-    prot_type = "ramp"
-    prot_switch = "210421"
-    strain = "N2"
-    neuron = "BAG"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def run_ramp_egl3_bag(block):
@@ -383,12 +353,7 @@ def run_ramp_egl3_bag(block):
     }
 
     spec_path = "/egl3/bag/ramp210421/"
-    prot_type = "ramp"
-    prot_switch = "210421"
-    strain = "egl3"
-    neuron = "BAG"
-
-    run_multiple_raw(block, spec_path, file_dict, prot_type, prot_switch, strain, neuron)
+    run_multiple_raw(block, spec_path, file_dict)
 
 
 def handle_file():
