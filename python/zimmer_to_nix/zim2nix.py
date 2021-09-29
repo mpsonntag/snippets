@@ -3,6 +3,7 @@ import pandas as pd
 
 import nixio
 
+DEFAULT_SINGLE_RAW_FILE = "20120705Pflp178GCaMP5kshift210421W8BAG.log"
 DEFAULT_RAW_FILES = "/home/msonntag/Chaos/DL/calcium_imaging/results"
 DEFAULT_OUT_FILE = "/home/msonntag/Chaos/DL/ca_imaging.nix"
 
@@ -95,8 +96,7 @@ def add_data(nib, nig, basic_name, basic_type, ca_data):
 
 
 def run_single_raw(nif):
-    ca_data = pd.read_csv('20120705Pflp178GCaMP5kshift210421W8BAG.log',
-                          header=None, names=HEAD_COL)
+    ca_data = pd.read_csv(DEFAULT_SINGLE_RAW_FILE, header=None, names=HEAD_COL)
     # Main block holding CA experiment data
     nib = nif.create_block(name="ca_imaging_data", type_="CA-primary-data")
     basic_name = "CA-data.20120705.W8"
@@ -356,22 +356,33 @@ def run_ramp_egl3_bag(block):
     run_multiple_raw(block, spec_path, file_dict)
 
 
-def handle_file():
-    nix_file = nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite)
-
-    block_shift = nix_file.create_block(name="Ca_imaging_data_shift_210421",
-                                        type_="Ca.raw.shift.210421")
+def handle_raw_directory(nif):
+    """
+    Parses CA imaging data from a directory structure to a provided nix file.
+    :param nif: nix file
+    """
+    block_shift = nif.create_block(name="Ca_imaging_data_shift_210421",
+                                   type_="Ca.raw.shift.210421")
     run_shift_n2_urx(block_shift)
     run_shift_egl3_urx(block_shift)
     run_shift_n2_bag(block_shift)
     run_shift_egl3_bag(block_shift)
 
-    block_ramp = nix_file.create_block(name="Ca_imaging_data_ramp_210421",
-                                       type_="Ca.raw.ramp.210421")
+    block_ramp = nif.create_block(name="Ca_imaging_data_ramp_210421",
+                                  type_="Ca.raw.ramp.210421")
     run_ramp_n2_urx(block_ramp)
     run_ramp_egl3_urx(block_ramp)
     run_ramp_n2_bag(block_ramp)
     run_ramp_egl3_bag(block_ramp)
+
+
+def handle_file():
+    """
+    Creates a NIX file and adds calcium imaging data from raw cs files to it.
+    """
+    nix_file = nixio.File.open(DEFAULT_OUT_FILE, nixio.FileMode.Overwrite)
+
+    handle_raw_directory(nix_file)
 
     # run_single_raw(nix_file)
 
