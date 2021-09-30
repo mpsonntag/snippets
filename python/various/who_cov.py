@@ -42,7 +42,7 @@ CASES_DAY_DESCRIPTION = {"key": ["unix_timestamp"],
                                     "cases_cumulative_percent_population",
                                     "deaths_per_day_confirmed", "deaths_cumulative",
                                     "deaths_cumulative_permil_population"]}
-full_data = {"cases_per_day_data_description": CASES_DAY_DESCRIPTION,
+FULL_DATA = {"cases_per_day_data_description": CASES_DAY_DESCRIPTION,
              "countries": {}}
 
 
@@ -199,8 +199,8 @@ def plot_all_country_cases(data, cases_dates):
 
     markers_available = list(Line2D.markers.keys())
     marker_idx = -1
-    for j in full_data["countries"]:
-        if full_data["countries"][j]["region"] == "america":
+    for j in data["countries"]:
+        if data["countries"][j]["region"] == "america":
             continue
 
         country = data["countries"][j]["country_name"]
@@ -272,7 +272,7 @@ def get_aggregated(use_date, curr_cases, euro_cases):
     return names, aggregated
 
 
-def plot_single_country(full_data, country_code):
+def plot_single_country(full_data, country_code, cases_dates):
     # individual country plot
     ax = plt.subplot(111)
 
@@ -474,40 +474,45 @@ def plot_percent_countries(full_data, cases_dates):
     plt.show()
 
 
-full_data = fetch_data(full_data)
-save_to_json(full_data)
+def run():
+    full_data = fetch_data(FULL_DATA)
+    save_to_json(full_data)
 
-euro_cases = congregate_euro_cases(full_data)
-us_cases = full_data["countries"]["us"]["cases"]
-cases_dates, confirmed, usconfirmed = basic_data(euro_cases, us_cases)
+    euro_cases = congregate_euro_cases(full_data)
+    us_cases = full_data["countries"]["us"]["cases"]
+    cases_dates, confirmed, usconfirmed = basic_data(euro_cases, us_cases)
 
-# change default figure size
-rcParams['figure.figsize'] = (8.5, 4.4)
-plot_euro_us_comparison(cases_dates, confirmed, usconfirmed)
-plot_all_country_cases(full_data, cases_dates)
-plot_all_countries_last_month(full_data, cases_dates)
-plot_single_country(full_data, "at")
+    # change default figure size
+    rcParams['figure.figsize'] = (8.5, 4.4)
+    plot_euro_us_comparison(cases_dates, confirmed, usconfirmed)
+    plot_all_country_cases(full_data, cases_dates)
+    plot_all_countries_last_month(full_data, cases_dates)
+    plot_single_country(full_data, "at", cases_dates)
 
-# display current numpy print options
-print(np.get_printoptions())
-# set precision to 3
-np.set_printoptions(precision=3)
+    # display current numpy print options
+    print(np.get_printoptions())
+    # set precision to 3
+    np.set_printoptions(precision=3)
 
-use_date = list(euro_cases["cases"].keys())[-1]
-curr_cases = copy.deepcopy(full_data["countries"])
-_, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
+    use_date = list(euro_cases["cases"].keys())[-1]
+    curr_cases = copy.deepcopy(full_data["countries"])
+    _, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
 
-labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
-# plot_table_country_statistics(names, labels, aggregated)
+    labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
+    # plot_table_country_statistics(names, labels, aggregated)
 
-sum_only, names = formatted_statistics(full_data, euro_cases)
+    sum_only, names = formatted_statistics(full_data, euro_cases)
 
-col_labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
-# plot_table_formatted_country_statistics(sum_only, names, col_labels)
-pandas_formatted_country_statistics(sum_only, names, col_labels)
+    col_labels = ["population", "sum_cases", "[%] population", "sum_deaths", "[‰] population"]
+    # plot_table_formatted_country_statistics(sum_only, names, col_labels)
+    pandas_formatted_country_statistics(sum_only, names, col_labels)
 
-curr_plot = formatted_statistics_last_week(full_data)
+    curr_plot = formatted_statistics_last_week(full_data)
 
-pandas_country_last_week(curr_plot)
+    pandas_country_last_week(curr_plot)
 
-plot_percent_countries(full_data, cases_dates)
+    plot_percent_countries(full_data, cases_dates)
+
+
+if __name__ == "__main__":
+    run()
