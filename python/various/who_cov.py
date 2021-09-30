@@ -63,22 +63,19 @@ def fetch_data(full_data):
                 region = "euro"
 
             curr_url = furl % (reg, country_id)
-            res = requests.get(curr_url)
             print(f"Fetching country: '{country_id}/{country_name}' at \n\t{curr_url}")
+            res = requests.get(curr_url)
             data = json.loads(res.text)
 
             # Reduce to "timestamp: [confirmed, confirmed_cumulative,
             #                        case_cumulative_percent_population,
             #                        deaths, deaths_cumulative, death_cumulative_permil_population]"
             curr_country = {}
-            curr_data = data["result"]["pageContext"]["countryGroup"]["data"]["rows"]
             curr_perc_pop = POPULATION[country_id] / 100
             curr_perm_pop = POPULATION[country_id] / 1000
-            for i in curr_data:
-                case_perc_pop = round(i[8]/curr_perc_pop, 3)
-                death_perm_pop = round(i[3]/curr_perm_pop, 3)
-
-                curr_country[i[0]] = [i[7], i[8], case_perc_pop, i[2], i[3], death_perm_pop]
+            for i in data["result"]["pageContext"]["countryGroup"]["data"]["rows"]:
+                curr_country[i[0]] = [i[7], i[8], round(i[8]/curr_perc_pop, 3),
+                                      i[2], i[3], round(i[3]/curr_perm_pop, 3)]
 
             print("\tLatest cases: %s" % curr_country[list(curr_country.keys())[-1]])
             full_data["countries"][country_id] = {"country_name": country_name,
@@ -146,38 +143,15 @@ def basic_data(euro_data, us_data):
     # Basic plots - prepare data
     cases_dates = []
     confirmed = []
-    confirmed_cumulative = []
-    case_cumulative_percent_population = []
-    deaths = []
-    deaths_cumulative = []
-    death_cumulative_permil_population = []
-
     for i in euro_data["cases"]:
         cases_dates.append(datetime.fromtimestamp(i/1000))
         confirmed.append(euro_data["cases"][i][0])
-        confirmed_cumulative.append(euro_data["cases"][i][1])
-        case_cumulative_percent_population.append(euro_data["cases"][i][2])
-        deaths.append(euro_data["cases"][i][3])
-        deaths_cumulative.append(euro_data["cases"][i][4])
-        death_cumulative_permil_population.append(euro_data["cases"][i][5])
 
     # dirty fix to compare euro to us (us sometimes is a day ahead in terms of numbers.)
     last_euro_date = cases_dates[-1]
-
     usconfirmed = []
-    usconfirmed_cumulative = []
-    uscase_cumulative_percent_population = []
-    usdeaths = []
-    usdeaths_cumulative = []
-    usdeath_cumulative_permil_population = []
-
     for i in us_data:
         usconfirmed.append(us_data[i][0])
-        usconfirmed_cumulative.append(us_data[i][1])
-        uscase_cumulative_percent_population.append(us_data[i][2])
-        usdeaths.append(us_data[i][3])
-        usdeaths_cumulative.append(us_data[i][4])
-        usdeath_cumulative_permil_population.append(us_data[i][5])
         if last_euro_date == datetime.fromtimestamp(i/1000):
             break
 
