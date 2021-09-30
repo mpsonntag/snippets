@@ -54,8 +54,8 @@ def fetch_data(full_data):
     furl = "https://covid19.who.int/page-data/region/%s/country/%s/page-data.json"
 
     # Fetch and convert data from all regions of interest
-    for reg in REGIONS:
-        for country_id in REGIONS[reg]:
+    for reg, reg_item in REGIONS.items():
+        for country_id in reg_item:
             country_name = "United States"
             region = "america"
             if country_id != "us":
@@ -64,7 +64,7 @@ def fetch_data(full_data):
 
             curr_url = furl % (reg, country_id)
             res = requests.get(curr_url)
-            print("Fetching country: '%s/%s' at \n\t%s" % (country_id, country_name, curr_url))
+            print(f"Fetching country: '{country_id}/{country_name}' at \n\t{curr_url}")
             data = json.loads(res.text)
 
             # Reduce to "timestamp: [confirmed, confirmed_cumulative,
@@ -91,10 +91,10 @@ def fetch_data(full_data):
 
 def save_to_json(data):
     # Save data structure to json file
-    fn = path.join(OUT_DIR, ("%s.json" % OUT_FILE_NAME))
-    print("\nWriting to file %s" % fn)
-    with open(fn, "w") as fp:
-        json.dump(data, fp)
+    file_name = path.join(OUT_DIR, ("%s.json" % OUT_FILE_NAME))
+    print("\nWriting to file %s" % file_name)
+    with open(file_name, "w", encoding="utf-8") as json_file:
+        json.dump(data, json_file)
 
 
 def congregate_euro_cases(data):
@@ -185,17 +185,17 @@ def basic_data(euro_data, us_data):
 
 
 def plot_euro_us_comparison(dates, euro_confirmed, us_confirmed):
-    ax = plt.subplot(111)
-    ax.plot(dates, euro_confirmed, label="European zone")
-    ax.plot(dates, us_confirmed, label="United States")
-    ax.set_title("Per day Covid19 cases")
-    ax.set_xlabel("Date")
-    ax.legend(loc='upper left', fontsize='xx-small')
+    pax = plt.subplot(111)
+    pax.plot(dates, euro_confirmed, label="European zone")
+    pax.plot(dates, us_confirmed, label="United States")
+    pax.set_title("Per day Covid19 cases")
+    pax.set_xlabel("Date")
+    pax.legend(loc='upper left', fontsize='xx-small')
     plt.show()
 
 
 def plot_all_country_cases(data, cases_dates):
-    ax = plt.subplot(111)
+    pax = plt.subplot(111)
 
     markers_available = list(Line2D.markers.keys())
     marker_idx = -1
@@ -213,17 +213,17 @@ def plot_all_country_cases(data, cases_dates):
 
         # Handle individual markers
         marker_idx = marker_idx + 1
-        ax.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
+        pax.plot(cases_dates, curr_confirmed, label=country, marker=markers_available[marker_idx])
 
-    ax.set_title("Per day cases euro countries")
-    ax.set_xlabel("Date")
-    ax.legend(loc='upper left', fontsize='xx-small')
+    pax.set_title("Per day cases euro countries")
+    pax.set_xlabel("Date")
+    pax.legend(loc='upper left', fontsize='xx-small')
     plt.show()
 
 
 def plot_all_countries_last_month(full_data, cases_dates):
     # plot last 30 days euro zone
-    ax = plt.subplot(111)
+    pax = plt.subplot(111)
 
     curr_len = len(cases_dates)
     markers_available = list(Line2D.markers.keys())
@@ -242,12 +242,12 @@ def plot_all_countries_last_month(full_data, cases_dates):
 
         # Handle individual markers
         marker_idx = marker_idx + 1
-        ax.plot(cases_dates[curr_len-30:curr_len], curr_confirmed[curr_len-30:curr_len],
-                label=country, marker=markers_available[marker_idx])
+        pax.plot(cases_dates[curr_len-30:curr_len], curr_confirmed[curr_len-30:curr_len],
+                 label=country, marker=markers_available[marker_idx])
 
-    ax.set_title("Per day cases euro countries; last 30 days")
-    ax.set_xlabel("Date")
-    ax.legend(loc='upper left', fontsize='xx-small')
+    pax.set_title("Per day cases euro countries; last 30 days")
+    pax.set_xlabel("Date")
+    pax.legend(loc='upper left', fontsize='xx-small')
     plt.show()
 
 
@@ -256,9 +256,7 @@ def get_aggregated(use_date, curr_cases, euro_cases):
     us_stat = curr_cases["us"]["cases"][use_date]
     names = ["Europe", "United states"]
 
-    aggregated = list()
-    aggregated.append(euro_stat)
-    aggregated.append(us_stat)
+    aggregated = [euro_stat, us_stat]
 
     for i in curr_cases:
         if curr_cases[i]["region"] == "america":
@@ -274,7 +272,7 @@ def get_aggregated(use_date, curr_cases, euro_cases):
 
 def plot_single_country(full_data, country_code, cases_dates):
     # individual country plot
-    ax = plt.subplot(111)
+    pax = plt.subplot(111)
 
     country_data = []
     curr_data = full_data["countries"][country_code]
@@ -282,19 +280,19 @@ def plot_single_country(full_data, country_code, cases_dates):
     for i in curr_data["cases"]:
         country_data.append(curr_data["cases"][i][0])
 
-    ax.plot(cases_dates, country_data)
+    pax.plot(cases_dates, country_data)
 
-    ax.set_title("Per day cases in %s/%s" % (country_code, country_name))
-    ax.set_xlabel("Date")
+    pax.set_title("Per day cases in %s/%s" % (country_code, country_name))
+    pax.set_xlabel("Date")
     plt.show()
 
 
 def plot_cases_bar(euro_stat, labels, use_date):
     # bar plot statistics current state
-    x = np.arange(len(labels))
+    x_data = np.arange(len(labels))
     curr_date_string = datetime.fromtimestamp(use_date/1000)
     plt.title = "Cases overview (%s)" % curr_date_string
-    plt.bar(x, euro_stat)
+    plt.bar(x_data, euro_stat)
     plt.show()
 
 
@@ -305,18 +303,18 @@ def plot_table_country_statistics(row_labels, column_labels, aggregated):
         for val_idx, val in enumerate(format_aggregated[line_idx]):
             format_aggregated[line_idx][val_idx] = f'{val:,}'
 
-    _, ax = plt.subplots()
+    _, pax = plt.subplots()
 
     # Hide axes
-    ax.xaxis.set_visible(False)
-    ax.yaxis.set_visible(False)
+    pax.xaxis.set_visible(False)
+    pax.yaxis.set_visible(False)
 
     # Hide figure border
-    for spine_location in ax.spines:
-        ax.spines[spine_location].set_visible(False)
+    for spine_location in pax.spines:
+        pax.spines[spine_location].set_visible(False)
 
-    tbl = ax.table(cellText=format_aggregated, rowLabels=row_labels,
-                   colLabels=column_labels, loc="center")
+    tbl = pax.table(cellText=format_aggregated, rowLabels=row_labels,
+                    colLabels=column_labels, loc="center")
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(10)
     tbl.auto_set_column_width(range(len(column_labels)))
@@ -327,7 +325,7 @@ def plot_table_country_statistics(row_labels, column_labels, aggregated):
 
 def formatted_statistics(full_data, euro_cases):
     # different stats
-    sum_only = list()
+    sum_only = []
     use_date = list(euro_cases["cases"].keys())[-1]
     sum_only_cases = copy.deepcopy(full_data["countries"])
 
@@ -371,18 +369,18 @@ def formatted_statistics(full_data, euro_cases):
 
 
 def plot_table_formatted_country_statistics(sum_only, row_labels, column_labels):
-    _, ax = plt.subplots()
+    _, pax = plt.subplots()
 
     # Hide axes
-    ax.xaxis.set_visible(False)
-    ax.yaxis.set_visible(False)
+    pax.xaxis.set_visible(False)
+    pax.yaxis.set_visible(False)
 
     # Hide figure border
-    for spine_location in ax.spines:
-        ax.spines[spine_location].set_visible(False)
+    for spine_location in pax.spines:
+        pax.spines[spine_location].set_visible(False)
 
-    tbl = ax.table(cellText=sum_only, rowLabels=row_labels,
-                   colLabels=column_labels, loc="center")
+    tbl = pax.table(cellText=sum_only, rowLabels=row_labels,
+                    colLabels=column_labels, loc="center")
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(10)
     tbl.auto_set_column_width(range(len(column_labels)))
@@ -428,7 +426,7 @@ def formatted_statistics_last_week(full_data):
                             "sum_cases": f'{sum_cases:,}',
                             "perc_cases": perc_cases,
                             "cases": copy.deepcopy(curr_cases)
-                           }
+                            }
         curr_plot[access_data["country_name"]] = [f'{access_data["population"]:,}',
                                                   f'{sum_cases:,}',
                                                   perc_cases]
@@ -446,7 +444,7 @@ def pandas_country_last_week(curr_plot):
 
 def plot_percent_countries(full_data, cases_dates):
     # per day percent plot to properly compare increase rates per citizen
-    ax = plt.subplot(111)
+    pax = plt.subplot(111)
 
     markers_available = list(Line2D.markers.keys())
     marker_idx = -1
@@ -466,11 +464,12 @@ def plot_percent_countries(full_data, cases_dates):
 
         # Handle individual markers
         marker_idx = marker_idx + 1
-        ax.plot(cases_dates, curr_per_day_perc, label=country, marker=markers_available[marker_idx])
+        pax.plot(cases_dates, curr_per_day_perc,
+                 label=country, marker=markers_available[marker_idx])
 
-    ax.set_title("Per day % population increase euro countries")
-    ax.set_xlabel("Date")
-    ax.legend(loc='upper left', fontsize='xx-small')
+    pax.set_title("Per day % population increase euro countries")
+    pax.set_xlabel("Date")
+    pax.legend(loc='upper left', fontsize='xx-small')
     plt.show()
 
 
@@ -494,11 +493,10 @@ def run():
     # set precision to 3
     np.set_printoptions(precision=3)
 
-    use_date = list(euro_cases["cases"].keys())[-1]
-    curr_cases = copy.deepcopy(full_data["countries"])
-    _, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
-
-    labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
+    # use_date = list(euro_cases["cases"].keys())[-1]
+    # curr_cases = copy.deepcopy(full_data["countries"])
+    # _, aggregated = get_aggregated(use_date, curr_cases, euro_cases)
+    # labels = ["cases", "cumulative", "[%] population", "deaths", "cumulative", "[‰] population"]
     # plot_table_country_statistics(names, labels, aggregated)
 
     sum_only, names = formatted_statistics(full_data, euro_cases)
