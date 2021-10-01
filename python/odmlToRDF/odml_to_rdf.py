@@ -30,11 +30,11 @@ def update_write_rdf():
 
     # write v1.1 to RDF
     # Works only for v1.1 files; convert from v1.0 to v1.1 first if required.
-    doc = ODMLReader(parser='XML').from_file(open(f_in))
+    doc = ODMLReader(parser='XML').from_file(f_in)
     rdf_writer = RDFWriter(doc)
     rdf_writer.write_file(f_out_rdf, "turtle")
 
-    doc = ODMLReader(parser='XML').from_file(open(f_in_short))
+    doc = ODMLReader(parser='XML').from_file(f_in_short)
     rdf_reader = RDFWriter(doc)
     rdf_reader.write_file(f_out_rdf_short, "turtle")
 
@@ -47,7 +47,7 @@ def read_write():
     f_out = join(FOLDER_OUT, "%s_v1.1.xml" % BASE_EXAMPLE)
 
     # read in odML document
-    doc = ODMLReader(parser='XML').from_file(open(f_in))
+    doc = ODMLReader(parser='XML').from_file(f_in)
 
     # parse to format
     o_writer = ODMLWriter(parser='XML')
@@ -61,7 +61,7 @@ def write_rdf():
     f_in = join(ROOT, "%s_v1.0.xml" % BASE_EXAMPLE_SHORT)
     f_out_rdf = join(FOLDER_RDF, "%s.ttl" % BASE_EXAMPLE_SHORT)
 
-    doc = ODMLReader(parser='XML').from_file(open(f_in))
+    doc = ODMLReader(parser='XML').from_file(f_in)
     rdf_writer = RDFWriter(doc)
     rdf_writer.write_file(f_out_rdf, "turtle")
 
@@ -79,4 +79,4 @@ def convert_odml():
     o_ver_conv.write_to_file(f_out)
 
     # or pass it to the python xml parser
-    doc = ODMLReader(parser='XML').from_string(str(o_ver_conv))
+    _ = ODMLReader(parser='XML').from_string(str(o_ver_conv))
