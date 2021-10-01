@@ -1,6 +1,8 @@
 """
 This file provides examples how to convert odml files between versions and formats.
 """
+import argparse
+import sys
 
 from os.path import join
 
@@ -79,4 +81,40 @@ def convert_odml():
     o_ver_conv.write_to_file(f_out)
 
     # or pass it to the python xml parser
-    _ = ODMLReader(parser='XML').from_string(str(o_ver_conv))
+    doc = ODMLReader(parser='XML').from_string(str(o_ver_conv))
+    doc.pprint()
+
+
+def main():
+    """
+    Parse command line arguments and call the corresponding odml to RDF function.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--upgrade", dest="upgrade", action="store_true",
+                        help="Upgrade an odml file to the latest version and save as XML")
+    parser.add_argument("--upgrade-print", dest="upgrade_print", action="store_true",
+                        help="Upgrade an odml to the latest version and print the content")
+    parser.add_argument("--upgrade-rdf", dest="upgrade_rdf", action="store_true",
+                        help="Upgrade an odml file to the latest version and save as RDF")
+    args = parser.parse_args()
+    upgrade = args.upgrade
+    upgrade_print = args.upgrade_print
+    upgrade_rdf = args.upgrade_rdf
+
+    if upgrade:
+        read_write()
+        sys.exit(0)
+
+    if upgrade_print:
+        convert_odml()
+        sys.exit(0)
+
+    if upgrade_rdf:
+        update_write_rdf()
+        sys.exit(0)
+
+    write_rdf()
+
+
+if __name__ == "__main__":
+    main()
