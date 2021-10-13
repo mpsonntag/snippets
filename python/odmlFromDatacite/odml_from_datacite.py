@@ -79,7 +79,7 @@ def dict_from_xml(xml_file):
         with open(xml_file, encoding="utf-8") as file:
             doc = xmltodict.parse(file.read())
     except ExpatError as exc:
-        raise ParserException(f"{exp_err.messages[exc.code]}")
+        raise ParserException(f"{exp_err.messages[exc.code]}").with_traceback(exc.__traceback__)
 
     return doc
 
@@ -491,14 +491,14 @@ def handle_document(cite_in, out_root, backend="XML", print_doc=False):
         doc = dict_from_xml(cite_in)
     except ParserException as exc:
         exc_message = f"[Error] Could not parse datacite file '{cite_in}'\n\t{exc}"
-        raise ParserException(exc_message)
+        raise ParserException(exc_message).with_traceback(exc.__traceback__)
 
     # Parse input to an odML document
     try:
         odml_doc = parse_datacite_dict(doc)
     except ParserException as exc:
         exc_message = f"[Error] Could not parse datacite file '{cite_in}'\n\t{exc}"
-        raise ParserException(exc_message)
+        raise ParserException(exc_message).with_traceback(exc.__traceback__)
 
     if print_doc:
         print()
