@@ -1,3 +1,5 @@
+
+
 import json
 import os
 import requests
@@ -36,7 +38,7 @@ def fetch_datacite():
 
         print("... fetching DataCite file '%s'" % curr_filename)
         curr_xml = dclient.metadata_get(curr_doi)
-        with open(curr_file_path, "w+") as curr_file:
+        with open(curr_file_path, "w+", encoding="utf-8") as curr_file:
             curr_file.write(curr_xml)
 
 

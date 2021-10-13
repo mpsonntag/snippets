@@ -1,3 +1,7 @@
+"""
+Query the public Datacite API for CRCNS specific publications and
+download all available data entries as XML files.
+"""
 import json
 import requests
 
@@ -9,7 +13,11 @@ DATACITE_API_XML_ENDPOINT = "/application/vnd.datacite.datacite+xml"
 
 
 def fetch_datacite():
-    datacite_uri = "%s%s" % (DATACITE_API_ENDPOINT, DATACITE_QUERY)
+    """
+    Query Datacite for CRCNS specific publications and
+    download all available data entries as XML files.
+    """
+    datacite_uri = f"{DATACITE_API_ENDPOINT}{DATACITE_QUERY}"
 
     print("... running DataCite query")
     req = requests.get(datacite_uri)
@@ -20,14 +28,12 @@ def fetch_datacite():
 
     for datacite_item in datacite_items:
         curr_doi = datacite_item['attributes']['doi']
-        curr_filename = "%s.xml" % curr_doi.split("/")[1]
-        curr_file_path = curr_filename
+        curr_file_path = "%s.xml" % curr_doi.split("/")[1]
 
-        print("... fetching DataCite file '%s'" % curr_filename)
-        curr_uri = "%s%s/%s" % (DATACITE_API_ENDPOINT,
-                                DATACITE_API_XML_ENDPOINT, curr_doi)
+        print(f"... fetching DataCite file '{curr_file_path}'")
+        curr_uri = f"{DATACITE_API_ENDPOINT}{DATACITE_API_XML_ENDPOINT}/{curr_doi}"
         req = requests.get(curr_uri)
-        with open(curr_file_path, "w+") as curr_file:
+        with open(curr_file_path, "w+", encoding="utf-8") as curr_file:
             curr_file.write(req.text)
 
 
