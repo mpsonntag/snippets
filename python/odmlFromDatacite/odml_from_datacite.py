@@ -51,10 +51,9 @@ class ParserException(Exception):
     """
     Exception wrapper used by various odML parsers.
     """
-    pass
 
 
-class DataCiteItem(object):
+class DataCiteItem():
     def __init__(self, sec_name, attribute_map, func, container_name=None, item_func=None):
         self.section_name = sec_name
         self.attribute_map = attribute_map
@@ -77,10 +76,10 @@ def dict_from_xml(xml_file):
     """
 
     try:
-        with open(xml_file) as file:
+        with open(xml_file, encoding="utf-8") as file:
             doc = xmltodict.parse(file.read())
     except ExpatError as exc:
-        raise ParserException("%s" % exp_err.messages[exc.code])
+        raise ParserException(f"{exp_err.messages[exc.code]}")
 
     return doc
 
@@ -89,8 +88,8 @@ def handle_container(helper, node, root_sec):
     if not node or helper.section_name not in node:
         return
 
-    sec_cont_type = "datacite/%s" % camel_to_snake(helper.container_name)
-    sub_sec_type = "datacite/%s" % camel_to_snake(helper.section_name)
+    sec_cont_type = f"datacite/{camel_to_snake(helper.container_name)}"
+    sub_sec_type = f"datacite/{camel_to_snake(helper.section_name)}"
 
     sec = Section(name=helper.container_name, type=sec_cont_type, parent=root_sec)
 
@@ -108,7 +107,7 @@ def handle_sub_container(helper, node, sec, sub_sec_type):
             sub_sec = Section(name=sec_name, type=sub_sec_type, parent=sec)
             helper.item_func(helper, title_node, sub_sec)
     else:
-        sub_sec_name = "%s_1" % helper.section_name
+        sub_sec_name = f"{helper.section_name}_1"
         sub_sec = Section(name=sub_sec_name, type=sub_sec_type, parent=sec)
         helper.item_func(helper, node[helper.section_name], sub_sec)
 
@@ -117,7 +116,7 @@ def handle_sec(helper, node, root_sec):
     if not node:
         return
 
-    sec_type = "datacite/%s" % camel_to_snake(helper.section_name)
+    sec_type = f"datacite/{camel_to_snake(helper.section_name)}"
     sec = Section(name=helper.section_name, type=sec_type, parent=root_sec)
 
     handle_props(helper, node, sec)
@@ -140,7 +139,7 @@ def handle_props(helper, node, sec):
                 Property(name=helper.attribute_map[sub], dtype=dtype,
                          values=node[sub], parent=sec)
             else:
-                print("[Warning] Ignoring node '%s/%s'" % (sec.name, sub))
+                print(f"[Warning] Ignoring node '{sec.name}/{sub}'")
 
 
 def handle_name_identifiers(sub, node, sub_type_base, sec):
@@ -168,7 +167,7 @@ def handle_affiliations(sub, node, sub_type_base, sec):
                                       attribute_map=affiliation_map,
                                       func=None,
                                       item_func=handle_props)
-    sub_sec_type = "%s/affiliation" % sub_type_base
+    sub_sec_type = f"{sub_type_base}/affiliation"
     handle_sub_container(affiliation_helper, node, sec, sub_sec_type)
 
 
@@ -191,13 +190,13 @@ def handle_creators_item(_, node, sec):
             elif "#text" in node[sub]:
                 Property(name=sub, values=node[sub]["#text"], parent=sec)
             else:
-                print("[Warning] Could not parse '%s/%s'" % (sub_type_base, sub))
+                print(f"[Warning] Could not parse '{sub_type_base}/{sub}'")
         elif sub == "nameIdentifier":
             handle_name_identifiers(sub, node, sub_type_base, sec)
         elif sub == "affiliation":
             handle_affiliations(sub, node, sub_type_base, sec)
         else:
-            print("[Warning] Ignoring unsupported attribute '%s'" % sub)
+            print(f"[Warning] Ignoring unsupported attribute '{sub}'")
 
 
 def handle_contributors_item(_, node, sec):
@@ -210,7 +209,7 @@ def handle_contributors_item(_, node, sec):
             elif "#text" in node[sub]:
                 Property(name=sub, values=node[sub]["#text"], parent=sec)
             else:
-                print("[Warning] Could not parse '%s/%s'" % (sub_type_base, sub))
+                print(f"[Warning] Could not parse '{sub_type_base}/{sub}'")
         elif sub == "@contributorType":
             Property(name="contributorType", values=node[sub], parent=sec)
         elif sub == "nameIdentifier":
@@ -218,7 +217,7 @@ def handle_contributors_item(_, node, sec):
         elif sub == "affiliation":
             handle_affiliations(sub, node, sub_type_base, sec)
         else:
-            print("[Warning] Ignoring unsupported attribute '%s'" % sub)
+            print(f"[Warning] Ignoring unsupported attribute '{sub}'")
 
 
 def handle_geo_entry(helper_list, node, sec, sub_sec_name, sub_sec_type):
@@ -230,8 +229,7 @@ def handle_geo_entry(helper_list, node, sec, sub_sec_name, sub_sec_type):
                 Property(name=entry, dtype=DType.float,
                          values=node[entry], parent=sub_sec)
             except ValueError:
-                print("[Warning] Skipping invalid '%s' value '%s'" %
-                      (entry, node[entry]))
+                print(f"[Warning] Skipping invalid '{entry}' value '{node[entry]}'")
 
 
 def handle_geo_locations(_, node, sec):
@@ -245,18 +243,18 @@ def handle_geo_locations(_, node, sec):
         if elem == "geoLocationPlace":
             Property(name=elem, values=node[elem], parent=sec)
         elif elem == "geoLocationPoint":
-            sec_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            sec_type = f"{sub_type_base}/{camel_to_snake(elem)}"
             handle_geo_entry(point_list, node[elem], sec, elem, sec_type)
         elif elem == "geoLocationBox":
-            sec_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            sec_type = f"{sub_type_base}/{camel_to_snake(elem)}"
             handle_geo_entry(box_list, node[elem], sec, elem, sec_type)
         elif elem == "geoLocationPolygon":
-            sub_type = "%s/%s" % (sub_type_base, camel_to_snake(elem))
+            sub_type = f"{sub_type_base}/{camel_to_snake(elem)}"
             sub_sec = Section(name=elem, type=sub_type, parent=sec)
 
             for (idx, point) in enumerate(node[elem]["polygonPoint"]):
                 point_name = "polygonPoint_%d" % (idx + 1)
-                sec_type = "%s/%s" % (sub_type_base, camel_to_snake("polygonPoint"))
+                sec_type = f"{sub_type_base}/{camel_to_snake('polygonPoint')}"
                 handle_geo_entry(point_list, point, sub_sec, point_name, sec_type)
 
 
@@ -479,27 +477,27 @@ def parse_datacite_dict(doc):
             helper = supported_tags[node_tag]
             helper.func(helper, datacite_root[node_tag], root_sec)
         else:
-            print("[Warning] Ignoring unsupported root node '%s'" % node_tag)
+            print(f"[Warning] Ignoring unsupported root node '{node_tag}'")
 
     return odml_doc
 
 
 def handle_document(cite_in, out_root, backend="XML", print_doc=False):
-    print("[INFO] Handling file '%s'" % cite_in)
+    print(f"[INFO] Handling file '{cite_in}'")
 
     # Read document from input file
     doc = None
     try:
         doc = dict_from_xml(cite_in)
     except ParserException as exc:
-        exc_message = "[Error] Could not parse datacite file '%s'\n\t%s" % (cite_in, exc)
+        exc_message = f"[Error] Could not parse datacite file '{cite_in}'\n\t{exc}"
         raise ParserException(exc_message)
 
     # Parse input to an odML document
     try:
         odml_doc = parse_datacite_dict(doc)
     except ParserException as exc:
-        exc_message = "[Error] Could not parse datacite file '%s'\n\t%s" % (cite_in, exc)
+        exc_message = f"[Error] Could not parse datacite file '{cite_in}'\n\t{exc}"
         raise ParserException(exc_message)
 
     if print_doc:
@@ -507,11 +505,11 @@ def handle_document(cite_in, out_root, backend="XML", print_doc=False):
         print(odml_doc.pprint(max_depth=5))
 
     out_name = os.path.splitext(os.path.basename(cite_in))[0]
-    out_file = os.path.join(out_root, "%s.%s" % (out_name, backend.lower()))
+    out_file = os.path.join(out_root, f"{out_name}.{backend.lower()}")
 
     # Do not overwrite existing files
     if os.path.isfile(out_file):
-        out_file = os.path.join(out_root, "%s(copy).%s" % (out_name, backend.lower()))
+        out_file = os.path.join(out_root, f"{out_name}(copy).{backend.lower()}")
 
     save_odml(odml_doc, out_file, backend)
 
@@ -523,10 +521,10 @@ def main(args=None):
     cite_in = parser["INPUT"]
 
     if not recursive and not os.path.isfile(cite_in):
-        print("[Error] Could not access input file '%s'\n" % cite_in)
+        print(f"[Error] Could not access input file '{cite_in}'\n")
         return exit(1)
     elif recursive and not os.path.isdir(cite_in):
-        print("[Error] Could not access input directory '%s'\n" % cite_in)
+        print(f"[Error] Could not access input directory '{cite_in}'\n")
         return exit(1)
 
     # Handle output file format
@@ -534,7 +532,7 @@ def main(args=None):
     if parser["-f"]:
         backend = parser["-f"].upper()
         if backend not in SUPPORTED_PARSERS:
-            print("[Error] Output format '%s' is not supported. \n" % backend)
+            print(f"[Error] Output format '{backend}' is not supported. \n")
             print(docopt(__doc__, "-h"))
             return exit(1)
 
@@ -542,7 +540,7 @@ def main(args=None):
     out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
-            print("[Error] Could not find output directory '%s'" % parser["-o"])
+            print(f"[Error] Could not find output directory '{parser['-o']}'")
             return exit(1)
 
         out_root = parser["-o"]
