@@ -53,7 +53,7 @@ class ParserException(Exception):
     """
 
 
-class DataCiteItem():
+class DataCiteItem:
     def __init__(self, sec_name, attribute_map, func, container_name=None, item_func=None):
         self.section_name = sec_name
         self.attribute_map = attribute_map
