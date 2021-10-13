@@ -523,7 +523,8 @@ def main(args=None):
     if not recursive and not os.path.isfile(cite_in):
         print(f"[Error] Could not access input file '{cite_in}'\n")
         return sys.exit(1)
-    elif recursive and not os.path.isdir(cite_in):
+
+    if recursive and not os.path.isdir(cite_in):
         print(f"[Error] Could not access input directory '{cite_in}'\n")
         return sys.exit(1)
 
