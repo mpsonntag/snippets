@@ -522,10 +522,10 @@ def main(args=None):
 
     if not recursive and not os.path.isfile(cite_in):
         print(f"[Error] Could not access input file '{cite_in}'\n")
-        return exit(1)
+        return sys.exit(1)
     elif recursive and not os.path.isdir(cite_in):
         print(f"[Error] Could not access input directory '{cite_in}'\n")
-        return exit(1)
+        return sys.exit(1)
 
     # Handle output file format
     backend = "XML"
@@ -534,14 +534,14 @@ def main(args=None):
         if backend not in SUPPORTED_PARSERS:
             print(f"[Error] Output format '{backend}' is not supported. \n")
             print(docopt(__doc__, "-h"))
-            return exit(1)
+            return sys.exit(1)
 
     # Handle output directory
     out_root = os.getcwd()
     if parser["-o"]:
         if not os.path.isdir(parser["-o"]):
             print(f"[Error] Could not find output directory '{parser['-o']}'")
-            return exit(1)
+            return sys.exit(1)
 
         out_root = parser["-o"]
 
@@ -560,9 +560,9 @@ def main(args=None):
             handle_document(cite_in, out_root, backend, print_file)
         except ParserException as exc:
             print(exc)
-            return exit(1)
+            return sys.exit(1)
 
-    return exit(0)
+    return sys.exit(0)
 
 
 if __name__ == "__main__":
