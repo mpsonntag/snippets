@@ -54,6 +54,17 @@ class ParserException(Exception):
 
 
 class DataCiteItem:
+    """
+    Main class to bundle Datacite specific item data and the functions to convert
+    them to the corresponding odML Section-Properties.
+    section_name: odML section name of a Datacite Item.
+    attribute_map: dict containing the mapping of Datacite XML attributes
+                   to the corresponding odML names.
+    func: function to handle the conversion from DataCite items to odML entities.
+    container_name: odml name how a Datacite container Section should be called in odML.
+    item_func: function to handle the conversion of Datacite items to odML entities that are
+               additionally wrapped within a Datacite container item.
+    """
     def __init__(self, sec_name, attribute_map, func, container_name=None, item_func=None):
         self.section_name = sec_name
         self.attribute_map = attribute_map
@@ -63,6 +74,9 @@ class DataCiteItem:
 
 
 def camel_to_snake(in_string):
+    """
+    Convert Camel-case strings to all lower snake case strings.
+    """
     tmp = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', in_string)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', tmp).lower()
 
@@ -85,6 +99,17 @@ def dict_from_xml(xml_file):
 
 
 def handle_container(helper, node, root_sec):
+    """
+    Creates an odML section from a passed DataCiteItem and the corresponding Datacite XML Node.
+    Since its assumed, that the passed Datacite XML node is a container, the function to
+    handle sub-items is called to create odML entries from all container items.
+
+    :param helper: DataCiteItem helper class containing the odml Section name and
+                   odml conversion functions.
+    :param node: Datacite Python dict node containing the container and child item data.
+    :param root_sec: odml Section the created odml container section and all its children are
+                     appended to.
+    """
     if not node or helper.section_name not in node:
         return
 
@@ -97,6 +122,14 @@ def handle_container(helper, node, root_sec):
 
 
 def handle_sub_container(helper, node, sec, sub_sec_type):
+    """
+    Creates odml Sections for all child items and odml Properties for all attributes.
+    :param helper: DataCiteItem helper class containing the odml Section name and
+                   odml conversion functions.
+    :param node: Datacite XML node containing the container child item data.
+    :param sec: odml Section all created Sections are appended to.
+    :param sub_sec_type: string containing the odML sub-section type
+    """
     # We might need to handle the case, when a container holds
     # only the content of one xml element and does not contain
     # the content and attributes of this xml element as a sole
@@ -113,6 +146,14 @@ def handle_sub_container(helper, node, sec, sub_sec_type):
 
 
 def handle_sec(helper, node, root_sec):
+    """
+    Creates an odML Section from a passed DataCiteItem and the corresponding Datacite XML Node.
+
+    :param helper: DataCiteItem helper class containing the odml Section name and
+                   odml conversion functions.
+    :param node: Datacite Python dict node containing the item data.
+    :param root_sec: odml Section the created odml Section is appended to.
+    """
     if not node:
         return
 
@@ -123,6 +164,13 @@ def handle_sec(helper, node, root_sec):
 
 
 def handle_props(helper, node, sec):
+    """
+    Creates an odML Property from a passed DataCiteItem and the corresponding Datacite XML Node.
+
+    :param helper: DataCiteItem helper class containing the odml conversion mapping.
+    :param node: Datacite Python dict node containing the item data.
+    :param sec: odml Section the created odml Property is appended to.
+    """
     if not node:
         return
 
@@ -143,6 +191,15 @@ def handle_props(helper, node, sec):
 
 
 def handle_name_identifiers(sub, node, sub_type_base, sec):
+    """
+    Specifies all information needed to convert Datacite "NameIdentifier" data
+    to odML and runs the conversion.
+
+    :param sub: string containing the odML section name of this item.
+    :param node: Datacite Python dict node containing the item data.
+    :param sub_type_base: string containing the base name of the used odML Section type.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     name_identifier_map = {
         "#text": "nameIdentifier",
         "@schemeURI": "schemeURI",
@@ -152,11 +209,20 @@ def handle_name_identifiers(sub, node, sub_type_base, sec):
                                           attribute_map=name_identifier_map,
                                           func=None,
                                           item_func=handle_props)
-    sub_sec_type = "%s/named_identifier" % sub_type_base
+    sub_sec_type = f"{sub_type_base}/named_identifier"
     handle_sub_container(name_identifier_helper, node, sec, sub_sec_type)
 
 
 def handle_affiliations(sub, node, sub_type_base, sec):
+    """
+    Specifies all information needed to convert Datacite "Affiliation" data
+    to odML and runs the conversion.
+
+    :param sub: string containing the odML section name of this item.
+    :param node: Datacite Python dict node containing the item data.
+    :param sub_type_base: string containing the base name of the used odML Section type.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     affiliation_map = {
         "#text": "affiliation",
         "@affiliationIdentifier": "affiliationIdentifier",
@@ -172,6 +238,13 @@ def handle_affiliations(sub, node, sub_type_base, sec):
 
 
 def handle_creators_item(_, node, sec):
+    """
+    Specifies all information needed to convert Datacite "Creators" single item data
+    to odML and runs the conversion.
+
+    :param node: Datacite Python dict node containing the item data.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     sub_type_base = "datacite/creator"
 
     for sub in node:
@@ -200,6 +273,13 @@ def handle_creators_item(_, node, sec):
 
 
 def handle_contributors_item(_, node, sec):
+    """
+    Specifies all information needed to convert Datacite "Contributors" single item data
+    to odML and runs the conversion.
+
+    :param node: Datacite Python dict node containing the item data.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     sub_type_base = "datacite/contributor"
 
     for sub in node:
@@ -221,6 +301,10 @@ def handle_contributors_item(_, node, sec):
 
 
 def handle_geo_entry(helper_list, node, sec, sub_sec_name, sub_sec_type):
+    """
+    Specifies all information needed to convert Datacite "GeoEntry" data
+    to odML and runs the conversion.
+    """
     sub_sec = Section(name=sub_sec_name, type=sub_sec_type, parent=sec)
 
     for entry in node:
@@ -233,6 +317,13 @@ def handle_geo_entry(helper_list, node, sec, sub_sec_name, sub_sec_type):
 
 
 def handle_geo_locations(_, node, sec):
+    """
+    Specifies all information needed to convert Datacite "GeoLocations" single item data
+    to odML and runs the conversion.
+
+    :param node: Datacite Python dict node containing the item data.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     sub_type_base = "datacite/geo_location"
 
     point_list = ["pointLongitude", "pointLatitude"]
@@ -259,6 +350,13 @@ def handle_geo_locations(_, node, sec):
 
 
 def handle_funding_references(_, node, sec):
+    """
+    Specifies all information needed to convert Datacite "FundingReferences" single item data
+    to odML and runs the conversion.
+
+    :param node: Datacite XML node containing the item data.
+    :param sec: odML Section the created odML data will be appended to.
+    """
     for sub in node:
         if sub in ["funderName", "awardTitle"]:
             Property(name=sub, values=node[sub], parent=sec)
@@ -280,6 +378,13 @@ def handle_funding_references(_, node, sec):
 
 
 def setup_supported_tags():
+    """
+    Creates DataCite item to odml name mappings for all supported Datacite items and
+    provides them via a dictionary of specific DataCiteItem objects.
+    This also provides the mappings whether a DataCite item needs to be handled as
+    a single DataItem entry or as a Container item entry providing the functions required
+    to parse the individual items of the container node content.
+    """
     identifier_map = {
         "#text": "identifier",
         "@identifierType": "identifierType"
@@ -455,8 +560,11 @@ def setup_supported_tags():
 
 def parse_datacite_dict(doc):
     """
-    :param doc: python dict containing datacite conform data to
-                be parsed.
+    Creates an odML document and parses the passed dictionary containing DataCite entries
+    to odML, appending the resulting data to the odML document.
+
+    :param doc: Python dict containing DataCite conform data to be parsed.
+    :returns: The resulting odML document.
     """
     if not doc or "resource" not in doc:
         raise ParserException("Could not find root")
@@ -483,6 +591,15 @@ def parse_datacite_dict(doc):
 
 
 def handle_document(cite_in, out_root, backend="XML", print_doc=False):
+    """
+    Parses a DataCite XML file to odML and saves the odML file in the specified file format.
+
+    :param cite_in: DataCite xml file to be opened.
+    :param out_root: Directory to save the resulting odML file to.
+    :param backend: odML file format; default is XML; YAML, JSON, RDF are supported.
+    :param print_doc: Whether the odML document content should also be printed to the command line.
+                      Default is False.
+    """
     print(f"[INFO] Handling file '{cite_in}'")
 
     # Read document from input file
@@ -515,6 +632,9 @@ def handle_document(cite_in, out_root, backend="XML", print_doc=False):
 
 
 def main(args=None):
+    """
+    Parses the command line arguments and calls the corresponding functions.
+    """
     parser = docopt(__doc__, argv=args, version=VERSION)
 
     recursive = parser["-r"]
