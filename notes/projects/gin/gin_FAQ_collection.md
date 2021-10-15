@@ -154,3 +154,16 @@ This error is displayed when a very unusual circumstance has happened. Usually t
   - MacOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
 
 - if the log shows an error after `git annex metadata --json --key=MD5-<hash>` you can try to manually upload again using the command `gin annex copy --to=origin <filename>` with the file that caused the issue.
+
+
+## Unannex files
+
+### Q -  How do I get files out of the annex?
+I committed one file too many. How do I get the file out of the annex before uploading?
+
+### A
+An annexed file can be removed from the annex and from gin tracking using the following command:
+`gin git annex unannex [path/filename]`
+
+Note, that a commit is required to fully remove a file from gin tracking. Also note, that if the file content is not locally available, there will be no message at all, a commit will not change anything.
+Make sure to `gin get-content [path/filename]` first, if the content is only available remotely.
