@@ -13,3 +13,9 @@
 - copy to doitest, commit
 - gin upload
 - request doi for doitest
+
+## Database change considerations
+
+- check whether changes in the OR mapper remove existing columns
+- if yes, fetch Update statements before deploying a new OR version
+    -> in the current case identify all columns that contain unlisted and create update statements for the new database scheme.
