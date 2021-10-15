@@ -357,8 +357,8 @@ def texify(item: Dict[str, str], target_dir: Dict[str, pl.Path], create: bool) -
                 sanitized = sanitize_tex(group)
                 svg = latex2svg(sanitized)["svg"]
                 svg_path = eqn_dir.joinpath(f"{img_basename}.svg")
-                with open(svg_path, "w") as svgfile:
-                    svgfile.write(svg)
+                with open(svg_path, "w", encoding="utf-8") as svg_file:
+                    svg_file.write(svg)
 
                 png_path = eqn_dir.joinpath(f"{img_basename}.png")
                 if err := run_cmd("convert", f"{svg_path}", f"{png_path}"):
