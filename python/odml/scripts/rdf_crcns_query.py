@@ -1,3 +1,6 @@
+"""
+Example queries of a CRCNS data RDF graph.
+"""
 from odml.tools.rdf_converter import ODML_NS
 
 from rdflib import Graph, Namespace, RDF, RDFS
@@ -23,10 +26,10 @@ SELECT * WHERE {
 curr_query = prepareQuery(q_string, initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(curr_query):
-    print("%s: %s" % (row.prop_name, row.value))
+    print(f"{row.prop_name}: {row.value}")
 
 # Make sure there is a DataReference providing a uri
-q = prepareQuery("""SELECT * 
+q = prepareQuery("""SELECT *
                    WHERE {
                    ?datasec a odml:DataReference .
                    ?datasec odml:hasName ?dataSecName .
@@ -36,7 +39,7 @@ q = prepareQuery("""SELECT *
              }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Sec: %s, DataSecName: %s, Prop: %s" % (row.datasec, row.dataSecName, row.nameValue))
+    print(f"Sec: {row.datasec}, DataSecName: {row.dataSecName}, Prop: {row.nameValue}")
 
 # Return all identifiers in a graph
 q = prepareQuery("""
@@ -53,8 +56,8 @@ SELECT * WHERE {
 }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Doc: %s, Sec: %s, DataSecName: %s, Prop: %s" %
-          (row.d, row.doisec, row.doiSecName, row.uri))
+    print(f"Doc: {row.doisec}, Sec: {row.d}, "
+          f"DataSecName: {row.doiSecName}, Prop: {row.uri}")
 
 # Return all DataCite DOI identifiers in a graph
 q = prepareQuery("""
@@ -75,8 +78,8 @@ SELECT * WHERE {
 }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Doc: %s, Sec: %s, DataSecName: %s, Prop: %s" %
-          (row.d, row.doisec, row.dataSecName, row.uri))
+    print(f"Doc: {row.d}, Sec: {row.doisec}, "
+          f"DataSecName: {row.dataSecName}, Prop: {row.uri}")
 
 # Searching for datasets that deal with Behavior or Extracellular recordings
 q = prepareQuery("""
@@ -104,8 +107,8 @@ SELECT * WHERE {
 }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Doc: %s, SecName: %s, DoiName: %s, DOI: %s" %
-          (row.d, row.secname, row.doiSecName, row.uri))
+    print(f"Doc: {row.d}, SecName: {row.secname}, "
+          f"DoiName: {row.doiSecName}, DOI: {row.uri}")
 
 # Searching for datasets that contain specific keywords
 q = prepareQuery("""
@@ -137,10 +140,10 @@ SELECT * WHERE {
 }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Doc: %s, SecName: %s, Value: %s, DOI: %s" %
-          (row.d, row.secname, row.val, row.uri))
+    print(f"Doc: {row.d}, SecName: {row.secname}, Value: {row.val}, DOI: {row.uri}")
 
-# Searching for datasets that contain diverse sets of values e.g. Organisation, Organism, etc
+# Searching for datasets that contain diverse sets of values
+# e.g. Organisation, Organism, etc
 q = prepareQuery("""
 SELECT * WHERE {
     ?d a odml:Document .
@@ -167,5 +170,5 @@ SELECT * WHERE {
 }""", initNs=NAMESPACE_MAP)
 
 for row in curr_graph.query(q):
-    print("Doc: %s, SecName: %s, PropName: %s, Value: %s, DOI: %s" %
-          (row.d, row.secname, row.propName, row.val, row.uri))
+    print(f"Doc: {row.d}, SecName: {row.secname}, PropName: {row.propName}, "
+          f"Value: {row.val}, DOI: {row.uri}")
