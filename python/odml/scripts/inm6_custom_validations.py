@@ -6,6 +6,9 @@ introduction.
 
 These validations require an odml library >= 1.5.0.
 """
+import os
+import pathlib
+
 import odml
 
 from odml.validation import IssueID, LABEL_WARNING, Validation, ValidationError
@@ -117,21 +120,31 @@ def verify_hand_hemisphere_root(obj):
         yield ValidationError(obj, msg, LABEL_WARNING, validation_id)
 
 
-# Create empty custom validation and add custom handler functions
-Validation.register_handler("property", check_left_right)
+def run():
+    """
+    Run odml validation on
+    """
+    # Create empty custom validation and add custom handler functions
+    Validation.register_handler("property", check_left_right)
 
-# Edited versions of the original file i140703-001.odml
-file_name = "invalid_hand_hemisphere_entry_example_i140703-001.odml"
-# file_name = "invalid_hand_hemisphere_value_example_i140703-001.odml"
-invalid_doc = odml.load(file_name)
-custom_validation = Validation(invalid_doc, validate=False, reset=True)
-custom_validation.register_custom_handler("property", check_left_right)
-custom_validation.register_custom_handler("property", verify_hand_hemisphere_prop)
-custom_validation.register_custom_handler("odML", verify_hand_hemisphere_root)
+    # Edited versions of the original file i140703-001.odml
+    curr_path = pathlib.Path(__file__).parent.parent.resolve()
+    file_name = "invalid_hand_hemisphere_entry_example_i140703-001.odml"
+    file_path = os.path.join(curr_path, "resources", "scripts", file_name)
+    # file_name = "invalid_hand_hemisphere_value_example_i140703-001.odml"
+    invalid_doc = odml.load(file_path)
+    custom_validation = Validation(invalid_doc, validate=False, reset=True)
+    custom_validation.register_custom_handler("property", check_left_right)
+    custom_validation.register_custom_handler("property", verify_hand_hemisphere_prop)
+    custom_validation.register_custom_handler("odML", verify_hand_hemisphere_root)
 
-# Run validation and print report
-custom_validation.report()
+    # Run validation and print report
+    custom_validation.report()
 
-# Print individual warnings and errors
-for err in custom_validation.errors:
-    print(err)
+    # Print individual warnings and errors
+    for err in custom_validation.errors:
+        print(err)
+
+
+if __name__ == "__main__":
+    run()
