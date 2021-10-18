@@ -1,6 +1,6 @@
-def test_two():
+def ignored():
     assert "a" == "b"
 
 
-def test_three():
-    assert 1 == 1
+def test_ignored():
+    assert "b" == "c"
