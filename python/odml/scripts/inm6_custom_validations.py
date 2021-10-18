@@ -6,7 +6,6 @@ introduction.
 
 These validations require an odml library >= 1.5.0.
 """
-
 import odml
 
 from odml.validation import IssueID, LABEL_WARNING, Validation, ValidationError
@@ -23,10 +22,11 @@ def check_left_right(obj):
     """
     validation_id = IssueID.custom_validation
 
-    if obj.name in ["Hemisphere", "ActiveHand"] and (not len(obj.values) == 1 or
-                                                     obj.values[0] not in ["right", "left"]):
+    vals = obj.values
+    if obj.name in ["Hemisphere", "ActiveHand"] and (not len(vals) == 1 or
+                                                     vals[0] not in ["right", "left"]):
 
-        msg = "Invalid '%s' value: %s" % (obj.name, obj.values)
+        msg = f"Invalid '{obj.name}' value: {vals}"
         yield ValidationError(obj, msg, LABEL_WARNING, validation_id)
 
 
@@ -121,9 +121,9 @@ def verify_hand_hemisphere_root(obj):
 Validation.register_handler("property", check_left_right)
 
 # Edited versions of the original file i140703-001.odml
-filename = "invalid_hand_hemisphere_entry_example_i140703-001.odml"
-# filename = "invalid_hand_hemisphere_value_example_i140703-001.odml"
-invalid_doc = odml.load(filename)
+file_name = "invalid_hand_hemisphere_entry_example_i140703-001.odml"
+# file_name = "invalid_hand_hemisphere_value_example_i140703-001.odml"
+invalid_doc = odml.load(file_name)
 custom_validation = Validation(invalid_doc, validate=False, reset=True)
 custom_validation.register_custom_handler("property", check_left_right)
 custom_validation.register_custom_handler("property", verify_hand_hemisphere_prop)
