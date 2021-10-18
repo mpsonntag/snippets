@@ -44,7 +44,7 @@ def run_query(curr_graph):
     for row in curr_graph.query(curr_query):
         print(row.s)
 
-    print(curr_graph.serialize(format='turtle').decode("utf-8"))
+    print(curr_graph.serialize(format='turtle'))
 
 
 # Load a file containing subclasses to a default rdflib graph
