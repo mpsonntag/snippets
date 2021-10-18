@@ -24,11 +24,11 @@ def update_write_rdf():
     o_ver_conv = FormatConverter()
     o_ver_conv.convert_dir(ROOT, FOLDER_OUT, False, "v1_1")
 
-    f_in_short = join(FOLDER_OUT, "%s_v1.0.xml" % BASE_EXAMPLE_SHORT)
-    f_out_rdf_short = join(FOLDER_RDF, "%s.ttl" % BASE_EXAMPLE_SHORT)
+    f_in_short = join(FOLDER_OUT, f"{BASE_EXAMPLE_SHORT}_v1.0.xml")
+    f_out_rdf_short = join(FOLDER_RDF, f"{BASE_EXAMPLE_SHORT}.ttl")
 
-    f_in = join(FOLDER_OUT, "%s_v1.0.xml" % BASE_EXAMPLE)
-    f_out_rdf = join(FOLDER_RDF, "%s.ttl" % BASE_EXAMPLE)
+    f_in = join(FOLDER_OUT, f"{BASE_EXAMPLE}_v1.0.xml")
+    f_out_rdf = join(FOLDER_RDF, f"{BASE_EXAMPLE}.ttl")
 
     # write v1.1 to RDF
     # Works only for v1.1 files; convert from v1.0 to v1.1 first if required.
@@ -45,8 +45,8 @@ def read_write():
     """
     Basic reading and writing of odml documents
     """
-    f_in = join(ROOT, "%s_v1.0.xml" % BASE_EXAMPLE)
-    f_out = join(FOLDER_OUT, "%s_v1.1.xml" % BASE_EXAMPLE)
+    f_in = join(ROOT, f"{BASE_EXAMPLE}_v1.0.xml")
+    f_out = join(FOLDER_OUT, f"{BASE_EXAMPLE}_v1.1.xml")
 
     # read in odML document
     doc = ODMLReader(parser='XML').from_file(f_in)
@@ -60,8 +60,8 @@ def write_rdf():
     """
     Read an XML odml file and convert it to an RDF file
     """
-    f_in = join(ROOT, "%s_v1.0.xml" % BASE_EXAMPLE_SHORT)
-    f_out_rdf = join(FOLDER_RDF, "%s.ttl" % BASE_EXAMPLE_SHORT)
+    f_in = join(ROOT, f"{BASE_EXAMPLE_SHORT}_v1.0.xml")
+    f_out_rdf = join(FOLDER_RDF, f"{BASE_EXAMPLE_SHORT}.ttl")
 
     doc = ODMLReader(parser='XML').from_file(f_in)
     rdf_writer = RDFWriter(doc)
@@ -93,7 +93,8 @@ def main():
     parser.add_argument("--upgrade", dest="upgrade", action="store_true",
                         help="Upgrade an odml file to the latest version and save as XML")
     parser.add_argument("--upgrade-print", dest="upgrade_print", action="store_true",
-                        help="Upgrade an odml to the latest version and print the content")
+                        help="Upgrade an odml file to the latest version and "
+                             "print the content")
     parser.add_argument("--upgrade-rdf", dest="upgrade_rdf", action="store_true",
                         help="Upgrade an odml file to the latest version and save as RDF")
     args = parser.parse_args()
