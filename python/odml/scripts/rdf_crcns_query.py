@@ -1,18 +1,24 @@
 """
 Example queries of a CRCNS data RDF graph.
 """
+import os
+import pathlib
+
 from odml.tools.rdf_converter import ODML_NS
 
 from rdflib import Graph, Namespace, RDF, RDFS
 from rdflib.plugins.sparql import prepareQuery
 
 
-FNAME = "./rdf_crcns_query.rdf.xml"
-NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
-
+# Prepare graph from RDF file.
+CURR_PATH = pathlib.Path(__file__).parent.resolve()
+FILE_NAME = "rdf_crcns_query.rdf.xml"
+FILE_PATH = os.path.join(CURR_PATH, FILE_NAME)
 
 curr_graph = Graph()
-curr_graph.parse(FNAME)
+curr_graph.parse(FILE_PATH)
+
+NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
 
 q_string = """
 SELECT * WHERE {
