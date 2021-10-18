@@ -4,6 +4,8 @@ and query the content.
 Meant to test various additional libraries for their RDF inference/reasoning
 since the basic rdflib implementation does not supply inference.
 """
+import os
+import pathlib
 
 from odml.tools.rdf_converter import ODML_NS
 
@@ -13,7 +15,10 @@ from rdflib.plugins.sparql import prepareQuery
 from owlrl import DeductiveClosure, RDFS_Semantics
 
 
-FNAME = "./rdf_subclass_query.rdf.xml"
+CURR_PATH = pathlib.Path(__file__).parent.resolve()
+FILE_NAME = "rdf_subclass.rdf.xml"
+FILE_PATH = os.path.join(CURR_PATH, FILE_NAME)
+
 NAMESPACE_MAP = {"odml": Namespace(ODML_NS), "rdf": RDF, "rdfs": RDFS}
 
 
@@ -44,18 +49,19 @@ def run_query(curr_graph):
 
 # Load a file containing subclasses to a default rdflib graph
 graph = Graph()
-graph.parse(FNAME)
+graph.parse(FILE_PATH)
 run_query(graph)
 
 # Test with an inference engine on top of the default rdflib graph
 graph_expand = Graph()
-graph_expand.parse(FNAME)
+graph_expand.parse(FILE_PATH)
 
 DeductiveClosure(RDFS_Semantics).expand(graph_expand)
 run_query(graph_expand)
 
-# For future test cases if a proper web endpoint is available the following implementation might
-# be a faster RDFS inference implementation e.g. for subclass inference
+# For future test cases if a proper web endpoint is available the following implementation
+# might be a faster RDFS inference implementation e.g. for subclass inference.
+#
 # from SPARQLWrapper import SPARQLWrapper, JSON
 # sparql = SPARQLWrapper("web address")
 # sparql.addParameter('inference','true')
