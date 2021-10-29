@@ -113,8 +113,5 @@ run_script
 PYVER=3.5
 run_script
 
-PYVER=2.7
-run_script
-
 echo
 echo "-- Done"
