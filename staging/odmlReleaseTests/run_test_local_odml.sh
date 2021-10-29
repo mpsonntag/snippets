@@ -61,7 +61,7 @@ pip install .
 
 echo
 echo "-- Installing test dependencies"
-pip install owlrl requests pytest
+pip install -r requirements-test.txt
 
 echo
 echo "-- Running tests"
@@ -86,7 +86,7 @@ python setup.py install
 
 echo
 echo "-- Installing test dependencies"
-pip install owlrl requests pytest
+pip install -r requirements-test.txt
 
 echo
 echo "-- Running tests"
