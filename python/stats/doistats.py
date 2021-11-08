@@ -17,32 +17,22 @@ def plot_month(dates_list):
     """
     dates_list = list(reversed(dates_list))
 
-    month_label = []
-    month_sum = []
+    timeline = {}
     abs_sum = {}
-    curr_month = 0
-    curr_sum = 0
     for entry in dates_list:
         check = f"{entry.split('-')[0]}-{entry.split('-')[1]}"
-        if check != curr_month:
-            if curr_month != 0:
-                month_label.append(check)
-                month_sum.append(curr_sum)
-            curr_month = check
-            curr_sum = 0
-        curr_sum += 1
+        if check not in timeline:
+            timeline[check] = 0
+        timeline[check] = timeline[check] + 1
 
         mon = int(entry.split("-")[1])
         if mon not in abs_sum:
             abs_sum[mon] = 0
         abs_sum[mon] = abs_sum[mon] + 1
 
-    # include latest month
-    month_label.append(str(curr_month))
-    month_sum.append(curr_sum)
-
     # plot publication timeline
-    plt.bar(month_label, month_sum, label="Plot DOI publication timeline")
+    plt.bar(list(timeline.keys()), list(timeline.values()),
+            label="Plot DOI publication timeline")
     plt.xticks(rotation=75)
     plt.xlabel("Months")
     plt.ylabel("Publications per month")
