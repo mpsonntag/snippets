@@ -1,3 +1,6 @@
+"""
+Fetch DOI publication page and parse dates from table entries.
+"""
 import calendar
 import requests
 
@@ -20,7 +23,7 @@ def plot_month(dates_list):
     curr_month = 0
     curr_sum = 0
     for entry in dates_list:
-        check = f"%s-%s" % (entry.split("-")[0], entry.split("-")[1])
+        check = f"{entry.split('-')[0]}-{entry.split('-')[1]}"
         if check != curr_month:
             if curr_month != 0:
                 month_label.append(check)
@@ -63,13 +66,24 @@ def plot_month(dates_list):
     plt.show()
 
 
-def main():
+def fetch_dates_list():
+    """
+    Fetch DOI publication page and parse dates from table entries.
+    :return: list of YYYY-MM-DD formatted dates
+    """
     content = requests.get(DOI_MAIN_URL)
-    contlist = content.text.splitlines()
     dates_list = []
-    for line in contlist:
-        if "<td>" in line and "-" in line and not "<a" in line:
+    for line in content.text.splitlines():
+        if "<td>" in line and "-" in line and "<a" not in line:
             dates_list.append(line.strip().replace("<td>", "").replace("</td>", ""))
+    return dates_list
+
+
+def main():
+    """
+    Fetch DOI publication dates and plot statistics
+    """
+    dates_list = fetch_dates_list()
 
     plot_month(dates_list)
 
