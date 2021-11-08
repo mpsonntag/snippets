@@ -1,3 +1,4 @@
+import calendar
 import requests
 
 import matplotlib.pyplot as plt
@@ -38,19 +39,25 @@ def plot_month(dates_list):
     month_sum.append(curr_sum)
 
     # plot publication timeline
-    plt.plot(month_label, month_sum, label="Plot DOI publication timeline")
-    plt.xticks(rotation=90)
+    plt.bar(month_label, month_sum, label="Plot DOI publication timeline")
+    plt.xticks(rotation=75)
     plt.xlabel("Months")
     plt.ylabel("Publications per month")
     plt.show()
 
-    # plot absolute numbers per month
-    x_data = sorted(abs_sum)
+    # month numbers to month names
+    sorted_months = []
+    for mon in sorted(abs_sum):
+        sorted_months.append(calendar.month_name[mon])
+
+    x_data = sorted_months
     y_data = []
     for key in sorted(abs_sum):
         y_data.append(abs_sum[key])
 
+    # plot absolute numbers per month
     plt.bar(x_data, y_data, label="Plot DOI publications / months")
+    plt.xticks(rotation=75)
     plt.xlabel("Months")
     plt.ylabel("Publications per month")
     plt.show()
