@@ -32,10 +32,11 @@ def plot_month(dates_list):
 
     # plot publication timeline
     plt.bar(list(timeline.keys()), list(timeline.values()),
-            label="Plot DOI publication timeline")
+            label=f"{len(dates_list)} total publications")
     plt.xticks(rotation=75)
     plt.xlabel("Months")
     plt.ylabel("Publications per month")
+    plt.legend()
     plt.show()
 
     # month numbers to month names
@@ -49,10 +50,11 @@ def plot_month(dates_list):
         y_data.append(abs_sum[key])
 
     # plot absolute numbers per month
-    plt.bar(x_data, y_data, label="Plot DOI publications / months")
+    plt.bar(x_data, y_data, label=f"{len(dates_list)} total publications")
     plt.xticks(rotation=75)
     plt.xlabel("Months")
     plt.ylabel("Publications per month")
+    plt.legend()
     plt.show()
 
 
