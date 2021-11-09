@@ -5,8 +5,7 @@ print(hashlib.sha1(b"abcdefg@cd").hexdigest())
 
 # kwargs example
 def conditional_print(filename, local_style=True, custom_template=None):
-    print("filename: %s, local_style: %s, custom_template: %s" % (filename, local_style,
-                                                                  custom_template))
+    print(f"filename: {filename}, local_style: {local_style}, custom_template: {custom_template}")
 
 
 def handle_kwargs(filename, **kwargs):
