@@ -280,16 +280,20 @@ def print_part_pre_doi_full(fip):
     text_block = text_pre_fork_sync(screen_id)
     fip.write(text_block)
 
+    zip_log = f"{CONF['repo_own'].lower()}-{CONF['repo'].lower()}_zip.log"
+    file_name = f"10.12751_g-node.{CONF['reg_id']}.zip"
+    zip_file = f"{CONF['dir_doi']}/10.12751/g-node.{CONF['reg_id']}/{file_name}"
+
     text_block = f"""
 
 -[ ] create DOI zip file
     - screen -r {screen_id}
-    - sudo ./makezip {CONF["repo"].lower()} > {CONF["repo_own"].lower()}-{CONF["repo"].lower()}_zip.log
+    - sudo ./makezip {CONF["repo"].lower()} > {zip_log}
 
 -[ ] make sure there is no zip file in the target directory left 
      from the previous registration process.
 
--[ ] sudo mv {CONF["repo"].lower()}.zip {CONF["dir_doi"]}/10.12751/g-node.{CONF["reg_id"]}/10.12751_g-node.{CONF["reg_id"]}.zip"""
+-[ ] sudo mv {CONF["repo"].lower()}.zip {zip_file}"""
     fip.write(text_block)
 
     text_block = text_pre_git_tag()
@@ -344,6 +348,9 @@ def print_part_post_doi(fip):
 
     :param fip: filepointer
     """
+    from_dir = f"{CONF['dir_local_stage']}/keywords"
+    to_server = f"{CONF['server_user']}@{CONF['doi_server']}:/home/{CONF['server_user']}/staging"
+
     text_block = f"""
 # Part 2 - post registration
 - re-create and deploy keywords if required
@@ -351,7 +358,7 @@ def print_part_post_doi(fip):
   -[ ] gin get G-Node/DOImetadata to local staging directory
   -[ ] create empty "keywords" directory and run the following from it
   -[ ] {CONF["dir_local_stage"]}/gindoid make-keyword-pages {CONF["dir_local_stage"]}/DOImetadata/*.xml
-  -[ ] scp -r {CONF["dir_local_stage"]}/keywords {CONF["server_user"]}@{CONF["doi_server"]}:/home/{CONF["server_user"]}/staging"""
+  -[ ] scp -r {from_dir} {to_server}"""
     fip.write(text_block)
 
     text_block = f"""
@@ -466,16 +473,16 @@ def run():
         repo_name = repo_name[0:15]
 
     c_date = datetime.now().strftime("%Y%m%d")
-    out_file = "%s_%s-%s-%s.md" % (c_date, CONF["reg_id"].lower(), owner, repo_name)
-    print("-- Writing to file %s" % out_file)
-    with open(out_file, "w") as fip:
+    out_file = f"{c_date}_{CONF['reg_id'].lower()}-{owner}-{repo_name}.md"
+    print(f"-- Writing to file {out_file}")
+    with open(out_file, "w", encoding="utf-8") as fip:
         print_part_pre_doi(fip)
         print_part_pre_doi_semi(fip)
         print_part_pre_doi_full(fip)
         print_part_post_doi(fip)
         print_part_ready_email(fip)
 
-    print("-- Finished writing file %s" % out_file)
+    print(f"-- Finished writing file {out_file}")
 
 
 def update_conf(conf):
@@ -483,11 +490,11 @@ def update_conf(conf):
         if val in CONF:
             CONF[val] = conf[val]
         else:
-            print("-- WARN: ignoring unknown config field '%s'" % val)
+            print(f"-- WARN: ignoring unknown config field '{val}'")
 
 
 def update_conf_from_file(conf_file):
-    with open(conf_file, "r") as fip:
+    with open(conf_file, "r", encoding="utf-8") as fip:
         conf = y_load(fip, Loader=SafeLoader)
 
     update_conf(conf)
@@ -502,16 +509,16 @@ def parse_repo_datacite():
 
     :return: struct to update the main config
     """
-    print("-- Loading datacite file for '%s/%s'" % (CONF["repo_own"], CONF["repo"]))
-    datacite_url = "https://gin.g-node.org/%s/%s/raw/master/datacite.yml" % (
-        CONF["repo_own"], CONF["repo"])
+    print(f"-- Loading datacite file for '{CONF['repo_own']}/{CONF['repo']}'")
+    base_url = "https://gin.g-node.org"
+    datacite_url = f"{base_url}/{CONF['repo_own']}/{CONF['repo']}/raw/master/datacite.yml"
     res = requests.get(datacite_url)
 
     # Return with an error message but continue the script on an access error
     if res.status_code != 200:
-        print("-- ERROR: Status code (%s); could not access datacite file.\n"
-              "          Make sure to fill in 'title' and 'citation' in the checklist." %
-              res.status_code)
+        msg = f"-- ERROR: Status code ({res.status_code}); could not access datacite file.\n"
+        msg += "          Make sure to fill in 'title' and 'citation' in the checklist."
+        print(msg)
         return {}
 
     datacite = y_load(res.text, Loader=SafeLoader)
@@ -531,7 +538,7 @@ def parse_repo_datacite():
             fin = ""
             if "firstname" in creator:
                 for init in creator["firstname"].split():
-                    fin = "%s%s" % (fin, init[0])
+                    fin = f"{fin}{init[0]}"
 
             if lan or fin:
                 cit.append(" ".join([lan, fin.strip()]).strip())
@@ -545,8 +552,8 @@ def parse_args(args):
     if parser['--config']:
         conf_file = parser['--config']
         if not os.path.isfile(conf_file):
-            print("-- ERROR: Cannot open config file '%s'" % conf_file)
-            exit(-1)
+            print(f"-- ERROR: Cannot open config file '{conf_file}'")
+            sys.exit(-1)
 
         update_conf_from_file(conf_file)
     elif os.path.isfile("conf.yaml"):
@@ -557,7 +564,7 @@ def parse_args(args):
 if __name__ == "__main__":
     if sys.version_info.major < 3 or (sys.version_info.major > 2 and sys.version_info.minor < 6):
         print("-- ERROR: invalid Python version. Use Python 3.6+ to run this script")
-        exit(-1)
+        sys.exit(-1)
 
     if sys.argv[1:]:
         parse_args(sys.argv[1:])
