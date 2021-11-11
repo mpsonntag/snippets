@@ -15,7 +15,7 @@ except Exception as exc:
 
 class TestODMLBasics(unittest.TestCase):
 
-    def testLoad(self):
+    def test_load(self):
         print("-- Load odml xml file")
         xdoc = odml.load('./load.odml.xml')
         print(xdoc.pprint())
@@ -30,11 +30,23 @@ class TestODMLBasics(unittest.TestCase):
 
         print("-- Document loading tests success")
 
-    def testVersionLoad(self):
+    def test_version_load(self):
         print("-- Test invalid version exception xml file load")
         with self.assertRaises(odml.tools.parser_utils.InvalidVersionException):
             _ = odml.load('./load_v1.odml.xml')
         print("-- Invalid version loading test success")
+
+    def test_tools_init(self):
+        _ = ODMLReader()
+        _ = ODMLWriter()
+        _ = RDFReader()
+        _ = RDFWriter([odml.Document()])
+        _ = FormatConverter()
+        _ = VersionConverter("/I/do/not/exist.txt")
+        _ = XMLReader()
+        _ = XMLWriter(odml.Document())
+        _ = DictReader()
+        _ = DictWriter()
 
 
 if __name__ == "__main__":
