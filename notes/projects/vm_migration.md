@@ -143,6 +143,7 @@ doi (11)
     -[ ] users and groups
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv11
+TODO add services list; add test, data link in and IP switch plan
 
 gin (10)
 -[ ] VM setup, IP assignment by ITG (from old odml), A rec entries srv10, maintenance.srv10
@@ -153,3 +154,4 @@ gin (10)
     -[ ] users and groups
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv10
+TODO add services list; add test, data link in and IP switch plan
