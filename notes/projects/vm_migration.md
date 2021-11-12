@@ -8,46 +8,52 @@ dev (12)
     -[x] letsencrypt
 -[x] gin.dev setup
     -[x] directory structure, required files
-    -[ ] letsencrypt setup
+    -[x] letsencrypt setup
     -[x] service setup
     -[x] service user setup
     -[x] required service repo setup
     -[ ] upload / download test
+    -[ ] haproxy setup and test
+    -[ ] gindex setup and test
 -[x] doi.dev setup
     -[x] directory structure, required files
-    -[ ] letsencrypt setup doi / doireg
+    -[x] letsencrypt setup
     -[x] doi static host setup
     -[x] doireg service setup
     -[x] gin cli host setup
     -[ ] doi procedure test
 -[ ] meta.dev setup
-    -[ ] directory structure, required files
-    -[ ] letsencrypt setup
-    -[ ] service setup
-    -[ ] content upload
+    -[x] directory structure, required files
+    -[x] letsencrypt setup
+    -[x] service setup
+    -[x] content upload
 -[ ] gca.dev setup
     -[ ] directory structure, required files
-    -[ ] letsencrypt setup
+    -[x] letsencrypt setup
     -[ ] service setup
     -[ ] database import
 -[ ] gintest.dev setup
     -[ ] directory structure, required files
-    -[ ] letsencrypt setup
+    -[x] letsencrypt setup
     -[ ] service setup
     -[ ] service user setup
     -[ ] required service repo setup
     -[ ] upload / download test
 -[ ] doitest.dev setup
     -[ ] directory structure, required files
-    -[ ] letsencrypt doiregtest setup
+    -[x] letsencrypt doiregtest setup
     -[ ] doi static host setup -> re-use dev doi?
     -[ ] doiregtest service setup
     -[ ] gin cli host setup
     -[ ] doi procedure test
+-[ ] valid.dev setup
+    -[ ] directory structure, required files
+    -[x] letsencrypt valid setup
+    -[ ] valid service setup
 
 -[ ] maintenance encrypt setup
     -[ ] bc setup with maintenance test
-    -[ ] letsencrypt for maintenance
+    -[x] letsencrypt for maintenance
     -[ ] bc.dev service setup at maintenance
     -[ ] bc.dev letsencrypt
     -[ ] switch bc service to bc.dev domain
@@ -65,7 +71,8 @@ minor (13)
     -[x] docker-compose
     -[x] users and groups
     -[x] letsencrypt
-    -[ ] letsencrypt/apache setup for maintenance / search.gin
+    -[ ] letsencrypt/apache setup for search.gin
+    -[ ] letsencrypt/apache setup for maintenance.srv13
 -[ ] bc, posters.bc setup
     -[ ] directory structure, required files
     -[ ] data move to bc setup
@@ -74,15 +81,16 @@ minor (13)
     -[ ] bc full setup
     -[ ] letsencrypt/apache switch
 -[ ] meta setup
-    -[ ] directory structure, required files
-    -[ ] letsencrypt/apache setup all files (maintenance, meta, owl, upload)
-    -[ ] service setup using maintenance
-    -[ ] import RDF database
-    -[ ] setup backup database
+    -[x] directory structure, required files
+    -[ ] prep all files apache conf files (meta, owl, upload)
+    -[x] service setup using search.gin letsencrypt for setup
+    -[x] import RDF database
     -[ ] owl.meta directory + static file setup
     -[ ] git directory python-odml setup
     -[ ] github hook setup
+    -[ ] shut off meta VM and continue once done
     -[ ] letsencrypt/apache switch setup
+    -[ ] setup backup database
 -[ ] abstracts setup
     -[ ] directory structure, required files
     -[ ] import banners and images
