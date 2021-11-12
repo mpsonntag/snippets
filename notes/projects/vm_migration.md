@@ -112,7 +112,7 @@ minor (13)
     -[ ] remove search.gin A rec
 
 major (14)
--[ ] VM setup, IP assignment (from old bc), A rec entries srv14, maintenance.srv14
+-[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
@@ -120,9 +120,22 @@ major (14)
     -[ ] users and groups
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv14
+-[ ] valid.gin setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt/apache setup all files (maintenance, valid.gin)
+    -[ ] service setup using maintenance
+    -[ ] letsencrypt/apache switch
+-[ ] proc.gin setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
+    -[ ] service setup using maintenance
+    -[ ] letsencrypt/apache switch
+-[ ] VM cleanup
+    -[ ] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
+    -[ ] letsencrypt valid.gin, proc.gin, proc-config.gin; apache reload, check valid
 
 doi (11)
--[ ] VM setup, IP assignment (from old meta), A rec entries srv11, maintenance.srv11
+-[ ] VM setup, IP assignment by ITG (from old meta), A rec entries srv11, maintenance.srv11
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
@@ -132,7 +145,7 @@ doi (11)
     -[ ] letsencrypt setup maintenance.srv11
 
 gin (10)
--[ ] VM setup, IP assignment (from old odml), A rec entries srv10, maintenance.srv10
+-[ ] VM setup, IP assignment by ITG (from old odml), A rec entries srv10, maintenance.srv10
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
