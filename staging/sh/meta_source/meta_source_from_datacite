@@ -7,7 +7,7 @@
 # and already converted odml / rdf files -> probably feasible approach.
 
 # script requires an installed gin client with a logged in user able to
-# to download the gin:G-Node/DOIMetadata and gin:G-Node/meta-source repositories.
+# to download the gin:G-Node/DOIMetadata repository.
 
 echo "... checking doi fork"
 if ! gin repoinfo G-Node/DOIMetadata | grep -iq "[error]"; then
