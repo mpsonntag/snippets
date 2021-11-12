@@ -7,21 +7,39 @@ dev (12)
     -[x] users and groups
     -[x] letsencrypt
 -[x] gin.dev setup
+    -[x] directory structure, required files
+    -[ ] letsencrypt setup
     -[x] service setup
     -[x] service user setup
     -[x] required service repo setup
     -[ ] upload / download test
 -[x] doi.dev setup
+    -[x] directory structure, required files
+    -[ ] letsencrypt setup doi / doireg
     -[x] doi static host setup
     -[x] doireg service setup
     -[x] gin cli host setup
     -[ ] doi procedure test
+-[ ] meta.dev setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt setup
+    -[ ] service setup
+    -[ ] content upload
+-[ ] gca.dev setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt setup
+    -[ ] service setup
+    -[ ] database import
 -[ ] gintest.dev setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt setup
     -[ ] service setup
     -[ ] service user setup
     -[ ] required service repo setup
     -[ ] upload / download test
 -[ ] doitest.dev setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt doiregtest setup
     -[ ] doi static host setup -> re-use dev doi?
     -[ ] doiregtest service setup
     -[ ] gin cli host setup
@@ -35,6 +53,7 @@ dev (12)
     -[ ] switch bc service to bc.dev domain
 -[ ] bc, posters.bc setup
     -[ ] directory structure, required files
+    -[ ] letsencrypt setup
     -[ ] bc service setup
     -[ ] posters.bc service setup
 
@@ -46,36 +65,78 @@ minor (13)
     -[x] docker-compose
     -[x] users and groups
     -[x] letsencrypt
--[ ] maintenance A name for service setup
--[ ] data move to bc setup
--[ ] bc shutdown, bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
--[ ] bc full setup
--[ ] met
-
+    -[ ] letsencrypt/apache setup for maintenance / search.gin
+-[ ] bc, posters.bc setup
+    -[ ] directory structure, required files
+    -[ ] data move to bc setup
+    -[ ] letsencrypt/apache setup all files (maintenance, bc, bc.posters)
+    -[ ] service setup using maintenance
+    -[ ] bc full setup
+    -[ ] letsencrypt/apache switch
+-[ ] meta setup
+    -[ ] directory structure, required files
+    -[ ] letsencrypt/apache setup all files (maintenance, meta, owl, upload)
+    -[ ] service setup using maintenance
+    -[ ] import RDF database
+    -[ ] setup backup database
+    -[ ] owl.meta directory + static file setup
+    -[ ] git directory python-odml setup
+    -[ ] github hook setup
+    -[ ] letsencrypt/apache switch setup
+-[ ] abstracts setup
+    -[ ] directory structure, required files
+    -[ ] import banners and images
+    -[ ] letsencrypt/apache setup all files (maintenance, abstracts)
+    -[ ] service setup using maintenance
+    -[ ] import database
+    -[ ] setup backup database, images
+    -[ ] letsencrypt/apache switch setup
+-[ ] odml setup
+    -[ ] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
+    -[ ] git directory templates
+    -[ ] git directory terminologies
+    -[ ] github hook setup templates
+    -[ ] github hook setup terminologies
+    -[ ] letsencrypt/apache switch setup
+-[ ] VM cleanup
+    -[ ] bc VM shutdown; bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
+    -[ ] letsencrypt bc, bc.posters; apache reload, check
+    -[ ] meta VM shutdown; meta, owl.meta, upload.meta A rec to 13 by ITG
+    -[ ] letsencrypt meta, own.meta, upload.meta; apache reload, check
+    -[ ] abstracts VM shutdown, abstracts A rec to 13 by ITG
+    -[ ] letsencrypt abstracts; apache reload, check
+    -[ ] odml shutdown, odml, templates, terminologies A rec to 13 by ITG
+    -[ ] letsencrypt odml, templates, terminologies; apache reload check
+    -[ ] test https forward of odml
+    -[ ] maintenance A rec for service setup (could use search.gin instead)
+    -[ ] remove search.gin A rec
 
 major (14)
--[ ] VM setup and IP assignment
+-[ ] VM setup, IP assignment (from old bc), A rec entries srv14, maintenance.srv14
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
     -[ ] docker-compose
     -[ ] users and groups
     -[ ] letsencrypt
+    -[ ] letsencrypt setup maintenance.srv14
 
 doi (11)
--[ ] VM setup and IP assignment
+-[ ] VM setup, IP assignment (from old meta), A rec entries srv11, maintenance.srv11
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
     -[ ] docker-compose
     -[ ] users and groups
     -[ ] letsencrypt
+    -[ ] letsencrypt setup maintenance.srv11
 
 gin (10)
--[ ] VM setup and IP assignment
+-[ ] VM setup, IP assignment (from old odml), A rec entries srv10, maintenance.srv10
 -[ ] basic setup
     -[ ] apache
     -[ ] docker
     -[ ] docker-compose
     -[ ] users and groups
     -[ ] letsencrypt
+    -[ ] letsencrypt setup maintenance.srv10
