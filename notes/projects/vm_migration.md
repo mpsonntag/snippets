@@ -86,14 +86,14 @@ minor (13)
     -[ ] letsencrypt switch to static page
 -[ ] meta setup
     -[x] directory structure, required files
-    -[ ] prep all files apache conf files (meta, owl, upload)
+    -[x] prep all files apache conf files (meta, owl)
     -[x] service setup using search.gin letsencrypt for setup
     -[x] import RDF database
-    -[ ] owl.meta directory + static file setup
+    -[x] owl.meta directory + static file setup
     -[ ] git directory python-odml setup
     -[ ] github hook setup
     -[ ] shut off meta VM and continue once done
-    -[ ] letsencrypt/apache switch setup
+    -[ ] letsencrypt/apache switch setup meta / owl.meta
     -[ ] setup backup database
 -[ ] abstracts setup
     -[ ] directory structure, required files
