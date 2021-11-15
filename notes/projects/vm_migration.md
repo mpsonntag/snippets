@@ -73,13 +73,17 @@ minor (13)
     -[x] letsencrypt
     -[ ] letsencrypt/apache setup for search.gin
     -[ ] letsencrypt/apache setup for maintenance.srv13
--[ ] bc, posters.bc setup
+-[ ] bc, posters.bc, static page setup
+    -[x] static page directory structure
+    -[x] static page resources move
+    -[x] static page apache conf setup
     -[ ] directory structure, required files
     -[ ] data move to bc setup
     -[ ] letsencrypt/apache setup all files (maintenance, bc, bc.posters)
     -[ ] service setup using maintenance
-    -[ ] bc full setup
-    -[ ] letsencrypt/apache switch
+    -[ ] bc full setup and preparation for 2022
+    -[ ] letsencrypt/apache switch to services
+    -[ ] letsencrypt switch to static page
 -[ ] meta setup
     -[x] directory structure, required files
     -[ ] prep all files apache conf files (meta, owl, upload)
