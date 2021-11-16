@@ -22,16 +22,16 @@ dev (12)
     -[x] doireg service setup
     -[x] gin cli host setup
     -[ ] doi procedure test
--[ ] meta.dev setup
+-[x] meta.dev setup
     -[x] directory structure, required files
     -[x] letsencrypt setup
     -[x] service setup
     -[x] content upload
--[ ] gca.dev setup
-    -[ ] directory structure, required files
+-[x] gca.dev setup
+    -[x] directory structure, required files
     -[x] letsencrypt setup
-    -[ ] service setup
-    -[ ] database import
+    -[x] service setup
+    -[x] database import
 -[ ] gintest.dev setup
     -[ ] directory structure, required files
     -[x] letsencrypt setup
@@ -95,12 +95,12 @@ minor (13)
     -[ ] shut off meta VM and continue once done
     -[ ] letsencrypt/apache switch setup meta / owl.meta
     -[ ] setup backup database
--[ ] abstracts setup
-    -[ ] directory structure, required files
-    -[ ] import banners and images
-    -[ ] letsencrypt/apache setup all files (maintenance, abstracts)
-    -[ ] service setup using maintenance
-    -[ ] import database
+-[x] abstracts setup
+    -[x] directory structure, required files
+    -[x] import banners and images
+    -[x] letsencrypt/apache setup all files (maintenance, abstracts)
+    -[x] service setup using maintenance
+    -[x] import database
     -[ ] setup backup database, images
     -[ ] letsencrypt/apache switch setup
 -[ ] odml setup
@@ -111,6 +111,7 @@ minor (13)
     -[ ] github hook setup terminologies
     -[ ] letsencrypt/apache switch setup
 -[ ] VM cleanup
+    -[ ] cleanup backup folder on gate for meta and gca
     -[ ] bc VM shutdown; bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
     -[ ] letsencrypt bc, bc.posters; apache reload, check
     -[ ] meta VM shutdown; meta, owl.meta, upload.meta A rec to 13 by ITG
