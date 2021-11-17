@@ -3,6 +3,7 @@ Get statistics on used license names from published G-Node
 datasets. Requires a local copy of the DOImetadata repository.
 """
 import argparse
+import json
 import os
 import re
 
@@ -19,13 +20,12 @@ def license_names_from_files(dir_path: str) -> Dict:
 
     :return: dictionary containing the license names as keys and total occurrences as values.
     """
-    print(f"Handling directory {os.path.abspath(dir_path)}")
+    print(f"Handling directory {os.path.abspath(dir_path)}\n")
     lic_names = {}
     pattern = "rightsuri"
     for filename in os.listdir(dir_path):
         if not filename.endswith(".xml"):
             continue
-        print(f"Handling file {filename}")
         filepath = os.path.join(os.path.abspath(dir_path), filename)
         with open(filepath, 'r', encoding="utf-8") as curr_file:
             for line in curr_file:
@@ -47,7 +47,7 @@ def main():
     args = parser.parse_args()
 
     lic_names = license_names_from_files(args.dir_path)
-    print(lic_names)
+    print(json.dumps(lic_names, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":
