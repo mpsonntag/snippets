@@ -103,6 +103,7 @@ minor (13)
     -[x] import database
     -[ ] setup backup database, images
     -[ ] letsencrypt/apache switch setup
+    -[ ] uptime robot ping setup and server switch
 -[ ] odml setup
     -[ ] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
     -[ ] git directory templates
@@ -110,6 +111,7 @@ minor (13)
     -[ ] github hook setup templates
     -[ ] github hook setup terminologies
     -[ ] letsencrypt/apache switch setup
+    -[ ] uptime robot ping setup and server switch
 -[ ] VM cleanup
     -[ ] cleanup backup folder on gate for meta and gca
     -[ ] bc VM shutdown; bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
