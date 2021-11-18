@@ -168,3 +168,9 @@ gin (10)
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv10
 TODO add services list; add test, data link in and IP switch plan
+
+  maybe use different names for the test partitions to be sure e.g.
+  /data/migrate/gin-repositories
+  /data/migrate/gin-postgres
+  /data/gindata/gin-repositories
+  /data/gindata/gin-postgres
