@@ -183,13 +183,15 @@ def print_part_pre_doi(fip):
     - Request Date (as in doi.xml): {CONF["reg_date"]}
 
 """
+    low_repo_own = CONF["repo_own"].lower()
+    low_repo = CONF["repo"].lower()
     fip.write(text_block)
 
     fip.write("## Base pre-registration checks")
 
     text_block = f"""
 -[ ] GIN server ({CONF["gin_server"]}) check annex content
-    - /gindata/annexcheck /gindata/gin-repositories/{CONF["repo_own"].lower()}"""
+    - /gindata/annexcheck /gindata/gin-repositories/{low_repo_own}/{low_repo}.git"""
     fip.write(text_block)
 
     text_block = f"""
