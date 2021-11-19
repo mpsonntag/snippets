@@ -129,9 +129,9 @@ minor (13)
 major (14)
 -[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
 -[ ] basic setup
-    -[ ] apache
-    -[ ] docker
-    -[ ] docker-compose
+    -[x] apache
+    -[x] docker
+    -[x] docker-compose
     -[ ] users and groups
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv14
