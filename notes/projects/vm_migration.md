@@ -51,18 +51,6 @@ dev (12)
     -[x] letsencrypt valid setup
     -[ ] valid service setup
 
--[ ] maintenance encrypt setup
-    -[ ] bc setup with maintenance test
-    -[x] letsencrypt for maintenance
-    -[ ] bc.dev service setup at maintenance
-    -[ ] bc.dev letsencrypt
-    -[ ] switch bc service to bc.dev domain
--[ ] bc, posters.bc setup
-    -[ ] directory structure, required files
-    -[ ] letsencrypt setup
-    -[ ] bc service setup
-    -[ ] posters.bc service setup
-
 minor (13)
 -[x] VM setup and IP assignment
 -[x] basic setup
@@ -71,17 +59,16 @@ minor (13)
     -[x] docker-compose
     -[x] users and groups
     -[x] letsencrypt
-    -[ ] letsencrypt/apache setup for search.gin
-    -[ ] letsencrypt/apache setup for maintenance.srv13
+    -[ ] letsencrypt/apache setup for maintenance.srv-13
 -[ ] bc, posters.bc, static page setup
     -[x] static page directory structure
     -[x] static page resources move
     -[x] static page apache conf setup
-    -[ ] directory structure, required files
-    -[ ] data move to bc setup
-    -[ ] letsencrypt/apache setup all files (maintenance, bc, bc.posters)
-    -[ ] service setup using maintenance
-    -[ ] bc full setup and preparation for 2022
+    -[x] directory structure, required files
+    -[x] data move to bc setup
+    -[x] letsencrypt/apache setup all files (maintenance, bc, bc.posters)
+    -[x] service setup using maintenance
+    -[x] bc full setup and preparation for 2022
     -[ ] letsencrypt/apache switch to services
     -[ ] letsencrypt switch to static page
 -[ ] meta setup
@@ -105,9 +92,9 @@ minor (13)
     -[ ] letsencrypt/apache switch setup
     -[ ] uptime robot ping setup and server switch
 -[ ] odml setup
-    -[ ] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
-    -[ ] git directory templates
-    -[ ] git directory terminologies
+    -[x] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
+    -[x] git directory templates
+    -[x] git directory terminologies
     -[ ] github hook setup templates
     -[ ] github hook setup terminologies
     -[ ] letsencrypt/apache switch setup
@@ -123,8 +110,7 @@ minor (13)
     -[ ] odml shutdown, odml, templates, terminologies A rec to 13 by ITG
     -[ ] letsencrypt odml, templates, terminologies; apache reload check
     -[ ] test https forward of odml
-    -[ ] maintenance A rec for service setup (could use search.gin instead)
-    -[ ] remove search.gin A rec
+    -[x] maintenance A rec for service setup
 
 major (14)
 -[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
@@ -132,17 +118,17 @@ major (14)
     -[x] apache
     -[x] docker
     -[x] docker-compose
-    -[ ] users and groups
-    -[ ] letsencrypt
-    -[ ] letsencrypt setup maintenance.srv14
+    -[x] users and groups
+    -[x] letsencrypt
+    -[x] letsencrypt setup maintenance.srv-14
 -[ ] valid.gin setup
     -[ ] directory structure, required files
-    -[ ] letsencrypt/apache setup all files (maintenance, valid.gin)
+    -[x] letsencrypt/apache setup all files (maintenance, valid.gin)
     -[ ] service setup using maintenance
     -[ ] letsencrypt/apache switch
 -[ ] proc.gin setup
     -[ ] directory structure, required files
-    -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
+    -[x] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
     -[ ] service setup using maintenance
     -[ ] letsencrypt/apache switch
 -[ ] VM cleanup
