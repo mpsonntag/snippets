@@ -7,18 +7,25 @@ TODO
 - create folder structure
 
     ```bash
-    mkdir -vp /data/web/valid/config
-    mkdir -vp /data/web/valid/docker
-    mkdir -vp /data/web/valid/results
+    VALID_ROOT=/data/web/valid
+    mkdir -vp $VALID_ROOT/config
+    mkdir -vp $VALID_ROOT/docker
+    mkdir -vp $VALID_ROOT/results
     ```
 
 - create compose env
 
     ```bash
-    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > /data/web/valid/config/.env"
+    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > ${VALID_ROOT}/config/.env"
     ```
 
-- provide `docker-compose.yml` in /data/web/valid/docker and `cfg.json` in /data/web/valid/config
+- provide `docker-compose.yml` in $VALID_ROOT/docker and `cfg.json` in $VALID_ROOT/config
+
+- change ownership to `gnode` user and `deploy` group
+
+    ```bash
+    sudo chown -R gnode:deploy $VALID_ROOT
+    ```
 
 - the service requires a user named "gin-valid" on the running gin instance it is supposed to work with.
 
