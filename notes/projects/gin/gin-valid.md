@@ -1,5 +1,9 @@
 ## notes on how to setup gin-valid
 
+TODO
+- simplify folder structure
+- update docker-compose to newer version
+
 - create folder structure
 
     ```bash
@@ -15,6 +19,8 @@
     ```
 
 - provide `docker-compose.yml` in /data/web/valid/docker and `cfg.json` in /data/web/valid/config
+
+- the service requires a user named "gin-valid" on the running gin instance it is supposed to work with.
 
 ## cfg.json file
 
