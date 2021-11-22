@@ -70,7 +70,9 @@ minor (13)
     -[x] service setup using maintenance
     -[x] bc full setup and preparation for 2022
     -[ ] letsencrypt/apache switch to services
+    -[ ] update bc app.ini, restart service and test access
     -[ ] letsencrypt switch to static page
+    -[ ] add user to vault
 -[ ] meta setup
     -[x] directory structure, required files
     -[x] prep all files apache conf files (meta, owl)
@@ -114,7 +116,7 @@ minor (13)
 
 major (14)
 -[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
--[ ] basic setup
+-[x] basic setup
     -[x] apache
     -[x] docker
     -[x] docker-compose
@@ -122,15 +124,13 @@ major (14)
     -[x] letsencrypt
     -[x] letsencrypt setup maintenance.srv-14
 -[ ] valid.gin setup
-    -[ ] directory structure, required files
+    -[x] directory structure, required files
     -[x] letsencrypt/apache setup all files (maintenance, valid.gin)
     -[ ] service setup using maintenance
     -[ ] letsencrypt/apache switch
--[ ] proc.gin setup
-    -[ ] directory structure, required files
+-[x] proc.gin setup
+    -[x] directory structure, required files
     -[x] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
-    -[ ] service setup using maintenance
-    -[ ] letsencrypt/apache switch
 -[ ] VM cleanup
     -[ ] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
     -[ ] letsencrypt valid.gin, proc.gin, proc-config.gin; apache reload, check valid
