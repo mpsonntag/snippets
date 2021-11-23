@@ -31,3 +31,10 @@ You can put the following in your .bash_alias file and use as `gitcom "Add commi
 ```bash
 alias gitcom='function __gitcom(){ if [[ "${#1}" > 50 ]]; then echo "Commit message too long: ${#1} chars"; else git commit -m "$1"; fi }; __gitcom'
 ```
+
+### commit etiquette
+- try to keep commits small
+- try not to commit changes that break code
+- do not mix code changes e.g. changes in two unrelated functions or cleanup and functional change; makes it easier to document why which change has happened or identify when an issue has occurred.
+- keep commit message subjects below 50 characters - makes the history easy to read and informative
+- here is a good article about git [commit messages](https://chris.beams.io/posts/git-commit/)
