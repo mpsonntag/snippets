@@ -180,4 +180,4 @@ valid.gin.g-node.org      36xx      ~1h         same
 doi.gin.g-node.org        26xx      ~45min      same
 gin.g-node.org            3600      1h          same
 
-
+One could also flush the google DNS cache [here](https://developers.google.com/speed/public-dns/cache).
