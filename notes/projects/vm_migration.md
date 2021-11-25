@@ -162,3 +162,22 @@ TODO add services list; add test, data link in and IP switch plan
   /data/migrate/gin-postgres
   /data/gindata/gin-repositories
   /data/gindata/gin-postgres
+
+# Current DNS TTL
+
+Check using `dig [DNS name]` or `dig any [DNS name]` to display the TTL for a DNS entry.
+The times are noted in seconds and are counting down until the next cache refresh. When there is a difference between the normal dig and dig any, there might be an issue when switching the IP for a DNS entry and requesting an SSL certificate until the longer TTL period has expired.
+
+                                                + any
+abstracts.g-node.org      67xx      ~2h         84000     ~24h
+owl.meta.g-node.org       67xx      ~2h         84000     ~24h
+meta.g-node.org           67xx      ~2h         84000     ~24h
+bc.g-node.org             67xx      ~2h         84000     ~24h
+odml.g-node.org           3600      1h          same
+templates.g-node.org      3600      1h          same
+terminologies.g-node.org  3600      1h          same
+valid.gin.g-node.org      36xx      ~1h         same
+doi.gin.g-node.org        26xx      ~45min      same
+gin.g-node.org            3600      1h          same
+
+
