@@ -65,3 +65,35 @@ sudo usermod -d /data/app gitdeploy
 
       sudo su - gitdeploy
       pip install --user flask
+
+- add an apache site configuration `git-handler.conf` with the following content and enable it
+
+        Listen 5000
+        <VirtualHost dev.g-node.org:5000>
+            ServerName dev.g-node.org
+            ServerAdmin dev@g-node.org
+
+            DocumentRoot /data/app
+
+            WSGIDaemonProcess dev.g-node.org user=gitdeploy group=gitdeploy threads=5 home=/data/app
+            WSGIProcessGroup dev.g-node.org
+
+            WSGIScriptAlias /cloner /data/app/cloner.wsgi
+            <Directory /data/app>
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+- do the following github setup for both templates and terminologies:
+  - create a new webhook in "settings/webhooks"
+  - use the following URL as Payload URL: `http://dev.g-node.org:5000/cloner/`
+  - select content type `application/json`
+  - add the "payload-secret" created above
+  - trigger just a push event
+  - set as `active`
+
+- on the webserver add the apache site configurations for templates and terminologies, enable them and restart apache
+
+- everything should be set up to automatically update both templates and terminologies upon changes on the github repositories.
+
+- check the apache log when a push is happening to ensure that the hook is working properly.
