@@ -59,7 +59,7 @@ minor (13)
     -[x] docker-compose
     -[x] users and groups
     -[x] letsencrypt
-    -[ ] letsencrypt/apache setup for maintenance.srv-13
+    -[x] letsencrypt/apache setup for maintenance.srv-13
 -[ ] bc, posters.bc, static page setup
     -[x] static page directory structure
     -[x] static page resources move
@@ -70,8 +70,9 @@ minor (13)
     -[x] service setup using maintenance
     -[x] bc full setup and preparation for 2022
     -[ ] letsencrypt/apache switch to services
-    -[ ] update bc app.ini, restart service and test access
-    -[ ] letsencrypt switch to static page
+    -[x] update bc app.ini, restart service
+    -[ ] test access
+    -[x] letsencrypt switch to static page
     -[ ] add user to vault
 -[ ] meta setup
     -[x] directory structure, required files
@@ -81,9 +82,9 @@ minor (13)
     -[x] owl.meta directory + static file setup
     -[ ] git directory python-odml setup
     -[ ] github hook setup
-    -[ ] shut off meta VM and continue once done
     -[ ] letsencrypt/apache switch setup meta / owl.meta
     -[ ] setup backup database
+    -[ ] owl.meta uptime robot ping setup
 -[x] abstracts setup
     -[x] directory structure, required files
     -[x] import banners and images
@@ -100,19 +101,23 @@ minor (13)
     -[ ] github hook setup templates
     -[ ] github hook setup terminologies
     -[ ] letsencrypt/apache switch setup
-    -[ ] uptime robot ping setup and server switch
 -[ ] VM cleanup
-    -[ ] cleanup backup folder on gate for meta and gca
-    -[ ] bc VM shutdown; bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
-    -[ ] letsencrypt bc, bc.posters; apache reload, check
-    -[ ] meta VM shutdown; meta, owl.meta, upload.meta A rec to 13 by ITG
-    -[ ] letsencrypt meta, own.meta, upload.meta; apache reload, check
-    -[ ] abstracts VM shutdown, abstracts A rec to 13 by ITG
-    -[ ] letsencrypt abstracts; apache reload, check
-    -[ ] odml shutdown, odml, templates, terminologies A rec to 13 by ITG
-    -[ ] letsencrypt odml, templates, terminologies; apache reload check
-    -[ ] test https forward of odml
+    -[ ] cleanup backup folder on gate for meta
+    -[ ] cleanup backup folder on gate for abstracts
+    -[x] bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
+    -[x] meta, owl.meta, upload.meta A rec to 13 by ITG
+    -[x] abstracts A rec to 13 by ITG
+    -[x] odml, templates, terminologies A rec to 13 by ITG
     -[x] maintenance A rec for service setup
+    -[x] meta VM shutdown
+    -[ ] bc VM shutdown
+    -[ ] abstracts VM shutdown
+    -[ ] odml VM shutdown
+    -[ ] letsencrypt bc, bc.posters; apache reload, check
+    -[ ] letsencrypt meta, owl.meta, upload.meta; apache reload, check
+    -[ ] letsencrypt abstracts; apache reload, check
+    -[ ] letsencrypt odml, templates, terminologies; apache reload check
+    -[x] test https forward of odml
 
 major (14)
 -[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
@@ -123,17 +128,18 @@ major (14)
     -[x] users and groups
     -[x] letsencrypt
     -[x] letsencrypt setup maintenance.srv-14
--[ ] valid.gin setup
+-[x] valid.gin setup
     -[x] directory structure, required files
     -[x] letsencrypt/apache setup all files (maintenance, valid.gin)
-    -[ ] service setup using maintenance
-    -[ ] letsencrypt/apache switch
+    -[x] service setup using maintenance
+    -[x] letsencrypt/apache switch
 -[x] proc.gin setup
     -[x] directory structure, required files
-    -[x] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
+    -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
 -[ ] VM cleanup
-    -[ ] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
-    -[ ] letsencrypt valid.gin, proc.gin, proc-config.gin; apache reload, check valid
+    -[x] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
+    -[x] letsencrypt valid.gin
+    -[ ] proc.gin, proc-config.gin; apache reload, check valid
 
 doi (11)
 -[ ] VM setup, IP assignment by ITG (from old meta), A rec entries srv11, maintenance.srv11
@@ -155,6 +161,7 @@ gin (10)
     -[ ] users and groups
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv10
+
 TODO add services list; add test, data link in and IP switch plan
 
   maybe use different names for the test partitions to be sure e.g.
