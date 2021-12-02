@@ -100,23 +100,20 @@
 
     -[ ] add user to vault
 
--[ ] meta setup
+-[x] meta setup
     -[x] directory structure, required files
     -[x] prep all files apache conf files (meta, owl)
     -[x] service setup using search.gin letsencrypt for setup
     -[x] import RDF database
     -[x] owl.meta directory + static file setup
     -[x] letsencrypt/apache switch setup meta / owl.meta
-
-    -[ ] git directory python-odml setup
-    -[ ] github hook setup
-    -[ ] apache conf dir switch to github dir
-
-    -[ ] setup backup database new VM
-    -[ ] deactivation backup old VM
-
-    -[ ] meta uptime robot setup
-    -[ ] owl.meta uptime robot setup
+    -[x] git directory python-odml setup
+    -[x] github hook setup
+    -[x] apache conf dir switch to github dir
+    -[x] setup backup database new VM
+    -[x] deactivation backup old VM
+    -[x] meta uptime robot setup
+    -[x] owl.meta uptime robot setup
 -[x] abstracts setup
     -[x] directory structure, required files
     -[x] import banners and images
@@ -124,24 +121,21 @@
     -[x] service setup using maintenance
     -[x] import database
     -[x] letsencrypt/apache switch setup
+    -[x] setup backup database, images
+    -[x] backup deactivation old machine
+    -[x] uptime robot ping setup and server switch
+    -[x] uptime robot ping deactivation old machine
 
-    -[ ] setup backup database, images
-    -[ ] backup deactivation old machine
-
-    -[ ] uptime robot ping setup and server switch
-    -[ ] uptime robot ping deactivation old machine
-
--[ ] odml setup
+-[x] odml setup
     -[x] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
     -[x] git directory templates
     -[x] git directory terminologies
     -[x] letsencrypt/apache SSL setup new VM
+    -[x] github hook setup templates
+    -[x] github hook setup terminologies
+    -[x] apache directory switch
 
-    -[ ] github hook setup templates
-    -[ ] github hook setup terminologies
-    -[ ] apache directory switch
-
--[ ] VM cleanup
+-[x] VM cleanup
     -[x] bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
     -[x] meta, owl.meta, upload.meta A rec to 13 by ITG
     -[x] abstracts A rec to 13 by ITG
@@ -153,20 +147,17 @@
     -[x] letsencrypt abstracts; apache reload, check
     -[x] letsencrypt templates, terminologies; apache reload check
     -[x] test https forward of odml
-
-    -[ ] srv13 github hook handler setup and test
-
-    -[ ] new backup folder on gate for meta and abstracts
-    -[ ] cleanup backup folder on gate for meta
-    -[ ] cleanup backup folder on gate for abstracts
-
-    -[ ] bc VM shutdown
-    -[ ] abstracts VM shutdown
-    -[ ] odml VM shutdown
+    -[x] srv13 github hook handler setup and test
+    -[x] new backup folder on gate for meta and abstracts
+    -[x] cleanup backup folder on gate for meta
+    -[x] cleanup backup folder on gate for abstracts
+    -[x] bc VM shutdown
+    -[x] abstracts VM shutdown
+    -[x] odml VM shutdown
 
 
 ### major (14)
--[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
+-[x] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
 -[x] basic setup
     -[x] apache
     -[x] docker
@@ -184,11 +175,9 @@
 
     -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
 
--[ ] VM cleanup
+-[x] VM cleanup
     -[x] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
     -[x] letsencrypt valid.gin
-
-    -[ ] proc.gin, proc-config.gin; apache reload, check valid
 
 
 ### doi (11)
