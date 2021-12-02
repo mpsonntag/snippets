@@ -1,3 +1,19 @@
+## Pro and con of multiple services on one machine
+
+### Pro
+
+- fewer hardware resources required
+- fewer IP addresses in use
+- less maintenance due to the reduction of running VMs
+
+### Con
+
+- new encryption certificates require an apache server stop. When a new service is added, all other services will be offline for the time the certificate is issued for the new service.
+- any maintenance requiring the restart of a VM, the apache or docker will affect all services on this machine
+
+
+## Migration checklist
+
 dev (12)
 -[x] VM setup and IP assignment
 -[x] basic setup
