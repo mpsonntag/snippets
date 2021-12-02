@@ -11,6 +11,8 @@ getent passwd gitdeploy
 useradd -M gitdeploy
 # disable user login
 usermod -L gitdeploy
+# make the experience more joyful
+sudo usermod --shell /bin/bash gitdeploy
 # create a home directory that will contain the required code
 mkdir /data/app
 # change ownership to the gitdeploy user
@@ -21,7 +23,7 @@ sudo usermod -d /data/app gitdeploy
 
 ## Preparing hosting directories
 
-  - on the hosting server create the directory that should contain the hosted repositories
+  - on the hosting server create the directory that will contain the hosted repositories
 
         mkdir -vp /data/web/autodeploy
 
@@ -43,6 +45,11 @@ sudo usermod -d /data/app gitdeploy
 - make sure Apache is set up to work with WSGI (Web server gateway interface applications) and check if `wsgi` is available and enabled.
 - otherwise install it via `apt-get install libapache2-mod-wsgi-py3`, enable it and restart Apache.
 
+- install flask using the `gitdeploy` user
+
+      sudo su - gitdeploy
+      pip install --user flask
+
 - clone the github-hook-handler from github into `/data/app`
 
       git clone https://github.com/G-Node/github-hook-handler
@@ -59,12 +66,7 @@ sudo usermod -d /data/app gitdeploy
       listener = cloner.create_app('/data/web/autodeploy/', 'payload-secret', hosted_repos)
       application = listener.app
 
-- `chown` the github-hook-handler repository and the `cloner.wsgi` file to the "gitdeploy" user / "gitdeploy" group.
-
-- install flask using the `gitdeploy` user
-
-      sudo su - gitdeploy
-      pip install --user flask
+- if required, `chown` the github-hook-handler repository and the `cloner.wsgi` file to the "gitdeploy" user / "gitdeploy" group.
 
 - add an apache site configuration `git-handler.conf` with the following content and enable it
 
