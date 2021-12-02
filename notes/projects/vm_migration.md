@@ -1,20 +1,18 @@
 ## Pro and con of multiple services on one machine
 
 ### Pro
-
 - fewer hardware resources required
 - fewer IP addresses in use
 - less maintenance due to the reduction of running VMs
 
 ### Con
-
 - new encryption certificates require an apache server stop. When a new service is added, all other services will be offline for the time the certificate is issued for the new service.
 - any maintenance requiring the restart of a VM, the apache or docker will affect all services on this machine
 
 
 ## Migration checklist
 
-dev (12)
+### dev (12)
 -[x] VM setup and IP assignment
 -[x] basic setup
     -[x] apache
@@ -28,16 +26,20 @@ dev (12)
     -[x] service setup
     -[x] service user setup
     -[x] required service repo setup
+
     -[ ] upload / download test
     -[ ] haproxy setup and test
     -[ ] gindex setup and test
+
 -[x] doi.dev setup
     -[x] directory structure, required files
     -[x] letsencrypt setup
     -[x] doi static host setup
     -[x] doireg service setup
     -[x] gin cli host setup
+
     -[ ] doi procedure test
+
 -[x] meta.dev setup
     -[x] directory structure, required files
     -[x] letsencrypt setup
@@ -49,25 +51,31 @@ dev (12)
     -[x] service setup
     -[x] database import
 -[ ] gintest.dev setup
-    -[ ] directory structure, required files
     -[x] letsencrypt setup
+
+    -[ ] directory structure, required files
     -[ ] service setup
     -[ ] service user setup
     -[ ] required service repo setup
     -[ ] upload / download test
+
 -[ ] doitest.dev setup
-    -[ ] directory structure, required files
     -[x] letsencrypt doiregtest setup
+
+    -[ ] directory structure, required files
     -[ ] doi static host setup -> re-use dev doi?
     -[ ] doiregtest service setup
     -[ ] gin cli host setup
     -[ ] doi procedure test
+
 -[ ] valid.dev setup
-    -[ ] directory structure, required files
     -[x] letsencrypt valid setup
+
+    -[ ] directory structure, required files
     -[ ] valid service setup
 
-minor (13)
+
+### minor (13)
 -[x] VM setup and IP assignment
 -[x] basic setup
     -[x] apache
@@ -89,53 +97,75 @@ minor (13)
     -[x] update bc app.ini, restart service
     -[x] test access
     -[x] letsencrypt switch to static page
+
     -[ ] add user to vault
+
 -[ ] meta setup
     -[x] directory structure, required files
     -[x] prep all files apache conf files (meta, owl)
     -[x] service setup using search.gin letsencrypt for setup
     -[x] import RDF database
     -[x] owl.meta directory + static file setup
+    -[x] letsencrypt/apache switch setup meta / owl.meta
+
     -[ ] git directory python-odml setup
     -[ ] github hook setup
-    -[ ] letsencrypt/apache switch setup meta / owl.meta
-    -[ ] setup backup database
-    -[ ] owl.meta uptime robot ping setup
+    -[ ] apache conf dir switch to github dir
+
+    -[ ] setup backup database new VM
+    -[ ] deactivation backup old VM
+
+    -[ ] meta uptime robot setup
+    -[ ] owl.meta uptime robot setup
 -[x] abstracts setup
     -[x] directory structure, required files
     -[x] import banners and images
     -[x] letsencrypt/apache setup all files (maintenance, abstracts)
     -[x] service setup using maintenance
     -[x] import database
-    -[ ] setup backup database, images
     -[x] letsencrypt/apache switch setup
+
+    -[ ] setup backup database, images
+    -[ ] backup deactivation old machine
+
     -[ ] uptime robot ping setup and server switch
+    -[ ] uptime robot ping deactivation old machine
+
 -[ ] odml setup
     -[x] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
     -[x] git directory templates
     -[x] git directory terminologies
+    -[x] letsencrypt/apache SSL setup new VM
+
     -[ ] github hook setup templates
     -[ ] github hook setup terminologies
-    -[x] letsencrypt/apache switch setup
+    -[ ] apache directory switch
+
 -[ ] VM cleanup
-    -[ ] cleanup backup folder on gate for meta
-    -[ ] cleanup backup folder on gate for abstracts
     -[x] bc, posters.bc A rec to 13 by ITG, bc IP assign to 14 via A rec
     -[x] meta, owl.meta, upload.meta A rec to 13 by ITG
     -[x] abstracts A rec to 13 by ITG
     -[x] odml, templates, terminologies A rec to 13 by ITG
     -[x] maintenance A rec for service setup
     -[x] meta VM shutdown
-    -[ ] bc VM shutdown
-    -[ ] abstracts VM shutdown
-    -[ ] odml VM shutdown
     -[x] letsencrypt bc, bc.posters; apache reload, check
     -[x] letsencrypt meta, owl.meta, upload.meta; apache reload, check
     -[x] letsencrypt abstracts; apache reload, check
     -[x] letsencrypt templates, terminologies; apache reload check
     -[x] test https forward of odml
 
-major (14)
+    -[ ] srv13 github hook handler setup and test
+
+    -[ ] new backup folder on gate for meta and abstracts
+    -[ ] cleanup backup folder on gate for meta
+    -[ ] cleanup backup folder on gate for abstracts
+
+    -[ ] bc VM shutdown
+    -[ ] abstracts VM shutdown
+    -[ ] odml VM shutdown
+
+
+### major (14)
 -[ ] VM setup, IP assignment by ITG (from old bc), A rec entries srv14, maintenance.srv14
 -[x] basic setup
     -[x] apache
@@ -151,13 +181,17 @@ major (14)
     -[x] letsencrypt/apache switch
 -[x] proc.gin setup
     -[x] directory structure, required files
+
     -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
+
 -[ ] VM cleanup
     -[x] valid service; valid.gin, proc.gin, proc-config.gin A rec to 14 by ITG
     -[x] letsencrypt valid.gin
+
     -[ ] proc.gin, proc-config.gin; apache reload, check valid
 
-doi (11)
+
+### doi (11)
 -[ ] VM setup, IP assignment by ITG (from old meta), A rec entries srv11, maintenance.srv11
 -[ ] basic setup
     -[ ] apache
@@ -168,7 +202,8 @@ doi (11)
     -[ ] letsencrypt setup maintenance.srv11
 TODO add services list; add test, data link in and IP switch plan
 
-gin (10)
+
+### gin (10)
 -[ ] VM setup, IP assignment by ITG (from old odml), A rec entries srv10, maintenance.srv10
 -[ ] basic setup
     -[ ] apache
@@ -178,6 +213,8 @@ gin (10)
     -[ ] letsencrypt
     -[ ] letsencrypt setup maintenance.srv10
 
+
+## Further migration notes
 TODO add services list; add test, data link in and IP switch plan
 
   maybe use different names for the test partitions to be sure e.g.
