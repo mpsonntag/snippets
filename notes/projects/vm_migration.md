@@ -85,9 +85,9 @@ minor (13)
     -[x] letsencrypt/apache setup all files (maintenance, bc, bc.posters)
     -[x] service setup using maintenance
     -[x] bc full setup and preparation for 2022
-    -[ ] letsencrypt/apache switch to services
+    -[x] letsencrypt/apache switch to services
     -[x] update bc app.ini, restart service
-    -[ ] test access
+    -[x] test access
     -[x] letsencrypt switch to static page
     -[ ] add user to vault
 -[ ] meta setup
@@ -108,7 +108,7 @@ minor (13)
     -[x] service setup using maintenance
     -[x] import database
     -[ ] setup backup database, images
-    -[ ] letsencrypt/apache switch setup
+    -[x] letsencrypt/apache switch setup
     -[ ] uptime robot ping setup and server switch
 -[ ] odml setup
     -[x] letsencrypt/apache setup all files (maintenance, odml, templates, terminologies)
@@ -116,7 +116,7 @@ minor (13)
     -[x] git directory terminologies
     -[ ] github hook setup templates
     -[ ] github hook setup terminologies
-    -[ ] letsencrypt/apache switch setup
+    -[x] letsencrypt/apache switch setup
 -[ ] VM cleanup
     -[ ] cleanup backup folder on gate for meta
     -[ ] cleanup backup folder on gate for abstracts
@@ -129,10 +129,10 @@ minor (13)
     -[ ] bc VM shutdown
     -[ ] abstracts VM shutdown
     -[ ] odml VM shutdown
-    -[ ] letsencrypt bc, bc.posters; apache reload, check
-    -[ ] letsencrypt meta, owl.meta, upload.meta; apache reload, check
-    -[ ] letsencrypt abstracts; apache reload, check
-    -[ ] letsencrypt odml, templates, terminologies; apache reload check
+    -[x] letsencrypt bc, bc.posters; apache reload, check
+    -[x] letsencrypt meta, owl.meta, upload.meta; apache reload, check
+    -[x] letsencrypt abstracts; apache reload, check
+    -[x] letsencrypt templates, terminologies; apache reload check
     -[x] test https forward of odml
 
 major (14)
