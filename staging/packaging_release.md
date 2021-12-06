@@ -58,7 +58,7 @@ Check whether the README.rst will be rendered correctly on PyPI
 NOTE: If the setup.py::licence attribute contains more lines or blank lines, then the description will NOT be displayed on PyPI but does not show up as an error. 
 This might be true for other attributes as well.
 
-Run the following check to ensure that the readme can properly be integrated in PyPI:
+Run the following check to ensure that the readme can properly be integrated in PyPI; note that `twine check` only works with python < 3.9
 
     twine check dist/*
 
