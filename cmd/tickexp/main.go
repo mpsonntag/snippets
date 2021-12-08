@@ -30,17 +30,13 @@ func setUpCommands(verstr string) *cobra.Command {
 		Use:                   "start",
 		Short:                 "Start the tickexp service",
 		Args:                  cobra.NoArgs,
-		Run:                   tempFunc,
+		Run:                   serv,
 		Version:               verstr,
 		DisableFlagsInUseLine: true,
 	}
 
 	rootCmd.AddCommand(cmds...)
 	return rootCmd
-}
-
-func tempFunc() {
-    fmt.Printf("Placeholder")
 }
 
 func main() {
