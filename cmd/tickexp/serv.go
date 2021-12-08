@@ -1,10 +1,58 @@
 package main
 
+import (
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+
+	"github.com/spf13/cobra"
+)
+
 // ExpItem holds information to describe ticket expenses
 type ExpItem struct {
 	date  string
 	value string
 	desc  string
+}
+
+func serv(cmd *cobra.Command, args []string) {
+	fmt.Printf("Starting up %s", cmd.Version)
+
+	// Start the HTTP handlers.
+
+	// Root redirects to results
+	http.Handle("/", http.RedirectHandler("/result", http.StatusMovedPermanently))
+
+	// register renders the info page with the registration button
+	http.HandleFunc("/result", func(w http.ResponseWriter, r *http.Request) {
+		renderResultPage(w, r)
+	})
+
+	log.Fatal(http.ListenAndServe(":8899", nil))
+}
+
+func renderResultPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("Render results page")
+
+	tmpl, err := template.New("Results").Parse(ResultsPage)
+	if err != nil {
+		fmt.Printf("Could not parse template: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	data := ExpItem{
+		date:  "27.10.2021",
+		value: "1.90",
+		desc:  "VIE",
+	}
+
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		fmt.Printf("Error rendering template: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
 
 // ResultsPage renders the results
