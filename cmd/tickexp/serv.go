@@ -23,17 +23,37 @@ type ExpItem struct {
 func serv(cmd *cobra.Command, args []string) {
 	fmt.Printf("Starting up %s", cmd.Version)
 
-	// Start the HTTP handlers.
-
-	// Root redirects to results
+	// root redirects to results
 	http.Handle("/", http.RedirectHandler("/result", http.StatusMovedPermanently))
 
-	// register renders the info page with the registration button
+	// result renders the total sum and full data list
 	http.HandleFunc("/result", func(w http.ResponseWriter, r *http.Request) {
 		renderResultPage(w, r)
 	})
 
+	// add provides the data entry form
+	http.HandleFunc("/add", func(w http.ResponseWriter, r *http.Request) {
+		renderAddPage(w, r)
+	})
+
 	log.Fatal(http.ListenAndServe(":8899", nil))
+}
+
+func renderAddPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("... render 'Add' page\n")
+
+	tmpl, err := template.New("Add").Parse(AddPage)
+	if err != nil {
+		fmt.Printf("could not parse 'Add' template: %s\n", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, nil)
+	if err != nil {
+		fmt.Printf("error rendering 'Add' template: %s\n", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
 
 // readDataFile reads data from the dedicated json file and returns
