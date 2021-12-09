@@ -36,42 +36,49 @@ func serv(cmd *cobra.Command, args []string) {
 	log.Fatal(http.ListenAndServe(":8899", nil))
 }
 
-func renderResultPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Render results page")
-
-	tmpl, err := template.New("Results").Parse(ResultsPage)
-	if err != nil {
-		fmt.Printf("Could not parse template: %s", err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	// read tickexp value file
+// readDataFile reads data from the dedicated json file and returns
+// the unmarshalled json data
+func readDataFile(data []ExpItem) ([]ExpItem, error) {
 	fp, err := os.Open("exp.json")
 	if err != nil {
-		fmt.Printf("Could not open value file: %s", err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		return nil, fmt.Errorf("could not open value file: %s", err.Error())
 	}
+
 	defer fp.Close()
 
 	jdata, err := ioutil.ReadAll(fp)
 	if err != nil {
-		fmt.Printf("Could not read value file: %s", err.Error())
+		return nil, fmt.Errorf("could not read value file: %s", err.Error())
+	}
+
+	if err = json.Unmarshal(jdata, &data); err != nil {
+		return nil, fmt.Errorf("could not unmarshal value json data: %s", err.Error())
+	}
+	return data, nil
+}
+
+func renderResultPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("... render results page\n")
+
+	var data []ExpItem
+	// read tickexp value file
+	data, err := readDataFile(data)
+	if err != nil {
+		fmt.Println(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	var data []ExpItem
-	if err = json.Unmarshal(jdata, &data); err != nil {
-		fmt.Printf("Could not unmarshal value json data: %s", err.Error())
+	tmpl, err := template.New("Results").Parse(ResultsPage)
+	if err != nil {
+		fmt.Printf("could not parse template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		fmt.Printf("Error rendering template: %s", err.Error())
+		fmt.Printf("error rendering template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 }
