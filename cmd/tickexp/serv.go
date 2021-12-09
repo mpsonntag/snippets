@@ -1,10 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -43,10 +46,27 @@ func renderResultPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := ExpItem{
-		date:  "27.10.2021",
-		value: "1.90",
-		desc:  "VIE",
+	// read tickexp value file
+	fp, err := os.Open("exp.json")
+	if err != nil {
+		fmt.Printf("Could not open value file: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	defer fp.Close()
+
+	jdata, err := ioutil.ReadAll(fp)
+	if err != nil {
+		fmt.Printf("Could not read value file: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	var data []ExpItem
+	if err = json.Unmarshal(jdata, &data); err != nil {
+		fmt.Printf("Could not unmarshal value json data: %s", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	err = tmpl.Execute(w, data)
