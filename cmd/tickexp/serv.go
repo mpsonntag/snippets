@@ -11,9 +11,10 @@ import (
 
 // ExpItem holds information to describe ticket expenses
 type ExpItem struct {
-	date  string
-	value string
-	desc  string
+	Date   string  `json:"date"`
+	Val    float64 `json:"val"`
+	Negval float64 `json:"negval"`
+	Desc   string  `json:"desc"`
 }
 
 func serv(cmd *cobra.Command, args []string) {
@@ -80,11 +81,13 @@ const ResultsPage = `<!DOCTYPE html>
 				</tr>
 			</thead>
 			<tbody>
+				{{ range . }}
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>{{.Date}}</td>
+					<td>{{.Val}}{{.Negval}}</td>
+					<td>{{.Desc}}</td>
 				</tr>
+				{{ end }}
 			</tbody>
 		</table>
 	</body>
