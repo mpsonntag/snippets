@@ -13,13 +13,14 @@ const AddPage = `<!DOCTYPE html>
 	</head>
 	<body>
 		<h1>Tickexp data entry page</h1>
-		<form>
+		<form method="POST" action="/dataadd">
 			<label for="date">Date</label>
 			<input type="text" name="date" id="date">
 			<label for="val">Value</label>
 			<input type="text" name="val" id="val">
 			<label for="desc">Description</label>
 			<input type="text" name="desc" id="desc">
+			<input type="submit" value="submit" id="submit">
 		</form>
 	</body>
 </html>`

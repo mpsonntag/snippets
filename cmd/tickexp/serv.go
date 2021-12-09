@@ -36,7 +36,31 @@ func serv(cmd *cobra.Command, args []string) {
 		renderAddPage(w, r)
 	})
 
+	// dataadd adds form entry to the data file
+	http.HandleFunc("/dataadd", func(w http.ResponseWriter, r *http.Request) {
+		dataAdd(w, r)
+	})
+
 	log.Fatal(http.ListenAndServe(":8899", nil))
+}
+
+func dataAdd(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("... handle form data\n")
+
+	if r.Method != "POST" {
+		fmt.Printf("received invalid request '%s'\n", r.Method)
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		fmt.Printf("error parsing form request: '%s'\n", err.Error())
+		return
+	}
+
+	date := r.FormValue("date")
+	val := r.FormValue("val")
+	desc := r.FormValue("desc")
+
+	fmt.Printf("received form values: '%s, %s, %s'\n", date, val, desc)
 }
 
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
