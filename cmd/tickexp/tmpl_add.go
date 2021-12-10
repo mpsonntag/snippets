@@ -22,5 +22,26 @@ const AddPage = `<!DOCTYPE html>
 			<input type="text" name="desc" id="desc">
 			<input type="submit" value="submit" id="submit">
 		</form>
+
+		<hr>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Value</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{ range . }}
+				<tr>
+					<td>{{.Date}}</td>
+					<td>{{.Val}} {{.Negval}}</td>
+					<td>{{.Desc}}</td>
+				</tr>
+				{{ end }}
+			</tbody>
+		</table>
 	</body>
 </html>`

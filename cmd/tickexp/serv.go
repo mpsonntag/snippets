@@ -167,6 +167,15 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("...[I] rendering AddPage\n")
 
+	// read tickexp value file
+	var data []ExpItem
+	data, err := readDataFile(data)
+	if err != nil {
+		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	tmpl, err := template.New("Add").Parse(AddPage)
 	if err != nil {
 		fmt.Printf("...[E] parsing AddPage template: %s\n", err.Error())
@@ -174,7 +183,7 @@ func renderAddPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, nil)
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		fmt.Printf("...[E] rendering AddPage template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -211,8 +220,8 @@ func readDataFile(data []ExpItem) ([]ExpItem, error) {
 func renderResultPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("...[I] rendering ResultPage\n")
 
-	var data []ExpItem
 	// read tickexp value file
+	var data []ExpItem
 	data, err := readDataFile(data)
 	if err != nil {
 		fmt.Println(err.Error())
