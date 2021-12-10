@@ -228,6 +228,12 @@ type DisplayResults struct {
 
 var tmplfuncs = template.FuncMap{
 	"legrande": Legrande,
+	"ppfloat":  ppfloat,
+}
+
+// ppfloat returns a float value as formatted string
+func ppfloat(val float64) string {
+	return fmt.Sprintf("%.2f", val)
 }
 
 // Legrande takes a base float, adds and substracts the respective provided values

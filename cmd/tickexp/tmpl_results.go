@@ -16,9 +16,9 @@ const ResultsPage = `<!DOCTYPE html>
 
 		<p>Le grande total: {{ legrande .Offsetval .Negvalsum .Valsum }}</p>
 		<p>
-			Base expense: {{ .Offsetval }}<br>
-			Total additional expenses: {{ .Negvalsum }}<br>
-			Total benefit expenses: {{ .Valsum }}
+			Base expense: {{ ppfloat .Offsetval }}<br>
+			Total additional expenses: {{ ppfloat .Negvalsum }}<br>
+			Total benefit expenses: {{ ppfloat .Valsum }}
 		</p>
 
 		<table>
