@@ -137,7 +137,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data = append(data, curr)
-	jdata, err := json.Marshal(data)
+	jdata, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		fmt.Printf("...[E] marshalling json data: %s\n", err.Error())
 		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
