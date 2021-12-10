@@ -83,10 +83,12 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != "POST" {
 		fmt.Printf("...[E] receiving invalid request: '%s'\n", r.Method)
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
 	if err := r.ParseForm(); err != nil {
 		fmt.Printf("...[E] parsing form request: '%s'\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
 
@@ -107,6 +109,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 		stuff, err := strconv.ParseFloat(strnegval, 64)
 		if err != nil {
 			fmt.Printf("...[E] converting negval '%s' to float: %s\n", strnegval, err.Error())
+			http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 			return
 		}
 		negval = stuff
@@ -115,6 +118,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	floatval, err := strconv.ParseFloat(val, 64)
 	if err != nil {
 		fmt.Printf("...[E] converting value '%s' to float: %s\n", val, err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
 
@@ -129,18 +133,24 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	data, err := readDataFile(indata)
 	if err != nil {
 		fmt.Printf("...[E] reading json data storage file: '%s'\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
 	data = append(data, curr)
 	jdata, err := json.Marshal(data)
 	if err != nil {
 		fmt.Printf("...[E] marshalling json data: %s\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
 	err = ioutil.WriteFile(datastorage, jdata, 0644)
 	if err != nil {
 		fmt.Printf("...[E] writing new data to data storage: %s\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
+		return
 	}
+
+	http.Redirect(w, r, "/add", http.StatusSeeOther)
 }
 
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
