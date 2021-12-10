@@ -14,7 +14,12 @@ const ResultsPage = `<!DOCTYPE html>
 	<body>
 		<h1>Tickexp results page</h1>
 
-		<p>Le grande total: 949-[value]</p>
+		<p>Le grande total: {{ legrande .Offsetval .Negvalsum .Valsum }}</p>
+		<p>
+			Base expense: {{ .Offsetval }}<br>
+			Total additional expenses: {{ .Negvalsum }}<br>
+			Total benefit expenses: {{ .Valsum }}
+		</p>
 
 		<table>
 			<thead>
@@ -26,7 +31,7 @@ const ResultsPage = `<!DOCTYPE html>
 				</tr>
 			</thead>
 			<tbody>
-				{{ range . }}
+				{{ range .Data }}
 				<tr>
 					<td>{{.Date}}</td>
 					<td>{{.Val}}{{.Negval}}</td>

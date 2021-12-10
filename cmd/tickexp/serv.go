@@ -15,6 +15,7 @@ import (
 )
 
 const datastorage = "exp.json"
+const baseval = "949"
 
 // ExpItem holds information to describe ticket expenses
 type ExpItem struct {
@@ -217,6 +218,24 @@ func readDataFile(data []ExpItem) ([]ExpItem, error) {
 	return data, nil
 }
 
+// DisplayResults is the struct handed to the frontend to display all relevant information
+type DisplayResults struct {
+	Data      []ExpItem
+	Valsum    float64
+	Negvalsum float64
+	Offsetval float64
+}
+
+var tmplfuncs = template.FuncMap{
+	"legrande": Legrande,
+}
+
+// Legrande takes a base float, adds and substracts the respective provided values
+// and returns the result as a formatted string
+func Legrande(base, pos, neg float64) string {
+	return fmt.Sprintf("%.2f", base+pos-neg)
+}
+
 func renderResultPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("...[I] rendering ResultPage\n")
 
@@ -229,16 +248,52 @@ func renderResultPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.New("Results").Parse(ResultsPage)
+	frontdata, err := constructResultsData(data)
+	if err != nil {
+		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	tmpl, err := template.New("Results").Funcs(tmplfuncs).Parse(ResultsPage)
 	if err != nil {
 		fmt.Printf("...[E] parsing ResultPage template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	err = tmpl.Execute(w, data)
+	err = tmpl.Execute(w, frontdata)
 	if err != nil {
 		fmt.Printf("...[E] rendering ResultPage template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 	}
+}
+
+func constructResultsData(data []ExpItem) (*DisplayResults, error) {
+	// handle offsetvalue - might change on runtime so always convert from string to float64
+	offval, err := strconv.ParseFloat(baseval, 64)
+	if err != nil {
+		return nil, fmt.Errorf("...[E] parsing the base offset value: %s", err.Error())
+	}
+
+	// get the grand total
+	valsum, negvalsum := calcresult(data)
+
+	frontdata := DisplayResults{
+		Data:      data,
+		Valsum:    valsum,
+		Negvalsum: negvalsum,
+		Offsetval: offval,
+	}
+	return &frontdata, nil
+}
+
+func calcresult(data []ExpItem) (float64, float64) {
+	var valsum float64
+	var negvalsum float64
+	for _, item := range data {
+		valsum += item.Val
+		negvalsum += item.Negval
+	}
+	return valsum, negvalsum
 }
