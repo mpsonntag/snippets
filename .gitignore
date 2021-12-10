@@ -38,3 +38,6 @@ _cgo_export.*
 
 # Mac specifics
 .DS_Store
+
+# vs code specifics
+.vscode
