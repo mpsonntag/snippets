@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -166,7 +167,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 }
 
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("...[I] rendering AddPage\n")
+	fmt.Println("...[I] rendering AddPage")
 
 	// read tickexp value file
 	var data []ExpItem
@@ -177,7 +178,7 @@ func renderAddPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.New("Add").Parse(AddPage)
+	tmpl, err := template.New("Add").Funcs(tmplfuncs).Parse(AddPage)
 	if err != nil {
 		fmt.Printf("...[E] parsing AddPage template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -229,6 +230,13 @@ type DisplayResults struct {
 var tmplfuncs = template.FuncMap{
 	"legrande": legrande,
 	"ppfloat":  ppfloat,
+	"currdate": currdate,
+}
+
+// currdate returns the current date formatted as date "DD.MM.YYYY"
+func currdate() string {
+	notapres := time.Now()
+	return notapres.Format("02.01.2006")
 }
 
 // ppfloat returns a float value as formatted string
