@@ -24,7 +24,7 @@ type ExpItem struct {
 	Desc   string  `json:"desc"`
 }
 
-// set up an empty data storage json file if it does not yet exist
+// fileSetUp creates an empty data storage json file if it does not yet exist
 func fileSetUp() error {
 	fmt.Println("...[I] setting up data file")
 	_, err := os.Stat(datastorage)
@@ -74,12 +74,23 @@ func serv(cmd *cobra.Command, args []string) {
 		dataAdd(w, r)
 	})
 
+	// raw provides the datastorage file content
+	http.HandleFunc("/raw", func(w http.ResponseWriter, r *http.Request) {
+		serveDataFile(w, r)
+	})
+
 	log.Fatal(http.ListenAndServe(":8899", nil))
+}
+
+// serveDataFile provides the raw datastorage file content
+func serveDataFile(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("...[I] serving file content")
+	http.ServeFile(w, r, datastorage)
 }
 
 // dataAdd parses form value from a POST and adds to the data storage file
 func dataAdd(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("...[I] handling form data\n")
+	fmt.Println("...[I] handling form data")
 
 	if r.Method != "POST" {
 		fmt.Printf("...[E] receiving invalid request: '%s'\n", r.Method)
