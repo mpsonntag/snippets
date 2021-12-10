@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/spf13/cobra"
 )
@@ -92,7 +93,36 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	val := r.FormValue("val")
 	desc := r.FormValue("desc")
 
-	fmt.Printf("received form values: '%s, %s, %s'\n", date, val, desc)
+	floatval, err := strconv.ParseFloat(val, 64)
+	if err != nil {
+		fmt.Printf("error converting value '%s' to int: %s", val, err.Error())
+		return
+	}
+
+	fmt.Printf("... received form values: '%s, %s, %s'\n", date, val, desc)
+
+	curr := ExpItem{
+		Date: date,
+		Val:  floatval,
+		Desc: desc,
+	}
+
+	var indata []ExpItem
+	data, err := readDataFile(indata)
+	if err != nil {
+		fmt.Printf("error reading json data file: '%s'", err.Error())
+		return
+	}
+	data = append(data, curr)
+	jdata, err := json.Marshal(data)
+	if err != nil {
+		fmt.Printf("could not marshal new data: %s", err.Error())
+		return
+	}
+	err = ioutil.WriteFile(datastorage, jdata, 0644)
+	if err != nil {
+		fmt.Printf("could not write new data to file: %s", err.Error())
+	}
 }
 
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
