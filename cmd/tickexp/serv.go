@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const datastorage = "exp.json"
+
 // ExpItem holds information to describe ticket expenses
 type ExpItem struct {
 	Date   string  `json:"date"`
@@ -20,8 +22,37 @@ type ExpItem struct {
 	Desc   string  `json:"desc"`
 }
 
+// set up an empty data storage json file if it does not yet exist
+func fileSetUp() error {
+	_, err := os.Stat(datastorage)
+	if err == nil {
+		return nil
+	} else if os.IsNotExist(err) {
+		var jstring []string
+		jdata, err := json.Marshal(jstring)
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(datastorage, jdata, 0644)
+		return err
+	}
+
+	// return any error other than os.IsNotExist as is
+	return err
+}
+
+// serv checks and sets up datastorage file, registers available routes
+// and starts the server
 func serv(cmd *cobra.Command, args []string) {
-	fmt.Printf("Starting up %s", cmd.Version)
+	fmt.Printf("... starting up serv (%s)\n", cmd.Version)
+
+	fmt.Println("... setting up data file")
+	err := fileSetUp()
+	if err != nil {
+		fmt.Printf("error setting up data file: %s", err.Error())
+		fmt.Printf("... abort")
+		os.Exit(-1)
+	}
 
 	// root redirects to results
 	http.Handle("/", http.RedirectHandler("/result", http.StatusMovedPermanently))
@@ -44,6 +75,7 @@ func serv(cmd *cobra.Command, args []string) {
 	log.Fatal(http.ListenAndServe(":8899", nil))
 }
 
+// dataAdd parses form value from a POST and adds to the data storage file
 func dataAdd(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("... handle form data\n")
 
