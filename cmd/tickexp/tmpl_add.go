@@ -30,6 +30,7 @@ const AddPage = `<!DOCTYPE html>
 				<tr>
 					<th>Date</th>
 					<th>Value</th>
+					<th>Running Increase</th>
 					<th>Description</th>
 				</tr>
 			</thead>
@@ -37,7 +38,8 @@ const AddPage = `<!DOCTYPE html>
 				{{ range . }}
 				<tr>
 					<td>{{.Date}}</td>
-					<td>{{.Val}} {{.Negval}}</td>
+					<td>{{.Val}}</td>
+					<td>{{.Negval}}</td>
 					<td>{{.Desc}}</td>
 				</tr>
 				{{ end }}

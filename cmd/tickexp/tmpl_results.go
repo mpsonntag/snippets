@@ -21,6 +21,7 @@ const ResultsPage = `<!DOCTYPE html>
 				<tr>
 					<th>Date</th>
 					<th>Value</th>
+					<th>Running Increase</th>
 					<th>Description</th>
 				</tr>
 			</thead>
@@ -29,6 +30,7 @@ const ResultsPage = `<!DOCTYPE html>
 				<tr>
 					<td>{{.Date}}</td>
 					<td>{{.Val}}{{.Negval}}</td>
+					<td>{{.Negval}}</td>
 					<td>{{.Desc}}</td>
 				</tr>
 				{{ end }}
