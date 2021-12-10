@@ -13,7 +13,7 @@ var (
 )
 
 func init() {
-	fmt.Println("... running init")
+	fmt.Println("...[I] running init")
 	if appversion == "" {
 		appversion = "[dev]"
 	}
@@ -42,16 +42,15 @@ func setUpCommands(verstr string) *cobra.Command {
 }
 
 func main() {
-	fmt.Println("... setting up server")
-	verstr := fmt.Sprintf("tickexp %s Build %s (%s)", appversion, build, commit)
+	fmt.Println("...[I] setting up server")
+	verstr := fmt.Sprintf("...[I] running tickexp %s Build %s (%s)", appversion, build, commit)
 
 	rootCmd := setUpCommands(verstr)
 	rootCmd.SetVersionTemplate("{{.Version}}")
 
 	// Engage
-	fmt.Println("... starting up server")
 	err := rootCmd.Execute()
 	if err != nil {
-		fmt.Printf("Error running tickexp: %q\n", err.Error())
+		fmt.Printf("...[E] running tickexp: %q\n", err.Error())
 	}
 }
