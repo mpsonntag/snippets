@@ -34,7 +34,7 @@ const ResultsPage = `<!DOCTYPE html>
 				{{ range .Data }}
 				<tr>
 					<td>{{.Date}}</td>
-					<td>{{.Val}}{{.Negval}}</td>
+					<td>{{.Val}}</td>
 					<td>{{.Negval}}</td>
 					<td>{{.Desc}}</td>
 				</tr>
