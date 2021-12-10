@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -92,19 +93,36 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	date := r.FormValue("date")
 	val := r.FormValue("val")
 	desc := r.FormValue("desc")
+	fmt.Printf("... received form values: '%s, %s, %s'\n", date, val, desc)
+
+	// data checks and cleanup
+	var negval float64
+	val = strings.TrimSpace(val)
+	if strings.Contains(val, "-") {
+		splitval := strings.Split(val, "-")
+		val = strings.TrimSpace(splitval[0])
+
+		// handle additional negative value
+		strnegval := strings.TrimSpace(splitval[1])
+		stuff, err := strconv.ParseFloat(strnegval, 64)
+		if err != nil {
+			fmt.Printf("error converting negval '%s' to float: %s\n", strnegval, err.Error())
+			return
+		}
+		negval = stuff
+	}
 
 	floatval, err := strconv.ParseFloat(val, 64)
 	if err != nil {
-		fmt.Printf("error converting value '%s' to int: %s", val, err.Error())
+		fmt.Printf("error converting value '%s' to float: %s\n", val, err.Error())
 		return
 	}
 
-	fmt.Printf("... received form values: '%s, %s, %s'\n", date, val, desc)
-
 	curr := ExpItem{
-		Date: date,
-		Val:  floatval,
-		Desc: desc,
+		Date:   date,
+		Val:    floatval,
+		Negval: negval,
+		Desc:   desc,
 	}
 
 	var indata []ExpItem
