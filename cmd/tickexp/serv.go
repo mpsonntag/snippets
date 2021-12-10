@@ -168,7 +168,13 @@ func readDataFile(data []ExpItem) ([]ExpItem, error) {
 		return nil, fmt.Errorf("...[E] opening data storage file: %s", err.Error())
 	}
 
-	defer fp.Close()
+	fileclose := func(fp *os.File) {
+		err := fp.Close()
+		if err != nil {
+			fmt.Printf("...[E] closing data file: %s", err.Error())
+		}
+	}
+	defer fileclose(fp)
 
 	jdata, err := ioutil.ReadAll(fp)
 	if err != nil {

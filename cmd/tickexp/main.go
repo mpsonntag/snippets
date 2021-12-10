@@ -43,7 +43,7 @@ func setUpCommands(verstr string) *cobra.Command {
 
 func main() {
 	fmt.Println("...[I] setting up server")
-	verstr := fmt.Sprintf("...[I] running tickexp %s Build %s (%s)", appversion, build, commit)
+	verstr := fmt.Sprintf("tickexp %s Build %s (%s)", appversion, build, commit)
 
 	rootCmd := setUpCommands(verstr)
 	rootCmd.SetVersionTemplate("{{.Version}}")
