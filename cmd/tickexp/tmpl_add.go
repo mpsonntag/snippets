@@ -20,9 +20,12 @@ const AddPage = `<!DOCTYPE html>
 		<h1>Tickexp data entry page</h1>
 		<form method="POST" action="/dataadd">
 			<label for="date">Date</label>
-			<input type="text" name="date" id="date" pattern="[1-31]{2}.[1-12]{2}.[1-2]{1}[0-9]{3}" required minlength="10" maxlength="10" size="10">
+			<input type="text" name="date" id="date"
+					pattern="(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19[0-9]{2}|20[0-9]{2})" 
+					required minlength="10" maxlength="10" size="10">
 			<label for="val">Value</label>
-			<input type="text" name="val" id="val" pattern="[0-9]+([\.][0-9]{0,2})?(-[0-9]+([\.][0-9]{0,2})?)*">
+			<input type="text" name="val" id="val" 
+					pattern="[0-9]+([\.][0-9]{0,2})?(-[0-9]+([\.][0-9]{0,2})?)*">
 			<label for="desc">Description</label>
 			<input type="text" name="desc" id="desc">
 			<input type="submit" value="submit" id="submit">
@@ -42,10 +45,10 @@ const AddPage = `<!DOCTYPE html>
 			<tbody>
 				{{ range . }}
 				<tr>
-					<td>{{.Date}}</td>
-					<td>{{.Val}}</td>
-					<td>{{.Negval}}</td>
-					<td>{{.Desc}}</td>
+					<td>{{ .Date }}</td>
+					<td>{{ .Val }}</td>
+					<td>{{ .Negval }}</td>
+					<td>{{ .Desc }}</td>
 				</tr>
 				{{ end }}
 			</tbody>
