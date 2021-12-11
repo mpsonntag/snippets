@@ -102,6 +102,24 @@ func serveDataFile(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, datastorage)
 }
 
+// safeguardInput takes date and value form inputs, checks against
+// the appropriate regular expressions and returns an error if required.
+func safeguardInput(date, val string) error {
+	ok, err := regexp.MatchString(regexpdate, date)
+	if err != nil {
+		return fmt.Errorf("...[E] parsing date regexp: %s", err.Error())
+	} else if !ok {
+		return fmt.Errorf("...[W] invalid date received: %s", date)
+	}
+	ok, err = regexp.MatchString(regexpval, val)
+	if err != nil {
+		return fmt.Errorf("...[E] parsing value regexp: %s", err.Error())
+	} else if !ok {
+		return fmt.Errorf("...[W] invalid value received: %s", val)
+	}
+	return nil
+}
+
 // dataAdd parses form value from a POST and adds to the data storage file
 func dataAdd(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] handling form data")
@@ -124,24 +142,9 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 
 	// safeguard input data
 	fmt.Println("...[I] checking form values")
-	ok, err := regexp.MatchString(regexpdate, date)
+	err := safeguardInput(date, val)
 	if err != nil {
-		fmt.Printf("...[E] parsing date regexp: %s\n", err.Error())
-		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
-		return
-	} else if !ok {
-		fmt.Printf("...[W] invalid date received: %s\n", date)
-		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
-		return
-	}
-
-	ok, err = regexp.MatchString(regexpval, val)
-	if err != nil {
-		fmt.Printf("...[E] parsing value regexp: %s\n", err.Error())
-		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
-		return
-	} else if !ok {
-		fmt.Printf("...[W] invalid value received: %s\n", val)
+		fmt.Println(err.Error())
 		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
 		return
 	}
