@@ -16,9 +16,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// datastorage specifies the data storage file location and file name
 const datastorage = "exp.json"
+
+// baseval is the base value on which all calculations are based on
 const baseval = "949"
+
+// regexpdate is the regular expression checking the date input in frontend and backend
+// dates in the format 'DD.MM.YYYY' in the year range 1900-2099 are supported
 const regexpdate = "(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19[0-9]{2}|20[0-9]{2})"
+
+// regexpval is the regular expression checking the value input in frontend and backend
+// two float values with two after digits separated by a minus are supported
 const regexpval = `[0-9]+([\.][0-9]{0,2})?(-[0-9]+([\.][0-9]{0,2})?)*`
 
 // ExpItem holds information to describe ticket expenses
@@ -193,6 +202,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/add", http.StatusSeeOther)
 }
 
+// renderAddPage renders the data input page
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] rendering AddPage")
 
@@ -254,6 +264,7 @@ type DisplayResults struct {
 	Offsetval float64
 }
 
+// tmplfuncs maps the functions usable in the frontend templates
 var tmplfuncs = template.FuncMap{
 	"legrande":   legrande,
 	"ppfloat":    ppfloat,
@@ -262,10 +273,12 @@ var tmplfuncs = template.FuncMap{
 	"regexpval":  serveregexpval,
 }
 
+// serveregexpdate provides the date regular expression for the frontend template
 func serveregexpdate() string {
 	return regexpdate
 }
 
+// serveregexpval provides the value regular expression for the frontend template
 func serveregexpval() string {
 	return regexpval
 }
@@ -287,6 +300,7 @@ func legrande(base, pos, neg float64) string {
 	return fmt.Sprintf("%.2f", base+pos-neg)
 }
 
+// renderResultPage renders the calculations results page
 func renderResultPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("...[I] rendering ResultPage\n")
 
@@ -299,6 +313,7 @@ func renderResultPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// create the frontend data object
 	frontdata, err := constructResultsData(data)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -306,6 +321,7 @@ func renderResultPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// prepare the required templates
 	tmpl, err := template.New("Results").Funcs(tmplfuncs).Parse(ResultsPage)
 	if err != nil {
 		fmt.Printf("...[E] parsing ResultPage template: %s\n", err.Error())
@@ -320,6 +336,8 @@ func renderResultPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// constructResultsData takes an array of ExpItems, creates the positive and negative sum
+// value totals from the data items and creates and returns the frontend data object
 func constructResultsData(data []ExpItem) (*DisplayResults, error) {
 	// handle offsetvalue - might change on runtime so always convert from string to float64
 	offval, err := strconv.ParseFloat(baseval, 64)
@@ -339,6 +357,8 @@ func constructResultsData(data []ExpItem) (*DisplayResults, error) {
 	return &frontdata, nil
 }
 
+// calcresult sums up the positive and negative values from a []ExpItem and
+// returns the resulting values
 func calcresult(data []ExpItem) (float64, float64) {
 	var valsum float64
 	var negvalsum float64
