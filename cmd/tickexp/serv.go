@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -111,6 +112,30 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	val := r.FormValue("val")
 	desc := r.FormValue("desc")
 	fmt.Printf("...[I] receiving form values: '%s, %s, %s'\n", date, val, desc)
+
+	// safeguard input data
+	fmt.Println("...[I] checking form values")
+	ok, err := regexp.MatchString(regexpdate, date)
+	if err != nil {
+		fmt.Printf("...[E] parsing date regexp: %s\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
+		return
+	} else if !ok {
+		fmt.Printf("...[W] invalid date received: %s\n", date)
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
+		return
+	}
+
+	ok, err = regexp.MatchString(regexpval, val)
+	if err != nil {
+		fmt.Printf("...[E] parsing value regexp: %s\n", err.Error())
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
+		return
+	} else if !ok {
+		fmt.Printf("...[W] invalid value received: %s\n", val)
+		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
+		return
+	}
 
 	// data checks and cleanup
 	var negval float64
