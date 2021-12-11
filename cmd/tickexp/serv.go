@@ -99,6 +99,8 @@ func serv(cmd *cobra.Command, args []string) {
 // serveDataFile provides the raw datastorage file content
 func serveDataFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] serving file content")
+	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
+
 	http.ServeFile(w, r, datastorage)
 }
 
@@ -123,6 +125,7 @@ func safeguardInput(date, val string) error {
 // dataAdd parses form value from a POST and adds to the data storage file
 func dataAdd(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] handling form data")
+	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
 	if r.Method != "POST" {
 		fmt.Printf("...[E] receiving invalid request: '%s'\n", r.Method)
@@ -208,6 +211,7 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 // renderAddPage renders the data input page
 func renderAddPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] rendering AddPage")
+	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
 	// read tickexp value file
 	var data []ExpItem
@@ -306,6 +310,7 @@ func legrande(base, pos, neg float64) string {
 // renderResultPage renders the calculations results page
 func renderResultPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("...[I] rendering ResultPage\n")
+	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
 	// read tickexp value file
 	var data []ExpItem
