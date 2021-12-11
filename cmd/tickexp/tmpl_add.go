@@ -22,11 +22,11 @@ const AddPage = `<!DOCTYPE html>
 			<label for="date">Date</label>
 			<input type="text" name="date" id="date"
 					value="{{ currdate }}"
-					pattern="(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19[0-9]{2}|20[0-9]{2})" 
+					pattern="{{ regexpdate }}" 
 					required minlength="10" maxlength="10" size="10">
 			<label for="val">Value</label>
 			<input type="text" name="val" id="val" 
-					pattern="[0-9]+([\.][0-9]{0,2})?(-[0-9]+([\.][0-9]{0,2})?)*">
+					pattern="{{ regexpval }}">
 			<label for="desc">Description</label>
 			<input type="text" name="desc" id="desc">
 			<input type="submit" value="submit" id="submit">

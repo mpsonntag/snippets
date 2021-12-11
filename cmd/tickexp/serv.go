@@ -17,6 +17,8 @@ import (
 
 const datastorage = "exp.json"
 const baseval = "949"
+const regexpdate = "(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19[0-9]{2}|20[0-9]{2})"
+const regexpval = `[0-9]+([\.][0-9]{0,2})?(-[0-9]+([\.][0-9]{0,2})?)*`
 
 // ExpItem holds information to describe ticket expenses
 type ExpItem struct {
@@ -228,9 +230,19 @@ type DisplayResults struct {
 }
 
 var tmplfuncs = template.FuncMap{
-	"legrande": legrande,
-	"ppfloat":  ppfloat,
-	"currdate": currdate,
+	"legrande":   legrande,
+	"ppfloat":    ppfloat,
+	"currdate":   currdate,
+	"regexpdate": serveregexpdate,
+	"regexpval":  serveregexpval,
+}
+
+func serveregexpdate() string {
+	return regexpdate
+}
+
+func serveregexpval() string {
+	return regexpval
 }
 
 // currdate returns the current date formatted as date "DD.MM.YYYY"
