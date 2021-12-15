@@ -16,6 +16,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const defaultPort = ":8899"
+
 // datastorage specifies the data storage file location and file name
 const datastorage = "exp.json"
 
@@ -93,7 +95,9 @@ func serv(cmd *cobra.Command, args []string) {
 		serveDataFile(w, r)
 	})
 
-	log.Fatal(http.ListenAndServe(":8899", nil))
+	useport := defaultPort
+	fmt.Printf("...[I] running server on port %s", useport)
+	log.Fatal(http.ListenAndServe(useport, nil))
 }
 
 // serveDataFile provides the raw datastorage file content
