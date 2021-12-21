@@ -26,6 +26,7 @@ const AddPage = `<!DOCTYPE html>
 					required minlength="10" maxlength="10" size="10">
 			<label for="val">Value</label>
 			<input type="text" name="val" id="val" 
+					placeholder="supported: 11.11-11.11" 
 					pattern="{{ regexpval }}">
 			<label for="desc">Description</label>
 			<input type="text" name="desc" id="desc">
