@@ -14,6 +14,7 @@ FROM alpine:latest
 RUN mkdir -p /srv/tickserv
 
 COPY --from=binbuilder /build/tickexp /srv/tickserv/
+COPY --from=binbuilder /build/exp.json /srv/tickserv/
 
 WORKDIR /srv/tickserv/
 
