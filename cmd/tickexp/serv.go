@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/rand"
+	"encoding/base32"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -95,9 +97,38 @@ func serv(cmd *cobra.Command, args []string) {
 		serveDataFile(w, r)
 	})
 
+	// loginpage provides what it says
+	http.HandleFunc("/loginpage", func(w http.ResponseWriter, r *http.Request) {
+		renderLoginPage(w, r)
+	})
+
 	useport := defaultPort
 	fmt.Printf("...[I] running server on port %s\n", useport)
 	log.Fatal(http.ListenAndServe(useport, nil))
+}
+
+// renderLoginPage provides the page to log in
+func renderLoginPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("...[I] rendering login page")
+
+	tmpl, err := template.New("Login").Funcs(tmplfuncs).Parse(LoginPage)
+	if err != nil {
+		fmt.Printf("...[E] parsing LoginPage template: %s\n", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	data := struct {
+		ReferenceVal string
+	}{
+		ReferenceVal: "somestring",
+	}
+
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		fmt.Printf("...[E] rendering LoginPage template: %s\n", err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
 
 // serveDataFile provides the raw datastorage file content
@@ -379,4 +410,17 @@ func calcresult(data []ExpItem) (float64, float64) {
 		negvalsum += item.Negval
 	}
 	return valsum, negvalsum
+}
+
+// RandomToken returns a cryptographically strong random token string.
+// The Token is generated from 512 random bits and encoded via base32.StdEncoding
+func RandomToken() string {
+	rnd := make([]byte, 64)
+
+	_, err := rand.Read(rnd)
+	if err != nil {
+		panic(err)
+	}
+
+	return strings.Trim(base32.StdEncoding.EncodeToString(rnd), "=")
 }
