@@ -96,7 +96,7 @@ func serv(cmd *cobra.Command, args []string) {
 	})
 
 	useport := defaultPort
-	fmt.Printf("...[I] running server on port %s", useport)
+	fmt.Printf("...[I] running server on port %s\n", useport)
 	log.Fatal(http.ListenAndServe(useport, nil))
 }
 
