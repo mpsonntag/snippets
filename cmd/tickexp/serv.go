@@ -70,7 +70,7 @@ func serv(cmd *cobra.Command, args []string) {
 	err := fileSetUp()
 	if err != nil {
 		fmt.Printf("...[E] setting up data file: %s\n", err.Error())
-		fmt.Printf("...[E] abort\n")
+		fmt.Println("...[E] abort")
 		os.Exit(-1)
 	}
 
@@ -282,7 +282,7 @@ func readDataFile(data []ExpItem) ([]ExpItem, error) {
 	fileclose := func(fp *os.File) {
 		err := fp.Close()
 		if err != nil {
-			fmt.Printf("...[E] closing data file: %s", err.Error())
+			fmt.Printf("...[E] closing data file: %s\n", err.Error())
 		}
 	}
 	defer fileclose(fp)
@@ -344,7 +344,7 @@ func legrande(base, pos, neg float64) string {
 
 // renderResultPage renders the calculations results page
 func renderResultPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("...[I] rendering ResultPage\n")
+	fmt.Println("...[I] rendering ResultPage")
 	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
 	// read tickexp value file
