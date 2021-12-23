@@ -170,6 +170,19 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// set cookie
+	fmt.Printf("...[I] login successful; creating cookie")
+	currCookieVal := RandomToken()
+	cookieExpiration := time.Now().Add(1 * time.Minute)
+
+	newc := http.Cookie{
+		Name:     "tickexp-bearer-token",
+		Value:    currCookieVal,
+		HttpOnly: true,
+		Expires:  cookieExpiration,
+	}
+	http.SetCookie(w, &newc)
+
 	http.Redirect(w, r, "/results", http.StatusTemporaryRedirect)
 }
 
