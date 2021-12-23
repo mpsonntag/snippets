@@ -13,7 +13,7 @@ const LoginPage = `<!DOCTYPE html>
 	</head>
 	<body>
 		<h1>Tickexp data entry page</h1>
-		<form method="POST" action="/authenticate">
+		<form method="POST" action="/login">
 			<label for="phrase">Phrase</label>
 			<input type="text" name="phrase" id="phrase">
 			<label for="pass">Pass</label>

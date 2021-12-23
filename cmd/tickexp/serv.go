@@ -102,6 +102,11 @@ func serv(cmd *cobra.Command, args []string) {
 		renderLoginPage(w, r)
 	})
 
+	// login handles login to the service
+	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		handleLogin(w, r)
+	})
+
 	useport := defaultPort
 	fmt.Printf("...[I] running server on port %s\n", useport)
 	log.Fatal(http.ListenAndServe(useport, nil))
@@ -129,6 +134,43 @@ func renderLoginPage(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("...[E] rendering LoginPage template: %s\n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 	}
+}
+
+// handleLogin parses login data
+func handleLogin(w http.ResponseWriter, r *http.Request) {
+	checkphrase := "iam"
+	checkpass := "soami"
+	checkhidden := "somestring"
+
+	fmt.Println("...[I] handling login data")
+	fmt.Printf("...[I] logging request: {%s, %s, %s}\n", r.Method, r.URL, r.UserAgent())
+
+	// map user agent against hidden+timestamp and only allow login attempts where
+	// hidden+timestamp and user agent fingerprint aligns
+
+	if r.Method != "POST" {
+		fmt.Printf("...[E] receiving invalid login request: '%s'\n", r.Method)
+		http.Redirect(w, r, "/loginpage", http.StatusTemporaryRedirect)
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		fmt.Printf("...[E] parsing login form request: '%s'\n", err.Error())
+		http.Redirect(w, r, "/loginpage", http.StatusTemporaryRedirect)
+		return
+	}
+
+	formphrase := r.FormValue("phrase")
+	formpass := r.FormValue("pass")
+	formref := r.FormValue("reference")
+	fmt.Printf("...[I] receiving form values: '%s, %s, %s'\n", formphrase, formpass, formref)
+
+	if formphrase != checkphrase || formpass != checkpass || checkhidden != formref {
+		fmt.Println("...[E] invalid login")
+		http.Redirect(w, r, "/loginpage", http.StatusTemporaryRedirect)
+		return
+	}
+
+	http.Redirect(w, r, "/results", http.StatusTemporaryRedirect)
 }
 
 // serveDataFile provides the raw datastorage file content
