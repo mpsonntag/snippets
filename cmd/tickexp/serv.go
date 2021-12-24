@@ -23,6 +23,8 @@ const defaultPort = ":8899"
 // datastorage specifies the data storage file location and file name
 const datastorage = "exp.json"
 
+const cookieName = "tickexp-bearer-token"
+
 // baseval is the base value on which all calculations are based on
 const baseval = "949"
 
@@ -176,7 +178,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	cookieExpiration := time.Now().Add(1 * time.Minute)
 
 	newc := http.Cookie{
-		Name:     "tickexp-bearer-token",
+		Name:     cookieName,
 		Value:    currCookieVal,
 		HttpOnly: true,
 		Expires:  cookieExpiration,
@@ -303,9 +305,19 @@ func renderAddPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] rendering AddPage")
 	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
+	// implement cookie value check; requires server side cookie value and 
+	// expiration time storage and mapping. Expiration time is not provided
+	// via the request cookie - only name and value.
+	_, err := r.Cookie(cookieName)
+	if err != nil {
+		fmt.Printf("...[E] fetching cookie: %s\n", err.Error())
+		http.Redirect(w, r, "/loginpage", http.StatusTemporaryRedirect)
+		return
+	}
+
 	// read tickexp value file
 	var data []ExpItem
-	data, err := readDataFile(data)
+	data, err = readDataFile(data)
 	if err != nil {
 		fmt.Println(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
