@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
+	yaml "gopkg.in/yaml.v2"
 )
 
 // Default configuration struct containing non problematic test values
@@ -16,35 +17,35 @@ type checklist struct {
 	// Paste basic information from the corresponding issue on
 	//   https://gin.g-node.org/G-Node/DOIMetadata
 	// Automated registration [id] from "10.12751/g-node.[id]"
-	regid string
+	Regid string `yaml:"reg_id"`
 	// Repository owner
-	repoown string
+	Repoown string `yaml:"repo_own"`
 	// Repository name
-	repo string
+	Repo string `yaml:"repo"`
 	// Date issued from doi.xml; Format YYYY-MM-DD
-	regdate string
+	Regdate string `yaml:"reg_date"`
 	// DOI requestee email address
-	email string
+	Email string `yaml:"email"`
 	// DOI requestee full name
-	userfullname string
+	Userfullname string `yaml:"user_full_name"`
 	// Entries that are usually handled automatically via repo datacite entry
 	// DOI request title; usually handled automatically via repo datacite entry
-	title string
+	Title string `yaml:"title"`
 	// Author citation list; usually handled automatically via repo datacite entry
-	citation string
+	Citation string `yaml:"citation"`
 	// Entries that are set once and remain unchanged for future DOI requests
 	// User working on the DOI server
-	serveruser string
+	Serveruser string `yaml:"server_user"`
 	// Local staging dir to create index and keyword pages
-	dirlocalstage string
+	Dirlocalstage string `yaml:"dir_local_stage"`
 	// Full ssh access name of the server hosting the GIN server instance
-	ginserver string
+	Ginserver string `yaml:"gin_server"`
 	// Full ssh access name of the server hosting the DOI server instance
-	doiserver string
+	Doiserver string `yaml:"doi_server"`
 	// DOI Server repo preparation directory
-	dirdoiprep string
+	Dirdoiprep string `yaml:"dir_doi_prep"`
 	// DOI Server root doi hosting directory
-	dirdoi string
+	Dirdoi string `yaml:"dir_doi"`
 }
 
 func textPreFork(cl checklist) string {
@@ -52,16 +53,14 @@ func textPreFork(cl checklist) string {
 -[ ] manually fork repository to the 'doi' gin user
     - log on to gin.g-node.org using the "doi" user
     - fork https://gin.g-node.org/%s/%s
-`, cl.repoown, cl.repo)
+`, cl.Repoown, cl.Repo)
 
 	return textblock
 }
 
 func textPreForkUpload(cl checklist, screenid string) string {
-	// dir_path = f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}/{CONF["repo"].lower()}"""
-	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.dirdoiprep, cl.regid, strings.ToLower(cl.repo))
-	// logfile := f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
-	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
+	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.Dirdoiprep, cl.Regid, strings.ToLower(cl.Repo))
+	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
 
 	textblock := fmt.Sprintf(`
 
@@ -96,15 +95,14 @@ func textPreForkUpload(cl checklist, screenid string) string {
      copy it to the the DOI hosting folder.
 -[ ] once the upload is done, check that the git tag has been created on the DOI fork repository at
      https://gin.g-node.org/doi/%s.`,
-		cl.doiserver, cl.dirdoiprep, cl.dirdoiprep, dirpath, cl.dirdoiprep, cl.regid,
-		cl.dirdoiprep, cl.regid, screenid, dirpath, logfile, logfile, cl.repo)
+		cl.Doiserver, cl.Dirdoiprep, cl.Dirdoiprep, dirpath, cl.Dirdoiprep, cl.Regid,
+		cl.Dirdoiprep, cl.Regid, screenid, dirpath, logfile, logfile, cl.Repo)
 
 	return textblock
 }
 
 func textPreForkSync(cl checklist, screenid string) string {
-	// logfile := f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
-	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
+	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
 
 	textblock := fmt.Sprintf(`
 -[ ] log on to the DOI server (%s) and move to %s
@@ -115,7 +113,7 @@ func textPreForkSync(cl checklist, screenid string) string {
     - screen -S %s
     - sudo su root
     - ./syncannex %s/%s > %s"""
-`, cl.doiserver, cl.dirdoiprep, screenid, cl.repoown, cl.repo, logfile)
+`, cl.Doiserver, cl.Dirdoiprep, screenid, cl.Repoown, cl.Repo, logfile)
 
 	return textblock
 }
@@ -128,20 +126,17 @@ func textPreGitTag(cl checklist) string {
     -[ ] check that "doi" is the set origin: sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.%s
     -[ ] sudo gin git push --tags origin"""
-`, cl.dirdoiprep, strings.ToLower(cl.repo), cl.regid)
+`, cl.Dirdoiprep, strings.ToLower(cl.Repo), cl.Regid)
 
 	return textblock
 }
 
 func textPreCleanup(cl checklist, screenid string, fulldoi bool) string {
-	// logfiles = f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log"""
-	logfiles := fmt.Sprintf("%s-%s*.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
+	logfiles := fmt.Sprintf("%s-%s*.log", strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
 
-	// dirpath := f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}"""
-	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s", cl.dirdoiprep, cl.regid)
+	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s", cl.Dirdoiprep, cl.Regid)
 	if fulldoi {
-		// dirpath := f"""{CONF["dir_doi_prep"]}/{CONF["repo"].lower()}"""
-		dirpath = fmt.Sprintf("%s/%s", cl.dirdoiprep, strings.ToLower(cl.repo))
+		dirpath = fmt.Sprintf("%s/%s", cl.Dirdoiprep, strings.ToLower(cl.Repo))
 	}
 
 	textblock := fmt.Sprintf(`
@@ -149,7 +144,7 @@ func textPreCleanup(cl checklist, screenid string, fulldoi bool) string {
     -[ ] sudo rm %s -r
     -[ ] sudo mv %s/%s /home/%s/logs/
     -[ ] cleanup screen session: screen -XS %s quit`,
-		dirpath, cl.dirdoiprep, logfiles, cl.serveruser, screenid)
+		dirpath, cl.Dirdoiprep, logfiles, cl.Serveruser, screenid)
 
 	return textblock
 }
@@ -170,8 +165,8 @@ func printPartPreDOI(cl checklist, fip *os.File) {
 
     - Request Date (as in doi.xml): %s
 
-`, cl.repoown, cl.repo, cl.userfullname, cl.email,
-		cl.doiserver, cl.regid, cl.regid, cl.regdate)
+`, cl.Repoown, cl.Repo, cl.Userfullname, cl.Email,
+		cl.Doiserver, cl.Regid, cl.Regid, cl.Regdate)
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -187,7 +182,7 @@ func printPartPreDOI(cl checklist, fip *os.File) {
 	textblock = fmt.Sprintf(`
 -[ ] GIN server (%s) check annex content
     - /gindata/annexcheck /gindata/gin-repositories/%s/%s.git`,
-		cl.ginserver, strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
+		cl.Ginserver, strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -204,7 +199,7 @@ func printPartPreDOI(cl checklist, fip *os.File) {
     -[ ] resourceType e.g. Dataset fits the repository
     -[ ] title is useful and has no typos
     -[ ] automated issues are all addressed
-`, cl.repoown, cl.repo)
+`, cl.Repoown, cl.Repo)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -241,7 +236,7 @@ func printPartPreDOISemi(cl checklist, fip *os.File) {
     -[ ] check title, license name
     -[ ] check all links that should work at this stage
     -[ ] check zip download and compare size on server with size in 'doi.xml'`,
-		cl.doiserver, cl.dirdoi, cl.regid, cl.dirdoi, cl.regid, cl.regid, cl.dirdoi, cl.regid, cl.regid)
+		cl.Doiserver, cl.Dirdoi, cl.Regid, cl.Dirdoi, cl.Regid, cl.Regid, cl.Dirdoi, cl.Regid, cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -257,7 +252,7 @@ func printPartPreDOISemi(cl checklist, fip *os.File) {
 
 	// TODO: use first 5 chars of some UUID like thing
 	uuid := "12345"
-	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.repoown), uuid)
+	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), uuid)
 	textblock = textPreForkUpload(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
@@ -281,7 +276,7 @@ func printPartPreDOISemi(cl checklist, fip *os.File) {
      New publication request: %s/%s (10.12751/g-node.%s)
 
      This repository is prepared for the DOI registration.
-`, cl.regid, strings.ToLower(cl.repoown), strings.ToLower(cl.repo), cl.regid)
+`, cl.Regid, strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo), cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -311,7 +306,7 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
 
 	// TODO: use first 5 chars of some UUID like thing
 	uuid := "12345"
-	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.repoown), uuid)
+	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), uuid)
 	textblock = textPreForkSync(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
@@ -319,12 +314,9 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
 		return
 	}
 
-	// zip_log = f"{CONF['repo_own'].lower()}-{CONF['repo'].lower()}_zip.log"
-	ziplog := fmt.Sprintf("%s-%s_zip.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
-	//file_name = f"10.12751_g-node.{CONF['reg_id']}.zip"
-	filename := fmt.Sprintf("10.12751_g-node.%s.zip", cl.regid)
-	//zip_file = f"{CONF['dir_doi']}/10.12751/g-node.{CONF['reg_id']}/{file_name}"
-	zipfile := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.dirdoi, cl.regid, filename)
+	ziplog := fmt.Sprintf("%s-%s_zip.log", strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
+	filename := fmt.Sprintf("10.12751_g-node.%s.zip", cl.Regid)
+	zipfile := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.Dirdoi, cl.Regid, filename)
 
 	textblock = fmt.Sprintf(`
 
@@ -336,7 +328,7 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
      from the previous registration process.
 
 -[ ] sudo mv %s.zip %s`,
-		screenid, strings.ToLower(cl.repo), ziplog, strings.ToLower(cl.repo), zipfile)
+		screenid, strings.ToLower(cl.Repo), ziplog, strings.ToLower(cl.Repo), zipfile)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -364,7 +356,7 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
     - include the actual size of the zip file
     - check proper title and proper license
     - any added or updated funding or reference information
-    - any changes to the 'resourceType'`, cl.dirdoi, cl.regid)
+    - any changes to the 'resourceType'`, cl.Dirdoi, cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -381,8 +373,8 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
     - move to the DOI server staging directory
     -[ ] sudo chown root:root index.html
     -[ ] sudo mv index.html %s/10.12751/g-node.%s/index.html`,
-		cl.dirlocalstage, cl.regid, cl.dirlocalstage, cl.regid, cl.serveruser, cl.doiserver,
-		cl.serveruser, cl.dirdoi, cl.regid)
+		cl.Dirlocalstage, cl.Regid, cl.Dirlocalstage, cl.Regid, cl.Serveruser, cl.Doiserver,
+		cl.Serveruser, cl.Dirdoi, cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -394,7 +386,7 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
 - https://doi.gin.g-node.org/10.12751/g-node.%s
     -[ ] check page access, size, title, license name
     -[ ] check all links that should work at this stage
-    -[ ] check zip download and suggested size`, cl.regid)
+    -[ ] check zip download and suggested size`, cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -407,7 +399,7 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
      New publication request: %s/%s (10.12751/g-node.%s)
 
      This repository is prepared for the DOI registration.
-`, strings.ToLower(cl.repoown), strings.ToLower(cl.repo), cl.regid)
+`, strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo), cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -417,8 +409,8 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
 
 // printPartPostDOI prints post-registration block to file.
 func printPartPostDOI(cl checklist, fip *os.File) {
-	fromdir := fmt.Sprintf("%s/keywords", cl.dirlocalstage)
-	toserver := fmt.Sprintf("%s@%s:/home/%s/staging", cl.serveruser, cl.doiserver, cl.serveruser)
+	fromdir := fmt.Sprintf("%s/keywords", cl.Dirlocalstage)
+	toserver := fmt.Sprintf("%s@%s:/home/%s/staging", cl.Serveruser, cl.Doiserver, cl.Serveruser)
 
 	textblock := fmt.Sprintf(`
 # Part 2 - post registration
@@ -427,7 +419,7 @@ func printPartPostDOI(cl checklist, fip *os.File) {
   -[ ] gin get G-Node/DOImetadata to local staging directory
   -[ ] create empty "keywords" directory and run the following from it
   -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
-  -[ ] scp -r %s %s`, cl.dirlocalstage, cl.dirlocalstage, fromdir, toserver)
+  -[ ] scp -r %s %s`, cl.Dirlocalstage, cl.Dirlocalstage, fromdir, toserver)
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -440,8 +432,8 @@ func printPartPostDOI(cl checklist, fip *os.File) {
   -[ ] sudo mv %s/keywords %s/keywords_
   -[ ] sudo mv /home/%s/staging/keywords/ %s
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
-  -[ ] sudo rm %s/keywords_ -r`, cl.doiserver, cl.serveruser,
-		cl.dirdoi, cl.dirdoi, cl.serveruser, cl.dirdoi, cl.dirdoi)
+  -[ ] sudo rm %s/keywords_ -r`, cl.Doiserver, cl.Serveruser,
+		cl.Dirdoi, cl.Dirdoi, cl.Serveruser, cl.Dirdoi, cl.Dirdoi)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -460,8 +452,8 @@ func printPartPostDOI(cl checklist, fip *os.File) {
                         </tr>
 
 -[ ] update '%s/urls.txt': https://doi.gin.g-node.org/10.12751/g-node.%s`,
-		cl.doiserver, cl.dirdoi, cl.regid, cl.title, cl.citation, cl.regdate,
-		cl.regid, cl.regid, cl.dirdoi, cl.regid)
+		cl.Doiserver, cl.Dirdoi, cl.Regid, cl.Title, cl.Citation, cl.Regdate,
+		cl.Regid, cl.Regid, cl.Dirdoi, cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -487,8 +479,8 @@ func printPartPostDOI(cl checklist, fip *os.File) {
      of this dataset in the %s/10.12751/ and
     %s/10.12751/ directories.
 
--[ ] email to user (check below)`, cl.dirdoi, cl.regid, cl.regid, cl.dirdoi, cl.regid,
-		cl.regid, cl.dirdoi, cl.dirdoiprep)
+-[ ] email to user (check below)`, cl.Dirdoi, cl.Regid, cl.Regid, cl.Dirdoi, cl.Regid,
+		cl.Regid, cl.Dirdoi, cl.Dirdoiprep)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -501,7 +493,7 @@ func printPartPostDOI(cl checklist, fip *os.File) {
      New publication request: %s/%s (10.12751/g-node.%s)
 
     Publication finished and user informed.
-`, strings.ToLower(cl.repoown), strings.ToLower(cl.repo), cl.regid)
+`, strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo), cl.Regid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -548,8 +540,8 @@ The latter will result in a link in the Datacite database to your publication an
 
 Best regards,
   German Neuroinformatics Node
-`, cl.email, cl.repoown, cl.repo, cl.userfullname, cl.title, cl.regid, cl.citation,
-		citeyear, cl.title, cl.regid)
+`, cl.Email, cl.Repoown, cl.Repo, cl.Userfullname, cl.Title, cl.Regid, cl.Citation,
+		citeyear, cl.Title, cl.Regid)
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -557,35 +549,19 @@ Best regards,
 	}
 }
 
-func mkchecklist(outpath string) {
-	defcl := checklist{
-		regid:         "__ID__",
-		repoown:       "__OWN__",
-		repo:          "__REPO__",
-		regdate:       "__DATE__",
-		email:         "__MAIL__",
-		userfullname:  "__USER_FULL__",
-		title:         "__TITLE__",
-		citation:      "__CITATION__",
-		serveruser:    "__SERVER_USER__",
-		dirlocalstage: "__DIR_LOCAL_STAGE__",
-		ginserver:     "__GIN.SERVER__",
-		doiserver:     "__DOI.SERVER__",
-		dirdoiprep:    "__DIR_DOI_PREP__",
-		dirdoi:        "__DIR_DOI__",
-	}
+func mkchecklist(cl checklist, outpath string) {
 
-	owner := strings.ToLower(defcl.repoown)
-	if len(defcl.repoown) > 5 {
+	owner := strings.ToLower(cl.Repoown)
+	if len(cl.Repoown) > 5 {
 		owner = owner[0:5]
 	}
-	reponame := strings.ToLower(defcl.repo)
-	if len(defcl.repo) > 10 {
+	reponame := strings.ToLower(cl.Repo)
+	if len(cl.Repo) > 10 {
 		reponame = reponame[0:15]
 	}
 
 	currdate := time.Now().Format("20060102")
-	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(defcl.regid), owner, reponame)
+	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(cl.Regid), owner, reponame)
 	if outpath != "" {
 		outfile = filepath.Join(outpath, outfile)
 	}
@@ -597,17 +573,63 @@ func mkchecklist(outpath string) {
 	}
 	defer fip.Close()
 
-	printPartPreDOI(defcl, fip)
-	printPartPreDOISemi(defcl, fip)
-	printPartPreDOIFull(defcl, fip)
-	printPartPostDOI(defcl, fip)
-	printPartReadyEmail(defcl, fip)
+	printPartPreDOI(cl, fip)
+	printPartPreDOISemi(cl, fip)
+	printPartPreDOIFull(cl, fip)
+	printPartPostDOI(cl, fip)
+	printPartReadyEmail(cl, fip)
 
 	fmt.Printf("-- Finished writing checklist file %s\n", outfile)
 }
 
+// readConfigYAML parses the config info and returns a filled checklist struct.
+func readConfigYAML(infoyml []byte) (*checklist, error) {
+	yamlInfo := &checklist{}
+	err := yaml.Unmarshal(infoyml, yamlInfo)
+	if err != nil {
+		return nil, err
+	}
+	return yamlInfo, nil
+}
+
 // mkchecklistcli handles command line input
 func mkchecklistcli(cmd *cobra.Command, args []string) {
+	// default configuration
+	defaultcl := checklist{
+		Regid:         "__ID__",
+		Repoown:       "__OWN__",
+		Repo:          "__REPO__",
+		Regdate:       "__DATE__",
+		Email:         "__MAIL__",
+		Userfullname:  "__USER_FULL__",
+		Title:         "__TITLE__",
+		Citation:      "__CITATION__",
+		Serveruser:    "__SERVER_USER__",
+		Dirlocalstage: "__DIR_LOCAL_STAGE__",
+		Ginserver:     "__GIN.SERVER__",
+		Doiserver:     "__DOI.SERVER__",
+		Dirdoiprep:    "__DIR_DOI_PREP__",
+		Dirdoi:        "__DIR_DOI__",
+	}
+
+	// disgusting construct, refactor as soon as possible
+	confile, err := cmd.Flags().GetString("config")
+	if err != nil {
+		fmt.Printf("Error parsing output directory flag: %s", err.Error())
+	} else {
+		contents, err := readFileAtPath(confile)
+		if err != nil {
+			fmt.Printf("Error loading config yaml, using default: %s", err.Error())
+		} else {
+			loadedconf, err := readConfigYAML(contents)
+			if err == nil {
+				defaultcl = *loadedconf
+			} else {
+				fmt.Printf("Error loading config yaml, using default: %s", err.Error())
+			}
+		}
+	}
+
 	var outpath string
 
 	oval, err := cmd.Flags().GetString("out")
@@ -616,5 +638,5 @@ func mkchecklistcli(cmd *cobra.Command, args []string) {
 	} else {
 		outpath = oval
 	}
-	mkchecklist(outpath)
+	mkchecklist(defaultcl, outpath)
 }
