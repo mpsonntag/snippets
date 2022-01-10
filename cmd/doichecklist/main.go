@@ -248,9 +248,8 @@ func printPartPreDOISemi(cl checklist, fip *os.File) {
 		return
 	}
 
-	// TODO: use first 5 chars of some UUID like thing
-	uuid := "12345"
-	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), uuid)
+	randomID := randAlnum(5)
+	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), randomID)
 	textblock = textPreForkUpload(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
@@ -302,9 +301,8 @@ func printPartPreDOIFull(cl checklist, fip *os.File) {
 		return
 	}
 
-	// TODO: use first 5 chars of some UUID like thing
-	uuid := "12345"
-	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), uuid)
+	randomid := randAlnum(5)
+	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.Repoown), randomid)
 	textblock = textPreForkSync(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
