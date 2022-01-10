@@ -44,7 +44,7 @@ type checklist struct {
 	dirdoi string
 }
 
-func text_pre_fork(cl checklist) string {
+func textPreFork(cl checklist) string {
 	textblock := fmt.Sprintf(`
 -[ ] manually fork repository to the 'doi' gin user
     - log on to gin.g-node.org using the "doi" user
@@ -54,7 +54,7 @@ func text_pre_fork(cl checklist) string {
 	return textblock
 }
 
-func text_pre_fork_upload(cl checklist, screenid string) string {
+func textPreForkUpload(cl checklist, screenid string) string {
 	// dir_path = f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}/{CONF["repo"].lower()}"""
 	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.dirdoiprep, cl.regid, strings.ToLower(cl.repo))
 	// logfile := f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
@@ -99,7 +99,7 @@ func text_pre_fork_upload(cl checklist, screenid string) string {
 	return textblock
 }
 
-func text_pre_fork_sync(cl checklist, screenid string) string {
+func textPreForkSync(cl checklist, screenid string) string {
 	// logfile := f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}.log"""
 	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
 
@@ -117,7 +117,7 @@ func text_pre_fork_sync(cl checklist, screenid string) string {
 	return textblock
 }
 
-func text_pre_git_tag(cl checklist) string {
+func textPreGitTag(cl checklist) string {
 	textblock := fmt.Sprintf(`
 - create release tag on the DOI repository; run all commands using 'gin git ...'
   to avoid issues with local git annex or other logged git users.
@@ -130,13 +130,13 @@ func text_pre_git_tag(cl checklist) string {
 	return textblock
 }
 
-func text_pre_cleanup(cl checklist, screenid string, full_doi bool) string {
+func textPreCleanup(cl checklist, screenid string, fulldoi bool) string {
 	// logfiles = f"""{CONF["repo_own"].lower()}-{CONF["repo"].lower()}*.log"""
 	logfiles := fmt.Sprintf("%s-%s*.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
 
 	// dirpath := f"""{CONF["dir_doi_prep"]}/10.12751/g-node.{CONF["reg_id"]}"""
 	dirpath := fmt.Sprintf("%s/10.12751/g-node.%s", cl.dirdoiprep, cl.regid)
-	if full_doi {
+	if fulldoi {
 		// dirpath := f"""{CONF["dir_doi_prep"]}/{CONF["repo"].lower()}"""
 		dirpath = fmt.Sprintf("%s/%s", cl.dirdoiprep, strings.ToLower(cl.repo))
 	}
@@ -151,8 +151,8 @@ func text_pre_cleanup(cl checklist, screenid string, full_doi bool) string {
 	return textblock
 }
 
-// print_part_pre_doi prints pre-registration block to file
-func print_part_pre_doi(cl checklist, fip *os.File) {
+// printPartPreDOI prints pre-registration block to file
+func printPartPreDOI(cl checklist, fip *os.File) {
 	textblock := fmt.Sprintf(`# Part 1 - pre registration
 
 ## Base request information
@@ -181,12 +181,10 @@ func print_part_pre_doi(cl checklist, fip *os.File) {
 		return
 	}
 
-	low_repo_own := strings.ToLower(cl.repoown)
-	low_repo := strings.ToLower(cl.repo)
 	textblock = fmt.Sprintf(`
 -[ ] GIN server (%s) check annex content
     - /gindata/annexcheck /gindata/gin-repositories/%s/%s.git`,
-		cl.ginserver, low_repo_own, low_repo)
+		cl.ginserver, strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -211,8 +209,8 @@ func print_part_pre_doi(cl checklist, fip *os.File) {
 	}
 }
 
-// print_part_pre_doi_semi prints semi automatic DOI pre-registration block to file
-func print_part_pre_doi_semi(cl checklist, fip *os.File) {
+// printPartPreDOISemi prints semi automatic DOI pre-registration block to file
+func printPartPreDOISemi(cl checklist, fip *os.File) {
 	textblock := `
 ## Semi-automated DOI or DOI update
 - use this section if there are no technical or other issues with the DOI request
@@ -247,7 +245,7 @@ func print_part_pre_doi_semi(cl checklist, fip *os.File) {
 		return
 	}
 
-	textblock = text_pre_fork(cl)
+	textblock = textPreFork(cl)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -257,14 +255,14 @@ func print_part_pre_doi_semi(cl checklist, fip *os.File) {
 	// TODO: use first 5 chars of some UUID like thing
 	uuid := "12345"
 	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.repoown), uuid)
-	textblock = text_pre_fork_upload(cl, screenid)
+	textblock = textPreForkUpload(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
 		return
 	}
 
-	textblock = text_pre_cleanup(cl, screenid, false)
+	textblock = textPreCleanup(cl, screenid, false)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -288,20 +286,20 @@ func print_part_pre_doi_semi(cl checklist, fip *os.File) {
 	}
 }
 
-// Print optional full DOI pre-registration block to file.
-func print_part_pre_doi_full(cl checklist, fip *os.File) {
-	textblock := fmt.Sprint(`
+// printPartPreDOIFull prints optional full DOI pre-registration block to file.
+func printPartPreDOIFull(cl checklist, fip *os.File) {
+	textblock := `
 ## Full DOI
 - This usually has to be done when
   a) the semi-automated process has failed or
-  b) the user requested changes but needs to keep the originally issued DOI`)
+  b) the user requested changes but needs to keep the originally issued DOI`
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
 		return
 	}
 
-	textblock = text_pre_fork(cl)
+	textblock = textPreFork(cl)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -311,7 +309,7 @@ func print_part_pre_doi_full(cl checklist, fip *os.File) {
 	// TODO: use first 5 chars of some UUID like thing
 	uuid := "12345"
 	screenid := fmt.Sprintf("%s-%s", strings.ToLower(cl.repoown), uuid)
-	textblock = text_pre_fork_sync(cl, screenid)
+	textblock = textPreForkSync(cl, screenid)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -319,11 +317,11 @@ func print_part_pre_doi_full(cl checklist, fip *os.File) {
 	}
 
 	// zip_log = f"{CONF['repo_own'].lower()}-{CONF['repo'].lower()}_zip.log"
-	zip_log := fmt.Sprintf("%s-%s_zip.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
+	ziplog := fmt.Sprintf("%s-%s_zip.log", strings.ToLower(cl.repoown), strings.ToLower(cl.repo))
 	//file_name = f"10.12751_g-node.{CONF['reg_id']}.zip"
-	file_name := fmt.Sprintf("10.12751_g-node.%s.zip", cl.regid)
+	filename := fmt.Sprintf("10.12751_g-node.%s.zip", cl.regid)
 	//zip_file = f"{CONF['dir_doi']}/10.12751/g-node.{CONF['reg_id']}/{file_name}"
-	zip_file := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.dirdoi, cl.regid, file_name)
+	zipfile := fmt.Sprintf("%s/10.12751/g-node.%s/%s", cl.dirdoi, cl.regid, filename)
 
 	textblock = fmt.Sprintf(`
 
@@ -335,21 +333,21 @@ func print_part_pre_doi_full(cl checklist, fip *os.File) {
      from the previous registration process.
 
 -[ ] sudo mv %s.zip %s`,
-		screenid, strings.ToLower(cl.repo), zip_log, strings.ToLower(cl.repo), zip_file)
+		screenid, strings.ToLower(cl.repo), ziplog, strings.ToLower(cl.repo), zipfile)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
 		return
 	}
 
-	textblock = text_pre_git_tag(cl)
+	textblock = textPreGitTag(cl)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
 		return
 	}
 
-	textblock = text_pre_cleanup(cl, screenid, true)
+	textblock = textPreCleanup(cl, screenid, true)
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -414,10 +412,10 @@ func print_part_pre_doi_full(cl checklist, fip *os.File) {
 	}
 }
 
-// print_part_post_doi prints post-registration block to file.
-func print_part_post_doi(cl checklist, fip *os.File) {
-	from_dir := fmt.Sprintf("%s/keywords", cl.dirlocalstage)
-	to_server := fmt.Sprintf("%s@%s:/home/%s/staging", cl.serveruser, cl.doiserver, cl.serveruser)
+// printPartPostDOI prints post-registration block to file.
+func printPartPostDOI(cl checklist, fip *os.File) {
+	fromdir := fmt.Sprintf("%s/keywords", cl.dirlocalstage)
+	toserver := fmt.Sprintf("%s@%s:/home/%s/staging", cl.serveruser, cl.doiserver, cl.serveruser)
 
 	textblock := fmt.Sprintf(`
 # Part 2 - post registration
@@ -426,7 +424,7 @@ func print_part_post_doi(cl checklist, fip *os.File) {
   -[ ] gin get G-Node/DOImetadata to local staging directory
   -[ ] create empty "keywords" directory and run the following from it
   -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
-  -[ ] scp -r %s %s`, cl.dirlocalstage, cl.dirlocalstage, from_dir, to_server)
+  -[ ] scp -r %s %s`, cl.dirlocalstage, cl.dirlocalstage, fromdir, toserver)
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -508,8 +506,8 @@ func print_part_post_doi(cl checklist, fip *os.File) {
 	}
 }
 
-// print_part_ready_email prints DOI registration ready email block to file.
-func print_part_ready_email(cl checklist, fip *os.File) {
+// printPartReadyEmail prints DOI registration ready email block to file.
+func printPartReadyEmail(cl checklist, fip *os.File) {
 	// a bit nasty but I think good enough
 	// TODO check whether this works as expected
 	citeyear := time.Now().Format("2006")
@@ -549,7 +547,7 @@ The latter will result in a link in the Datacite database to your publication an
 Best regards,
   German Neuroinformatics Node
 `, cl.email, cl.repoown, cl.repo, cl.userfullname, cl.title, cl.regid, cl.citation,
-citeyear, cl.title, cl.regid)
+		citeyear, cl.title, cl.regid)
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -579,14 +577,14 @@ func run() {
 	if len(defcl.repoown) > 5 {
 		owner = owner[0:5]
 	}
-	repo_name := strings.ToLower(defcl.repo)
+	reponame := strings.ToLower(defcl.repo)
 	if len(defcl.repo) > 10 {
-		repo_name = repo_name[0:15]
+		reponame = reponame[0:15]
 	}
 
 	// TODO check whether this works as expected
 	currdate := time.Now().Format("20060101")
-	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(defcl.regid), owner, repo_name)
+	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(defcl.regid), owner, reponame)
 	fmt.Printf("-- Writing to file %s", outfile)
 	fip, err := os.Create(outfile)
 	if err != nil {
@@ -595,11 +593,11 @@ func run() {
 	}
 	defer fip.Close()
 
-	print_part_pre_doi(defcl, fip)
-	print_part_pre_doi_semi(defcl, fip)
-	print_part_pre_doi_full(defcl, fip)
-	print_part_post_doi(defcl, fip)
-	print_part_ready_email(defcl, fip)
+	printPartPreDOI(defcl, fip)
+	printPartPreDOISemi(defcl, fip)
+	printPartPreDOIFull(defcl, fip)
+	printPartPostDOI(defcl, fip)
+	printPartReadyEmail(defcl, fip)
 
 	fmt.Printf("-- Finished writing file %s", outfile)
 }
