@@ -63,7 +63,6 @@ func textPreForkUpload(cl checklist, screenid string) string {
 	logfile := fmt.Sprintf("%s-%s.log", strings.ToLower(cl.Repoown), strings.ToLower(cl.Repo))
 
 	textblock := fmt.Sprintf(`
-
 -[ ] log on to the DOI server (%s) and move to %s
 - Make sure all information has been properly downloaded to the staging directory and
   all annex files are unlocked and the content is present:
@@ -112,8 +111,7 @@ func textPreForkSync(cl checklist, screenid string) string {
      use either the logfile or 'htop' to check on the status of the download/upload.
     - screen -S %s
     - sudo su root
-    - ./syncannex %s/%s > %s"""
-`, cl.Doiserver, cl.Dirdoiprep, screenid, cl.Repoown, cl.Repo, logfile)
+    - ./syncannex %s/%s > %s`, cl.Doiserver, cl.Dirdoiprep, screenid, cl.Repoown, cl.Repo, logfile)
 
 	return textblock
 }
@@ -125,7 +123,7 @@ func textPreGitTag(cl checklist) string {
     -[ ] cd %s/%s
     -[ ] check that "doi" is the set origin: sudo gin git remote -v
     -[ ] sudo gin git tag 10.12751/g-node.%s
-    -[ ] sudo gin git push --tags origin"""
+    -[ ] sudo gin git push --tags origin
 `, cl.Dirdoiprep, strings.ToLower(cl.Repo), cl.Regid)
 
 	return textblock
@@ -420,6 +418,7 @@ func printPartPostDOI(cl checklist, fip *os.File) {
   -[ ] create empty "keywords" directory and run the following from it
   -[ ] %s/gindoid make-keyword-pages %s/DOImetadata/*.xml
   -[ ] scp -r %s %s`, cl.Dirlocalstage, cl.Dirlocalstage, fromdir, toserver)
+
 	_, err := fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -434,6 +433,7 @@ func printPartPostDOI(cl checklist, fip *os.File) {
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
   -[ ] sudo rm %s/keywords_ -r`, cl.Doiserver, cl.Serveruser,
 		cl.Dirdoi, cl.Dirdoi, cl.Serveruser, cl.Dirdoi, cl.Dirdoi)
+
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -454,6 +454,7 @@ func printPartPostDOI(cl checklist, fip *os.File) {
 -[ ] update '%s/urls.txt': https://doi.gin.g-node.org/10.12751/g-node.%s`,
 		cl.Doiserver, cl.Dirdoi, cl.Regid, cl.Title, cl.Citation, cl.Regdate,
 		cl.Regid, cl.Regid, cl.Dirdoi, cl.Regid)
+
 	_, err = fip.Write([]byte(textblock))
 	if err != nil {
 		fmt.Printf("Error writing to checklist file: %s", err.Error())
@@ -539,6 +540,7 @@ If this is data supplementing a publication and if you haven't done so already, 
 The latter will result in a link in the Datacite database to your publication and will increase its discoverability.
 
 Best regards,
+
   German Neuroinformatics Node
 `, cl.Email, cl.Repoown, cl.Repo, cl.Userfullname, cl.Title, cl.Regid, cl.Citation,
 		citeyear, cl.Title, cl.Regid)
