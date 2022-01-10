@@ -583,11 +583,14 @@ func mkchecklist(cl checklist, outpath string) {
 }
 
 // readConfigYAML parses the config info and returns a filled checklist struct.
-func readConfigYAML(infoyml []byte) (*checklist, error) {
-	yamlInfo := &checklist{}
-	err := yaml.Unmarshal(infoyml, yamlInfo)
+func readConfigYAML(yamlInfo *checklist, confile string) (*checklist, error) {
+	infoyml, err := readFileAtPath(confile)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("-- Error reading config file: %s", err.Error())
+	}
+	err = yaml.Unmarshal(infoyml, yamlInfo)
+	if err != nil {
+		return nil, fmt.Errorf("-- Error unmarshalling config file: %s", err.Error())
 	}
 	return yamlInfo, nil
 }
@@ -612,29 +615,24 @@ func mkchecklistcli(cmd *cobra.Command, args []string) {
 		Dirdoi:        "__DIR_DOI__",
 	}
 
-	// disgusting construct, refactor as soon as possible
+	// handling CLI config yaml; missing fields will keep the default values
 	confile, err := cmd.Flags().GetString("config")
 	if err != nil {
-		fmt.Printf("Error parsing output directory flag: %s", err.Error())
-	} else {
-		contents, err := readFileAtPath(confile)
-		if err != nil {
-			fmt.Printf("Error loading config yaml, using default: %s", err.Error())
-		} else {
-			loadedconf, err := readConfigYAML(contents)
-			if err == nil {
-				defaultcl = *loadedconf
-			} else {
-				fmt.Printf("Error loading config yaml, using default: %s", err.Error())
-			}
-		}
+		fmt.Printf("-- Error parsing config flag: %s\n-- Exiting\n", err.Error())
+		return
 	}
+	loadedconf, err := readConfigYAML(&defaultcl, confile)
+	if err != nil {
+		fmt.Printf("%s\n-- Exiting\n", err.Error())
+		return
+	}
+	defaultcl = *loadedconf
 
+	// handling CLI output file path; default is current directory
 	var outpath string
-
 	oval, err := cmd.Flags().GetString("out")
 	if err != nil {
-		fmt.Printf("Error parsing output directory flag: %s", err.Error())
+		fmt.Printf("Error parsing output directory flag: %s\n", err.Error())
 	} else {
 		outpath = oval
 	}
