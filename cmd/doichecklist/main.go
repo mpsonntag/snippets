@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -511,7 +512,6 @@ func printPartPostDOI(cl checklist, fip *os.File) {
 // printPartReadyEmail prints DOI registration ready email block to file.
 func printPartReadyEmail(cl checklist, fip *os.File) {
 	// a bit nasty but I think good enough
-	// TODO check whether this works as expected
 	citeyear := time.Now().Format("2006")
 
 	textblock := fmt.Sprintf(`
@@ -557,7 +557,7 @@ Best regards,
 	}
 }
 
-func mkchecklist(cmd *cobra.Command, args []string) {
+func mkchecklist(outpath string) {
 	defcl := checklist{
 		regid:         "__ID__",
 		repoown:       "__OWN__",
@@ -584,10 +584,12 @@ func mkchecklist(cmd *cobra.Command, args []string) {
 		reponame = reponame[0:15]
 	}
 
-	// TODO check whether this works as expected
 	currdate := time.Now().Format("20060102")
 	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(defcl.regid), owner, reponame)
-	fmt.Printf("-- Writing to file %s\n", outfile)
+	if outpath != "" {
+		outfile = filepath.Join(outpath, outfile)
+	}
+	fmt.Printf("-- Writing to checklist file %s\n", outfile)
 	fip, err := os.Create(outfile)
 	if err != nil {
 		fmt.Printf("Could not create checklist file: %s\n", err.Error())
@@ -601,5 +603,18 @@ func mkchecklist(cmd *cobra.Command, args []string) {
 	printPartPostDOI(defcl, fip)
 	printPartReadyEmail(defcl, fip)
 
-	fmt.Printf("-- Finished writing file %s\n", outfile)
+	fmt.Printf("-- Finished writing checklist file %s\n", outfile)
+}
+
+// mkchecklistcli handles command line input
+func mkchecklistcli(cmd *cobra.Command, args []string) {
+	var outpath string
+
+	oval, err := cmd.Flags().GetString("out")
+	if err != nil {
+		fmt.Printf("Error parsing output directory flag: %s", err.Error())
+	} else {
+		outpath = oval
+	}
+	mkchecklist(outpath)
 }
