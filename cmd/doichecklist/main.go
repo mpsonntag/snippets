@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"github.com/spf13/cobra"
 )
 
 // Default configuration struct containing non problematic test values
@@ -555,7 +557,7 @@ Best regards,
 	}
 }
 
-func run() {
+func mkchecklist(cmd *cobra.Command, args []string) {
 	defcl := checklist{
 		regid:         "__ID__",
 		repoown:       "__OWN__",
@@ -583,12 +585,12 @@ func run() {
 	}
 
 	// TODO check whether this works as expected
-	currdate := time.Now().Format("20060101")
+	currdate := time.Now().Format("20060102")
 	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(defcl.regid), owner, reponame)
-	fmt.Printf("-- Writing to file %s", outfile)
+	fmt.Printf("-- Writing to file %s\n", outfile)
 	fip, err := os.Create(outfile)
 	if err != nil {
-		fmt.Printf("Could not create checklist file: %s", err.Error())
+		fmt.Printf("Could not create checklist file: %s\n", err.Error())
 		return
 	}
 	defer fip.Close()
@@ -599,5 +601,5 @@ func run() {
 	printPartPostDOI(defcl, fip)
 	printPartReadyEmail(defcl, fip)
 
-	fmt.Printf("-- Finished writing file %s", outfile)
+	fmt.Printf("-- Finished writing file %s\n", outfile)
 }
