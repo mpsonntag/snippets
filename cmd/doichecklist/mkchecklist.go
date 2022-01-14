@@ -135,8 +135,9 @@ func mkchecklist(cl checklist, outpath string) {
 	fmt.Printf("-- Finished writing checklist file %s\n", outfile)
 }
 
-// readConfigYAML parses the config info and returns a filled checklist struct.
-func readConfigYAML(yamlInfo *checklist, confile string) (*checklist, error) {
+// readChecklistConfigYAML parses config information from a provided yaml file and
+// returns a checklist struct containing the config information.
+func readChecklistConfigYAML(yamlInfo *checklist, confile string) (*checklist, error) {
 	infoyml, err := readFileAtPath(confile)
 	if err != nil {
 		return nil, fmt.Errorf("-- Error reading config file: %s", err.Error())
@@ -209,7 +210,7 @@ func mkchecklistcli(cmd *cobra.Command, args []string) {
 		return
 	}
 	if confile != "" {
-		loadedconf, err := readConfigYAML(&defaultcl, confile)
+		loadedconf, err := readChecklistConfigYAML(&defaultcl, confile)
 		if err != nil {
 			fmt.Printf("%s\n-- Exiting\n", err.Error())
 			return
