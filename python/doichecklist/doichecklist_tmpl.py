@@ -51,12 +51,8 @@ CONF = {
         # Entries that are set once and remain unchanged for future DOI requests
         # User working on the DOI server
         "server_user": "__SERVER_USER__",
-        # Full name of the person handling the registration; used in email template texts
-        "admin_name": "__FIRST LAST__",
         # Local staging dir to create index and keyword pages
         "dir_local_stage": "__DIR_LOCAL_STAGE__",
-        # Full ssh access name of the server hosting the GIN server instance
-        "gin_server": "__GIN.SERVER__",
         # Full ssh access name of the server hosting the DOI server instance
         "doi_server": "__DOI.SERVER__",
         # DOI Server repo preparation directory
