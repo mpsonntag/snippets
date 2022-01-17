@@ -368,11 +368,26 @@ def conf_derivatives():
 
 
 def print_checklist(fip):
+    """
+    Replaces all TEMPLATE variables with CONF values and writes
+    the resulting text block to a provided file.
+
+    :param fip: file pointer to a write-ready file.
+    """
     text_block = TEMPLATE
+
+    # replace template entries
+    for map_key, map_val in CONF_MAP.items():
+        text_block = text_block.replace(map_val, CONF[map_key])
+
     fip.write(text_block)
 
 
 def run():
+    # create derivative config entries
+    conf_derivatives()
+
+    # prepare output filename
     owner = CONF["repo_own"].lower()
     if len(CONF["repo_own"]) > 5:
         owner = owner[0:5]
