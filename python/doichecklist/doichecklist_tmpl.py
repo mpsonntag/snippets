@@ -66,6 +66,36 @@ CONF = {
 }
 
 
+CONF_MAP = {
+    "reg_id": "{{ .CL.Regid }}",
+    "repo_own": "{{ .CL.Repoown }}",
+    "repo": "{{ .CL.Repo }}",
+    "reg_date": "{{ .CL.Regdate }}",
+    "email": "{{ .CL.Email }}",
+    "user_full_name": "{{ .CL.Userfullname }}",
+    "title": "{{ .CL.Title }}",
+    "citation": "{{ .CL.Citation }}",
+    "server_user": "{{ .CL.Serveruser }}",
+    "dir_local_stage": "{{ .CL.Dirlocalstage }}",
+    "doi_server": "{{ .CL.Doiserver }}",
+    "dir_doi_prep": "{{ .CL.Dirdoiprep }}",
+    "dir_doi": "{{ .CL.Dirdoi }}",
+    "repo_lower": "{{ .RepoLower }}",
+    "repo_own_lower": "{{ .RepoownLower }}",
+    "semi_doi_screen_id": "{{ .SemiDOIScreenID }}",
+    "full_doi_screen_id": "{{ .FullDOIScreenID }}",
+    "semi_doi_cleanup": "{{ .SemiDOICleanup }}",
+    "semi_doi_dir_path": "{{ .SemiDOIDirpath }}",
+    "full_doi_dir_path": "{{ .FullDOIDirpath }}",
+    "forklog": "{{ .Forklog }}",
+    "logfiles": "{{ .Logfiles }}",
+    "ziplog": "{{ .Ziplog }}",
+    "zipfile": "{{ .Zipfile }}",
+    "keywords_local_dir": "{{ .KeywordsLocalDir }}",
+    "to_server": "{{ .ToServer }}",
+    "cite_year": "{{ .Citeyear }}",
+}
+
 TEMPLATE = """
 # Part 1 - pre registration
 
