@@ -62,6 +62,7 @@ CONF = {
 }
 
 
+# Mapping of configuration entries to template replacement strings
 CONF_MAP = {
     "reg_id": "{{ .CL.Regid }}",
     "repo_own": "{{ .CL.Repoown }}",
@@ -92,6 +93,12 @@ CONF_MAP = {
     "cite_year": "{{ .Citeyear }}",
 }
 
+
+# Output template; the main template is used in a golang project and will
+# remain there. The Python script uses the same template to create a checklist
+# on the command line.
+# When relevant and persistent changes are made to this template it should be posted
+# as an issue on the go source repository: https://github.com/G-Node/gin-doi
 TEMPLATE = """
 # Part 1 - pre registration
 
@@ -463,7 +470,7 @@ def parse_repo_datacite():
 
 
 def parse_args(args):
-    parser = docopt(__doc__, argv=args, version="0.1.0")
+    parser = docopt(__doc__, argv=args, version="0.2.0")
     if parser['--config']:
         conf_file = parser['--config']
         if not os.path.isfile(conf_file):
