@@ -344,6 +344,29 @@ Best regards,
 """
 
 
+def conf_derivatives():
+    lrepo = CONF["repo"].lower()
+    lrepoown = CONF["repo_own"].lower()
+    doiprep = CONF["dir_doi_prep"]
+    reg_dir = f"10.12751/g-node.{CONF['reg_id']}"
+    server_user = CONF['server_user']
+
+    CONF["repo_lower"] = lrepo
+    CONF["repo_own_lower"] = lrepoown
+    CONF["semi_doi_screen_id"] = f"{lrepoown}-{str(uuid4())[0:5]}"
+    CONF["full_doi_screen_id"] = f"{lrepoown}-{str(uuid4())[0:5]}"
+    CONF["semi_doi_cleanup"] = f"{doiprep}/{reg_dir}"
+    CONF["semi_doi_dir_path"] = f"{doiprep}/{reg_dir}/{lrepo}"
+    CONF["full_doi_dir_path"] = f"{doiprep}/{lrepo}"
+    CONF["forklog"] = f"{lrepoown}-{lrepo}.log"
+    CONF["logfiles"] = f"{lrepoown}-{lrepo}*.log"
+    CONF["ziplog"] = f"{lrepoown}-{lrepo}_zip.log"
+    CONF["zipfile"] = f"{CONF['dir_doi']}/{reg_dir}/10.12751_g-node.{CONF['reg_id']}.zip"
+    CONF["keywords_local_dir"] = f"{CONF['dir_local_stage']}/keywords"
+    CONF["to_server"] = f"{server_user}@{CONF['doi_server']}:/home/{server_user}/staging"
+    CONF["cite_year"] = datetime.now().strftime("%Y")
+
+
 def print_checklist(fip):
     text_block = TEMPLATE
     fip.write(text_block)
