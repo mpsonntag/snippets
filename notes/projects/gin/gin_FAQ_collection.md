@@ -129,7 +129,7 @@ The reason behind this issue is, that only files with size > 10MB are checked in
 
 ## Slow upload speed
 
-### Q - My Upload speed is slow, what can you do
+### Q - My Upload speed is slow, what can YOU do
 
 I experience uploading speed of about 1-2 MiB/s. Can you help increase the upload speed?
 
