@@ -233,6 +233,19 @@ xxx checkUpdate
     - sudo su root
     - ./syncannex {{ .CL.Repoown }}/{{ .CL.Repo }} > {{ .Forklog }}
 
+xxx checkUpdate
+-[ ] check downloaded data; if any of the checks fail, the DOI fork has to be deleted and the 
+     process repeated after the issue has been addressed
+    -[ ] {{ .CL.Dirdoiprep }}/annexcheck {{ .CL.Dirdoiprep }}/{{ .CL.Repo }}
+    -[ ] find {{ .CL.Dirdoiprep }}/{{ .CL.Repo }} -type l -print
+    -[ ] find {{ .CL.Dirdoiprep }}/{{ .CL.Repo }} -type f -size -100c -print0 | xargs -0 grep -i annex.objects
+    -[ ] grep annex.objects $(find {{ .CL.Dirdoiprep }}/{{ .CL.Repo }} -type f -size -100c -print)
+    - check potential dataset zip files for issues
+      find {{ .CL.Dirdoiprep }}/{{ .CL.Repo }} -name "*.zip" -ls -exec unzip -P "" -t {} \; > $HOME/logs/zipcheck_{{ .CL.Regid }}.log
+      echo "Valid zips: $(cat $HOME/logs/zipcheck_{{ .CL.Regid }}.log | grep "No errors detected" | wc -l)/$(find . -name "*.zip" | wc -l)"
+    - if the number of valid zips does not match the number of total zips, check the logfile for details
+xxx checkUpdate
+
 -[ ] create DOI zip file
     - screen -r {{ .FullDOIScreenID }}
     - sudo ./makezip {{ .RepoLower }} > {{ .Ziplog }}
