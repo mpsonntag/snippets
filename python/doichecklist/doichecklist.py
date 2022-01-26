@@ -49,10 +49,6 @@ CONF = {
         # Author citation list; usually handled automatically via repo datacite entry
         "citation": "__CITATION__",
         # Entries that are set once and remain unchanged for future DOI requests
-        # User working on the DOI server
-        "server_user": "__SERVER_USER__",
-        # Local staging dir to create index and keyword pages
-        "dir_local_stage": "__DIR_LOCAL_STAGE__",
         # Full ssh access name of the server hosting the DOI server instance
         "doi_server": "__DOI.SERVER__",
         # DOI Server repo preparation directory
@@ -72,8 +68,6 @@ CONF_MAP = {
     "user_full_name": "{{ .CL.Userfullname }}",
     "title": "{{ .CL.Title }}",
     "citation": "{{ .CL.Citation }}",
-    "server_user": "{{ .CL.Serveruser }}",    # marked for removal
-    "dir_local_stage": "{{ .CL.Dirlocalstage }}",    # marked for removal
     "doi_server": "{{ .CL.Doiserver }}",
     "dir_doi_prep": "{{ .CL.Dirdoiprep }}",
     "dir_doi": "{{ .CL.Dirdoi }}",
@@ -88,8 +82,6 @@ CONF_MAP = {
     "logfiles": "{{ .Logfiles }}",
     "ziplog": "{{ .Ziplog }}",
     "zipfile": "{{ .Zipfile }}",
-    "keywords_local_dir": "{{ .KeywordsLocalDir }}",
-    "to_server": "{{ .ToServer }}",
     "cite_year": "{{ .Citeyear }}",
 }
 
@@ -136,11 +128,8 @@ TEMPLATE = """
   to the staging directory and all annex files are unlocked and the content is present:
     -[ ] {{ .CL.Dirdoiprep }}/annexcheck {{ .SemiDOIDirpath }}
 xxx checkUpdate
-    -[ ] find {{ .CL.Dirdoiprep }}/10.12751/g-node.{{ .CL.Regid }} -type l -print
     -[ ] find {{ .SemiDOICleanup }} -type l -print
-    -[ ] find {{ .CL.Dirdoiprep }}/10.12751/g-node.{{ .CL.Regid }} -type f -size -100c -print0 | xargs -0 grep -i annex.objects
     -[ ] find {{ .SemiDOICleanup }} -type f -size -100c -print0 | xargs -0 grep -i annex.objects
-    -[ ] grep annex.objects $(find {{ .CL.Dirdoiprep }}/10.12751/g-node.{{ .CL.Regid }} -type f -size -100c -print)
     -[ ] grep annex.objects $(find {{ .SemiDOICleanup }} -type f -size -100c -print)
 xxx checkUpdate
     -[ ] check that the content size of the repository and the created zip file matches
@@ -380,7 +369,6 @@ def conf_derivatives():
     lrepoown = CONF["repo_own"].lower()
     doiprep = CONF["dir_doi_prep"]
     reg_dir = f"10.12751/g-node.{CONF['reg_id']}"
-    server_user = CONF['server_user']
 
     CONF["repo_lower"] = lrepo
     CONF["repo_own_lower"] = lrepoown
@@ -393,8 +381,6 @@ def conf_derivatives():
     CONF["logfiles"] = f"{lrepoown}-{lrepo}*.log"
     CONF["ziplog"] = f"{lrepoown}-{lrepo}_zip.log"
     CONF["zipfile"] = f"{CONF['dir_doi']}/{reg_dir}/10.12751_g-node.{CONF['reg_id']}.zip"
-    CONF["keywords_local_dir"] = f"{CONF['dir_local_stage']}/keywords"
-    CONF["to_server"] = f"{server_user}@{CONF['doi_server']}:/home/{server_user}/staging"
     CONF["cite_year"] = datetime.now().strftime("%Y")
 
 
