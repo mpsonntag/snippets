@@ -127,11 +127,9 @@ TEMPLATE = """
 - on the DOI server ({{ .CL.Doiserver }}) make sure all information has been properly downloaded 
   to the staging directory and all annex files are unlocked and the content is present:
     -[ ] {{ .CL.Dirdoiprep }}/annexcheck {{ .SemiDOIDirpath }}
-xxx checkUpdate
     -[ ] find {{ .SemiDOICleanup }} -type l -print
     -[ ] find {{ .SemiDOICleanup }} -type f -size -100c -print0 | xargs -0 grep -i annex.objects
     -[ ] grep annex.objects $(find {{ .SemiDOICleanup }} -type f -size -100c -print)
-xxx checkUpdate
     -[ ] check that the content size of the repository and the created zip file matches
     -[ ] if there still are symlinks present or the content size does not match up, the zip
          file does not contain all required data. Run the next steps - the script will
@@ -142,12 +140,10 @@ xxx checkUpdate
       -[ ] check zip file content
            unzip -vl {{ .CL.Dirdoi }}/10.12751/g-node.{{ .CL.Regid }}/10.12751_g-node.{{ .CL.Regid }}.zip
       -[ ] note zip size
-xxx checkUpdate
     - check potential dataset zip files for issues
       find {{ .SemiDOICleanup }} -name "*.zip" -ls -exec unzip -P "" -t {} \; > $HOME/logs/zipcheck_{{ .CL.Regid }}.log
       echo "Valid zips: $(cat $HOME/logs/zipcheck_{{ .CL.Regid }}.log | grep "No errors detected" | wc -l)/$(find . -name "*.zip" | wc -l)"
     - if the number of valid zips does not match the number of total zips, check the logfile for details
-xxx checkUpdate
 
 ## Semi-automated DOI or DOI update
 - use this section if there are no technical or other issues with the DOI request 
@@ -191,9 +187,7 @@ xxx checkUpdate
 
 - cleanup directory once tagging is done
     -[ ] sudo rm {{ .SemiDOICleanup }} -r
-xxx checkUpdate
     -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} $HOME/logs/
-xxx checkUpdate
     -[ ] cleanup screen session: screen -XS {{ .SemiDOIScreenID }} quit
 
 -[ ] Check link to archive repo on the DOI landing page works:
@@ -222,7 +216,6 @@ xxx checkUpdate
     - sudo su root
     - ./syncannex {{ .CL.Repoown }}/{{ .CL.Repo }} > {{ .Forklog }}
 
-xxx checkUpdate
 -[ ] check downloaded data; if any of the checks fail, the DOI fork has to be deleted and the 
      process repeated after the issue has been addressed
     -[ ] {{ .CL.Dirdoiprep }}/annexcheck {{ .CL.Dirdoiprep }}/{{ .CL.Repo }}
@@ -233,7 +226,6 @@ xxx checkUpdate
       find {{ .CL.Dirdoiprep }}/{{ .CL.Repo }} -name "*.zip" -ls -exec unzip -P "" -t {} \; > $HOME/logs/zipcheck_{{ .CL.Regid }}.log
       echo "Valid zips: $(cat $HOME/logs/zipcheck_{{ .CL.Regid }}.log | grep "No errors detected" | wc -l)/$(find . -name "*.zip" | wc -l)"
     - if the number of valid zips does not match the number of total zips, check the logfile for details
-xxx checkUpdate
 
 -[ ] create DOI zip file
     - screen -r {{ .FullDOIScreenID }}
@@ -253,9 +245,7 @@ xxx checkUpdate
 
 - cleanup directory once tagging is done
     -[ ] sudo rm {{ .FullDOIDirpath }} -r
-xxx checkUpdate
     -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} $HOME/logs/
-xxx checkUpdate
     -[ ] cleanup screen session: screen -XS {{ .FullDOIScreenID }} quit
 
 -[ ] edit {{ .CL.Dirdoi }}/10.12751/g-node.{{ .CL.Regid }}/doi.xml file to reflect
@@ -267,11 +257,9 @@ xxx checkUpdate
 
 - remove the .htaccess file
 - re-create the DOI landing page in the server staging directory
-xxx checkUpdate
     -[ ] cd $HOME/staging
     -[ ] sudo {{ .CL.Dirdoiprep }}/gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}/doi.xml
     -[ ] sudo mv index.html {{ .CL.Dirdoi }}/10.12751/g-node.{{ .CL.Regid }}/index.html
-xxx checkUpdate
 
 - https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}
     -[ ] check page access, size, title, license name
@@ -284,7 +272,6 @@ xxx checkUpdate
      This repository is prepared for the DOI registration.
 
 # Part 2 - post registration
-xxx checkUpdate
 -[ ] connect to DOI server ({{ .CL.Doiserver }})
 - update the G-Node/DOImetadata repository
   cd {{ .CL.Dirdoiprep }}/DOImetadata
@@ -306,7 +293,6 @@ xxx checkUpdate
   -[ ] cleanup the staging directory
     cd $HOME/staging
     sudo rm g-node.{{ .CL.Regid }} -r
-xxx checkUpdate
 
 -[ ] git commit all changes in {{ .CL.Dirdoi }}
     - sudo git add 10.12751/g-node.{{ .CL.Regid }}/
