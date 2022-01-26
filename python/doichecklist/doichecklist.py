@@ -264,13 +264,12 @@ xxx checkUpdate
     - any changes to the 'resourceType'
 
 - remove the .htaccess file
-- create the DOI landing page in the local staging directory and move it to the DOI server
-    -[ ] cd {{ .CL.Dirlocalstage }}
-    -[ ] gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}/doi.xml
-    -[ ] scp {{ .CL.Dirlocalstage }}/10.12751/g-node.{{ .CL.Regid }}/index.html {{ .CL.Serveruser }}@{{ .CL.Doiserver }}:/home/{{ .CL.Serveruser }}/staging
-    - move to the DOI server staging directory
-    -[ ] sudo chown root:root index.html
+- re-create the DOI landing page in the server staging directory
+xxx checkUpdate
+    -[ ] cd $HOME/staging
+    -[ ] sudo {{ .CL.Dirdoiprep }}/gindoid make-html https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}/doi.xml
     -[ ] sudo mv index.html {{ .CL.Dirdoi }}/10.12751/g-node.{{ .CL.Regid }}/index.html
+xxx checkUpdate
 
 - https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}
     -[ ] check page access, size, title, license name
