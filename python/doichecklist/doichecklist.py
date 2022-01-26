@@ -72,8 +72,8 @@ CONF_MAP = {
     "user_full_name": "{{ .CL.Userfullname }}",
     "title": "{{ .CL.Title }}",
     "citation": "{{ .CL.Citation }}",
-    "server_user": "{{ .CL.Serveruser }}",
-    "dir_local_stage": "{{ .CL.Dirlocalstage }}",
+    "server_user": "{{ .CL.Serveruser }}",    # marked for removal
+    "dir_local_stage": "{{ .CL.Dirlocalstage }}",    # marked for removal
     "doi_server": "{{ .CL.Doiserver }}",
     "dir_doi_prep": "{{ .CL.Dirdoiprep }}",
     "dir_doi": "{{ .CL.Dirdoi }}",
@@ -202,7 +202,9 @@ xxx checkUpdate
 
 - cleanup directory once tagging is done
     -[ ] sudo rm {{ .SemiDOICleanup }} -r
-    -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} /home/{{ .CL.Serveruser }}/logs/
+xxx checkUpdate
+    -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} $HOME/logs/
+xxx checkUpdate
     -[ ] cleanup screen session: screen -XS {{ .SemiDOIScreenID }} quit
 
 -[ ] Check link to archive repo on the DOI landing page works:
@@ -249,7 +251,9 @@ xxx checkUpdate
 
 - cleanup directory once tagging is done
     -[ ] sudo rm {{ .FullDOIDirpath }} -r
-    -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} /home/{{ .CL.Serveruser }}/logs/
+xxx checkUpdate
+    -[ ] sudo mv {{ .CL.Dirdoiprep }}/{{ .Logfiles }} $HOME/logs/
+xxx checkUpdate
     -[ ] cleanup screen session: screen -XS {{ .FullDOIScreenID }} quit
 
 -[ ] edit {{ .CL.Dirdoi }}/10.12751/g-node.{{ .CL.Regid }}/doi.xml file to reflect
@@ -286,9 +290,11 @@ xxx checkUpdate
   -[ ] {{ .CL.Dirlocalstage }}/gindoid make-keyword-pages {{ .CL.Dirlocalstage }}/DOImetadata/*.xml
   -[ ] scp -r {{ .KeywordsLocalDir }} {{ .ToServer }}
   -[ ] connect to DOI server ({{ .CL.Doiserver }})
-  -[ ] sudo chown -R root:root /home/{{ .CL.Serveruser }}/staging/keywords
+xxx checkUpdate
+  -[ ] sudo chown -R root:root $HOME/staging/keywords
   -[ ] sudo mv {{ .CL.Dirdoi }}/keywords {{ .CL.Dirdoi }}/keywords_
-  -[ ] sudo mv /home/{{ .CL.Serveruser }}/staging/keywords/ {{ .CL.Dirdoi }}
+  -[ ] sudo mv $HOME/staging/keywords/ {{ .CL.Dirdoi }}
+xxx checkUpdate
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
   -[ ] sudo rm {{ .CL.Dirdoi }}/keywords_ -r
 
