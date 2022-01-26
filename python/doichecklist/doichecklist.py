@@ -155,8 +155,8 @@ xxx checkUpdate
       -[ ] note zip size
 xxx checkUpdate
     - check potential dataset zip files for issues
-      find {{ .SemiDOICleanup }} -name "*.txt" -ls -exec unzip -P "" -t {} \; > {{ .SemiDOICleanup }}/zipcheck.log
-      echo "Valid zips: $(cat {{ .SemiDOICleanup }}/zipcheck.log | grep "No errors detected" | wc -l)/$(find . -name "*.zip" | wc -l)"
+      find {{ .SemiDOICleanup }} -name "*.zip" -ls -exec unzip -P "" -t {} \; > $HOME/logs/zipcheck_{{ .CL.Regid }}.log
+      echo "Valid zips: $(cat $HOME/logs/zipcheck_{{ .CL.Regid }}.log | grep "No errors detected" | wc -l)/$(find . -name "*.zip" | wc -l)"
     - if the number of valid zips does not match the number of total zips, check the logfile for details
 xxx checkUpdate
 
