@@ -301,6 +301,8 @@ xxx checkUpdate
     -[ ] sudo mv $HOME/staging/g-node.{{ .CL.Regid }}/index.html {{ .CL.Dirdoi }}
     -[ ] sudo mv $HOME/staging/g-node.{{ .CL.Regid }}/urls.txt {{ .CL.Dirdoi }}
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
+  -[ ] cleanup previous keywords
+    sudo rm {{ .CL.Dirdoi }}/keywords_ -r
   -[ ] cleanup the staging directory
     cd $HOME/staging
     sudo rm g-node.{{ .CL.Regid }} -r
