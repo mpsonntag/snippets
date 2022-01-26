@@ -282,31 +282,27 @@ xxx checkUpdate
      This repository is prepared for the DOI registration.
 
 # Part 2 - post registration
-- re-create and deploy keywords if required
-  -[ ] make sure github.com/G-Node/gin-doi is locally built and the 'gindoid' executable available
-  -[ ] gin get G-Node/DOImetadata to local staging directory
-  -[ ] create empty "keywords" directory and run the following from it
-  -[ ] {{ .CL.Dirlocalstage }}/gindoid make-keyword-pages {{ .CL.Dirlocalstage }}/DOImetadata/*.xml
-  -[ ] scp -r {{ .KeywordsLocalDir }} {{ .ToServer }}
-  -[ ] connect to DOI server ({{ .CL.Doiserver }})
 xxx checkUpdate
-  -[ ] sudo chown -R root:root $HOME/staging/keywords
-  -[ ] sudo mv {{ .CL.Dirdoi }}/keywords {{ .CL.Dirdoi }}/keywords_
-  -[ ] sudo mv $HOME/staging/keywords/ {{ .CL.Dirdoi }}
-xxx checkUpdate
+-[ ] connect to DOI server ({{ .CL.Doiserver }})
+- update the G-Node/DOImetadata repository
+  cd {{ .CL.Dirdoiprep }}/DOImetadata
+  sudo gin download
+- update site listing page, google sitemap and keywords
+  -[ ] create a clean server staging directory
+    sudo mkdir -p $HOME/staging/g-node.{{ .CL.Regid }}
+    cd $HOME/staging/g-node.{{ .CL.Regid }}
+  -[ ] create all required files
+    -[ ] sudo {{ .CL.Dirdoiprep }}/gindoid make-all {{ .CL.Dirdoiprep }}/DOImetadata/*.xml
+    -[ ] check index.html and urls.txt file
+    -[ ] sudo mv {{ .CL.Dirdoi }}/keywords {{ .CL.Dirdoi }}/keywords_
+    -[ ] sudo mv $HOME/staging/g-node.{{ .CL.Regid }}/keywords/ {{ .CL.Dirdoi }}
+    -[ ] sudo mv $HOME/staging/g-node.{{ .CL.Regid }}/index.html {{ .CL.Dirdoi }}
+    -[ ] sudo mv $HOME/staging/g-node.{{ .CL.Regid }}/urls.txt {{ .CL.Dirdoi }}
   -[ ] check landing page and keywords online: https://doi.gin.g-node.org
-  -[ ] sudo rm {{ .CL.Dirdoi }}/keywords_ -r
-
--[ ] connect to DOI server ({{ .CL.Doiserver }}) and update '{{ .CL.Dirdoi }}/index.html'; 
-     make sure there are no unintentional line breaks!
-                        <tr>
-                            <td><a href="https://doi.org/10.12751/g-node.{{ .CL.Regid }}">{{ .CL.Title }}</a>
-                            <br>{{ .CL.Citation }}</td>
-                            <td>{{ .CL.Regdate }}</td>
-                            <td><a href="https://doi.org/10.12751/g-node.{{ .CL.Regid }}" class ="ui grey label">10.12751/g-node.{{ .CL.Regid }}</a></td>
-                        </tr>
-
--[ ] update '{{ .CL.Dirdoi }}/urls.txt': https://doi.gin.g-node.org/10.12751/g-node.{{ .CL.Regid }}
+  -[ ] cleanup the staging directory
+    cd $HOME/staging
+    sudo rm g-node.{{ .CL.Regid }} -r
+xxx checkUpdate
 
 -[ ] git commit all changes in {{ .CL.Dirdoi }}
     - sudo git add 10.12751/g-node.{{ .CL.Regid }}/
