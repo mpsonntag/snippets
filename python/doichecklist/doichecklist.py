@@ -50,7 +50,7 @@ CONF = {
         "citation": "__CITATION__",
         # Entries that are set once and remain unchanged for future DOI requests
         # Full ssh access name of the server hosting the DOI server instance
-        "doi_server": "__DOI.SERVER__",
+        "doi_server": "__DOI_SERVER__",
         # DOI Server repo preparation directory
         "dir_doi_prep": "__DIR_DOI_PREP__",
         # DOI Server root doi hosting directory
