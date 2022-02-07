@@ -1875,6 +1875,22 @@ Reboot a machine from the command line
     # or
     sudo reboot
 
+## Safely removing files
+
+To ensure files are properly deleted, the following two CLI commands can be installed and used:
+
+shred
+
+sudo apt-get install secure-delete
+- srm ... secure remove
+- sfill ... overwrite free hard drive space
+- sswap ... cleanse swap space
+- sdmem ... cleanse RAM
+
+For an introduction check the following [article](
+https://www.howtogeek.com/425232/how-to-securely-delete-files-on-linux/)
+
+
 # Exercises
 ## User handling
 -[ ] create user
