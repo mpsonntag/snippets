@@ -1347,7 +1347,7 @@ Creating dummy files of various sizes with `dd`
 
 ## Using different java versions
 
-Currently there are a couple of java version from two main distributers (Oracle, OpenJava)
+Currently, there are a couple of java version from two main distributors (Oracle, OpenJava)
 flying around. One can have both of them installed and switch between them using the
 `update-alternatives` command.
 
@@ -1374,7 +1374,7 @@ java version.
 
 ### SBT project and activator specifics
 
-If you are running sbt projects and you ever get errors along the line:
+If you are running sbt projects, and you ever get errors along the line:
 
 'The java installation you have is not up to date
 Activator requires at least version 1.6+, you have
@@ -1616,7 +1616,7 @@ To show where a link actually leads to use:
 
 - Set up a bin folder that is included in the Linux `$PATH` which contains all the links to starting programs.
 - Check out this link for [more information](http://www.troubleshooters.com/linux/prepostpath.htm).
-- Folders can easily be added to the beginning and the the end of the variable -
+- Folders can easily be added to the beginning and the end of the variable -
 depending on where the application is first found, this will be executed.
 
 Example:
