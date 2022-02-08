@@ -73,7 +73,45 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 }
 
 func runannexcheck() {
-	fmt.Println("Running annexcheck")
+	// check repository annex content
+	incompleteContent, err := checkAnnexComplete(repodir)
+
+	// skip zip creation when an annex content issue has been found
+	if err != nil {
+		return "", -1, fmt.Errorf("skipping zip creation, error checking annex content: %s", err.Error())
+	}
+
+	if incompleteContent.missingAnnex {
+		return "", -1, fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
+	}
+
+	if incompleteContent.missingAnnex {
+		return "", -1, fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
+	}
+
+	// on repo access error or missing content error stop and return appropriate err message
+
+	// on locked content but no missing annex data check repo size
+
+	// if repo size > cutoff size (500 GB) stop and return with an error
+	//if reposize > cutoff {
+	//	return 
+	//}
+
+	// if repo size <= cutoff size (500 GB) create directory copy, unlock all files and create zip file from there
+	//if reposize <= cutoff {
+	//	cpdir := fmt.Sprintf("%s_unlocked", repodir)
+	//	import "os/exec"
+	//	log.Printf("copy locked content directory to %q", cpdir)
+	//	cmd := exec.Command("cp", "--recursive", repodir, cpdir)
+	//	err = cmd.Run()
+	//	if err != nil {
+	//		return "", -1, fmt.Errorf("skipping zip creation, error copying locked content dir: %s", err.Error())
+	//	}
+	//	repodir = cpdir
+	//	// switch to cp dir and unlock annex files
+	//	
+	//}
 }
 
 func setUpCommands(verstr string) *cobra.Command {
