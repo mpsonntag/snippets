@@ -6,6 +6,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type gitrepoinfo struct {
+	missingAnnex bool
+	lockedAnnex bool
+	annexSize int
+	annexSizeUnit string
+	gitSize int
+	gitSizeUnit string
+}
+
 func runannexcheck() {
 	fmt.Println("Running annexcheck")
 }
