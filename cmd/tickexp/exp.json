@@ -1,1 +1,122 @@
-[{"date":"sadf","val":123,"negval":0,"desc":"sadf"},{"date":"sadf","val":123.987123987,"negval":0,"desc":"sadf"}]
+[
+  {
+    "date": "27.10.2021",
+    "val": 1.9,
+    "negval": 0,
+    "desc": "vie-klob"
+  },
+  {
+    "date": "29.10.2021",
+    "val": 9.6,
+    "negval": 0,
+    "desc": "klob-vie"
+  },
+  {
+    "date": "30.10.2021",
+    "val": 9.6,
+    "negval": 0,
+    "desc": "klob-wild"
+  },
+  {
+    "date": "31.10.2021",
+    "val": 9.6,
+    "negval": 0,
+    "desc": "wild-klob"
+  },
+  {
+    "date": "04.11.2021",
+    "val": 8.6,
+    "negval": 0,
+    "desc": "klob-vie-klob"
+  },
+  {
+    "date": "06.11.2021",
+    "val": 8.6,
+    "negval": 0,
+    "desc": "klob-vie-klob"
+  },
+  {
+    "date": "08.11.2021",
+    "val": 8.6,
+    "negval": 0,
+    "desc": "klob-vie-klob"
+  },
+  {
+    "date": "10.11.2021",
+    "val": 4.9,
+    "negval": 0,
+    "desc": "klob-zeis"
+  },
+  {
+    "date": "11.11.2021",
+    "val": 8.6,
+    "negval": 0,
+    "desc": "klob-vie-klob"
+  },
+  {
+    "date": "14.11.2021",
+    "val": 8.6,
+    "negval": 0,
+    "desc": "klob-vie-klob"
+  },
+  {
+    "date": "15.11.2021",
+    "val": 64.3,
+    "negval": 16.4,
+    "desc": "vie-muc"
+  },
+  {
+    "date": "06.12.2021",
+    "val": 0,
+    "negval": 29.5,
+    "desc": "muc-vie"
+  },
+  {
+    "date": "07.12.2021",
+    "val": 60.15,
+    "negval": 19.4,
+    "desc": "muc-vie"
+  },
+  {
+    "date": "07.12.2021",
+    "val": 4.3,
+    "negval": 0,
+    "desc": "vie-klob"
+  },
+  {
+    "date": "07.12.2021",
+    "val": 4.3,
+    "negval": 0,
+    "desc": "klob-vie"
+  },
+  {
+    "date": "12.12.2021",
+    "val": 63.9,
+    "negval": 23.9,
+    "desc": "vie-muc"
+  },
+  {
+    "date": "18.12.2021",
+    "val": 60,
+    "negval": 13.4,
+    "desc": "muc-vie"
+  },
+  {
+    "date": "18.12.2021",
+    "val": 4.3,
+    "negval": 0,
+    "desc": "vie-klob"
+  },
+  {
+    "date": "19.12.2021",
+    "val": 19.8,
+    "negval": 0,
+    "desc": "klob-wild-klob"
+  },
+  {
+    "date": "20.12.2021",
+    "val": 1.9,
+    "negval": 0,
+    "desc": "klob"
+  }
+]
