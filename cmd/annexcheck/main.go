@@ -15,6 +15,63 @@ type gitrepoinfo struct {
 	gitSizeUnit string
 }
 
+func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
+	// git and git annex commands can only be run from within
+	// a git repository. To avoid switching back and forth
+	// for multiple git commands, this function collects 
+	// all required information and returns a fitting struct.
+	log.Printf("Start annex check for repo %q", repopath)
+	defer changedirlog("/", "checkAnnexComplete")
+
+	info := gitrepoinfo{}
+
+	// return with error if repo path is not accessible
+	err := os.Chdir(repopath)
+	if err != nil {
+		return info, fmt.Errorf("could not switch to repopath: %s", err.Error())
+	}
+
+	// missing content check
+	stdout, stderr, err := annexCMD(repopath, "find", "--not", "--in=here")
+	if err != nil {
+		log.Printf("error checking missing annex content: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+	if len(stdout) > 0 {
+		log.Printf("found missing annex files: %s, %s, %s", err.Error(), stdout, stderr)
+		info.missingAnnex = true
+	}
+
+	// locked content check
+	stdout, stderr, err = annexCMD(repopath, "find", "--locked")
+	if err != nil {
+		log.Printf("error checking locked annex content: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+	if len(stdout) > 0 {
+		log.Printf("found locked annex files: %s, %s, %s", err.Error(), stdout, stderr)
+		info.lockedAnnex = true
+	}
+
+	// annex size check
+	stdout, stderr, err = annexCMD(repopath, "info", "--fast", ".")
+	if err != nil {
+		log.Printf("error checking annex content size: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+	if len(stdout) > 0 {
+		log.Printf("found annex file size: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+
+	// git size check
+	stdout, stderr, err = gitCMD(repopath, "count-objects", "-H")
+	if err != nil {
+		log.Printf("error checking annex content size: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+	if len(stdout) > 0 {
+		log.Printf("found git file size: %s, %s, %s", err.Error(), stdout, stderr)
+	}
+
+	return info, nil
+}
+
 func runannexcheck() {
 	fmt.Println("Running annexcheck")
 }
