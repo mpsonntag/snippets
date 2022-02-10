@@ -1902,6 +1902,14 @@ For an introduction check the following [article](
 https://www.howtogeek.com/425232/how-to-securely-delete-files-on-linux/)
 
 
+## Ubuntu system upgrade
+
+Upgrade an ubuntu system from one LTS to the next by using the following
+
+    sudo apt update
+    sudo apt upgrade
+    do-release-upgrade
+
 # Exercises
 ## User handling
 -[ ] create user
