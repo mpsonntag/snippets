@@ -1877,15 +1877,24 @@ Reboot a machine from the command line
 
 ## Safely removing files
 
-To ensure files are properly deleted, the following two CLI commands can be installed and used:
+First make sure that you hard drive is not an SSD. The methods described below all
+overwrite the file content multiple times. On SSDs this not only does not properly
+overwrite the actual file data but also lowers the life-time of the device itself.
 
-shred
+If you are working on an SSD you can either wipe the whole drive OR work on encrypted
+files from the start, if they contain sensitive data.
 
-sudo apt-get install secure-delete
-- srm ... secure remove
-- sfill ... overwrite free hard drive space
-- sswap ... cleanse swap space
-- sdmem ... cleanse RAM
+### Safe file removal from magnetic hard drives
+
+To ensure files are properly deleted, the following CLI commands can be installed and used:
+
+- shred
+- wipe
+- secure-delete
+  - srm ... secure remove
+  - sfill ... overwrite free hard drive space
+  - sswap ... cleanse swap space
+  - sdmem ... cleanse RAM
 
 For an introduction check the following [article](
 https://www.howtogeek.com/425232/how-to-securely-delete-files-on-linux/)
