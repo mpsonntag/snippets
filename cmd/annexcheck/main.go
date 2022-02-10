@@ -31,6 +31,28 @@ func gitCMD(gitdir string, gitcommand ...string) (string, string, error) {
 	return string(stdout), string(stderr), err
 }
 
+// annexCMD changes the working directory to a provided git directory
+// and runs an annex command by prepending 'git annex' to passed
+// annex commands.
+// It returns stdout, stderr as strings and any error that might occur.
+func annexCMD(gitdir string, annexcommand ...string) (string, string, error) {
+	origdir, err := os.Getwd()
+	if err != nil {
+		return "", "", fmt.Errorf("failed to get working directory %s", err.Error())
+	}
+	defer os.Chdir(origdir)
+
+	if err := os.Chdir(gitdir); err != nil {
+		return "", "", fmt.Errorf("failed to change to annex directory '%s'", err.Error())
+	}
+
+	log.Printf("Running annex command: %s", annexcommand)
+	cmd := gingit.AnnexCommand(annexcommand...)
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
+
 type gitrepoinfo struct {
 	missingAnnex  bool
 	lockedAnnex   bool
