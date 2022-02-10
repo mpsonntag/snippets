@@ -9,6 +9,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// gitCMD changes the working directory to a provided git directory
+// and runs a git command by prepending 'git ' to passed
+// git commands.
+// It returns stdout, stderr as strings and any error that might occur.
+func gitCMD(gitdir string, gitcommand ...string) (string, string, error) {
+	origdir, err := os.Getwd()
+	if err != nil {
+		return "", "", fmt.Errorf("failed to get working directory %s", err.Error())
+	}
+	defer os.Chdir(origdir)
+
+	if err := os.Chdir(gitdir); err != nil {
+		return "", "", fmt.Errorf("failed to change to git directory '%s'", err.Error())
+	}
+
+	log.Printf("Running git command: %s", gitcommand)
+	cmd := gingit.Command(gitcommand...)
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
+
 type gitrepoinfo struct {
 	missingAnnex  bool
 	lockedAnnex   bool
