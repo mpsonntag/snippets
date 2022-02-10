@@ -2,23 +2,25 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
 type gitrepoinfo struct {
-	missingAnnex bool
-	lockedAnnex bool
-	annexSize int
+	missingAnnex  bool
+	lockedAnnex   bool
+	annexSize     int
 	annexSizeUnit string
-	gitSize int
-	gitSizeUnit string
+	gitSize       int
+	gitSizeUnit   string
 }
 
 func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	// git and git annex commands can only be run from within
 	// a git repository. To avoid switching back and forth
-	// for multiple git commands, this function collects 
+	// for multiple git commands, this function collects
 	// all required information and returns a fitting struct.
 	log.Printf("Start annex check for repo %q", repopath)
 	defer changedirlog("/", "checkAnnexComplete")
@@ -72,7 +74,7 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	return info, nil
 }
 
-func runannexcheck() {
+func runannexcheck(repodir string) (string, int, error) {
 	// check repository annex content
 	incompleteContent, err := checkAnnexComplete(repodir)
 
@@ -95,7 +97,7 @@ func runannexcheck() {
 
 	// if repo size > cutoff size (500 GB) stop and return with an error
 	//if reposize > cutoff {
-	//	return 
+	//	return
 	//}
 
 	// if repo size <= cutoff size (500 GB) create directory copy, unlock all files and create zip file from there
@@ -110,8 +112,18 @@ func runannexcheck() {
 	//	}
 	//	repodir = cpdir
 	//	// switch to cp dir and unlock annex files
-	//	
+	//
 	//}
+
+	return "all good", 1, nil
+}
+
+func clicall(cmd *cobra.Command, args []string) {
+	repodir := "/home/sommer/Chaos/DL/annextmp"
+	_, _, err := runannexcheck(repodir)
+	if err != nil {
+		log.Printf("error running annexcheck: %q", err.Error())
+	}
 }
 
 func setUpCommands(verstr string) *cobra.Command {
@@ -126,8 +138,8 @@ func setUpCommands(verstr string) *cobra.Command {
 		Use:                   "run",
 		Short:                 "run the annexcheck from the current directory",
 		Args:                  cobra.NoArgs,
-		Run:                   runannexcheck,
-		Version:               fmt.Sprintln("0.0.1"),,
+		Run:                   clicall,
+		Version:               fmt.Sprintln("0.0.1"),
 		DisableFlagsInUseLine: true,
 	}
 
@@ -139,8 +151,9 @@ func setUpCommands(verstr string) *cobra.Command {
 func main() {
 	fmt.Println("...[I] parsing CLI")
 
-	err := rootCmd.Execute()
+	cmds := setUpCommands("")
+	err := cmds.Execute()
 	if err != nil {
-		fmt.Printf("...[E] running tickexp: %q\n", err.Error())
+		fmt.Printf("...[E] running annexcheck: %q\n", err.Error())
 	}
 }
