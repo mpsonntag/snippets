@@ -1884,7 +1884,9 @@ overwrite the actual file data but also lowers the life-time of the device itsel
 If you are working on an SSD you can either wipe the whole drive OR work on encrypted
 files from the start, if they contain sensitive data.
 
-### Safe file removal from magnetic hard drives
+To garbage collect blocks containing deleted files, look up the `fstrim` command.
+
+### Safe file removal from an HDD
 
 To ensure files are properly deleted, the following CLI commands can be installed and used:
 
