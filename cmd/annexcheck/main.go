@@ -14,14 +14,11 @@ import (
 // git commands.
 // It returns stdout, stderr as strings and any error that might occur.
 func gitCMD(gitdir string, gitcommand ...string) (string, string, error) {
-	origdir, err := os.Getwd()
-	if err != nil {
-		return "", "", fmt.Errorf("failed to get working directory %s", err.Error())
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		return "", "", fmt.Errorf("path not found %q", gitdir)
 	}
-	defer os.Chdir(origdir)
-
 	if err := os.Chdir(gitdir); err != nil {
-		return "", "", fmt.Errorf("failed to change to git directory '%s'", err.Error())
+		return "", "", fmt.Errorf("failed to access git dir %q: %q", gitdir, err.Error())
 	}
 
 	log.Printf("Running git command: %s", gitcommand)
@@ -36,14 +33,11 @@ func gitCMD(gitdir string, gitcommand ...string) (string, string, error) {
 // annex commands.
 // It returns stdout, stderr as strings and any error that might occur.
 func annexCMD(gitdir string, annexcommand ...string) (string, string, error) {
-	origdir, err := os.Getwd()
-	if err != nil {
-		return "", "", fmt.Errorf("failed to get working directory %s", err.Error())
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		return "", "", fmt.Errorf("path not found %q", gitdir)
 	}
-	defer os.Chdir(origdir)
-
 	if err := os.Chdir(gitdir); err != nil {
-		return "", "", fmt.Errorf("failed to change to annex directory '%s'", err.Error())
+		return "", "", fmt.Errorf("failed to access annex dir %q: %q", gitdir, err.Error())
 	}
 
 	log.Printf("Running annex command: %s", annexcommand)
@@ -62,22 +56,12 @@ type gitrepoinfo struct {
 	gitSizeUnit   string
 }
 
-// changedirlog logs if a change directory action results in an error;
-// used to log errors when defering directory changes.
-func changedirlog(todir string, lognote string) {
-	err := os.Chdir(todir)
-	if err != nil {
-		log.Printf("%s: %s; could not change to dir %s", err.Error(), lognote, todir)
-	}
-}
-
 func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	// git and git annex commands can only be run from within
 	// a git repository. To avoid switching back and forth
 	// for multiple git commands, this function collects
 	// all required information and returns a fitting struct.
 	log.Printf("Start annex check for repo %q", repopath)
-	defer changedirlog("/", "checkAnnexComplete")
 
 	info := gitrepoinfo{}
 
@@ -119,30 +103,52 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	// git size check
 	stdout, stderr, err = gitCMD(repopath, "count-objects", "-H")
 	if err != nil {
-		log.Printf("error checking annex content size: %s, %s, %s", err.Error(), stdout, stderr)
+		log.Printf("error checking git content size: %s, %s, %s", err.Error(), stdout, stderr)
 	}
 	if len(stdout) > 0 {
 		log.Printf("found git file size: %s, %s, %s", err.Error(), stdout, stderr)
 	}
 
+	// remove once fully refactored and the issues return on error
+	if err != nil {
+		return info, err
+	}
+
 	return info, nil
 }
 
-func runannexcheck(repodir string) (string, int, error) {
+// changedirlog logs if a change directory action results in an error;
+// used to log errors when defering directory changes.
+func changedirlog(todir string, lognote string) {
+	err := os.Chdir(todir)
+	if err != nil {
+		log.Printf("%s: %s; could not change to dir %s", err.Error(), lognote, todir)
+	}
+}
+
+func runannexcheck(repodir string) (string, error) {
+	if _, err := os.Stat(repodir); os.IsNotExist(err) {
+		return "", fmt.Errorf("path not found %q", repodir)
+	}
+
+	// not sure this dir switch back is required; at best it should
+	// be done when the whole process has finished.
+	defer changedirlog("/", "checkAnnexComplete")
+
 	// check repository annex content
 	incompleteContent, err := checkAnnexComplete(repodir)
 
 	// skip zip creation when an annex content issue has been found
 	if err != nil {
-		return "", -1, fmt.Errorf("skipping zip creation, error checking annex content: %s", err.Error())
+		return "", fmt.Errorf("skipping zip creation, error checking annex content: %s", err.Error())
 	}
 
 	if incompleteContent.missingAnnex {
-		return "", -1, fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
+		return "", fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
 	}
 
 	if incompleteContent.missingAnnex {
-		return "", -1, fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
+		return "", fmt.Errorf("skipping zip creation, found missing annex file content: %s", err.Error())
 	}
 
 	// on repo access error or missing content error stop and return appropriate err message
@@ -169,12 +175,12 @@ func runannexcheck(repodir string) (string, int, error) {
 	//
 	//}
 
-	return "all good", 1, nil
+	return "all good", nil
 }
 
 func clicall(cmd *cobra.Command, args []string) {
 	repodir := "/home/sommer/Chaos/DL/annextmp"
-	_, _, err := runannexcheck(repodir)
+	_, err := runannexcheck(repodir)
 	if err != nil {
 		log.Printf("error running annexcheck: %q", err.Error())
 	}
