@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	gingit "github.com/G-Node/gin-cli/git"
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +16,15 @@ type gitrepoinfo struct {
 	annexSizeUnit string
 	gitSize       int
 	gitSizeUnit   string
+}
+
+// changedirlog logs if a change directory action results in an error;
+// used to log errors when defering directory changes.
+func changedirlog(todir string, lognote string) {
+	err := os.Chdir(todir)
+	if err != nil {
+		log.Printf("%s: %s; could not change to dir %s", err.Error(), lognote, todir)
+	}
 }
 
 func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
