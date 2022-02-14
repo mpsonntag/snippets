@@ -133,6 +133,47 @@ func TestMissingAnnexContent(t *testing.T) {
 	fmt.Printf("%q, %q\n", stderr, stdout)
 }
 
+ func TestGitRemoteCMD(t *testing.T) {
+	targetpath, err := ioutil.TempDir("", "test_gitcmd")
+	if err != nil {
+		t.Fatalf("Failed to create temp directory: %v", err)
+	}
+	defer os.RemoveAll(targetpath)
+
+	// check annex is available to the test; stop the test otherwise
+	stdout, stderr, err := annexRemoteCMD(targetpath, "info")
+	if err != nil {
+		if strings.Contains(stderr, "'annex' is not a git command") {
+			t.Skipf("Annex is not available, skipping test...\n")
+		}
+		t.Fatalf("Failed to run test: %q, %q, %q", stdout, stderr, err.Error())
+	}
+
+	// test non existing directory error
+	_, _, err = gitRemoteCMD("/home/not/exist", "-C", "/home/not/exist", "")
+	if err == nil {
+		t.Fatal("non existing directory should return an error")
+	}
+
+	// test non git directory error
+	stdout, stderr, err = gitRemoteCMD(targetpath, "-C", targetpath, "status")
+	if err == nil {
+		t.Fatalf("non git directory should return an error\n%s\n%s", stdout, stderr)
+	}
+
+	// test valid git command
+	stdout, stderr, err = gitRemoteCMD(targetpath, "-C", targetpath, "init")
+	if err != nil {
+		t.Fatalf("error on initializing git dir: %q, %q, %q", err.Error(), stdout, stderr)
+	}
+	stdout, stderr, err = gitRemoteCMD(targetpath, "-C", targetpath, "status")
+	if err != nil {
+		t.Fatalf("error on running git command: %q\n%s\n%s", err.Error(), stderr, stdout)
+	} else if stderr != "" {
+		t.Fatalf("command error running git command: %q", stderr)
+	}
+}
+
 func TestRunannexcheck(t *testing.T) {
 	targetpath, err := ioutil.TempDir("", "test_runannexcheck")
 	if err != nil {
