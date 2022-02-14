@@ -43,6 +43,27 @@ import (
 }
  */
 
+ func TestLocalAnnexCommand(t *testing.T) {
+	targetpath, err := ioutil.TempDir("", "test_gitcmd")
+	if err != nil {
+		t.Fatalf("Failed to create temp directory: %v", err)
+	}
+	defer os.RemoveAll(targetpath)
+
+	// check annex is available to the test; stop the test otherwise
+	stdout, stderr, err := annexRemoteCMD(targetpath, "info")
+	if err != nil {
+		if strings.Contains(stderr, "'annex' is not a git command") {
+			t.Skipf("Annex is not available, skipping test...\n")
+		}
+		t.Fatalf("Failed to run test: %q, %q, %q", stdout, stderr, err.Error())
+	}
+
+	cmd := LocalAnnexCommand("find", "--not", "--in=here")
+	stdoutb, stderrb, err := cmd.OutputError()
+	fmt.Printf("%q. %q, %q", err.Error(), stdoutb, stderrb)
+}
+
 func TestRunannexcheck(t *testing.T) {
 	targetpath, err := ioutil.TempDir("", "test_runannexcheck")
 	if err != nil {
