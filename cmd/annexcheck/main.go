@@ -100,41 +100,6 @@ func annexCMD(gitdir string, annexcommand ...string) (string, string, error) {
 	return string(stdout), string(stderr), err
 }
 
-// lets not change the working directory if at all possible... this only leads to madness.
-// lets run all these commands from remote and add the git directory path to the git command.
-
-// gitRemoteCMD prepends 'git -C ' and the provided git directory path and
-// then adds and runs the passed git command arguments. This avoids switching to the git
-// directory and running into path issues along the road.
-// The command returns stdout and stderr as strings and any error that might occur.
-func gitRemoteCMD(gitdir string, gitcommand ...string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-
-	log.Printf("Running git command: %s", gitcommand)
-	cmd := gingit.Command(gitcommand...)
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
-// annexCMD changes the working directory to a provided git directory
-// and runs an annex command by prepending 'git annex' to passed
-// annex commands.
-// It returns stdout, stderr as strings and any error that might occur.
-func annexRemoteCMD(gitdir string, annexcommand ...string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-
-	log.Printf("Running annex command: %s\n", annexcommand)
-	cmd := gingit.AnnexCommand(annexcommand...)
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
 type gitrepoinfo struct {
 	missingAnnex  bool
 	lockedAnnex   bool
