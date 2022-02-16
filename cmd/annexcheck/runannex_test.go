@@ -16,17 +16,15 @@ defer os.RemoveAll(targetpath)
 */
 
 func TestMissingAnnexContent(t *testing.T) {
+	// check annex is available to the test; stop the test otherwise
+	hasAnnex, err := annexAvailable()
+	if err != nil {
+		t.Fatalf("Error checking git annex: %q", err.Error())
+	} else if !hasAnnex {
+		t.Skipf("Annex is not available, skipping test...\n")
+	}
 
 	targetpath := t.TempDir()
-
-	// check annex is available to the test; stop the test otherwise
-	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
-	if err != nil {
-		if strings.Contains(stderr, "'annex' is not a git command") {
-			t.Skipf("Annex is not available, skipping test...\n")
-		}
-		t.Fatalf("Failed to run test: %q, %q, %q", stdout, stderr, err.Error())
-	}
 
 	// test non existing directory error
 	fmt.Println("Test non exist dir")
@@ -37,7 +35,7 @@ func TestMissingAnnexContent(t *testing.T) {
 
 	// test non git directory error
 	fmt.Println("Test non git dir")
-	stdout, stderr, err = missingAnnexContent(targetpath)
+	stdout, stderr, err := missingAnnexContent(targetpath)
 	if err == nil {
 		t.Fatalf("non git directory should return an error\n%s\n%s", stdout, stderr)
 	}
@@ -79,17 +77,15 @@ func TestMissingAnnexContent(t *testing.T) {
 }
 
  func TestGitRemoteCMD(t *testing.T) {
+	// check annex is available to the test; stop the test otherwise
+	hasAnnex, err := annexAvailable()
+	if err != nil {
+		t.Fatalf("Error checking git annex: %q", err.Error())
+	} else if !hasAnnex {
+		t.Skipf("Annex is not available, skipping test...\n")
+	}
 
 	targetpath := t.TempDir()
-
-	// check annex is available to the test; stop the test otherwise
-	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
-	if err != nil {
-		if strings.Contains(stderr, "'annex' is not a git command") {
-			t.Skipf("Annex is not available, skipping test...\n")
-		}
-		t.Fatalf("Failed to run test: %q, %q, %q", stdout, stderr, err.Error())
-	}
 
 	// test non existing directory error
 	_, _, err = remoteGitCMD("/home/not/exist", false, "version")
@@ -98,7 +94,7 @@ func TestMissingAnnexContent(t *testing.T) {
 	}
 
 	// test non git directory error
-	stdout, stderr, err = remoteGitCMD(targetpath, false, "status")
+	stdout, stderr, err := remoteGitCMD(targetpath, false, "status")
 	if err == nil {
 		t.Fatalf("non git directory should return an error\n%s\n%s", stdout, stderr)
 	}
@@ -117,17 +113,15 @@ func TestMissingAnnexContent(t *testing.T) {
 }
 
 func TestRunannexcheck(t *testing.T) {
+	// check annex is available to the test; stop the test otherwise
+	hasAnnex, err := annexAvailable()
+	if err != nil {
+		t.Fatalf("Error checking git annex: %q", err.Error())
+	} else if !hasAnnex {
+		t.Skipf("Annex is not available, skipping test...\n")
+	}
 
 	targetpath := t.TempDir()
-
-	// check annex is available to the test; stop the test otherwise
-	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
-	if err != nil {
-		if strings.Contains(stderr, "'annex' is not a git command") {
-			t.Skipf("Annex is not available, skipping test...\n")
-		}
-		t.Fatalf("Failed to run test: %q, %q, %q", stdout, stderr, err.Error())
-	}
 
 	// test non existing directory
 	repodir := "/home/not/exist"
