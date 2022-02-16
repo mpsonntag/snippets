@@ -40,7 +40,7 @@ func annexAvailable() (bool, error) {
 // remoteGitCMD runs a git command for a given directory
 // If the useannex flag is set to true, the executed command
 // will be a git annex command instead of a regular git command.
-func remoteGitCMD(gitdir string, useannex bool, gitcmd... string) (string, string, error) {
+func remoteGitCMD(gitdir string, useannex bool, gitcmd ...string) (string, string, error) {
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
 		return "", "", fmt.Errorf("path not found %q", gitdir)
 	}
@@ -59,39 +59,21 @@ func remoteGitCMD(gitdir string, useannex bool, gitcmd... string) (string, strin
 	return string(stdout), string(stderr), err
 }
 
-// gitCMD changes the working directory to a provided git directory
-// and runs a git command by prepending 'git ' to passed
-// git commands.
-// It returns stdout, stderr as strings and any error that might occur.
-func gitCMD(gitdir string, gitcommand ...string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-	if err := os.Chdir(gitdir); err != nil {
-		return "", "", fmt.Errorf("failed to access git dir %q: %q", gitdir, err.Error())
-	}
-
-	log.Printf("Running git command: %s", gitcommand)
-	cmd := gingit.Command(gitcommand...)
+// gitCMD runs the passed git command arguments.
+// The command returns stdout and stderr as strings and any error that might occur.
+func gitCMD(gitargs ...string) (string, string, error) {
+	log.Printf("Running git command: %s\n", gitargs)
+	cmd := gingit.Command(gitargs...)
 	stdout, stderr, err := cmd.OutputError()
 
 	return string(stdout), string(stderr), err
 }
 
-// annexCMD changes the working directory to a provided git directory
-// and runs an annex command by prepending 'git annex' to passed
-// annex commands.
-// It returns stdout, stderr as strings and any error that might occur.
-func annexCMD(gitdir string, annexcommand ...string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-	if err := os.Chdir(gitdir); err != nil {
-		return "", "", fmt.Errorf("failed to access annex dir %q: %q", gitdir, err.Error())
-	}
-
-	log.Printf("Running annex command: %s", annexcommand)
-	cmd := gingit.AnnexCommand(annexcommand...)
+// annexCMD runs the passed git annex command arguments.
+// The command returns stdout and stderr as strings and any error that might occur.
+func annexCMD(annexargs ...string) (string, string, error) {
+	log.Printf("Running annex command: %s\n", annexargs)
+	cmd := gingit.AnnexCommand(annexargs...)
 	stdout, stderr, err := cmd.OutputError()
 
 	return string(stdout), string(stderr), err
@@ -139,16 +121,12 @@ func someRemoteAnnex(gitdir string, gitcmd ...string) (string, string, error) {
 }
 
 func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
-	// git and git annex commands can only be run from within
-	// a git repository. To avoid switching back and forth
-	// for multiple git commands, this function collects
-	// all required information and returns a fitting struct.
 	log.Printf("Start annex check for repo %q", repopath)
 
 	info := gitrepoinfo{}
 
 	// missing content check
-	stdout, stderr, err := missingAnnexContent(repopath)
+	stdout, stderr, err := remoteGitCMD(repopath, true, "find", "--not", "--in=here")
 	if err != nil {
 		log.Printf("error checking missing annex content: %s, %s, %s", err.Error(), stdout, stderr)
 	}
@@ -158,7 +136,7 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	}
 
 	// locked content check
-	stdout, stderr, err = annexCMD(repopath, "find", "--locked")
+	stdout, stderr, err = remoteGitCMD(repopath, true, "find", "--locked")
 	if err != nil {
 		log.Printf("error checking locked annex content: %s, %s, %s", err.Error(), stdout, stderr)
 	}
@@ -168,7 +146,7 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	}
 
 	// annex size check
-	stdout, stderr, err = annexCMD(repopath, "info", "--fast", ".")
+	stdout, stderr, err = remoteGitCMD(repopath, true, "info", "--fast", ".")
 	if err != nil {
 		log.Printf("error checking annex content size: %s, %s, %s", err.Error(), stdout, stderr)
 	}
@@ -177,7 +155,7 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	}
 
 	// git size check
-	stdout, stderr, err = gitCMD(repopath, "count-objects", "-H")
+	stdout, stderr, err = remoteGitCMD(repopath, false, "count-objects", "-H")
 	if err != nil {
 		log.Printf("error checking git content size: %s, %s, %s", err.Error(), stdout, stderr)
 	}
@@ -193,87 +171,13 @@ func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
 	return info, nil
 }
 
-func checkAnnexCompleteOld(repopath string) (gitrepoinfo, error) {
-	// git and git annex commands can only be run from within
-	// a git repository. To avoid switching back and forth
-	// for multiple git commands, this function collects
-	// all required information and returns a fitting struct.
-	log.Printf("Start annex check for repo %q", repopath)
-
-	info := gitrepoinfo{}
-
-	// return with error if repo path is not accessible
-	err := os.Chdir(repopath)
-	if err != nil {
-		return info, fmt.Errorf("could not switch to repopath: %s", err.Error())
-	}
-
-	// missing content check
-	stdout, stderr, err := annexCMD(repopath, "find", "--not", "--in=here")
-	if err != nil {
-		log.Printf("error checking missing annex content: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-	if len(stdout) > 0 {
-		log.Printf("found missing annex files: %s, %s, %s", err.Error(), stdout, stderr)
-		info.missingAnnex = true
-	}
-
-	// locked content check
-	stdout, stderr, err = annexCMD(repopath, "find", "--locked")
-	if err != nil {
-		log.Printf("error checking locked annex content: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-	if len(stdout) > 0 {
-		log.Printf("found locked annex files: %s, %s, %s", err.Error(), stdout, stderr)
-		info.lockedAnnex = true
-	}
-
-	// annex size check
-	stdout, stderr, err = annexCMD(repopath, "info", "--fast", ".")
-	if err != nil {
-		log.Printf("error checking annex content size: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-	if len(stdout) > 0 {
-		log.Printf("found annex file size: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-
-	// git size check
-	stdout, stderr, err = gitCMD(repopath, "count-objects", "-H")
-	if err != nil {
-		log.Printf("error checking git content size: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-	if len(stdout) > 0 {
-		log.Printf("found git file size: %s, %s, %s", err.Error(), stdout, stderr)
-	}
-
-	// remove once fully refactored and the issues return on error
-	if err != nil {
-		return info, err
-	}
-
-	return info, nil
-}
-
-// changedirlog logs if a change directory action results in an error;
-// used to log errors when defering directory changes.
-func changedirlog(todir string, lognote string) {
-	err := os.Chdir(todir)
-	if err != nil {
-		log.Printf("%s: %s; could not change to dir %s", err.Error(), lognote, todir)
-	}
-}
-
-func runannexcheckOld(repodir string) (string, error) {
+func runannexcheck(repodir string) (string, error) {
 	if _, err := os.Stat(repodir); os.IsNotExist(err) {
 		return "", fmt.Errorf("path not found %q", repodir)
 	}
 
-	// not sure this dir switch back is required; at best it should
-	// be done when the whole process has finished.
-	defer changedirlog("/", "checkAnnexComplete")
-
 	// check repository annex content
-	incompleteContent, err := checkAnnexCompleteOld(repodir)
+	incompleteContent, err := checkAnnexComplete(repodir)
 
 	// skip zip creation when an annex content issue has been found
 	if err != nil {
@@ -317,7 +221,7 @@ func runannexcheckOld(repodir string) (string, error) {
 
 func clicall(cmd *cobra.Command, args []string) {
 	repodir := "/home/sommer/Chaos/DL/annextmp"
-	_, err := runannexcheckOld(repodir)
+	_, err := runannexcheck(repodir)
 	if err != nil {
 		log.Printf("error running annexcheck: %q", err.Error())
 	}
