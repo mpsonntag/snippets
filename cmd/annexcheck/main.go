@@ -106,18 +106,6 @@ type gitrepoinfo struct {
 	gitSizeUnit   string
 }
 
-func initAnnexForNow(gitdir string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-
-	cmd := gingit.AnnexCommand()
-	cmd.Args = []string{"git", "-C", gitdir, "annex", "init"}
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
 func missingAnnexContent(gitdir string) (string, string, error) {
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
 		return "", "", fmt.Errorf("path not found %q", gitdir)
