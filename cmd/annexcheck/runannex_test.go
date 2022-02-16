@@ -2,21 +2,22 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
 )
 
-func TestMissingAnnexContent(t *testing.T) {
-	targetpath, err := ioutil.TempDir("", "test_gitcmd")
-	if err != nil {
-		t.Fatalf("Failed to create temp directory: %v", err)
-	}
-	defer os.RemoveAll(targetpath)
+/*
+targetpath, err := ioutil.TempDir("", "test_gitcmd")
+if err != nil {
+	t.Fatalf("Failed to create temp directory: %v", err)
+}
+defer os.RemoveAll(targetpath)
+*/
 
-	// we could use that as well...
-	// t.TempDir()
+func TestMissingAnnexContent(t *testing.T) {
+
+	targetpath := t.TempDir()
 
 	// check annex is available to the test; stop the test otherwise
 	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
@@ -78,11 +79,8 @@ func TestMissingAnnexContent(t *testing.T) {
 }
 
  func TestGitRemoteCMD(t *testing.T) {
-	targetpath, err := ioutil.TempDir("", "test_gitcmd")
-	if err != nil {
-		t.Fatalf("Failed to create temp directory: %v", err)
-	}
-	defer os.RemoveAll(targetpath)
+
+	targetpath := t.TempDir()
 
 	// check annex is available to the test; stop the test otherwise
 	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
@@ -119,11 +117,8 @@ func TestMissingAnnexContent(t *testing.T) {
 }
 
 func TestRunannexcheck(t *testing.T) {
-	targetpath, err := ioutil.TempDir("", "test_runannexcheck")
-	if err != nil {
-		t.Fatalf("Failed to create temp directory: %v", err)
-	}
-	defer os.RemoveAll(targetpath)
+
+	targetpath := t.TempDir()
 
 	// check annex is available to the test; stop the test otherwise
 	stdout, stderr, err := remoteGitCMD(targetpath, true, "info")
