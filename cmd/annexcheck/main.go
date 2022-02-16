@@ -4,12 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"strings"
 
 	gingit "github.com/G-Node/gin-cli/git"
-	ginconf "github.com/G-Node/gin-cli/ginclient/config"
-	ginshell "github.com/G-Node/gin-cli/git/shell"
 	"github.com/spf13/cobra"
 )
 
@@ -107,28 +104,6 @@ type gitrepoinfo struct {
 	annexSizeUnit string
 	gitSize       int
 	gitSizeUnit   string
-}
-
-func LocalAnnexCommand(args ...string) ginshell.Cmd {
-	config := ginconf.Read()
-	// gitannexbin := config.Bin.GitAnnex
-	gitbin := config.Bin.Git
-	gitannexpath := config.Bin.GitAnnexPath
-	cmdargs := []string{"annex"}
-	cmdargs = append(cmdargs, args...)
-	cmd := ginshell.Command(gitbin, cmdargs...)
-	env := os.Environ()
-	cmd.Env = env
-	if gitannexpath != "" {
-		syspath := os.Getenv("PATH")
-		syspath += string(os.PathListSeparator) + gitannexpath
-		cmd.Env = append(cmd.Env, syspath)
-	}
-	//cmd.Env = append(cmd.Env, sshEnv())
-	cmd.Env = append(cmd.Env, "GIT_ANNEX_USE_GIT_SSH=1")
-	workingdir, _ := filepath.Abs(".")
-	log.Printf("Running shell command (Dir: %s): %s", workingdir, strings.Join(cmd.Args, " "))
-	return cmd
 }
 
 func initAnnexForNow(gitdir string) (string, string, error) {
