@@ -13,6 +13,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func utilInitAnnex(gitdir string) (string, string, error) {
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		return "", "", fmt.Errorf("path not found %q", gitdir)
+	}
+
+	cmd := gingit.AnnexCommand()
+	cmd.Args = []string{"git", "-C", gitdir, "annex", "init"}
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
+
 // gitCMD changes the working directory to a provided git directory
 // and runs a git command by prepending 'git ' to passed
 // git commands.
