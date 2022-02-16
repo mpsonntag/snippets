@@ -98,12 +98,6 @@ func TestMissingAnnexContent(t *testing.T) {
 	if err != nil {
 		t.Fatalf("git annex directory should not return an error\n%s\n%s", stdout, stderr)
 	}
-
-	fmt.Println("Test annex info")
-	stdout, stderr, err = someRemoteAnnex(targetpath, "info")
-	if err != nil {
-		t.Fatalf("git annex directory should not return an error\n%s\n%s", stdout, stderr)
-	}
 	fmt.Printf("%q, %q\n", stderr, stdout)
 }
 
