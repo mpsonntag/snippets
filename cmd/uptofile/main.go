@@ -52,9 +52,11 @@ var outdir = filepath.Join(os.Getenv("HOME"), "Chaos", "DL")
 var password = "iamsecret"
 
 func basicFail() string {
-	return `<html>
+	return `
+<html>
 	<body><h1>500 Internal server error</h1></body>
-	</html>`
+</html>
+`
 }
 
 func rootFunc(w http.ResponseWriter, r *http.Request) {
