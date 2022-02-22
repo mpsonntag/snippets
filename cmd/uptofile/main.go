@@ -145,7 +145,8 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 			mailmap[fileScanner.Text()] = nil
 		}
 
-		// No defer close since the same file is opened again and truncated below
+		// No defer close since the same file is opened again and truncated below.
+		// Could move the whole affair to its own function and defer close in this function.
 		datafile.Close()
 	}
 
@@ -222,7 +223,7 @@ func handleWhitelistRegistration(input string) (bool, error) {
 
 	resp, err := http.Get(whitelistlocation)
 	if err != nil {
-		return false, fmt.Errorf("Error fetching whitelist: '%s'", err.Error())
+		return false, fmt.Errorf("error fetching whitelist: %q", err.Error())
 	}
 
 	fmt.Printf("Current response header: '%v', Etag: '%v', Last-Modified: '%v/%T'", resp.Header, resp.Header["Etag"], resp.Header["Last-Modified"], resp.Header["Last-Modified"])
@@ -247,18 +248,19 @@ func handleWhitelistRegistration(input string) (bool, error) {
 func handleWhitelist(email string) bool {
 	const whitelistlocation = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
 
-	// Hash email address
-	hasher := sha1.New()
-	io.WriteString(hasher, email)
-	hash := hasher.Sum(nil)
-	compare := hex.EncodeToString(hash[:])
-
 	resp, err := http.Get(whitelistlocation)
 	if err != nil {
 		fmt.Printf("Error fetching whitelist: '%s'", err.Error())
 		return false
 	}
 	defer resp.Body.Close()
+
+	// Hash email address
+	compare := sha1String(email)
+	// should probably be proper error handling instead
+	if compare == "" {
+		return false
+	}
 
 	var registered bool
 	respScan := bufio.NewScanner(resp.Body)
