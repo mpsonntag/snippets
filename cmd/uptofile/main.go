@@ -205,7 +205,11 @@ func handleRegistration(w http.ResponseWriter, r *http.Request) {
 
 func sha1String(content string) string {
 	hasher := sha1.New()
-	io.WriteString(hasher, content)
+	_, err := io.WriteString(hasher, content)
+	if err != nil {
+		fmt.Printf("error hashing string %q: %q", content, err.Error())
+		return ""
+	}
 	hash := hasher.Sum(nil)
 	encoded := hex.EncodeToString(hash[:])
 
