@@ -60,7 +60,10 @@ func basicFail() string {
 }
 
 func rootFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "It's alive!")
+	_, err := fmt.Fprint(w, "It's alive!")
+	if err != nil {
+		fmt.Printf("error writing root: %q", err.Error())
+	}
 }
 
 func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
@@ -68,13 +71,13 @@ func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := tmpl.Parse(pagebody)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 		return
 	}
 	tmpl, err = tmpl.Parse(uploadform)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 		return
 	}
 
@@ -82,7 +85,7 @@ func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, map[string]interface{}{})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 	}
 }
 
@@ -94,24 +97,24 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 
 	// In case of an invalid password just redirect back to the upload form
 	if pwd != password {
-		fmt.Fprintln(os.Stdout, "[Warning] Invalid password received")
+		fmt.Println("[Warning] Invalid password received")
 		http.Redirect(w, r, "/upload", http.StatusSeeOther)
 		return
 	}
 
-	fmt.Fprintf(os.Stdout, "\n[Info] Received form value: %v\n", content)
+	fmt.Printf("\n[Info] Received form value: %v\n", content)
 
 	tmpl := template.New("pagebody")
 	tmpl, err := tmpl.Parse(pagebody)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 		return
 	}
 	tmpl, err = tmpl.Parse(uploaded)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 		return
 	}
 
@@ -119,7 +122,7 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, map[string]interface{}{})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, basicFail())
+		_, _ = fmt.Fprint(w, basicFail())
 		return
 	}
 
@@ -127,7 +130,7 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	rstring := regexp.MustCompile(`[\s,;]+`)
 	sanstring := rstring.ReplaceAllString(content, " ")
 	contentslice := strings.Split(sanstring, " ")
-	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced content: '%v'\n\n", contentslice)
+	fmt.Printf("\n[Info] Sanitized, sliced content: '%v'\n\n", contentslice)
 
 	mailmap := make(map[string]interface{})
 	// The file is created below if it does not exist yet
@@ -135,7 +138,7 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 		// Read file lines to map for duplicate entry exclusion
 		datafile, err := os.Open(outfilepath)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile: '%v'\n\n", err)
+			_, _ = fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile: '%v'\n\n", err)
 			return
 		}
 		fileScanner := bufio.NewScanner(datafile)
@@ -153,16 +156,16 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	// Reconcile stored and new data
 	for _, v := range contentslice {
 		if val, ok := mailmap[sha1String(v)]; ok {
-			fmt.Fprintf(os.Stdout, "\n[Info] Omitting duplicate entry '%v' for address: '%v'\n\n", val, v)
+			fmt.Printf("\n[Info] Omitting duplicate entry '%v' for address: '%v'\n\n", val, v)
 		}
 		mailmap[sha1String(v)] = nil
 	}
-	fmt.Fprintf(os.Stdout, "\n[Info] Sanitized, sliced, hashed content: '%v'\n\n", contentslice)
+	fmt.Printf("\n[Info] Sanitized, sliced, hashed content: '%v'\n\n", contentslice)
 
 	// Truncate output file and write all data to it
 	outfile, err := os.OpenFile(outfilepath, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile for writing: '%v'\n\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "\n[Error] Could not open outfile for writing: '%v'\n\n", err)
 		return
 	}
 	defer outfile.Close()
@@ -171,10 +174,10 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 		if k == "" {
 			continue
 		}
-		fmt.Fprintf(os.Stdout, "\n[Info] Writing '%s' to file\n\n", k)
+		fmt.Printf("\n[Info] Writing '%s' to file\n\n", k)
 		_, err = fmt.Fprintln(outfile, k)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", k, err)
+			_, _ = fmt.Fprintf(os.Stderr, "\n[Error] Could not write content '%s' to file: '%v'\n\n", k, err)
 		}
 	}
 }
@@ -306,7 +309,7 @@ func SignUpPost(c *context.Context, cpt *captcha.Captcha, f form.Register) {
 
 func main() {
 	if _, err := os.Stat(outdir); os.IsNotExist(err) {
-		fmt.Fprintf(os.Stderr, "\n[Error] Output directory not found: '%v', abort...\n\n", outdir)
+		_, _ = fmt.Fprintf(os.Stderr, "\n[Error] Output directory not found: '%v', abort...\n\n", outdir)
 		os.Exit(-1)
 	}
 
@@ -318,10 +321,10 @@ func main() {
 		Addr: port,
 	}
 
-	fmt.Fprintln(os.Stdout, "[Start] Listen and serve")
+	fmt.Println("[Start] Listen and serve")
 	err := server.ListenAndServe()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "\n[Error] Server startup: '%v', abort...\n\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "\n[Error] Server startup: '%v', abort...\n\n", err)
 		os.Exit(-1)
 	}
 }
