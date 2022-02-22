@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -87,7 +89,7 @@ func TestMissingAnnexContent(t *testing.T) {
 
 	// initialize annex
 	fmt.Println("Init annex")
-	stdout, stderr, err = utilInitAnnex(targetpath)
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "init")
 	if err != nil {
 		t.Fatalf("could not init annex: %q, %q, %q", err.Error(), stdout, stderr)
 	}
@@ -96,9 +98,58 @@ func TestMissingAnnexContent(t *testing.T) {
 	fmt.Println("Test non annex dir")
 	stdout, stderr, err = missingAnnexContent(targetpath)
 	if err != nil {
-		t.Fatalf("git annex directory should not return an error\n%s\n%s", stdout, stderr)
+		t.Fatalf("git annex directory should not return an error\n%s\n%s\n%s", err.Error(), stdout, stderr)
 	}
 	fmt.Printf("%q, %q\n", stderr, stdout)
+
+	// check no missing annex files status
+	// create annex data file
+	fname := "datafile.txt"
+	fpath := filepath.Join(targetpath, fname)
+	err = ioutil.WriteFile(fpath, []byte("some data"), 0777)
+	if err != nil {
+		t.Fatalf("Error creating annex data file %q", err.Error())
+	}
+	// add file to the annex
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "add", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex add file\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	stdout, stderr, err = remoteGitCMD(targetpath, false, "commit", "-m", "'add annex file'")
+	if err != nil {
+		t.Fatalf("error on git commit file\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	// check no missing annex content
+	stdout, stderr, err = missingAnnexContent(targetpath)
+	if err != nil {
+		t.Fatalf("missing annex content check should not return any issue\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	} else if stderr != "" {
+		t.Fatalf("missing annex content check should not return any issue\n%s\n%s\n", stdout, stderr)
+	} else if stdout != "" {
+		t.Fatalf("unexpected missing content found %q", stdout)
+	}
+	fmt.Printf("No missing content: %q, %q\n", stderr, stdout)
+
+	// drop annex file content; use --force since the file content is in no other annex repo and annex thoughtfully complains
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "drop", "--force", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex drop content\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+
+	// check missing annex content
+	stdout, stderr, err = missingAnnexContent(targetpath)
+	if err != nil {
+		t.Fatalf("missing annex content check should not return any issue\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	} else if stderr != "" {
+		t.Fatalf("missing annex content check should not return any issue\n%s\n%s\n", stdout, stderr)
+	} else if !strings.Contains(stdout, fname) {
+		t.Fatalf("missing annex content did not identify missing content %q", stdout)
+	}
+	fmt.Printf("missing content: %q, %q\n", stderr, stdout)
+
+	// uninit annex file so the cleanup can happen
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "uninit", fpath)
+	fmt.Printf("%v, %q, %q\n", err, stderr, stdout)
 }
 
 func TestGitRemoteCMD(t *testing.T) {

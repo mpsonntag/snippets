@@ -92,14 +92,7 @@ func missingAnnexContent(gitdir string) (string, string, error) {
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
 		return "", "", fmt.Errorf("path not found %q", gitdir)
 	}
-
-	//log.Printf("Running missing annex command: %q", []string{"-C", gitdir, "annex", "find", "--not", "--in=here"})
-	//cmd := gingit.AnnexCommand("-C", gitdir, "annex", "find", "--not", "--in=here")
-	//fmt.Printf("blaaaaaargh %s", cmd.Args)
-	cmd := gingit.AnnexCommand("info")
-	cmd.Args = []string{"git", "-C", gitdir, "annex", "find", "--not", "--in=here"}
-	fmt.Printf("These are the command args: %s", cmd.Args)
-	stdout, stderr, err := cmd.OutputError()
+	stdout, stderr, err := remoteGitCMD(gitdir, true, "find", "--not", "--in=here")
 
 	return string(stdout), string(stderr), err
 }
