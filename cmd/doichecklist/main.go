@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -11,42 +10,9 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-// Default configuration struct containing non problematic test values
-type checklist struct {
-	// Entries required for every DOI request
-	// Paste basic information from the corresponding issue on
-	//   https://gin.g-node.org/G-Node/DOIMetadata
-	// Automated registration [id] from "10.12751/g-node.[id]"
-	Regid string `yaml:"reg_id"`
-	// Repository owner
-	Repoown string `yaml:"repo_own"`
-	// Repository name
-	Repo string `yaml:"repo"`
-	// Date issued from doi.xml; Format YYYY-MM-DD
-	Regdate string `yaml:"reg_date"`
-	// DOI requestee email address
-	Email string `yaml:"email"`
-	// DOI requestee full name
-	Userfullname string `yaml:"user_full_name"`
-	// Entries that are usually handled automatically via repo datacite entry
-	// DOI request title; usually handled automatically via repo datacite entry
-	Title string `yaml:"title"`
-	// Author citation list; usually handled automatically via repo datacite entry
-	Citation string `yaml:"citation"`
-	// Entries that are set once and remain unchanged for future DOI requests
-	// User working on the DOI server
-	Serveruser string `yaml:"server_user"`
-	// Local staging dir to create index and keyword pages
-	Dirlocalstage string `yaml:"dir_local_stage"`
-	// Full ssh access name of the server hosting the GIN server instance
-	Ginserver string `yaml:"gin_server"`
-	// Full ssh access name of the server hosting the DOI server instance
-	Doiserver string `yaml:"doi_server"`
-	// DOI Server repo preparation directory
-	Dirdoiprep string `yaml:"dir_doi_prep"`
-	// DOI Server root doi hosting directory
-	Dirdoi string `yaml:"dir_doi"`
-}
+// type checklist declared in mkchecklist.go
+// outFilename declared in mkchecklist.go
+// ChecklistTemplate declared in mkchecklist.go
 
 func textPreFork(cl checklist) string {
 	textblock := fmt.Sprintf(`
@@ -557,43 +523,6 @@ func writeChecklistFile(cl checklist, fip *os.File) {
 	printPartReadyEmail(cl, fip)
 }
 
-func outFilename(cl checklist, outpath string) string {
-	owner := strings.ToLower(cl.Repoown)
-	if len(cl.Repoown) > 5 {
-		owner = owner[0:5]
-	}
-	reponame := strings.ToLower(cl.Repo)
-	if len(cl.Repo) > 10 {
-		reponame = reponame[0:15]
-	}
-
-	currdate := time.Now().Format("20060102")
-	outfile := fmt.Sprintf("%s_%s-%s-%s.md", currdate, strings.ToLower(cl.Regid), owner, reponame)
-	if outpath != "" {
-		outfile = filepath.Join(outpath, outfile)
-	}
-	return outfile
-}
-
-// ChecklistTemplate is the data struct required to properly render
-// the checklist file template.
-type ChecklistTemplate struct {
-	CL               checklist
-	RepoLower        string
-	RepoownLower     string
-	SemiDOIScreenID  string
-	FullDOIScreenID  string
-	SemiDOIDirpath   string
-	FullDOIDirpath   string
-	Forklog          string
-	Logfiles         string
-	Ziplog           string
-	Zipfile          string
-	KeywordsLocalDir string
-	ToServer         string
-	Citeyear         string
-}
-
 func handleChecklistContent(cl checklist, outpath string) {
 	outfile := outFilename(cl, outpath)
 
@@ -636,12 +565,6 @@ func handleChecklistContent(cl checklist, outpath string) {
 	fmt.Printf("-- Finished writing checklist file %s\n", outfile)
 }
 
-// mkchecklist prepares the output file and calls the function
-// handling the file content.
-func mkchecklist(cl checklist, outpath string) {
-	handleChecklistContent(cl, outpath)
-}
-
 // readConfigYAML parses the config info and returns a filled checklist struct.
 func readConfigYAML(yamlInfo *checklist, confile string) (*checklist, error) {
 	infoyml, err := readFileAtPath(confile)
@@ -655,9 +578,9 @@ func readConfigYAML(yamlInfo *checklist, confile string) (*checklist, error) {
 	return yamlInfo, nil
 }
 
-// mkchecklistcli handles command line input options and ensures
+// createChecklist handles command line input options and ensures
 // default values for missing entries.
-func mkchecklistcli(cmd *cobra.Command, args []string) {
+func createChecklist(cmd *cobra.Command, args []string) {
 	// default configuration
 	defaultcl := checklist{
 		Regid:         "__ID__",
@@ -697,5 +620,5 @@ func mkchecklistcli(cmd *cobra.Command, args []string) {
 	} else {
 		outpath = oval
 	}
-	mkchecklist(defaultcl, outpath)
+	handleChecklistContent(defaultcl, outpath)
 }

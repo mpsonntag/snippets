@@ -1,4 +1,4 @@
-package gdtmpl
+package main
 
 // ChecklistFile is the template for rendering the semi-automated
 // DOI registration process checklist.
