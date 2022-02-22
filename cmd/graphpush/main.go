@@ -12,11 +12,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/G-Node/gin-valid/helpers"
 	"github.com/docopt/docopt-go"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/mpsonntag/snippets/cmd/graphpush/config"
+	"github.com/mpsonntag/snippets/cmd/graphpush/helpers"
 	"github.com/mpsonntag/snippets/cmd/graphpush/log"
 )
 
