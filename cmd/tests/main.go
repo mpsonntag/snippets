@@ -58,26 +58,30 @@ func main() {
 	const fn = "IdoNotExist"
 	f, err := ioutil.ReadFile(fn)
 	if err != nil {
-		fmt.Printf("Cannot open file %q\n", fn)
+		fmt.Printf("Cannot open file %q; %q\n", fn, err.Error())
 	} else {
 		fmt.Printf("I shall print this thing: %q\n", string(f))
 	}
 
 	fmt.Println("------ test struct field pointer -------------------------")
 	type blub struct {
-		s *string
-		b *bool
-		i *int
+		S *string
+		B *bool
+		I *int
 	}
 
 	var test blub
 
 	fmt.Printf("Initialized:")
-	fmt.Printf("Instance: %v, s: %v, b: %b, i: %v\n", test, test.s, test.b, test.i)
+	fmt.Printf("Instance: %v, s: %v, b: %b, i: %v\n", test, test.S, test.B, test.I)
 
 	b = []byte(`{"s":"somestring"}`)
-	json.Unmarshal(b, &test)
-	fmt.Printf("Instance: %v, s: %v, b: %b, i: %v\n", test, test.s, test.b, test.i)
+	err = json.Unmarshal(b, &test)
+	if err != nil {
+		fmt.Printf("Error unmarshalling test json: %q", err.Error())
+	} else {
+		fmt.Printf("Instance: %v, s: %v, b: %b, i: %v\n", test, test.S, test.B, test.I)
+	}
 
 	fmt.Println("\n------ test escape missing JSON fields -------------------------")
 
@@ -114,9 +118,9 @@ func main() {
 	testMissingJSONFields(b)
 
 	fmt.Println("\n------ test write non existing and existing file -------------------------")
-	testWriteFile("this is my content for a non existing file", "writeTest.txt")
-	testWriteFile("this is my content for a non existing file", "writeTestOR.txt")
-	testWriteFile("this is my content for an already existing file", "writeTestOR.txt")
+	_ = testWriteFile("this is my content for a non existing file", "writeTest.txt")
+	_ = testWriteFile("this is my content for a non existing file", "writeTestOR.txt")
+	_ = testWriteFile("this is my content for an already existing file", "writeTestOR.txt")
 
 	fmt.Println("\n------ map test -------------------------")
 	superMapToTheRescue := make(map[string]string)
@@ -131,19 +135,19 @@ func main() {
 	filename := "tmpfile.tmp"
 	err = ioutil.WriteFile(filename, []byte("hurra"), 0666)
 	if err != nil {
-		fmt.Printf("Error creating file: %v\n", err)
+		fmt.Printf("Error creating file: %q\n", err.Error())
 	} else {
 		fmt.Println("Remove existing file.")
 		err = os.Remove(filename)
 		if err != nil {
-			fmt.Printf("%v\n", err)
+			fmt.Printf("%q\n", err.Error())
 		} else {
 			fmt.Println("Remove non existing file.")
 			err = os.Remove(filename)
 			if err != nil && err == os.ErrNotExist {
-				fmt.Printf("File does not exist: ", err)
+				fmt.Printf("File does not exist: %q", err.Error())
 			} else if err != nil {
-				fmt.Printf("%v\n", err)
+				fmt.Printf("%q\n", err.Error())
 			} else {
 				fmt.Println("All removed.")
 			}
@@ -166,7 +170,7 @@ func main() {
 	decoder := json.NewDecoder(strings.NewReader(decodeThis))
 	err = decoder.Decode(&useMe)
 	if err != nil {
-		fmt.Printf("Error decoding: %v\n", err)
+		fmt.Printf("Error decoding: %q\n", err.Error())
 	}
 	fmt.Printf("This is now contained: \t%v\n", useMe)
 }
@@ -177,14 +181,14 @@ func testMissingJSONFields(b []byte) {
 
 	err := json.Unmarshal(b, &vis)
 	if err != nil {
-		fmt.Printf("Error unmarshalling interface (%v): %v\n", vis, err)
+		fmt.Printf("Error unmarshalling interface (%v): %q\n", vis, err.Error())
 		return
 	}
 	m := vis.(map[string]interface{})
 	if val, ok := m["public"]; ok {
-		switch val.(type) {
+		switch assertType := val.(type) {
 		case bool:
-			setPublic = val.(bool)
+			setPublic = assertType
 		default:
 			fmt.Println("input did not contain required field type")
 			return
