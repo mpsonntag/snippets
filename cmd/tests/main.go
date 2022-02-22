@@ -133,7 +133,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error creating file: %v\n", err)
 	} else {
-		fmt.Println("Remove exising file.")
+		fmt.Println("Remove existing file.")
 		err = os.Remove(filename)
 		if err != nil {
 			fmt.Printf("%v\n", err)

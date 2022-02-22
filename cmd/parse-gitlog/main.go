@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// CommitListItem stores git commit information.
 type CommitListItem struct {
 	Commit    string `json:"commit"`
 	Committer string `json:"committer"`

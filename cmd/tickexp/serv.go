@@ -403,7 +403,7 @@ func ppfloat(val float64) string {
 	return fmt.Sprintf("%.2f", val)
 }
 
-// legrande takes a base float, adds and substracts the respective provided values
+// legrande takes a base float, adds and subtracts the respective provided values
 // and returns the result as a formatted string
 func legrande(base, pos, neg float64) string {
 	return fmt.Sprintf("%.2f", base+pos-neg)
