@@ -86,7 +86,7 @@ func parseCommitList(repoPath string) {
 		return
 	}
 
-	fmt.Printf("Done parsing. There where '%d' commits\n", len(comList), comList)
+	fmt.Printf("Done parsing. There where '%d' commits: %v\n", len(comList), comList)
 
 	enc := json.NewEncoder(os.Stdout)
 	err = enc.Encode(comList)
