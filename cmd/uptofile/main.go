@@ -14,7 +14,7 @@ import (
 	"text/template"
 )
 
-const comparelist = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
+// const comparelist = "https://raw.githubusercontent.com/mpsonntag/snippets/master/cmd/uptofile/resources/whitelist"
 
 const pagebody = `
 {{ define "pagebody" }}
@@ -60,7 +60,7 @@ func basicFail() string {
 }
 
 func rootFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "It's alive!")
+	fmt.Fprint(w, "It's alive!")
 }
 
 func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
@@ -68,13 +68,13 @@ func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := tmpl.Parse(pagebody)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
 		return
 	}
 	tmpl, err = tmpl.Parse(uploadform)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
 		return
 	}
 
@@ -82,7 +82,7 @@ func uploadFormFunc(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, map[string]interface{}{})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
 	}
 }
 
@@ -105,13 +105,13 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := tmpl.Parse(pagebody)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
 		return
 	}
 	tmpl, err = tmpl.Parse(uploaded)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
 		return
 	}
 
@@ -119,7 +119,8 @@ func processUploadFunc(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, map[string]interface{}{})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, basicFail())
+		fmt.Fprint(w, basicFail())
+		return
 	}
 
 	// Sanitize input and split on whitespaces, comma and semicolon
