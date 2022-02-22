@@ -27,8 +27,15 @@ func trim(file *os.File, filesize int) {
 	if err != nil {
 		return
 	}
-	file.Truncate(0)
-	file.Write(contents[nbytes-filesize : nbytes])
+	err = file.Truncate(0)
+	if err != nil {
+		fmt.Printf("error on file truncate: %q", err.Error())
+		return
+	}
+	_, err = file.Write(contents[nbytes-filesize : nbytes])
+	if err != nil {
+		fmt.Printf("error writing file content: %q", err.Error())
+	}
 }
 
 // Init initialises log file and logger.
