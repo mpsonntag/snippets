@@ -10,18 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func utilInitAnnex(gitdir string) (string, string, error) {
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return "", "", fmt.Errorf("path not found %q", gitdir)
-	}
-
-	cmd := gingit.AnnexCommand()
-	cmd.Args = []string{"git", "-C", gitdir, "annex", "init"}
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
 // annexAvailable checks whether annex is available to the gin client library.
 // The function returns false with no error, if the annex command execution
 // ends with the git message that 'annex' is not a git command.
