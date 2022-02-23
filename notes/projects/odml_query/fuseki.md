@@ -225,10 +225,18 @@ set the required permissions and pull and start the specified docker container.
 
 - run docker command:
 
-METAIMG=gnode/meta:latest
-METANAME=meta
-# use the port only in local tests, not for deployment!
-docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
+    METAIMG=gnode/meta:latest
+    METANAME=meta
+    # use the port only in local tests, not for deployment!
+    docker run -dit --rm --name $METANAME -p 4044:4044 -v $F_HOME:/content $METAIMG
+
+## Fuseki version notes
+
+To obtain the latest version run the following
+
+    docker run -dit --rm --name metabla -p 4044:4044 gnode/meta:latest
+    docker exec -it metabla /bin/sh
+    sh ./fuseki-server --version
 
 ## Data upload notes:
 
