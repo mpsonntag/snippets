@@ -10,6 +10,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// annexCMD runs the passed git annex command arguments.
+// The command returns stdout and stderr as strings and any error that might occur.
+func annexCMD(annexargs ...string) (string, string, error) {
+	log.Printf("Running annex command: %s\n", annexargs)
+	cmd := gingit.AnnexCommand(annexargs...)
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
+
 // annexAvailable checks whether annex is available to the gin client library.
 // The function returns false with no error, if the annex command execution
 // ends with the git message that 'annex' is not a git command.
@@ -45,35 +55,6 @@ func remoteGitCMD(gitdir string, useannex bool, gitcmd ...string) (string, strin
 	stdout, stderr, err := cmd.OutputError()
 
 	return string(stdout), string(stderr), err
-}
-
-// gitCMD runs the passed git command arguments.
-// The command returns stdout and stderr as strings and any error that might occur.
-func gitCMD(gitargs ...string) (string, string, error) {
-	log.Printf("Running git command: %s\n", gitargs)
-	cmd := gingit.Command(gitargs...)
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
-// annexCMD runs the passed git annex command arguments.
-// The command returns stdout and stderr as strings and any error that might occur.
-func annexCMD(annexargs ...string) (string, string, error) {
-	log.Printf("Running annex command: %s\n", annexargs)
-	cmd := gingit.AnnexCommand(annexargs...)
-	stdout, stderr, err := cmd.OutputError()
-
-	return string(stdout), string(stderr), err
-}
-
-type gitrepoinfo struct {
-	missingAnnex  bool
-	lockedAnnex   bool
-	annexSize     int
-	annexSizeUnit string
-	gitSize       int
-	gitSizeUnit   string
 }
 
 func missingAnnexContent(gitdir string) (bool, string, error) {
@@ -160,6 +141,21 @@ func annexContentCheck(repopath string) error {
 		return fmt.Errorf("annex content issues have been identified, skipping zip creation\n%s", annexIssues)
 	}
 	return nil
+}
+
+// gitCMD runs the passed git command arguments.
+// The command returns stdout and stderr as strings and any error that might occur.
+func gitCMD(gitargs ...string) (string, string, error) {
+	log.Printf("Running git command: %s\n", gitargs)
+	cmd := gingit.Command(gitargs...)
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
+
+type gitrepoinfo struct {
+	missingAnnex bool
+	lockedAnnex  bool
 }
 
 func checkAnnexComplete(repopath string) (gitrepoinfo, error) {
