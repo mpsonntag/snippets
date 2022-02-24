@@ -238,6 +238,91 @@ func TestLockedAnnexContent(t *testing.T) {
 	}
 }
 
+func TestAnnexContentCheck(t *testing.T) {
+	// check annex is available to the test; stop the test otherwise
+	hasAnnex, err := annexAvailable()
+	if err != nil {
+		t.Fatalf("Error checking git annex: %q", err.Error())
+	} else if !hasAnnex {
+		t.Skipf("Annex is not available, skipping test...\n")
+	}
+
+	// check silence on missing directory
+	err = annexContentCheck("/i/do/not/exist")
+	if err != nil {
+		t.Fatalf("invalid dir should fail silently %q", err.Error())
+	}
+
+	targetpath := t.TempDir()
+
+	// initialize git directory
+	stdout, stderr, err := remoteGitCMD(targetpath, false, "init")
+	if err != nil {
+		t.Fatalf("could not initialize git repo: %q, %q, %q", err.Error(), stdout, stderr)
+	}
+
+	// initialize annex
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "init")
+	if err != nil {
+		t.Fatalf("could not init annex: %q, %q, %q", err.Error(), stdout, stderr)
+	}
+
+	// test git annex dir no error on empty directory
+	err = annexContentCheck(targetpath)
+	if err != nil {
+		t.Fatalf("empty dir should not return an error %q", err.Error())
+	}
+
+	// create annex data file
+	fname := "datafile.txt"
+	fpath := filepath.Join(targetpath, fname)
+	err = ioutil.WriteFile(fpath, []byte("some data"), 0777)
+	if err != nil {
+		t.Fatalf("Error creating annex data file %q", err.Error())
+	}
+	// add file to the annex; note that this will also lock the file by annex default
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "add", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex add file\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	// uninit annex file so the cleanup can happen but ignore any further issues
+	// the temp folder will get cleaned up eventually anyway.
+	defer remoteGitCMD(targetpath, true, "uninit", fpath)
+
+	// check error on locked file
+	err = annexContentCheck(targetpath)
+	if err == nil {
+		t.Fatal("expected error on locked file")
+	} else if !strings.Contains(err.Error(), "found locked content in 1 files") {
+		t.Fatalf("expected locked content message but got %q", err.Error())
+	}
+
+	// unlock annex file content
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "unlock", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex lock content\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+
+	// check no error
+	err = annexContentCheck(targetpath)
+	if err != nil {
+		t.Fatalf("unexpected error %q", err.Error())
+	}
+
+	// check error on missing file content
+	// drop annex file content; use --force since the file content is in no other annex repo and annex thoughtfully complains
+	stdout, stderr, err = remoteGitCMD(targetpath, true, "drop", "--force", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex drop content\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	err = annexContentCheck(targetpath)
+	if err == nil {
+		t.Fatal("expected error on missing file content")
+	} else if !strings.Contains(err.Error(), "found missing content in 1 files") {
+		t.Fatalf("expected missing content message but got %q", err.Error())
+	}
+}
+
 func TestGitRemoteCMD(t *testing.T) {
 	// check annex is available to the test; stop the test otherwise
 	hasAnnex, err := annexAvailable()
