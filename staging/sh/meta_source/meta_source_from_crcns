@@ -22,47 +22,47 @@ CRCNS_SCRIPT_LOCATION=/home/${USER}/Chaos/work/snippets/staging/sh/meta_source/
 CRCNS_SCRIPT=crcns_scrape_datacite
 
 # create main file structure
-mkdir -vp ${ROOT}/import_tmp/crcns
-mkdir -vp ${ROOT}/import_tmp/gnode
-mkdir -vp ${ROOT}/datacite/crcns
-mkdir -vp ${ROOT}/datacite/gnode
-mkdir -vp ${ROOT}/odml/crcns
-mkdir -vp ${ROOT}/odml/gnode
-mkdir -vp ${ROOT}/rdf/crcns
-mkdir -vp ${ROOT}/rdf/gnode
+mkdir -vp "${ROOT}"/import_tmp/crcns
+mkdir -vp "${ROOT}"/import_tmp/gnode
+mkdir -vp "${ROOT}"/datacite/crcns
+mkdir -vp "${ROOT}"/datacite/gnode
+mkdir -vp "${ROOT}"/odml/crcns
+mkdir -vp "${ROOT}"/odml/gnode
+mkdir -vp "${ROOT}"/rdf/crcns
+mkdir -vp "${ROOT}"/rdf/gnode
 
 # collect script files
-cp ${CRCNS_SCRIPT_LOCATION}${CRCNS_SCRIPT} ${ROOT}/
+cp "${CRCNS_SCRIPT_LOCATION}"${CRCNS_SCRIPT} "${ROOT}"/
 
 # fetch CRCNS datacite files
 echo "... collecting CRCNS datacite files to ${ROOT}/import_tmp/crcns/datacite"
-cd ${ROOT}/import_tmp/crcns
-bash ${ROOT}/${CRCNS_SCRIPT}
+cd "${ROOT}"/import_tmp/crcns || exit  # using || exit in case cd fails
+bash "${ROOT}"/${CRCNS_SCRIPT}
 
 echo "... collected CRCNS datacite files; there should be >= 130 files available"
-ls ${ROOT}/import_tmp/crcns/datacite | wc
+ls "${ROOT}"/import_tmp/crcns/datacite | wc
 
 echo "... check README and ${ROOT}/import_tmp/crcns/crcns_doi_id_log for details on potentially missing Datacite files"
 
 echo "... running new CRCNS files check"
-diff ${ROOT}/datacite/crcns/ ${ROOT}/import_tmp/crcns/datacite/ | awk '{print $4}' > ${ROOT}/import_tmp/crcns_new_files
+diff "${ROOT}"/datacite/crcns/ "${ROOT}"/import_tmp/crcns/datacite/ | awk '{print $4}' > "${ROOT}"/import_tmp/crcns_new_files
 
 echo "... new CRCNS datacite files"
-wc -l ${ROOT}/import_tmp/crcns_new_files
+wc -l "${ROOT}"/import_tmp/crcns_new_files
 
 # fetch DOIMetadata repository
 echo "... fetching G-Node datacite files to ${ROOT}/import_tmp/gnode/DOIMetadata"
-cd ${ROOT}/import_tmp/gnode
+cd "${ROOT}"/import_tmp/gnode || exit  # using || exit in case cd fails
 gin get G-Node/DOIMetadata
 
 # a little pre cleanup
-cd ${ROOT}/import_tmp/gnode/DOIMetadata
+cd "${ROOT}"/import_tmp/gnode/DOIMetadata || exit  # using || exit in case cd fails
 gin git annex uninit
 rm .git -rf
-cd ${ROOT}
+cd "${ROOT}" || exit  # using || exit in case cd fails
 
 echo "... running new G-Node files check"
-diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' | awk '{print $4}' > ${ROOT}/import_tmp/gnode_new_files
+diff "${ROOT}"/datacite/gnode/ "${ROOT}"/import_tmp/gnode/DOIMetadata | grep '.xml' | awk '{print $4}' > "${ROOT}"/import_tmp/gnode_new_files
 
 echo "... new G-Node datacite files"
-wc -l ${ROOT}/import_tmp/gnode_new_files
+wc -l "${ROOT}"/import_tmp/gnode_new_files
