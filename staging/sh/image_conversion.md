@@ -30,21 +30,21 @@ echo "Converting images in ${SOURCEPATH} in ${TARGETPATH}"
 
 # Script uses imagemagick (http://www.imagemagick.org) and OptiPNG
 
-for IMAGE in $SOURCEPATH/*; do
-    FBASE=$(basename $IMAGE)
-    FMTYPE=$(mimetype -b $IMAGE)
+for IMAGE in "$SOURCEPATH"/*; do
+    FBASE=$(basename "$IMAGE")
+    FMTYPE=$(mimetype -b "$IMAGE")
     if [[ $FMTYPE == "image/jpeg" ]]; then
-        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+        convert "${IMAGE}" -verbose -quality ${J_QUALITY} JPEG:"${TARGETPATH}""${FBASE}"
     fi
     if [[ $FMTYPE == "image/png" ]]; then
-        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+        convert "${IMAGE}" -verbose -quality ${J_QUALITY} JPEG:"${TARGETPATH}""${FBASE}"
         # unfortunately does not compress as much as we had hoped so its disabled for now.
         # optipng ${IMAGE} -out ${TARGETPATH}${FBASE}
     fi
     if [[ $FMTYPE == "image/gif" ]]; then
-        convert ${IMAGE} -verbose -quality ${J_QUALITY} JPEG:${TARGETPATH}${FBASE}
+        convert "${IMAGE}" -verbose -quality ${J_QUALITY} JPEG:"${TARGETPATH}""${FBASE}"
     fi
 done
 
-du -hs ${SOURCEPATH}
-du -hs ${TARGETPATH}
+du -hs "${SOURCEPATH}"
+du -hs "${TARGETPATH}"
