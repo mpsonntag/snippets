@@ -25,7 +25,7 @@ fi
 
 echo "WARNING: This will remove same name files from ${TARGETPATH}"
 echo -n "Type 'Y' to continue': "
-read -s GO_ON
+read -sr GO_ON
 echo
 
 if [[ $GO_ON != "Y" ]]; then
@@ -35,11 +35,11 @@ fi
 
 echo ""
 
-for IMAGE in $SOURCEPATH/*; do
-    FBASE=$(basename $IMAGE)
+for IMAGE in "$SOURCEPATH"/*; do
+    FBASE=$(basename "$IMAGE")
     FTARGET=${TARGETPATH}${FBASE}
     if [[ -f $FTARGET ]]; then
         echo "File ${FBASE} already exists, removing ..."
-        rm $FTARGET
+        rm "$FTARGET"
     fi
 done
