@@ -21,86 +21,86 @@ CRCNS_PYTHON_LOCATION=/home/${USER}/Chaos/work/snippets/python/odmlFromDatacite/
 CRCNS_PYTHON_SCRIPT=crcns_parse_and_fetch.py
 
 # create main file structure
-mkdir -vp ${ROOT}/import_tmp/crcns
-mkdir -vp ${ROOT}/import_tmp/gnode
-mkdir -vp ${ROOT}/import_tmp/odml
-mkdir -vp ${ROOT}/import_tmp/rdf
-mkdir -vp ${ROOT}/datacite/crcns
-mkdir -vp ${ROOT}/datacite/gnode
-mkdir -vp ${ROOT}/odml
-mkdir -vp ${ROOT}/rdf
+mkdir -vp "${ROOT}"/import_tmp/crcns
+mkdir -vp "${ROOT}"/import_tmp/gnode
+mkdir -vp "${ROOT}"/import_tmp/odml
+mkdir -vp "${ROOT}"/import_tmp/rdf
+mkdir -vp "${ROOT}"/datacite/crcns
+mkdir -vp "${ROOT}"/datacite/gnode
+mkdir -vp "${ROOT}"/odml
+mkdir -vp "${ROOT}"/rdf
 
 # collect script files
 echo "... collecting script files"
-cp -v ${CRCNS_PYTHON_LOCATION}${CRCNS_PYTHON_SCRIPT} ${ROOT}/
+cp -v "${CRCNS_PYTHON_LOCATION}"${CRCNS_PYTHON_SCRIPT} "${ROOT}"/
 
 echo "... installing dependencies"
 pip install requests odmltools
 
 # fetch CRCNS datacite files
 echo "... collecting CRCNS datacite files to ${ROOT}/import_tmp/crcns"
-cd ${ROOT}/import_tmp/crcns
-python ${ROOT}/${CRCNS_PYTHON_SCRIPT}
+cd "${ROOT}"/import_tmp/crcns || exit  # using || exit in case cd fails
+python "${ROOT}"/${CRCNS_PYTHON_SCRIPT}
 
 echo "... collected CRCNS datacite files"
-ls ${ROOT}/import_tmp/crcns | wc -l
+ls "${ROOT}"/import_tmp/crcns | wc -l
 
 echo "... running new CRCNS files check"
-diff ${ROOT}/datacite/crcns/ ${ROOT}/import_tmp/crcns/ | grep ${ROOT}/import_tmp/crcns/ | awk '{print $4}' > ${ROOT}/import_tmp/crcns_new_files
+diff "${ROOT}"/datacite/crcns/ "${ROOT}"/import_tmp/crcns/ | grep "${ROOT}"/import_tmp/crcns/ | awk '{print $4}' > "${ROOT}"/import_tmp/crcns_new_files
 
 echo "... new CRCNS datacite files"
-wc -l ${ROOT}/import_tmp/crcns_new_files
+wc -l "${ROOT}"/import_tmp/crcns_new_files
 
 # fetch DOIMetadata repository
 echo "... fetching G-Node datacite files to ${ROOT}/import_tmp/gnode/DOIMetadata"
-cd ${ROOT}/import_tmp/gnode
+cd "${ROOT}"/import_tmp/gnode || exit  # using || exit in case cd fails
 gin get G-Node/DOIMetadata
 
 # a little pre cleanup
-cd ${ROOT}/import_tmp/gnode/DOIMetadata
+cd "${ROOT}"/import_tmp/gnode/DOIMetadata || exit  # using || exit in case cd fails
 gin git annex uninit
 rm .git -rf
-cd ${ROOT}
+cd "${ROOT}" || exit  # using || exit in case cd fails
 
 echo "... running new G-Node files check"
-diff ${ROOT}/datacite/gnode/ ${ROOT}/import_tmp/gnode/DOIMetadata | grep '.xml' | grep ${ROOT}/import_tmp/gnode/DOIMetadata | awk '{print $4}' > ${ROOT}/import_tmp/gnode_new_files
+diff "${ROOT}"/datacite/gnode/ "${ROOT}"/import_tmp/gnode/DOIMetadata | grep '.xml' | grep "${ROOT}"/import_tmp/gnode/DOIMetadata | awk '{print $4}' > "${ROOT}"/import_tmp/gnode_new_files
 
 echo "... new G-Node datacite files"
-wc -l ${ROOT}/import_tmp/gnode_new_files
+wc -l "${ROOT}"/import_tmp/gnode_new_files
 
 echo "... installing odmlimportdatacite from odmltools"
 
 echo "... converting CRCNS files to odml"
-LINES_CRCNS=$(cat ${ROOT}/import_tmp/crcns_new_files)
+LINES_CRCNS=$(cat "${ROOT}"/import_tmp/crcns_new_files)
 for LINE in ${LINES_CRCNS}
 do
   echo "... converting file ${LINE}"
   # CRNCS features datasets published with previous datacite kernel version - need to escape these
-  odmlimportdatacite -o ${ROOT}/import_tmp/odml -n http://datacite.org/schema/kernel-2.2 ${ROOT}/import_tmp/crcns/${LINE}
+  odmlimportdatacite -o "${ROOT}"/import_tmp/odml -n http://datacite.org/schema/kernel-2.2 "${ROOT}"/import_tmp/crcns/"${LINE}"
   echo "... copy file to datacite collection folder"
   # do not replace in target
-  cp -vn ${ROOT}/import_tmp/crcns/${LINE} ${ROOT}/datacite/crcns/
+  cp -vn "${ROOT}"/import_tmp/crcns/"${LINE}" "${ROOT}"/datacite/crcns/
 done
 
 echo "... converting gnode files to odml"
-LINES_GNODE=$(cat ${ROOT}/import_tmp/gnode_new_files)
+LINES_GNODE=$(cat "${ROOT}"/import_tmp/gnode_new_files)
 for LINE in ${LINES_GNODE}
 do
   echo "... converting file ${LINE}"
-  odmlimportdatacite -o ${ROOT}/import_tmp/odml ${ROOT}/import_tmp/gnode/DOIMetadata/${LINE}
+  odmlimportdatacite -o "${ROOT}"/import_tmp/odml "${ROOT}"/import_tmp/gnode/DOIMetadata/"${LINE}"
   echo "... copy file to datacite collection folder"
   # do not replace in target
-  cp -vn ${ROOT}/import_tmp/gnode/DOIMetadata/${LINE} ${ROOT}/datacite/gnode/
+  cp -vn "${ROOT}"/import_tmp/gnode/DOIMetadata/"${LINE}" "${ROOT}"/datacite/gnode/
 done
 
 echo "... batch conversion to RDF"
-odmltordf -o ${ROOT}/import_tmp/rdf ${ROOT}/import_tmp/odml
+odmltordf -o "${ROOT}"/import_tmp/rdf "${ROOT}"/import_tmp/odml
 
 echo "... cp odml files to collection folder; do not replace, IDs of existing files must not be overwritten"
-cp -vn ${ROOT}/import_tmp/odml/*.xml ${ROOT}/odml
+cp -vn "${ROOT}"/import_tmp/odml/*.xml "${ROOT}"/odml
 
 echo "... cp rdf files to collection folder; do not replace, IDs of existing files must not be overwritten"
 # odmltordf creates nested output structures; requires "find" for easy copy
-find "$ROOT/import_tmp/rdf" -name '*.rdf' -exec cp -vnt $ROOT/rdf {} +
+find "$ROOT/import_tmp/rdf" -name '*.rdf' -exec cp -vnt "$ROOT"/rdf {} +
 
 echo "... Done"
