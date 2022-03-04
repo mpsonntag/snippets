@@ -65,7 +65,7 @@ ROOT_DIR=$(pwd)
 
 echo
 echo "-- Running directory check: ${ROOT_DIR}"
-CHECK_DIR=$(basename ${ROOT_DIR})
+CHECK_DIR=$(basename "${ROOT_DIR}")
 if [[ ! "${CHECK_DIR}" = "odmlReleaseTests" ]]; then
     echo
     echo "-- In wrong directory ${ROOT_DIR}"
@@ -87,12 +87,12 @@ echo "-- Log files of all tests can be found in ${LOG_DIR}"
 function run_script () {
     echo
     echo "-- Running script for Python version ${PYVER}"
-    bash -i ${SCRIPT} ${PYVER} > ${LOG_DIR}/${PYVER}_testrun.log 2>&1
-    FAIL_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c FAILED)
+    bash -i ${SCRIPT} "${PYVER}" > ${LOG_DIR}/"${PYVER}"_testrun.log 2>&1
+    FAIL_COUNT=$(cat ${LOG_DIR}/"${PYVER}"_testrun.log | grep -c FAILED)
     if [[ "${FAIL_COUNT}" -gt 0 ]]; then
         echo "-- Test fail in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
     fi
-    PY_ERR_COUNT=$(cat ${LOG_DIR}/${PYVER}_testrun.log | grep -c Traceback)
+    PY_ERR_COUNT=$(cat ${LOG_DIR}/"${PYVER}"_testrun.log | grep -c Traceback)
     if [[ "${PY_ERR_COUNT}" -gt 0 ]]; then
         echo "-- Runtime error in Python ${PYVER} tests. Check ${LOG_DIR}/${PYVER}_testrun.log"
     fi
