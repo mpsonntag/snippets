@@ -116,6 +116,26 @@ func annexSize(gitdir string) (string, error) {
 	return strings.TrimSpace(splitsizes[1]), nil
 }
 
+func acceptedAnnexSize(annexSize string) bool {
+	sizesplit := strings.Split(annexSize, " ")
+	if len(sizesplit) != 2 {
+		return false
+	}
+	// add check if sizesplit[0] is contained in accepted order
+	// checkaccepted := []string{"bytes", "kilobytes", "megabytes", "gigabytes", "terabytes"}
+	// if !acceptedorder[sizesplit[1]] { return false }
+	// checksize := float32(sizesplit[0])
+	checksize := 100.1
+
+	if sizesplit[1] == "terabytes" {
+		return false
+	} else if sizesplit[1] == "gigabytes" && checksize > 100 {
+		return false
+	}
+
+	return true
+}
+
 func annexContentCheck(repopath string) error {
 	// check if there is missing or locked annex content
 	log.Printf("Checking missing annex content of repo at %q", repopath)
