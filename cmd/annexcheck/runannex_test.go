@@ -459,6 +459,73 @@ func TestGitRemoteCMD(t *testing.T) {
 	}
 }
 
+func TestDuplicateAnnex(t *testing.T) {
+	// check annex is available to the test; stop the test otherwise
+	hasAnnex, err := annexAvailable()
+	if err != nil {
+		t.Fatalf("Error checking git annex: %q", err.Error())
+	} else if !hasAnnex {
+		t.Skipf("Annex is not available, skipping test...\n")
+	}
+
+	// prepare git annex directory
+	targetroot := t.TempDir()
+
+	reponame := "annextest"
+	sourcepath := filepath.Join(targetroot, reponame)
+	err = os.Mkdir(sourcepath, 0755)
+	if err != nil {
+		t.Fatalf("Could not create dir %q: %q", sourcepath, err.Error())
+	}
+
+	// initialize git directory
+	stdout, stderr, err := remoteGitCMD(sourcepath, false, "init")
+	if err != nil {
+		t.Fatalf("could not initialize git repo: %q, %q, %q", err.Error(), stdout, stderr)
+	}
+	// initialize annex
+	stdout, stderr, err = remoteGitCMD(sourcepath, true, "init")
+	if err != nil {
+		t.Fatalf("could not init annex: %q, %q, %q", err.Error(), stdout, stderr)
+	}
+	// create annex data file
+	fname := "datafile.txt"
+	fpath := filepath.Join(sourcepath, fname)
+	err = ioutil.WriteFile(fpath, []byte("some data"), 0777)
+	if err != nil {
+		t.Fatalf("Error creating annex data file %q", err.Error())
+	}
+	// add file to the annex; note that this will also lock the file by annex default
+	stdout, stderr, err = remoteGitCMD(sourcepath, true, "add", fpath)
+	if err != nil {
+		t.Fatalf("error on git annex add file\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	stdout, stderr, err = remoteGitCMD(sourcepath, false, "commit", "-m", "'add annex file'")
+	if err != nil {
+		t.Fatalf("error on git commit\n%s\n%s\n%s", err.Error(), stdout, stderr)
+	}
+	// uninit annex file so the cleanup can happen but ignore any further issues
+	// the temp folder will get cleaned up eventually anyway.
+	defer remoteGitCMD(sourcepath, true, "uninit", fpath)
+
+	// test duplicateAnnex func
+	// check error on missing directory
+	err = duplicateAnnex(reponame, targetroot, "/i/do/not/exist")
+	if err == nil {
+		t.Fatal("expected clone error on missing base dir")
+	}
+
+	// check no issue on duplicateAnnex
+	err = duplicateAnnex(reponame, targetroot, sourcepath)
+	if err != nil {
+		t.Fatalf("error on duplicate: %q", err.Error())
+	}
+	// uninit annex file so the cleanup can happen but ignore any further issues
+	// the temp folder will get cleaned up eventually anyway.
+	targetpath := filepath.Join(targetroot, fmt.Sprintf("%s_unlocked", reponame))
+	defer remoteGitCMD(targetpath, true, "uninit", fpath)
+}
+
 func TestRunannexcheck(t *testing.T) {
 	// check annex is available to the test; stop the test otherwise
 	hasAnnex, err := annexAvailable()
