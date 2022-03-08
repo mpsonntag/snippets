@@ -459,7 +459,7 @@ func TestGitRemoteCMD(t *testing.T) {
 	}
 }
 
-func TestDuplicateAnnex(t *testing.T) {
+func TestUnlockAnnexClone(t *testing.T) {
 	// check annex is available to the test; stop the test otherwise
 	hasAnnex, err := annexAvailable()
 	if err != nil {
@@ -508,15 +508,15 @@ func TestDuplicateAnnex(t *testing.T) {
 	// the temp folder will get cleaned up eventually anyway.
 	defer remoteGitCMD(sourcepath, true, "uninit", fpath)
 
-	// test duplicateAnnex func
+	// test unlockAnnexClone func
 	// check error on missing directory
-	err = duplicateAnnex(reponame, targetroot, "/i/do/not/exist")
+	err = unlockAnnexClone(reponame, targetroot, "/i/do/not/exist")
 	if err == nil {
 		t.Fatal("expected clone error on missing base dir")
 	}
 
 	// check no issue on duplicateAnnex
-	err = duplicateAnnex(reponame, targetroot, sourcepath)
+	err = unlockAnnexClone(reponame, targetroot, sourcepath)
 	if err != nil {
 		t.Fatalf("error on duplicate: %q", err.Error())
 	}

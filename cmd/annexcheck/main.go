@@ -194,7 +194,7 @@ func annexContentCheck(repopath string) error {
 	return nil
 }
 
-func duplicateAnnex(reponame, gitcloneroot, gitrepodir string) error {
+func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	clonename := fmt.Sprintf("%s_unlocked", reponame)
 	clonedir := filepath.Join(gitcloneroot, clonename)
 	log.Printf("Locally cloning repo %s to dir %s", gitrepodir, clonedir)
