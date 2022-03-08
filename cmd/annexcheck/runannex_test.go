@@ -510,16 +510,24 @@ func TestUnlockAnnexClone(t *testing.T) {
 
 	// test unlockAnnexClone func
 	// check error on missing directory
-	err = unlockAnnexClone(reponame, targetroot, "/i/do/not/exist")
+	clonepath, err := unlockAnnexClone(reponame, targetroot, "/i/do/not/exist")
 	if err == nil {
 		t.Fatal("expected clone error on missing base dir")
+	} else if clonepath != "" {
+		t.Fatalf("expected empty clonepath but got %q", clonepath)
 	}
 
 	// check no issue on duplicateAnnex
-	err = unlockAnnexClone(reponame, targetroot, sourcepath)
+	clonepath, err = unlockAnnexClone(reponame, targetroot, sourcepath)
 	if err != nil {
 		t.Fatalf("error on duplicate: %q", err.Error())
 	}
+	unlockedPath := strings.Contains(clonepath, "_unlocked")
+	tempPath := strings.Contains(clonepath, targetroot)
+	if !unlockedPath || !tempPath {
+		t.Fatalf("unexpected output filepath %q", clonepath)
+	}
+
 	// uninit annex file so the cleanup can happen but ignore any further issues
 	// the temp folder will get cleaned up eventually anyway.
 	targetpath := filepath.Join(targetroot, fmt.Sprintf("%s_unlocked", reponame))

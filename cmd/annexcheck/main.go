@@ -194,7 +194,7 @@ func annexContentCheck(repopath string) error {
 	return nil
 }
 
-func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
+func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) (string, error) {
 	clonename := fmt.Sprintf("%s_unlocked", reponame)
 	clonedir := filepath.Join(gitcloneroot, clonename)
 	log.Printf("Locally cloning repo %s to dir %s", gitrepodir, clonedir)
@@ -204,7 +204,7 @@ func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	stdout, stderr, err := remoteGitCMD(gitcloneroot, false, "clone", gitrepodir, clonename)
 	if err != nil {
 		log.Printf("Error cloning annex repo %s: %q, %q", gitrepodir, err.Error(), stderr)
-		return fmt.Errorf("error cloning annex repo %s: %q, %q", gitrepodir, err.Error(), stderr)
+		return "", fmt.Errorf("error cloning annex repo %s: %q, %q", gitrepodir, err.Error(), stderr)
 	}
 	log.Printf("Repo %s locally cloned: %q, %q", gitrepodir, stdout, stderr)
 
@@ -212,10 +212,10 @@ func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	stdout, stderr, err = remoteGitCMD(clonedir, true, "copy", "--all", "--from=origin")
 	if err != nil {
 		log.Printf("Error on local annex (%s) content copy: %q, %q", clonedir, err.Error(), stderr)
-		return fmt.Errorf("error on local annex (%s) content copy: %q, %q", clonedir, err.Error(), stderr)
+		return "", fmt.Errorf("error on local annex (%s) content copy: %q, %q", clonedir, err.Error(), stderr)
 	} else if stderr != "" {
 		log.Printf("Error output on local annex (%s) content copy: %q", clonedir, stderr)
-		return fmt.Errorf("error output on local annex (%s) content copy: %q", clonedir, stderr)
+		return "", fmt.Errorf("error output on local annex (%s) content copy: %q", clonedir, stderr)
 	}
 	log.Printf("Annex content locally copied: %s", stdout)
 
@@ -223,10 +223,10 @@ func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	hasmissing, missinglist, err := missingAnnexContent(clonedir)
 	if err != nil {
 		log.Printf("Error checking missing annex content on local copy: %q", err.Error())
-		return fmt.Errorf("error checking missing annex content on local copy: %q", err.Error())
+		return "", fmt.Errorf("error checking missing annex content on local copy: %q", err.Error())
 	} else if hasmissing {
 		log.Printf("Missing annex content after local copy: %s", missinglist)
-		return fmt.Errorf("missing annex content after local copy: %s", missinglist)
+		return "", fmt.Errorf("missing annex content after local copy: %s", missinglist)
 	}
 	log.Println("No missing annex content on local copy")
 
@@ -234,10 +234,10 @@ func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	stdout, stderr, err = remoteGitCMD(clonedir, true, "unlock")
 	if err != nil {
 		log.Printf("Error unlocking files on local copy: %q, %q", err.Error(), stderr)
-		return fmt.Errorf("error unlocking files on local copy: %q, %q", err.Error(), stderr)
+		return "", fmt.Errorf("error unlocking files on local copy: %q, %q", err.Error(), stderr)
 	} else if stderr != "" {
 		log.Printf("Error output unlocking files on local copy: %q", stderr)
-		return fmt.Errorf("error output unlocking files on local copy: %q", stderr)
+		return "", fmt.Errorf("error output unlocking files on local copy: %q", stderr)
 	}
 	log.Printf("Unlocked annex file content in clone directory: %s", stdout)
 
@@ -245,13 +245,13 @@ func unlockAnnexClone(reponame, gitcloneroot, gitrepodir string) error {
 	haslocked, lockedlist, err := lockedAnnexContent(clonedir)
 	if err != nil {
 		log.Printf("Error checking locked content on local copy: %q", err.Error())
-		return fmt.Errorf("error checking locked content on local copy: %q", err.Error())
+		return "", fmt.Errorf("error checking locked content on local copy: %q", err.Error())
 	} else if haslocked || lockedlist != "" {
 		log.Printf("Found locked content after unlocking: %q", lockedlist)
-		return fmt.Errorf("found locked content after unlocking: %q", lockedlist)
+		return "", fmt.Errorf("found locked content after unlocking: %q", lockedlist)
 	}
 
-	return nil
+	return clonedir, nil
 }
 
 // gitCMD runs the passed git command arguments.
