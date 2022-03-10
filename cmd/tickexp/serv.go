@@ -193,6 +193,9 @@ func serveDataFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] serving file content")
 	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
+	// check if cookie is valid and redirect if it is not
+	handleCookie(w, r)
+
 	http.ServeFile(w, r, datastorage)
 }
 
