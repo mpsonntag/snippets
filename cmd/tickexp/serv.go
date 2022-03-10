@@ -219,6 +219,9 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("...[I] handling form data")
 	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
 
+	// check if cookie is valid and redirect if it is not
+	handleCookie(w, r)
+
 	if r.Method != "POST" {
 		fmt.Printf("...[E] receiving invalid request: '%s'\n", r.Method)
 		http.Redirect(w, r, "/add", http.StatusTemporaryRedirect)
@@ -300,12 +303,10 @@ func dataAdd(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/add", http.StatusSeeOther)
 }
 
-// renderAddPage renders the data input page
-func renderAddPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("...[I] rendering AddPage")
-	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
-
-	// implement cookie value check; requires server side cookie value and 
+// handleCookie checks whether the server named cookie is present.
+// If not, redirect to the login page.
+func handleCookie(w http.ResponseWriter, r *http.Request) {
+	// implement cookie value check; requires server side cookie value and
 	// expiration time storage and mapping. Expiration time is not provided
 	// via the request cookie - only name and value.
 	_, err := r.Cookie(cookieName)
@@ -314,10 +315,19 @@ func renderAddPage(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/loginpage", http.StatusTemporaryRedirect)
 		return
 	}
+}
+
+// renderAddPage renders the data input page
+func renderAddPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("...[I] rendering AddPage")
+	fmt.Printf("...[I] logging request: {%s, %s}\n", r.Method, r.URL)
+
+	// check if cookie is valid and redirect if it is not
+	handleCookie(w, r)
 
 	// read tickexp value file
 	var data []ExpItem
-	data, err = readDataFile(data)
+	data, err := readDataFile(data)
 	if err != nil {
 		fmt.Println(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
