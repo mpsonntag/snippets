@@ -2,5 +2,5 @@
 
 update-manager &
 terminator &
-explorer $LAMA &
+explorer "$LAMA" &
 pycharm &
