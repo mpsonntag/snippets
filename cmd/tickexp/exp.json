@@ -1,122 +1,44 @@
 [
-  {
-    "date": "27.10.2021",
-    "val": 1.9,
-    "negval": 0,
-    "desc": "vie-klob"
-  },
-  {
-    "date": "29.10.2021",
-    "val": 9.6,
-    "negval": 0,
-    "desc": "klob-vie"
-  },
-  {
-    "date": "30.10.2021",
-    "val": 9.6,
-    "negval": 0,
-    "desc": "klob-wild"
-  },
-  {
-    "date": "31.10.2021",
-    "val": 9.6,
-    "negval": 0,
-    "desc": "wild-klob"
-  },
-  {
-    "date": "04.11.2021",
-    "val": 8.6,
-    "negval": 0,
-    "desc": "klob-vie-klob"
-  },
-  {
-    "date": "06.11.2021",
-    "val": 8.6,
-    "negval": 0,
-    "desc": "klob-vie-klob"
-  },
-  {
-    "date": "08.11.2021",
-    "val": 8.6,
-    "negval": 0,
-    "desc": "klob-vie-klob"
-  },
-  {
-    "date": "10.11.2021",
-    "val": 4.9,
-    "negval": 0,
-    "desc": "klob-zeis"
-  },
-  {
-    "date": "11.11.2021",
-    "val": 8.6,
-    "negval": 0,
-    "desc": "klob-vie-klob"
-  },
-  {
-    "date": "14.11.2021",
-    "val": 8.6,
-    "negval": 0,
-    "desc": "klob-vie-klob"
-  },
-  {
-    "date": "15.11.2021",
-    "val": 64.3,
-    "negval": 16.4,
-    "desc": "vie-muc"
-  },
-  {
-    "date": "06.12.2021",
-    "val": 0,
-    "negval": 29.5,
-    "desc": "muc-vie"
-  },
-  {
-    "date": "07.12.2021",
-    "val": 60.15,
-    "negval": 19.4,
-    "desc": "muc-vie"
-  },
-  {
-    "date": "07.12.2021",
-    "val": 4.3,
-    "negval": 0,
-    "desc": "vie-klob"
-  },
-  {
-    "date": "07.12.2021",
-    "val": 4.3,
-    "negval": 0,
-    "desc": "klob-vie"
-  },
-  {
-    "date": "12.12.2021",
-    "val": 63.9,
-    "negval": 23.9,
-    "desc": "vie-muc"
-  },
-  {
-    "date": "18.12.2021",
-    "val": 60,
-    "negval": 13.4,
-    "desc": "muc-vie"
-  },
-  {
-    "date": "18.12.2021",
-    "val": 4.3,
-    "negval": 0,
-    "desc": "vie-klob"
-  },
-  {
-    "date": "19.12.2021",
-    "val": 19.8,
-    "negval": 0,
-    "desc": "klob-wild-klob"
-  },
-  {
-    "date": "20.12.2021",
-    "val": 1.9,
-    "negval": 0,
-    "desc": "klob"
-  }
+  {"date": "27.10.2021", "val": 1.90, "desc": "vie-klob"},
+  {"date": "29.10.2021", "val": 9.60, "desc": "klob-vie"},
+  {"date": "30.10.2021", "val": 9.60, "desc": "klob-wild"},
+  {"date": "31.10.2021", "val": 9.60, "desc": "wild-klob"},
+  {"date": "04.11.2021", "val": 8.60, "desc": "klob-vie-klob"},
+  {"date": "06.11.2021", "val": 8.60, "desc": "klob-vie-klob"},
+  {"date": "08.11.2021", "val": 8.60, "desc": "klob-vie-klob"},
+  {"date": "10.11.2021", "val": 4.90, "desc": "klob-zeis"},
+  {"date": "11.11.2021", "val": 8.60, "desc": "klob-vie-klob"},
+  {"date": "14.11.2021", "val": 8.60, "desc": "klob-vie-klob"},
+  {"date": "15.11.2021", "val": 64.30, "negval": 16.40, "desc": "vie-muc"},
+  {"date": "06.12.2021", "negval": 29.50, "desc": "muc-vie"},
+  {"date": "07.12.2021", "val": 60.15, "negval": 19.40, "desc": "muc-vie"},
+  {"date": "07.12.2021", "val": 4.30, "desc": "vie-klob"},
+  {"date": "07.12.2021", "val": 4.30, "desc": "klob-vie"},
+  {"date": "12.12.2021", "val": 63.90, "negval": 23.90, "desc": "vie-muc"},
+  {"date": "18.12.2021", "val": 60, "negval": 13.40, "desc": "muc-vie"},
+  {"date": "18.12.2021", "val": 4.30, "negval": 0, "desc": "vie-klob"},
+  {"date": "19.12.2021", "val": 19.80, "negval": 0, "desc": "klob-wild-klob"},
+  {"date": "20.12.2021", "val": 1.90, "negval": 0, "desc": "klob"},
+  {"date": "23.12.2021", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "28.12.2021", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "29.12.2021", "val": 4.30, "negval": 0, "desc": "klob-vie"},
+  {"date": "24.01.2022", "val": 36.00, "negval": 13.50, "desc": "muc-vie"},
+  {"date": "24.01.2022", "val": 4.30, "negval": 0, "desc": "vie-klob"},
+  {"date": "27.01.2022", "val": 1.90, "negval": 0, "desc": "klob"},
+  {"date": "28.01.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "30.01.2022", "val": 1.90, "negval": 0, "desc": "klob"},
+  {"date": "31.01.2022", "val": 3.80, "negval": 0, "desc": "klob-klob"},
+  {"date": "04.02.2022", "val": 4.30, "negval": 0, "desc": "klob-vie"},
+  {"date": "05.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "07.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "09.02.2022", "val": 64.30, "negval": 12.40, "desc": "klob-muc"},
+  {"date": "09.02.2022", "val": 64.30, "negval": 12.40, "desc": "muc-klob"},
+  {"date": "23.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "24.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "25.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "26.02.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "02.03.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "03.03.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "04.03.2022", "val": 8.60, "negval": 0, "desc": "klob-vie-klob"},
+  {"date": "07.03.2022", "val": 64.30, "negval": 13.90, "desc": "vie-muc"}
 ]
