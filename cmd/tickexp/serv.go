@@ -18,8 +18,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const defaultPort = ":8899"
-
 // datastorage specifies the data storage file location and file name
 const datastorage = "exp.json"
 
@@ -69,7 +67,14 @@ func fileSetUp() error {
 func serv(cmd *cobra.Command, args []string) {
 	fmt.Printf("...[I] starting serv (%s)\n", cmd.Version)
 
-	err := fileSetUp()
+	conf, err := loadconfig()
+	if err != nil {
+		fmt.Printf("...[E] handling config: %q\n", err.Error())
+		fmt.Printf("...[E] abort\n")
+		os.Exit(-1)
+	}
+
+	err = fileSetUp()
 	if err != nil {
 		fmt.Printf("...[E] setting up data file: %s\n", err.Error())
 		fmt.Println("...[E] abort")
@@ -109,7 +114,7 @@ func serv(cmd *cobra.Command, args []string) {
 		handleLogin(w, r)
 	})
 
-	useport := defaultPort
+	useport := fmt.Sprintf(":%d", conf.Port)
 	fmt.Printf("...[I] running server on port %s\n", useport)
 	log.Fatal(http.ListenAndServe(useport, nil))
 }
