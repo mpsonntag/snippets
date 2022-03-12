@@ -1,0 +1,4 @@
+port=8899   
+tickuser=changeme
+tickphrase=tosomethingsecret
+expiration=2

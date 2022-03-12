@@ -1,0 +1,26 @@
+# Single container docker-compose file for the tickexp service.
+version: '3.8'
+services:
+  tickexp:
+    container_name: tickexp
+    image: mpsonntag/tickexp:latest
+    entrypoint: ["./docker_startup.sh"]
+    env_file: ./env  # Configuration through env vars, stored in file under root home (contains sensitive information)
+    restart: always
+    ports: # Use only when working on localhost
+      - "8899:8899"
+    networks:
+      net:
+        ipv4_address: 172.10.0.15  # Fixed IP to avoid reconfiguring reverse proxy (Apache) on redeployment
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.0.0/16
