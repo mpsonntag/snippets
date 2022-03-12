@@ -6,10 +6,17 @@ import (
 	"strconv"
 )
 
+// default server port
+const defaultPort = 8899
+
+// default token expiration in minutes
+const defaultExpiration = 1
+
+// Configuration stores the basic server settings.
 type Configuration struct {
-	Port uint16
-	User string
-	Phrase string
+	Port       uint16
+	User       string
+	Phrase     string
 	Expiration int
 }
 
@@ -23,7 +30,7 @@ func readConf(key string) string {
 func loadconfig() (Configuration, error) {
 	cfg := Configuration{}
 
-	port := uint16(8899)
+	port := uint16(defaultPort)
 	portstr := readConf("port")
 	if portstr != "" {
 		portint, err := strconv.ParseUint(portstr, 10, 16)
@@ -35,13 +42,13 @@ func loadconfig() (Configuration, error) {
 	}
 	cfg.Port = port
 
-	cfg.User = readConf("user")
-	cfg.Phrase = readConf("phrase")
+	cfg.User = readConf("tickuser")
+	cfg.Phrase = readConf("tickphrase")
 	if cfg.User == "" || cfg.Phrase == "" {
 		return cfg, fmt.Errorf("missing user (%s) or phrase (%s)", cfg.User, cfg.Phrase)
 	}
 
-	exp := 1
+	exp := defaultExpiration
 	expstr := readConf("expiration")
 	if expstr != "" {
 		expint, err := strconv.Atoi(expstr)
