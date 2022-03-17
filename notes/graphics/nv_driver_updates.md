@@ -32,3 +32,17 @@ https://tecadmin.net/how-to-install-nvidia-drivers-on-fedora/
 https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
 https://phoenixnap.com/kb/fedora-nvidia-drivers
+
+## Install Nvidia Drivers with RPM Fusion
+
+    sudo dnf update
+    sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    lspci | grep VGA
+    lspci | grep 3d
+    sudo dnf install akmod-nvidia
+    # or 
+    sudo dnf install xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx
+    sudo dnf install xorg-x11-drv-nvidia-340xx akmod-nvidia-340xx
+
+https://rpmfusion.org/Howto/NVIDIA
