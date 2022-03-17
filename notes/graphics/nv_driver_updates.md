@@ -46,3 +46,5 @@ https://phoenixnap.com/kb/fedora-nvidia-drivers
     sudo dnf install xorg-x11-drv-nvidia-340xx akmod-nvidia-340xx
 
 https://rpmfusion.org/Howto/NVIDIA
+
+Something to consider in case of further issues: "... many similar issues ... with fedora 35 ... disable secure boot ... kernel now is actively blocking unsigned kernel modules from loading when secure boot is enabled."
