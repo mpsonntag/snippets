@@ -494,7 +494,8 @@ def parse_repo_datacite():
 
 
 def parse_args(args):
-    parser = docopt(__doc__, argv=args, version="0.2.0")
+    # keep at the same version as the go binary
+    parser = docopt(__doc__, argv=args, version="0.7.0")
     if parser['--config']:
         conf_file = parser['--config']
         if not os.path.isfile(conf_file):
