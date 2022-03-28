@@ -152,35 +152,38 @@ gin upload datacite.yml .gitmodules
 -[ ] check that the zip file on the server has the appropriate size
 -[ ] check that references 14 and 15 have been added in the created XML file on the DOI server with an amended DOI id.
 
-### Valid datacite yaml test and registration procedure test
+
+### Test valid datacite yaml test and registration procedure
+-[ ] add random data files for the annex
 -[ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
 
 ```bash
+mkdir data
+head -c 11M /dev/urandom > data/sampleA.bin
 rm .gitmodules
 cp datacite_04_valid.yml datacite.yml
 cp LICENSE_valid LICENSE
 gin commit .
-gin upload datacite.yml
-gin upload LICENSE
+gin upload .
 ```
 
 -[ ] check that the DOI request was valid
 -[ ] Check that no git submodules warning is displayed at the top of the page
 -[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
+-[ ] check annex and zip size in admin email and on the server
 -[ ] check that the repository on the DOI server is present in the doiprep folder
 
 -[ ] upload another file to the gin repository
 
 ```bash
-touch tmp.yml
+head -c 11M /dev/urandom > data/sampleB.bin
 gin commit .
-gin upload tmp.yml
+gin upload .
 ```
 
--[ ] use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
+-[ ] use the doichecklist file found in the corresponding server doiprep folder to register this request as a semi-automated DOI request.  Alternatively use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts repository to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
 -[ ] check the DOI fork upload log for an annex upload.
--[ ] note during the DOI fork upload that the logfile should show, that the repository was not at the
-    expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `tmp.yml` file.
+-[ ] during the DOI fork upload the logfile should show that the repository was not at the expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `data/sampleB.bin` file.
 
 
 ### Set up the gin client to work with the development server
