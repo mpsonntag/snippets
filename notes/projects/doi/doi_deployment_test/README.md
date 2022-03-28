@@ -187,7 +187,6 @@ gin upload .
 
 
 ### Test locked content
-
 -[ ] Lock a binary content file, commit and upload the changes and request a new DOI
 
 ```bash
@@ -196,7 +195,11 @@ gin commit .
 gin upload .
 ```
 
--[ ] check the admin email for the information, that the file has been unlocked to create the zip file
+-[ ] check the admin email
+    - warns about the repository being already forked
+    - informs about the annex and the zip size
+-[ ] check that the server doiprep folder contains a `doi_deptest_doidev_unlocked` directory
+-[ ] check that `sampleB.bin` is locked in the `doi_deptest_doidev` and unlocked in the `doi_deptest_doidev_unlocked` directory
 -[ ] check that the zip file contains all required data
 
 #### Optional locked content size cutoff test
@@ -208,6 +211,7 @@ head -c 250M /dev/urandom > data/sampleC.bin
 head -c 250M /dev/urandom > data/sampleD.bin
 head -c 250M /dev/urandom > data/sampleE.bin
 head -c 250M /dev/urandom > data/sampleF.bin
+gin commit .
 gin lock data/sampleC.bin
 gin lock data/sampleD.bin
 gin lock data/sampleE.bin
@@ -216,16 +220,40 @@ gin commit .
 gin upload .
 ```
 
+- [ ] check the admin email notices for errors and warnings:
+    - error: locked files found, zip creation skipped, repo size unsupported
+    - warnings: repo already forked by DOI, annex size message
+- [ ] check the server
+  - no zip file in the `doi` folder
+  - only the `doi_deptest_doidev` directory in the `doiprep` folder
+  - checklist available
 
-### DOI availability check
--[ ] make the original repository "doi_deptest_doidev" private
--[ ] check that the repository doi/doi_deptest_doidev is still public and available
+
+### Branch check
+- [ ] check that a DOI request cannot be made from a branch other than master. It is a bit of a hastle, but it has happend before; so lets make sure this is caught.
+
+```bash
+gin git checkout -b main
+rm data -r
+gin commit .
+gin upload .
+```
+
+- [ ] access the `doi_deptest_doidev` settings page, access the `branches` section and set the default branch to `main`; then delete the `master` branch and request a new DOI.
+
+```bash
+gin git branch -D master
+gin git push origin :master
+```
+
+- [ ] check that a proper page is displayed and the error message contains:
+  - `Could not access the repository master branch [...]`
 
 
 ### Cleanup
 -[ ] delete all sub-directories in the doi and doiprep on the dev server
 -[ ] delete the doi_deptest_doidev repository via the dev GIN page
--[ ]  delete any potential DOI forks via the dev GIN page
+-[ ] delete any potential DOI forks via the dev GIN page
 
 
 ### Set up the gin client to work with the development server
@@ -238,4 +266,4 @@ gin use-server dev
 gin login yourdevuser
 ```
 
-- Don't forget to switch back to using the "normal" gin server once the tests on dev are done
+- don't forget to switch back to using the "normal" gin server once the tests on dev are done
