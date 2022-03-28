@@ -5,46 +5,62 @@
 
 # The main researchers involved. Include digital identifier (e.g., ORCID)
 # if possible, including the prefix to indicate its type.
-# -- check missing author ID prefix
+# -- check empty author ID
+# -- check missing or invalid author ID prefix
 # -- check author ID prefix with missing value
+# -- check invalid ORCID and researcherid
 # -- check duplicate author ID; check lower case prefix
-# -- check researcherid works
-# -- check uncommon ID prefix handling --> should elicit warning
+# -- check valid ORCID and researcherid
 authors:
   -
     firstname: "aaa"
-    lastname: "MadamA"
-    affiliation: "Department of Test simple author"
-  - 
+    lastname: "PersonA"
+    affiliation: "Test simple author"
+  -
     firstname: "bbb"
-    lastname: "MisterB"
-    affiliation: "Department of Test missing ID prefix"
-    id: "0000-0002-7937-1095"
+    lastname: "PersonB"
+    affiliation: "Test empty author ID"
+    id: "  "
   -
     firstname: "ccc"
-    lastname: "MadamC"
-    affiliation: "Institute over there tests duplicate IDs"
-    id: "ORCID:0000-0003-2524-3853"
+    lastname: "PersonC"
+    affiliation: "Test missing author ID prefix"
+    id: "0000-0002-7937-1095"
   -
     firstname: "ddd"
-    lastname: "MisterD"
-    affiliation: "Institute over there tests duplicate IDs"
-    id: "orcid:0000-0003-2524-3853"
+    lastname: "PersonD"
+    affiliation: "Test unknown author ID prefix"
+    id: "idonotexist:1234"
   -
     firstname: "eee"
-    lastname: "MadamE"
-    affiliation: "Intitute of testing researcherid"
-    id: "ResearcherID:D-1234-5678"
+    lastname: "PersonE"
+    affiliation: "Test missing author ID"
+    id: "ORCID:"
   -
     firstname: "fff"
-    lastname: "MadamF"
-    affiliation: "Institute of unknown author ID"
-    id: "idonotexist:1234"
-  - 
+    lastname: "PersonF"
+    affiliation: "Test invalid ORCID"
+    id: "ORCID:0000-0003-2524-3853"
+  -
     firstname: "ggg"
-    lastname: "MisterG"
-    affiliation: "Department of missing author ID"
-    id: "ORCID:"
+    lastname: "PersonG"
+    affiliation: "Test invalid researcherid"
+    id: "ResearcherID:D-1234-5678"
+  -
+    firstname: "hhh"
+    lastname: "PersonH"
+    affiliation: "Test duplicate author IDs, valid ORCID"
+    id: "ORCID:0000-0001-6744-1159"
+  -
+    firstname: "iii"
+    lastname: "PersonI"
+    affiliation: "Test duplicate author IDs, valid ORCID, lower ID prefix"
+    id: "orcid:0000-0001-6744-1159"
+  -
+    firstname: "jjj"
+    lastname: "PersonJ"
+    affiliation: "Test valid researcherid"
+    id: "ResearcherID:k-3714-2014"
 
 # A title to describe the published resource.
 title: "Doi test"
@@ -91,6 +107,7 @@ funding:
 # -- check warning on reftype != IsSupplementTo
 # -- check valid entries for all reference types
 # -- check "old-style" citation field name usage
+# -- check "https://doi.org" is always supported
 references:
   -
     id: "doi:10.xxx/zzzz"
@@ -144,6 +161,14 @@ references:
     id: "pmid:28202729"
     reftype: "IsSupplementTo"
     citation: "Valid pmid entry check"
+  -
+    id: "DOI: https://doi.org/full-doi-url"
+    reftype: "IsSupplementTo"
+    citation: "Supported full doi scheme"
+  -
+    id: https://doi.org/full-doi-url-no-prefix
+    reftype: "IsSupplementTo"
+    citation: "Supported missing DOI prefix"
 
 # Resource type. Default is Dataset, other possible values are Software, DataPaper, Image, Text.
 # -- check other than 'Dataset' warning
