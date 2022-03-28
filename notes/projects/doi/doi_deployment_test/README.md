@@ -1,4 +1,6 @@
-# GIN-DOI deployment checklist
+# GIN-DOI deployment tests
+
+The following describes how a new gin-doi release can be tested in a test deployment or the live environment. Currently, all necessary files and a copy of this script can be found in the [G-Node/doi_deployment_test](https://gin.g-node.org/G-Node/doi_deployment_test/) repository on gin. In the future these files should also be included in the [github gin-doi code repo](https://github.com/G-Node/gin-doi).
 
 This document describes the manual tests that should be run in the
 dev and test deployment before deploying a new version of the 
@@ -36,7 +38,7 @@ The repository contains the following files:
 - datacite_02_invalid.yml
   ... a datacite file that contains invalid and unsupported datacite entries leading to a rejection 
       of the DOI request. This file should catch all invalid entries leading to a request rejection.
-- datacite_03_dubious.yml
+- datacite_03_issues.yml
   ... a datacite file containing all entries that will lead to a successful DOI request,
       but will elicit warning messages to the admin. This file should cover all admin warnings.
 - datacite_04_valid.yml
@@ -49,10 +51,12 @@ a full test setup of a GIN server, a DOI server and a GIN CLI set up to work wit
 instances.
 
 ### Pre-requisites
-- ensure the GIN client is set up to work with the test instance of GIN before starting the tests.
+- ensure the GIN client is set up to work with the `dev` instance of GIN before starting the tests. (check below for an example how to set up the gin client to work with dev)
 - copy the contents of this directory and upload them to the GIN server instance.
 - ensure the repository is public.
 - ensure there is no DOI copy of this repository; if there is one, delete it.
+- ensure there is no repository named "doi_deptest_doidev"; if there is one, delete it; this ensures that the large data files and the git history of the main test repository will remain clean and test against branches can also be done without too much overhead.
+- fork the repository to "doi_deptest_doidev"
 
 
 ### Missing and broken datacite.yml file; Missing LICENSE file
