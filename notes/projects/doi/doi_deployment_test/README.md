@@ -60,15 +60,15 @@ instances.
 
 
 ### Check missing or broken datacite.yml file and missing LICENSE file responses
--[ ] check there is no option to request a DOI on GIN; make the original repository public via the settings
--[ ] check there still is no option to request a DOI on GIN due to missing datacite file
--[ ] locally clone the forked repository
+- [ ] check there is no option to request a DOI on GIN; make the original repository public via the settings
+- [ ] check there still is no option to request a DOI on GIN due to missing datacite file
+- [ ] locally clone the forked repository
 ```bash
 gin get [username]/doi_deptest_doidev
 cd doi_deptest_doidev
 ```
 
--[ ] use the `datacite_01_broken.yml` file and upload; reload the GIN page; request DOI
+- [ ] use the `datacite_01_broken.yml` file and upload; reload the GIN page; request DOI
 
 ```bash
 cp datacite_01_broken.yml datacite.yml
@@ -76,12 +76,12 @@ gin commit .
 gin upload datacite.yml
 ```
 
--[ ] check the error messages for missing LICENSE file and missing/invalid DOI file and proper information on the nature of the broken yaml issue
+- [ ] check the error messages for missing LICENSE file and missing/invalid DOI file and proper information on the nature of the broken yaml issue
   - `The LICENSE file is missing the required master branch [...]`
   - `The DOI file is missin in the master branch or not valid [...]`
   - `[...] error while reading DOI info: yaml: line xx: mapping values [...]`
 
--[ ] use the `datacite_04_valid.yml` file and upload; reload GIN page; request DOI
+- [ ] use the `datacite_04_valid.yml` file and upload; reload GIN page; request DOI
 
 ```bash
 cp datacite_04_valid.yml datacite.yml
@@ -89,12 +89,12 @@ gin commit .
 gin upload datacite.yml
 ```
 
--[ ] check DOI request failure due to missing LICENSE file:
+- [ ] check DOI request failure due to missing LICENSE file:
     - `The LICENSE file is missing the required master branch [...]`
 
 
 ### Check invalid datacite.yaml responses
--[ ] use `LICENSE_invalid` and `datacite_02_invalid.yml` files and upload; reload GIN page; request DOI
+- [ ] use `LICENSE_invalid` and `datacite_02_invalid.yml` files and upload; reload GIN page; request DOI
 
 ```bash
 cp LICENSE_invalid LICENSE
@@ -103,7 +103,7 @@ gin commit .
 gin upload datacite.yml LICENSE
 ```
 
--[ ] check DOI request failures:
+- [ ] check DOI request failures:
     - No title provided.
     - Not all authors valid. Please provide at least a last name and a first name.
     - No description provided.
@@ -114,7 +114,7 @@ gin upload datacite.yml LICENSE
 
 
 ### Test formal datacite.yml issues and git submodules warnings
--[ ] use the datacite_03_issues.yml file and upload; reload GIN page; request DOI
+- [ ] use the datacite_03_issues.yml file and upload; reload GIN page; request DOI
 
 ```bash
 cp datacite_03_issues.yml datacite.yml
@@ -123,9 +123,9 @@ gin commit .
 gin upload datacite.yml .gitmodules
 ```
 
--[ ] check that the DOI request was valid
--[ ] check that the git submodules warning is displayed at the top of the page
--[ ] submit DOI request and check that both the admin email and the DOIMetadata issue contain the following warning messages
+- [ ] check that the DOI request was valid
+- [ ] check that the git submodules warning is displayed at the top of the page
+- [ ] submit DOI request and check that both the admin email and the DOIMetadata issue contain the following warning messages
     - Repository contains submodules
     - Author 1 (PersonB) has unknown ID:
     - Author 2 (PersonC) has ORCID-like unspecified ID: 0000-0002-7937-1095
@@ -148,14 +148,14 @@ gin upload datacite.yml .gitmodules
     - ResourceType is "DataPaper" (expected Dataset)
     - Annex content size (0 bytes) vs zip size (48 KiB)
 
--[ ] check that reference 4 value has been excluded from the created XML file on the DOI server
--[ ] check that the zip file on the server has the appropriate size
--[ ] check that references 14 and 15 have been added in the created XML file on the DOI server with an amended DOI id.
+- [ ] check that reference 4 value has been excluded from the created XML file on the DOI server
+- [ ] check that the zip file on the server has the appropriate size
+- [ ] check that references 14 and 15 have been added in the created XML file on the DOI server with an amended DOI id.
 
 
 ### Test valid datacite yaml test and registration procedure
--[ ] add random data files for the annex
--[ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
+- [ ] add random data files for the annex
+- [ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
 
 ```bash
 mkdir data
@@ -167,13 +167,13 @@ gin commit .
 gin upload .
 ```
 
--[ ] check that no errors are displayed and no git submodules warning is displayed at the top of the request overview page
--[ ] request the DOI
--[ ] check that the DOIMetadata issue does not contain warning messages 
--[ ] check that the second admin email only contains the annex content vs zip size notice
--[ ] check that the repository on the DOI server is present in the doiprep folder
+- [ ] check that no errors are displayed and no git submodules warning is displayed at the top of the request overview page
+- [ ] request the DOI
+- [ ] check that the DOIMetadata issue does not contain warning messages 
+- [ ] check that the second admin email only contains the annex content vs zip size notice
+- [ ] check that the repository on the DOI server is present in the doiprep folder
 
--[ ] upload another file to the gin repository
+- [ ] upload another file to the gin repository
 
 ```bash
 head -c 11M /dev/urandom > data/sampleB.bin
@@ -181,13 +181,13 @@ gin commit .
 gin upload .
 ```
 
--[ ] use the doichecklist file found in the corresponding server doiprep folder to register this request as a semi-automated DOI request.  Alternatively use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts repository to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
--[ ] check the DOI fork upload log for an annex upload.
--[ ] during the DOI fork upload the logfile should show that the repository was not at the expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `data/sampleB.bin` file.
+- [ ] use the doichecklist file found in the corresponding server doiprep folder to register this request as a semi-automated DOI request.  Alternatively use the `doichecklist.py` script from the gin.g-node.org/G-Node/gin-scripts repository to register this request as a semi-automated DOI request. Make sure to update the `doichecklist.yml` config file to match the dev server environment.
+- [ ] check the DOI fork upload log for an annex upload.
+- [ ] during the DOI fork upload the logfile should show that the repository was not at the expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `data/sampleB.bin` file.
 
 
 ### Test locked content
--[ ] Lock a binary content file, commit and upload the changes and request a new DOI
+- [ ] Lock a binary content file, commit and upload the changes and request a new DOI
 
 ```bash
 gin lock data/sampleB.bin
@@ -195,16 +195,16 @@ gin commit .
 gin upload .
 ```
 
--[ ] check the admin email
+- [ ] check the admin email
     - warns about the repository being already forked
     - informs about the annex and the zip size
--[ ] check that the server doiprep folder contains a `doi_deptest_doidev_unlocked` directory
--[ ] check that `sampleB.bin` is locked in the `doi_deptest_doidev` and unlocked in the `doi_deptest_doidev_unlocked` directory
--[ ] check that the zip file contains all required data
+- [ ] check that the server doiprep folder contains a `doi_deptest_doidev_unlocked` directory
+- [ ] check that `sampleB.bin` is locked in the `doi_deptest_doidev` and unlocked in the `doi_deptest_doidev_unlocked` directory
+- [ ] check that the zip file contains all required data
 
 #### Optional locked content size cutoff test
--[ ] make sure the server has a cutoff size of 1 GB set in the server configuration
--[ ] add files adding to over 1GB, lock these files, upload and request a DOI
+- [ ] make sure the server has a cutoff size of 1 GB set in the server configuration
+- [ ] add files adding to over 1GB, lock these files, upload and request a DOI
 
 ```bash
 head -c 250M /dev/urandom > data/sampleC.bin
@@ -251,13 +251,12 @@ gin git push origin :master
 
 
 ### Cleanup
--[ ] delete all sub-directories in the doi and doiprep on the dev server
--[ ] delete the doi_deptest_doidev repository via the dev GIN page
--[ ] delete any potential DOI forks via the dev GIN page
+- [ ] delete all sub-directories in the `doi` and `doiprep` directories on the dev server
+- [ ] delete the `doi_deptest_doidev` repository via the dev GIN page
+- [ ] delete any potential DOI forks via the dev GIN page
 
 
 ### Set up the gin client to work with the development server
-
 - use the appropriate gin.dev.g-node.org settings, values below are exemplary
 
 ```bash
