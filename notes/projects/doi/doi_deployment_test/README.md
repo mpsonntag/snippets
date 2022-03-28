@@ -186,6 +186,37 @@ gin upload .
 -[ ] during the DOI fork upload the logfile should show that the repository was not at the expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `data/sampleB.bin` file.
 
 
+### Test locked content
+
+-[ ] Lock a binary content file, commit and upload the changes and request a new DOI
+
+```bash
+gin lock data/sampleB.bin
+gin commit .
+gin upload .
+```
+
+-[ ] check the admin email for the information, that the file has been unlocked to create the zip file
+-[ ] check that the zip file contains all required data
+
+#### Optional locked content size cutoff test
+-[ ] make sure the server has a cutoff size of 1 GB set in the server configuration
+-[ ] add files adding to over 1GB, lock these files, upload and request a DOI
+
+```bash
+head -c 250M /dev/urandom > data/sampleC.bin
+head -c 250M /dev/urandom > data/sampleD.bin
+head -c 250M /dev/urandom > data/sampleE.bin
+head -c 250M /dev/urandom > data/sampleF.bin
+gin lock data/sampleC.bin
+gin lock data/sampleD.bin
+gin lock data/sampleE.bin
+gin lock data/sampleF.bin
+gin commit .
+gin upload .
+```
+
+
 ### Set up the gin client to work with the development server
 
 - use the appropriate gin.dev.g-node.org settings, values below are exemplary
