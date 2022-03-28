@@ -59,7 +59,7 @@ instances.
 - fork the repository to "doi_deptest_doidev"
 
 
-### Test missing and broken datacite.yml file; Missing LICENSE file
+### Check missing or broken datacite.yml file and missing LICENSE file responses
 -[ ] check there is no option to request a DOI on GIN; make the original repository public via the settings
 -[ ] check there still is no option to request a DOI on GIN due to missing datacite file
 -[ ] locally clone the forked repository
@@ -93,8 +93,8 @@ gin upload datacite.yml
     - `The LICENSE file is missing the required master branch [...]`
 
 
-### Invalid datacite.yaml test
--[ ] add invalid LICENSE and unsupported datacite file and upload; reload GIN page; request DOI
+### Check invalid datacite.yaml responses
+-[ ] use `LICENSE_invalid` and `datacite_02_invalid.yml` files and upload; reload GIN page; request DOI
 
 ```bash
 cp LICENSE_invalid LICENSE
