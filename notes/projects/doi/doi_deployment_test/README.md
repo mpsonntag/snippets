@@ -217,6 +217,17 @@ gin upload .
 ```
 
 
+### DOI availability check
+-[ ] make the original repository "doi_deptest_doidev" private
+-[ ] check that the repository doi/doi_deptest_doidev is still public and available
+
+
+### Cleanup
+-[ ] delete all sub-directories in the doi and doiprep on the dev server
+-[ ] delete the doi_deptest_doidev repository via the dev GIN page
+-[ ]  delete any potential DOI forks via the dev GIN page
+
+
 ### Set up the gin client to work with the development server
 
 - use the appropriate gin.dev.g-node.org settings, values below are exemplary
