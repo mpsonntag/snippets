@@ -167,10 +167,10 @@ gin commit .
 gin upload .
 ```
 
--[ ] check that the DOI request was valid
--[ ] Check that no git submodules warning is displayed at the top of the page
--[ ] check that the DOIMetadata issue does not contain warning messages and that no warning email has been sent.
--[ ] check annex and zip size in admin email and on the server
+-[ ] check that no errors are displayed and no git submodules warning is displayed at the top of the request overview page
+-[ ] request the DOI
+-[ ] check that the DOIMetadata issue does not contain warning messages 
+-[ ] check that the second admin email only contains the annex content vs zip size notice
 -[ ] check that the repository on the DOI server is present in the doiprep folder
 
 -[ ] upload another file to the gin repository
