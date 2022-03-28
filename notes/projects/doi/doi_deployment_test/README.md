@@ -100,8 +100,7 @@ gin upload datacite.yml
 cp LICENSE_invalid LICENSE
 cp datacite_02_invalid.yml datacite.yml
 gin commit .
-gin upload datacite.yml
-gin upload LICENSE
+gin upload datacite.yml LICENSE
 ```
 
 -[ ] check DOI request failures:
@@ -113,23 +112,28 @@ gin upload LICENSE
     - ResourceType must be one of the following: Dataset, Software, DataPaper, Image, Text
     - Reference type (RefType) must be one of the following: IsSupplementTo, IsDescribedBy, IsReferencedBy, IsVariantFormOf
 
-### Dubious datacite yaml / git submodules warning test
--[ ] add dubious datacite entries file and upload; reload GIN page; request DOI
+
+### Test formal datacite.yml issues and git submodules warnings
+-[ ] use the datacite_03_issues.yml file and upload; reload GIN page; request DOI
 
 ```bash
-cp datacite_03_dubious.yml datacite.yml
+cp datacite_03_issues.yml datacite.yml
 touch .gitmodules
 gin commit .
-gin upload datacite.yml
+gin upload datacite.yml .gitmodules
 ```
 
 -[ ] check that the DOI request was valid
--[ ] Check that the git submodules warning is displayed at the top of the page
--[ ] check that both the admin email and the DOIMetadata issue contain the following warning messages
-    - Author 1 (MisterB) has ORCID-like unspecified ID: 0000-0002-7937-1095
-    - Authors 2 (MadamC) and 3 (MisterD) have the same ID: orcid:0000-0003-2524-3853
-    - Author 5 (MadamF) has unknown ID: idonotexist:1234
-    - Author 6 (MisterG) has empty ID value: ORCID:
+-[ ] check that the git submodules warning is displayed at the top of the page
+-[ ] submit DOI request and check that both the admin email and the DOIMetadata issue contain the following warning messages
+    - Repository contains submodules
+    - Author 1 (PersonB) has unknown ID:
+    - Author 2 (PersonC) has ORCID-like unspecified ID: 0000-0002-7937-1095
+    - Author 3 (PersonD) has unknown ID: idonotexist:1234
+    - Author 4 (PersonE) has empty ID value: ORCID:
+    - Authors 7 (PersonH) and 8 (PersonI) have the same ID: orcid:0000-0001-6744-1159
+    - Author 5 (PersonF) ID was not found at the ID service: orcid:0000-0003-2524-3853
+    - Author 6 (PersonG) ID was not found at the ID service: ResearcherID:D-1234-5678
     - Abstract may be too short: 24 characters
     - License file content header not found: 'This is not right Cr...'
     - License URL/Name mismatch: 'CC0 1.0 Universal'/'Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License'
@@ -142,8 +146,11 @@ gin upload datacite.yml
     - Reference 5 uses refType 'IsReferencedBy'
     - Reference 9 uses old 'Name' field instead of 'Citation'
     - ResourceType is "DataPaper" (expected Dataset)
--[ ] Check that reference 4 has been excluded from the created XML file on the DOI server
--[ ] Check that the git submodules warning is displayed at the top of the page
+    - Annex content size (0 bytes) vs zip size (48 KiB)
+
+-[ ] check that reference 4 value has been excluded from the created XML file on the DOI server
+-[ ] check that the zip file on the server has the appropriate size
+-[ ] check that references 14 and 15 have been added in the created XML file on the DOI server with an amended DOI id.
 
 ### Valid datacite yaml test and registration procedure test
 -[ ] add valid datacite yaml, valid and matching LICENSE file and upload; reload GIN page; request DOI
