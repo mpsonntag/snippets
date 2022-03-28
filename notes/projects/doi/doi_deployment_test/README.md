@@ -175,3 +175,16 @@ gin upload tmp.yml
 -[ ] check the DOI fork upload log for an annex upload.
 -[ ] note during the DOI fork upload that the logfile should show, that the repository was not at the
     expected commit. The commit hashes should point to the DOI request commit and the commit that post DOI request committed the `tmp.yml` file.
+
+
+### Set up the gin client to work with the development server
+
+- use the appropriate gin.dev.g-node.org settings, values below are exemplary
+
+```bash
+gin add-server --web https://gin.dev.g-node.org:443 --git git@gin.dev.g-node.org:9999 dev
+gin use-server dev
+gin login yourdevuser
+```
+
+- Don't forget to switch back to using the "normal" gin server once the tests on dev are done
