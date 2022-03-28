@@ -36,7 +36,7 @@ The repository contains the following files:
 - datacite_01_broken.yml
   ... a datacite file that is not a valid yaml file; checks broken yaml response
 - datacite_02_invalid.yml
-  ... a datacite file that contains invalid and unsupported datacite entries leading to a rejection 
+  ... a datacite file that contains invalid and unsupported datacite entries leading to a rejection
       of the DOI request. This file should catch all invalid entries leading to a request rejection.
 - datacite_03_issues.yml
   ... a datacite file containing all entries that will lead to a successful DOI request,
@@ -59,19 +59,16 @@ instances.
 - fork the repository to "doi_deptest_doidev"
 
 
-### Missing and broken datacite.yml file; Missing LICENSE file
--[ ] remove LICENSE and datacite.yml file and upload
-
+### Test missing and broken datacite.yml file; Missing LICENSE file
+-[ ] check there is no option to request a DOI on GIN; make the original repository public via the settings
+-[ ] check there still is no option to request a DOI on GIN due to missing datacite file
+-[ ] locally clone the forked repository
 ```bash
-rm LICENSE
-rm datacite.yml
-gin commit .
-gin upload .
+gin get [username]/doi_deptest_doidev
+cd doi_deptest_doidev
 ```
 
--[ ] switch to the GIN repo and check missing DOI request link due to missing datacite file
-
--[ ] add datacite file and upload; reload the GIN page; request DOI
+-[ ] use the `datacite_01_broken.yml` file and upload; reload the GIN page; request DOI
 
 ```bash
 cp datacite_01_broken.yml datacite.yml
@@ -79,10 +76,12 @@ gin commit .
 gin upload datacite.yml
 ```
 
--[ ] check DOI request failure due to broken datacite file:
-    `error while reading DOI info: yaml [...]`
+-[ ] check the error messages for missing LICENSE file and missing/invalid DOI file and proper information on the nature of the broken yaml issue
+  - `The LICENSE file is missing the required master branch [...]`
+  - `The DOI file is missin in the master branch or not valid [...]`
+  - `[...] error while reading DOI info: yaml: line xx: mapping values [...]`
 
--[ ] add valid datacite file and upload; reload GIN page; request DOI
+-[ ] use the `datacite_04_valid.yml` file and upload; reload GIN page; request DOI
 
 ```bash
 cp datacite_04_valid.yml datacite.yml
@@ -91,7 +90,7 @@ gin upload datacite.yml
 ```
 
 -[ ] check DOI request failure due to missing LICENSE file:
-    `The LICENSE file is missing. The full text of the license is required to be in the repository when publishing`
+    - `The LICENSE file is missing the required master branch [...]`
 
 
 ### Invalid datacite.yaml test
