@@ -24,3 +24,6 @@ Running curl on "gin.g-node.org" and "web.gin.g-node.org" showed intermittent (~
     how to fix it, please visit the web page mentioned above.
 
 Since "web.gin.g-node.org" is a forward to gin.g-node.org and successfully curling it retrieved only the "forward" header and not the gin page header, the issue was most likely to lie with the apache and not with the "downstream" haproxy or the gin server itself. 
+
+Another very useful tool was the Qualis SSL lab page, checking the certificate via the page [https://www.ssllabs.com/ssltest/index.html](https://www.ssllabs.com/ssltest/index.html). It immediately showed, that two certificates were being served, one of them expired.
+
