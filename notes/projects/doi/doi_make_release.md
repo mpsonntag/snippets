@@ -35,3 +35,18 @@ docker-compose logs -f --tail=100
 
 - run all required tests as described in the opsdocs `doi/deployment_tests.md` file or the gin `G-Node/doi_deployment_test` repository.
 
+#### Updates in "checklist.go"
+
+if the "checklist.go" file has been updated
+- update the corresponding template in G-Node/gin-scripts/doichecklist.py
+- update the version number of G-Node/gin-scripts/doichecklist.py to match the go server binary version number.
+- test that the checklist output of go server binary and python script are identical:
+
+```bash
+./gindoid make-checklist
+mv [created file] [created file].go
+python doichecklist.py
+diff [created file] [created file].go
+```
+
+- if diff only shows differences in the randomly created screen session names, the scripts create an identical output.
