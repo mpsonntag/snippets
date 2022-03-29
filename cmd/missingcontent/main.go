@@ -61,3 +61,22 @@ func annexAvailable(annexbinpath string, gitdir string) (bool, error) {
 	}
 	return true, nil
 }
+
+func main() {
+	fmt.Println("Checking if annex is available")
+
+	annexpath := ""
+	repopath := ""
+
+	// check if annex is available; exit otherwise
+	ok, err := annexAvailable(annexpath, repopath)
+	if err != nil {
+		fmt.Printf("[E] checking annex: %s", err.Error())
+		os.Exit(1)
+	}
+
+	if !ok {
+		fmt.Printf("[E] Annex is not available at %s", annexpath)
+		os.Exit(1)
+	}
+}
