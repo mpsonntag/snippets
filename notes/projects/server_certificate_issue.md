@@ -32,3 +32,47 @@ The letsentcrypt certificates in `/etc/letsencrypt/archive` showed, that all cer
 
 In the past, manually creating a new certificate via `certbot` had shown, that it spools up an apache against which the new certificate is being tested. When the process was done, this apache was not always shut down properly and `systemctl stop apache2.service` had to be run twice until all apache instances had been shut off.
 This lead to the suspicion, that the automated certificate renewal could have left an apache running that was still serving the expired certificate while the "proper" apache was serving the renewed certificate.
+
+Investigating the apache processes showed the following
+
+- output of `systemctl status apache2.service`:
+
+         apache2.service - The Apache HTTP Server
+           Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: e
+           Active: active (running) since Thu 2022-01-06 06:11:20 CET; 2 months 21 days a
+             Docs: https://httpd.apache.org/docs/2.4/
+          Process: 392822 ExecReload=/usr/sbin/apachectl graceful (code=exited, status=0/
+         Main PID: 1148000 (apache2)
+            Tasks: 82 (limit: 309169)
+           Memory: 100.6M
+           CGroup: /system.slice/apache2.service
+                   ├─ 392833 /usr/sbin/apache2 -k start
+                   ├─ 392872 /usr/sbin/apache2 -k start
+                   ├─ 916937 /usr/sbin/apache2 -k start
+                   └─1148000 /usr/sbin/apache2 -k start
+
+- `htop` showed, that there was one main process (1148000) with three subprocesses 
+    - the process 1148000 was owned by `root`
+    - the sub-processes 916937, 392833, 392872 where owned by `www-data`
+
+- restarting the service (`systemctl restart apache2.service`)
+- output of `systemctl status apache2.service`:
+
+        apache2.service - The Apache HTTP Server
+           Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: e
+           Active: active (running) since Tue 2022-03-29 14:16:30 CEST; 9s ago
+             Docs: https://httpd.apache.org/docs/2.4/
+          Process: 852265 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCC
+         Main PID: 852277 (apache2)
+            Tasks: 55 (limit: 309169)
+           Memory: 25.9M
+           CGroup: /system.slice/apache2.service
+                   ├─852277 /usr/sbin/apache2 -k start
+                   ├─852278 /usr/sbin/apache2 -k start
+                   └─852279 /usr/sbin/apache2 -k start
+
+- `htop` showed, that there was one main process (852277) with two subprocesses
+    - the process 852277 was owned by `root`
+    - the sub-processes 852278, 852279 were owned by `www-data`
+
+- restarting the service did solve the issue, the expired certificate was no longer served.
