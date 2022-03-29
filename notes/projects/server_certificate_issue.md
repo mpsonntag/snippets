@@ -27,3 +27,8 @@ Since "web.gin.g-node.org" is a forward to gin.g-node.org and successfully curli
 
 Another very useful tool was the Qualis SSL lab page, checking the certificate via the page [https://www.ssllabs.com/ssltest/index.html](https://www.ssllabs.com/ssltest/index.html). It immediately showed, that two certificates were being served, one of them expired.
 
+
+The letsentcrypt certificates in `/etc/letsencrypt/archive` showed, that all certificates had been correctly renewed every 3 months and that the live certificates in `/etc/letsencrypt/live` were pointing to the newest certificate that was intermittently being served as the valid certificate.
+
+In the past, manually creating a new certificate via `certbot` had shown, that it spools up an apache against which the new certificate is being tested. When the process was done, this apache was not always shut down properly and `systemctl stop apache2.service` had to be run twice until all apache instances had been shut off.
+This lead to the suspicion, that the automated certificate renewal could have left an apache running that was still serving the expired certificate while the "proper" apache was serving the renewed certificate.
