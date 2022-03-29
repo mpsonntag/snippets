@@ -50,3 +50,11 @@ diff [created file] [created file].go
 ```
 
 - if diff only shows differences in the randomly created screen session names, the scripts create an identical output.
+
+#### Updates to the deployment test scheme
+
+If the deployment test scheme was updated, propagate these changes to all relevant directories:
+- GIN G-Node/opsdosc/doi/deployment_tests.md
+- GIN G-Node/doi_deployment_test
+- dev GIN G-Node/doi_deployment_test
+- GIN G-Node/gin-scripts
