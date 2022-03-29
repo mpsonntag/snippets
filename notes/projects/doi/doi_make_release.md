@@ -96,3 +96,30 @@ docker pull gnode/gin-doi:live-YYYY-MM-DD
 
 - copy the latest `gindoid` binary to the `data/doiprep` folder
 
+
+### Live deployment and cleanup
+
+- if required use the new config file
+
+```bash
+cp doienv-YYYY-MM-DD doienv
+```
+
+- on the DOI live server move to the docker-compose directory and restart the service; latch onto the logs to check if the service is running correctly
+
+```bash
+docker-compose down
+docker-compose up -d
+docker-compose logs -f --tail=200
+```
+
+- Log into gin.g-node.org, fork G-Node/doi_deployment test and run the tests again against the live DOI server; exclude the above locked content size test
+
+- remove the created directories from `doi/10.12751` and `doiprep/10.12751`
+- close any related GIN issues on the G-Node/DOIMetadata/issues repository
+
+- now that everything is running without issue, finally push the git tag to the github gin-doi repo to finalize the release
+
+```bash
+git push upstream live-YYYY-MM-DD
+```
