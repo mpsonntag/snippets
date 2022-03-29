@@ -33,3 +33,16 @@ func remoteAnnexCommand(annexbinpath string, gitdir string, args ...string) (she
 
 	return cmd, nil
 }
+
+// annexCMD runs the passed git annex command arguments.
+// The command returns stdout and stderr as strings and any error that might occur.
+func annexCMD(annexbinpath string, gitdir string, annexargs ...string) (string, string, error) {
+	fmt.Printf("Running annex command: %s\n", annexargs)
+	cmd, err := remoteAnnexCommand(annexbinpath, gitdir, annexargs...)
+	if err != nil {
+		return "", "", err
+	}
+	stdout, stderr, err := cmd.OutputError()
+
+	return string(stdout), string(stderr), err
+}
