@@ -58,3 +58,41 @@ If the deployment test scheme was updated, propagate these changes to all releva
 - GIN G-Node/doi_deployment_test
 - dev GIN G-Node/doi_deployment_test
 - GIN G-Node/gin-scripts
+
+
+### Deployment preparations
+
+When all tests have been successfully completed, run the following steps to prepare for a live deployment
+
+- prepare the live docker containers; use the date when the new container will be deployed
+
+```bash
+docker tag [dev image id] gnode/gin-doi:latest
+docker tag [dev image id] gnode/gin-doi:live-YYYY-MM-DD
+docker push gnode/gin-doi:latest
+docker push gnode/gin-doi:live-YYYY-MM-DD
+```
+
+- make sure the tested github changes have been merged into master and prepare a matching tag in the gin-doi git repository
+
+```bash
+git tag -a live-YYYY-MM-DD -m "GIN DOI Live-YYYY-MM-DD"
+```
+
+- move to the live server
+- if the config has to be changed, move to the doi config folder and prepare a config file marked with the deployment day
+
+```bash
+cp doienv doienv.live-YYYY-MM-DD
+vim doienv.live-YYYY-MM-DD  # make required changes
+```
+
+- pull the docker containers 
+
+```bash
+docker pull gnode/gin-doi:latest
+docker pull gnode/gin-doi:live-YYYY-MM-DD
+```
+
+- copy the latest `gindoid` binary to the `data/doiprep` folder
+
