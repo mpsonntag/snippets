@@ -123,6 +123,12 @@ func walkgitdirs(dirpath string) error {
 			fmt.Printf("encountered filepath walk at %s error: %q\n", currpath, err.Error())
 			return err
 		}
+		// ignore files
+		if !fio.IsDir() {
+			fmt.Printf("[I] Ignoring file %q\n", currpath)
+			return filepath.SkipDir
+		}
+
 		// check if the current directory is a git directory, bare or otherwise
 		// assume the current directory is a bare git repo. stop and do all check stuff required
 		if strings.HasSuffix(currpath, ".git") {
