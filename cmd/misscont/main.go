@@ -123,6 +123,18 @@ func checkgitdir(dirpath string) error {
 	return nil
 }
 
+func infoFromBareRepo(annexbinpath, repopath string) (AnnexInfo, error) {
+	ai := AnnexInfo{}
+	stdout, stderr, err := annexCMD(annexbinpath, repopath, "findref", "HEAD", "--not", "--in=here")
+	if err != nil {
+		return ai, err
+	}
+
+	fmt.Printf("[I] %q, %q\n", stdout, stderr)
+
+	return ai, nil
+}
+
 func walkgitdirs(dirpath string) error {
 	gitlist := []string{}
 	annexInfoList := []AnnexInfo{}
