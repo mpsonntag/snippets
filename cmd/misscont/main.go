@@ -135,7 +135,7 @@ func infoFromBareRepo(annexbinpath, repopath string) (AnnexInfo, error) {
 	return ai, nil
 }
 
-func walkgitdirs(dirpath string) error {
+func walkgitdirs(annexbinpath, dirpath string) error {
 	gitlist := []string{}
 	annexInfoList := []AnnexInfo{}
 	currwalk := func(currpath string, fio os.FileInfo, err error) error {
@@ -153,6 +153,14 @@ func walkgitdirs(dirpath string) error {
 		// assume the current directory is a bare git repo. stop and do all check stuff required
 		if strings.HasSuffix(currpath, ".git") {
 			fmt.Printf("[I] current dir %q is a bare repo; skipping\n", currpath)
+
+			aninf, err := infoFromBareRepo(annexbinpath, currpath)
+			if err != nil {
+				fmt.Printf("[E] handling bare repo info: %q", err.Error())
+				return err
+			}
+
+			annexInfoList = append(annexInfoList, aninf)
 			gitlist = append(gitlist, currpath)
 			return filepath.SkipDir
 		}
@@ -200,7 +208,7 @@ func checkgitdirs(cmd *cobra.Command, args []string) {
 
 	fmt.Printf("[I] using directory %q\n", gitdirs)
 
-	err = walkgitdirs(gitdirs)
+	err = walkgitdirs("", gitdirs)
 	if err != nil {
 		fmt.Printf("[E] walking directories: %s\n", err.Error())
 	}
