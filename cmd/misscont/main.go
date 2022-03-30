@@ -92,7 +92,7 @@ func setUpCommands(verstr string) *cobra.Command {
 	return rootCmd
 }
 
-func walkgitdirs(dirpath string) error {
+func checkgitdir(dirpath string) error {
 	// check if the current directory is a git directory, bare or otherwise
 	// assume the current directory is a bare git repo. stop and do all check stuff required
 	if strings.HasSuffix(dirpath, ".git") {
@@ -113,6 +113,46 @@ func walkgitdirs(dirpath string) error {
 	}
 
 	fmt.Printf("[I] curr dir %q is no git dir, continuing on\n", dirpath)
+	return nil
+}
+
+func walkgitdirs(dirpath string) error {
+	gitlist := []string{}
+	currwalk := func(currpath string, fio os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Printf("encountered filepath walk at %s error: %q\n", currpath, err.Error())
+			return err
+		}
+		// check if the current directory is a git directory, bare or otherwise
+		// assume the current directory is a bare git repo. stop and do all check stuff required
+		if strings.HasSuffix(currpath, ".git") {
+			fmt.Printf("[I] current dir %q is a bare repo; skipping\n", currpath)
+			gitlist = append(gitlist, currpath)
+			return filepath.SkipDir
+		}
+		// check if the current directory is a normal git dir. stop and do all check stuff required
+		checkgitpath := filepath.Join(currpath, ".git")
+		inf, err := os.Stat(checkgitpath)
+		if err != nil && !os.IsNotExist(err) {
+			fmt.Printf("[I] err checking git dir, will continue: %q\n", err.Error())
+		} else if os.IsNotExist(err) {
+			fmt.Println("[I] curr dir has no .git folder, moving on")
+		} else if inf.IsDir() {
+			fmt.Printf("[I] current dir %q is a git dir; skipping\n", currpath)
+			gitlist = append(gitlist, currpath)
+			return filepath.SkipDir
+		}
+
+		fmt.Printf("[I] curr dir %q is no git dir, continuing on\n", currpath)
+		return nil
+	}
+
+	err := filepath.Walk(dirpath, currwalk)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Found the following git dirs: %v\n", gitlist)
 	return nil
 }
 
