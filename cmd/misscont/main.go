@@ -5,7 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
+
+const appversion = "v0.0.1"
 
 // annexCommand sets up a git annex command with the provided arguments and returns a ShellCmd struct.
 func annexCommand(annexbinpath string, gitdir string, cmdargs ...string) (ShellCmd, error) {
@@ -57,7 +61,6 @@ func annexCMD(annexbinpath string, gitdir string, annexargs ...string) (string, 
 // It will return false and the error message on any different error.
 func annexAvailable(annexbinpath string) (bool, error) {
 	_, stderr, err := annexCMD(annexbinpath, "", "version")
-	fmt.Printf("%q, %v\n", stderr, err)
 	if err != nil {
 		if strings.Contains(stderr, "'annex' is not a git command") {
 			return false, nil
@@ -67,6 +70,50 @@ func annexAvailable(annexbinpath string) (bool, error) {
 	return true, nil
 }
 
+func setUpCommands(verstr string) *cobra.Command {
+	var rootCmd = &cobra.Command{
+		Use:                   "misscont",
+		Long:                  "Indentify missing annex content (recursively)",
+		Version:               fmt.Sprintln(verstr),
+		DisableFlagsInUseLine: true,
+	}
+	cmds := make([]*cobra.Command, 1)
+	cmds[0] = &cobra.Command{
+		Use:                   "start",
+		Short:                 "Run the missing annex content check",
+		Args:                  cobra.NoArgs,
+		Run:                   checkgitdirs,
+		Version:               verstr,
+		DisableFlagsInUseLine: true,
+	}
+	cmds[0].Flags().StringP("checkdir", "d", "", "Starting directory to recursively walk through a directory tree and check git annex directories for missing content")
+
+	rootCmd.AddCommand(cmds...)
+	return rootCmd
+}
+
+func checkgitdirs(cmd *cobra.Command, args []string) {
+	dirpath, err := cmd.Flags().GetString("checkdir")
+	if err != nil {
+		fmt.Printf("[E] parsing directory flag: %s\n", err.Error())
+	}
+	gitdirs, err := filepath.Abs(dirpath)
+	if err != nil {
+		fmt.Printf("[E] could not get absolute path for %s: %s", dirpath, err.Error())
+		os.Exit(1)
+	}
+	if _, err := os.Stat(gitdirs); os.IsNotExist(err) {
+		fmt.Printf("[E] could not find directory %q, %s\n", gitdirs, err.Error())
+		os.Exit(1)
+	}
+
+	fmt.Printf("[I] using directory %q\n", gitdirs)
+}
+
+// main checks git annex availability and runs the git annex repo statistics with the provided directory tree.
+// TODO not sure how to best handle annex; currently it expects the binary to be in the same directory as the
+// annex content directory; in any case, the user running the binary has to have a home directory for annex to
+// use the [home]/.cache directory.
 func main() {
 	binpath, err := os.Executable()
 	if err != nil {
@@ -82,7 +129,6 @@ func main() {
 	binname := filepath.Base(binpath)
 	annexpath := strings.Replace(binpath, binname, "git-annex.linux", 1)
 
-	// annexpath := filepath.Join(binpath, "git-annex.linux")
 	if _, err := os.Stat(annexpath); err != nil {
 		fmt.Printf("[E] annex binary path not found: %s\n", err.Error())
 		os.Exit(1)
@@ -102,4 +148,14 @@ func main() {
 	}
 
 	fmt.Println("[I] annex is available")
+
+	verstr := fmt.Sprintf("misscont %s", appversion)
+
+	rootCmd := setUpCommands(verstr)
+	rootCmd.SetVersionTemplate("{{.Version}}")
+
+	err = rootCmd.Execute()
+	if err != nil {
+		fmt.Printf("[E] running misscont: %q\n", err.Error())
+	}
 }
