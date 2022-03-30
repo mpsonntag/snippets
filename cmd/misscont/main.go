@@ -92,6 +92,30 @@ func setUpCommands(verstr string) *cobra.Command {
 	return rootCmd
 }
 
+func walkgitdirs(dirpath string) error {
+	// check if the current directory is a git directory, bare or otherwise
+	// assume the current directory is a bare git repo. stop and do all check stuff required
+	if strings.HasSuffix(dirpath, ".git") {
+		fmt.Printf("[I] current dir %q is a bare repo\n", dirpath)
+		return nil
+	}
+
+	// check if the current directory is a normal git dir. stop and do all check stuff required
+	checkgitpath := filepath.Join(dirpath, ".git")
+	inf, err := os.Stat(checkgitpath)
+	if err != nil && !os.IsNotExist(err) {
+		fmt.Printf("[I] err checking git dir, will continue: %q\n", err.Error())
+	} else if os.IsNotExist(err) {
+		fmt.Println("[I] curr dir has no .git folder, moving on")
+	} else if inf.IsDir() {
+		fmt.Printf("[I] current dir %q is a git dir\n", dirpath)
+		return nil
+	}
+
+	fmt.Printf("[I] curr dir %q is no git dir, continuing on\n", dirpath)
+	return nil
+}
+
 func checkgitdirs(cmd *cobra.Command, args []string) {
 	dirpath, err := cmd.Flags().GetString("checkdir")
 	if err != nil {
@@ -99,7 +123,7 @@ func checkgitdirs(cmd *cobra.Command, args []string) {
 	}
 	gitdirs, err := filepath.Abs(dirpath)
 	if err != nil {
-		fmt.Printf("[E] could not get absolute path for %s: %s", dirpath, err.Error())
+		fmt.Printf("[E] could not get absolute path for %s: %s\n", dirpath, err.Error())
 		os.Exit(1)
 	}
 	if _, err := os.Stat(gitdirs); os.IsNotExist(err) {
@@ -108,6 +132,11 @@ func checkgitdirs(cmd *cobra.Command, args []string) {
 	}
 
 	fmt.Printf("[I] using directory %q\n", gitdirs)
+
+	err = walkgitdirs(gitdirs)
+	if err != nil {
+		fmt.Printf("[E] walking directories: %s\n", err.Error())
+	}
 }
 
 // main checks git annex availability and runs the git annex repo statistics with the provided directory tree.
