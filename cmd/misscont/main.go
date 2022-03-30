@@ -227,39 +227,12 @@ func handlebinpath() (string, error) {
 // annex content directory; in any case, the user running the binary has to have a home directory for annex to
 // use the [home]/.cache directory.
 func main() {
-	binpath, err := os.Executable()
+	annexpath, err := handlebinpath()
 	if err != nil {
-		fmt.Printf("[E] fetching executable path: %s\n", err.Error())
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	if _, err := os.Stat(binpath); os.IsNotExist(err) {
-		fmt.Printf("[E] executable path could not be identified: %s\n", err.Error())
-		os.Exit(1)
-	}
-	fmt.Printf("[I] using binpath at %q\n", binpath)
-
-	binname := filepath.Base(binpath)
-	annexpath := strings.Replace(binpath, binname, "git-annex.linux", 1)
-
-	if _, err := os.Stat(annexpath); err != nil {
-		fmt.Printf("[E] annex binary path not found: %s\n", err.Error())
-		os.Exit(1)
-	}
-	fmt.Printf("[I] using annexpath %q\n", annexpath)
-
-	// check if annex is available; exit otherwise
-	ok, err := annexAvailable(annexpath)
-	if err != nil {
-		fmt.Printf("[E] checking annex: %s\n", err.Error())
-		os.Exit(1)
-	}
-
-	if !ok {
-		fmt.Printf("[E] annex is not available at %s\n", annexpath)
-		os.Exit(1)
-	}
-
-	fmt.Println("[I] annex is available")
+	fmt.Printf("[I] using available annex at %q\n", annexpath)
 
 	verstr := fmt.Sprintf("misscont %s", appversion)
 
