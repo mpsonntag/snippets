@@ -10,15 +10,22 @@ import (
 )
 
 // annexCommand sets up a git annex command with the provided arguments and returns a GinCmd struct.
-func annexCommand(annexbinpath string, gitdir string, args ...string) (shell.Cmd, error) {
+func annexCommand(annexbinpath string, gitdir string, cmdargs ...string) (shell.Cmd, error) {
 	if _, err := os.Stat(annexbinpath); os.IsNotExist(err) {
-		return shell.Cmd{}, fmt.Errorf("annex path not found %q", annexbinpath)
+		return ShellCmd{}, fmt.Errorf("annex path not found %q", annexbinpath)
 	}
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return shell.Cmd{}, fmt.Errorf("gitdir path not found %q", gitdir)
+	if gitdir != "" {
+		if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+			return ShellCmd{}, fmt.Errorf("gitdir path not found %q", gitdir)
+		}
 	}
 
-	cmdstr := append([]string{"-C", gitdir, "annex"}, args...)
+	// handle if a command is directory dependent
+	cmdvarstr := []string{"annex"}
+	if gitdir != "" {
+		cmdvarstr = []string{"-C", gitdir, "annex"}
+	}
+	cmdstr := append(cmdvarstr, cmdargs...)
 	cmd := shell.Command("git", cmdstr...)
 
 	// make sure the local annex is available to the command
