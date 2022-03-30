@@ -63,20 +63,38 @@ func annexAvailable(annexbinpath string, gitdir string) (bool, error) {
 }
 
 func main() {
-	fmt.Println("Checking if annex is available")
+	binpath, err := os.Executable()
+	if err != nil {
+		fmt.Printf("[E] fetching executable path: %s\n", err.Error())
+		os.Exit(1)
+	}
+	if _, err := os.Stat(binpath); os.IsNotExist(err) {
+		fmt.Printf("[E] executable path could not be identified: %s\n", err.Error())
+		os.Exit(1)
+	}
+	fmt.Printf("[I] using binpath at %q\n", binpath)
 
-	annexpath := ""
-	repopath := ""
+	binname := filepath.Base(binpath)
+	annexpath := strings.Replace(binpath, binname, "git-annex.linux", 1)
+
+	// annexpath := filepath.Join(binpath, "git-annex.linux")
+	if _, err := os.Stat(annexpath); err != nil {
+		fmt.Printf("[E] annex binary path not found: %s\n", err.Error())
+		os.Exit(1)
+	}
+	fmt.Printf("[I] using annexpath %q\n", annexpath)
 
 	// check if annex is available; exit otherwise
-	ok, err := annexAvailable(annexpath, repopath)
+	ok, err := annexAvailable(annexpath, "")
 	if err != nil {
-		fmt.Printf("[E] checking annex: %s", err.Error())
+		fmt.Printf("[E] checking annex: %s\n", err.Error())
 		os.Exit(1)
 	}
 
 	if !ok {
-		fmt.Printf("[E] Annex is not available at %s", annexpath)
+		fmt.Printf("[E] Annex is not available at %s\n", annexpath)
 		os.Exit(1)
 	}
+
+	fmt.Println("[I] annex is available")
 }
