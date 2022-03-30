@@ -11,6 +11,13 @@ import (
 
 const appversion = "v0.0.1"
 
+type AnnexInfo struct {
+	RepoName string
+	Branches string
+	Missing  []string
+	Size     string
+}
+
 // annexCommand sets up a git annex command with the provided arguments and returns a ShellCmd struct.
 func annexCommand(annexbinpath string, gitdir string, cmdargs ...string) (ShellCmd, error) {
 	if _, err := os.Stat(annexbinpath); os.IsNotExist(err) {
@@ -118,6 +125,7 @@ func checkgitdir(dirpath string) error {
 
 func walkgitdirs(dirpath string) error {
 	gitlist := []string{}
+	annexInfoList := []AnnexInfo{}
 	currwalk := func(currpath string, fio os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Printf("encountered filepath walk at %s error: %q\n", currpath, err.Error())
@@ -140,16 +148,16 @@ func walkgitdirs(dirpath string) error {
 		checkgitpath := filepath.Join(currpath, ".git")
 		inf, err := os.Stat(checkgitpath)
 		if err != nil && !os.IsNotExist(err) {
-			fmt.Printf("[I] err checking git dir, will continue: %q\n", err.Error())
+			fmt.Printf("[I] err checking git dir, continuer: %q\n", err.Error())
 		} else if os.IsNotExist(err) {
-			fmt.Println("[I] curr dir has no .git folder, moving on")
+			fmt.Println("[I] curr dir has no .git folder, continue")
 		} else if inf.IsDir() {
 			fmt.Printf("[I] current dir %q is a git dir; skipping\n", currpath)
 			gitlist = append(gitlist, currpath)
 			return filepath.SkipDir
 		}
 
-		fmt.Printf("[I] curr dir %q is no git dir, continuing on\n", currpath)
+		fmt.Printf("[I] curr dir %q is no git dir, moving on\n", currpath)
 		return nil
 	}
 
@@ -159,6 +167,7 @@ func walkgitdirs(dirpath string) error {
 	}
 
 	fmt.Printf("Found the following git dirs: %v\n", gitlist)
+	fmt.Printf("Annexinfo: %v\n", annexInfoList)
 	return nil
 }
 
