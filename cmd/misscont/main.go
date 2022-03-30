@@ -17,7 +17,6 @@ func annexCommand(annexbinpath string, gitdir string, args ...string) (shell.Cmd
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
 		return shell.Cmd{}, fmt.Errorf("gitdir path not found %q", gitdir)
 	}
-	gitannexpath := annexbinpath
 
 	cmdstr := append([]string{"-C", gitdir, "annex"}, args...)
 	cmd := shell.Command("git", cmdstr...)
@@ -25,11 +24,11 @@ func annexCommand(annexbinpath string, gitdir string, args ...string) (shell.Cmd
 	// make sure the local annex is available to the command
 	env := os.Environ()
 	syspath := os.Getenv("PATH")
-	syspath += string(os.PathListSeparator) + gitannexpath
-	cmd.Env = append(env, syspath)
+	syspath += string(os.PathListSeparator) + annexbinpath
+	cmd.Env = append(env, fmt.Sprintf("PATH=%s", syspath))
 
 	workingdir, _ := filepath.Abs(".")
-	fmt.Printf("Running shell command (Dir: %s): %s", workingdir, strings.Join(cmd.Args, " "))
+	fmt.Printf("[I] shell cmd in %q (for %q): %q\n", workingdir, gitdir, strings.Join(cmd.Args, " "))
 
 	return cmd, nil
 }
