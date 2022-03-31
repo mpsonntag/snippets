@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func handlebinpath() (string, error) {
+func identifyAnnexBinPath() (string, error) {
 	binpath, err := os.Executable()
 	if err != nil {
 		return "", fmt.Errorf("[E] fetching executable path: %s", err.Error())

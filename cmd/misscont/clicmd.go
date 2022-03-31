@@ -27,11 +27,30 @@ type RepoInfoCMD struct {
 }
 
 func (repin *RepoInfoCMD) init() error {
-	annexpath, err := handlebinpath()
+	// --- add handing in a specific path where the annex can be found
+
+	// check whether the host provides annex natively
+	ok, err := annexAvailable("")
+	if ok && err == nil {
+		// the host provides annex, how nice
+		repin.AnnexAvailable = true
+		repin.HostAnnexAvailable = true
+		return nil
+	}
+	if err != nil {
+		// no worries, just print the error and continue
+		fmt.Printf("just an info %s\n", err.Error())
+	}
+	fmt.Println("[I] the host does not provide annex")
+
+	// check whether the annex binary can be found next to the executable
+	annexpath, err := identifyAnnexBinPath()
 	if err != nil {
 		return err
 	}
+
 	fmt.Printf("[I] using available annex at %q\n", annexpath)
+	repin.AnnexAvailable = true
 	repin.LocalAnnexPath = annexpath
 	return nil
 }

@@ -8,6 +8,7 @@ import (
 )
 
 func versatileGitCommand(remotegitdir string, useannex bool, annexbinpath string, cmdargs ...string) (string, string, error) {
+	// --- not happy with the name yet
 	fmt.Printf("[I] preparing cmd %v at path %q (annex at %q)\n", cmdargs, remotegitdir, annexbinpath)
 	var cmdvarstr []string
 
