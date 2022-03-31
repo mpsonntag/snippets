@@ -18,6 +18,42 @@ type AnnexInfo struct {
 	Size     string
 }
 
+func versatileGitCommand(remotegitdir string, useannex bool, annexbinpath string, cmdargs ...string) (string, string, error) {
+	fmt.Printf("[I] preparing command: %s, %s, %v\n", remotegitdir, annexbinpath, cmdargs)
+	var cmdvarstr []string
+	if remotegitdir != "" {
+		if _, err := os.Stat(remotegitdir); os.IsNotExist(err) {
+			return "", "", fmt.Errorf("gitdir path not found %q", remotegitdir)
+		}
+		cmdvarstr = append(cmdvarstr, "-C", remotegitdir)
+	}
+
+	if useannex {
+		cmdvarstr = append(cmdvarstr, "annex")
+		if _, err := os.Stat(annexbinpath); os.IsNotExist(err) {
+			return "", "", fmt.Errorf("annex path not found %q", annexbinpath)
+		}
+		// todo ... more in depth annex path check
+	}
+
+	cmdvarstr = append(cmdvarstr, cmdargs...)
+	cmd := shellCommand("git", cmdvarstr...)
+
+	if useannex {
+		// make sure the local annex is available to the command
+		env := os.Environ()
+		syspath := os.Getenv("PATH")
+		syspath += string(os.PathListSeparator) + annexbinpath
+		cmd.Env = append(env, fmt.Sprintf("PATH=%s", syspath))
+	}
+
+	workingdir, _ := filepath.Abs(".")
+	fmt.Printf("[I] shell cmd in %q (for %q): %q\n", workingdir, remotegitdir, strings.Join(cmd.Args, " "))
+
+	stdout, stderr, err := cmd.OutputError()
+	return string(stdout), string(stderr), err
+}
+
 // annexCommand sets up a git annex command with the provided arguments and returns a ShellCmd struct.
 func annexCommand(annexbinpath string, gitdir string, cmdargs ...string) (ShellCmd, error) {
 	if _, err := os.Stat(annexbinpath); os.IsNotExist(err) {
