@@ -7,36 +7,12 @@ import (
 	"strings"
 )
 
-func checkgitdir(dirpath string) error {
-	// check if the current directory is a git directory, bare or otherwise
-	// assume the current directory is a bare git repo. stop and do all check stuff required
-	if strings.HasSuffix(dirpath, ".git") {
-		fmt.Printf("[I] current dir %q is a bare repo\n", dirpath)
-		return nil
-	}
-
-	// check if the current directory is a normal git dir. stop and do all check stuff required
-	checkgitpath := filepath.Join(dirpath, ".git")
-	inf, err := os.Stat(checkgitpath)
-	if err != nil && !os.IsNotExist(err) {
-		fmt.Printf("[I] err checking git dir, will continue: %q\n", err.Error())
-	} else if os.IsNotExist(err) {
-		fmt.Println("[I] curr dir has no .git folder, moving on")
-	} else if inf.IsDir() {
-		fmt.Printf("[I] current dir %q is a git dir\n", dirpath)
-		return nil
-	}
-
-	fmt.Printf("[I] curr dir %q is no git dir, continuing on\n", dirpath)
-	return nil
-}
-
 func walkgitdirs(annexbinpath, dirpath string) error {
 	gitlist := []string{}
 	annexInfoList := []AnnexInfo{}
 	currwalk := func(currpath string, fio os.FileInfo, err error) error {
 		if err != nil {
-			fmt.Printf("encountered filepath walk at %s error: %q\n", currpath, err.Error())
+			fmt.Printf("[E] encountered filepath walk at %s error: %q\n", currpath, err.Error())
 			return err
 		}
 		// ignore files
@@ -82,8 +58,8 @@ func walkgitdirs(annexbinpath, dirpath string) error {
 		return err
 	}
 
-	fmt.Printf("Found the following git dirs: %v\n", gitlist)
-	fmt.Printf("Annexinfo: %v\n", annexInfoList)
+	fmt.Printf("[I] Found the following git dirs: %v\n", gitlist)
+	fmt.Printf("[I] Annexinfo: %v\n", annexInfoList)
 	return nil
 }
 
