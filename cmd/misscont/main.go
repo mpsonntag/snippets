@@ -25,6 +25,7 @@ func setUpCommands(verstr string) *cobra.Command {
 		DisableFlagsInUseLine: true,
 	}
 	cmds[0].Flags().StringP("rootdir", "d", "", "Starting directory to recursively walk through a directory tree and collect git and annex repository information")
+	cmds[0].Flags().StringP("annexdir", "a", "", "Annex binary directory to use a specific annex version")
 
 	rootCmd.AddCommand(cmds...)
 	return rootCmd

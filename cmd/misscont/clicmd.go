@@ -26,8 +26,21 @@ type RepoInfoCMD struct {
 	LocalAnnexPath string
 }
 
-func (repin *RepoInfoCMD) init() error {
-	// --- add handing in a specific path where the annex can be found
+func (repin *RepoInfoCMD) init(annexpath string) error {
+	if annexpath != "" {
+		// --- could add more safeguards at this point
+		ok, err := annexAvailable(annexpath)
+		if ok && err == nil {
+			// the host provides annex, how nice
+			repin.AnnexAvailable = true
+			repin.LocalAnnexPath = annexpath
+			return nil
+		}
+		if err != nil {
+			// no worries, just print the error and continue
+			fmt.Printf("[E] handling custom annex path %s\n", err.Error())
+		}
+	}
 
 	// check whether the host provides annex natively
 	ok, err := annexAvailable("")
@@ -44,7 +57,7 @@ func (repin *RepoInfoCMD) init() error {
 	fmt.Println("[I] the host does not provide annex")
 
 	// check whether the annex binary can be found next to the executable
-	annexpath, err := identifyAnnexBinPath()
+	annexpath, err = identifyAnnexBinPath()
 	if err != nil {
 		return err
 	}
@@ -115,18 +128,40 @@ func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 	return nil
 }
 
+func handleAnnexFlag(cmd *cobra.Command, flagname string) (string, error) {
+	annexpath, err := cmd.Flags().GetString("annexdir")
+	if err != nil {
+		return "", fmt.Errorf("[E] parsing custom annex flag: %s", err.Error())
+	}
+	absannexpath, err := filepath.Abs(annexpath)
+	if err != nil {
+		return "", fmt.Errorf("[E] determining absolute path for %s: %s", absannexpath, err.Error())
+	}
+	if _, err := os.Stat(absannexpath); os.IsNotExist(err) {
+		return "", fmt.Errorf("[E] could not find directory %q, %s", absannexpath, err.Error())
+	}
+	return absannexpath, nil
+}
+
 func repoinfocmd(cmd *cobra.Command, args []string) {
+	// handle cli root directory flag
+	annexpath, err := handleAnnexFlag(cmd, "annexdir")
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+		annexpath = ""
+	}
+
 	// might be worth check if the next two lines could be replace by a "New" method
 	collector := RepoInfoCMD{}
 	// annex availability check and repoinfo init comes first
 	// exit when annex cannot be found
-	err := collector.init()
+	err = collector.init(annexpath)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
 		os.Exit(1)
 	}
 
-	// handle command arguments
+	// handle cli root directory flag
 	dirpath, err := cmd.Flags().GetString("checkdir")
 	if err != nil {
 		fmt.Printf("[E] parsing directory flag: %s\n", err.Error())
