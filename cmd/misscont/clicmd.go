@@ -15,7 +15,7 @@ type AnnexInfo struct {
 	Size     string
 }
 
-func checkgitdirs(cmd *cobra.Command, args []string) {
+func repoinfocmd(cmd *cobra.Command, args []string) {
 	dirpath, err := cmd.Flags().GetString("checkdir")
 	if err != nil {
 		fmt.Printf("[E] parsing directory flag: %s\n", err.Error())

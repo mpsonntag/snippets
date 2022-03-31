@@ -7,25 +7,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const appversion = "v0.0.1"
+const appversion = "v0.0.2"
 
 func setUpCommands(verstr string) *cobra.Command {
 	var rootCmd = &cobra.Command{
 		Use:                   "misscont",
-		Long:                  "Indentify missing annex content (recursively)",
+		Long:                  "Collect missing annex content and git repository information (recursively)",
 		Version:               fmt.Sprintln(verstr),
 		DisableFlagsInUseLine: true,
 	}
 	cmds := make([]*cobra.Command, 1)
 	cmds[0] = &cobra.Command{
-		Use:                   "start",
-		Short:                 "Run the missing annex content check",
+		Use:                   "repoinfo",
+		Short:                 "Collect git repository information",
 		Args:                  cobra.NoArgs,
-		Run:                   checkgitdirs,
+		Run:                   repoinfocmd,
 		Version:               verstr,
 		DisableFlagsInUseLine: true,
 	}
-	cmds[0].Flags().StringP("checkdir", "d", "", "Starting directory to recursively walk through a directory tree and check git annex directories for missing content")
+	cmds[0].Flags().StringP("rootdir", "d", "", "Starting directory to recursively walk through a directory tree and collect git and annex repository information")
 
 	rootCmd.AddCommand(cmds...)
 	return rootCmd
