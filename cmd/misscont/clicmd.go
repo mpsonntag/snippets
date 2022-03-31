@@ -15,6 +15,15 @@ type AnnexInfo struct {
 	Size     string
 }
 
+type RepoInfoCMD struct {
+	// provides the information whether annex has been identified
+	AnnexAvailable bool
+	// provides the information whether the host natively provides annex
+	HostAnnexAvailable bool
+	// provides the (absolute) path where the binary can find the
+	// annex binaries locally if it is not provided by the host
+	LocalAnnexPath string
+}
 func repoinfocmd(cmd *cobra.Command, args []string) {
 	dirpath, err := cmd.Flags().GetString("checkdir")
 	if err != nil {
