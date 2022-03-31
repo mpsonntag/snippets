@@ -26,6 +26,16 @@ type RepoInfoCMD struct {
 	LocalAnnexPath string
 }
 
+func (repin *RepoInfoCMD) init() error {
+	annexpath, err := handlebinpath()
+	if err != nil {
+		return err
+	}
+	fmt.Printf("[I] using available annex at %q\n", annexpath)
+	repin.LocalAnnexPath = annexpath
+	return nil
+}
+
 func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 	if !repin.AnnexAvailable {
 		return fmt.Errorf("[E] could not verify annex walking dir %q", dirpath)
@@ -87,6 +97,16 @@ func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 }
 
 func repoinfocmd(cmd *cobra.Command, args []string) {
+	// might be worth check if the next two lines could be replace by a "New" method
+	collector := RepoInfoCMD{}
+	// annex availability check and repoinfo init comes first
+	// exit when annex cannot be found
+	err := collector.init()
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+		os.Exit(1)
+	}
+
 	// handle command arguments
 	dirpath, err := cmd.Flags().GetString("checkdir")
 	if err != nil {
@@ -104,7 +124,6 @@ func repoinfocmd(cmd *cobra.Command, args []string) {
 	fmt.Printf("[I] using directory %q\n", gitdirs)
 
 	// walk the directory tree to collect git repository information
-	collector := RepoInfoCMD{}
 	err = collector.walkgitdirs(gitdirs)
 	if err != nil {
 		fmt.Printf("[E] walking directories: %s\n", err.Error())

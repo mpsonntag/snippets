@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -36,19 +35,12 @@ func setUpCommands(verstr string) *cobra.Command {
 // annex content directory; in any case, the user running the binary has to have a home directory for annex to
 // use the [home]/.cache directory.
 func main() {
-	annexpath, err := handlebinpath()
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
-	fmt.Printf("[I] using available annex at %q\n", annexpath)
-
 	verstr := fmt.Sprintf("misscont %s", appversion)
 
 	rootCmd := setUpCommands(verstr)
 	rootCmd.SetVersionTemplate("{{.Version}}")
 
-	err = rootCmd.Execute()
+	err := rootCmd.Execute()
 	if err != nil {
 		fmt.Printf("[E] running misscont: %q\n", err.Error())
 	}
