@@ -3,19 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
 
 const appversion = "v0.0.1"
-
-type AnnexInfo struct {
-	RepoName string
-	Branches string
-	Missing  []string
-	Size     string
-}
 
 func setUpCommands(verstr string) *cobra.Command {
 	var rootCmd = &cobra.Command{
@@ -37,29 +29,6 @@ func setUpCommands(verstr string) *cobra.Command {
 
 	rootCmd.AddCommand(cmds...)
 	return rootCmd
-}
-
-func checkgitdirs(cmd *cobra.Command, args []string) {
-	dirpath, err := cmd.Flags().GetString("checkdir")
-	if err != nil {
-		fmt.Printf("[E] parsing directory flag: %s\n", err.Error())
-	}
-	gitdirs, err := filepath.Abs(dirpath)
-	if err != nil {
-		fmt.Printf("[E] could not get absolute path for %s: %s\n", dirpath, err.Error())
-		os.Exit(1)
-	}
-	if _, err := os.Stat(gitdirs); os.IsNotExist(err) {
-		fmt.Printf("[E] could not find directory %q, %s\n", gitdirs, err.Error())
-		os.Exit(1)
-	}
-
-	fmt.Printf("[I] using directory %q\n", gitdirs)
-
-	err = walkgitdirs("", gitdirs)
-	if err != nil {
-		fmt.Printf("[E] walking directories: %s\n", err.Error())
-	}
 }
 
 // main checks git annex availability and runs the git annex repo statistics with the provided directory tree.
