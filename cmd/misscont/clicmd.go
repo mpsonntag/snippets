@@ -48,6 +48,7 @@ func (repin *RepoInfoCMD) init(annexpath string) error {
 			// no worries, just print the error and continue
 			fmt.Printf("[E] handling custom annex path %s\n", err.Error())
 		}
+		fmt.Printf("[E] could not find annex at %q\n", annexpath)
 	}
 
 	// check whether the host provides annex natively
@@ -60,7 +61,7 @@ func (repin *RepoInfoCMD) init(annexpath string) error {
 	}
 	if err != nil {
 		// no worries, just print the error and continue
-		fmt.Printf("just an info %s\n", err.Error())
+		fmt.Printf("%s\n", err.Error())
 	}
 	fmt.Println("[I] the host does not provide annex")
 
@@ -90,14 +91,14 @@ func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 		}
 		// ignore files
 		if !fio.IsDir() {
-			fmt.Printf("[I] Ignoring file %q\n", currpath)
+			repin.vprintf(fmt.Sprintf("[I] Ignoring file %q", currpath))
 			return filepath.SkipDir
 		}
 
 		// check if the current directory is a git directory, bare or otherwise
 		// assume the current directory is a bare git repo. stop and do all check stuff required
 		if strings.HasSuffix(currpath, ".git") {
-			fmt.Printf("[I] current dir %q is a bare repo; skipping\n", currpath)
+			repin.vprintf(fmt.Sprintf("[I] current dir %q is a bare repo; skipping\n", currpath))
 
 			aninf, err := infoFromBareRepo(repin.LocalAnnexPath, currpath)
 			if err != nil {
@@ -122,7 +123,7 @@ func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 			return filepath.SkipDir
 		}
 
-		fmt.Printf("[I] curr dir %q is no git dir, moving on\n", currpath)
+		repin.vprintf(fmt.Sprintf("[I] curr dir %q is no git dir, moving on", currpath))
 		return nil
 	}
 
@@ -198,6 +199,7 @@ func repoinfocmd(cmd *cobra.Command, args []string) {
 	err = collector.init(annexpath)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
+		fmt.Println("\nCould not identify git annex, exiting...")
 		os.Exit(1)
 	}
 
