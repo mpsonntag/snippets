@@ -24,6 +24,14 @@ type RepoInfoCMD struct {
 	// provides the (absolute) path where the binary can find the
 	// annex binaries locally if it is not provided by the host
 	LocalAnnexPath string
+	// be verbose with command line prints
+	Verbose bool
+}
+
+func (repin *RepoInfoCMD) vprintf(printme string) {
+	if repin.Verbose {
+		fmt.Printf("%s\n", printme)
+	}
 }
 
 func (repin *RepoInfoCMD) init(annexpath string) error {
