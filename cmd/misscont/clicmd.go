@@ -143,6 +143,21 @@ func handleAnnexFlag(cmd *cobra.Command, flagname string) (string, error) {
 	return absannexpath, nil
 }
 
+func handleRootDirFlag(cmd *cobra.Command) (string, error) {
+	dirpath, err := cmd.Flags().GetString("checkdir")
+	if err != nil {
+		return "", fmt.Errorf("[E] parsing directory flag: %s", err.Error())
+	}
+	gitdirs, err := filepath.Abs(dirpath)
+	if err != nil {
+		return "", fmt.Errorf("[E] could not get absolute path for %q: %s", dirpath, err.Error())
+	}
+	if _, err := os.Stat(gitdirs); os.IsNotExist(err) {
+		return "", fmt.Errorf("[E] could not find directory %q, %s", gitdirs, err.Error())
+	}
+	return gitdirs, nil
+}
+
 func repoinfocmd(cmd *cobra.Command, args []string) {
 	// handle cli root directory flag
 	annexpath, err := handleAnnexFlag(cmd, "annexdir")
