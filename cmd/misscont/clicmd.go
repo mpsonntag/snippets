@@ -136,7 +136,15 @@ func (repin *RepoInfoCMD) walkgitdirs(dirpath string) error {
 	return nil
 }
 
-func handleAnnexFlag(cmd *cobra.Command, flagname string) (string, error) {
+func handleVerboseFlag(cmd *cobra.Command) (bool, error) {
+	useverbose, err := cmd.Flags().GetBool("verbose")
+	if err != nil {
+		return false, fmt.Errorf("[E] parsing verbose flag: %s", err.Error())
+	}
+	return useverbose, nil
+}
+
+func handleAnnexFlag(cmd *cobra.Command) (string, error) {
 	annexpath, err := cmd.Flags().GetString("annexdir")
 	if err != nil {
 		return "", fmt.Errorf("[E] parsing custom annex flag: %s", err.Error())
