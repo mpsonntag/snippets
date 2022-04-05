@@ -175,15 +175,24 @@ func handleRootDirFlag(cmd *cobra.Command) (string, error) {
 }
 
 func repoinfocmd(cmd *cobra.Command, args []string) {
-	// handle cli root directory flag
-	annexpath, err := handleAnnexFlag(cmd, "annexdir")
+	// handle cli verbose print flag to have it at the ready
+	collector := RepoInfoCMD{}
+	useverbose, err := handleVerboseFlag(cmd)
 	if err != nil {
 		fmt.Printf("%s\n", err.Error())
-		annexpath = ""
+	} else if useverbose {
+		fmt.Println("[I] You asked for verbose, lets have it...")
+		collector.Verbose = useverbose
 	}
 
-	// might be worth check if the next two lines could be replace by a "New" method
-	collector := RepoInfoCMD{}
+	// handle cli custom annex path flag
+	annexpath, err := handleAnnexFlag(cmd)
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+		fmt.Println("\nCould not identify git annex, exiting...")
+		os.Exit(1)
+	}
+
 	// annex availability check and repoinfo init comes first
 	// exit when annex cannot be found
 	err = collector.init(annexpath)
@@ -193,17 +202,9 @@ func repoinfocmd(cmd *cobra.Command, args []string) {
 	}
 
 	// handle cli root directory flag
-	dirpath, err := cmd.Flags().GetString("checkdir")
+	gitdirs, err := handleRootDirFlag(cmd)
 	if err != nil {
-		fmt.Printf("[E] parsing directory flag: %s\n", err.Error())
-	}
-	gitdirs, err := filepath.Abs(dirpath)
-	if err != nil {
-		fmt.Printf("[E] could not get absolute path for %s: %s\n", dirpath, err.Error())
-		os.Exit(1)
-	}
-	if _, err := os.Stat(gitdirs); os.IsNotExist(err) {
-		fmt.Printf("[E] could not find directory %q, %s\n", gitdirs, err.Error())
+		fmt.Printf("%s\n", err.Error())
 		os.Exit(1)
 	}
 	fmt.Printf("[I] using directory %q\n", gitdirs)
