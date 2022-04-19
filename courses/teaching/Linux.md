@@ -902,8 +902,9 @@ check for a certbot renewal job.
 
 The systemd files can also be checked directly at `/etc/systemd/system/snap.certbot.renew.service` or `.timer`
 
-The certificates issued can be found in the `/etc/letsencrypt/`. Usually the certificates are created in the `/etc/letsencrypt/archive` directory, the latest is symlinked to the `archive` directory from the `/etc/letsencrypt/live` directory. When used with an apache, the apache config should always point
-to the `live` directory; when an autorenewal job is set up, the apache will always have access to the latest certificate.
+The certificates issued can be found in the `/etc/letsencrypt/`. Usually the certificates are created in the `/etc/letsencrypt/archive` directory, the latest is symlinked to the `archive` directory from the `/etc/letsencrypt/live` directory. When used with an apache, the apache config should always point to the `live` directory; when an autorenewal job is set up, the apache will always have access to the latest certificate.
+
+The certificates are bound to a domain name, not to an IP address or server host key. So if the server is changed, the certificates can actually be moved to the letsencrypt folders on the new machine and can be used on the fly.
 
 ### Scheduled jobs via `crontab`:
 
