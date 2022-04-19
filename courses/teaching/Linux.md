@@ -895,6 +895,13 @@ appear to do this automatically.
     certbot renew --apache
 
 
+To check whether certbot set up automatic renewals on a debian system, run the following and 
+check for a certbot renewal job.
+
+    systemctl list-timers
+
+The systemd files can also be checked directly at `/etc/systemd/system/snap.certbot.renew.service` or `.timer`
+
 ### Scheduled jobs via `crontab`:
 
     # list current users crontab
