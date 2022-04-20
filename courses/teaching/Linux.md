@@ -1566,6 +1566,11 @@ Find detailed description and examples [here](http://www.computerhope.com/unix/u
 
     chmod +x [filename]
 
+### Change group permissions
+e.g. add write permission to group
+
+    chmod g+w [filename]
+
 
 ## SymLinks (Symbolic links) to files or folders
 
