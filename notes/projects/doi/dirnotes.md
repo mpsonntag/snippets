@@ -11,3 +11,5 @@ Handling symlinked serving directories
 - enable all sites and restart the apache `systemctl restart apache2.service`
 - when using a docker based server deployment, update the hosting directories to the symlink as well.
 - when switching the hosting directory, simply switch the symlink and all services should work without interruption.
+
+Note: after re-linking a symlink, any docker container pointing to a symlink still requires a restart, otherwise it will still write to the old location. For static pages this works without any issue.
