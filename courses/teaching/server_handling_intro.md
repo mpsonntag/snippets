@@ -412,3 +412,86 @@ If apache is supposed to serve static pages, it might be required to add additio
     Allow from all
 </Directory>
 ```
+
+### Installation and setup of certbot for SSL encryption
+
+Compare with the [letsencrypt documentation](
+https://letsencrypt.org/docs/
+) for the latest state of the tool and how to use it.
+
+- make sure that a DNS entry is available for the IP where the service should be reached.
+- make sure certbot is available, install otherwise - the following script is an example
+  for Ubuntu 18 using Apache2; check the [installation documentation](
+  https://certbot.eff.org/
+  ) for installation specifics 
+  of the latest version.
+    ```bash
+    # cleanup previous versions
+    sudo apt-get remove certbot
+    sudo snap install --classic certbot
+    # make sure certbot is available to all users
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    ```
+- enable the required apache config - make sure all config files have the `.conf` file extension
+  ```bash
+  sudo a2ensite [domain]
+  ```
+- check that all configs are valid
+  ```bash
+  sudo apache2ctl configtest
+  ```
+- stop the apache server before setting up an encryption
+    ```bash
+    sudo service apache2 stop
+    ```
+
+- if this is the very first time using certbot, make sure to temporarily remove 
+  the `Include /etc/letsencrypt/options-ssl-apache.conf` and `SSLCertificate...`
+  lines from the apache config file.
+
+- setup a certificate for the service domain name
+    ```bash
+    sudo certbot certonly --apache
+    # one can also try the dry run first
+    sudo certbot certonly --apache --dry-run
+    ```
+- alternatively set up letsencrypt certificates for a specific domain
+    ```
+    sudo certbot
+    # Select domain name to create the certificate for e.g. own.example.org
+    # Use option "Secure".
+    # This creates certificate files in `/etc/letsencrypt/live/own.example.org/` 
+    # and adds an apache2 sites available entry in /etc/apache2/sites-available/000-default-le-ssl.conf
+    # and also enables this configuration for apache2.
+
+    # Unload this certificate from the apache sites enabled
+    sudo a2dissite 000-default-le-ssl.conf
+
+    # Make sure the paths to the "SSLCertificateFile" and "SSLCertificateKeyFile" in
+    # /etc/apache2/sites-enabled/own.example.org.conf point to the correct letsencrypt files
+    # e.g. /etc/letsencrypt/live/own.example.org/fullchain.pem.
+
+    # Then reload apache2 to make the encryption available. If this does not help yet, restart the apache
+    # service and close and restart the browser.
+    sudo systemctl reload apache2
+    # or
+    sudo systemctl restart apache2
+    ```
+
+- check the apache status; issues can arise, if the certbot apache was not shut down properly; in this case, the apache service will not restart the first time, but has to be restarted twice.
+    ```
+    sudo systemctl restart apache2
+    ```
+
+- Note: Browsers usually need a restart to properly accept renewed certificates.
+
+To check whether certbot set up automatic renewals on a debian system, run the following and 
+check for a certbot renewal job.
+
+    systemctl list-timers
+
+The systemd files can also be checked directly at `/etc/systemd/system/snap.certbot.renew.service` or `.timer`
+
+The certificates issued can be found in the `/etc/letsencrypt/`. Usually the certificates are created in the `/etc/letsencrypt/archive` directory, the latest is symlinked to the `archive` directory from the `/etc/letsencrypt/live` directory. When used with an apache, the apache config should always point to the `live` directory; when an auto-renewal job is set up, the apache will always have access to the latest certificate.
+
+The certificates are bound to a domain name, not to an IP address or server host key. So if the server is changed, the certificates can actually be moved to the letsencrypt folders on the new machine and can be used on the fly.
