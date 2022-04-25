@@ -1320,123 +1320,71 @@ https://www.linuxnix.com/disk-management-in-linux/)
     $HOME
 
 
-# Postgres
-
-Access a specific database with a specific user
-
-    psql -U[username] -d[dbname]
-
-`\dn`           ... list schemas
-
-`\dt`           ... list tables
-
-`\d [table]`    ... display details of [table]
+## Linux System variables
+- `$HOME` ... contains absolute path to the home folder
+- `$PATH` ... contains all directories which are included when looking for an executable
 
 
-# Random usage notes
+## Important system folders in Linux:
 
-How to figure out if anyone is connected to a service:
+- /proc ... [TODO]
 
-    /var/log/apache2/other_vhosts_access.log
-    
-    # e.g.
-    cat /var/log/apache2/other_vhosts_access.log | grep "GET /login"
+###  Global searchpath variable $PATH:
 
-Or connect to the web service docker container and run
+- display all directories currently included in the searchpath:
 
-    watch ss
+        echo $PATH
 
-Connect to one host via another one that is accessible from outside a network
+- permanently add directories to `$PATH` by editing `/etc/profile` or `$HOME/.profile` by adding
 
-    ssh -A -J username@gateway.org username@[ip address of target in closed network]
+        export PATH=$PATH:/[directory of choice]
 
-An entry in `~/.ssh/config` can automate this process:
+- Symlinks for the operating system:
 
-    # entry in config file
-    Host [hostname]
-        User [Username]
-        HostName [IP of target machine]
-        Proxyjump proxyuser@[proxy IP]
+        /etc/alternatives
 
-    # ssh and scp should now work directly without providing the proxy
-    ssh [username]@[hostname]
-    scp [file] [username]@[hostname]:/target/directory
+- Custom packages and libraries can usually be found in one of the following folders:
 
-Find out which operating system is running
-
-    uname -a
-    lsb_release -a
-    cat /etc/*_version
-    cat /etc/*-release
-
-Creating dummy files of various sizes with `dd`
-
-    # Create a 1MB file
-    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=1024
-
-    # Create a 100MB file
-    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=$[1024*100]
+        /opt/
+        /usr/local/include/
+        /usr/local/lib/ & /usr/local/lib/pkgconfig/
+        /usr/share/
+        /home/[user]/bin/
 
 
-## Using different java versions
+## Adding custom executable paths in Linux:
 
-Currently, there are a couple of java version from two main distributors (Oracle, OpenJava)
-flying around. One can have both of them installed and switch between them using the
-`update-alternatives` command.
+- Set up a bin folder that is included in the Linux `$PATH` which contains all the links to starting programs.
+- Check out this link for [more information](http://www.troubleshooters.com/linux/prepostpath.htm).
+- Folders can easily be added to the beginning, and the end of the variable -
+depending on where the application is first found, this will be executed.
 
-If one does `which java`, it will give the path `/usr/bin/java`. An `ls` on that folder
-will show, that this is actually just a link to a java version in `/etc/alternatives/jvm`.
-An `ls` on the `/etc/alternatives/jvm` folder will show, which java versions are installed.
+Example:
+In folder ~ (absolute /home/CurrentUser in our example)
 
-To switch between these alternatives use:
+    mkdir bin
 
-    `sudo update-alternatives --config java`
+Check if path has been automatically added by linux:
 
-There you will be prompted to select which of the java versions installed should
-be linked to `/usr/bin/java`.
+    cat $PATH
 
-Be aware tough, that this does not also link the `javac` command to the appropriate
-version as well. So you usually should update both to the required java distribution.
+If not, then execute the following to recompile the .profile file:
 
-Check [here](http://ask.xmodulo.com/change-default-java-version-linux.html) for details.
- 
+    source .profile
 
-Updating the alternatives does not update the environment variables though. Until a
-restart PATH, JAVA and JAVA_HOME might need a manual reset to link to the appropriate
-java version.
+Check path again
 
-### SBT project and activator specifics
+    cat $PATH
 
-If you are running sbt projects, and you ever get errors along the line:
+If its still not in there, then add it manually to the beginning of the `$PATH`:
 
-'The java installation you have is not up to date
-Activator requires at least version 1.6+, you have
-version [xyz]'
+    export PATH=/home/CurrentUser/bin:$PATH
 
-then you need to switch your java alternatives and reset the JAVA_HOME environment
-variable and make sure the variable properly set via `.profile` or `.bash_alias`
+Create symbolic links to executables in custom bin folder. As example add startup shell script of application activator
+can be used to easily switch between different distributions of the same application
 
-e.g. 
-
-    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
-    # or 
-    JAVA_HOME=/usr/lib/jvm/java-12-oracle/
-
-
-## Adding additional fonts
-
-The following notes are true for Ubuntu 18
-
-- create a folder in `/usr/share/fonts/truetype/newfonts`
-- move any new `.ttf` font files into this folder
-- the system should automatically make the new fonts available
-- you can check whether they have been added via
-
-
-        fc-list | grep [name of new font]
-
-- if a font has not been properly added, the font cache might need to
-  be refreshed; use the `fc-cache` command in this case.
+    cd bin
+    ln -s /home/CurrentUser/work/software/activator-1.2.12/activator activator
 
 
 ## Even more useful Bash commands:
@@ -1572,7 +1520,6 @@ This requires to manually add a repository to the apt-get list of installable pa
 
     which [program name]
 
-
 ## File operations
 
 - `touch fileName` ... create file "fileName"
@@ -1599,96 +1546,137 @@ e.g. add write permission to group
     chmod g+w [filename]
 
 
+# Random usage notes
+
+How to figure out if anyone is connected to a service:
+
+    /var/log/apache2/other_vhosts_access.log
+    
+    # e.g.
+    cat /var/log/apache2/other_vhosts_access.log | grep "GET /login"
+
+Or connect to the web service docker container and run
+
+    watch ss
+
+Connect to one host via another one that is accessible from outside a network
+
+    ssh -A -J username@gateway.org username@[ip address of target in closed network]
+
+An entry in `~/.ssh/config` can automate this process:
+
+    # entry in config file
+    Host [hostname]
+        User [Username]
+        HostName [IP of target machine]
+        Proxyjump proxyuser@[proxy IP]
+
+    # ssh and scp should now work directly without providing the proxy
+    ssh [username]@[hostname]
+    scp [file] [username]@[hostname]:/target/directory
+
+Find out which operating system is running
+
+    uname -a
+    lsb_release -a
+    cat /etc/*_version
+    cat /etc/*-release
+
+Creating dummy files of various sizes with `dd`
+
+    # Create a 1MB file
+    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=1024
+
+    # Create a 100MB file
+    dd if=/dev/zero of=[filename] bs=1024 count=0 seek=$[1024*100]
+
+
+## Using different java versions
+
+Currently, there are a couple of java version from two main distributors (Oracle, OpenJava)
+flying around. One can have both of them installed and switch between them using the
+`update-alternatives` command.
+
+If one does `which java`, it will give the path `/usr/bin/java`. An `ls` on that folder
+will show, that this is actually just a link to a java version in `/etc/alternatives/jvm`.
+An `ls` on the `/etc/alternatives/jvm` folder will show, which java versions are installed.
+
+To switch between these alternatives use:
+
+    `sudo update-alternatives --config java`
+
+There you will be prompted to select which of the java versions installed should
+be linked to `/usr/bin/java`.
+
+Be aware tough, that this does not also link the `javac` command to the appropriate
+version as well. So you usually should update both to the required java distribution.
+
+Check [here](http://ask.xmodulo.com/change-default-java-version-linux.html) for details.
+ 
+
+Updating the alternatives does not update the environment variables though. Until a
+restart PATH, JAVA and JAVA_HOME might need a manual reset to link to the appropriate
+java version.
+
+### SBT project and activator specifics
+
+If you are running sbt projects, and you ever get errors along the line:
+
+'The java installation you have is not up to date
+Activator requires at least version 1.6+, you have
+version [xyz]'
+
+then you need to switch your java alternatives and reset the JAVA_HOME environment
+variable and make sure the variable properly set via `.profile` or `.bash_alias`
+
+e.g. 
+
+    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
+    # or 
+    JAVA_HOME=/usr/lib/jvm/java-12-oracle/
+
+
+## Adding additional fonts
+
+The following notes are true for Ubuntu 18
+
+- create a folder in `/usr/share/fonts/truetype/newfonts`
+- move any new `.ttf` font files into this folder
+- the system should automatically make the new fonts available
+- you can check whether they have been added via
+
+
+        fc-list | grep [name of new font]
+
+- if a font has not been properly added, the font cache might need to
+  be refreshed; use the `fc-cache` command in this case.
+
+
 ## SymLinks (Symbolic links) to files or folders
 
 ### Create Symlink (symbolic link)
-        ln -s [target-filename] [symbolic-filename]
+
+    ln -s [target-filename] [symbolic-filename]
 
 This creates a symbolic link named `[symbolic-filename]` that points to `[target-filename]`
 NOTE: ALWAYS use the whole path as `[target-filename]`, do not use relative terms.
 
-        ln -s /home/currentUser/tmp/testLinks/hurra.txt ../hurraLink
+    ln -s /home/currentUser/tmp/testLinks/hurra.txt ../hurraLink
 
 ### Delete Symlink
 Symlinks can simply be deleted by rm. This will not touch the file the link points to.
 
-        rm hurraLink
+    rm hurraLink
 
 ### Read a link
 
 To show where a link actually leads to use:
 
-        readlink [linkName]
-        // e.g. using the link from above
-        readlink hurraLink
-
-
-## Linux System variables
-- `$HOME` ... contains absolute path to the home folder
-- `$PATH` ... contains all directories which are included when looking for an executable
-
-
-## Important system folders in Linux:
-
-- /proc ... [TODO]
-
-###  Global searchpath variable $PATH:
-
-- display all directories currently included in the searchpath:
-
-        echo $PATH
-
-- permanently add directories to `$PATH` by editing `/etc/profile` or `$HOME/.profile` by adding
-
-        export PATH=$PATH:/[directory of choice]
-
-- Symlinks for the operating system:
-
-        /etc/alternatives
-
-- Custom packages and libraries can usually be found in one of the following folders:
-
-        /opt/
-        /usr/local/include/
-        /usr/local/lib/ & /usr/local/lib/pkgconfig/
-        /usr/share/
-        /home/[user]/bin/
-
-
-## Adding custom executable paths in Linux:
-
-- Set up a bin folder that is included in the Linux `$PATH` which contains all the links to starting programs.
-- Check out this link for [more information](http://www.troubleshooters.com/linux/prepostpath.htm).
-- Folders can easily be added to the beginning and the end of the variable -
-depending on where the application is first found, this will be executed.
-
-Example:
-In folder ~ (absolute /home/msonntag in our example)
-
-    mkdir bin
-
-Check if path has been automatically added by linux:
-
-    cat $PATH
-
-If not, then execute the following to recompile the .profile file:
-
-    source .profile
-
-Check path again
-
-    cat $PATH
-
-If its still not in there, then add it manually to the beginning of the `$PATH`:
-
-    export PATH=/home/msonntag/bin:$PATH
-
-Create symbolic links to executables in custom bin folder. As example add startup shell script of application activator
-can be used to easily switch between different distributions of the same application
-
-    cd bin
-    ln -s /home/msonntag/work/software/activator-1.2.12/activator activator
-
+  ```bash
+  readlink [linkName]
+  # e.g. using the link from above
+  readlink hurraLink
+  ```
 
 ## Find text in files using grep
 
@@ -1777,11 +1765,6 @@ Find a nice introduction [here](http://www.linuxhowtos.org/C_C++/socket.htm)
 
 Check `less /var/log/unattended-upgrades/` whether automatic updates are run.
 These can cause problems on a server if they run unchecked.
-
-
-## Customizing Ubuntu 16+
-
-- open new instance of already open program e.g. Nautilus: middle click or shift+left click on icon in launcher
 
 
 ## Ubuntu keyboard shortcuts making our life easier
