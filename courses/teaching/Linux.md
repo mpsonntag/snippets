@@ -1072,7 +1072,6 @@ Find a very nice introduction to curl [here](http://conqueringthecommandline.com
 ### ssh (Secure SHell)
 
 - Connect to another machine using secure shell (an encrypted connection to another computer within the network). 
-- Once connected, the cpu of this machine will be used for all further actions.
 - Makes sense to do large calculations on the server rather than on the local machine.
 - Logging on to another machine will most likely require a password.
 
@@ -1187,20 +1186,23 @@ having to enter the pass phrase all the time.
 
 ### Convenient ssh access by using .ssh/config
 
-As described above, having too many different ssh keys can lead to not being able to login somewhere.
-Its even easier to tell the agent which key to offer to a specific server first to avoid that dilemma.
+As described above, having too many different ssh keys can lead to login issues. It is 
+more convenient to tell the agent which key to offer to a specific server first to 
+avoid such a dilemma.
 
-A nice tutorial for that can be found [here](https://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/).
+Find a helpful tutorial about creating an ssh config file [here](
+https://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
+).
 
-- Just create a `config` file in the `.ssh` folder.
-- Define a specific Host and point to the ssh key file that should be used.
+- create a `config` file in the `.ssh` folder.
+- define a specific Host and point to the ssh key file that should be used.
 
   ```bash
   Host some.example.org
       IdentityFile ~/.ssh/id_rsa_for_example
   ```
 
-- If you want to login at a specific port or with a different user than your current one:
+- if login at a specific port or with a different user is required
 
   ```bash
   Host other.site.com
@@ -1311,23 +1313,17 @@ https://www.linuxnix.com/disk-management-in-linux/)
 
     /usr/bin
 
+## Other important system folders
 
-## Env vars
-
-    $PATH
-    $USER
-    $UID
-    $HOME
+    /proc
 
 
-## Linux System variables
-- `$HOME` ... contains absolute path to the home folder
+## Linux system environment variables
 - `$PATH` ... contains all directories which are included when looking for an executable
+- `$HOME` ... contains absolute path to the home folder
+- `$USER`
+- `UID`
 
-
-## Important system folders in Linux:
-
-- /proc ... [TODO]
 
 ###  Global searchpath variable $PATH:
 
