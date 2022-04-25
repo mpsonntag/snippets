@@ -564,3 +564,175 @@ If for any reason this set up cannot be used and a machine or a docker container
     # If the IP was changed, reload the apache service
     sudo systemctl reload apache2
     ```
+
+## Server environment
+
+### Resolving "locale" issues
+
+It may occur, that during the installation locale messages like the one described below consistently pop up: 
+```bash
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+  LANGUAGE = "en_US:en",
+  LC_ALL = (unset),
+  LC_TIME = "de_DE.UTF-8",
+  LC_MONETARY = "de_DE.UTF-8",
+  LC_ADDRESS = "de_DE.UTF-8",
+  LC_TELEPHONE = "de_DE.UTF-8",
+  LC_NAME = "de_DE.UTF-8",
+  LC_MEASUREMENT = "de_DE.UTF-8",
+  LC_IDENTIFICATION = "de_DE.UTF-8",
+  LC_NUMERIC = "de_DE.UTF-8",
+  LC_PAPER = "de_DE.UTF-8",
+  LANG = "C"
+     are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+perl: warning: Setting locale failed.
+```
+
+To resolve such locale issues, additionally install the required local, but keep `en-US.UTF-8` as the default setting:
+```bash
+sudo dpkg-reconfigure locales
+```
+
+# Additional useful tools and commands
+
+## Session handling
+
+When connected to a remote machine, it might be worthwhile to create a named session that keeps running if the connection is detached.
+
+- `screen` can be installed via apt-get
+
+        # start a named screen session
+        screen -S [some name]
+        # start working e.g. start a long running script
+    
+        # detach from session but keep it running
+        Ctrl + d + a
+        
+        # re-attach to running session
+        screen -r [some name]
+    
+        # exit a screen session and end it
+        exit
+
+        # list all running screen sessions
+        screen -ls
+
+        # end a specific screen without attaching to it
+        screen -XS [some name] quit
+        
+        # if there are multiple screen sessions with an identical name, screen ls will 
+        # show additinal screen ids that can be used to end a specifc session
+        screen -XS [screenid.some name] quit
+
+## Checking for server ports
+
+`nmap` ... show ports of a running server - easy security check for open ports; close any unexpected ones...
+
+    # e.g.
+    nmap example.org
+
+## Networking commands
+
+### File copy with "rsync"
+
+`rsync` ... Copy and update all files from a local directory to and at a remote directory
+- new files will be copied
+- files that were changed locally will overwrite the remote files
+- ideally run the command with the `dry-run` flag first to ensure that the update is save
+  ```bash
+  rsync -v --dry-run --update -e "ssh -i [key location]" -r /local/path/to/folder/ [username]@[remote hostname or IP]:/remote/path/to/parent/folder
+  ```
+
+- Useful flags description
+  - t ... preserve timestamp; avoid issues when writing back and forth between multiple machines
+  - i ... show reason for action
+  - v ... verbose
+  - r ... recursive
+  - u ... update only - do not overwrite newer in target
+  - n ... dry run
+
+```bash
+# Copy directory COPY_DIR from a local to remote; dry-run, update only, show reason for change, preserve timestamp
+rsync -ivrut -e "ssh -i /home/$USER/.ssh/" /home/$USER/COPY_DIR/ $USER@$REMOTE:/home/$USER/COPY_DIR/ -n
+```
+
+- itemize output; a good description of the itemize output can be found [here](http://www.staroceans.org/e-book/understanding-the-output-of-rsync-itemize-changes.html)
+  ```
+  YXcstpoguax  path/to/file
+  |||||||||||
+  `----------- the type of update being done::
+   ||||||||||   <: file is being transferred to the remote host (sent).
+   ||||||||||   >: file is being transferred to the local host (received).
+   ||||||||||   c: local change/creation for the item, such as:
+   ||||||||||      - the creation of a directory
+   ||||||||||      - the changing of a symlink,
+   ||||||||||      - etc.
+   ||||||||||   h: the item is a hard link to another item (requires --hard-links).
+   ||||||||||   .: the item is not being updated (though it might have attributes that are being modified).
+   ||||||||||   *: means that the rest of the itemized-output area contains a message (e.g. "deleting").
+   ||||||||||
+   `---------- the file type:
+    |||||||||   f for a file,
+    |||||||||   d for a directory,
+    |||||||||   L for a symlink,
+    |||||||||   D for a device,
+    |||||||||   S for a special file (e.g. named sockets and fifos).
+    |||||||||
+    `--------- c: different checksum (for regular files)
+     ||||||||     changed value (for symlink, device, and special file)
+     `-------- s: Size is different
+      `------- t: Modification time is different
+       `------ p: Permission are different
+        `----- o: Owner is different
+         `---- g: Group is different
+          `--- u: The u slot is reserved for future use.
+           `-- a: The ACL information changed
+  ```
+
+
+### http requests with "curl" (commandline url)
+
+`curl` ... run http requests from the command line
+
+    # run a GET http request
+    curl [URL]
+
+    # run a POST http request
+    curl -X POST [URL]
+
+    # add content header
+    curl -H "Content-Type: application/rdf+xml" [URL]
+
+Interesting for debugging with the Chromium browser:
+- "Network" - right click "request" - Copy - Copy as curl
+
+Read up on the http protocol if you are not familiar with it. 
+
+- commandline tool for sending a GET http request (GET is the default http request method for curl)
+
+        curl "http://www.hntoplinks.com"
+
+- include the http response headers: `-i`
+
+        curl -i "http://www.hntoplinks.com"
+
+- add a request header: `-H`
+
+        curl "http://www.hntoplinks.com" -H "Accept: application/json" 
+
+- use a different request method than GET: `-X`
+
+        curl -X POST "http://somewhere.com?value=key"
+
+- add a request body to the request: `-d`
+
+        curl -X POST "http://somewhere.com" -d "value=key"
+
+- add an http form body to the request: `-F`
+
+        curl -X POST "http://somewhere.com" -F user[lname]=Karl
+
+Find a very nice introduction to curl [here](http://conqueringthecommandline.com/book/curl).
+
