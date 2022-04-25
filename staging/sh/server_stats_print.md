@@ -9,6 +9,12 @@ echo ""
 echo ""
 echo "... Report $(date '+%Y-%m-%d %H:%M')"
 
+# Fetch server information
+echo ""
+echo "... Server information"
+echo "... Server specs"
+ssh ${SSH_USER}@${SSH_TARGET} 'hostnamectl | grep -v "ID" && lscpu | grep "^CPU(" && lsmem | grep "Total"'
+
 # Fetch latest backup status
 echo ""
 echo "... Backup stats"
