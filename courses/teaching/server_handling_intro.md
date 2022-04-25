@@ -323,3 +323,92 @@ services, `journalctl` is used to handle logs from the individual services.
 At the core of `systemd` services are the `unit` files. These are flat text files containing all
 information required to run a specific service. The extension of such a unit file describes
 which kind of service can be handled with it.
+
+
+## Running a webserver using apache2
+
+Usually apache2 should be available as systemd service
+
+    sudo systemctl [start stop reload restart] apache2.service
+
+Enable or disable apache2 mods and webservice configurations; an apache2 reload is required
+
+    # enable an apache2 mod
+    sudo a2enmod [mod]
+    # e.g. the rewrite module
+    sudo a2enmod rewrite
+    # disable an apache2 mod
+    sudo a2dismod [mod]
+
+    # enable a webservice configuration
+    sudo a2ensite [conf]
+    # disable a webservice configuration
+    sudo a2dissite [conf]
+
+After changing a mod or a site, apache requires a reload.
+
+Display loaded modules
+
+    apache2ctl -M
+    # alternatively
+    apache2ctl -t -D DUMP_MODULES
+
+All modules and sites can be found in the following paths
+
+    /etc/apache2/sites-available
+    /etc/apache2/sites-enabled
+    /etc/apache2/mods-available
+    /etc/apache2/mods-enabled
+
+
+## Installing server dependencies
+
+### Installation and setup of Apache
+
+- make sure apache is there; install otherwise
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install apache2
+    ```
+
+- make sure all required apache modules are active
+
+    ```bash
+    sudo a2enmod rewrite
+    sudo a2enmod ssl
+    sudo a2enmod proxy
+    sudo a2enmod proxy_http
+    sudo a2enmod proxy_html
+    sudo a2enmod http2
+    sudo systemctl restart apache2
+    ```
+
+- make sure apache is set to restart on machine reboot
+
+    ```bash
+    # check the restart on boot status; status should read "enabled":
+    # "loaded (loaded (/lib/systemd/system/apache2.service; enabled; ..."
+    sudo systemctl status apache2.service
+    # if it reads "disabled" run the following
+    sudo systemctl enable apache2.service
+    ```
+
+- add a sites-available entry
+
+    ```bash
+    sudo vim /etc/apache2/sites-available/[domain]
+    ```
+
+### Apache setup to serve static pages
+
+If apache is supposed to serve static pages, it might be required to add additional grants to the `/etc/apache2/apache2.conf` file. Add this information in case the apache spits out a 403 forbidden message if it should already be serving the static pages.
+```bash
+<Directory /path/to/served/directory/>
+    AllowOverride All
+    Require all granted
+    Options Indexes FollowSymLinks MultiViews
+    Order deny,allow
+    Allow from all
+</Directory>
+```
