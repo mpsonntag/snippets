@@ -495,3 +495,72 @@ The systemd files can also be checked directly at `/etc/systemd/system/snap.cert
 The certificates issued can be found in the `/etc/letsencrypt/`. Usually the certificates are created in the `/etc/letsencrypt/archive` directory, the latest is symlinked to the `archive` directory from the `/etc/letsencrypt/live` directory. When used with an apache, the apache config should always point to the `live` directory; when an auto-renewal job is set up, the apache will always have access to the latest certificate.
 
 The certificates are bound to a domain name, not to an IP address or server host key. So if the server is changed, the certificates can actually be moved to the letsencrypt folders on the new machine and can be used on the fly.
+
+
+### Installation and setup of docker and docker-compose
+
+- make sure docker is installed; if not, install docker using the official [docker documentation](
+  https://docs.docker.com/engine/install/
+  ).
+
+- make sure docker is set up to use a mountpoint with sufficient space. To this end symlink the default docker container directory to a directory with sufficient space.
+
+    ```bash
+    // make sure no containers are running and stop the docker daemon
+    sudo systemctl stop docker
+    sudo cp -a /var/lib/docker /data/docker
+    sudo mv /var/lib/docker /var/lib/docker_old
+    sudo ln -s /data/docker /var/lib/docker
+    sudo systemctl start docker
+    ```
+
+- make sure that the docker service will restart when the machine itself is coming up.
+
+    ```bash
+    sudo systemctl enable docker
+    # check the restart on boot status; status should read "enabled":
+    # "loaded (/lib/systemd/system/docker.service; enabled; ..."
+    sudo systemctl status docker.service
+    ```
+
+- if required [install docker-compose](
+  https://docs.docker.com/compose/install/
+  )
+
+- docker-compose can be installed via pip: make sure Python is available and pip is installed. If not install, pip first.
+
+    ```bash
+    # install pip
+    sudo apt update
+    sudo apt install python3-pip
+    # now install docker-compose via pip
+    sudo pip install docker-compose
+    ```
+
+- alternatively it can also be downloaded and made available
+    ```bash
+    $DOCKER_COMPOSE_VERSION=[set required version]
+    sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+### Apache and Docker
+
+All docker-compose files should be set up with a fixed IP address. This way, if the machine a docker container runs on is restarted, the IP a restarted docker container is using will be the same as before the restart. The apache configuration needs to point to this specified IP address.
+
+If for any reason this set up cannot be used and a machine or a docker container has restarted, the IP address in the apache config file has to be updated to the new IP address the docker container is now running at:
+
+- make sure the appropriate apache2 configuration exists and is enables. It might be 
+  necessary to update the apache2 configuration to the current IP of the running 
+  docker container.
+
+    ```
+    # Check IP address of the current running docker container
+    sudo docker inspect -f "{{ .NetworkSettings.Networks.gcanet.IPAddress }}" $DOCKER_CONTAINER_NAME
+
+    # Check "ProxyPass" and "ProxyPassReverse" IPs in apache config file
+    cat /etc/apache2/sites-enabled/[domain].conf
+
+    # If the IP was changed, reload the apache service
+    sudo systemctl reload apache2
+    ```
