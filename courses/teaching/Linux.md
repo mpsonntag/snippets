@@ -1126,18 +1126,20 @@ Find a very nice introduction to curl [here](http://conqueringthecommandline.com
 - if you are not familiar with PGP, read up on your trusty wikipedia page.
 - generate ssh keys:
 
-        ssh-keygen
-        enter a name (without spaces!) e.g. id_rsa_gin_gnode_org
-        enter a pw pr leave it empty
-        // print public key
-        cat id_rsa_gin_gnode_org.pub
+  ```bash
+  ssh-keygen
+  enter a name (without spaces!) e.g. id_rsa_key_description
+  enter a pw pr leave it empty
+  // print public key
+  cat id_rsa_key_description.pub
+  ```
 
 - The created key pair can be found in a hidden `.ssh` folder in the home directory, if no other location has been 
     specified.
 
 - To retrieve the SSH fingerprint of the public key use the following:
 
-        ssh-keygen -lf [location and name of the public key]
+      ssh-keygen -lf [location and name of the public key]
 
 
 ### SSH Key Agent
@@ -1154,19 +1156,20 @@ having to enter the pass phrase all the time.
                 is stopped, the new agent will not contain any keys, any keys previously added
                 have to be added again! So when in doubt, run `ssh-add -l` first.
 
-        eval "ssh-agent"
-        eval "ssh-agent -s"
-        eval `ssh-agent -s`
-        or
-        eval $(ssh-agent)
+  ```bash
+  eval "ssh-agent"
+  eval "ssh-agent -s"
+  eval `ssh-agent -s`
+  eval $(ssh-agent)
+  ```
 
 - add key to the agent e.g. the key created in example above and enter the keys pass phrase once and never again.
 
-        ssh-add ~/.ssh/id_rsa_gin_gnode_org
+      ssh-add ~/.ssh/id_rsa_key_description
 
 - check which keys are currently managed by the ssh key agent
 
-        ssh-add -l
+      ssh-add -l
 
 - even if you have added the key to the ssh key agent, if the key with the corresponding passphrase 
     is not added to the linux keyring, it will prompt for the passphrase upon the first use of the 
@@ -1182,7 +1185,7 @@ having to enter the pass phrase all the time.
   You can debug this using the verbose setting on the ssh command e.g. `ssh -v username@some.server.com` 
 
 
-### Even easier ssh access by using .ssh/config
+### Convenient ssh access by using .ssh/config
 
 As described above, having too many different ssh keys can lead to not being able to login somewhere.
 Its even easier to tell the agent which key to offer to a specific server first to avoid that dilemma.
@@ -1192,15 +1195,19 @@ A nice tutorial for that can be found [here](https://nerderati.com/2011/03/17/si
 - Just create a `config` file in the `.ssh` folder.
 - Define a specific Host and point to the ssh key file that should be used.
 
-    Host some.example.org
-        IdentityFile ~/.ssh/id_rsa_for_example
+  ```bash
+  Host some.example.org
+      IdentityFile ~/.ssh/id_rsa_for_example
+  ```
 
 - If you want to login at a specific port or with a different user than your current one:
 
-Host other.site.com
-    User root
-    Port 4444
-    IdentityFile ~/.ssh/id_rsa_for_site
+  ```bash
+  Host other.site.com
+      User root
+      Port 4444
+      IdentityFile ~/.ssh/id_rsa_for_site
+  ```
 
 ## Setup user with sudo access on an ssh accessible server
 
@@ -1209,30 +1216,34 @@ Modified from [here](https://aws.amazon.com/premiumsupport/knowledge-center/new-
 - ssh to the server
 - create new user (add password in the process)
 
-        sudo adduser new_user
+      sudo adduser new_user
 
 - [Optional] add user to the sudoer user group (after the user has been created)
 
-        sudo adduser new_user sudo
+      sudo adduser new_user sudo
 
 - switch to new user, create .ssh folder and authorized key entry with the appropriate permissions for this user
 
-        sudo su new_user
-        mkdir /home/new_user/.ssh
-        chmod 700 /home/new_user/.ssh
-        touch /home/new_user/.ssh/authorized_keys
-        chmod 600 /home/new_user/.ssh/authorized_keys
+  ```bash
+  sudo su new_user
+  mkdir /home/new_user/.ssh
+  chmod 700 /home/new_user/.ssh
+  touch /home/new_user/.ssh/authorized_keys
+  chmod 600 /home/new_user/.ssh/authorized_keys
+  ```
 
 - open authorized keys with an editor e.g. and paste the required public key string into the file.
 
-        vim /home/new_user/.ssh/authorized_keys
-        "press i"
-        "paste public key string"
-        "press esc and type :x to save changes"
+  ```bash
+  vim /home/new_user/.ssh/authorized_keys
+  # "press i"
+  # "paste public key string"
+  # "press esc and type :x to save changes"
+  ```
 
 - [optional] change user password
 
-        passwd
+      passwd
 
 - Now the new_user should be able to ssh into the server.
 
@@ -1243,8 +1254,10 @@ Use `test` or `[]` for checks that make sense from a command line perspective
 e.g. if a directory or a file exists, which of a file is older etc.
 This builtin provides a wide range of available checks, see `man test` for a list.
 
-    # e.g. Check whether a directory exists
-    test -d dirname && echo "exists" || echo "does not exist"
+  ```bash
+  # e.g. Check whether a directory exists
+  test -d dirname && echo "exists" || echo "does not exist"
+  ```
 
 
 ## Paths
@@ -1271,11 +1284,11 @@ the actual location of the files
     /etc/aliases
 
 ### user and groups
-`/etc/group`            ... contains all available groups and the ids of users that are part of a group
-`/etc/passwd`           ... contains all users with their id, shell preference and home directory
+- `/etc/group`            ... contains all available groups, and the ids of users that are part of a group
+- `/etc/passwd`           ... contains all users with their id, shell preference and home directory
 
-`/var/logs`             ... contains various logfiles of interest
-`/home/[uname]/.ssh`    ... directory containing user specific ssh keys
+- `/var/logs`             ... contains various logfiles of interest
+- `/home/[uname]/.ssh`    ... directory containing user specific ssh keys
 
 ### TTYs
 
@@ -1283,8 +1296,7 @@ the actual location of the files
 
 ### Default mount points
 
-A mount point is a link between a disk partition and the file system on 
-this partition
+A mount point is a link between a disk partition, and the file system on this partition
 
     cat /etc/fstab
 
@@ -1426,50 +1438,55 @@ The following notes are true for Ubuntu 18
 - if a font has not been properly added, the font cache might need to
   be refreshed; use the `fc-cache` command in this case.
 
+
 ## Even more useful Bash commands:
 
 ### wc (word count)
 
 - counts lines, words and letters within a file
 
-        wc filename 
+  ```bash
+  wc filename 
 
-        e.g.
-        [chris@troll work]wc shopping_list.txt
-
+  e.g.
+  [chris@troll work]wc shopping_list.txt
+  ```
 
 ### top (display active processes)
 
 - Displays all processes running on the currently used machine.
 - Exit by pressing `q`
 
+### ps (running process display)
 
-### ps - report a snapshot of currently running processes / programs
+- report a snapshot of currently running processes / programs
 
-        ps
+  ```bash
+  ps
 
-        # list all processes, display in user oriented format
-        ps aux
-        # list all processes, sort by CPU usage
-        ps aux | sort -rnk
-        # list all processes, sort by Memory usage
-
+  # list all processes, display in user oriented format
+  ps aux
+  # list all processes, sort by CPU usage
+  ps aux | sort -rnk
+  # list all processes, sort by Memory usage
+  ```
 
 ### stat - file information
 
 - print information about a specific file
 
-        stat [filename]
+      stat [filename]
 
 ### nmap - scan domain for open ports
 
 - to check if a server is secure or has open ports, use `nmap`
 
-        nmap [domain]
+  ```bash
+  nmap [domain]
 
-        # e.g.
-        nmap example.com
-
+  # e.g.
+  nmap example.com
+  ```
 
 ### Compression / uncompression of files
 
