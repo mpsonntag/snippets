@@ -126,12 +126,12 @@ hierarchical layer as the folder we are currently residing in
 - `pwd` ... print working directory, prints the complete path from root until the directory we are currently residing in
 
         e.g. [chris@troll papers]$pwd
-             /home/users/chris/papers/
+             /home/chris/papers/
              [chris@troll papers]$
 
 - `cd [path]` ... change directory; move within the filesystem from your current directory to another directory specified in your [path]
 
-        e.g. [chris@troll ~]$ cd /home/user/bernd/
+        e.g. [chris@troll ~]$ cd /home/bernd/
 
 - `cd ..`   ... change from the current directory to the directory directly above.
 
@@ -154,19 +154,19 @@ hierarchical layer as the folder we are currently residing in
 - `cp path1/source path2/target` ... copy file `source` residing at location `path1` to file `target`
 residing at location `path2`
 
-        e.g. [chris@troll work]$cp /home/user/chris/work/papers/2011_Science_2282772.pdf /home/users/chris/work/papers/science/2011_Science_2282772.pdf
+        e.g. [chris@troll work]$cp /home/chris/work/papers/2011_Science_2282772.pdf /home/chris/work/papers/science/2011_Science_2282772.pdf
 
 - `cp path1/source ./target` ... copy file `source` residing at location `path1` to file `target` at the current location
 
-        e.g. [chris@troll science]$ cp /home/user/chris/work/papers/2011_Science_2282772.pdf ./2011_Science_2282772.pdf
+        e.g. [chris@troll science]$ cp /home/chris/work/papers/2011_Science_2282772.pdf ./2011_Science_2282772.pdf
 
-will copy the file `2011_Science_2282772.pdf` from location `/home/user/chris/work/papers/` to location `/home/users/chris/work/papers/science/`
+will copy the file `2011_Science_2282772.pdf` from location `/home/chris/work/papers/` to location `/home/chris/work/papers/science/`
 
 - `cp path1/source .` ... copy file`source` residing at location `path1` to the current location, keeping the same filename.
 
-        e.g. [chris@troll science]$ cp /home/user/chris/work/papers/2011_Science_2282772.pdf .
+        e.g. [chris@troll science]$ cp /home/chris/work/papers/2011_Science_2282772.pdf .
 
-will copy the file `2011_Science_2282772.pdf` from location `/home/user/chris/work/papers/` to location `/home/users/chris/work/papers/science/`
+will copy the file `2011_Science_2282772.pdf` from location `/home/chris/work/papers/` to location `/home/chris/work/papers/science/`
 
 - `mv [Pfad-Quelle]/[Filename] [Pfad-Ziel]` ... same as "cp" command, but moves the file from one location to the other, deleting the original file.
 
@@ -1076,39 +1076,49 @@ Find a very nice introduction to curl [here](http://conqueringthecommandline.com
 - Makes sense to do large calculations on the server rather than on the local machine.
 - Logging on to another machine will most likely require a password.
 
-        ssh [remote machine]
+    ```bash
+    ssh [remote_machine]
+    # provide username on the remote machine and appropriate password
 
-        e.g.
-        [chris@troll work]$ssh server4
-        [chris@server4 ~]$
+    e.g.
+    [chris@troll work]$ssh server4
+    [chris@server4 ~]$
+
+    # the login process can be sped up by already providing the username in the login command
+    ssh [username]@[remote_machine]
+    ```
 
 - Notice that the name of the machine in the bash shell has changed from `troll` to `server4`
 - Use the command `exit` to close the ssh connection to a remote machine.
 
-        e.g.
-        [chris@server4 ~]$exit
-        [chris@troll ~]$
+    ```bash
+    e.g.
+    [chris@server4 ~]$exit
+    [chris@troll ~]$
+    ```
 
 ### scp (Secure Copy)
 
 - Use a secure connection to copy files from or to a remote machine
 
-        scp [remote_machine_name]:[remote_directory]/[filename] [local_directory]
+  ```bash
+    scp [remote_machine_name]:[remote_directory]/[filename] [local_directory]
 
-        e.g.
-        [chris@troll work]scp server4:/temp/work/* /home/user/chris/work/
+    e.g.
+    [chris@troll work]scp server4:/temp/work/* /home/chris/work/
+  ```
 
 - Add the username of a user on the remote server to provide specific permissions for the copy operation
 
-        scp [remote_username]@[remote_machine_name]:[remote_directory] [local_directory]
+      scp [remote_username]@[remote_machine_name]:[remote_directory] [local_directory]
 
 - Copy directories recursively to copy whole directory trees (`-r` ... recursive)
 
-        scp -r [remote_machine]:[remote_dir]/* [local_dir]
+      scp -r [remote_machine]:[remote_dir]/* [local_dir]
 
 - Copy directories recursively and preserve file metadata (modes, access times etc, `-p` ... preserve)
 
-        scp -rp [remote_machine]:[remote_dir]/* [local_dir]
+      scp -rp [remote_machine]:[remote_dir]/* [local_dir]
 
 ### SSH keys
 
