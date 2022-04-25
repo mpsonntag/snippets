@@ -186,3 +186,140 @@ https://aws.amazon.com/premiumsupport/knowledge-center/new-user-accounts-linux-i
         passwd
 
 - Now the new_user should be able to ssh into the server.
+
+
+## Running services with systemctl
+
+`systemctl` is a service that is shipped with the `systemd` suit for handling services on a linux
+machine. `systemctl` specifically handles the state of system services (daemons) e.g. starting, stopping, etc.
+
+Start a service ("unit"); usually requires `sudo`
+
+    systemctl start [service]
+    # e.g. docker.service
+    systemctl start docker.service
+
+Stop a service
+
+    systemctl stop [service]
+
+Restart a service (= stop+start)
+
+    systemctl restart [service]
+
+Reload a service w/o interrupting the service
+
+    systemctl reload [service]
+
+Check the status of a service
+
+    systemctl status [service]
+
+Show all settings of a service
+
+    systemctl show [service]
+
+Enable or disable services to be run automatically; enabled units will start automatically when the system boots
+
+    systemctl [enable/disable] [service]
+
+List all units that have the "failed" status
+
+    systemctl --failed
+
+List all units and its current status
+
+    systemctl list-unit-files
+
+Lists all units; use the `--all` flag to also include disabled services
+
+    systemctl list-units [--all]
+
+systemctl services can be custom made and be put on a timer as well. To list all current timers:
+
+    systemctl list-timers
+
+Inspect systemd unit files; this will also show the location of the unit file itself
+
+    systemctl cat [service]
+    # e.g. the docker service unit file
+    systemctl cat docker.service
+
+Show the dependencies of a service
+
+    systemctl list-dependencies [--all] [service]
+
+Edit unit files w/o opening the file via its location
+
+    sudo systemctl edit [service]
+    # e.g. docker service unit file
+    sudo systemctl edit --full docker.service
+    # reload the service for the changes to take effect
+    sudo systemctl daemon-reload
+
+Find an introduction to systemctl [here](
+https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
+).
+
+### Handle systemd logs using journalctl
+
+The `journald` daemon follows logs from all running `systemd` services; these journals can be accessed using `journalctl`.
+
+Follow all current systemctl logs
+
+    journalctl -f
+
+Filter the logs by units AND follow e.g. by following the docker daemon
+
+    journalctl -u docker.service -f
+
+Filter logs for multiple units
+
+    journalctl -u docker.service -u apache2.service
+
+Display on the latest `n`, e.g. 100, lines
+
+    journalctl -n 100
+
+Display log in reverse order
+
+    journalctl -r
+
+Filter log for a rough timeframe using `--since`
+
+    # supported: yesterday, today, now, tomorrow
+    journalctl --since today
+    # use a specific date and time
+    journalctl --since "2020-12-12 12:12:12"
+
+Filter log for a specific timeframe
+
+    # use date and time
+    journalctl --since "2020-12-12" --until "2020-12-13 13:13"
+    # use keywords: n sec ago, min, hour, day, month, year 
+    journalctl --since 09:00 --until "1 hour ago"
+
+Display journalctl in a different format e.g. JSON
+
+    # supported: cat, export, json, json-pretty, json-sse, short, short-iso, short-precise, verbose
+    journalctl -o json-pretty
+
+Pipe the output to system out e.g. to consume in an automated script or for further filtering
+
+    journalctl --no-pager
+
+Find a more detailed introduction [here](
+https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
+) or [here](
+https://www.loggly.com/ultimate-guide/using-journalctl/
+).
+
+### An introduction to systemd and unit files
+
+`systemd` is a service manager for a wide range of Linux distributions. It is used to initialize and
+handle system services and provides a logging service. `systemctl` is used to handle the state of 
+services, `journalctl` is used to handle logs from the individual services.
+
+At the core of `systemd` services are the `unit` files. These are flat text files containing all
+information required to run a specific service. The extension of such a unit file describes
+which kind of service can be handled with it.
