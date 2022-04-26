@@ -487,6 +487,8 @@ https://letsencrypt.org/docs/
 
 ### Automatic certificate renewal
 
+Most basically check `/etc/letsencrypt/renew` whether there are config files for an automated renewal set up.
+
 To check whether certbot set up automatic renewals on a debian system, run the following and 
 check for a certbot renewal job.
 
