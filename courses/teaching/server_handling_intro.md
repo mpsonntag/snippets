@@ -485,6 +485,8 @@ https://letsencrypt.org/docs/
 
 - Note: Browsers usually need a restart to properly accept renewed certificates.
 
+### Automatic certificate renewal
+
 To check whether certbot set up automatic renewals on a debian system, run the following and 
 check for a certbot renewal job.
 
@@ -496,6 +498,41 @@ The certificates issued can be found in the `/etc/letsencrypt/`. Usually the cer
 
 The certificates are bound to a domain name, not to an IP address or server host key. So if the server is changed, the certificates can actually be moved to the letsencrypt folders on the new machine and can be used on the fly.
 
+#### Deactivate certificate renewal timers
+
+- deactivate systemd service and timer; check [here](
+  https://unix.stackexchange.com/questions/363728/which-is-the-correct-way-to-disable-a-systemd-timer-unit
+  ) for details.
+
+    ```bash
+    # disable the job for a potential server restart
+    # if the timer starts the service, it might be sufficient to deal with the timer only
+    systemctl disable thejob.service
+    systemctl disable thejob.timer
+    # stop the currently running job
+    systemctl stop thejob.timer
+    systemctl stop thejob.service
+    ```
+
+- additionally rename the timer file; check [here](
+  https://stackoverflow.com/questions/40030537/how-to-stop-renewing-a-letsencrypt-certbot-certificate/47372583#47372583
+  ) for details.
+
+    ```bash
+    mv /etc/letsencrypt/renewal/[domain].conf /etc/letsencrypt/renewal/[domain].conf.disabled
+    ```
+
+- remove the certificate alltogether; check [here](
+  https://stackoverflow.com/questions/40030537/how-to-stop-renewing-a-letsencrypt-certbot-certificate/43669130#43669130
+  ) for details. This might cause problems if the certificate is still being used from a different IP.
+
+    ```bash
+    certbot --cert-name [domain]
+    ```
+
+The general cerbot command line documentation can be found [here](
+https://eff-certbot.readthedocs.io/en/stable/using.html?highlight=disable#certbot-command-line-options
+).
 
 ### Installation and setup of docker and docker-compose
 
