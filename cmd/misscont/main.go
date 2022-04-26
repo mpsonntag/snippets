@@ -41,6 +41,8 @@ func main() {
 
 	rootCmd := setUpCommands(verstr)
 	rootCmd.SetVersionTemplate("{{.Version}}")
+	// disable the cobra shell completion command
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
 	err := rootCmd.Execute()
 	if err != nil {
