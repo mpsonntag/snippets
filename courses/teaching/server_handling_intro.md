@@ -17,7 +17,7 @@ Basic files and directories
 
     /etc/apache2
     /etc/letsencrypt
-    /var/logs
+    /var/logs           ... /var/logs/syslog contains all systemd and cronjob log output
     /etc/alternatives
 
 
