@@ -20,15 +20,15 @@
     -[x] docker-compose
     -[x] users and groups
     -[x] letsencrypt
--[x] gin.dev setup
+-[ ] gin.dev setup
     -[x] directory structure, required files
     -[x] letsencrypt setup
     -[x] service setup
     -[x] service user setup
     -[x] required service repo setup
+    -[x] upload / download test
+    -[x] haproxy setup and test
 
-    -[ ] upload / download test
-    -[ ] haproxy setup and test
     -[ ] gindex setup and test
 
 -[x] doi.dev setup
@@ -37,8 +37,7 @@
     -[x] doi static host setup
     -[x] doireg service setup
     -[x] gin cli host setup
-
-    -[ ] doi procedure test
+    -[x] doi procedure test
 
 -[x] meta.dev setup
     -[x] directory structure, required files
@@ -170,7 +169,7 @@
     -[x] letsencrypt/apache setup all files (maintenance, valid.gin)
     -[x] service setup using maintenance
     -[x] letsencrypt/apache switch
--[x] proc.gin setup
+-[ ] proc.gin setup
     -[x] directory structure, required files
 
     -[ ] letsencrypt/apache setup all files (maintenance, proc.gin, proc-config.gin)
@@ -181,16 +180,22 @@
 
 
 ### doi (11)
--[ ] VM setup, IP assignment by ITG (from old meta), A rec entries srv11, maintenance.srv11
--[ ] basic setup
-    -[ ] apache
-    -[ ] docker
-    -[ ] docker-compose
-    -[ ] users and groups
-    -[ ] letsencrypt
-    -[ ] letsencrypt setup maintenance.srv11
-TODO add services list; add test, data link in and IP switch plan
-
+-[x] VM setup, IP assignment by ITG (from old meta), A rec entries srv11, maintenance.srv11
+-[x] basic setup
+    -[x] apache
+    -[x] docker
+    -[x] docker-compose
+    -[x] users and groups
+    -[x] letsencrypt
+    -[x] letsencrypt setup maintenance.srv-11
+    -[x] heartbeat setup
+-[x] service setup
+    -[x] doi docker setup
+    -[x] hosting directory setup
+    -[x] hosting directory switch test
+    -[x] apache domain config files setup 
+    -[x] gin client set up
+    -[x] services test 
 
 ### gin (10)
 -[ ] VM setup, IP assignment by ITG (from old odml), A rec entries srv10, maintenance.srv10
