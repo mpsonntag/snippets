@@ -44,7 +44,7 @@ docker-compose up -d
 docker-compose logs -f --tail=100
 ```
 
-- run all required tests as described in the [opsdocs doi/deployment_tests.md](./deployment_tests.md) file or the gin `G-Node/doi_deployment_test` repository.
+- run all required tests as described in the opsdocs doi/deployment_tests.md file or the gin `G-Node/doi_deployment_test` repository.
 
 ### Updates in "checklist.go"
 
