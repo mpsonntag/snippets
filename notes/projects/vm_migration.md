@@ -73,6 +73,12 @@
     -[ ] directory structure, required files
     -[ ] valid service setup
 
+-[ ] proc.dev setup
+    -[ ] apache conf setup
+    -[ ] letsencrypt setup
+    -[ ] directory structure, required files
+    -[ ] proc service setup
+
 
 ### minor (13)
 -[x] VM setup and IP assignment
