@@ -56,3 +56,14 @@ git push origin/master
 # push the latest changes to the GIN Info wiki pages
 git push livewiki/master
 ```
+
+## GIN plain docker setup
+
+... add this information to the GIN Info wiki: in-house
+
+- add an ssh public key on the running GIN server
+- clone repositories when testing on localhost using
+
+  ```
+  ssh://git@localhost:2222/[ginuser]/[ginrepository].git
+  ```
