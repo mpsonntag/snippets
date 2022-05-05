@@ -503,6 +503,25 @@ to all users within a group.
             Read up [here](https://www.linux.org/threads/file-permissions-chmod.4124/) 
             on file permissions.
 
+```bash
+# general syntax;
+# mode ... o ... other users, g ... user group, u ... user
+# permission mod ... + ... add permission, - ... remove permission
+# permission ... r ... read, w ... write, x ... execute
+chmod [USER/PERMISSIONMOD/PERMISSION] [DIR/FILE]
+# add file permission read, write and execute for all other users
+chmod o+rwx [file/dir]
+# remove file permission read, write and execute for all other users
+chmod o-rwx [file/dir]
+# add file permission read, write and execute for group
+chmod g+rwx [file/dir]
+# add file permission read, write and execute for user
+chmod u+rwx [file/dir]
+# change file permissions recursively
+chmod -R [MODE] [file/dir]
+# change different permissions
+chmod u=rwx,g=r,o-rwx [file/dir]
+```
 
 
 ## File commands
