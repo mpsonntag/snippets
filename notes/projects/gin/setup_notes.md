@@ -28,7 +28,7 @@ Properly handle the G-Node/Info.wiki
 
 ```
 # clone the user fork of the G-Node/Wiki repo
-git clone [user]/Wiki.git
+git clone git@gin.g-node.org:/[user]/Wiki.git
 cd Wiki
 # add upstream repo for pull requests
 git remote add upstream git@gin.g-node.org:/G-Node/Wiki.git
