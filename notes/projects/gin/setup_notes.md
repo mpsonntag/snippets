@@ -23,7 +23,7 @@ To smoothly work with a docker deployment, the following groups and users should
 Properly handle the G-Node/Info.wiki
 
 - add a git ssh key on the GIN server
-- fork the G-Node/Wiki repository which is itself a fork of the G-Node/Info.wiki
+- on gin.g-node.org fork the G-Node/Wiki repository which is itself a fork of the G-Node/Info.wiki
 - handle everything via git and not via the gin client to avoid images or larger files to be added to the annex.
 
 ```
