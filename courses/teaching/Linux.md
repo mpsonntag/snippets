@@ -1274,6 +1274,19 @@ The [following article](
 https://www.baeldung.com/linux/list-connected-ssh-sessions
 ) gives a couple of pointers where to start looking for ssh logins to a machine.
 
+- check /var/log/auth.log
+
+```bash
+# e.g. look for successful sessions
+cat /var/log/auth.log | grep "New Session"
+# or failed password attempts
+cat /var/log/auth.log | grep "Failed password"
+# or check how many failed attempts at a specific date
+cat /var/log/auth.log | grep "Failed password" | grep "May  9" | wc -l
+```
+
+- check logins via the `last` command
+
 
 ## Scripting
 
