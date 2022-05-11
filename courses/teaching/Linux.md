@@ -1268,6 +1268,12 @@ Modified from [here](https://aws.amazon.com/premiumsupport/knowledge-center/new-
 
 - Now the new_user should be able to ssh into the server.
 
+### ssh security
+
+The [following article](
+https://www.baeldung.com/linux/list-connected-ssh-sessions
+) gives a couple of pointers where to start looking for ssh logins to a machine.
+
 
 ## Scripting
 
