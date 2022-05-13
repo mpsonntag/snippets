@@ -167,3 +167,32 @@ An annexed file can be removed from the annex and from gin tracking using the fo
 
 Note, that a commit is required to fully remove a file from gin tracking. Also note, that if the file content is not locally available, there will be no message at all, a commit will not change anything.
 Make sure to `gin get-content [path/filename]` first, if the content is only available remotely.
+
+
+## Upload not working
+
+### Q -  "Disconnect reading sideband packet, broken pipe": My upload does not work
+I cannot upload from my machine to the gin repository. I constantly get lots of error lines ending in:
+
+  ```bash
+  [stderr]
+  fatal: There is no merge to abort (MERGE_HEAD missing).
+  2022/04/21 20:16:13 The following error occured:
+  Connection to gin.g-node.org closed by remote host.
+  send-pack: unexpected disconnect while reading sideband packet
+  fatal: sha1 file '<stdout>' write error: Broken pipe
+  fatal: the remote end hung up unexpectedly
+  Connection to gin.g-node.org closed by remote host.send-pack: unexpected disconnect while reading sideband packetfatal: sha1 file '<stdout>' write error: Broken pipefatal: the remote end hung up unexpectedly  Pushing to origin failed.
+  git-annex: sync: 1 failed
+  2022/04/21 20:16:13 Exiting with ERROR message: 1 operation failed
+  ```
+
+### A
+
+This error can occur when the connection cannot handle a large upload. There is no easy option to deal with this issue from the machine the error occurs on.
+
+- use a wired connection (LAN) if you suspect a WIFI connection can limit upload
+- if this is an option, work from a machine where the upload is not an issue
+- if the above are not an option, try to limit the amount of data you upload in one go. This also includes adding and uploading data in chunks:
+  - create a clean repository or clone an existing repository from the gin server; at this point it is important to locally start with a repository that does not have a large amount of data waiting to be uploaded.
+  - add only one smaller file to this repository, commit and upload; if the upload succeeds, you can be sure that the issue is the chunk size of the upload. Increase the size of uploaded chunks until you hit the amount of data where an upload ends with the error described above and stay below this limit when uploading data from you machine.
