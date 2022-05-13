@@ -196,3 +196,14 @@ This error can occur when the connection cannot handle a large upload. There is 
 - if the above are not an option, try to limit the amount of data you upload in one go. This also includes adding and uploading data in chunks:
   - create a clean repository or clone an existing repository from the gin server; at this point it is important to locally start with a repository that does not have a large amount of data waiting to be uploaded.
   - add only one smaller file to this repository, commit and upload; if the upload succeeds, you can be sure that the issue is the chunk size of the upload. Increase the size of uploaded chunks until you hit the amount of data where an upload ends with the error described above and stay below this limit when uploading data from you machine.
+
+At the core of this issue lies a problem that `git` cannot prepare and provide data that is supposed to be uploaded in a reasonable timeframe; the server ready to receive the content has to wait too long and closes the connection.
+
+Check the following threads from users experiencing this or a similar issue on a multitude of git services and potential solutions
+- https://stackoverflow.com/questions/66366582/github-unexpected-disconnect-while-reading-sideband-packet
+- https://stackoverflow.com/questions/21277806/fatal-early-eof-fatal-index-pack-failed/22317479#22317479
+- https://github.com/git-lfs/git-lfs/issues/2428
+- https://serverfault.com/questions/1056419/git-wsl2-ssh-unexpected-disconnect-while-reading-sideband-packet
+- https://stackoverflow.com/questions/32137388/how-to-check-post-buffer-size-before-clone-git-repository
+- https://forum.gitlab.com/t/issues-with-cloning-a-repo-from-windows-using-latest-git/59089
+- https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
