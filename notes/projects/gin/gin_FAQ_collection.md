@@ -172,8 +172,24 @@ Make sure to `gin get-content [path/filename]` first, if the content is only ava
 ## Upload not working
 
 ### Q -  "Disconnect reading sideband packet, broken pipe": My upload does not work
-I cannot upload from my machine to the gin repository. I constantly get lots of error lines ending in:
+I cannot clone a repository or upload from my machine to the gin repository. I constantly get lots of error lines ending in:
 
+  Example repository clone
+   ```
+    gin get msonntag/tmp
+    Downloading repository Repository download failed. Internal git command returned: Cloning into 'tmp'...
+    remote: Enumerating objects: 516, done.                                                         
+    remote: Counting objects: 100% (516/516), done.                                                 
+    remote: Compressing objects: 100% (224/224), done.                                              
+    client_loop: send disconnect: Broken pipeiB | 1006.00 KiB/s
+    fetch-pack: unexpected disconnect while reading sideband packet
+    fatal: early EOF
+    fatal: index-pack failed
+     
+    [error] 1 operation failed
+   ```
+
+  Example repository upload
   ```bash
   [stderr]
   fatal: There is no merge to abort (MERGE_HEAD missing).
@@ -188,6 +204,8 @@ I cannot upload from my machine to the gin repository. I constantly get lots of 
   ```
 
 ### A
+
+TODO rephrase to 
 
 This error can occur when the connection cannot handle a large upload. There is no easy option to deal with this issue from the machine the error occurs on.
 
