@@ -17,6 +17,15 @@
 
         docker inspect [container]
 
+- the configuration can be filtered to print only content of interest by using the "-f" flag for running containers or docker images
+
+  ```bash
+  # e.g. filter for the IP address a container is running in
+  docker inspect -f "{{ .NetworkSettings.Networks.gcanet.IPAddress }}" [DOCKER_CONTAINER_NAME]
+  # find out when the image of a running container was created
+  docker inspect -f "{{ .Created }}" [DOCKER_IMAGE_org/name:tag]
+  ```
+
 - start a container in detached mode, remove it when it is stopped.
 
     # -d ... detached mode
