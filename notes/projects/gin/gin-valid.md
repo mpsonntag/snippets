@@ -16,7 +16,7 @@ TODO
 - create compose env
 
     ```bash
-    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > ${VALID_ROOT}/config/.env"
+    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > ${VALID_ROOT}/docker/.env"
     ```
 
 - provide `docker-compose.yml` in $VALID_ROOT/docker and `cfg.json` in $VALID_ROOT/config
