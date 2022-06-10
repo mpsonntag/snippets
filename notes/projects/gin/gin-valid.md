@@ -89,3 +89,29 @@ networks:
       config:
         - subnet: 172.19.0.0/16
 ```
+
+# Local development setup
+
+## Setup a gin server
+
+Setup a local gin server along the lines of the in-house gin project. The resulting directory structure should look like the following:
+
+```
+$GIN_ROOT_FOLDER
+├── config
+|   ├── postgres
+|   |   └── pgressecrets.env
+|   └── gogs
+|       ├── notice
+|       |   └── banner.md   # GIN page notice banner
+|       ├── public          # custom frontend style
+|       └── templates       # custom frontend files
+├── volumes
+|   └── ginweb
+├── gindata
+|   ├── gin-postgresdb
+|   └── gin-repositories
+└── gin-dockerfile
+    ├── .env
+    └── docker-compose.yml
+```
