@@ -230,3 +230,28 @@ networks:
         - subnet: 172.23.0.0/16
           gateway: 172.23.0.254
 ```
+
+## Update the config file
+
+Update the config file to contain the following information:
+
+```json
+{
+    "settings": {
+        "rooturl": "http://localhost:3033",
+        "ginuser": "gin-valid",
+        "ginpassword": "ginvalid",
+        "hooksecret": "localhook"
+    },
+    "ginaddresses": {
+        "weburl": "http://ginweb:3000",
+        "giturl": "git@ginweb:22"
+    }
+}
+```
+
+## Add a GIN "gin-valid" user
+
+On the local gin instance, add a user named "gin-valid" with the password used in the `cfg.json` file (or use a different password and change it in the config file; your cup of tea).
+
+The service should now be available.
