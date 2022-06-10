@@ -115,3 +115,12 @@ $GIN_ROOT_FOLDER
     ├── .env
     └── docker-compose.yml
 ```
+
+## Add gin-valid directories
+
+Add the following directories to accommodate the additional gin-valid requirements:
+
+```
+mkdir -vp $GIN_ROOT_FOLDER/valid/config
+mkdir -vp $GIN_ROOT_FOLDER/valid/results
+```
