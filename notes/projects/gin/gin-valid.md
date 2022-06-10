@@ -124,3 +124,109 @@ Add the following directories to accommodate the additional gin-valid requiremen
 mkdir -vp $GIN_ROOT_FOLDER/valid/config
 mkdir -vp $GIN_ROOT_FOLDER/valid/results
 ```
+
+## Add a gin-valid config file
+
+Add a `cfg.json` config file at `$GIN_ROOT_FOLDER/valid/config`. The directory structure should now look like this:
+
+```
+$GIN_ROOT_FOLDER
+├── config
+|   ├── postgres
+|   |   └── pgressecrets.env
+|   └── gogs
+|       ├── notice
+|       |   └── banner.md   # GIN page notice banner
+|       ├── public          # custom frontend style
+|       └── templates       # custom frontend files
+├── valid
+|   ├── config
+|   |   └── cfg.json
+|   └── results
+├── volumes
+|   └── ginweb
+├── gindata
+|   ├── gin-postgresdb
+|   └── gin-repositories
+└── gin-dockerfile
+    ├── .env
+    └── docker-compose.yml
+```
+
+## Update the docker-compose file
+
+Update the existing gin docker-compose file to accommodate gin-valid in the same local network:
+
+```yaml
+services:
+
+  web:
+    image: gnode/gin-web:dev
+    volumes:
+      - ../gindata/gin-repositories:/data/repos:rw
+      - ../volumes/ginweb:/data:rw
+      - ../config/gogs:/custom:rw
+      - gintmp:/data/tmp:rw
+    restart: always
+    environment:
+      - PUID=1000      # 'ginuser' user id
+      - PGID=2000      # 'ginservice' group id
+      - GOGS_CUSTOM=/custom
+    ports:
+      - "2121:22"
+      - "3000:3000"
+    networks:
+      net:
+        ipv4_address: 172.23.0.10
+        aliases:
+          - ginweb
+    depends_on:
+      - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
+
+  db:
+    image: postgres:11
+    env_file: ../config/postgres/pgressecrets.env
+    restart: always
+    networks:
+      net:
+        aliases:
+          - ginpgres
+    volumes:
+      - ../gindata/gin-postgresdb:/var/lib/postgresql/data:rw
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
+
+  valid:
+    image: gnode/gin-valid:dev
+    volumes:
+      - ../valid/config:/gin-valid/config
+      - tokens:/gin-valid/tokens
+      - ../valid/results:/gin-valid/results
+    ports:
+      - "3033:3033"
+    restart: unless-stopped
+    networks:
+      net:
+       aliases:
+         - ginvalid
+
+volumes:
+  gintmp:
+  tokens:
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/16
+          gateway: 172.23.0.254
+```
