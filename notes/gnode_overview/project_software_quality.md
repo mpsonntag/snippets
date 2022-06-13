@@ -32,3 +32,22 @@ https://github.com/client9/misspell
 
 gocyclo
 https://github.com/fzipp/gocyclo
+
+
+## Python tools
+
+pylint
+https://github.com/PyCQA/pylint
+
+PEP8 in jupyter notebooks
+https://stackoverflow.com/questions/26126853/verifying-pep8-in-ipython-notebook-code
+
+```
+pip install flake8 pycodestyle_magic
+```
+
+[... paraphrase]
+- first load the magic in a Jupyter Notebook cell: `%load_ext pycodestyle_magic`
+- and then turn on the magic to do compliance checking for each cell using: `%pycodestyle_on` or `%flake8_on`
+- depending against which style guide you want to check. 
+[...]
