@@ -255,3 +255,15 @@ Update the config file to contain the following information:
 On the local gin instance, add a user named "gin-valid" with the password used in the `cfg.json` file (or use a different password and change it in the config file; your cup of tea).
 
 The service should now be available.
+
+
+## Activate webhooks on a local setup
+
+Webhooks do not work out of the box in a local setup. The following procedure is required to enable them:
+
+- log into the local gin-valid instance
+- enable the webhook for a specific repository
+- the webhook now has been created on the local gin repository
+- access the 'webhook' menu option in the repository setting on the locally running gin instance
+- change the Payload URL from e.g. "http://localhost:3033/validate/odml/gin-valid/odmlFiles" to the docker alias set for gin-valid. In our docker-compose.yml example this would be "ginvalid"; so the payload URL should be changed to "http://ginvalid:3033/validate/odml/gin-valid/odmlFiles".
+- test the webhook via the "Test delivery" option on the gin webhook setting page
