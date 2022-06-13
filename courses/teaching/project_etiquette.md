@@ -65,3 +65,16 @@ alias gitcom='function __gitcom(){ if [[ "${#1}" > 50 ]]; then echo "Commit mess
 - if there is a related issue, refer to it: typing `#123` will automatically refer to issue 123
 - for feature request issues make sure it is actually a single feature. If there are actually more features, create more issues.
 
+
+### Pull Request (PR) etiquette
+
+- if possible keep the PRs reasonably small (morale boost for the reviewers when they do not have to read 400+ lines of code...)
+- list all points that are addressed - if the commit description is thorough, use it
+- refer to the issues it addresses - typing `#123` in the text will automatically refer to issue 123
+- you can also refer to other PRs via this running counter
+- at first document if tests have passed with which version of a programming language and linters have been run until this becomes second nature before pushing in the first place.
+- check an opened Pull request after a while whether all the tests and checks have succeeded.
+- if there are issues, fix them and push the commits to the same branch; the PR will be updated automatically
+- PRs that show CI issues will not be reviewed.
+- if reviewers have requested changes, either push more commits to address these changes or comment directly on the points that were raised so that any discussion is visible and documented.
+- find a general PR example [here](https://github.com/G-Node/python-odml/pull/389) and a PR example with extensive reviews and discussion [here](https://github.com/G-Node/nixpy/pull/495).
