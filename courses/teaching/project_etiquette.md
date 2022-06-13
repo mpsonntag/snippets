@@ -50,3 +50,18 @@ instead of `git commit -m "message"` to ensure appropriate message length:
 alias gitcom='function __gitcom(){ if [[ "${#1}" > 50 ]]; then echo "Commit message too long: ${#1} chars"; else git commit -m "$1"; fi }; __gitcom'
 ```
 
+
+### github issue etiquette
+
+- create issues on the upstream repository
+- check if there already is an issue to the point you want to raise
+- when writing the issue
+  - keep the title short
+  - do not use titles that spill over into the content body
+  - never create an issue with an empty content body
+  - try to be as descriptive as possible
+- ideally add full code examples how an issue can be reproduced.
+  example: https://github.com/G-Node/nixpy/issues/527
+- if there is a related issue, refer to it: typing `#123` will automatically refer to issue 123
+- for feature request issues make sure it is actually a single feature. If there are actually more features, create more issues.
+
