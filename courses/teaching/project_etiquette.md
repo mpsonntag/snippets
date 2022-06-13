@@ -40,3 +40,13 @@ git push origin [branchname]
 - phrase the comment bodies so that they can be re-used as Pull Request description 
 - if possible, use square brackets at the beginning of the message to indicate which file has been modified. Find examples [here](https://github.com/G-Node/gin-doi/pull/128/commits/6623a1c0609d73169c5039dde750daed890b58df) and [here](https://github.com/G-Node/gin-doi/pull/128/commits/47dbcb5c6af816ce97f8aaf13cededc4037168bb).
 
+
+#### Smooth commit handling
+
+On Linux, you can add the following to your `.bash_alias` file and use as `gitcom "Add commit message"`
+instead of `git commit -m "message"` to ensure appropriate message length:
+
+```bash
+alias gitcom='function __gitcom(){ if [[ "${#1}" > 50 ]]; then echo "Commit message too long: ${#1} chars"; else git commit -m "$1"; fi }; __gitcom'
+```
+
