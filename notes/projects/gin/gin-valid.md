@@ -270,3 +270,51 @@ Webhooks do not work out of the box in a local setup. The following procedure is
 - access the 'webhook' menu option in the repository setting on the locally running gin instance
 - change the Payload URL from e.g. "http://localhost:3033/validate/odml/gin-valid/odmlFiles" to the docker alias set for gin-valid. In our docker-compose.yml example this would be "ginvalid"; so the payload URL should be changed to "http://ginvalid:3033/validate/odml/gin-valid/odmlFiles".
 - test the webhook via the "Test delivery" option on the gin webhook setting page
+
+
+# Addendum
+
+## previous docker-compose version
+
+
+```yaml
+version: '2.4'
+services:
+  valid:
+    image: gnode/gin-valid:latest
+    volumes:
+      - cfg:/gin-valid/config
+      - tokens:/gin-valid/tokens
+      - results:/gin-valid/results
+    restart: unless-stopped
+    networks:
+      net:
+        ipv4_address: 172.12.0.10
+        aliases:
+          - ginvalid
+
+volumes:
+  webdata:
+  repos:
+  webtmp:
+  cfg:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/data/web/valid/config"
+  tokens:
+  results:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/data/web/valid/results"
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.12.0.0/16
+```
