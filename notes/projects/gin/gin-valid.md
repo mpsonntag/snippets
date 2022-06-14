@@ -219,6 +219,11 @@ services:
          - ginvalid
     depends_on:
       - web
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
 
 volumes:
   gintmp:
