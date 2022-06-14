@@ -217,6 +217,8 @@ services:
       net:
        aliases:
          - ginvalid
+    depends_on:
+      - web
 
 volumes:
   gintmp:
