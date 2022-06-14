@@ -79,6 +79,8 @@ networks:
           gateway: 172.12.0.254
 ```
 
+Note that you can find a previous version of the live docker-compose file in the addendum.
+
 ## apache config
 
 ```
@@ -105,6 +107,12 @@ VirtualHost valid.dev.g-node.org:80>
     ProxyPassReverse / http://172.12.0.10:4044/
 </VirtualHost>
 ```
+
+## Add a GIN "gin-valid" user
+
+On the connected gin instance, add a user named "gin-valid" with the password used in the `cfg.json` file (or use a different password and change it in the config file; your cup of tea).
+
+The gin-valid service should now be ready to go.
 
 # Local development setup
 
