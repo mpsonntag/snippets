@@ -184,6 +184,7 @@ $GIN_ROOT_FOLDER
 Update the existing gin docker-compose file to accommodate gin-valid in the same local network:
 
 ```yaml
+version: '3.8'
 services:
 
   web:
