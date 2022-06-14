@@ -25,19 +25,19 @@
 
 - the service requires a user named "gin-valid" on the running gin instance it is supposed to work with.
 
-## cfg.json file
+## gin-valid config file (cfg.json)
 
 ```json
 {
     "settings": {
-        "rooturl": "https://valid.gin.g-node.org",
+        "rooturl": "https://valid.dev.g-node.org",
         "ginuser": "gin-valid",
         "ginpassword": "[add password here]",
         "hooksecret": "[add secret here]"
     },
     "ginaddresses": {
-        "weburl": "https://gin.g-node.org:443",
-        "giturl": "git@gin.g-node.org:22"
+        "weburl": "https://gin.dev.g-node.org:443",
+        "giturl": "git@gin.dev.g-node.org:22"
     }
 }
 ```
