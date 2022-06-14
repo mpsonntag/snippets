@@ -42,48 +42,41 @@
 }
 ```
 
-## docker-compose file
+## gin-valid docker-compose file
+
+Do not expose ports in live setup; handle port mapping via the apache config
 
 ```yaml
-version: '2.4'
+version: '3.8'
 services:
   valid:
     image: gnode/gin-valid:latest
     volumes:
-      - cfg:/gin-valid/config
+      - ../config:/gin-valid/config
+      - ../results:/gin-valid/results
       - tokens:/gin-valid/tokens
-      - results:/gin-valid/results
     restart: unless-stopped
     networks:
       net:
-        ipv4_address: 172.19.0.10
-        aliases:
-          - ginvalid
+        ipv4_address: 172.12.0.10
+       aliases:
+         - ginvalid
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
 
 volumes:
-  webdata:
-  repos:
-  webtmp:
-  cfg:
-    driver: "local"
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "/data/web/valid/config"
   tokens:
-  results:
-    driver: "local"
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "/data/web/valid/results"
 
 networks:
   net:
     ipam:
       driver: default
       config:
-        - subnet: 172.19.0.0/16
+        - subnet: 172.12.0.0/16
+          gateway: 172.12.0.254
 ```
 
 # Local development setup
