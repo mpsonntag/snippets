@@ -1,25 +1,21 @@
-## notes on how to setup gin-valid
-
-TODO
-- simplify folder structure
-- update docker-compose to newer version
+## Notes on how to set up a gin-valid
 
 - create folder structure
 
     ```bash
     VALID_ROOT=/data/web/valid
     mkdir -vp $VALID_ROOT/config
-    mkdir -vp $VALID_ROOT/docker
+    mkdir -vp $VALID_ROOT/valid-dockerfile
     mkdir -vp $VALID_ROOT/results
     ```
 
-- create compose env
+- create compose env file
 
     ```bash
-    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > ${VALID_ROOT}/docker/.env"
+    sudo sh -c "echo 'COMPOSE_PROJECT_NAME=ginvalid' > ${VALID_ROOT}/valid-dockerfile/.env"
     ```
 
-- provide `docker-compose.yml` in $VALID_ROOT/docker and `cfg.json` in $VALID_ROOT/config
+- provide `docker-compose.yml` in $VALID_ROOT/valid-dockerfile and `cfg.json` in $VALID_ROOT/config
 
 - change ownership to `gnode` user and `deploy` group
 
