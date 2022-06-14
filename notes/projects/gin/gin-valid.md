@@ -79,6 +79,33 @@ networks:
           gateway: 172.12.0.254
 ```
 
+## apache config
+
+```
+VirtualHost valid.dev.g-node.org:80>
+    ServerName valid.dev.g-node.org
+    ServerAdmin dev@g-node.org
+
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =valid.dev.g-node.org
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+<VirtualHost valid.dev.g-node.org:443>
+    ServerName valid.dev.g-node.org
+
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/valid.dev.g-node.org/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/valid.dev.g-node.org/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+
+    ProxyPreserveHost  On
+    ProxyRequests Off
+    ProxyPass / http://172.12.0.10:4044/
+    ProxyPassReverse / http://172.12.0.10:4044/
+</VirtualHost>
+```
+
 # Local development setup
 
 ## Setup a gin server
