@@ -116,7 +116,9 @@ The gin-valid service should now be ready to go.
 
 # Local development setup
 
-## Setup a gin server
+A setup for local development needs a different approach. All containers will live within the same docker network and communicate mostly via the internal network. For the setup of the local gin and the gin-client to work with a local gin server, please consult the gin in-house setup guide.
+
+## Set up a local gin server
 
 Setup a local gin server along the lines of the in-house gin project. The resulting directory structure should look like the following:
 
@@ -201,7 +203,7 @@ services:
       - "3000:3000"
     networks:
       net:
-        ipv4_address: 172.23.0.10
+        ipv4_address: 172.13.0.10
         aliases:
           - ginweb
     depends_on:
@@ -232,10 +234,10 @@ services:
     image: gnode/gin-valid:dev
     volumes:
       - ../valid/config:/gin-valid/config
-      - tokens:/gin-valid/tokens
       - ../valid/results:/gin-valid/results
+      - tokens:/gin-valid/tokens
     ports:
-      - "3033:3033"
+      - "4044:4044"
     restart: unless-stopped
     networks:
       net:
@@ -258,8 +260,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.23.0.0/16
-          gateway: 172.23.0.254
+        - subnet: 172.13.0.0/16
+          gateway: 172.13.0.254
 ```
 
 ## Update the config file
@@ -269,7 +271,7 @@ Update the config file to contain the following information:
 ```json
 {
     "settings": {
-        "rooturl": "http://localhost:3033",
+        "rooturl": "http://localhost:4044",
         "ginuser": "gin-valid",
         "ginpassword": "ginvalid",
         "hooksecret": "localhook"
@@ -296,7 +298,7 @@ Webhooks do not work out of the box in a local setup. The following procedure is
 - enable the webhook for a specific repository
 - the webhook now has been created on the local gin repository
 - access the 'webhook' menu option in the repository setting on the locally running gin instance
-- change the Payload URL from e.g. "http://localhost:3033/validate/odml/gin-valid/odmlFiles" to the docker alias set for gin-valid. In our docker-compose.yml example this would be "ginvalid"; so the payload URL should be changed to "http://ginvalid:3033/validate/odml/gin-valid/odmlFiles".
+- change the Payload URL from e.g. "http://localhost:4044/validate/odml/gin-valid/odmlFiles" to the docker alias set for gin-valid. In our docker-compose.yml example this would be "ginvalid"; so the payload URL should be changed to "http://ginvalid:4044/validate/odml/gin-valid/odmlFiles".
 - test the webhook via the "Test delivery" option on the gin webhook setting page
 
 
