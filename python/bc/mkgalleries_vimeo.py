@@ -79,7 +79,7 @@ WORKSHOP_RECORD_MSG = {
 # is used.
 INVITED_TALKS_ADJUST = True
 
-VIMEO_PLAYER_SCRIPT = '<iframe src="https://player.vimeo.com/video/%s?h=%s&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="%s"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
+VIMEO_PLAYER_SCRIPT = '<iframe src="https://player.vimeo.com/video/%s?h=%s&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="%s"></iframe><script src="https://player.vimeo.com/api/player.js"></script>'
 
 
 def run_cmd(*args) -> str:
