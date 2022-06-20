@@ -239,7 +239,6 @@ services:
       - tokens:/gin-valid/tokens
     ports:
       - "4044:4044"
-    restart: unless-stopped
     networks:
       net:
        aliases:
