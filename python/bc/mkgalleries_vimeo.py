@@ -430,12 +430,16 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
                 poster_page.write(f"[![Poster]({poster_thumb_url})]({poster_url}) ")
 
         if video_url:
+            vid_text = f"[![Video]({VIDEO_ICON_URL})]({video_url})"
             # replacing normal video link with embedded player
-            # vid_text = f"[![Video]({VIDEO_ICON_URL})]({video_url})"
-            vim_vid_id = "bla"
-            vim_vid_hash = "bla"
-            vim_vid_title = ""
-            vid_text = VIMEO_PLAYER_SCRIPT % (vim_vid_id, vim_vid_hash, vim_vid_title)
+            vimsplit = video_url.replace("https://vimeo.com/", "")
+            vimsplit = vimsplit.split("/")
+            if len(vimsplit) == 2:
+                vim_vid_id = vimsplit[0]
+                vim_vid_hash = vimsplit[1]
+                vim_auth = authors.strip().split(",")[0]
+                vim_vid_title = f"{vim_auth.strip()}, {title.strip()}"
+                vid_text = VIMEO_PLAYER_SCRIPT % (vim_vid_id, vim_vid_hash, vim_vid_title)
             # table hack to enable "no video" notice for Contributed and Invited talks
             if item["short"] in ["C", "I"] and video_url == "no recording":
                 vid_text = "Video recording will not be made available\n\n"
