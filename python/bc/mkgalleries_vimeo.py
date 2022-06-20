@@ -79,7 +79,7 @@ WORKSHOP_RECORD_MSG = {
 # is used.
 INVITED_TALKS_ADJUST = True
 
-VIMEO_PLAYER_SCRIPT = '<iframe src="https://player.vimeo.com/video/%s?h=%s&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="%s"></iframe><script src="https://player.vimeo.com/api/player.js"></script>'
+VIMEO_PLAYER_SCRIPT = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h={}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="{}"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
 
 
 def run_cmd(*args) -> str:
@@ -439,7 +439,8 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
                 vim_vid_hash = vimsplit[1]
                 vim_auth = authors.strip().split(",")[0]
                 vim_vid_title = f"{vim_auth.strip()}, {title.strip()}"
-                vid_text = VIMEO_PLAYER_SCRIPT % (vim_vid_id, vim_vid_hash, vim_vid_title)
+                vid_text = VIMEO_PLAYER_SCRIPT.format(vim_vid_id, vim_vid_hash,
+                                                      vim_vid_title)
             # table hack to enable "no video" notice for Contributed and Invited talks
             if item["short"] in ["C", "I"] and video_url == "no recording":
                 vid_text = "Video recording will not be made available\n\n"
