@@ -40,6 +40,7 @@ git push origin [branchname]
 - phrase the comment bodies so that they can be re-used as Pull Request description 
 - if possible, use square brackets at the beginning of the message to indicate which file has been modified. Find examples [here](https://github.com/G-Node/gin-doi/pull/128/commits/6623a1c0609d73169c5039dde750daed890b58df) and [here](https://github.com/G-Node/gin-doi/pull/128/commits/47dbcb5c6af816ce97f8aaf13cededc4037168bb).
 
+- when trying to automatically close a github issue via a commit message, always use "Closes #[issue number]". See an example [here](https://github.com/G-Node/gin-doi/commit/47dbcb5c6af816ce97f8aaf13cededc4037168bb).
 
 #### Smooth commit handling
 
