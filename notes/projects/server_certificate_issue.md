@@ -76,3 +76,20 @@ Investigating the apache processes showed the following
     - the sub-processes 852278, 852279 were owned by `www-data`
 
 - restarting the service did solve the issue, the expired certificate was no longer served.
+
+
+## Checking certificate expiration dates
+
+There are a couple of ways how to check certificate expiration dates
+
+- directly on the server
+  ```bash
+  sudo openssl x509 -dates -noout -in /path/to/certificate/cert.pem
+  ```
+
+- using curl
+  ```bash
+  curl -vI [domain]
+  ```
+
+- using an off-site service like [https://www.ssllabs.com/ssltest/index.html](https://www.ssllabs.com/ssltest/index.html)
