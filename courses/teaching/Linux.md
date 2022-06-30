@@ -1935,6 +1935,21 @@ Reboot a machine from the command line
     # or
     sudo reboot
 
+## File encryption
+
+Use openssl to encrypt files with a password
+
+- encrypt file
+```bash
+openssl aes-256-cbc -a -salt -iter 5 -in [plain file] -out [encrypted file].enc
+```
+
+- decrypt file
+```bash
+openssl aes-256-cbc -d -a -iter 5 -in [encrypted file] -out [output plain file]
+```
+
+
 ## Safely removing files
 
 First make sure that you hard drive is not an SSD. The methods described below all
