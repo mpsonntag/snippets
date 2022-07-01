@@ -26,6 +26,7 @@ https://github.com/nest/nest-simulator/blob/master/pynest/examples/Potjans_2014/
 """
 
 import odml
+import odml.validation as oval
 
 from IPython import embed
 
@@ -57,6 +58,26 @@ def validate(section):
             raise ValueError(f"Required property {eel} does not exist!")
 
     return True
+
+
+def validate_sec_crown_length_handler(obj):
+    validation_id = oval.IssueID.custom_validation
+    # validation is specific to sections of type "crown-length"
+    if not obj.type == "Crown-length-parameters":
+        return
+
+    # ensure that the section contains the 'data_type' property
+    if "data_typeOfArray" not in obj.properties:
+        msg = "data_typeOfArray property is missing"
+        yield oval.ValidationError(obj, msg, oval.LABEL_ERROR, validation_id)
+    # ensure that the section contains the 'data_dimension' property
+    if "data_dimension" not in obj.properties:
+        msg = "data_dimension property is missing"
+        yield oval.ValidationError(obj, msg, oval.LABEL_ERROR, validation_id)
+    # warn if the section does not contain the 'data_range' property
+    if "data_range" not in obj.properties:
+        msg = "data_range property is missing"
+        yield oval.ValidationError(obj, msg, oval.LABEL_WARNING, validation_id)
 
 
 if __name__ == "__main__":
