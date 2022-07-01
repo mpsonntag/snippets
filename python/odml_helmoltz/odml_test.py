@@ -28,8 +28,6 @@ https://github.com/nest/nest-simulator/blob/master/pynest/examples/Potjans_2014/
 import odml
 import odml.validation as oval
 
-from IPython import embed
-
 
 def store_geo_param(name):
     # providing a section type enables filtering large odml file
@@ -44,20 +42,6 @@ def store_geo_param(name):
                                          "(0.4; 0.4; 0.4)"], dtype="3-tuple")
 
     return section
-
-
-def validate(section):
-    embed()
-    must = {"data_dimension": [3, 3]}
-    exists = ["data_range"]
-    for mke, mkv in must.items():
-        if not section.properties[mke].values == mkv:
-            raise ValueError(f"Property {mke} does not match requirement {mkv}")
-    for eel in exists:
-        if eel not in section.properties:
-            raise ValueError(f"Required property {eel} does not exist!")
-
-    return True
 
 
 def validate_sec_crown_length_handler(obj):
@@ -86,5 +70,3 @@ if __name__ == "__main__":
     doc = odml.Document()
     doc.append(sec)
     odml.save(doc, "test.xml")
-
-    validate(sec)
