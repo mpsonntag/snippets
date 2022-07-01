@@ -182,7 +182,11 @@ When having an external storage location for files via ` -v /external:/internal`
 
 ### Docker logs
 
-By default docker logs can be found at `/var/lib/docker/containers/[container-id]/[container-id]-json.log`. If the docker storage has been moved from the default location to another due to space issues, the logfiles will be found there.
+By default docker logs can be found at `/var/lib/docker/containers/[container-id]/[container-id]-json.log`. If the docker storage has been moved from the default location to another due to space issues, the logfiles will be found there. They can be easily identified for copy via the docker config:
+
+```bash
+docker inspect [container_name] | grep LogPath
+```
 
 Docker writes `json` files by default; the format can be checked using the command 
 ```
