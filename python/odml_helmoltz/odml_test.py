@@ -1,3 +1,30 @@
+"""
+UFZ Leipzig odml concept script
+
+array    N_Par.Geo_CLFH_31
+  \\u -
+  \\r 0:999999
+  \\d Parameters of Crown length factor-Height-function of a single tree (group-specific)
+  typeOfArray    float
+  dimension    3    3
+data
+  0.4    0.4    0.4
+  0.0    0.0    0.0
+  0.0    0.0    0.0
+end
+
+> To summarize:
+> 1. we want to be able to store n dimensional values
+> 2. currently d-type describes the data type or the dimension (if
+> 2-tuple or 3-tuple is used), in the latter case float is assumed. For
+> the example we would need dimension besides dtype, to store both
+> attributes.
+> 3. we need the attribute range
+
+Full metadata to be stored in odml: "net_dict" found at
+https://github.com/nest/nest-simulator/blob/master/pynest/examples/Potjans_2014/network_params.py
+"""
+
 import odml
 
 from IPython import embed
