@@ -32,16 +32,28 @@ from odml.tools.parser_utils import ParserException
 
 
 def store_geo_param(name):
-    # providing a section type enables filtering large odml file
+    # The section contains all the information of a more complex configuration entry
+
+    # Providing a section type enables filtering large odml file
     # with multiple similar occurrences.
     section_type = "Crown-length-parameters"
     section = odml.Section(name, section_type)
     section.create_property("data_range", [0, 999999])
     section.create_property("data_typeOfArray", "float")
     section.create_property("data_dimension", [3, 3])
-    _ = section.create_property("data", ["(0.4; 0.4; 0.4)",
-                                         "(0.4; 0.4; 0.4)",
-                                         "(0.4; 0.4; 0.4)"], dtype="3-tuple")
+    section.create_property(name="data", dtype="3-tuple",
+                            values=["(0.4; 0.4; 0.4)",
+                                    "(0.4; 0.4; 0.4)",
+                                    "(0.4; 0.4; 0.4)"])
+    # Two notes about odml n-tuples
+    # 1) Before using n-tuples in a property, the "dtype" has to specified before any
+    # values are added. Otherwise the dtype will be assumed as "string".
+    # 2) using n-dimensional tuples does not provide any benefits when saving this data
+    # to file and loading it back up; it mainly ensures that more complex data
+    # are always correctly added.
+    # Appending additional values to the n-tuple is now only possible if the dimensions
+    # of the appended data fit. e.g. appending "(1; 1; 1)" would succeed, "(1; 1)" would
+    # fail.
 
     return section
 
