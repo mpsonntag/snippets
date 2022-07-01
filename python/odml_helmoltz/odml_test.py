@@ -28,6 +28,8 @@ https://github.com/nest/nest-simulator/blob/master/pynest/examples/Potjans_2014/
 import odml
 import odml.validation as oval
 
+from odml.tools.parser_utils import ParserException
+
 
 def store_geo_param(name):
     # providing a section type enables filtering large odml file
@@ -35,7 +37,7 @@ def store_geo_param(name):
     section_type = "Crown-length-parameters"
     section = odml.Section(name, section_type)
     section.create_property("data_range", [0, 999999])
-    section.create_property("data_type", "float")
+    section.create_property("data_typeOfArray", "float")
     section.create_property("data_dimension", [3, 3])
     _ = section.create_property("data", ["(0.4; 0.4; 0.4)",
                                          "(0.4; 0.4; 0.4)",
@@ -66,7 +68,32 @@ def validate_sec_crown_length_handler(obj):
 
 if __name__ == "__main__":
     # section names have to be unique on their section level
-    sec = store_geo_param(name="NPar.geo.clfh")
     doc = odml.Document()
+    sec = store_geo_param(name="NPar.geo.clfh")
     doc.append(sec)
-    odml.save(doc, "test.xml")
+
+    # save the document to file
+    odml.save(doc, "crown_length.xml")
+
+    # register a custom validation handler ensuring, that "crown_length" sections are
+    # only saved if they have been properly added.
+    oval.Validation.register_handler("section", validate_sec_crown_length_handler)
+
+    # add a crown_length section that does not contain all required properties
+    invalid_sec = doc.create_section(name="NPar.geo.clfh_invalid",
+                                     type="Crown-length-parameters")
+
+    # the document can now no longer be saved since the latest crown length section
+    # contains validation errors
+    try:
+        odml.save(doc, "crown_length.xml")
+    except ParserException as exc:
+        print(exc)
+
+    # adding the required properties to the invalid section
+    invalid_sec.create_property("data_dimension", [3, 3])
+    invalid_sec.create_property("data_typeOfArray", "float")
+
+    # saving now works again, but a warning is reported on file save, since the
+    # "data_range" property is still missing
+    odml.save(doc, "crown_length.xml")
