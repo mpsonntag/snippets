@@ -169,6 +169,19 @@ Note, that a commit is required to fully remove a file from gin tracking. Also n
 Make sure to `gin get-content [path/filename]` first, if the content is only available remotely.
 
 
+## Local directory size after delete
+
+### Q - My local directory has a huge size even after file delete
+
+I removed large files from my project that I did not need any more. Still my directory requires too much disk space.
+
+### A
+When files are deleted from the project, they still remain in the history. If for example a file got deleted by mistake in the past, you can go back and restore it.
+The deleted file will always remain on the server, but if you want to free up the space locally, there are two ways to deal with this situation:
+- If you have not deleted a large file yet, first remove the file content from your local gin store by using the `gin remove-content [large_file]` command. No you can safely delete the file without any leftover space occupied in your local history. You can still checkout an earlier commit and retrieve this file from the server.
+- If you have already deleted this file without removing the file content first, you can free up this space by locally removing your gin directory and clone it again from the server. Just make sure you commit and upload any unsaved changes before doing this.
+
+
 ## Upload not working
 
 ### Q -  "Disconnect reading sideband packet, broken pipe": My upload does not work
