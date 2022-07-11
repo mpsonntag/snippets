@@ -1,0 +1,36 @@
+## Timetable Bernstein conference
+
+- [BCOS] create conference entry on abstracts.g-node.org
+- [BCOS] abstract submission opening
+    - open abstract submission on abstracts.g-node.org
+- [BCOS] abstract submission deadline
+    - close abstracts submission on abstracts.g-node.org
+- [BCOS] review abstracts
+- [G-Node]
+  - sort abstracts
+  - upload to abstracts.g-node.org
+- [G-Node] prepare services at bc.g-node.org and posters.bc.g-node.org
+    - [BCOS] check required categories
+      - Main, Invited Talks, Contributed Talks, Posters, Workshops, Exhibition, Conference Information
+    - [BCOS] check banners
+    - [BCOS] check texts on login, sign up and poster upload pages
+    - [G-Node] update services according to required content changes
+- [BCOS] send abstract list to G-Node for Upload verification code generation
+- [G-Node]
+  - send poster upload codes to BCOS
+  - enable poster upload page
+  - prepare poster / upload code list on the upload page
+  - prepare email whitelist password on the upload page
+  - send admin password for email whitelist to BCOS
+- [BCOS] send acceptance emails to poster presenters including upload code
+    - check email template below
+
+- [BCOS] prepare SciBo CSV tables for
+    - Posters / Invited Talks / Contributed Talks
+    - Workshops
+    - Exhibition
+- [BCOS] prepare "Conference Information" content
+- [BCOS] repository registration whitelist
+  - continuously upload email addresses of registered users via the whitelist page: https://posters.bc.g-node.org/uploademail
+- [G-Node] create and upload repository content from SciBo CSV tables
+- [G-Node] switch repository to static page
