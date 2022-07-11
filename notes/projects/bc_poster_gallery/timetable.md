@@ -1,5 +1,7 @@
 ## Timetable Bernstein conference
 
+- [xyz] add more specific dates
+
 - [BCOS] create conference entry on abstracts.g-node.org
 - [BCOS] abstract submission opening
     - open abstract submission on abstracts.g-node.org
@@ -13,7 +15,10 @@
     - [BCOS] check required categories
       - Main, Invited Talks, Contributed Talks, Posters, Workshops, Exhibition, Conference Information
     - [BCOS] check banners
+      - [xyz] define format to exchange used images
+      - [xyz] common URLs to check images
     - [BCOS] check texts on login, sign up and poster upload pages
+      - [xyz] define format to exchange texts
     - [G-Node] update services according to required content changes
 - [BCOS] send abstract list to G-Node for Upload verification code generation
 - [G-Node]
@@ -39,6 +44,8 @@
 # Addendum
 
 ## Repository templates
+
+[xyz] check whether adding these here makes sense
 
 ## Email templates
 
@@ -77,3 +84,4 @@
 
 ### Conference registration
 
+    [xyz] Add email text
