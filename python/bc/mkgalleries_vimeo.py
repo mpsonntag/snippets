@@ -21,7 +21,10 @@ from latex2svg.latex2svg import latex2svg
 
 
 POSTER_SERVER = "posters.bc.g-node.org"
-GALLERY_SERVER = "https://bc.g-node.org"
+# Keep this empty to make image links relative;
+# should enable image display on the test server
+# GALLERY_SERVER = "https://bc.g-node.org"
+GALLERY_SERVER = ""
 POSTER_REPO = "BernsteinConference/posters"
 VIDEO_ICON_URL = f"{GALLERY_SERVER}/img/play.png"
 TOPIC_COLOURS = {
