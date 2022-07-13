@@ -155,6 +155,16 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   docker-compose up -d
   ```
 
+## Required registration routine set up
+
+To enable registration on the poster gallery, the email address has to be made available 
+via the uploader service.
+
+The routine is as follows:
+- provide an upload pw on the server in `$PROJ_ROOT/config/uploader/config`
+- add email addresses on the uploader service via route `[uploader URL]/uploademail`
+- this will create an output file containing hashes of the email addresses
+- these hashes can be queried by the gogs services via the route `[uploader URL]/uploads/emailwhitelist`
 
 ## Required repository setup
 
