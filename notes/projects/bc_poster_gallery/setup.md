@@ -166,6 +166,12 @@ The routine is as follows:
 - this will create an output file containing hashes of the email addresses
 - these hashes can be queried by the gogs services via the route `[uploader URL]/uploads/emailwhitelist`
 
+## Required poster upload hash set up
+
+- provide a salt file with an according value in a `$PROJ_ROOT/uploadersalt` file ... it is required for the poster upload hash
+- create a poster_hash.json file using the `mkuploadcodes.py` file from github:BC20/scripts.
+- copy the resulting file to `$PROJ_ROOT/config/uploader/poster.json`
+
 ## Required repository setup
 
 ### ssh access for cloning, local editing and pushing
