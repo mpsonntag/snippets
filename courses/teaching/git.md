@@ -272,7 +272,7 @@ git checkout -b WIP
 git commit -a -m "WIP"
 git push origin WIP
 
-# take a break; when coming back, unstash the changes
+# take a break; when coming back, "un-commit" the changes
 git reset HEAD~1
 # return to working branch and cleanup
 git checkout [working branch]
