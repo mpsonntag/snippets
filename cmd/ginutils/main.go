@@ -158,6 +158,42 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	return
 }
 
+// AnnexInit initialises the repository for annex.
+// (git annex init)
+func remoteAnnexInit(gitdir, description string) error {
+	err := localGitConfigSet(gitdir, "annex.backends", "MD5")
+	if err != nil {
+		log.Write("Failed to set default annex backend MD5")
+	}
+	err = localGitConfigSet(gitdir, "annex.addunlocked", "true")
+	if err != nil {
+		log.Write("Failed to initialise annex in unlocked mode")
+		return err
+	}
+	args := []string{"init", "--version=7", description}
+	// hijack command for remote gitdir execution
+	cmd := gingit.AnnexCommand(args...)
+	cmdargs := []string{"git", "-C", gitdir, "annex"}
+	cmdargs = append(cmdargs, args...)
+	cmd.Args = cmdargs
+	stdout, stderr, err := cmd.OutputError()
+	if err != nil {
+		initError := fmt.Errorf("Repository annex initialisation failed.\n%s", string(stderr))
+		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		return initError
+	}
+
+	// hijack command for remote gitdir execution
+	cmd = gingit.Command("checkout", "master")
+	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
+	stdout, stderr, err = cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+	}
+
+	return nil
+}
+
 func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 	// If there is no git user.name or user.email set local ones
 	cmd := gingit.Command("config", "user.name")
