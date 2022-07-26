@@ -3,9 +3,11 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os/user"
 	"runtime"
 	"strings"
 
+	"github.com/G-Node/gin-cli/ginclient"
 	gingit "github.com/G-Node/gin-cli/git"
 	"github.com/G-Node/gin-cli/git/shell"
 	"github.com/G-Node/gin-valid/internal/log"
@@ -154,6 +156,49 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	status.Progress = "100%"
 	clonechan <- status
 	return
+}
+
+func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
+	// If there is no git user.name or user.email set local ones
+	cmd := gingit.Command("config", "user.name")
+	cmdargs := []string{"git", "-C", gitdir, "config", "user.name"}
+	cmd.Args = cmdargs
+	globalGitName, _ := cmd.Output()
+	if len(globalGitName) == 0 {
+		info, ierr := gincl.RequestAccount(gincl.Username)
+		name := info.FullName
+		if ierr != nil || name == "" {
+			name = gincl.Username
+		}
+		if name == "" {
+			// gin user might not be logged in; fall back to system user
+			u, _ := user.Current()
+			name = u.Name
+		}
+		err := localGitConfigSet(gitdir, "user.name", name)
+		if err != nil {
+			log.ShowWrite("[Error] setting git config user.name: %s", err.Error())
+		}
+		err = localGitConfigSet(gitdir, "user.email", name)
+		if err != nil {
+			log.ShowWrite("[Error] setting git config user.email: %s", err.Error())
+		}
+	}
+	// Disable quotepath: when enabled prints escape sequences for files with
+	// unicode characters making it hard to work with, can break JSON
+	// formatting, and sometimes impossible to reference specific files.
+	err := localGitConfigSet(gitdir, "core.quotepath", "false")
+	if err != nil {
+		log.ShowWrite("[Error] setting git config core.quotepath: %s", err.Error())
+	}
+	if runtime.GOOS == "windows" {
+		// force disable symlinks even if user can create them
+		// see https://git-annex.branchable.com/bugs/Symlink_support_on_Windows_10_Creators_Update_with_Developer_Mode/
+		err = localGitConfigSet(gitdir, "core.symlinks", "false")
+		if err != nil {
+			log.ShowWrite("[Error] setting git config core.symlinks: %s", err.Error())
+		}
+	}
 }
 
 func main() {
