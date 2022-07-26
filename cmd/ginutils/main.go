@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 
 	gingit "github.com/G-Node/gin-cli/git"
@@ -24,6 +25,20 @@ func localGitConfigSet(key, value, gitdir string) error {
 		return gerr
 	}
 	return nil
+}
+
+func isGitRepo(path string) bool {
+	cmd := gingit.Command("version")
+	cmdargs := []string{"git", "-C", path, "rev-parse"}
+	cmd.Args = cmdargs
+	_, stderr, err := cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[Error] running git rev-parse: %s", err.Error())
+		return false
+	} else if bytes.Contains(stderr, []byte("not a git repository")) {
+		return false
+	}
+	return true
 }
 
 func main() {

@@ -7,7 +7,10 @@ replace (
 	github.com/go-xorm/core => xorm.io/core v0.6.3
 )
 
-require github.com/G-Node/gin-cli v0.0.0-20211026085202-854ad97855da
+require (
+	github.com/G-Node/gin-cli v0.0.0-20211026085202-854ad97855da
+	github.com/G-Node/gin-valid v0.0.0-20220715084532-b95ad7ac7696
+)
 
 require (
 	github.com/dustin/go-humanize v1.0.0 // indirect
@@ -25,7 +28,6 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.4.0 // indirect
-	github.com/stretchr/testify v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
 	golang.org/x/text v0.3.2 // indirect
