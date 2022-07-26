@@ -68,6 +68,57 @@ func localcutline(b []byte) (string, bool) {
 	return string(b[:idx]), false
 }
 
+// localExpandglobs expands a list of globs into paths (files and directories).
+// If strictmatch is true, an error is returned if at least one element of the input slice does not match a real path,
+// otherwise the pattern itself is returned when it matches no existing path.
+func localExpandglobs(paths []string, strictmatch bool) (globexppaths []string, err error) {
+	if len(paths) == 0 {
+		// Nothing to do
+		globexppaths = paths
+		return
+	}
+	// expand potential globs
+	for _, p := range paths {
+		log.Write("ExpandGlobs: Checking for glob expansion for %s", p)
+		exp, globerr := filepath.Glob(p)
+		if globerr != nil {
+			log.Write(globerr.Error())
+			log.Write("Bad file pattern %s", p)
+			return nil, globerr
+		}
+		if exp == nil {
+			log.Write("ExpandGlobs: No files matched")
+			if strictmatch {
+				return nil, fmt.Errorf("no files matched %v", p)
+			}
+			exp = []string{p}
+		}
+		globexppaths = append(globexppaths, exp...)
+	}
+	return
+}
+
+// remoteGetContent downloads the contents of placeholder files in a checked out repository.
+// The status channel 'getcontchan' is closed when this function returns.
+// The git annex command is run in a provided directory and not the current one.
+func remoteGetContent(remoteGitDir string, paths []string, getcontchan chan<- gingit.RepoFileStatus, rawMode bool) {
+	defer close(getcontchan)
+	log.ShowWrite("[Info] remoteGetContent")
+
+	paths, err := localExpandglobs(paths, true)
+
+	if err != nil {
+		getcontchan <- gingit.RepoFileStatus{Err: err}
+		return
+	}
+
+	annexgetchan := make(chan gingit.RepoFileStatus)
+	go remoteAnnexGet(remoteGitDir, paths, annexgetchan, rawMode)
+	for stat := range annexgetchan {
+		getcontchan <- stat
+	}
+}
+
 // remoteCloneRepo clones a remote repository and initialises annex.
 // The status channel 'clonechan' is closed when this function returns.
 func remoteCloneRepo(gincl *ginclient.Client, repopath, clonedir string, clonechan chan<- gingit.RepoFileStatus) {
@@ -196,7 +247,7 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	return
 }
 
-// remoteInitDir initialises the local directory with the default 
+// remoteInitDir initialises the local directory with the default
 // remote and git (and annex) configuration options.
 func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
 	initerr := localginerror{Origin: "InitDir", Description: "Error initialising local directory"}
