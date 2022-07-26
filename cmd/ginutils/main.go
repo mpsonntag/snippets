@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/user"
 	"runtime"
 	"strings"
@@ -156,6 +157,32 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	status.Progress = "100%"
 	clonechan <- status
 	return
+}
+
+// remoteInitDir initialises the local directory with the default 
+// remote and git (and annex) configuration options.
+func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
+	initerr := localginerror{Origin: "InitDir", Description: "Error initialising local directory"}
+
+	// check if the provided directory is a git directory
+	if !isGitRepo(gitdir) {
+		return fmt.Errorf("[Error] provided path is not a git directory: %q", gitdir)
+	}
+
+	remoteInitConfig(gincl, gitdir)
+
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = "(unknownhost)"
+	}
+	description := fmt.Sprintf("%s@%s", gincl.Username, hostname)
+	err = remoteAnnexInit(gitdir, description)
+	if err != nil {
+		initerr.UError = err.Error()
+		return initerr
+	}
+
+	return nil
 }
 
 // AnnexInit initialises the repository for annex.
