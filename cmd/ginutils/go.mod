@@ -10,10 +10,10 @@ replace (
 require (
 	github.com/G-Node/gin-cli v0.0.0-20211026085202-854ad97855da
 	github.com/G-Node/gin-valid v0.0.0-20220715084532-b95ad7ac7696
+	github.com/dustin/go-humanize v1.0.0
 )
 
 require (
-	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/gogits/go-gogs-client v0.0.0-20190710002546-4c3c18947c15 // indirect
