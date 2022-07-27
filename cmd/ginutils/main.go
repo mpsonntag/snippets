@@ -316,8 +316,9 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 	}
 }
 
-// remoteAnnexInit initialises the repository for annex.
-// (git annex init)
+// remoteAnnexInit initialises a git repository found at a provided path for annex.
+// The provided directory is not explicitly checked whether it exists and
+// it is assumed that it is the root of a git repository.
 func remoteAnnexInit(gitdir, description string) error {
 	err := remoteGitConfigSet(gitdir, "annex.backends", "MD5")
 	if err != nil {
@@ -329,24 +330,24 @@ func remoteAnnexInit(gitdir, description string) error {
 		return err
 	}
 	args := []string{"init", "--version=7", description}
-	// hijack command for remote gitdir execution
+	// hijack gin command environment for remote gitdir execution
 	cmd := gingit.AnnexCommand(args...)
 	cmdargs := []string{"git", "-C", gitdir, "annex"}
 	cmdargs = append(cmdargs, args...)
 	cmd.Args = cmdargs
-	stdout, stderr, err := cmd.OutputError()
+	_, stderr, err := cmd.OutputError()
 	if err != nil {
-		initError := fmt.Errorf("Repository annex initialisation failed.\n%s", string(stderr))
-		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		log.ShowWrite("[Error] err: %s stderr: %s", err.Error(), string(stderr))
+		initError := fmt.Errorf("repository annex initialisation failed: %s", string(stderr))
 		return initError
 	}
 
-	// hijack command for remote gitdir execution
+	// hijack gin command environment for remote gitdir execution
 	cmd = gingit.Command("checkout", "master")
 	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
-	stdout, stderr, err = cmd.OutputError()
+	_, stderr, err = cmd.OutputError()
 	if err != nil {
-		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		log.ShowWrite("[Error] err: %s stderr: %s", err.Error(), string(stderr))
 	}
 
 	return nil
