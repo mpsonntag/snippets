@@ -20,17 +20,22 @@ import (
 
 type localginerror = shell.Error
 
-func localGitConfigSet(key, value, gitdir string) error {
-	fn := fmt.Sprintf("ConfigSet(%s, %s)", key, value)
+func localGitConfigSet(gitdir, key, value string) error {
+	log.ShowWrite("[Info] setting git config %q: %q at %q", key, value, gitdir)
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		return fmt.Errorf("[Error] gitdir %q not found", gitdir)
+	} else if !isGitRepo(gitdir) {
+		return fmt.Errorf("[Error] %q is not a git repository", gitdir)
+	}
 
-	// hijack command for remote gitdir execution
+	// hijack default gin command environment for remote gitdir execution
 	cmd := gingit.Command("config", "--local", key, value)
 	cmd.Args = []string{"git", "-C", gitdir, "config", "--local", key, value}
 	stdout, stderr, err := cmd.OutputError()
 	if err != nil {
+		fn := fmt.Sprintf("ConfigSet(%s, %s)", key, value)
 		gerr := localginerror{UError: string(stderr), Origin: fn}
-		log.ShowWrite("Error during config set")
-		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		log.ShowWrite("[Error] git config set; out: %s; err: %s", string(stdout), string(stderr))
 		return gerr
 	}
 	return nil
