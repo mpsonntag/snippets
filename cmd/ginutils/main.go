@@ -247,14 +247,21 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	return
 }
 
-// remoteInitDir initialises the local directory with the default
-// remote and git (and annex) configuration options.
+// remoteInitDir initialises a git repository at a provided path
+// with the default remote and git (and annex) configuration options.
+// It will further checkout the "master" branch for the provided
+// repository.
 func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
+	log.ShowWrite("[Info] initializing git config at %q", gitdir)
 	initerr := localginerror{Origin: "InitDir", Description: "Error initialising local directory"}
 
-	// check if the provided directory is a git directory
-	if !isGitRepo(gitdir) {
-		return fmt.Errorf("[Error] provided path is not a git directory: %q", gitdir)
+	// check if the provided directory exists and is a git directory
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		initerr.UError = fmt.Sprintf("[Error] gitdir %q not found", gitdir)
+		return initerr
+	} else if !isGitRepo(gitdir) {
+		initerr.UError = fmt.Sprintf("[Error] %q is not a git repository", gitdir)
+		return initerr
 	}
 
 	remoteInitConfig(gincl, gitdir)
