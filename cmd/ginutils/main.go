@@ -119,13 +119,14 @@ func remoteCommitCheckout(gitdir, hash string) error {
 	return nil
 }
 
-// remoteCloneRepo clones a remote repository and initialises annex.
+// remoteCloneRepo clones a provided repository at a provided path and initialises annex.
 // The status channel 'clonechan' is closed when this function returns.
 func remoteCloneRepo(gincl *ginclient.Client, repopath, clonedir string, clonechan chan<- gingit.RepoFileStatus) {
 	defer close(clonechan)
-	log.ShowWrite("[Info] starting remoteCloneRepo")
+	log.ShowWrite("[Info] Starting remoteCloneRepo")
 	clonestatus := make(chan gingit.RepoFileStatus)
 	remotepath := fmt.Sprintf("%s/%s", gincl.GitAddress(), repopath)
+
 	go remoteClone(remotepath, repopath, clonedir, clonestatus)
 	for stat := range clonestatus {
 		clonechan <- stat
@@ -140,7 +141,6 @@ func remoteCloneRepo(gincl *ginclient.Client, repopath, clonedir string, clonech
 
 	status := gingit.RepoFileStatus{State: "Initialising local storage"}
 	clonechan <- status
-	// os.Chdir(repoName)
 	err := remoteInitDir(gincl, gitdir)
 	if err != nil {
 		status.Err = err
@@ -149,7 +149,6 @@ func remoteCloneRepo(gincl *ginclient.Client, repopath, clonedir string, clonech
 	}
 	status.Progress = "100%"
 	clonechan <- status
-	return
 }
 
 func remoteClone(remotepath string, repopath string, clonedir string, clonechan chan<- gingit.RepoFileStatus) {
