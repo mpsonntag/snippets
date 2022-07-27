@@ -36,42 +36,6 @@ type localAnnexProgress struct {
 
 type localginerror = shell.Error
 
-// remoteGitConfigSet sets a git config key:value pair for a
-// git repository at a provided directory. If the directory
-// does not exist or is not the root of a git repository, an
-// error is returned.
-func remoteGitConfigSet(gitdir, key, value string) error {
-	log.ShowWrite("[Info] set git config %q: %q at %q", key, value, gitdir)
-	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		return fmt.Errorf("[Error] gitdir %q not found", gitdir)
-	} else if !isGitRepo(gitdir) {
-		return fmt.Errorf("[Error] %q is not a git repository", gitdir)
-	}
-
-	cmd := gingit.Command("config", "--local", key, value)
-	// hijack default gin command environment for remote gitdir execution
-	cmd.Args = []string{"git", "-C", gitdir, "config", "--local", key, value}
-	_, stderr, err := cmd.OutputError()
-	if err != nil {
-		return fmt.Errorf("[Error] git config set; err: %s; stderr: %s", err.Error(), string(stderr))
-	}
-	return nil
-}
-
-func isGitRepo(path string) bool {
-	cmd := gingit.Command("version")
-	cmdargs := []string{"git", "-C", path, "rev-parse"}
-	cmd.Args = cmdargs
-	_, stderr, err := cmd.OutputError()
-	if err != nil {
-		log.ShowWrite("[Error] running git rev-parse: %s", err.Error())
-		return false
-	} else if bytes.Contains(stderr, []byte("not a git repository")) {
-		return false
-	}
-	return true
-}
-
 func localcutline(b []byte) (string, bool) {
 	idx := -1
 	cridx := bytes.IndexByte(b, '\r')
@@ -120,25 +84,69 @@ func localExpandglobs(paths []string, strictmatch bool) (globexppaths []string, 
 	return
 }
 
-// remoteGetContent downloads the contents of placeholder files in a checked out repository.
-// The status channel 'getcontchan' is closed when this function returns.
-// The git annex command is run in a provided directory and not the current one.
-func remoteGetContent(remoteGitDir string, paths []string, getcontchan chan<- gingit.RepoFileStatus, rawMode bool) {
-	defer close(getcontchan)
-	log.ShowWrite("[Info] remoteGetContent")
+func localCalcRate(dbytes int, dt time.Duration) string {
+	dtns := dt.Nanoseconds()
+	if dtns <= 0 || dbytes <= 0 {
+		return ""
+	}
+	rate := int64(dbytes) * 1000000000 / dtns
+	return fmt.Sprintf("%s/s", humanize.IBytes(uint64(rate)))
+}
 
-	paths, err := localExpandglobs(paths, true)
+// remoteGitConfigSet sets a git config key:value pair for a
+// git repository at a provided directory. If the directory
+// does not exist or is not the root of a git repository, an
+// error is returned.
+func remoteGitConfigSet(gitdir, key, value string) error {
+	log.ShowWrite("[Info] set git config %q: %q at %q", key, value, gitdir)
+	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
+		return fmt.Errorf("[Error] gitdir %q not found", gitdir)
+	} else if !isGitRepo(gitdir) {
+		return fmt.Errorf("[Error] %q is not a git repository", gitdir)
+	}
 
+	cmd := gingit.Command("config", "--local", key, value)
+	// hijack default gin command environment for remote gitdir execution
+	cmd.Args = []string{"git", "-C", gitdir, "config", "--local", key, value}
+	_, stderr, err := cmd.OutputError()
 	if err != nil {
-		getcontchan <- gingit.RepoFileStatus{Err: err}
-		return
+		return fmt.Errorf("[Error] git config set; err: %s; stderr: %s", err.Error(), string(stderr))
 	}
+	return nil
+}
 
-	annexgetchan := make(chan gingit.RepoFileStatus)
-	go remoteAnnexGet(remoteGitDir, paths, annexgetchan, rawMode)
-	for stat := range annexgetchan {
-		getcontchan <- stat
+// isGitRepo checks if a provided directory is the root of a
+// git repository and returns a corresponding boolean value.
+func isGitRepo(path string) bool {
+	cmd := gingit.Command("version")
+	cmdargs := []string{"git", "-C", path, "rev-parse"}
+	cmd.Args = cmdargs
+	_, stderr, err := cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[Error] running git rev-parse: %s", err.Error())
+		return false
+	} else if bytes.Contains(stderr, []byte("not a git repository")) {
+		return false
 	}
+	return true
+}
+
+// remoteCommitCheckout remotely checks out a provided git commit at
+// a provided directory location. It is assumed, that the
+// directory location is the root of the required git repository.
+// The function does not check whether the directory exists or
+// if it is a git repository.
+func remoteCommitCheckout(gitdir, hash string) error {
+	log.ShowWrite("[Info] checking out commit %q at %q", hash, gitdir)
+	cmdargs := []string{"git", "-C", gitdir, "checkout", hash, "--"}
+	cmd := gingit.Command("version")
+	cmd.Args = cmdargs
+	_, stderr, err := cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[Error] %s; %s", err.Error(), string(stderr))
+		return fmt.Errorf(string(stderr))
+	}
+	return nil
 }
 
 // remoteCloneRepo clones a remote repository and initialises annex.
@@ -295,42 +303,6 @@ func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
 	return nil
 }
 
-// AnnexInit initialises the repository for annex.
-// (git annex init)
-func remoteAnnexInit(gitdir, description string) error {
-	err := remoteGitConfigSet(gitdir, "annex.backends", "MD5")
-	if err != nil {
-		log.Write("Failed to set default annex backend MD5")
-	}
-	err = remoteGitConfigSet(gitdir, "annex.addunlocked", "true")
-	if err != nil {
-		log.Write("Failed to initialise annex in unlocked mode")
-		return err
-	}
-	args := []string{"init", "--version=7", description}
-	// hijack command for remote gitdir execution
-	cmd := gingit.AnnexCommand(args...)
-	cmdargs := []string{"git", "-C", gitdir, "annex"}
-	cmdargs = append(cmdargs, args...)
-	cmd.Args = cmdargs
-	stdout, stderr, err := cmd.OutputError()
-	if err != nil {
-		initError := fmt.Errorf("Repository annex initialisation failed.\n%s", string(stderr))
-		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
-		return initError
-	}
-
-	// hijack command for remote gitdir execution
-	cmd = gingit.Command("checkout", "master")
-	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
-	stdout, stderr, err = cmd.OutputError()
-	if err != nil {
-		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
-	}
-
-	return nil
-}
-
 func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 	// If there is no git user.name or user.email set local ones
 	cmd := gingit.Command("config", "user.name")
@@ -371,6 +343,63 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 		if err != nil {
 			log.ShowWrite("[Error] setting git config core.symlinks: %s", err.Error())
 		}
+	}
+}
+
+// remoteAnnexInit initialises the repository for annex.
+// (git annex init)
+func remoteAnnexInit(gitdir, description string) error {
+	err := remoteGitConfigSet(gitdir, "annex.backends", "MD5")
+	if err != nil {
+		log.Write("Failed to set default annex backend MD5")
+	}
+	err = remoteGitConfigSet(gitdir, "annex.addunlocked", "true")
+	if err != nil {
+		log.Write("Failed to initialise annex in unlocked mode")
+		return err
+	}
+	args := []string{"init", "--version=7", description}
+	// hijack command for remote gitdir execution
+	cmd := gingit.AnnexCommand(args...)
+	cmdargs := []string{"git", "-C", gitdir, "annex"}
+	cmdargs = append(cmdargs, args...)
+	cmd.Args = cmdargs
+	stdout, stderr, err := cmd.OutputError()
+	if err != nil {
+		initError := fmt.Errorf("Repository annex initialisation failed.\n%s", string(stderr))
+		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		return initError
+	}
+
+	// hijack command for remote gitdir execution
+	cmd = gingit.Command("checkout", "master")
+	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
+	stdout, stderr, err = cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+	}
+
+	return nil
+}
+
+// remoteGetContent downloads the contents of placeholder files in a checked out repository.
+// The status channel 'getcontchan' is closed when this function returns.
+// The git annex command is run in a provided directory and not the current one.
+func remoteGetContent(remoteGitDir string, paths []string, getcontchan chan<- gingit.RepoFileStatus, rawMode bool) {
+	defer close(getcontchan)
+	log.ShowWrite("[Info] remoteGetContent")
+
+	paths, err := localExpandglobs(paths, true)
+
+	if err != nil {
+		getcontchan <- gingit.RepoFileStatus{Err: err}
+		return
+	}
+
+	annexgetchan := make(chan gingit.RepoFileStatus)
+	go remoteAnnexGet(remoteGitDir, paths, annexgetchan, rawMode)
+	for stat := range annexgetchan {
+		getcontchan <- stat
 	}
 }
 
@@ -466,33 +495,6 @@ func remoteAnnexGet(gitdir string, filepaths []string, getchan chan<- gingit.Rep
 		}
 		log.ShowWrite("[Error] remoteAnnexGet: %s", string(stderr))
 	}
-}
-
-func localCalcRate(dbytes int, dt time.Duration) string {
-	dtns := dt.Nanoseconds()
-	if dtns <= 0 || dbytes <= 0 {
-		return ""
-	}
-	rate := int64(dbytes) * 1000000000 / dtns
-	return fmt.Sprintf("%s/s", humanize.IBytes(uint64(rate)))
-}
-
-// remoteCommitCheckout remotely checks out a provided git commit at
-// a provided directory location. It is assumed, that the
-// directory location is the root of the required git repository.
-// The function does not check whether the directory exists or
-// if it is a git repository.
-func remoteCommitCheckout(gitdir, hash string) error {
-	log.ShowWrite("[Info] checking out commit %q at %q", hash, gitdir)
-	cmdargs := []string{"git", "-C", gitdir, "checkout", hash, "--"}
-	cmd := gingit.Command("version")
-	cmd.Args = cmdargs
-	_, stderr, err := cmd.OutputError()
-	if err != nil {
-		log.ShowWrite("[Error] %s; %s", err.Error(), string(stderr))
-		return fmt.Errorf(string(stderr))
-	}
-	return nil
 }
 
 func main() {
