@@ -18,25 +18,42 @@ import (
 	humanize "github.com/dustin/go-humanize"
 )
 
+type localAnnexAction struct {
+	Command string   `json:"command"`
+	Note    string   `json:"note"`
+	Success bool     `json:"success"`
+	Key     string   `json:"key"`
+	File    string   `json:"file"`
+	Errors  []string `json:"error-messages"`
+}
+
+type localAnnexProgress struct {
+	Action          localAnnexAction `json:"action"`
+	ByteProgress    int              `json:"byte-progress"`
+	TotalSize       int              `json:"total-size"`
+	PercentProgress string           `json:"percent-progress"`
+}
+
 type localginerror = shell.Error
 
-func localGitConfigSet(gitdir, key, value string) error {
-	log.ShowWrite("[Info] setting git config %q: %q at %q", key, value, gitdir)
+// remoteGitConfigSet sets a git config key:value pair for a
+// git repository at a provided directory. If the directory
+// does not exist or is not the root of a git repository, an
+// error is returned.
+func remoteGitConfigSet(gitdir, key, value string) error {
+	log.ShowWrite("[Info] set git config %q: %q at %q", key, value, gitdir)
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
 		return fmt.Errorf("[Error] gitdir %q not found", gitdir)
 	} else if !isGitRepo(gitdir) {
 		return fmt.Errorf("[Error] %q is not a git repository", gitdir)
 	}
 
-	// hijack default gin command environment for remote gitdir execution
 	cmd := gingit.Command("config", "--local", key, value)
+	// hijack default gin command environment for remote gitdir execution
 	cmd.Args = []string{"git", "-C", gitdir, "config", "--local", key, value}
-	stdout, stderr, err := cmd.OutputError()
+	_, stderr, err := cmd.OutputError()
 	if err != nil {
-		fn := fmt.Sprintf("ConfigSet(%s, %s)", key, value)
-		gerr := localginerror{UError: string(stderr), Origin: fn}
-		log.ShowWrite("[Error] git config set; out: %s; err: %s", string(stdout), string(stderr))
-		return gerr
+		return fmt.Errorf("[Error] git config set; err: %s; stderr: %s", err.Error(), string(stderr))
 	}
 	return nil
 }
@@ -281,11 +298,11 @@ func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
 // AnnexInit initialises the repository for annex.
 // (git annex init)
 func remoteAnnexInit(gitdir, description string) error {
-	err := localGitConfigSet(gitdir, "annex.backends", "MD5")
+	err := remoteGitConfigSet(gitdir, "annex.backends", "MD5")
 	if err != nil {
 		log.Write("Failed to set default annex backend MD5")
 	}
-	err = localGitConfigSet(gitdir, "annex.addunlocked", "true")
+	err = remoteGitConfigSet(gitdir, "annex.addunlocked", "true")
 	if err != nil {
 		log.Write("Failed to initialise annex in unlocked mode")
 		return err
@@ -331,11 +348,11 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 			u, _ := user.Current()
 			name = u.Name
 		}
-		err := localGitConfigSet(gitdir, "user.name", name)
+		err := remoteGitConfigSet(gitdir, "user.name", name)
 		if err != nil {
 			log.ShowWrite("[Error] setting git config user.name: %s", err.Error())
 		}
-		err = localGitConfigSet(gitdir, "user.email", name)
+		err = remoteGitConfigSet(gitdir, "user.email", name)
 		if err != nil {
 			log.ShowWrite("[Error] setting git config user.email: %s", err.Error())
 		}
@@ -343,14 +360,14 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 	// Disable quotepath: when enabled prints escape sequences for files with
 	// unicode characters making it hard to work with, can break JSON
 	// formatting, and sometimes impossible to reference specific files.
-	err := localGitConfigSet(gitdir, "core.quotepath", "false")
+	err := remoteGitConfigSet(gitdir, "core.quotepath", "false")
 	if err != nil {
 		log.ShowWrite("[Error] setting git config core.quotepath: %s", err.Error())
 	}
 	if runtime.GOOS == "windows" {
 		// force disable symlinks even if user can create them
 		// see https://git-annex.branchable.com/bugs/Symlink_support_on_Windows_10_Creators_Update_with_Developer_Mode/
-		err = localGitConfigSet(gitdir, "core.symlinks", "false")
+		err = remoteGitConfigSet(gitdir, "core.symlinks", "false")
 		if err != nil {
 			log.ShowWrite("[Error] setting git config core.symlinks: %s", err.Error())
 		}
@@ -458,23 +475,6 @@ func localCalcRate(dbytes int, dt time.Duration) string {
 	}
 	rate := int64(dbytes) * 1000000000 / dtns
 	return fmt.Sprintf("%s/s", humanize.IBytes(uint64(rate)))
-}
-
-// Types (private)
-type localAnnexAction struct {
-	Command string   `json:"command"`
-	Note    string   `json:"note"`
-	Success bool     `json:"success"`
-	Key     string   `json:"key"`
-	File    string   `json:"file"`
-	Errors  []string `json:"error-messages"`
-}
-
-type localAnnexProgress struct {
-	Action          localAnnexAction `json:"action"`
-	ByteProgress    int              `json:"byte-progress"`
-	TotalSize       int              `json:"total-size"`
-	PercentProgress string           `json:"percent-progress"`
 }
 
 // remoteCommitCheckout remotely checks out a provided git commit at
