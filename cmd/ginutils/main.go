@@ -403,14 +403,16 @@ func remoteGetContent(remoteGitDir string, paths []string, getcontchan chan<- gi
 	}
 }
 
-// remoteAnnexGet retrieves the content of specified files.
+// remoteAnnexGet retrieves the annex content of specified files at a provided
+// git directory path. Function returns if the directory path is not found.
+// The argument rawMode defines whether the annex command output will be
+// raw or json formatted.
 // The status channel 'getchan' is closed when this function returns.
-// (git annex get)
 func remoteAnnexGet(gitdir string, filepaths []string, getchan chan<- gingit.RepoFileStatus, rawMode bool) {
 	defer close(getchan)
-	log.ShowWrite("[Info] remoteAnnexGet")
+	log.ShowWrite("[Info] remoteAnnexGet at directory %q", gitdir)
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
-		log.ShowWrite("[Warning] remoteAnnexGet path not found %q", gitdir)
+		log.ShowWrite("[Warning] directory %q not found", gitdir)
 		return
 	}
 
