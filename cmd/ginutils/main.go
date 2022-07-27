@@ -477,15 +477,19 @@ type localAnnexProgress struct {
 	PercentProgress string           `json:"percent-progress"`
 }
 
-func remoteGitCommitCheckout(gitdir, hash string) error {
-	// add "isGitDir" check
+// remoteCommitCheckout remotely checks out a provided git commit at
+// a provided directory location. It is assumed, that the
+// directory location is the root of the required git repository.
+// The function does not check whether the directory exists or
+// if it is a git repository.
+func remoteCommitCheckout(gitdir, hash string) error {
 	log.ShowWrite("[Info] checking out commit %q at %q", hash, gitdir)
 	cmdargs := []string{"git", "-C", gitdir, "checkout", hash, "--"}
 	cmd := gingit.Command("version")
 	cmd.Args = cmdargs
-	stdout, stderr, err := cmd.OutputError()
+	_, stderr, err := cmd.OutputError()
 	if err != nil {
-		log.ShowWrite("[Error] remoteGitCheckout: [stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		log.ShowWrite("[Error] %s; %s", err.Error(), string(stderr))
 		return fmt.Errorf(string(stderr))
 	}
 	return nil
