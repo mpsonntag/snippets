@@ -151,18 +151,20 @@ func remoteCloneRepo(gincl *ginclient.Client, repopath, clonedir string, clonech
 	clonechan <- status
 }
 
+// remoteClone clones a specified repository to a specified path.
+// The status channel 'clonechan' is closed when this function returns.
 func remoteClone(remotepath string, repopath string, clonedir string, clonechan chan<- gingit.RepoFileStatus) {
-	// TODO: This function is crazy huge - simplify
-	fn := fmt.Sprintf("Clone(%s)", remotepath)
 	defer close(clonechan)
+	fn := fmt.Sprintf("Clone(%s)", remotepath)
+
 	args := []string{"clone", "--progress", remotepath}
 	if runtime.GOOS == "windows" {
 		// force disable symlinks even if user can create them
 		// see https://git-annex.branchable.com/bugs/Symlink_support_on_Windows_10_Creators_Update_with_Developer_Mode/
 		args = append([]string{"-c", "core.symlinks=false"}, args...)
 	}
-	// hijack gingit to execute command remotely
 	cmd := gingit.Command(args...)
+	// hijack gingit to execute command remotely
 	cmdargs := []string{"git", "-C", clonedir}
 	cmdargs = append(cmdargs, args...)
 	cmd.Args = cmdargs
@@ -204,9 +206,7 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 				}
 				if len(words) > 8 {
 					rate := fmt.Sprintf("%s%s", words[7], words[8])
-					if strings.HasSuffix(rate, ",") {
-						rate = strings.TrimSuffix(rate, ",")
-					}
+					rate = strings.TrimSuffix(rate, ",")
 					status.Rate = rate
 					status.RawOutput = line
 				}
@@ -217,25 +217,8 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 
 	errstring := string(stderr)
 	if err = cmd.Wait(); err != nil {
-		log.Write("Error during clone command")
-		repoPathParts := strings.SplitN(repopath, "/", 2)
-		repoOwner := repoPathParts[0]
-		repoName := repoPathParts[1]
-		gerr := localginerror{UError: errstring, Origin: fn}
-		if strings.Contains(errstring, "does not exist") {
-			gerr.Description = fmt.Sprintf("Repository download failed\n"+
-				"Make sure you typed the repository path correctly\n"+
-				"Type 'gin repos %s' to see if the repository exists and if you have access to it",
-				repoOwner)
-		} else if strings.Contains(errstring, "already exists and is not an empty directory") {
-			gerr.Description = fmt.Sprintf("Repository download failed.\n"+
-				"'%s' already exists in the current directory and is not empty.", repoName)
-		} else if strings.Contains(errstring, "Host key verification failed") {
-			gerr.Description = "Server key does not match known/configured host key."
-		} else {
-			gerr.Description = fmt.Sprintf("Repository download failed. Internal git command returned: %s", errstring)
-		}
-		status.Err = gerr
+		log.ShowWrite("[Error] on clone command: %s", err.Error())
+		status.Err = formatCloneErr(errstring, repopath, fn)
 		clonechan <- status
 		// doesn't really need to break here, but let's not send the progcomplete
 		return
@@ -243,7 +226,30 @@ func remoteClone(remotepath string, repopath string, clonedir string, clonechan 
 	// Progress doesn't show 100% if cloning an empty repository, so let's force it
 	status.Progress = "100%"
 	clonechan <- status
-	return
+}
+
+// formatCloneErr handles clone error messages and returns
+// an appropriately formatted shel.Error.
+func formatCloneErr(errstring, repopath, fn string) shell.Error {
+	repoPathParts := strings.SplitN(repopath, "/", 2)
+	repoOwner := repoPathParts[0]
+	repoName := repoPathParts[1]
+
+	gerr := localginerror{UError: errstring, Origin: fn}
+	if strings.Contains(errstring, "does not exist") {
+		gerr.Description = fmt.Sprintf("Repository download failed\n"+
+			"Make sure you typed the repository path correctly\n"+
+			"Type 'gin repos %s' to see if the repository exists and if you have access to it",
+			repoOwner)
+	} else if strings.Contains(errstring, "already exists and is not an empty directory") {
+		gerr.Description = fmt.Sprintf("Repository download failed.\n"+
+			"%q already exists in the current directory and is not empty.", repoName)
+	} else if strings.Contains(errstring, "Host key verification failed") {
+		gerr.Description = "Server key does not match known/configured host key."
+	} else {
+		gerr.Description = fmt.Sprintf("Repository download failed. Internal git command returned: %s", errstring)
+	}
+	return gerr
 }
 
 // remoteInitDir initialises a git repository at a provided path
