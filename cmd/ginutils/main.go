@@ -54,36 +54,6 @@ func localcutline(b []byte) (string, bool) {
 	return string(b[:idx]), false
 }
 
-// localExpandglobs expands a list of globs into paths (files and directories).
-// If strictmatch is true, an error is returned if at least one element of the input slice does not match a real path,
-// otherwise the pattern itself is returned when it matches no existing path.
-func localExpandglobs(paths []string, strictmatch bool) (globexppaths []string, err error) {
-	if len(paths) == 0 {
-		// Nothing to do
-		globexppaths = paths
-		return
-	}
-	// expand potential globs
-	for _, p := range paths {
-		log.Write("ExpandGlobs: Checking for glob expansion for %s", p)
-		exp, globerr := filepath.Glob(p)
-		if globerr != nil {
-			log.Write(globerr.Error())
-			log.Write("Bad file pattern %s", p)
-			return nil, globerr
-		}
-		if exp == nil {
-			log.Write("ExpandGlobs: No files matched")
-			if strictmatch {
-				return nil, fmt.Errorf("no files matched %v", p)
-			}
-			exp = []string{p}
-		}
-		globexppaths = append(globexppaths, exp...)
-	}
-	return
-}
-
 func localCalcRate(dbytes int, dt time.Duration) string {
 	dtns := dt.Nanoseconds()
 	if dtns <= 0 || dbytes <= 0 {
@@ -382,33 +352,29 @@ func remoteAnnexInit(gitdir, description string) error {
 	return nil
 }
 
-// remoteGetContent downloads the contents of placeholder files in a checked out repository.
+// remoteGetContent downloads the contents of annex placeholder files in a checked
+// out git repository found at a provided directory path. The git annex get commands
+// will be run at the provided directory and not the current one.
+// The "rawMode" argument defines whether the annex command output will be
+// raw or json formatted.
 // The status channel 'getcontchan' is closed when this function returns.
-// The git annex command is run in a provided directory and not the current one.
-func remoteGetContent(remoteGitDir string, paths []string, getcontchan chan<- gingit.RepoFileStatus, rawMode bool) {
+func remoteGetContent(remoteGitDir string, getcontchan chan<- gingit.RepoFileStatus, rawMode bool) {
 	defer close(getcontchan)
-	log.ShowWrite("[Info] remoteGetContent")
-
-	paths, err := localExpandglobs(paths, true)
-
-	if err != nil {
-		getcontchan <- gingit.RepoFileStatus{Err: err}
-		return
-	}
+	log.ShowWrite("[Info] remoteGetContent at path %q", remoteGitDir)
 
 	annexgetchan := make(chan gingit.RepoFileStatus)
-	go remoteAnnexGet(remoteGitDir, paths, annexgetchan, rawMode)
+	go remoteAnnexGet(remoteGitDir, annexgetchan, rawMode)
 	for stat := range annexgetchan {
 		getcontchan <- stat
 	}
 }
 
-// remoteAnnexGet retrieves the annex content of specified files at a provided
+// remoteAnnexGet retrieves the annex content of all annex files at a provided
 // git directory path. Function returns if the directory path is not found.
-// The argument rawMode defines whether the annex command output will be
+// The "rawMode" argument defines whether the annex command output will be
 // raw or json formatted.
 // The status channel 'getchan' is closed when this function returns.
-func remoteAnnexGet(gitdir string, filepaths []string, getchan chan<- gingit.RepoFileStatus, rawMode bool) {
+func remoteAnnexGet(gitdir string, getchan chan<- gingit.RepoFileStatus, rawMode bool) {
 	defer close(getchan)
 	log.ShowWrite("[Info] remoteAnnexGet at directory %q", gitdir)
 	if _, err := os.Stat(gitdir); os.IsNotExist(err) {
@@ -416,11 +382,10 @@ func remoteAnnexGet(gitdir string, filepaths []string, getchan chan<- gingit.Rep
 		return
 	}
 
-	cmdargs := []string{"git", "-C", gitdir, "annex", "get"}
+	cmdargs := []string{"git", "-C", gitdir, "annex", "get", "."}
 	if !rawMode {
 		cmdargs = append(cmdargs, "--json-progress")
 	}
-	cmdargs = append(cmdargs, filepaths...)
 	cmd := gingit.AnnexCommand("version")
 	cmd.Args = cmdargs
 	log.ShowWrite("[Info] remoteAnnexGet: %v", cmdargs)
