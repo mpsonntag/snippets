@@ -472,6 +472,20 @@ type localAnnexProgress struct {
 	PercentProgress string           `json:"percent-progress"`
 }
 
+func remoteGitCommitCheckout(gitdir, hash string) error {
+	// add "isGitDir" check
+	log.ShowWrite("[Info] checking out commit %q at %q", hash, gitdir)
+	cmdargs := []string{"git", "-C", gitdir, "checkout", hash, "--"}
+	cmd := gingit.Command("version")
+	cmd.Args = cmdargs
+	stdout, stderr, err := cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[Error] remoteGitCheckout: [stdout]\n%s\n[stderr]\n%s", string(stdout), string(stderr))
+		return fmt.Errorf(string(stderr))
+	}
+	return nil
+}
+
 func main() {
 	fmt.Println("...[I] running ginutils")
 }
