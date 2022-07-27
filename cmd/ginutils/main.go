@@ -270,6 +270,15 @@ func remoteInitDir(gincl *ginclient.Client, gitdir string) error {
 		return initerr
 	}
 
+	// ensure the master branch is checked out by default
+	cmd := gingit.Command("checkout", "master")
+	// hijack gin command environment for remote gitdir execution
+	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
+	_, stderr, err := cmd.OutputError()
+	if err != nil {
+		log.ShowWrite("[Error] checking out master: err: %s stderr: %s", err.Error(), string(stderr))
+	}
+
 	return nil
 }
 
@@ -340,14 +349,6 @@ func remoteAnnexInit(gitdir, description string) error {
 		log.ShowWrite("[Error] err: %s stderr: %s", err.Error(), string(stderr))
 		initError := fmt.Errorf("repository annex initialisation failed: %s", string(stderr))
 		return initError
-	}
-
-	// hijack gin command environment for remote gitdir execution
-	cmd = gingit.Command("checkout", "master")
-	cmd.Args = []string{"git", "-C", gitdir, "checkout", "master"}
-	_, stderr, err = cmd.OutputError()
-	if err != nil {
-		log.ShowWrite("[Error] err: %s stderr: %s", err.Error(), string(stderr))
 	}
 
 	return nil
