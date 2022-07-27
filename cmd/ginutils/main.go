@@ -80,7 +80,7 @@ func remoteGitConfigSet(gitdir, key, value string) error {
 	cmd.Args = []string{"git", "-C", gitdir, "config", "--local", key, value}
 	_, stderr, err := cmd.OutputError()
 	if err != nil {
-		return fmt.Errorf("[Error] git config set; err: %s; stderr: %s", err.Error(), string(stderr))
+		return fmt.Errorf("[Error] git config set %q:%q; err: %s; stderr: %s", key, value, err.Error(), string(stderr))
 	}
 	return nil
 }
@@ -292,11 +292,11 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 		}
 		err := remoteGitConfigSet(gitdir, "user.name", name)
 		if err != nil {
-			log.ShowWrite("[Error] setting git config user.name: %s", err.Error())
+			log.ShowWrite(err.Error())
 		}
 		err = remoteGitConfigSet(gitdir, "user.email", name)
 		if err != nil {
-			log.ShowWrite("[Error] setting git config user.email: %s", err.Error())
+			log.ShowWrite(err.Error())
 		}
 	}
 	// Disable quotepath: when enabled prints escape sequences for files with
@@ -304,14 +304,14 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 	// formatting, and sometimes impossible to reference specific files.
 	err := remoteGitConfigSet(gitdir, "core.quotepath", "false")
 	if err != nil {
-		log.ShowWrite("[Error] setting git config core.quotepath: %s", err.Error())
+		log.ShowWrite(err.Error())
 	}
 	if runtime.GOOS == "windows" {
 		// force disable symlinks even if user can create them
 		// see https://git-annex.branchable.com/bugs/Symlink_support_on_Windows_10_Creators_Update_with_Developer_Mode/
 		err = remoteGitConfigSet(gitdir, "core.symlinks", "false")
 		if err != nil {
-			log.ShowWrite("[Error] setting git config core.symlinks: %s", err.Error())
+			log.ShowWrite(err.Error())
 		}
 	}
 }
@@ -321,11 +321,11 @@ func remoteInitConfig(gincl *ginclient.Client, gitdir string) {
 func remoteAnnexInit(gitdir, description string) error {
 	err := remoteGitConfigSet(gitdir, "annex.backends", "MD5")
 	if err != nil {
-		log.Write("Failed to set default annex backend MD5")
+		log.ShowWrite(err.Error())
 	}
 	err = remoteGitConfigSet(gitdir, "annex.addunlocked", "true")
 	if err != nil {
-		log.Write("Failed to initialise annex in unlocked mode")
+		log.ShowWrite(err.Error())
 		return err
 	}
 	args := []string{"init", "--version=7", description}
