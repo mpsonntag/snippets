@@ -7,6 +7,8 @@
     - open abstract submission on abstracts.g-node.org
 - [BCOS] abstract submission deadline
     - close abstracts submission on abstracts.g-node.org
+
+### Until last week of July
 - [BCOS] review abstracts
 - [G-Node]
   - sort abstracts
@@ -20,9 +22,11 @@
     - [BCOS] check texts on login, sign up and poster upload pages
       - [xyz] define format to exchange texts
     - [G-Node] update services according to required content changes
+
+### Until first week of August
 - [BCOS] provide Online poster sheet with all available abstract IDs to G-Node for Poster upload code generation
-- [G-Node] add poster upload codes to the Online sheet
-- [BCOS] finalize Poster order in Online sheet
+- [G-Node] add poster upload codes to the SciBo posters CSV tables
+- [BCOS] finalize Poster order in SciBo posters CSV tables
 - [G-Node]
   - create poster.json list with correct poster order and poster upload codes from Online sheet
   - enable poster upload page
@@ -32,7 +36,8 @@
 - [BCOS] send acceptance emails to poster presenters including upload code
     - check email template below
 
-- [BCOS] prepare SciBo CSV tables for
+### Until second week of August
+- [BCOS] fully prepare SciBo CSV tables for
     - Posters / Invited Talks / Contributed Talks
     - Workshops
     - Exhibition
@@ -40,6 +45,17 @@
 - [BCOS] repository registration whitelist
   - continuously upload email addresses of registered users via the whitelist page: https://posters.bc.g-node.org/uploademail
 - [G-Node] create and upload repository content from SciBo CSV tables
+
+### Week before conference ??
+- [G-Node] officially close poster upload
+- [G-Node] generate gallery content and upload to gallery
+
+### During conference
+- [BCOS] continuously update email whitelist
+- [BCOS] continuously update vimeo links in SciBo CSV tables
+- [G-Node] continuously update galleries from updated SciBo CSV tables
+
+### 1 Month after conference
 - [G-Node] switch repository to static page
 
 
