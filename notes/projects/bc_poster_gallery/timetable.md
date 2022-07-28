@@ -20,11 +20,13 @@
     - [BCOS] check texts on login, sign up and poster upload pages
       - [xyz] define format to exchange texts
     - [G-Node] update services according to required content changes
-- [BCOS] send abstract list to G-Node for Upload verification code generation
+- [BCOS] provide Online poster sheet with all available abstract IDs to G-Node for Poster upload code generation
+- [G-Node] add poster upload codes to the Online sheet
+- [BCOS] finalize Poster order in Online sheet
 - [G-Node]
-  - send poster upload codes to BCOS
+  - create poster.json list with correct poster order and poster upload codes from Online sheet
   - enable poster upload page
-  - prepare poster / upload code list on the upload page
+  - provide poster upload page with the poster.json file
   - prepare email whitelist password on the upload page
   - send admin password for email whitelist to BCOS
 - [BCOS] send acceptance emails to poster presenters including upload code
