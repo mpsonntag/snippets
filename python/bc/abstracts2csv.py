@@ -1,4 +1,6 @@
-# Convert the abstract output of the gca-client script to a CSV or TSV file
+"""
+Convert the GCA abstract json output of the GCA-client script to a TSV file
+"""
 
 import argparse
 import json
