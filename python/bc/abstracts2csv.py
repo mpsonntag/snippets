@@ -25,14 +25,14 @@ def format_authors(first, middle, last):
     return aun
 
 
-def handle_authors(authors_json):
+def handle_authors(authors_json, item_separator):
     authors = ""
     emails = ""
     for curr_auth in authors_json:
         if authors != "":
-            authors += ", "
+            authors += f"{item_separator} "
         if emails != "":
-            emails += ", "
+            emails += f"{item_separator} "
 
         authors += format_authors(curr_auth['firstName'],
                                   curr_auth['middleName'],
@@ -53,10 +53,10 @@ def handle_abstract_types(abs_types, abs_uuid):
     return use_abs_type
 
 
-def reduce_data(data):
+def reduce_data(data, item_separator):
     redu_data = []
     for abstract in data:
-        authors, mails = handle_authors(abstract["authors"])
+        authors, mails = handle_authors(abstract["authors"], item_separator)
         text = abstract["text"]
         if text:
             text = text.replace("\t", "").replace("\n", "")
@@ -83,20 +83,20 @@ def reduce_data(data):
     return redu_data
 
 
-def convert_to_tsv(json_data, use_columns):
+def convert(json_data, csv_separator, use_columns):
     tsv = ""
     for abstract in json_data:
         if not use_columns:
             # export all columns
             for _, abs_val in abstract.items():
-                tsv += f"{abs_val}\t"
+                tsv += f"{abs_val}{csv_separator}"
         else:
             # export only specified columns
             for abs_key in use_columns:
                 if abs_key not in abstract:
                     print(f"WARNING: could not find key {abs_key} in abstract")
                 else:
-                    tsv += f"{abstract[abs_key]}\t"
+                    tsv += f"{abstract[abs_key]}{csv_separator}"
         tsv += "\n"
 
     return tsv
@@ -110,14 +110,17 @@ def main():
     parser.add_argument("json_file", help="JSON file containing abstracts data")
     args = parser.parse_args()
 
+    item_reduce_separator = ","
+    csv_separator = "\t"
+
     in_file = args.json_file
     with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
-    reduced = reduce_data(data)
-    tsv_data = convert_to_tsv(reduced, [])
+    reduced = reduce_data(data, item_reduce_separator)
+    csv_data = convert(reduced, csv_separator, [])
 
-    print(tsv_data)
+    print(csv_data)
 
 
 if __name__ == "__main__":
