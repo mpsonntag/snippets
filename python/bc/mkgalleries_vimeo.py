@@ -37,13 +37,14 @@ TOPIC_COLOURS = {
     "Brain disease, network dysfunction and intervention": "turquoise",
     "Single neurons, biophysics": "grey",
     "Motor control, movement, navigation": "purple",
+    "Neurotechnology": "darkblue",
     "Other": "darkblue",
 }
 SESSION_TIMES = {
-    "I": "Wed, Sep 22, 14:15 CEST",
-    "II": "Wed, Sep 22, 18:00 CEST",
-    "III": "Thu, Sep 23, 14:15 CEST",
-    "IV": "Thu, Sep 23, 18:00 CEST"
+    "I": "Wed, Sep 14, 14:15 CEST",
+    "II": "Wed, Sep 14, 18:00 CEST",
+    "III": "Thu, Sep 15, 14:15 CEST",
+    "IV": "Thu, Sep 15, 18:00 CEST"
 }
 ITEM_TYPES = {
     "I": "Invited Talk",
@@ -69,9 +70,9 @@ INDEX_TEXT = {
                   "and supply supplemental material."
 }
 # List[int] - use NEW abstract numbers
-WITHDRAWN = [65, 75]
+WITHDRAWN = []
 # List[int] - WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [107, 109, 20, 31, 144, 145, 148, 190]
+MISSING_PDF = []
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
