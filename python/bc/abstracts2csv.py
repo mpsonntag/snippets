@@ -54,18 +54,19 @@ def handle_abstract_types(abs_types, abs_uuid):
     return use_abs_type
 
 
+def string_cleanup(content):
+    if content:
+        content = content.replace("\t", "").replace("\n", "")
+    return content
+
+
 def reduce_data(data, item_separator, code_salt):
     redu_data = []
     for abstract in data:
         authors, mails = handle_authors(abstract["authors"], item_separator)
 
-        text = abstract["text"]
-        if text:
-            text = text.replace("\t", "").replace("\n", "")
-
-        ack = abstract["acknowledgements"]
-        if ack:
-            ack = ack.replace("\t", "").replace("\n", "")
+        text = string_cleanup(abstract["text"])
+        ack = string_cleanup(abstract["acknowledgements"])
 
         abs_type = handle_abstract_types(abstract["abstrTypes"], abstract["uuid"])
 
