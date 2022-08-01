@@ -120,6 +120,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("json_file", help="JSON file containing abstracts data")
     parser.add_argument("code_salt", help="Salt string to create poster upload codes")
+    parser.add_argument("out_file", help="Output CSV file")
     args = parser.parse_args()
 
     item_reduce_separator = ","
@@ -130,10 +131,15 @@ def main():
     with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
+    print("Reducing data ...")
     reduced = reduce_data(data, item_reduce_separator, code_salt)
+    print("Converting to CSV data ...")
     csv_data = convert(reduced, csv_separator, [])
 
-    print(csv_data)
+    out_file = args.out_file
+    print(f"Saving CSV file {out_file}")
+    with open(out_file, "w", encoding="utf-8") as tfp:
+        tfp.write(csv_data)
 
 
 if __name__ == "__main__":
