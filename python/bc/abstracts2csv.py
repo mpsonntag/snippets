@@ -131,12 +131,15 @@ def main():
     with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
-    print("Reducing data ...")
+    print("Parsing data ...")
     reduced = reduce_data(data, item_reduce_separator, code_salt)
     print("Converting to CSV data ...")
     csv_data = convert(reduced, csv_separator, [])
 
     out_file = args.out_file
+    if not out_file:
+        print("Using default output file ...")
+        out_file = "out.csv"
     print(f"Saving CSV file {out_file}")
     with open(out_file, "w", encoding="utf-8") as tfp:
         tfp.write(csv_data)
