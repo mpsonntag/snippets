@@ -3,6 +3,7 @@ Convert the GCA abstract json output of the GCA-client script to a TSV file
 """
 
 import argparse
+import hashlib as hl
 import json
 
 
@@ -53,7 +54,7 @@ def handle_abstract_types(abs_types, abs_uuid):
     return use_abs_type
 
 
-def reduce_data(data, item_separator):
+def reduce_data(data, item_separator, code_salt):
     redu_data = []
     for abstract in data:
         authors, mails = handle_authors(abstract["authors"], item_separator)
@@ -65,6 +66,8 @@ def reduce_data(data, item_separator):
             ack = ack.replace("\t", "").replace("\n", "")
         abs_type = handle_abstract_types(abstract["abstrTypes"], abstract["uuid"])
 
+        upload_key = create_upload_key(abstract["uuid"], code_salt)
+
         redu_data.append({"sortId": abstract["sortId"],
                       "authors": authors,
                       "mail": mails,
@@ -72,6 +75,7 @@ def reduce_data(data, item_separator):
                       "topic": abstract["topic"],
                       "state": abstract["state"],
                       "uuid": abstract["uuid"],
+                      "upload_key": upload_key,
                       "abstract_type": abs_type["name"],
                       "prefix": abs_type["prefix"],
                       "short": abs_type["short"],
@@ -102,22 +106,29 @@ def convert(json_data, csv_separator, use_columns):
     return tsv
 
 
+def create_upload_key(uuid, salt):
+    key = hl.pbkdf2_hmac("sha1", uuid.encode(), salt.encode(), 100000)
+    return key.hex()[:10]
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("json_file", help="JSON file containing abstracts data")
+    parser.add_argument("code_salt", help="Salt string to create poster upload codes")
     args = parser.parse_args()
 
     item_reduce_separator = ","
     csv_separator = "\t"
+    code_salt = args.code_salt
 
     in_file = args.json_file
     with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
 
-    reduced = reduce_data(data, item_reduce_separator)
+    reduced = reduce_data(data, item_reduce_separator, code_salt)
     csv_data = convert(reduced, csv_separator, [])
 
     print(csv_data)
