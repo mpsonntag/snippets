@@ -53,6 +53,36 @@ def handle_abstract_types(abs_types, abs_uuid):
     return use_abs_type
 
 
+def reduce_data(data):
+    redu_data = []
+    for abs in data:
+        authors, mails = handle_authors(abs["authors"])
+        text = abs["text"]
+        if text:
+            text = text.replace("\t", "").replace("\n", "")
+        ack = abs["acknowledgements"]
+        if ack:
+            ack = ack.replace("\t", "").replace("\n", "")
+        abs_type = handle_abstract_types(abs["abstrTypes"], abs["uuid"])
+
+        redu_data.append({"sortId": abs["sortId"],
+                      "authors": authors,
+                      "mail": mails,
+                      "title": abs["title"],
+                      "topic": abs["topic"],
+                      "state": abs["state"],
+                      "uuid": abs["uuid"],
+                      "abstract_type": abs_type["name"],
+                      "prefix": abs_type["prefix"],
+                      "short": abs_type["short"],
+                      "isTalk": abs["isTalk"],
+                      "reasonForTalk": abs["reasonForTalk"],
+                      "acknowledgements": ack,
+                      "text": text})
+
+    return redu_data
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
