@@ -46,8 +46,8 @@ def handle_abstract_types(abs_types, abs_uuid):
     use_abs_type = {"name": "", "prefix": "", "short": "", "uuid": ""}
     if len(abs_types) > 0:
         if len(abs_types) > 1:
-            print(
-                f"WARNING: more than one abstract type found for abstract {abs_uuid}; using the first")
+            print(f"WARNING: more than one abstract type found for abstract {abs_uuid}; "
+                  f"using the first")
         use_abs_type = abs_types[0]
 
     return use_abs_type
@@ -55,28 +55,28 @@ def handle_abstract_types(abs_types, abs_uuid):
 
 def reduce_data(data):
     redu_data = []
-    for abs in data:
-        authors, mails = handle_authors(abs["authors"])
-        text = abs["text"]
+    for abstract in data:
+        authors, mails = handle_authors(abstract["authors"])
+        text = abstract["text"]
         if text:
             text = text.replace("\t", "").replace("\n", "")
-        ack = abs["acknowledgements"]
+        ack = abstract["acknowledgements"]
         if ack:
             ack = ack.replace("\t", "").replace("\n", "")
-        abs_type = handle_abstract_types(abs["abstrTypes"], abs["uuid"])
+        abs_type = handle_abstract_types(abstract["abstrTypes"], abstract["uuid"])
 
-        redu_data.append({"sortId": abs["sortId"],
+        redu_data.append({"sortId": abstract["sortId"],
                       "authors": authors,
                       "mail": mails,
-                      "title": abs["title"],
-                      "topic": abs["topic"],
-                      "state": abs["state"],
-                      "uuid": abs["uuid"],
+                      "title": abstract["title"],
+                      "topic": abstract["topic"],
+                      "state": abstract["state"],
+                      "uuid": abstract["uuid"],
                       "abstract_type": abs_type["name"],
                       "prefix": abs_type["prefix"],
                       "short": abs_type["short"],
-                      "isTalk": abs["isTalk"],
-                      "reasonForTalk": abs["reasonForTalk"],
+                      "isTalk": abstract["isTalk"],
+                      "reasonForTalk": abstract["reasonForTalk"],
                       "acknowledgements": ack,
                       "text": text})
 
