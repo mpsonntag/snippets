@@ -25,6 +25,23 @@ def format_authors(first, middle, last):
     return aun
 
 
+def handle_authors(authors_json):
+    authors = ""
+    emails = ""
+    for curr_auth in authors_json:
+        if authors != "":
+            authors += ", "
+        if emails != "":
+            emails += ", "
+
+        authors += format_authors(curr_auth['firstName'],
+                                  curr_auth['middleName'],
+                                  curr_auth['lastName'])
+        emails += f"{curr_auth['mail']}"
+
+    return authors, emails
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
