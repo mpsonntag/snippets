@@ -16,6 +16,15 @@ AFFILIATION_KEYS = ["address", "country", "department", "section", "position", "
 REFERENCES_KEYS = ["doi", "link", "text", "uuid"]
 
 
+def format_authors(first, middle, last):
+    aun = last
+    if middle and middle != "":
+        aun = f"{middle} {last}"
+    if first and first != "":
+        aun = f"{first} {aun}"
+    return aun
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
