@@ -10,9 +10,12 @@
 
 ### Until last week of July
 - [BCOS] review abstracts
+  - review abstracts
+  - set states to accepted or rejected?
 - [G-Node]
   - sort abstracts
-  - upload to abstracts.g-node.org
+  - upload sort order to abstracts.g-node.org
+  - [new step?] provide BCOS with CSV of all abstracts - ideally already with poster upload codes
 - [G-Node] prepare services at bc.g-node.org and posters.bc.g-node.org
     - [BCOS] check required categories
       - Main, Invited Talks, Contributed Talks, Posters, Workshops, Exhibition, Conference Information
@@ -25,6 +28,7 @@
 
 ### Until first week of August
 - [BCOS] provide Online poster sheet with all available abstract IDs to G-Node for Poster upload code generation
+  -> this should be changed; include the poster upload codes already in the first data csv transfer from G-Node to BCOS
 - [G-Node] add poster upload codes to the SciBo posters CSV tables
 - [BCOS] finalize Poster order in SciBo posters CSV tables
 - [G-Node]
