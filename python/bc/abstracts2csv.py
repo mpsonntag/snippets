@@ -42,6 +42,17 @@ def handle_authors(authors_json):
     return authors, emails
 
 
+def handle_abstract_types(abs_types, abs_uuid):
+    use_abs_type = {"name": "", "prefix": "", "short": "", "uuid": ""}
+    if len(abs_types) > 0:
+        if len(abs_types) > 1:
+            print(
+                f"WARNING: more than one abstract type found for abstract {abs_uuid}; using the first")
+        use_abs_type = abs_types[0]
+
+    return use_abs_type
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
