@@ -58,32 +58,34 @@ def reduce_data(data, item_separator, code_salt):
     redu_data = []
     for abstract in data:
         authors, mails = handle_authors(abstract["authors"], item_separator)
+
         text = abstract["text"]
         if text:
             text = text.replace("\t", "").replace("\n", "")
+
         ack = abstract["acknowledgements"]
         if ack:
             ack = ack.replace("\t", "").replace("\n", "")
+
         abs_type = handle_abstract_types(abstract["abstrTypes"], abstract["uuid"])
 
         upload_key = create_upload_key(abstract["uuid"], code_salt)
 
         redu_data.append({"sortId": abstract["sortId"],
-                      "authors": authors,
-                      "mail": mails,
-                      "title": abstract["title"],
-                      "topic": abstract["topic"],
-                      "state": abstract["state"],
-                      "uuid": abstract["uuid"],
-                      "upload_key": upload_key,
-                      "abstract_type": abs_type["name"],
-                      "prefix": abs_type["prefix"],
-                      "short": abs_type["short"],
-                      "isTalk": abstract["isTalk"],
-                      "reasonForTalk": abstract["reasonForTalk"],
-                      "acknowledgements": ack,
-                      "text": text})
-
+                          "authors": authors,
+                          "mail": mails,
+                          "title": abstract["title"],
+                          "topic": abstract["topic"],
+                          "state": abstract["state"],
+                          "uuid": abstract["uuid"],
+                          "upload_key": upload_key,
+                          "abstract_type": abs_type["name"],
+                          "prefix": abs_type["prefix"],
+                          "short": abs_type["short"],
+                          "isTalk": abstract["isTalk"],
+                          "reasonForTalk": abstract["reasonForTalk"],
+                          "acknowledgements": ack,
+                          "text": text})
     return redu_data
 
 
