@@ -83,6 +83,25 @@ def reduce_data(data):
     return redu_data
 
 
+def convert_to_tsv(json_data, use_columns):
+    tsv = ""
+    for abstract in json_data:
+        if not use_columns:
+            # export all columns
+            for _, abs_val in abstract.items():
+                tsv += f"{abs_val}\t"
+        else:
+            # export only specified columns
+            for abs_key in use_columns:
+                if abs_key not in abstract:
+                    print(f"WARNING: could not find key {abs_key} in abstract")
+                else:
+                    tsv += f"{abstract[abs_key]}\t"
+        tsv += "\n"
+
+    return tsv
+
+
 def main():
     """
     Parse an abstract service json file and print the information to a CSV file.
@@ -94,6 +113,11 @@ def main():
     in_file = args.json_file
     with open(in_file, encoding="utf-8") as jfp:
         data = json.load(jfp)
+
+    reduced = reduce_data(data)
+    tsv_data = convert_to_tsv(reduced, [])
+
+    print(tsv_data)
 
 
 if __name__ == "__main__":
