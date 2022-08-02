@@ -1,4 +1,4 @@
-## Notes on how to set up a gin-valid
+## Notes on how to set up the gin-valid service
 
 - create folder structure
 
@@ -120,7 +120,7 @@ A setup for local development needs a different approach. All containers will li
 
 ## Set up a local gin server
 
-Setup a local gin server along the lines of the in-house gin project. The resulting directory structure should look like the following:
+Set up a local gin server along the lines of the in-house gin project. The resulting directory structure should look like the following:
 
 ```
 $GIN_ROOT_FOLDER
