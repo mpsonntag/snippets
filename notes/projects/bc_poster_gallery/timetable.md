@@ -1,7 +1,5 @@
 ## Timetable Bernstein conference
 
-- [xyz] add more specific dates
-
 - [BCOS] create conference entry on abstracts.g-node.org
 - [BCOS] abstract submission opening
     - open abstract submission on abstracts.g-node.org
