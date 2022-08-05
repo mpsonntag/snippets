@@ -23,7 +23,15 @@ def main():
     csv_sep = args.s
     csv_data = pd.read_csv(csv_file, header=0, sep=csv_sep)
 
-    print(csv_data.loc[:, "id"])
+    new_col = []
+    for curr in csv_data.loc[:, "id"]:
+        new_col.append(curr)
+
+    id_index = csv_data.columns.get_loc("id")
+    csv_data.insert(id_index+1, "upload_keys", new_col)
+
+    out_file_name = "%s_out.csv" % csv_file
+    csv_data.to_csv(out_file_name, index=False, sep=csv_sep)
 
 
 if __name__ == "__main__":
