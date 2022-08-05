@@ -5,7 +5,13 @@ file is saved.
 """
 
 import argparse
+import hashlib as hl
 import pandas as pd
+
+
+def create_upload_key(uuid, salt):
+    key = hl.pbkdf2_hmac("sha1", uuid.encode(), salt.encode(), 100000)
+    return key.hex()[:10]
 
 
 def main():
@@ -20,12 +26,17 @@ def main():
     args = parser.parse_args()
 
     csv_file = args.csv_file
+    code_salt = args.code_salt
     csv_sep = args.s
     csv_data = pd.read_csv(csv_file, header=0, sep=csv_sep)
 
     new_col = []
     for curr in csv_data.loc[:, "id"]:
-        new_col.append(curr)
+        if pd.notna(curr):
+            new_key = create_upload_key(curr, code_salt)
+            new_col.append(new_key)
+        else:
+            new_col.append(curr)
 
     id_index = csv_data.columns.get_loc("id")
     csv_data.insert(id_index+1, "upload_keys", new_col)
