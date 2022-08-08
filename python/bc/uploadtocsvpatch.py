@@ -44,6 +44,8 @@ def main():
     out_file_name = "%s_out.csv" % csv_file
     csv_data.to_csv(out_file_name, index=False, sep=csv_sep)
 
+    print("\nWARNING: still using 'upload_keys' as csv column name")
+
 
 if __name__ == "__main__":
     main()
