@@ -39,6 +39,7 @@
     - check email template below
 
 ### Until second week of August
+- [BCOS] set all abstracts to "accepted" that are accepted. Only these will be available on the gallery
 - [BCOS] fully prepare SciBo CSV tables for
     - Posters / Invited Talks / Contributed Talks
     - Workshops
