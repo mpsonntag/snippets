@@ -236,7 +236,7 @@ The routine is as follows:
 
   ```bash
   POSTERS_FILE_CSV=posters.csv
-  python tojson.py $POSTERS_FILE_CSV 
+  python tojson.py $POSTERS_FILE_CSV
   ```
 
 - with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The upload-codes require a salt file for the code creation.
@@ -253,6 +253,13 @@ The routine is as follows:
 - download the abstract texts from the GCA server; make sure the `.netrc` credentials are prepared -> check the GCA-Client GitHub README for details.
   - `./gca-client https://abstracts.g-node.org abstracts [conferenceShort] > [output].json`
   - make sure that all abstracts on the server have been REVIEWED. Abstracts in state InReview and InPreparation are skipped.
+
+    ```bash
+    GCA_CLIENT=[path to gca-client]
+    # conference short description e.g. BC20
+    CONFERENCE_SHORT=[conferenceShort]
+    $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > abstracts.json`
+    ```
 
 - from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstract information. It will create a `posters-abstracts.json` file containing all poster information with the abstracts texts.
 
