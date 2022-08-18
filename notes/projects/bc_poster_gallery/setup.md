@@ -132,7 +132,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
       LOAD_ASSETS_FROM_DISK = true
       STATIC_ROOT_PATH = /custom/
     ```
-  - the `[service]` section has to contain `REQUIRE_SIGN_IN = true` to ensure, that only logged in users have access to the repositories:
+  - the `[service]` section has to contain `REQUIRE_SIGNIN_VIEW = true` to ensure that only logged in users have access to the repositories:
     ```
       REQUIRE_SIGNIN_VIEW    = true
     ```
