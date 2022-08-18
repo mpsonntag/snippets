@@ -269,7 +269,9 @@ The routine is as follows:
   python mergeabstracts.py $ABSTRACTS_JSON $RAW_POSTERS_JSON
   ```
 
-- copy the `posters-abstracts.json` again to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org); users uploading a poster PDF will now get a complete review page including the abstract after the upload is done.
+- provide full landing page review to uploading users
+  - copy the `posters-abstracts.json` again to the renamed file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org)
+  - users uploading a poster PDF will now get a complete review page including the abstract after the upload is done.
 
 - update information in the BC20 repo in `scripts/mkgalleries.py` to accommodate the new conference:
   - URLs, repos
