@@ -55,6 +55,13 @@ def convert_workshops(lines: List[List[str]]) -> List[Dict[str, Any]]:
     return data
 
 
+def convert_confinfo(lines: List[List[str]]) -> List[Dict[str, Any]]:
+    print("-- WARNING conference info handling not implemented yet")
+
+    data: List[Dict[str, str]] = list()
+    return data
+
+
 def read(fname: str) -> List[Dict[str, str]]:
     # Data saved from online spreadsheets start with a Byte order mark (BOM) entry
     # which can screw up the first column header content if not properly escaped.
@@ -68,6 +75,8 @@ def read(fname: str) -> List[Dict[str, str]]:
         return convert_workshops(lines)
     if "exhibition" in fname:
         return convert_workshops(lines)
+    if "conferenceinfo" in fname:
+        return convert_confinfo(lines)
 
     print("Couldn't determine data source type (posters or workshops)")
     print("Trying posters")
