@@ -931,12 +931,15 @@ def main():
                         help="Create workshop pages instead of posters")
     parser.add_argument("--exhibition", dest="exhibition", action="store_true",
                         help="Create exhibition pages instead of posters")
-    parser.add_argument("jsonfile", help="JSON file with the poster data")
+    parser.add_argument("--conferenceinfo", dest="confinfo", action="store_true",
+                        help="Create conference info pages instead of posters")
+    parser.add_argument("jsonfile", help="JSON file providing the input data")
     parser.add_argument("targetdir", help="Directory in which to create galleries")
     args = parser.parse_args()
 
     workshops = args.workshops
     exhibition = args.exhibition
+    confinfo = args.confinfo
 
     download = args.download
     sdl = args.sdl
@@ -969,6 +972,12 @@ def main():
         exhib_dir.mkdir(parents=True, exist_ok=True)
 
         handle_exhibition_data(data, exhib_dir)
+        return
+
+    # Specific handling of conference information
+    if confinfo:
+        print("-- handling conference information")
+        print("-- not implemented as of yet")
         return
 
     # Sanity check to avoid writing invalid poster galleries.
