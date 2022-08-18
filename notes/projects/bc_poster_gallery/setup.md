@@ -166,11 +166,13 @@ The routine is as follows:
 - this will create an output file containing hashes of the email addresses
 - these hashes can be queried by the gogs services via the route `[uploader URL]/uploads/emailwhitelist`
 
+
 ## Required poster upload hash set up
 
 - provide a salt file with an according value in a `$PROJ_ROOT/uploadersalt` file ... it is required for the poster upload hash
 - create a poster_hash.json file using the `mkuploadcodes.py` file from github:BC20/scripts.
 - copy the resulting file to `$PROJ_ROOT/config/uploader/poster.json`
+
 
 ## Required repository setup
 
@@ -181,7 +183,7 @@ The routine is as follows:
 - clone it locally; use the appropriate port number - in our example it was 2424
 
   ```bash
-      git clone ssh://git@bc.g-node.org:2424/[owner]/[reponame].git
+      git clone ssh://git@bc.g-node.org:[port]/[owner]/[reponame].git
   ```
 
 - to clone the wiki, it has to be initialized via the web service as well
@@ -190,7 +192,7 @@ The routine is as follows:
   - clone locally:
 
   ```bash
-  git clone ssh://bc.g-node.org:2424/[owner]/[reponame].wiki.git
+  git clone ssh://git@bc.g-node.org:[port]/[owner]/[reponame].wiki.git
   ```
 
 ### Create all required repos and wikis
@@ -198,7 +200,7 @@ The routine is as follows:
 - create the following organizations via the Web interface: "BernsteinConference", "G-Node"
 - adjust the BernsteinConference organization logo
 - create the "Info" repository using the "G-Node" organization and initialize the wiki
-- clone the G-Node/Info.wiki.git using git locally and add the footer pages using the files from gin.g-node.org.
+- clone the G-Node/Info.wiki.git using git locally and add the footer pages using the files from https://gin.g-node.org/G-Node/BC20data/BC21/Info.wiki.
 - create the following repositories using the "BernsteinConference" organization:
   - Main
   - Posters
@@ -206,6 +208,7 @@ The routine is as follows:
   - ContributedTalks
   - Workshops
   - Exhibition
+  - ConferenceInformation
   - create the first wiki page for all repos via the web interface
 
 
@@ -387,7 +390,9 @@ The routine is as follows:
 
 - backup the csv files and galleries to a new folder in the gin.g-node.org/G-Node/BC20data repository.
 - backup the added images and template updates from the server at `$ROOT/config/gogs` to the gin.g-node.org/G-Node/gin-bc20 repository.
-
+- add the content of the `static` folder to `/web/static` on the bc.g-node.org machine.
+- update the content of the `index.html` file with respect to year and BCOS requests.
+- update the apache config files for `bc.g-node.org` and `posters.bc.g-node.org` to point to the static page (see `apache-conf` directory for details) and `sytemctl reload apache2` for the changes to take effect.
 
 ### Full bash script to fetch, create and upload the poster gallery
 
