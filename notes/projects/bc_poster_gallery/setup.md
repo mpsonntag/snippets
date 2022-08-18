@@ -235,13 +235,16 @@ The routine is as follows:
 - run the `tojson.py` script providing the tsv file saved in the step above.
 
   ```bash
-  python tojson.py posters.csv 
+  POSTERS_FILE_CSV=posters.csv
+  python tojson.py $POSTERS_FILE_CSV 
   ```
 
 - with the resulting `json` file run the `mkuploadcodes.py` script from the same directory; this will create a `posters-codes.json` file linking the abstract ID to an upload code for the PDF upload service. It also creates a tab separated `posters-codes.tsv` file containing ID mapped to upload code. The upload-codes require a salt file for the code creation.
 
   ```bash
-  python mkuploadcodes.py [uploadsalt file] [posters.json]
+  SALT_FILE=[uploadsalt file]
+  POSTERS_JSON=[posters.json]
+  python mkuploadcodes.py $SALT_FILE $POSTERS_JSON
   ```
 
 - move the resulting json file to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org). Restart of the uploader service should not be necessary, but it does not hurt to test if PDF uploads are working.
@@ -254,7 +257,9 @@ The routine is as follows:
 - from the "scripts" folder of the BC20 repo, run the `mergeabstracts.py` file to merge the main json file with the abstract information. It will create a `posters-abstracts.json` file containing all poster information with the abstracts texts.
 
   ```bash
-  python mergeabstracts.py abstracts.json posters.json
+  ABSTRACTS_JSON=abstracts.json
+  RAW_POSTERS_JSON=posters.json
+  python mergeabstracts.py $ABSTRACTS_JSON $RAW_POSTERS_JSON
   ```
 
 - copy the `posters-abstracts.json` again to file `posters.json` in the uploader config directory (`$PROJ_ROOT/config/uploader`) on the server (bc.g-node.org); users uploading a poster PDF will now get a complete review page including the abstract after the upload is done.
@@ -321,18 +326,24 @@ The routine is as follows:
 - run the following to create poster, contributed and invited talks files.
 
   ```bash
-  python mkgalleries.py [path to posters/abstracts json file] [path to galleries root]
+  POSTERS_JSON=[path to "merged" posters/abstracts json file]
+  DIR_GALLERIES_ROOT=[path to galleries root]
+  python mkgalleries.py $POSTERS_JSON $DIR_GALLERIES_ROOT
   ```
 
 - run the following to download PDFs from the PDF upload server and create thumbnails for these PDFs
   ```bash
-  python mkgalleries.py --download [path to json file] [path to galleries root]
+  POSTERS_JSON=[path to "merged" posters/abstracts json file]
+  DIR_GALLERIES_ROOT=[path to galleries root]
+  python mkgalleries.py --download $POSTERS_JSON $DIR_GALLERIES_ROOT
   ```
 
 - run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
   Note that this step requires an existing, full installation of `latex`.
   ```bash
-  python mkgalleries.py --render-equations [path to json file] [path to galleries root]
+  POSTERS_JSON=[path to "merged" posters/abstracts json file]
+  DIR_GALLERIES_ROOT=[path to galleries root]
+  python mkgalleries.py --render-equations $POSTERS_JSON $DIR_GALLERIES_ROOT
   ```
 
 - workshops and exhibitions have their own spreadsheet and get their own `tojson` run:
@@ -342,7 +353,9 @@ The routine is as follows:
   - to create the workshops pages, run the `mkgalleries.py` script with the `--workshops` flag
 
     ```bash
-    python mkgalleries.py --workshop [path to workshops json file] [path to galleries root]
+    WORKSHOP_JSON=[path to workshop json file]
+    DIR_GALLERIES_ROOT=[path to galleries root]
+    python mkgalleries.py --workshop $WORKSHOP_JSON $DIR_GALLERIES_ROOT
     ```
 
   - the exhibition tsv file has to contain "exhibition" in its filename before it will be correctly converted to json by the `tojson.py` script.
@@ -350,16 +363,26 @@ The routine is as follows:
     TBA
   - to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
 
+    ```bash
+    EXHIBITION_JSON=[path to exhibition json file]
+    DIR_GALLERIES_ROOT=[path to galleries root]
+    python mkgalleries.py --exhibition $EXHIBITION_JSON $DIR_GALLERIES_ROOT
+    ```
+
 - check the original data for broken external links using the `linkcheck.py` script:
   ```bash
-    python linkcheck.py [path to posters/abstracts json file]
-    python linkcheck.py --workshops [path to workshops json file]
-    python linkcheck.py --exhibition [path to exhibition json file]
+  POSTERS_JSON=[path to "merged" posters/abstracts json file]
+  WORKSHOP_JSON=[path to workshop json file]
+  EXHIBITION_JSON=[path to exhibition json file]
+  python linkcheck.py $POSTERS_JSON
+  python linkcheck.py --workshops $WORKSHOP_JSON
+  python linkcheck.py --exhibition $EXHIBITION_JSON
   ```
 
 - once all this is done commit and upload the changes for all changed galleries:
 
   ```bash
+    cd [updated gallery directory]
     git add --all
     git commit -m "Updates"
     git push origin master
@@ -383,7 +406,8 @@ The routine is as follows:
   - if there are multiple docker log files, concatenate them before running the `docker_log_stats` script:
     
   ```bash
-  python docker_logs_stats.py [path/to/docker-json.log]  
+  DOCKER_LOG=[path/to/docker-json.log]
+  python docker_logs_stats.py $DOCKER_LOG
   ```
 
 ### After-conference handling
@@ -400,11 +424,13 @@ The routine is as follows:
 - run the following after adjusting the directories appropriately.
 
     ```bash
-    FILES_DIR=/home/$USER/path/to/csv/files
+    # conference short description e.g. BC20
+    CONFERENCE_SHORT=[conferenceShort]
+    FILES_DIR=/home/$USER/path/to/data/files
     MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
     GCA_CLIENT=/home/$USER/path/to/gca-client
     
-    $GCA_CLIENT https://abstracts.g-node.org abstracts [conferenceShort] > $FILES_DIR/abstracts.json
+    $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $FILES_DIR/abstracts.json
     
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
     python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
