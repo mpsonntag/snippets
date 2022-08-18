@@ -309,6 +309,7 @@ def create_equation_images(data: List[Dict[str, str]], target_dir: Dict[str, pl.
                    If this is False, only the Latex occurrences in the abstract
                    text is replaced.
     """
+    print("Creating equation images. NOTE: make sure a full Latex installation is available")
     for item in data:
         text = texify(item, target_dir, create)
         item["abstract"] = text
