@@ -279,6 +279,32 @@ The routine is as follows:
   git remote add wiki ssh://git@bc.g-node.org:[port]/BernsteinConference/[repo].wiki.git
   ```
 
+- the following batch script can be used to speed up this process, if the categories have not been changed:
+  ```bash
+  USE_PORT=[port#]
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Main.git
+  mv Main/ main
+  git -C ./main remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Main.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Posters.git
+  mv Posters/ posters
+  git -C ./posters remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Posters.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/InvitedTalks.git
+  mv InvitedTalks/ invitedtalks
+  git -C ./invitedtalks remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/InvitedTalks.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ContributedTalks.git
+  mv ContributedTalks/ contributedtalks
+  git -C ./contributedtalks remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ContributedTalks.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Workshops.git
+  mv Workshops/ workshops
+  git -C ./workshops remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Workshops.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.git
+  mv Exhibition/ exhibition
+  git -C ./exhibition remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.wiki.git
+  git clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.git
+  mv ConferenceInformation/ conferenceinformation
+  git -C ./conferenceinformation remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.wiki.git
+  ```
+
 - copy `assets` and `banners` directories from the "gin.g-node.org/G-Node/gin-bc20:/config/gogs/public" directory to the "galleries/posters" repository, commit and push.
   - these are required for the banners on the poster topic pages and poster topic thumbnails
 
