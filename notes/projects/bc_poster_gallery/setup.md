@@ -325,8 +325,8 @@ The routine is as follows:
 - copy `assets` and `banners` directories from the "gin.g-node.org/G-Node/gin-bc20:/config/gogs/public" directory to the "galleries/posters" repository, commit and push.
   - these are required for the banners on the poster topic pages and poster topic thumbnails
 
-- for the poster thumbnail conversion to work, you need 
-  - imagemagick installed
+- for the poster thumbnail conversion to work, 
+  - `imagemagick` needs to be installed
   - set the security policy to allow PDFs to be accessed by imagemagick `convert`;
   - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
   - the policy file can be found by running `convert -list policy`
@@ -348,7 +348,8 @@ The routine is as follows:
   ```
 
 - run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
-  Note that this step requires an existing, full installation of `latex`.
+- NOTE that this step requires an existing, FULL installation of `latex`.
+
   ```bash
   POSTERS_JSON=[path to "merged" posters/abstracts json file]
   DIR_GALLERIES_ROOT=[path to galleries root]
@@ -391,11 +392,11 @@ The routine is as follows:
 - once all this is done commit and upload the changes for all changed galleries:
 
   ```bash
-    cd [updated gallery directory]
-    git add --all
-    git commit -m "Updates"
-    git push origin master
-    git push wiki master
+  cd [updated gallery directory]
+  git add --all
+  git commit -m "Updates"
+  git push origin master
+  git push wiki master
   ```
 
 - whenever new changes come in - either via the shared spreadsheet e.g., when the hopin links are provided, if any changes in the abstracts texts are done or if PDFs have been changed, rinse and repeat the following:
@@ -432,74 +433,74 @@ The routine is as follows:
 - download all spreadsheet data as tab separated csv files; use "workshops" and "exhibition" in the file names.
 - run the following after adjusting the directories appropriately.
 
-    ```bash
-    # conference short description e.g. BC20
-    CONFERENCE_SHORT=[conferenceShort]
-    FILES_DIR=/home/$USER/path/to/data/files
-    MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
-    GCA_CLIENT=/home/$USER/path/to/gca-client
-    
-    $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $FILES_DIR/abstracts.json
-    
-    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
-    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
-    python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/exhibition.csv
-    
-    python $MAIN_ROOT/scripts/mergeabstracts.py $FILES_DIR/abstracts.json $FILES_DIR/posters.json
-    
-    python $MAIN_ROOT/scripts/mkgalleries.py $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-    python $MAIN_ROOT/scripts/mkgalleries.py --download $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-    python $MAIN_ROOT/scripts/mkgalleries.py --render-equations $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
-    
-    python $MAIN_ROOT/scripts/mkgalleries.py --workshops $FILES_DIR/workshops.json $MAIN_ROOT/galleries/
-    
-    python $MAIN_ROOT/scripts/mkgalleries.py --exhibition $FILES_DIR/exhibition.json $MAIN_ROOT/galleries/
-
-    # Check external links to identify potential 404s
-    python $MAIN_ROOT/scripts/linkcheck.py $FILES_DIR/posters-abstracts.json
-    python $MAIN_ROOT/scripts/linkcheck.py --workshops $FILES_DIR/workshops.json
-    python $MAIN_ROOT/scripts/linkcheck.py --exhibition $FILES_DIR/exhibition.json
+  ```bash
+  # conference short description e.g. BC20
+  CONFERENCE_SHORT=[conferenceShort]
+  FILES_DIR=/home/$USER/path/to/data/files
+  MAIN_ROOT=/home/$USER/path/to/script/and/galleries/folder
+  GCA_CLIENT=/home/$USER/path/to/gca-client
   
-    # Check changes before commit
-    POSTERS_DIR=$MAIN_ROOT/galleries/posters
-    INV_TALKS_DIR=$MAIN_ROOT/galleries/invitedtalks
-    CON_TALKS_DIR=$MAIN_ROOT/galleries/contributedtalks
-    WORK_DIR=$MAIN_ROOT/galleries/workshops
-    EXHIB_DIR=$MAIN_ROOT/galleries/exhibition
-    
-    git -C $POSTERS_DIR status
-    
-    git -C $INV_TALKS_DIR status
-    
-    git -C $CON_TALKS_DIR status
-    
-    git -C $WORK_DIR status
-    
-    git -C $EXHIB_DIR status
-    
-    # Commit and push
-    git -C $POSTERS_DIR add --all
-    git -C $POSTERS_DIR commit -m "Updates"
-    git -C $POSTERS_DIR push origin master
-    git -C $POSTERS_DIR push wiki master
-    
-    git -C $INV_TALKS_DIR add --all
-    git -C $INV_TALKS_DIR commit -m "Updates"
-    git -C $INV_TALKS_DIR push origin master
-    git -C $INV_TALKS_DIR push wiki master
-    
-    git -C $CON_TALKS_DIR add --all
-    git -C $CON_TALKS_DIR commit -m "Updates"
-    git -C $CON_TALKS_DIR push origin master
-    git -C $CON_TALKS_DIR push wiki master
-    
-    git -C $WORK_DIR add --all
-    git -C $WORK_DIR commit -m "Updates"
-    git -C $WORK_DIR push origin master
-    git -C $WORK_DIR push wiki master
-    
-    git -C $EXHIB_DIR add --all
-    git -C $EXHIB_DIR commit -m "Updates"
-    git -C $EXHIB_DIR push origin master
-    git -C $EXHIB_DIR push wiki master
-    ```
+  $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $FILES_DIR/abstracts.json
+  
+  python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/posters.csv
+  python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/workshops.csv
+  python $MAIN_ROOT/scripts/tojson.py $FILES_DIR/exhibition.csv
+  
+  python $MAIN_ROOT/scripts/mergeabstracts.py $FILES_DIR/abstracts.json $FILES_DIR/posters.json
+  
+  python $MAIN_ROOT/scripts/mkgalleries.py $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+  python $MAIN_ROOT/scripts/mkgalleries.py --download $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+  python $MAIN_ROOT/scripts/mkgalleries.py --render-equations $FILES_DIR/posters-abstracts.json $MAIN_ROOT/galleries/
+  
+  python $MAIN_ROOT/scripts/mkgalleries.py --workshops $FILES_DIR/workshops.json $MAIN_ROOT/galleries/
+  
+  python $MAIN_ROOT/scripts/mkgalleries.py --exhibition $FILES_DIR/exhibition.json $MAIN_ROOT/galleries/
+
+  # Check external links to identify potential 404s
+  python $MAIN_ROOT/scripts/linkcheck.py $FILES_DIR/posters-abstracts.json
+  python $MAIN_ROOT/scripts/linkcheck.py --workshops $FILES_DIR/workshops.json
+  python $MAIN_ROOT/scripts/linkcheck.py --exhibition $FILES_DIR/exhibition.json
+
+  # Check changes before commit
+  POSTERS_DIR=$MAIN_ROOT/galleries/posters
+  INV_TALKS_DIR=$MAIN_ROOT/galleries/invitedtalks
+  CON_TALKS_DIR=$MAIN_ROOT/galleries/contributedtalks
+  WORK_DIR=$MAIN_ROOT/galleries/workshops
+  EXHIB_DIR=$MAIN_ROOT/galleries/exhibition
+  
+  git -C $POSTERS_DIR status
+  
+  git -C $INV_TALKS_DIR status
+  
+  git -C $CON_TALKS_DIR status
+  
+  git -C $WORK_DIR status
+  
+  git -C $EXHIB_DIR status
+  
+  # Commit and push
+  git -C $POSTERS_DIR add --all
+  git -C $POSTERS_DIR commit -m "Updates"
+  git -C $POSTERS_DIR push origin master
+  git -C $POSTERS_DIR push wiki master
+  
+  git -C $INV_TALKS_DIR add --all
+  git -C $INV_TALKS_DIR commit -m "Updates"
+  git -C $INV_TALKS_DIR push origin master
+  git -C $INV_TALKS_DIR push wiki master
+  
+  git -C $CON_TALKS_DIR add --all
+  git -C $CON_TALKS_DIR commit -m "Updates"
+  git -C $CON_TALKS_DIR push origin master
+  git -C $CON_TALKS_DIR push wiki master
+  
+  git -C $WORK_DIR add --all
+  git -C $WORK_DIR commit -m "Updates"
+  git -C $WORK_DIR push origin master
+  git -C $WORK_DIR push wiki master
+  
+  git -C $EXHIB_DIR add --all
+  git -C $EXHIB_DIR commit -m "Updates"
+  git -C $EXHIB_DIR push origin master
+  git -C $EXHIB_DIR push wiki master
+  ```
