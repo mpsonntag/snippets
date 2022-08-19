@@ -29,18 +29,22 @@ BC-Gallery structure
 |- scripts\
 |- BC-latest\
 |  |- server-resources
+|  |  |- README.md
+|  |  |- .env
 |  |  |- uploadersalt
 |  |  |- docker-compose.yml
 |  |  |- config\
 |  |  |  |- gogs\
-|  |  |  |  |- config\
+|  |  |  |  |- conf\
 |  |  |  |  |  - app.ini
 |  |  |  |  |- public\
 |  |  |  |  |  |- *.jpg/.png
 |  |  |  |  |- templates\
 |  |  |  |  |  |- latest-template-tree\*
+|  |  |  |- postgres\
+|  |  |  |  |- postgressecrets.env
 |  |  |  |- uploader\
-|  |  |  |  |- configuration
+|  |  |  |  |- config
 |  |- galleries\
 |  |  |- Info.wiki\
 |  |  |  |- Datenschutz.md
