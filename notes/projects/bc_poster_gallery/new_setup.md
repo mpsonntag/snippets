@@ -177,3 +177,160 @@ CHECK IF THE FOLLOWING WORKS AS WELL
   cp -v $GALLERIES_ARCHIVE/main $GALLERIES_STAGING/main -r
   cp -v $GALLERIES_ARCHIVE/posters $GALLERIES_STAGING/posters -r
   ```
+
+- adjust the following files to fit the current conference:
+  - `$GALLERIES_STAGING/main/Home.md`
+  - all files in `$GALLERIES_STAGING/Info.wiki`
+
+- always add new or changed images and server templates not only to the appropriate 
+  repositories and directories on the server, but also immediately to the `BC-latest` 
+  directory.
+
+- commit and upload. Fhe first push to the wiki of these repositories will require a 
+  force push, since the wikis have been initialized on the server and contain
+  unnecessary content.
+
+  ```bash
+  ROOT=/home/$USER/[path/to]/[BC2X]
+  GALLERIES_ARCHIVE=$ROOT/galleries
+  GALLERIES_STAGING=$ROOT/staging.ignore
+
+  # Handle Info.wiki
+  CURR_DIR=Info.wiki
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_DIR
+
+  # Handle Main
+  CURR_DIR=main
+  CURR_ARCHIVE=Main
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle Posters
+  CURR_DIR=posters
+  CURR_ARCHIVE=Main
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle Invited Talks
+  CURR_DIR=invitedtalks
+  CURR_ARCHIVE=InvitedTalks
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle Contributed Talks
+  CURR_DIR=contributedtalks
+  CURR_ARCHIVE=ContributedTalks
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle workshops
+  CURR_DIR=workshops
+  CURR_ARCHIVE=Workshops
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle Exhibition
+  CURR_DIR=exhibition
+  CURR_ARCHIVE=Exhibition
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+
+  # Handle Conference Information
+  CURR_DIR=conferenceinformation
+  CURR_ARCHIVE=ConferenceInformation
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE
+  ```
+
+TODO test local bash function for cleaner script
+
+  ```bash
+  ROOT=/home/$USER/[path/to]/[BC2X]
+  GALLERIES_ARCHIVE=$ROOT/galleries
+  GALLERIES_STAGING=$ROOT/staging.ignore
+
+  alias galleryupforce='function __galleryupforce() {
+    echo "Handling $CURR_ARCHIVE";
+    git -C $GALLERIES_STAGING/$CURR_DIR add --all;
+    git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates";
+    git -C $GALLERIES_STAGING/$CURR_DIR push origin master;
+    git -C $GALLERIES_STAGING/$CURR_DIR push wiki master -f;
+    echo "Copy data to archive";
+    cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE;
+  }; __galleryupforce'
+
+  # Handle Info.wiki
+  CURR_DIR=Info.wiki
+  git -C $GALLERIES_STAGING/$CURR_DIR add --all
+  git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates"
+  git -C $GALLERIES_STAGING/$CURR_DIR push origin master
+  # copy all changes to the archive directory
+  cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_DIR
+
+  # Handle Main
+  CURR_DIR=main
+  CURR_ARCHIVE=Main
+  galleryup
+
+  # Handle Posters
+  CURR_DIR=posters
+  CURR_ARCHIVE=Main
+  galleryupforce
+
+  # Handle Invited Talks
+  CURR_DIR=invitedtalks
+  CURR_ARCHIVE=InvitedTalks
+  galleryupforce
+
+  # Handle Contributed Talks
+  CURR_DIR=contributedtalks
+  CURR_ARCHIVE=ContributedTalks
+  galleryupforce
+
+  # Handle workshops
+  CURR_DIR=workshops
+  CURR_ARCHIVE=Workshops
+  galleryupforce
+
+  # Handle Exhibition
+  CURR_DIR=exhibition
+  CURR_ARCHIVE=Exhibition
+  galleryupforce
+
+  # Handle Conference Information
+  CURR_DIR=conferenceinformation
+  CURR_ARCHIVE=ConferenceInformation
+  galleryupforce
+  ```
