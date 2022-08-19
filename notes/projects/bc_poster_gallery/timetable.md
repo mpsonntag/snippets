@@ -103,6 +103,47 @@
     [xyz]
 
 
+### Poster number notification
+Dear [xyz],
+
+congratulations again on the acceptance of your abstract "Off- and on-site collaboration and publication: The G-Node Infrastructure Services for research data management" for a poster presentation at Bernstein Conference [YYYY].
+
+Your abstract number: [xyz]
+Please use this abstract number for your uploads to the conference repository.
+
+Your poster session: You are scheduled for poster session [xyz - Day Month DD, HH:mm - HH:mm CEST.]
+Your poster board: [xyz - xyz]
+Please note that the poster board number is not equal to the abstract number!
+
+Following are some information on how to present and prepare your poster. For any updates please also visit our website.
+
+Poster presentation
+
+After a long break, we will go back to a fully on-site, in-person experience. Posters should have a size of DIN A0 (841 x 1189 mm). They must be prepared in portrait aspect ratio.
+To accommodate every poster, presentations will be distributed over a total of four poster sessions of 80 mins each. After your session has ended, please dismount the poster quickly to give the presenter in the next session the chance to start on time.
+
+Poster mounting time is [HH:mm - HH:mm]
+
+Dismounting time is [HH:mm - HH:mm].
+
+
+Conference Repository
+
+Additionally to the on-site presentation, posters will be on display in the Conference Repository. The repository will be available only to registered participants from the beginning of [Month until Day, MM DD]. This gives participants the opportunity to select their posters of interest ahead of time. Each poster will have its own landing page, including abstract, schedule, PDF and a link to a video introduction, if provided.
+
+Please upload your poster as soon as possible to the conference repository (https://posters.bc.g-node.org/) using your personal upload-key provided in your acceptance email.
+
+To profit the most from presenting your research, we also strongly encourage you to prepare a short video introduction of max. 3 minutes. Shortly explain what is exciting about your research and invite participants to join you during the live poster session. To record your video, we suggest a common and easy-to-use tool, e.g. Zoom. For more elaborate versions you may find some help here: https://obsproject.com/.
+
+Videos can be hosted in the Bernstein Conference Vimeo channel and will be available for registered participants only. If you wish for your video to be hosted by us you must upload your video before [Day, Month DD, YYYY, HH:mm CEST]! Upload your video file here: https://fz-juelich.sciebo.de/s/[ID]
+
+Preferred video format is *.mp4. File names must follow the naming scheme [AbstractNumber_FirstAuthor]. Other file names will not be considered.
+
+If you have any questions, please reach out to us.
+Kind regards,
+[xyz]
+
+
 ### Conference registration
 
     [xyz] Add email text
