@@ -94,3 +94,12 @@ BC-Gallery structure
     cp -v $ORIGIN $TARGET -r
     mkdir -vp $GALLERIES_STAGING
     ```
+
+- set up uploader and gogs on the hosting server
+- if required use the server-resources and update all passwords, keys and IP addresses and port numbers
+  - docker-compose.yml
+  - app.ini
+  - postgressecrets.env
+  - uploader/config
+  - update the uploadersalt string in [BC2X] if required
+- set up required organisations and repositories on the running gogs instance
