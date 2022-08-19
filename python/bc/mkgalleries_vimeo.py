@@ -85,6 +85,10 @@ INVITED_TALKS_ADJUST = True
 
 VIMEO_PLAYER_SCRIPT = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h={}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="{}"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
 
+# Add an on-site poster number to all landing pages listing or showing individual posters
+# Required to also display the Poster enumeration used at the site of the conference.
+ONSITE_POSTER_NUMBER = False
+
 
 def run_cmd(*args) -> str:
     """
@@ -170,6 +174,11 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     item_type = ITEM_TYPES[item["short"]]
 
     info_line = f"**{item_type} {abs_no}**"
+    # Add the additional compound on-site poster number to the line if required
+    if item["short"] == "P" and ONSITE_POSTER_NUMBER:
+        on_site_number = item["session"]
+        info_line = f"**{item_type} {on_site_number} (#{abs_no})**"
+
     # An unwise hack to enable special categories within invited talks
     # and adjust the talk numbers accordingly.
     if item["short"] == "I" and INVITED_TALKS_ADJUST:
