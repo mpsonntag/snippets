@@ -3,23 +3,23 @@
 ### Current resources
 
 BC20            ... github.com:G-Node/BC20
-                    ... retire and integrate into new BC-Gallery repository on GIN
+                    ... integrate into new BC-Gallery repository on GIN and archive
+BC20data        ... gin.g-node.org:G-Node/BC20data
+                    ... integrate into new BC-Gallery repository on GIN and archive
+gin             ... gin.g-node.org:G-Node/gin-bc20
+                    ... integrate into new BC-Gallery repository on GIN and archive
 BC20-uploader   ... github.com:G-Node/BC20-uploader
                     ... keep as is
-BC20data        ... gin.g-node.org:G-Node/BC20data
-                    ... retire and integrate into new BC-Gallery repository on GIN
-gin             ... gin.g-node.org:G-Node/gin-bc20
-                    ... retire and integrate into new BC-Gallery repository on GIN
-gogs            ... github.com:G-Node/gogs ... webgallery
-                    ... keep as is
 GCA-Python      ... github.com:G-Node/GCA-Python
+                    ... keep as is
+gogs            ... github.com:G-Node/gogs ... webgallery
                     ... keep as is
 
 ### New resources
 
-gogs            ... github.com:G-Node/gogs
 BC20-uploader   ... github.com:G-Node/BC20-uploader
 GCA-Python      ... github.com:G-Node/GCA-Python
+gogs            ... github.com:G-Node/gogs
 BC-Gallery      ... gin.g-node.org:G-Node/BC-Gallery
 
 BC-Gallery structure
