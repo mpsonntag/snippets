@@ -72,3 +72,25 @@ BC-Gallery structure
 |  ... as above 
 |- BC22\
 |  ... as above 
+
+### Setup process new conference
+
+- keep the repository private, but make sure no live passwords are used in the config files
+- keep the files with passwords in the appropriate repository
+
+- clone repo; a full get-content is not required for now;
+
+  ```bash
+  gin get G-Node/BC-Gallery
+  ```
+
+- copy BC-latest to [BC2X] and set up the staging directory, which should be excluded from
+  the git directory content.
+
+    ```bash
+    ORIGIN=/home/$USER/[path/to]/BC-latest
+    TARGET=/home/$USER/[path/to]/[BC2X]
+    GALLERIES_STAGING=$TARGET/staging.ignore
+    cp -v $ORIGIN $TARGET -r
+    mkdir -vp $GALLERIES_STAGING
+    ```
