@@ -165,3 +165,15 @@ CHECK IF THE FOLLOWING WORKS AS WELL
   git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.git conferenceinformation
   git -C $GALLERIES_STAGING/conferenceinformation remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.wiki.git
   ```
+
+- copy the necessary resources to the staging directories
+
+  ```bash
+  ROOT=/home/$USER/[path/to]/[BC2X]
+  GALLERIES_ARCHIVE=$ROOT/galleries
+  GALLERIES_STAGING=$ROOT/staging.ignore
+
+  cp -v $GALLERIES_ARCHIVE/Info.wiki $GALLERIES_STAGING/Info.wiki -r
+  cp -v $GALLERIES_ARCHIVE/main $GALLERIES_STAGING/main -r
+  cp -v $GALLERIES_ARCHIVE/posters $GALLERIES_STAGING/posters -r
+  ```
