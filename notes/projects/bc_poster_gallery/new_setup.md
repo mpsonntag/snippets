@@ -334,3 +334,63 @@ TODO test local bash function for cleaner script
   CURR_ARCHIVE=ConferenceInformation
   galleryupforce
   ```
+
+- add the initial csv file to the `[BC2X]/rawdata` folder
+
+- add all discussion notes, timetable notes, emails on the subject, email templates, 
+  image or banner zip files to the `[BC2X]/notes` directory for easy review in the next 
+  year.
+
+- after running the scripts to create the poster gallery repositories the following 
+  commits and pushes all changes.
+
+  ```bash
+  ROOT=/home/$USER/[path/to]/[BC2X]
+  GALLERIES_ARCHIVE=$ROOT/galleries
+  GALLERIES_STAGING=$ROOT/staging.ignore
+
+  alias galleryup='function __galleryup() {
+    echo "Handling $CURR_ARCHIVE";
+    git -C $GALLERIES_STAGING/$CURR_DIR add --all;
+    git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates";
+    git -C $GALLERIES_STAGING/$CURR_DIR push origin master;
+    git -C $GALLERIES_STAGING/$CURR_DIR push wiki master;
+    echo "Copy data to archive";
+    cp $GALLERIES_STAGING/$CURR_DIR -r $GALLERIES_ARCHIVE/$CURR_ARCHIVE;
+  }; __galleryup'
+
+  # Handle Main
+  CURR_DIR=main
+  CURR_ARCHIVE=Main
+  galleryup
+
+  # Handle Posters
+  CURR_DIR=posters
+  CURR_ARCHIVE=Main
+  galleryup
+
+  # Handle Invited Talks
+  CURR_DIR=invitedtalks
+  CURR_ARCHIVE=InvitedTalks
+  galleryup
+
+  # Handle Contributed Talks
+  CURR_DIR=contributedtalks
+  CURR_ARCHIVE=ContributedTalks
+  galleryup
+
+  # Handle workshops
+  CURR_DIR=workshops
+  CURR_ARCHIVE=Workshops
+  galleryup
+
+  # Handle Exhibition
+  CURR_DIR=exhibition
+  CURR_ARCHIVE=Exhibition
+  galleryup
+
+  # Handle Conference Information
+  CURR_DIR=conferenceinformation
+  CURR_ARCHIVE=ConferenceInformation
+  galleryup
+  ```
