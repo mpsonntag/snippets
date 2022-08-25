@@ -1,4 +1,12 @@
-## New repositories and pipelines to handle and update the Bernstein Conference Poster Gallery
+# Bernstein Conference Poster Gallery set up notes and data archive
+
+KEEP PRIVATE
+- keep the repository private, but make sure no live passwords are used in the config files
+- keep the files with passwords in the appropriate repository
+
+This repository contains
+- all the information to set up, populate and run the Berstein Conference Poster Gallery
+- all the files and statistics from previous conferences
 
 ### Resources and repository structure
 
