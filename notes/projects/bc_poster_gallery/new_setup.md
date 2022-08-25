@@ -21,11 +21,10 @@ BC-Gallery      ... gin.g-node.org:G-Node/BC-Gallery
 
 root
 |- README.md
-|- setup-notes.md
 |- .gitignore
 |- scripts\
 |- BC-latest\
-|  |- server-resources
+|  |- server-resources\
 |  |  |- README.md
 |  |  |- .env
 |  |  |- uploadersalt
