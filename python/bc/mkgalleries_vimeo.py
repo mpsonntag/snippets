@@ -171,9 +171,10 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     topic = item["topic"]
     session = item["session"]
     abs_no = item["abstract_number"]
+    poster_board_no = item["poster_board_number"]
     item_type = ITEM_TYPES[item["short"]]
 
-    info_line = f"**{item_type} {abs_no}**"
+    info_line = f"**{item_type} {abs_no} (Board number {poster_board_no})**"
     # Add the additional compound on-site poster number to the line if required
     if item["short"] == "P" and ONSITE_POSTER_NUMBER:
         on_site_number = item["session"]
