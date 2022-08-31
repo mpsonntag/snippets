@@ -550,14 +550,15 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
     # sort session index by roman letters
     session_content = {}
     for session, items in session_posters.items():
-        curr_text = f"## Session {session}\n"
         num_posters = len(items)
-        curr_text = f"{curr_text}{num_posters} posters\n"
         time = SESSION_TIMES[session]
-        curr_text = f"{curr_text}**Time:** {time}\n"
         session_url = urlquote(session_filename(session))
-        curr_text = f"{curr_text}[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
-        session_content[session] = curr_text
+
+        curr = f"## Session {session}\n"
+        curr = f"{curr}{num_posters} posters\n"
+        curr = f"{curr}**Time:** {time}\n"
+        curr = f"{curr}[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
+        session_content[session] = curr
 
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
