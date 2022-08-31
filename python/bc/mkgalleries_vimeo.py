@@ -563,10 +563,10 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
         session_roman_order = ["I", "II", "III", "IV"]
-        if len(session_roman_order) != len(SESSION_TIMES.keys()):
+        if len(session_roman_order) != len(SESSION_TIMES):
             print("WARNING: Session number mismatch between scheduled sessions and index page")
         for sess_num in session_roman_order:
-            if sess_num in session_content.keys():
+            if sess_num in session_content:
                 sessions_file.write(session_content[sess_num])
             else:
                 print(f"WARNING: could not find Session {sess_num}; "
