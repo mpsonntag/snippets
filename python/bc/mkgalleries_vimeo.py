@@ -562,10 +562,12 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
 
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
-        sessions_file.write(session_content["I"])
-        sessions_file.write(session_content["II"])
-        sessions_file.write(session_content["III"])
-        sessions_file.write(session_content["IV"])
+        for sess_num in ["I", "II", "III", "IV"]:
+            if sess_num in session_content.keys():
+                sessions_file.write(session_content[sess_num])
+            else:
+                print(f"WARNING: could not find Session {sess_num}; "
+                      f"omitting in 'Poster by session' listing page")
 
     # one page per session with listing
     for session, items in session_posters.items():
