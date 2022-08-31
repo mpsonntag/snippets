@@ -547,20 +547,24 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             session_posters[session] = []
         session_posters[session].append(item)
 
+    # sort session index by roman letters
+    session_content = {}
+    for session, items in session_posters.items():
+        curr_text = f"## Session {session}\n"
+        num_posters = len(items)
+        curr_text = f"{curr_text}{num_posters} posters\n"
+        time = SESSION_TIMES[session]
+        curr_text = f"{curr_text}**Time:** {time}\n"
+        session_url = urlquote(session_filename(session))
+        curr_text = f"{curr_text}[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
+        session_content[session] = curr_text
+
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write("# Poster Sessions\n")
-        for session, items in session_posters.items():
-            sessions_file.write(f"## Session {session}\n")
-
-            num_posters = len(items)
-            sessions_file.write(f"{num_posters} posters  \n")
-
-            time = SESSION_TIMES[session]
-            sessions_file.write(f"**Time:** {time}  \n")
-
-            session_url = urlquote(session_filename(session))
-            curr = f"[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
-            sessions_file.write(curr)
+        sessions_file.write(session_content["I"])
+        sessions_file.write(session_content["II"])
+        sessions_file.write(session_content["III"])
+        sessions_file.write(session_content["IV"])
 
     # one page per session with listing
     for session, items in session_posters.items():
