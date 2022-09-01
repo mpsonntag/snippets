@@ -41,10 +41,10 @@ TOPIC_COLOURS = {
     "Other": "darkblue",
 }
 SESSION_TIMES = {
-    "I": "Wed, Sep 14, 14:15 CEST",
-    "II": "Wed, Sep 14, 18:00 CEST",
-    "III": "Thu, Sep 15, 14:15 CEST",
-    "IV": "Thu, Sep 15, 18:00 CEST"
+    "I": "Wed, Sep 14, 16:30 CEST",
+    "II": "Wed, Sep 14, 18:10 CEST",
+    "III": "Thu, Sep 15, 12:45 CEST",
+    "IV": "Thu, Sep 15, 14:25 CEST"
 }
 ITEM_TYPES = {
     "I": "Invited Talk",
@@ -171,19 +171,19 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     topic = item["topic"]
     session = item["session"]
     abs_no = item["abstract_number"]
-    poster_board_no = f' {item["poster_board_number"]}'
     item_type = ITEM_TYPES[item["short"]]
+    info_content = f'{item_type} {item["poster_board_number"]}'
 
-    info_line = f"**{item_type}{poster_board_no}**"
+    info_line = f"**{info_content.strip()}**"
     # Add the additional compound on-site poster number to the info line
     if item["short"] == "P" and ONSITE_POSTER_NUMBER and omit != "session":
-        info_line = f'**Session {item["session"]} / {item_type}{poster_board_no}**'
+        info_line = f'**Session {item["session"]} / {info_content.strip()}**'
 
     # An unwise hack to enable special categories within invited talks
     # and adjust the talk numbers accordingly.
     if item["short"] == "I" and INVITED_TALKS_ADJUST:
         abs_no = int(abs_no) - 1
-        info_line = f"**{item_type} {abs_no}**"
+        info_line = f"**{info_content.strip()}**"
         if abs_no == 0:
             info_line = "**Keynote lecture**"
         elif abs_no == 11:
@@ -201,7 +201,7 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
         session_link = session_filename(session)
         info_line += f" | [{item_type} session {session}](/wiki/{session_link})"
 
-    return f"{info_line}\n"
+    return f"{info_line}  \n"
 
 
 def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
