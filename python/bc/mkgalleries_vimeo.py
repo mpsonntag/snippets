@@ -216,7 +216,7 @@ def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
     title = item["title"]
     authors = item["authors"]
 
-    title_line = f"**[{title}]({page})**\n"
+    title_line = f"**[{title}]({page})**  \n"
     author_line = f"{authors}  \n"
     info_line = make_infoline(item, omit)
 
