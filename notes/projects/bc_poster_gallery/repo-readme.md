@@ -39,15 +39,15 @@ root
 |  |  └── config\
 |  |     ├── gogs\
 |  |     |  ├── conf\
-|  |     |  |  └── app.ini
+|  |     |  |   └── app.ini
 |  |     |  ├── public\
-|  |     |  |  └── *.jpg/.png
+|  |     |  |   └── *.jpg/.png
 |  |     |  └── templates\
-|  |     |     └── latest-template-tree\*
+|  |     |      └── latest-template-tree\*
 |  |     ├── postgres\
-|  |     |  └── postgressecrets.env
+|  |     |   └── postgressecrets.env
 |  |     └── uploader\
-|  |        └── config
+|  |         └── config
 |  └── galleries\
 |     ├── Info.wiki\
 |     |  ├── Datenschutz.md
@@ -56,15 +56,15 @@ root
 |     |  ├── about.md
 |     |  ├── contact.md
 |     |  └── imprint.md
-|     └── main\
-|        ├── main.md
-|        ├── img\
-|        |  └── *.jpg
-|        └── posters\
-|           ├── assets\
-|           |  └── *.jpg|.png
-|           └── banners\
-|              └── *.jpg|.png
+|     ├── main\
+|     |  ├── main.md
+|     |  └── img\
+|     |      └── *.jpg
+|     └── posters\
+|         ├── assets\
+|         |   └── *.jpg|.png
+|         └── banners\
+|             └── *.jpg|.png
 ├── BC20\
 |  ├── docker-logs\
 |  ├── galleries\
@@ -77,7 +77,7 @@ root
 |   ... as above 
 ...
 ```
-    
+
 ## Addendum
 
 ### Previous resources
