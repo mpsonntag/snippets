@@ -36,6 +36,10 @@ root
 |  |  ├── .env
 |  |  ├── uploadersalt
 |  |  ├── docker-compose.yml
+|  |  ├── static\
+|  |  |   ├── resources\
+|  |  |   |   └── *.jpg/.png
+|  |  |   └── index.html
 |  |  └── config\
 |  |     ├── gogs\
 |  |     |  ├── conf\
