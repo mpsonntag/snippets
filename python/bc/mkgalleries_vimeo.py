@@ -14,7 +14,7 @@ import subprocess as sp
 
 from datetime import date
 from os.path import getsize as getfilesize
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import quote as urlquote
 
 from latex2svg.latex2svg import latex2svg
@@ -81,13 +81,13 @@ WORKSHOP_RECORD_MSG = {
 # Special handling for the invited talks info line: if required adjust talk numbers
 # and 'Keynote' / 'Braitenberg award' texts where the INVITED_TALKS_ADJUST variable
 # is used.
-INVITED_TALKS_ADJUST = True
+INVITED_TALKS_ADJUST = False
 
 VIMEO_PLAYER_SCRIPT = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h={}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="{}"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
 
 # Add an on-site poster number to all landing pages listing or showing individual posters
 # Required to also display the Poster enumeration used at the site of the conference.
-ONSITE_POSTER_NUMBER = False
+ONSITE_POSTER_NUMBER = True
 
 
 def run_cmd(*args) -> str:
@@ -171,14 +171,13 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     topic = item["topic"]
     session = item["session"]
     abs_no = item["abstract_number"]
-    poster_board_no = item["poster_board_number"]
+    poster_board_no = f' {item["poster_board_number"]}'
     item_type = ITEM_TYPES[item["short"]]
 
-    info_line = f"**{item_type} {abs_no} (Board number {poster_board_no})**"
-    # Add the additional compound on-site poster number to the line if required
-    if item["short"] == "P" and ONSITE_POSTER_NUMBER:
-        on_site_number = item["session"]
-        info_line = f"**{item_type} {on_site_number} (#{abs_no})**"
+    info_line = f"**{item_type}{poster_board_no}**"
+    # Add the additional compound on-site poster number to the info line
+    if item["short"] == "P" and ONSITE_POSTER_NUMBER and omit != "session":
+        info_line = f'**Session {item["session"]} / {item_type}{poster_board_no}**'
 
     # An unwise hack to enable special categories within invited talks
     # and adjust the talk numbers accordingly.
@@ -202,7 +201,7 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
         session_link = session_filename(session)
         info_line += f" | [{item_type} session {session}](/wiki/{session_link})"
 
-    return f"{info_line}  \n"
+    return f"{info_line}\n"
 
 
 def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
@@ -217,7 +216,7 @@ def make_list_item(item: Dict[str, str], omit: Optional[str] = None) -> str:
     title = item["title"]
     authors = item["authors"]
 
-    title_line = f"**[{title}]({page})**  \n"
+    title_line = f"**[{title}]({page})**\n"
     author_line = f"{authors}  \n"
     info_line = make_infoline(item, omit)
 
@@ -593,9 +592,16 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     :param data: list containing a dictionary of poster items.
     :param target_dir: directory to save the files to.
     """
-    list_content: List[str] = []
+    # create a list sorted by a) roman numeral session number and b) poster board number
+    sorted_content = []
     for item in data:
-        list_content.append(make_list_item(item))
+        curr_item_text = make_list_item(item)
+        sorted_content.append((item["session"], int(item["poster_board_number"]), curr_item_text))
+
+    sorted_content = sorted(sorted_content)
+    list_content: List[str] = []
+    for i in sorted_content:
+        list_content.append(i[2])
 
     list_fname = "List.md"
     list_path = target_dir.joinpath(list_fname)
