@@ -271,3 +271,26 @@ The routine is as follows:
   ```
   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 1855: invalid continuation byte
   ```
+
+- the file can automatically be converted to a tab delimited text file using libreoffice.
+  Check the details for the conversion here: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Options
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  DOWNLOAD_DIR=[path/to/downloads]
+  FILENAME_BASE=[filename without extension]
+
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+
+  EXPORTED_XLSX_FILE=$DOWNLOAD_DIR/$FILENAME_BASE.xlsx
+  EXPORTED_CSV_FILE=$CONFERENCE_DATA/$FILENAME_BASE.csv
+
+  POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
+
+  # converts to tab (9) delimited text file, using " (34) as text delimiter and 
+  # UTF-8 (76) as charset.
+  libreoffice --headless  --convert-to "csv:Text - txt - csv (StarCalc):9,34,76,1,1/1" --outdir $CONFERENCE_DATA $EXPORTED_XLSX_FILE
+
+  mv $EXPORTED_CSV_FILE $POSTERS_CSV_FILE
+  ```
