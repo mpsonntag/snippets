@@ -156,6 +156,19 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
   docker-compose up -d
   ```
 
+## Re-using the conference setup on an existing server
+
+The set up at this point can be re-used for another conference. On the current server,
+a blank, but functional set up of the service can be found at `$PROJ_ROOT`.
+
+Recursively copy this directory to `posters20XX`, adjusting the directory name to
+the current year. Update all required passwords, IP addresses and ports and start
+the service from the copied directory.
+
+
+---- MOVE TO GALLERY-HANDLING FILE
+
+
 ## Required registration routine set up
 
 To enable registration at the poster gallery, the email address has to be made available 
