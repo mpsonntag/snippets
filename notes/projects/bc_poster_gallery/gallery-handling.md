@@ -10,7 +10,21 @@ These notes require a running service as described in the [server setup notes](.
 
 ## Required gallery service content preparations
 
+### Required registration routine set up
+
+To enable registration at the poster gallery, the email address has to be made available 
+via the uploader service. If not set up differently, the uploader URL is https://posters.bc.g-node.org.
+
+The routine is as follows:
+- provide an upload PW on the server in `$PROJ_ROOT/config/uploader/config`
+- add email addresses on the uploader service via route `[uploader URL]/uploademail`
+- this will create an output file containing hashes of the email addresses
+- these hashes can be queried by the poster gallery service via the route `[uploader URL]/uploads/emailwhitelist`
+- all email addresses in this hash file are eligible to register with the poster gallery service.
+
+
 ### Gallery service preparation; ssh access, organizations and required repositories
+
 - log in to the running gallery service (bc.g-node.org) using the admin user
 - copy a git ssh key to the user's settings; https://bc.g-node.org/user/settings/ssh
 - create the following organizations via the Web interface
