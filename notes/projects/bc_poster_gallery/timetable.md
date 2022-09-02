@@ -59,8 +59,9 @@
 - [G-Node] continuously update galleries from updated SciBo CSV tables
 
 ### 1 Month after conference
+- [G-Node] final backup of the gallery content, log files and statistics
 - [G-Node] switch repository to static page
-
+- [G-Node] shut off gallery containers
 
 # Addendum
 
