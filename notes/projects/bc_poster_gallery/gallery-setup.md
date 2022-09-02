@@ -45,15 +45,16 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 ### Prepare required files
 
-- clone the repo G-Node/gin-bc20 from gin.g-node.org and copy the contents (minus the git directory) to the `$PROJ_ROOT` directory on the server.
-- update the `.env` file content
-- update the `docker-compose.yml` file 
+- clone the repo G-Node/BCCN_Conference from gin.g-node.org and copy the contents of `BC-latest/server-resources/config` to the `$PROJ_ROOT` directory on the server.
+- unzip `config/gogs/public.zip` at its location.
+- update the `.env` file content.
+- update the `docker-compose.yml` file.
   - to match the appropriate docker containers e.g.:
-    - gnode/gin-web:posters
+    - gnode/gin-web:gallerydev
     - gnode/bc20-uploader:latest
 
   - to match the ids of the local `gnode` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate ids.
-  - make sure the used IP addresses do not overlap with already running docker containers
+  - make sure the used IP addresses do not overlap with already running docker containers.
   - make sure to use ssh ports that do not overlap with any other ssh port in use e.g., -> needs to be adjusted in the gin client later on as well
     - "141.84.41.217:2424:22"
 
@@ -68,7 +69,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 - rename `$PROJ_ROOT/config/gogs/conf/app.ini` to `reference_app.ini` to avoid it being overwritten after initializing the docker container.
 
-- change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group; also make sure people that may want to edit files are in the same group
+- change ownership of the whole `$PROJ_ROOT` directory to the appropriate user and group; also make sure people that may want to edit files are in the same group.
 
   ```bash
   sudo chown -R $DEPLOY_USER:$DEPLOY_GROUP $PROJ_ROOT
@@ -137,7 +138,7 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
       REQUIRE_SIGNIN_VIEW    = true
     ```
 
-- if this is not already the case from a previous step, copy the gogs images and templates "gin.g-node.org/G-Node/gin-bc20:/config/gogs" to `$PROJ_ROOT/config/gogs/` on the server.
+- if this is not already the case from a previous step, copy the gogs images and templates "gin.g-node.org/G-Node/BCCN_Conference:/BC-latest/server-resources/config/gogs" to `$PROJ_ROOT/config/gogs/` on the server; make sure the `config/gogs/public.zip` file has been extracted at its location. Update the file ownership.
 - update the custom templates and images in `$PROJ_ROOT/config/gogs/templates` so links, times and dates match the current conference requirements.
 
 - update the content of the `$PROJ_ROOT/config/uploader` config file to match the current conference requirements.
@@ -157,20 +158,21 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 ## Required registration routine set up
 
-To enable registration on the poster gallery, the email address has to be made available 
-via the uploader service.
+To enable registration at the poster gallery, the email address has to be made available 
+via the uploader service. If not set up differently, the uploader URL is https://posters.bc.g-node.org.
 
 The routine is as follows:
-- provide an upload pw on the server in `$PROJ_ROOT/config/uploader/config`
+- provide an upload PW on the server in `$PROJ_ROOT/config/uploader/config`
 - add email addresses on the uploader service via route `[uploader URL]/uploademail`
 - this will create an output file containing hashes of the email addresses
-- these hashes can be queried by the gogs services via the route `[uploader URL]/uploads/emailwhitelist`
+- these hashes can be queried by the poster gallery service via the route `[uploader URL]/uploads/emailwhitelist`
+- all email addresses in this hash file are eligible to register with the poster gallery service.
 
 
 ## Required poster upload hash set up
 
 - provide a salt file with an according value in a `$PROJ_ROOT/uploadersalt` file ... it is required for the poster upload hash
-- create a poster_hash.json file using the `mkuploadcodes.py` file from github:BC20/scripts.
+- create a poster_hash.json file using the `mkuploadcodes.py` file from gin.g-node.org/G-Node/BCCN-Conference:BC-latest/scripts directory.
 - copy the resulting file to `$PROJ_ROOT/config/uploader/poster.json`
 
 
