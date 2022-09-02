@@ -309,3 +309,50 @@ The routine is as follows:
   # make sure to use Python 3.8+
   python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
   ```
+
+
+### Poster PDF upload key handling
+
+Poster authors have to upload their PDFs and video URLs via https://posters.bc.g-node.org.
+To do this, they require a poster upload key. The keys are tied to the poster abstract
+UUID from abstracts.g-node.org. The service at posters.bc.g-node.org requires a `posters.json`
+file containing the full poster information, poster abstract and upload key.
+To create this from scratch, a couple of steps are required:
+
+- use the `posters.json` file with the salt hash string from `BCCN_Conference/BC2X/server-resources/uploadersalt` 
+  to create the upload keys tied to the abstracts UUID.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+
+  SALT_FILE=$REPO_ROOT/$CONFERENCE_SHORT/server-resources/uploadersalt
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters.json
+
+  # the script writes output files into the current directory; switch to the raw data dir
+  cd $CONFERENCE_DATA
+  python $SCRIPTS_DIR/mkuploadcodes.py $SALT_FILE $POSTERS_JSON
+  ```
+
+- paste the output of the `posters-codes.tsv` into the SciBo spreadsheet; the first column
+  are the abstract UUIDs, the second column are the upload keys created using these
+  UUIDs; copy this data to the "upload_key" column and cross check whether the keys match
+  the appropriate abstract UUID.
+  The next time the SciBo spreadsheet is imported, the upload keys will be part
+  of the created `posters.json` file.
+
+- copy the `posters-codes.json` file can be copied to the server hosting the poster
+  upload service. Copy it as `posters.json` to `$PROJ_ROOT/config/uploader/poster.json`.
+  Authors will now be able to upload their poster using the key they have been provided.
+  Using the information from the `posters.json` file, the upload key will link the
+  uploaded poster PDF and any video url to the appropriate abstract and will save
+  the information as [abstractUUID].pdf or [abstractUUID].url in `$PROJ_ROOT/volumes/uploader`
+  Restart of the uploader service should not be necessary, but it does not hurt to test 
+  if PDF uploads are working after the `posters.json` file has been updated.
+
+- TODO: add the `abstracts_uploadkey_csv.py` script to scripts and add the option here before the initial information is sent to BCOS -> saves the roundabout handling with the `mkuploadcodes.py` script.
+
+
