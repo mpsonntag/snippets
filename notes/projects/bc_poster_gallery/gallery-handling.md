@@ -596,6 +596,10 @@ To create this from scratch, a couple of steps are required:
   - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
 
+
+### Full update convenience script
+
+
 ### Statistics via docker logs
 
 - the script `docker_log_stats.py` can be used to get basic access statistics out of the gogs docker logs.
@@ -607,4 +611,79 @@ To create this from scratch, a couple of steps are required:
   ```bash
   DOCKER_LOG=[path/to/docker-json.log]
   python docker_logs_stats.py $DOCKER_LOG
+  ```
+
+### After-conference handling
+
+- backup the csv files and galleries to a new folder in the gin.g-node.org/G-Node/BC20data repository.
+- backup the added images and template updates from the server at `$ROOT/config/gogs` to the gin.g-node.org/G-Node/gin-bc20 repository.
+- add the content of the `static` folder to `/web/static` on the bc.g-node.org machine.
+- update the content of the `index.html` file with respect to year and BCOS requests.
+- update the apache config files for `bc.g-node.org` and `posters.bc.g-node.org` to point to the static page (see `apache-conf` directory for details) and `sytemctl reload apache2` for the changes to take effect.
+
+- add the initial csv file to the `[BC2X]/rawdata` folder
+
+- add all discussion notes, timetable notes, emails on the subject, email templates, 
+  image or banner zip files to the `[BC2X]/notes` directory for easy review in the next 
+  year.
+
+- archive the poster gallery content
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
+  GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+
+  # Handle Info.wiki
+  HANDLE_DIR=Info.wiki
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_DIR
+
+  # Handle Main
+  HANDLE_DIR=main
+  HANDLE_ARCHIVE=Main
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Handle Invited Talks
+  HANDLE_DIR=invitedtalks
+  HANDLE_ARCHIVE=InvitedTalks
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Handle Contributed Talks
+  HANDLE_DIR=contributedtalks
+  HANDLE_ARCHIVE=ContributedTalks
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Handle workshops
+  HANDLE_DIR=workshops
+  HANDLE_ARCHIVE=Workshops
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Handle Exhibition
+  HANDLE_DIR=exhibition
+  HANDLE_ARCHIVE=Exhibition
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Handle Conference Information
+  HANDLE_DIR=conferenceinformation
+  HANDLE_ARCHIVE=ConferenceInformation
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+
+  # Keep updates of the smaller repos and Posters separate
+  gin commit $GALLERIES_ARCHIVE -m "Update gallery archive"
+  gin upload .
+
+  # Handle Posters
+  HANDLE_DIR=posters
+  HANDLE_ARCHIVE=Posters
+
+  # Posters contains a large number of files. Keep the files per commit at a lower level.
+  # Also put PDF content into the annex to keep the initial clone of the repo light and fast.
+  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+  gin commit $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE/*.url -m "Adding poster video urls"
+  gin git annex add $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE/*.pdf
+  gin git commit -m "Adding poster PDFs to annex"
+  gin commit . -m "Add poster resources"
+  gin upload .
   ```
