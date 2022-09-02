@@ -351,7 +351,6 @@ To create this from scratch, a couple of steps are required:
 
 - make sure to download the latest SciBo spreadsheet and re-create the `posters.json`
   file including the `upload_key` values.
-- make sure the Posters spreadsheet also contains invited and contributed talks
 - locally clone the [GCA-Python](https://github.com/G-Node/GCA-Python) client. Make sure 
   the local `.netrc` credentials are prepared; check the GCA-Python README for details.
 - make sure that all abstracts on the GCA-Web server have been reviewed and are set to 
@@ -404,3 +403,31 @@ To create this from scratch, a couple of steps are required:
 - everytime information changes in the SciBo spreadsheet or in the state of the
   abstracts, redo the previous steps and update the `posters.json` file on the
   uploader service.
+
+
+### Creating the gallery content
+
+- update all relevant information in the `BCCN_Conference/scripts/mkgalleries.py` script
+  to accommodate the current conference:
+  - URLs, repos
+  - topics
+  - session times
+  - item types
+  - index_text
+  - withdrawn IDs
+  - not available Poster PDF IDs
+- make sure the posters spreadsheet also contains invited and contributed talks
+
+- run the following to create poster, contributed and invited talks files.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+
+  python $SCRIPTS_DIR/mkgalleries.py $POSTERS_JSON $GALLERIES_STAGING
+  ```
