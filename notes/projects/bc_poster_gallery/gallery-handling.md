@@ -229,3 +229,45 @@ The routine is as follows:
   HANDLE_DIR=posters
   galleryupforce
   ```
+
+## Poster gallery wiki preparations
+
+- The following describes how to create the poster gallery content files from information
+  received from online spreadsheets provided by BCOS and information from the abstracts 
+  service.
+- all scripts required to create the poster gallery content are found in the 
+  G-Node/BCCN_Conference repository at $REPO_ROOT/scripts.
+- due to certain code features, the Python scripts require Python version 3.8+.
+- the structure of the required spreadsheets can be reviewed in files from the previous
+  conferences e.g. in "BCCN_Conference/BC21/rawdata".
+
+### Create initial posters json file from BCOS spreadsheets
+
+- as a general note for spreadsheet entries that deal with LINKS: they all HAVE to start 
+  with "http" or "https"; otherwise links in the created markdown files will not create 
+  working links.
+- the following preparations require a couple of manual steps between the main `json` 
+  file and a spreadsheet shared with BCOS. The main `json` file will be updated multiple 
+  times before it contains all information required to create the final poster gallery.
+- prepare a single spreadsheet with the information about "posters", "invited talks" and 
+  "contributed talks". Ideally this spreadsheet is available online e.g., via sciebo and 
+  is shared with BCOS.
+- the following are the required columns in this spreadsheet, and the column titles have 
+  to match exactly; the order can differ and there may be additional columns that will 
+  be ignored:
+  "abstract no NEW", "title", "authors", "email", "topic", "id", "session", "time", 
+  "upload_key", "vimeo link", "link hopin", "individual video link" "repo_link", 
+  "abstract", "Poster_Board_Number"
+- NOTE: column title "abstract no NEW" will be transformed to column title 
+  "abstract_number" by the `tojson.py` script. Some columns are empty for now and will be 
+  manually filled during the next steps.
+
+- save this spreadsheet to a local file. NOTE: when downloading from a SciBo spreadsheet to
+  a tab separated file, it might happen, that the line breaks are not properly parsed by
+  the conversion script. To avoid this issue, save the file as ".xlsx", open locally with
+  libre office and export to a tab separated, UTF-8 CSV file.
+  The tell-tale error to look for when running the script is:
+
+  ```
+  UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 1855: invalid continuation byte
+  ```
