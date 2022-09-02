@@ -344,15 +344,63 @@ To create this from scratch, a couple of steps are required:
   The next time the SciBo spreadsheet is imported, the upload keys will be part
   of the created `posters.json` file.
 
-- copy the `posters-codes.json` file can be copied to the server hosting the poster
+- TODO: add the `abstracts_uploadkey_csv.py` script to scripts and add the option here before the initial information is sent to BCOS -> saves the roundabout handling with the `mkuploadcodes.py` script.
+
+
+### Accepted authors list for the uploader service
+
+- make sure to download the latest SciBo spreadsheet and re-create the `posters.json`
+  file including the `upload_key` values.
+- make sure the Posters spreadsheet also contains invited and contributed talks
+- locally clone the [GCA-Python](https://github.com/G-Node/GCA-Python) client. Make sure 
+  the local `.netrc` credentials are prepared; check the GCA-Python README for details.
+- make sure that all abstracts on the GCA-Web server have been reviewed and are set to 
+  "ACCEPTED". Abstracts in state "InReview" and "InPreparation" are skipped; authors of
+  skipped abstracts will not be able to upload their data.
+- download the abstract texts from the GCA server.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  GCA_CLIENT=[path to gca-client]/GCA-Python/gca-client
+
+  ABSTRACTS_JSON=$REPO_ROOT/$CONFERENCE_SHORT/rawdata/abstracts.json
+
+  # make sure to use Python 3.8+
+  $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $ABSTRACTS_JSON
+  ```
+
+- merge the information from `posters.json` and `abstracts.json` using the 
+  `mergeabstracts.py` script from `BCCN_Conference/scripts`. It will create a 
+  `posters-abstracts.json` file containing all poster information including the 
+  abstracts texts.
+  
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters.json
+  ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
+
+  python $SCRIPTS_DIR/mergeabstracts.py $ABSTRACTS_JSON $POSTERS_JSON
+  ```
+
+- copy the resulting `posters-abstracts.json` to the server hosting the poster
   upload service. Copy it as `posters.json` to `$PROJ_ROOT/config/uploader/poster.json`.
   Authors will now be able to upload their poster using the key they have been provided.
   Using the information from the `posters.json` file, the upload key will link the
   uploaded poster PDF and any video url to the appropriate abstract and will save
   the information as [abstractUUID].pdf or [abstractUUID].url in `$PROJ_ROOT/volumes/uploader`
   Restart of the uploader service should not be necessary, but it does not hurt to test 
-  if PDF uploads are working after the `posters.json` file has been updated.
+  if PDF uploads are working after the `posters.json` file has been updated. Authors
+  that have not been approved via the abstracts.g-node.org service yet (abstract not
+  in state "Approved") will also not be able to upload any data via the uploader.
+  Furthermore, after an author has uploaded a PDF, the resulting page will show
+  a preview of the Poster landing page including all relevant information including
+  the abstract of the poster.
 
-- TODO: add the `abstracts_uploadkey_csv.py` script to scripts and add the option here before the initial information is sent to BCOS -> saves the roundabout handling with the `mkuploadcodes.py` script.
-
-
+- everytime information changes in the SciBo spreadsheet or in the state of the
+  abstracts, redo the previous steps and update the `posters.json` file on the
+  uploader service.
