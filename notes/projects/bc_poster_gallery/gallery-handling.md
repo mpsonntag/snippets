@@ -294,3 +294,18 @@ The routine is as follows:
 
   mv $EXPORTED_CSV_FILE $POSTERS_CSV_FILE
   ```
+
+- use the `tojson.py` script from `BCCN_Conference/scripts` to create the initial 
+  `posters.json` file.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
+
+  # make sure to use Python 3.8+
+  python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
+  ```
