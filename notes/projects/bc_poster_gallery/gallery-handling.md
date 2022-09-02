@@ -595,3 +595,16 @@ To create this from scratch, a couple of steps are required:
   - make galleries
   - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
+
+### Statistics via docker logs
+
+- the script `docker_log_stats.py` can be used to get basic access statistics out of the gogs docker logs.
+  - on the gogs host type `docker ps`; note the container ID
+  - run `ls /var/lib/docker` to identify the full [docker ID]
+  - the log files can be found at `/var/lib/docker/[docker ID]/[docker ID]-json.log`
+  - if there are multiple docker log files, concatenate them before running the `docker_log_stats` script:
+    
+  ```bash
+  DOCKER_LOG=[path/to/docker-json.log]
+  python docker_logs_stats.py $DOCKER_LOG
+  ```
