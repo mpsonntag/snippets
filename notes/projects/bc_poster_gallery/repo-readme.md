@@ -12,13 +12,13 @@ For handling the Bernstein Conference poster gallery, check the [gallery handlin
 
 ### Resources and repository structure
 
-#### Additional resources
+#### All poster gallery resources
 
 ```
-BC20-uploader   ... github.com:G-Node/BC20-uploader
-GCA-Python      ... github.com:G-Node/GCA-Python
-gogs            ... github.com:G-Node/gogs
-BC-Gallery      ... gin.g-node.org:G-Node/BC-Gallery
+BC20-uploader       ... github.com:G-Node/BC20-uploader
+GCA-Python          ... github.com:G-Node/GCA-Python
+gogs                ... github.com:G-Node/gogs
+BCCN-Conference     ... gin.g-node.org:G-Node/BCCN_Conference
 ```
 
 #### Repository structure
