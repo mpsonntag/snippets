@@ -77,3 +77,67 @@ These notes require a running service as described in the [server setup notes](.
   GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
   mkdir -vp $GALLERIES_STAGING
   ```
+
+### ssh access for wiki cloning, local content preparation and upload
+
+- make sure the git ssh key added to the poster gallery admin is used by
+  the local git configuration.
+- use git and not the gin client to handle the poster gallery repositories.
+
+- git clone all gallery repositories into the `$GALLERIES_STAGING` directory
+  and add wiki remotes. The following routine describes the general process for all 
+  repositories except `G-Node/Info.wiki`. A convenience script can be found further down.
+
+  - all wikis should be initialized first via the web service, if this has not been
+    done yet:
+    - access bc.g-node.org/[owner]/[reponame]/wiki
+    - create a page
+  - clone a repository locally; use the appropriate port number
+
+    ```bash
+    REPO_OWNER=[e.g. BernsteinConference]
+    REPO_NAME=[e.g. Posters]
+    USE_PORT=[gallery service git port]
+    git clone ssh://git@bc.g-node.org:$USE_PORT/$REPO_OWNER/$REPO_NAME.git
+    ```
+
+  - add the wiki as second remote for the repository
+
+    ```bash
+    cd $REPO_NAME
+    git remote add wiki ssh://git@bc.g-node.org:$USE_PORT/$REPO_OWNER/$REPO_NAME.wiki.git
+    ```
+
+- the following script should clone and set up all required repositories in the local 
+  staging directory. This script might need to change for future conferences.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+  USE_PORT=[gallery service git port]
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/G-Node/Info.wiki
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Main.git main
+  git -C $GALLERIES_STAGING/main remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Main.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Posters.git posters
+  git -C $GALLERIES_STAGING/posters remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Posters.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/InvitedTalks.git invitedtalks
+  git -C $GALLERIES_STAGING/invitedtalks remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/InvitedTalks.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ContributedTalks.git contributedtalks
+  git -C $GALLERIES_STAGING/contributedtalks remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ContributedTalks.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Workshops.git workshops
+  git -C $GALLERIES_STAGING/workshops remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Workshops.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.git exhibition
+  git -C $GALLERIES_STAGING/exhibition remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.wiki.git
+
+  git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.git conferenceinformation
+  git -C $GALLERIES_STAGING/conferenceinformation remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.wiki.git
+  ```
