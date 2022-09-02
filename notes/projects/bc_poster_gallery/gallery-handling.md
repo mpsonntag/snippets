@@ -525,3 +525,73 @@ To create this from scratch, a couple of steps are required:
   python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
   python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
   ```
+
+### Gallery content updates
+
+- once all this is done, commit and upload the changes for all changed galleries:
+
+  ```bash
+  cd [updated gallery directory]
+  git add --all
+  git commit -m "Updates"
+  git push origin master
+  git push wiki master
+  ```
+
+- the following script can be used to automatically commit and upload any current changes:
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+
+  alias galleryup='function __galleryup() {
+    echo "Handling $CURR_DIR";
+    git -C $GALLERIES_STAGING/$CURR_DIR add --all;
+    git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates";
+    git -C $GALLERIES_STAGING/$CURR_DIR push origin master;
+    git -C $GALLERIES_STAGING/$CURR_DIR push wiki master;
+  }; __galleryup'
+
+  # Handle Main
+  CURR_DIR=main
+  galleryup
+
+  # Handle Posters
+  CURR_DIR=posters
+  galleryup
+
+  # Handle Invited Talks
+  CURR_DIR=invitedtalks
+  galleryup
+
+  # Handle Contributed Talks
+  CURR_DIR=contributedtalks
+  galleryup
+
+  # Handle workshops
+  CURR_DIR=workshops
+  galleryup
+
+  # Handle Exhibition
+  CURR_DIR=exhibition
+  galleryup
+
+  # Handle Conference Information
+  CURR_DIR=conferenceinformation
+  galleryup
+  ```
+
+- whenever new changes come in - either via the shared spreadsheet e.g., 
+  when the hopin links are provided, if any changes in the abstracts texts are done or 
+  if PDFs have been changed, rinse and repeat the following:
+  - download shared spreadsheet as tab separated csv
+  - run `tojson.py`
+  - fetch abstract texts
+  - merge abstract texts with json file
+  - update posters-abstracts.json on the uploader service
+  - download PDFs and render equations
+  - make galleries
+  - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
+  - commit and upload changes to the wiki
