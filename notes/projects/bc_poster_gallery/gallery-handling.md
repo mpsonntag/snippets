@@ -597,7 +597,103 @@ To create this from scratch, a couple of steps are required:
   - commit and upload changes to the wiki
 
 
-### Full update convenience script
+### Full bash script to fetch, create and upload the poster gallery
+
+- download all spreadsheet data as tab separated csv files; use "workshops" and "exhibition" in the file names.
+- run the following after adjusting the directories appropriately.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  GCA_CLIENT=[path to gca-client]/GCA-Python/gca-client
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
+
+  POSTERS_JSON=$CONFERENCE_DATA/posters.json
+  ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
+  POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+
+  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+  EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
+
+  alias galleryup='function __galleryup() {
+    echo "Handling $CURR_DIR";
+    git -C $GALLERIES_STAGING/$CURR_DIR add --all;
+    git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates";
+    git -C $GALLERIES_STAGING/$CURR_DIR push origin master;
+    git -C $GALLERIES_STAGING/$CURR_DIR push wiki master;
+  }; __galleryup'
+
+  # make sure to use Python 3.8+
+  python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
+
+  $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $ABSTRACTS_JSON
+
+  python $SCRIPTS_DIR/mergeabstracts.py $ABSTRACTS_JSON $POSTERS_JSON
+
+  python $SCRIPTS_DIR/mkgalleries.py $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+
+  python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+
+  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOP_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
+
+  python $SCRIPTS_DIR/linkcheck.py $POSTERS_JSON
+  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
+  python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
+
+  # Check changes before commit
+  POSTERS_DIR=$GALLERIES_STAGING/posters
+  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
+  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
+  WORK_DIR=$GALLERIES_STAGING/workshops
+  EXHIB_DIR=$GALLERIES_STAGING/exhibition
+
+  git -C $POSTERS_DIR status
+
+  git -C $INV_TALKS_DIR status
+
+  git -C $CON_TALKS_DIR status
+
+  git -C $WORK_DIR status
+
+  git -C $EXHIB_DIR status
+
+  # commit and upload changes
+  # Handle Main
+  CURR_DIR=main
+  galleryup
+
+  # Handle Posters
+  CURR_DIR=posters
+  galleryup
+
+  # Handle Invited Talks
+  CURR_DIR=invitedtalks
+  galleryup
+
+  # Handle Contributed Talks
+  CURR_DIR=contributedtalks
+  galleryup
+
+  # Handle workshops
+  CURR_DIR=workshops
+  galleryup
+
+  # Handle Exhibition
+  CURR_DIR=exhibition
+  galleryup
+
+  # Handle Conference Information
+  CURR_DIR=conferenceinformation
+  galleryup
+  ```
 
 
 ### Statistics via docker logs
