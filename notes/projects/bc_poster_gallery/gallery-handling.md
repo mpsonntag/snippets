@@ -466,3 +466,62 @@ To create this from scratch, a couple of steps are required:
 
   python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_JSON $GALLERIES_STAGING
   ```
+
+
+### Workshop, Exhibition, Conference information handling
+
+- workshops and exhibitions have their own spreadsheet download and convert to tsv accordingly.
+- the workshop tsv file has to contain "workshops" in its filename before it will be 
+  correctly converted to json by the `tojson.py` script.
+- the workshop spreadsheet has to contain the following named columns:
+  "workshop number", "workshop name", "organisers", "info url", "talk title", "speakers", "recording status", "recording url"
+- to create the workshops pages, run the `mkgalleries.py` script with the `--workshops` flag
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+
+  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOP_JSON $GALLERIES_STAGING
+  ```
+
+- the exhibition tsv file has to contain "exhibition" in its filename before it will be 
+  correctly converted to json by the `tojson.py` script.
+- the exhibition spreadsheet has to contain the following named columns:
+    TBA
+- to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
+
+  python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
+  ```
+
+- TODO: Conference information handling
+
+- check the original data for broken external links using the `linkcheck.py` script:
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+  EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
+
+  python $SCRIPTS_DIR/linkcheck.py $POSTERS_JSON
+  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
+  python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
+  ```
