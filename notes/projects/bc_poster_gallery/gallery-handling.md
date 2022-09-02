@@ -85,11 +85,13 @@ The routine is as follows:
 
 - prepare a wiki staging directory in the BCCN_Conference repository. The directory name
   should include ".ignore" to make sure these files will not yet become part of the
-  repository for now.
+  repository for now. Further, prepare `notes` and `rawdata` directories
 
   ```bash
   GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
   mkdir -vp $GALLERIES_STAGING
+  mkdir -v $CONFERENCE_ROOT/rawdata
+  mkdir -v $CONFERENCE_ROOT/notes
   ```
 
 ### ssh access for wiki cloning, local content preparation and upload
