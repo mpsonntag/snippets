@@ -377,8 +377,8 @@ To create this from scratch, a couple of steps are required:
   ```bash
   CONFERENCE_SHORT=[BC2X]
   REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
-  SCRIPTS_DIR=$REPO_ROOT/scripts
 
+  SCRIPTS_DIR=$REPO_ROOT/scripts
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
   POSTERS_JSON=$CONFERENCE_DATA/posters.json
   ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
@@ -423,11 +423,46 @@ To create this from scratch, a couple of steps are required:
   ```bash
   CONFERENCE_SHORT=[BC2X]
   REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
-  SCRIPTS_DIR=$REPO_ROOT/scripts
 
-  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
   POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
 
   python $SCRIPTS_DIR/mkgalleries.py $POSTERS_JSON $GALLERIES_STAGING
+  ```
+
+- run the following to download PDFs from the PDF upload server and create thumbnails for these PDFs
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+
+  python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_JSON $GALLERIES_STAGING
+  ```
+
+- for the poster thumbnail conversion to work, 
+  - `imagemagick` needs to be installed
+  - set the security policy to allow PDFs to be accessed by imagemagick `convert`;
+  - see these threads for details [1](https://stackoverflow.com/questions/52998331/imagemagick-security-policy-pdf-blocking-conversion/53180170#53180170), [2](https://imagemagick.org/script/security-policy.php), [3](https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=29653)
+  - the policy file can be found by running `convert -list policy`
+  - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
+
+- run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
+- NOTE that this step requires an existing, FULL installation of `latex`.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+
+  python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_JSON $GALLERIES_STAGING
   ```
