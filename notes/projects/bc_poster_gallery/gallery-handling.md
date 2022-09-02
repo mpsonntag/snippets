@@ -141,3 +141,75 @@ These notes require a running service as described in the [server setup notes](.
   git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.git conferenceinformation
   git -C $GALLERIES_STAGING/conferenceinformation remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.wiki.git
   ```
+
+- copy the required wiki resources like images or Info.wiki files to the staging directories
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
+  GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+
+  cp -v $GALLERIES_ARCHIVE/Info.wiki $GALLERIES_STAGING/Info.wiki -r
+  cp -v $GALLERIES_ARCHIVE/main $GALLERIES_STAGING/main -r
+  cp -v $GALLERIES_ARCHIVE/posters $GALLERIES_STAGING/posters -r
+  ```
+
+- update the following files to fit the current conference:
+  - `$GALLERIES_STAGING/main/Home.md`
+  - all files in `$GALLERIES_STAGING/Info.wiki`
+
+- commit and upload. Fhe first push to the repository wikis will require a 
+  force push, since the wikis have been initialized on the server and contain
+  content that is not required but locally not in the git history.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
+  GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+
+  alias galleryupforce='function __galleryupforce() {
+    echo "Handling $HANDLE_DIR";
+    git -C $GALLERIES_STAGING/$HANDLE_DIR add --all;
+    git -C $GALLERIES_STAGING/$HANDLE_DIR commit -m "Inital commit";
+    git -C $GALLERIES_STAGING/$HANDLE_DIR push origin master;
+    git -C $GALLERIES_STAGING/$HANDLE_DIR push wiki master -f;
+  }; __galleryupforce'
+
+  # Handle Info.wiki
+  HANDLE_DIR=Info.wiki
+  git -C $GALLERIES_STAGING/$HANDLE_DIR add --all
+  git -C $GALLERIES_STAGING/$HANDLE_DIR commit -m "Inital commit"
+  git -C $GALLERIES_STAGING/$HANDLE_DIR push origin master
+
+  # Handle Main
+  HANDLE_DIR=main
+  galleryupforce
+
+  # Handle Invited Talks
+  HANDLE_DIR=invitedtalks
+  galleryupforce
+
+  # Handle Contributed Talks
+  HANDLE_DIR=contributedtalks
+  galleryupforce
+
+  # Handle workshops
+  HANDLE_DIR=workshops
+  galleryupforce
+
+  # Handle Exhibition
+  HANDLE_DIR=exhibition
+  galleryupforce
+
+  # Handle Conference Information
+  HANDLE_DIR=conferenceinformation
+  galleryupforce
+
+  # Handle Posters
+  HANDLE_DIR=posters
+  galleryupforce
+  ```
