@@ -21,12 +21,9 @@ from latex2svg.latex2svg import latex2svg
 
 
 POSTER_SERVER = "posters.bc.g-node.org"
-# Keep this empty to make image links relative;
-# should enable image display on the test server
-# GALLERY_SERVER = "https://bc.g-node.org"
-GALLERY_SERVER = ""
 POSTER_REPO = "BernsteinConference/posters"
-VIDEO_ICON_URL = f"{GALLERY_SERVER}/img/play.png"
+MAIN_REPO_IMAGES = "BernsteinConference/main/raw/master/img"
+VIDEO_ICON_URL = f"/{MAIN_REPO_IMAGES}/play.png"
 TOPIC_COLOURS = {
     "Networks, dynamical systems": "yellow",
     "Data analysis, machine learning, neuroinformatics": "blue",
@@ -137,7 +134,7 @@ def section_header(section: str) -> str:
     """
     Returns a markdown image string.
     """
-    return f"{GALLERY_SERVER}/img/BC_Header_{section}.jpg"
+    return f"/{MAIN_REPO_IMAGES}/BC_Header_{section}.jpg"
 
 
 def make_sorter(key_name: str, apply: Callable = None) -> Callable:
