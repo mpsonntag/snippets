@@ -21,9 +21,9 @@ from latex2svg.latex2svg import latex2svg
 
 
 POSTER_SERVER = "posters.bc.g-node.org"
-GALLERY_SERVER = "https://bc.g-node.org"
 POSTER_REPO = "BernsteinConference/posters"
-VIDEO_ICON_URL = f"{GALLERY_SERVER}/img/play.png"
+MAIN_REPO_IMAGES = "BernsteinConference/main/raw/master/img"
+VIDEO_ICON_URL = f"/{MAIN_REPO_IMAGES}/play.png"
 TOPIC_COLOURS = {
     "Networks, dynamical systems": "yellow",
     "Data analysis, machine learning, neuroinformatics": "blue",
@@ -34,13 +34,14 @@ TOPIC_COLOURS = {
     "Brain disease, network dysfunction and intervention": "turquoise",
     "Single neurons, biophysics": "grey",
     "Motor control, movement, navigation": "purple",
+    "Neurotechnology": "darkblue",
     "Other": "darkblue",
 }
 SESSION_TIMES = {
-    "I": "Wed, Sep 22, 14:15 CEST",
-    "II": "Wed, Sep 22, 18:00 CEST",
-    "III": "Thu, Sep 23, 14:15 CEST",
-    "IV": "Thu, Sep 23, 18:00 CEST"
+    "I": "Wed, Sep 14, 16:30 CEST",
+    "II": "Wed, Sep 14, 18:10 CEST",
+    "III": "Thu, Sep 15, 12:45 CEST",
+    "IV": "Thu, Sep 15, 14:25 CEST"
 }
 ITEM_TYPES = {
     "I": "Invited Talk",
@@ -50,7 +51,7 @@ ITEM_TYPES = {
 INDEX_TEXT = {
     "posters": "Posters can be sorted either by topic or the poster session in which "
                "they are presented. To facilitate the overview and sorting of the many "
-               "posters, they have been assigned to 10 different color-coded topics.",
+               "posters, they have been assigned to different color-coded topics.",
     "invited": "Video links of invited talks will appear successively in the repository. "
                "We only record talks for which we have the speakers’ consent. "
                "Please note, these links must not be published anywhere else.",
@@ -66,9 +67,9 @@ INDEX_TEXT = {
                   "and supply supplemental material."
 }
 # List[int] - use NEW abstract numbers
-WITHDRAWN = [65, 75]
+WITHDRAWN = []
 # List[int] - WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [107, 109, 20, 31, 144, 145, 148, 190]
+MISSING_PDF = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,30,32,34,35,36,37,38,39,40,41,42,43,44,46,47,48,49,50,51,52,55,56,57,58,59,60,61,62,66,67,68,69,70,71,72,74,75,76,77,78,79,80,82,83,84,85,86,87,88,90,91,92,93,94,96,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,129,130,131,132,133,134,135,136,137,138,139,140,141,142,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,193,194,195,196,197,198,199,200,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
@@ -78,6 +79,13 @@ WORKSHOP_RECORD_MSG = {
 # and 'Keynote' / 'Braitenberg award' texts where the INVITED_TALKS_ADJUST variable
 # is used.
 INVITED_TALKS_ADJUST = True
+
+USE_VIMEO_PLUGIN = False
+VIMEO_PLAYER_SCRIPT = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h={}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="{}"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
+
+# Add an on-site poster number to all landing pages listing or showing individual posters
+# Required to also display the Poster enumeration used at the site of the conference.
+ONSITE_POSTER_NUMBER = True
 
 
 def run_cmd(*args) -> str:
@@ -126,7 +134,7 @@ def section_header(section: str) -> str:
     """
     Returns a markdown image string.
     """
-    return f"{GALLERY_SERVER}/img/BC_Header_{section}.jpg"
+    return f"/{MAIN_REPO_IMAGES}/BC_Header_{section}.jpg"
 
 
 def make_sorter(key_name: str, apply: Callable = None) -> Callable:
@@ -162,19 +170,16 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     session = item["session"]
     abs_no = item["abstract_number"]
     item_type = ITEM_TYPES[item["short"]]
+    info_content = f'{item_type} {item["poster_board_number"]}'
 
-    info_line = f"**{item_type} {abs_no}**"
-    # An unwise hack to enable special categories within invited talks
-    # and adjust the talk numbers accordingly.
-    if item["short"] == "I" and INVITED_TALKS_ADJUST:
-        abs_no = int(abs_no) - 1
-        info_line = f"**{item_type} {abs_no}**"
-        if abs_no == 0:
-            info_line = "**Keynote lecture**"
-        elif abs_no == 11:
-            info_line = "**Braitenberg Award Lecture**"
+    info_line = f"**{info_content.strip()}**"
+    # Add the additional compound on-site poster number to the info line
+    if item["short"] == "P" and ONSITE_POSTER_NUMBER and omit != "session":
+        info_line = f'**Session {item["session"]} / {info_content.strip()}**'
 
-    if topic and omit != "topic":
+    # omitting when topic == Award is an unwise hack to circumvent Award being used
+    # as a non-supported topic in the BCOS spreadsheet
+    if topic and omit != "topic" and topic != "Award":
         topic_link = ""
         if item["short"] == "P":
             topic_link = topic_filename(topic)
@@ -185,6 +190,12 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     if omit != "session":
         session_link = session_filename(session)
         info_line += f" | [{item_type} session {session}](/wiki/{session_link})"
+
+    # An unwise hack to enable special categories within invited talks
+    # and adjust the talk numbers accordingly.
+    if item["short"] == "I" and INVITED_TALKS_ADJUST:
+        if abs_no == "311":
+            info_line = "**Award**"
 
     return f"{info_line}  \n"
 
@@ -303,6 +314,7 @@ def create_equation_images(data: List[Dict[str, str]], target_dir: Dict[str, pl.
                    If this is False, only the Latex occurrences in the abstract
                    text is replaced.
     """
+    print("Creating equation images. NOTE: make sure a full Latex installation is available")
     for item in data:
         text = texify(item, target_dir, create)
         item["abstract"] = text
@@ -418,6 +430,15 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
     file_basename = item_filename(item)
     filename = target_dir.joinpath(f"{file_basename}.md")
     with open(filename, "w", encoding="utf-8") as poster_page:
+        if item["short"] == "C":
+            poster_page.write("[Contributed Talks](wiki)\n")
+        elif item["short"] == "I":
+            poster_page.write("[Invited Talks](wiki)\n")
+        else:
+            poster_page.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        poster_page.write('<div class="ui dividing header"></div>\n\n')
+
         poster_page.write(f"# {title}\n\n")
         poster_page.write(f"_{authors.strip()}_\n\n")
 
@@ -429,6 +450,16 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
 
         if video_url:
             vid_text = f"[![Video]({VIDEO_ICON_URL})]({video_url})"
+            # replacing normal video link with embedded player
+            vimsplit = video_url.replace("https://vimeo.com/", "")
+            vimsplit = vimsplit.split("/")
+            if len(vimsplit) == 2 and USE_VIMEO_PLUGIN:
+                vim_vid_id = vimsplit[0]
+                vim_vid_hash = vimsplit[1]
+                vim_auth = authors.strip().split(",")[0]
+                vim_vid_title = f"{vim_auth.strip()}, {title.strip()}"
+                vid_text = VIMEO_PLAYER_SCRIPT.format(vim_vid_id, vim_vid_hash,
+                                                      vim_vid_title)
             # table hack to enable "no video" notice for Contributed and Invited talks
             if item["short"] in ["C", "I"] and video_url == "no recording":
                 vid_text = "Video recording will not be made available\n\n"
@@ -466,6 +497,10 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
         topic_posters[topic].append(item)
 
     with open(filepath, "w", encoding="utf-8") as topics_file:
+        topics_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        topics_file.write('<div class="ui dividing header"></div>\n')
+
         topics_file.write("# Poster topics\n\n")
         for topic, colour in TOPIC_COLOURS.items():
             # Support default poster category "Other",
@@ -498,6 +533,11 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
         with open(filepath, "w", encoding="utf-8") as topic_file:
             colour = TOPIC_COLOURS[topic]
             image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}-wide.png"
+
+            topic_file.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+            topic_file.write('<div class="ui dividing header"></div>\n')
+
             topic_file.write(f'<img height=150 width=1000 alt="Topic: {topic}" '
                              f'src="{image_url}"/>\n')
             topic_file.write(f"# Poster topic: {topic}\n\n")
@@ -520,32 +560,60 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             session_posters[session] = []
         session_posters[session].append(item)
 
+    # sort session index by roman letters
+    session_content = {}
+    for session, items in session_posters.items():
+        num_posters = len(items)
+        time = SESSION_TIMES[session]
+        session_url = urlquote(session_filename(session))
+
+        curr = f"## Session {session}\n"
+        curr = f"{curr}{num_posters} posters\n"
+        curr = f"{curr}**Time:** {time}\n"
+        curr = f"{curr}[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
+        session_content[session] = curr
+
     with open(filepath, "w", encoding="utf-8") as sessions_file:
+        sessions_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        sessions_file.write('<div class="ui dividing header"></div>\n')
+
         sessions_file.write("# Poster Sessions\n")
-        for session, items in session_posters.items():
-            sessions_file.write(f"## Session {session}\n")
-
-            num_posters = len(items)
-            sessions_file.write(f"{num_posters} posters  \n")
-
-            time = SESSION_TIMES[session]
-            sessions_file.write(f"**Time:** {time}  \n")
-
-            session_url = urlquote(session_filename(session))
-            curr = f"[Browse Session {session} posters](wiki/{session_url})\n<br/><br/>\n"
-            sessions_file.write(curr)
+        session_roman_order = ["I", "II", "III", "IV"]
+        if len(session_roman_order) != len(SESSION_TIMES):
+            print("WARNING: Session number mismatch between scheduled sessions and index page")
+        for sess_num in session_roman_order:
+            if sess_num in session_content:
+                sessions_file.write(session_content[sess_num])
+            else:
+                print(f"WARNING: could not find Session {sess_num}; "
+                      f"omitting in 'Poster by session' listing page")
 
     # one page per session with listing
     for session, items in session_posters.items():
         fname = session_filename(session)
         filepath = filepath.parent.joinpath(fname).with_suffix(".md")
 
-        list_content: List[str] = []
+        sorted_list = []
         for item in items:
             list_item = make_list_item(item, omit="session")
-            list_content.append(list_item)
+            board_num = item["poster_board_number"]
+            if board_num:
+                int(item["poster_board_number"])
+            else:
+                print(f'WARNING: empty board number for abstract {item["id"]}')
+            sorted_list.append((board_num, list_item))
+
+        sorted_list = sorted(sorted_list)
+        list_content: List[str] = []
+        for i in sorted_list:
+            list_content.append(i[1])
 
         with open(filepath, "w", encoding="utf-8") as session_file:
+            session_file.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+            session_file.write('<div class="ui dividing header"></div>\n')
+
             session_file.write(f"# Posters in Session {session}\n\n")
             session_file.write("\n".join(list_content) + "\n")
 
@@ -556,13 +624,30 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     :param data: list containing a dictionary of poster items.
     :param target_dir: directory to save the files to.
     """
-    list_content: List[str] = []
+    # create a list sorted by a) roman numeral session number and b) poster board number
+    sorted_content = []
     for item in data:
-        list_content.append(make_list_item(item))
+        curr_item_text = make_list_item(item)
+        board_num = item["poster_board_number"]
+        if board_num:
+            int(item["poster_board_number"])
+        else:
+            print(f'WARNING: empty board number for abstract {item["id"]}')
+
+        sorted_content.append((item["session"], board_num, curr_item_text))
+
+    sorted_content = sorted(sorted_content)
+    list_content: List[str] = []
+    for i in sorted_content:
+        list_content.append(i[2])
 
     list_fname = "List.md"
     list_path = target_dir.joinpath(list_fname)
     with open(list_path, "w", encoding="utf-8") as list_file:
+        list_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        list_file.write('<div class="ui dividing header"></div>\n')
+
         list_file.write("\n".join(list_content))
 
     index_links = {"Browse all posters": list_fname}
@@ -915,12 +1000,15 @@ def main():
                         help="Create workshop pages instead of posters")
     parser.add_argument("--exhibition", dest="exhibition", action="store_true",
                         help="Create exhibition pages instead of posters")
-    parser.add_argument("jsonfile", help="JSON file with the poster data")
+    parser.add_argument("--conferenceinfo", dest="confinfo", action="store_true",
+                        help="Create conference info pages instead of posters")
+    parser.add_argument("jsonfile", help="JSON file providing the input data")
     parser.add_argument("targetdir", help="Directory in which to create galleries")
     args = parser.parse_args()
 
     workshops = args.workshops
     exhibition = args.exhibition
+    confinfo = args.confinfo
 
     download = args.download
     sdl = args.sdl
@@ -953,6 +1041,12 @@ def main():
         exhib_dir.mkdir(parents=True, exist_ok=True)
 
         handle_exhibition_data(data, exhib_dir)
+        return
+
+    # Specific handling of conference information
+    if confinfo:
+        print("-- handling conference information")
+        print("-- not implemented as of yet")
         return
 
     # Sanity check to avoid writing invalid poster galleries.
