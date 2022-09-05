@@ -15,13 +15,23 @@ def create_upload_key(uuid, salt):
     return key.hex()[:10]
 
 
+def load_salt(saltfile):
+    with open(saltfile) as sfp:
+        line = sfp.readline()
+
+    return line.strip()
+
+
 def main():
     """
     Handles the command line arguments.
     """
     parser = argparse.ArgumentParser(description=__doc__)
+    salthelp = ("File with salt string. Only first line will be used and it "
+                "will be stripped of leading and trailing whitespace "
+                "characters.")
     parser.add_argument("csv_file", help="CSV file containing the GCA abstract server UUIDs")
-    parser.add_argument("code_salt", help="Salt string to create poster upload codes")
+    parser.add_argument("code_salt", help=salthelp)
     parser.add_argument("-s", default="\t",
                         help="CSV file column separator; default is tab")
     args = parser.parse_args()
@@ -34,7 +44,7 @@ def main():
     new_col = []
     for curr in csv_data.loc[:, "id"]:
         if pd.notna(curr):
-            new_key = create_upload_key(curr, code_salt)
+            new_key = create_upload_key(curr, load_salt(code_salt))
             new_col.append(new_key)
         else:
             new_col.append(curr)
