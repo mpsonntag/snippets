@@ -440,9 +440,9 @@ To create this from scratch, a couple of steps are required:
   SCRIPTS_DIR=$REPO_ROOT/scripts
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
-  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+  POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
 
-  python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
   ```
 
 - for the poster thumbnail conversion to work, 
@@ -462,9 +462,9 @@ To create this from scratch, a couple of steps are required:
   SCRIPTS_DIR=$REPO_ROOT/scripts
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
-  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+  POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
 
-  python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
   ```
 
 
@@ -517,11 +517,11 @@ To create this from scratch, a couple of steps are required:
   SCRIPTS_DIR=$REPO_ROOT/scripts
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
-  POSTERS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+  POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
   WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
   EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
 
-  python $SCRIPTS_DIR/linkcheck.py $POSTERS_JSON
+  python $SCRIPTS_DIR/linkcheck.py $POSTERS_ABSTRACTS_JSON
   python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
   python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
   ```
