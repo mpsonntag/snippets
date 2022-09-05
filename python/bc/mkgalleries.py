@@ -599,7 +599,7 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             list_item = make_list_item(item, omit="session")
             board_num = item["poster_board_number"]
             if board_num:
-                int(item["poster_board_number"])
+                board_num = int(item["poster_board_number"])
             else:
                 print(f'WARNING: empty board number for abstract {item["id"]}')
             sorted_list.append((board_num, list_item))
@@ -630,7 +630,7 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
         curr_item_text = make_list_item(item)
         board_num = item["poster_board_number"]
         if board_num:
-            int(item["poster_board_number"])
+            board_num = int(item["poster_board_number"])
         else:
             print(f'WARNING: empty board number for abstract {item["id"]}')
 
