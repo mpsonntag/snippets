@@ -6,6 +6,7 @@ A new column "upload_key" is added to the CSV data and a new file is saved.
 
 import argparse
 import hashlib as hl
+import os
 import pandas as pd
 
 
@@ -41,7 +42,8 @@ def main():
     id_index = csv_data.columns.get_loc("id")
     csv_data.insert(id_index + 1, "upload_keys", new_col)
 
-    out_file_name = "%s_out.csv" % csv_file
+    out_name = os.path.splitext(os.path.basename(csv_file))[0]
+    out_file_name = f"{out_name}_key.csv"
     csv_data.to_csv(out_file_name, index=False, sep=csv_sep, encoding="UTF-8")
 
     print("\nWARNING: still using 'upload_keys' as csv column name\n")
