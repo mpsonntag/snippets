@@ -434,6 +434,15 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
     file_basename = item_filename(item)
     filename = target_dir.joinpath(f"{file_basename}.md")
     with open(filename, "w", encoding="utf-8") as poster_page:
+        if item["short"] == "C":
+            poster_page.write("[Contributed Talks](wiki)")
+        elif item["short"] == "I":
+            poster_page.write("[Invited Talks](wiki)")
+        else:
+            poster_page.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+        poster_page.write('<div class="ui dividing header"></div>\n\n')
+
         poster_page.write(f"# {title}\n\n")
         poster_page.write(f"_{authors.strip()}_\n\n")
 
@@ -492,6 +501,10 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
         topic_posters[topic].append(item)
 
     with open(filepath, "w", encoding="utf-8") as topics_file:
+        topics_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+        topics_file.write('<div class="ui dividing header"></div>')
+
         topics_file.write("# Poster topics\n\n")
         for topic, colour in TOPIC_COLOURS.items():
             # Support default poster category "Other",
@@ -524,6 +537,11 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
         with open(filepath, "w", encoding="utf-8") as topic_file:
             colour = TOPIC_COLOURS[topic]
             image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}-wide.png"
+
+            topic_file.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+            topic_file.write('<div class="ui dividing header"></div>')
+
             topic_file.write(f'<img height=150 width=1000 alt="Topic: {topic}" '
                              f'src="{image_url}"/>\n')
             topic_file.write(f"# Poster topic: {topic}\n\n")
@@ -560,6 +578,10 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
         session_content[session] = curr
 
     with open(filepath, "w", encoding="utf-8") as sessions_file:
+        sessions_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+        sessions_file.write('<div class="ui dividing header"></div>')
+
         sessions_file.write("# Poster Sessions\n")
         session_roman_order = ["I", "II", "III", "IV"]
         if len(session_roman_order) != len(SESSION_TIMES):
@@ -587,6 +609,10 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
             list_content.append(i[1])
 
         with open(filepath, "w", encoding="utf-8") as session_file:
+            session_file.write(
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+            session_file.write('<div class="ui dividing header"></div>')
+
             session_file.write(f"# Posters in Session {session}\n\n")
             session_file.write("\n".join(list_content) + "\n")
 
@@ -611,6 +637,10 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     list_fname = "List.md"
     list_path = target_dir.joinpath(list_fname)
     with open(list_path, "w", encoding="utf-8") as list_file:
+        list_file.write(
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+        list_file.write('<div class="ui dividing header"></div>')
+
         list_file.write("\n".join(list_content))
 
     index_links = {"Browse all posters": list_fname}
