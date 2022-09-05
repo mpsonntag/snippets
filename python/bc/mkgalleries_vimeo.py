@@ -83,6 +83,7 @@ WORKSHOP_RECORD_MSG = {
 # is used.
 INVITED_TALKS_ADJUST = True
 
+USE_VIMEO_PLUGIN = False
 VIMEO_PLAYER_SCRIPT = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h={}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="{}"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
 
 # Add an on-site poster number to all landing pages listing or showing individual posters
@@ -455,7 +456,7 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
             # replacing normal video link with embedded player
             vimsplit = video_url.replace("https://vimeo.com/", "")
             vimsplit = vimsplit.split("/")
-            if len(vimsplit) == 2:
+            if len(vimsplit) == 2 and USE_VIMEO_PLUGIN:
                 vim_vid_id = vimsplit[0]
                 vim_vid_hash = vimsplit[1]
                 vim_auth = authors.strip().split(",")[0]
