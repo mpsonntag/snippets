@@ -125,7 +125,9 @@ The routine is as follows:
     ```
 
 - the following script should clone and set up all required repositories in the local 
-  staging directory. This script might need to change for future conferences.
+  staging directory. It will also create all necessary empty folders later holding images
+  and additional materials to ensure the folder structure is prepared for the automated
+  markdown file creation. This script might need to change for future conferences.
 
   ```bash
   CONFERENCE_SHORT=[BC2X]
@@ -153,9 +155,12 @@ The routine is as follows:
 
   git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.git exhibition
   git -C $GALLERIES_STAGING/exhibition remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/Exhibition.wiki.git
+  mkdir -vp $GALLERIES_STAGING/exhibition/img
+  mkdir -vp $GALLERIES_STAGING/exhibition/materials
 
   git -C $GALLERIES_STAGING clone ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.git conferenceinformation
   git -C $GALLERIES_STAGING/conferenceinformation remote add wiki ssh://git@bc.g-node.org:$USE_PORT/BernsteinConference/ConferenceInformation.wiki.git
+  mkdir -vp $GALLERIES_STAGING/conferenceinformation/img
   ```
 
 - copy the required wiki resources like images or Info.wiki files to the staging directories
