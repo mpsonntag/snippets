@@ -54,7 +54,7 @@ ITEM_TYPES = {
 INDEX_TEXT = {
     "posters": "Posters can be sorted either by topic or the poster session in which "
                "they are presented. To facilitate the overview and sorting of the many "
-               "posters, they have been assigned to 10 different color-coded topics.",
+               "posters, they have been assigned to different color-coded topics.",
     "invited": "Video links of invited talks will appear successively in the repository. "
                "We only record talks for which we have the speakers’ consent. "
                "Please note, these links must not be published anywhere else.",
