@@ -1,6 +1,7 @@
 """
-Opens a CSV file, identifies the "id" column containing GCA abstract server UUIDs and
-uses it to create salted and hashed strings from the corresponding values.
+Opens a CSV file containing GCA abstract server data, identifies the "id" column,
+containing GCA server abstract UUIDs and uses it to create salted and hashed strings
+from the corresponding values.
 A new column "upload_key" is added to the CSV data and a new file is saved.
 """
 
@@ -11,12 +12,20 @@ import pandas as pd
 
 
 def create_upload_key(uuid, salt):
+    """
+    Creates a hash code from a given uuid string salting it using a given
+    salt string and returns the first 10 characters.
+    """
     key = hl.pbkdf2_hmac("sha1", uuid.encode(), salt.encode(), 100000)
     return key.hex()[:10]
 
 
 def load_salt(saltfile):
-    with open(saltfile) as sfp:
+    """
+    Opens a given file, reads the first line of text and returns the content
+    stripped of whitespace.
+    """
+    with open(saltfile, encoding="utf-8") as sfp:
         line = sfp.readline()
 
     return line.strip()
