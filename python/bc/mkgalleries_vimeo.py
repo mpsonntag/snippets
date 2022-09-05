@@ -431,12 +431,12 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
     filename = target_dir.joinpath(f"{file_basename}.md")
     with open(filename, "w", encoding="utf-8") as poster_page:
         if item["short"] == "C":
-            poster_page.write("[Contributed Talks](wiki)")
+            poster_page.write("[Contributed Talks](wiki)\n")
         elif item["short"] == "I":
-            poster_page.write("[Invited Talks](wiki)")
+            poster_page.write("[Invited Talks](wiki)\n")
         else:
             poster_page.write(
-                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
         poster_page.write('<div class="ui dividing header"></div>\n\n')
 
         poster_page.write(f"# {title}\n\n")
@@ -498,8 +498,8 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
 
     with open(filepath, "w", encoding="utf-8") as topics_file:
         topics_file.write(
-            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
-        topics_file.write('<div class="ui dividing header"></div>')
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        topics_file.write('<div class="ui dividing header"></div>\n')
 
         topics_file.write("# Poster topics\n\n")
         for topic, colour in TOPIC_COLOURS.items():
@@ -535,8 +535,8 @@ def write_topic_index(data: List[Dict[str, str]], filepath: pl.Path):
             image_url = f"/{POSTER_REPO}/raw/master/banners/{colour}-wide.png"
 
             topic_file.write(
-                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
-            topic_file.write('<div class="ui dividing header"></div>')
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+            topic_file.write('<div class="ui dividing header"></div>\n')
 
             topic_file.write(f'<img height=150 width=1000 alt="Topic: {topic}" '
                              f'src="{image_url}"/>\n')
@@ -575,8 +575,8 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
 
     with open(filepath, "w", encoding="utf-8") as sessions_file:
         sessions_file.write(
-            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
-        sessions_file.write('<div class="ui dividing header"></div>')
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        sessions_file.write('<div class="ui dividing header"></div>\n')
 
         sessions_file.write("# Poster Sessions\n")
         session_roman_order = ["I", "II", "III", "IV"]
@@ -611,8 +611,8 @@ def write_session_index(data: List[Dict[str, str]], filepath: pl.Path):
 
         with open(filepath, "w", encoding="utf-8") as session_file:
             session_file.write(
-                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
-            session_file.write('<div class="ui dividing header"></div>')
+                '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+            session_file.write('<div class="ui dividing header"></div>\n')
 
             session_file.write(f"# Posters in Session {session}\n\n")
             session_file.write("\n".join(list_content) + "\n")
@@ -645,8 +645,8 @@ def make_poster_index(data: List[Dict[str, str]], target_dir: pl.Path):
     list_path = target_dir.joinpath(list_fname)
     with open(list_path, "w", encoding="utf-8") as list_file:
         list_file.write(
-            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)')
-        list_file.write('<div class="ui dividing header"></div>')
+            '[All posters](wiki/List) | [Topics](wiki/Topics) | [Sessions](wiki/Sessions)\n')
+        list_file.write('<div class="ui dividing header"></div>\n')
 
         list_file.write("\n".join(list_content))
 
