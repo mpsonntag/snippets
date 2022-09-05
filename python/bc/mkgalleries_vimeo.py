@@ -179,17 +179,9 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     if item["short"] == "P" and ONSITE_POSTER_NUMBER and omit != "session":
         info_line = f'**Session {item["session"]} / {info_content.strip()}**'
 
-    # An unwise hack to enable special categories within invited talks
-    # and adjust the talk numbers accordingly.
-    if item["short"] == "I" and INVITED_TALKS_ADJUST:
-        abs_no = int(abs_no) - 1
-        info_line = f"**{info_content.strip()}**"
-        if abs_no == 0:
-            info_line = "**Keynote lecture**"
-        elif abs_no == 11:
-            info_line = "**Braitenberg Award Lecture**"
-
-    if topic and omit != "topic":
+    # omitting when topic == Award is an unwise hack to circumvent Award being used
+    # as a non-supported topic in the BCOS spreadsheet
+    if topic and omit != "topic" and topic != "Award":
         topic_link = ""
         if item["short"] == "P":
             topic_link = topic_filename(topic)
@@ -200,6 +192,12 @@ def make_infoline(item: Dict[str, str], omit: Optional[str] = None) -> str:
     if omit != "session":
         session_link = session_filename(session)
         info_line += f" | [{item_type} session {session}](/wiki/{session_link})"
+
+    # An unwise hack to enable special categories within invited talks
+    # and adjust the talk numbers accordingly.
+    if item["short"] == "I" and INVITED_TALKS_ADJUST:
+        if abs_no == "311":
+            info_line = "**Award**"
 
     return f"{info_line}  \n"
 
