@@ -110,8 +110,23 @@ def convert(json_data, csv_separator, use_columns):
 
 
 def create_upload_key(uuid, salt):
+    """
+    Creates a hash code from a given uuid string salting it using a given
+    salt string and returns the first 10 characters.
+    """
     key = hl.pbkdf2_hmac("sha1", uuid.encode(), salt.encode(), 100000)
     return key.hex()[:10]
+
+
+def load_salt(saltfile):
+    """
+    Opens a given file, reads the first line of text and returns the content
+    stripped of whitespace.
+    """
+    with open(saltfile, encoding="utf-8") as sfp:
+        line = sfp.readline()
+
+    return line.strip()
 
 
 def main():
@@ -120,7 +135,10 @@ def main():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("json_file", help="JSON file containing abstracts data")
-    parser.add_argument("code_salt", help="Salt string to create poster upload codes")
+    salthelp = ("File with salt string. Only first line will be used and it "
+                "will be stripped of leading and trailing whitespace "
+                "characters.")
+    parser.add_argument("code_salt", help=salthelp)
     parser.add_argument("out_file", help="Output CSV file")
     args = parser.parse_args()
 
@@ -133,7 +151,7 @@ def main():
         data = json.load(jfp)
 
     print("Parsing data ...")
-    reduced = reduce_data(data, item_reduce_separator, code_salt)
+    reduced = reduce_data(data, item_reduce_separator,  load_salt(code_salt))
     print("Converting to CSV data ...")
     csv_data = convert(reduced, csv_separator, [])
 
