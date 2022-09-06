@@ -148,3 +148,19 @@ Kind regards,
 ### Conference registration
 
     [xyz] Add email text
+
+
+### Required SciBo Spreadsheets
+
+BC2X_TODO
+BC2X_posters_talks
+BC2X_workshops
+BC2X_exhibition
+
+### Required SciBo Folders
+
+BC2X_resources
+- Banners
+- Exhibition_materials
+- Exhibition_images
+- Conference_Information
