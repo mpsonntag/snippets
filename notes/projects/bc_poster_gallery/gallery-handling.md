@@ -644,12 +644,21 @@ To create this from scratch, a couple of steps are required:
   EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
 
   alias galleryup='function __galleryup() {
-    echo "Handling $CURR_DIR";
-    git -C $GALLERIES_STAGING/$CURR_DIR add --all;
-    git -C $GALLERIES_STAGING/$CURR_DIR commit -m "Updates";
-    git -C $GALLERIES_STAGING/$CURR_DIR push origin master;
-    git -C $GALLERIES_STAGING/$CURR_DIR push wiki master;
+    echo "Handling $1";
+    git -C $1 add --all;
+    git -C $1 commit -m "Updates";
+    git -C $1 push origin master;
+    git -C $1 push wiki master;
   }; __galleryup'
+
+  # all staging directories
+  MAIN_DIR=$GALLERIES_STAGING/main
+  POSTERS_DIR=$GALLERIES_STAGING/posters
+  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
+  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
+  WORK_DIR=$GALLERIES_STAGING/workshops
+  EXHIB_DIR=$GALLERIES_STAGING/exhibition
+  INFO_DIR=$GALLERIES_STAGING/conferenceinformation
 
   # make sure to use Python 3.8+
   python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
@@ -671,50 +680,21 @@ To create this from scratch, a couple of steps are required:
   python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
 
   # Check changes before commit
-  POSTERS_DIR=$GALLERIES_STAGING/posters
-  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
-  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
-  WORK_DIR=$GALLERIES_STAGING/workshops
-  EXHIB_DIR=$GALLERIES_STAGING/exhibition
-
+  git -C $MAIN_DIR status
   git -C $POSTERS_DIR status
-
   git -C $INV_TALKS_DIR status
-
   git -C $CON_TALKS_DIR status
-
   git -C $WORK_DIR status
-
   git -C $EXHIB_DIR status
 
-  # commit and upload changes
-  # Handle Main
-  CURR_DIR=main
-  galleryup
-
-  # Handle Posters
-  CURR_DIR=posters
-  galleryup
-
-  # Handle Invited Talks
-  CURR_DIR=invitedtalks
-  galleryup
-
-  # Handle Contributed Talks
-  CURR_DIR=contributedtalks
-  galleryup
-
-  # Handle workshops
-  CURR_DIR=workshops
-  galleryup
-
-  # Handle Exhibition
-  CURR_DIR=exhibition
-  galleryup
-
-  # Handle Conference Information
-  CURR_DIR=conferenceinformation
-  galleryup
+  # Handle all repos; commit and upload changes
+  galleryup $MAIN_DIR
+  galleryup $POSTERS_DIR
+  galleryup $INV_TALKS_DIR
+  galleryup $CON_TALKS_DIR
+  galleryup $WORK_DIR
+  galleryup $EXHIB_DIR
+  galleryup $INFO_DIR
   ```
 
 
