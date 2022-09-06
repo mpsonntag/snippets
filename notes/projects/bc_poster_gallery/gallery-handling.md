@@ -201,12 +201,20 @@ The routine is as follows:
   GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
   GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
 
+  MAIN_DIR=$GALLERIES_STAGING/main
+  POSTERS_DIR=$GALLERIES_STAGING/posters
+  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
+  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
+  WORK_DIR=$GALLERIES_STAGING/workshops
+  EXHIB_DIR=$GALLERIES_STAGING/exhibition
+  INFO_DIR=$GALLERIES_STAGING/conferenceinformation
+
   alias galleryupforce='function __galleryupforce() {
-    echo "Handling $HANDLE_DIR";
-    git -C $GALLERIES_STAGING/$HANDLE_DIR add --all;
-    git -C $GALLERIES_STAGING/$HANDLE_DIR commit -m "Inital commit";
-    git -C $GALLERIES_STAGING/$HANDLE_DIR push origin master;
-    git -C $GALLERIES_STAGING/$HANDLE_DIR push wiki master -f;
+    echo "Handling $1";
+    git -C $1 add --all;
+    git -C $1 commit -m "Inital commit";
+    git -C $1 push origin master;
+    git -C $1 push wiki master -f;
   }; __galleryupforce'
 
   # Handle Info.wiki
@@ -215,33 +223,14 @@ The routine is as follows:
   git -C $GALLERIES_STAGING/$HANDLE_DIR commit -m "Inital commit"
   git -C $GALLERIES_STAGING/$HANDLE_DIR push origin master
 
-  # Handle Main
-  HANDLE_DIR=main
-  galleryupforce
-
-  # Handle Invited Talks
-  HANDLE_DIR=invitedtalks
-  galleryupforce
-
-  # Handle Contributed Talks
-  HANDLE_DIR=contributedtalks
-  galleryupforce
-
-  # Handle workshops
-  HANDLE_DIR=workshops
-  galleryupforce
-
-  # Handle Exhibition
-  HANDLE_DIR=exhibition
-  galleryupforce
-
-  # Handle Conference Information
-  HANDLE_DIR=conferenceinformation
-  galleryupforce
-
-  # Handle Posters
-  HANDLE_DIR=posters
-  galleryupforce
+  # Handle all repos; commit and upload changes
+  galleryupforce $MAIN_DIR
+  galleryupforce $POSTERS_DIR
+  galleryupforce $INV_TALKS_DIR
+  galleryupforce $CON_TALKS_DIR
+  galleryupforce $WORK_DIR
+  galleryupforce $EXHIB_DIR
+  galleryupforce $INFO_DIR
   ```
 
 ## Poster gallery wiki preparations
@@ -520,8 +509,6 @@ To create this from scratch, a couple of steps are required:
 
   python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
   ```
-
-- TODO: Conference information handling
 
 - check the original data for broken external links using the `linkcheck.py` script:
   ```bash
