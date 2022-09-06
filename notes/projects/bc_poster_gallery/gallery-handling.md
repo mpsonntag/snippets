@@ -529,6 +529,38 @@ To create this from scratch, a couple of steps are required:
 
 ### Gallery content updates
 
+- when working from multiple machines, always make sure, the local content
+  is up to date before making any changes to a repository
+
+  ```bash
+    CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+
+  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+
+  MAIN_DIR=$GALLERIES_STAGING/main
+  POSTERS_DIR=$GALLERIES_STAGING/posters
+  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
+  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
+  WORK_DIR=$GALLERIES_STAGING/workshops
+  EXHIB_DIR=$GALLERIES_STAGING/exhibition
+  INFO_DIR=$GALLERIES_STAGING/conferenceinformation
+
+  alias galleryfetch='function __galleryfetch() {
+    echo "Handling $1";
+    git -C $1 fetch --all;
+    git -C $1 rebase origin/master;
+  }; __galleryfetch'
+
+  galleryfetch $MAIN_DIR
+  galleryfetch $POSTERS_DIR
+  galleryfetch $INV_TALKS_DIR
+  galleryfetch $CON_TALKS_DIR
+  galleryfetch $WORK_DIR
+  galleryfetch $EXHIB_DIR
+  galleryfetch $INFO_DIR
+  ```
+
 - once all this is done, commit and upload the changes for all changed galleries:
 
   ```bash
