@@ -160,10 +160,11 @@ BC2X_exhibition
 ### Required SciBo Folders
 
 BC2X_resources
-- Banners
-- Exhibition_materials
-- Exhibition_images
-- Conference_Information
+├── Banners
+├── Topics
+├── Exhibition_materials
+├── Exhibition_images
+└── Conference_Information
 
 ### Required images and banners
 
