@@ -169,17 +169,17 @@ BC2X_resources
 
 In Resources/Banners provide the following images, named and in the format as requested:
 
-Name                                  ideal dimensions          used at
-BC_Header_contributed.jpg             4724x1063 px              https://bc.g-node.org/BernsteinConference/ContributedTalks/wiki
-BC_Header_exhibition.jpg              4724x1063 px              https://bc.g-node.org/BernsteinConference/Exhibition/wiki
-BC_Header_info.jpg                    4724x1063 px              https://bc.g-node.org/BernsteinConference/ConferenceInformation/wiki
-BC_Header_invited.jpg                 4724x1063 px              https://bc.g-node.org/BernsteinConference/InvitedTalks/wiki
-BC_Header_posters.jpg                 4724x1063 px              https://bc.g-node.org/BernsteinConference/Posters/wiki
-BC_Header_workshops.jpg               4724x1063 px              https://bc.g-node.org/BernsteinConference/Workshops/wiki
-BC_login_banner.jpg                   4724x1063 px              https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_ConferenceInformation.jpg      300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_ContributedTalks.jpg           300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_Exhibition.jpg                 300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_InvitedTalks.jpg               300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_Posters.jpg                    300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
-Kachel_Workshops.jpg                  300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Name                                  format      ideal dimensions          used at
+BC_Header_contributed.jpg             jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/ContributedTalks/wiki
+BC_Header_exhibition.jpg              jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/Exhibition/wiki
+BC_Header_info.jpg                    jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/ConferenceInformation/wiki
+BC_Header_invited.jpg                 jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/InvitedTalks/wiki
+BC_Header_posters.jpg                 jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/Posters/wiki
+BC_Header_workshops.jpg               jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/Workshops/wiki
+BC_login_banner.jpg                   jpg         4724x1063 px              https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_ConferenceInformation.jpg      jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_ContributedTalks.jpg           jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_Exhibition.jpg                 jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_InvitedTalks.jpg               jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_Posters.jpg                    jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+Kachel_Workshops.jpg                  jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
