@@ -222,3 +222,17 @@ icon-red.png                          png         27x15 px                  as a
 icon-salmon.png                       png         27x15 px                  as assigned to topic
 icon-turquoise.png                    png         27x15 px                  as assigned to topic
 icon-yellow.png                       png         27x15 px                  as assigned to topic
+
+The latest Topic - color assignment was:
+
+    "Networks, dynamical systems": "yellow",
+    "Data analysis, machine learning, neuroinformatics": "blue",
+    "Learning, plasticity and memory": "red",
+    "Sensory processing and perception": "green",
+    "Attention, reward, decision making": "orange",
+    "Behaviour and cognition": "lightblue",
+    "Brain disease, network dysfunction and intervention": "turquoise",
+    "Single neurons, biophysics": "grey",
+    "Motor control, movement, navigation": "purple",
+    "Neurotechnology": "salmon",
+    "Other": "darkblue",
