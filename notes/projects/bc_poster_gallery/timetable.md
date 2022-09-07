@@ -183,3 +183,42 @@ Kachel_Exhibition.jpg                 jpg         300x180 px                http
 Kachel_InvitedTalks.jpg               jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
 Kachel_Posters.jpg                    jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
 Kachel_Workshops.jpg                  jpg         300x180 px                https://bc.g-node.org/BernsteinConference/Main/wiki
+
+In Resources/Topics provide the following images, named and in the format as requested:
+
+Name                                  format      ideal dimensions          used at
+blue.png                              png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+darkblue.png                          png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+green.png                             png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+grey.png                              png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+lightblue.png                         png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+orange.png                            png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+purple.png                            png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+red.png                               png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+salmon.png                            png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+turquoise.png                         png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+yellow.png                            png         300x169 px                https://bc.g-node.org/BernsteinConference/Posters/wiki/Topics
+
+blue-wide.png                         png         1000x150 px               as assigned to topic
+darkblue-wide.png                     png         1000x150 px               as assigned to topic
+green-wide.png                        png         1000x150 px               as assigned to topic
+grey-wide.png                         png         1000x150 px               as assigned to topic
+lightblue-wide.png                    png         1000x150 px               as assigned to topic
+orange-wide.png                       png         1000x150 px               as assigned to topic
+purple-wide.png                       png         1000x150 px               as assigned to topic
+red-wide.png                          png         1000x150 px               as assigned to topic
+salmon-wide.png                       png         1000x150 px               as assigned to topic
+turquoise-wide.png                    png         1000x150 px               as assigned to topic
+yellow-wide.png                       png         1000x150 px               as assigned to topic
+
+icon-blue.png                         png         27x15 px                  as assigned to topic
+icon-darkblue.png                     png         27x15 px                  as assigned to topic
+icon-green.png                        png         27x15 px                  as assigned to topic
+icon-grey.png                         png         27x15 px                  as assigned to topic
+icon-lightblue.png                    png         27x15 px                  as assigned to topic
+icon-orange.png                       png         27x15 px                  as assigned to topic
+icon-purple.png                       png         27x15 px                  as assigned to topic
+icon-red.png                          png         27x15 px                  as assigned to topic
+icon-salmon.png                       png         27x15 px                  as assigned to topic
+icon-turquoise.png                    png         27x15 px                  as assigned to topic
+icon-yellow.png                       png         27x15 px                  as assigned to topic
