@@ -237,3 +237,16 @@ The latest Topic - color assignment was:
     "Motor control, movement, navigation": "purple",
     "Neurotechnology": "salmon",
     "Other": "darkblue",
+
+
+## common registration problems
+
+"I cannot register with the repository service"
+- email address not whitelisted yet; check if email address is in whitelist upload list
+- different email used than with the conference registration; ask user to use the appropriate email address
+
+"I cannot log into the repository service"
+- requires registration with the repository service; ask to register with the appropriate email address
+
+"I cannot log into the repository service, I get the message 'registration code expired'"
+- registration activation link clicked twice; user should already be activated; ask to log in or reset password
