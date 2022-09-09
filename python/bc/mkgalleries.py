@@ -388,6 +388,9 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
     :return: name of the created file.
     """
     title = item["title"]
+    # use apostrophe that is properly rendered by markdown
+    title = title.replace("’", "'")
+
     authors = item["authors"]
     number = item["abstract_number"]
     text = item["abstract"]
