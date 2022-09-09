@@ -393,8 +393,11 @@ def make_landing_page(item: Dict[str, str], target_dir: pl.Path)\
 
     authors = item["authors"]
     number = item["abstract_number"]
-    text = item["abstract"]
     time = item["time"]
+    text = item["abstract"]
+    # 4 whitespaces at the beginning of text will be rendered as codeblock by markdown
+    # Replace them by 3 whitespaces to avoid this behaviour
+    text = text.replace("    ", "   ")
 
     vimeo_video_url = item["vimeo link"]
     user_video_url = read_local_url(number, target_dir)
