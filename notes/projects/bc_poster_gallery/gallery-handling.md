@@ -487,9 +487,9 @@ To create this from scratch, a couple of steps are required:
   SCRIPTS_DIR=$REPO_ROOT/scripts
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
-  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+  WORKSHOPS_JSON=$CONFERENCE_DATA/workshops.json
 
-  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOP_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOPS_JSON $GALLERIES_STAGING
   ```
 
 - the exhibition tsv file has to contain "exhibition" in its filename before it will be 
@@ -519,11 +519,11 @@ To create this from scratch, a couple of steps are required:
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
   CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
   POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
-  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+  WORKSHOPS_JSON=$CONFERENCE_DATA/workshops.json
   EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
 
   python $SCRIPTS_DIR/linkcheck.py $POSTERS_ABSTRACTS_JSON
-  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
+  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOPS_JSON
   python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
   ```
 
@@ -549,6 +549,7 @@ To create this from scratch, a couple of steps are required:
   alias galleryfetch='function __galleryfetch() {
     echo "Handling $1";
     git -C $1 fetch --all;
+    echo "Rebasing $1"
     git -C $1 rebase origin/master;
   }; __galleryfetch'
 
@@ -640,7 +641,7 @@ To create this from scratch, a couple of steps are required:
   ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
   POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
 
-  WORKSHOP_JSON=$CONFERENCE_DATA/workshop.json
+  WORKSHOPS_JSON=$CONFERENCE_DATA/workshops.json
   EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
 
   alias galleryup='function __galleryup() {
@@ -672,11 +673,11 @@ To create this from scratch, a couple of steps are required:
   python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
   python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
 
-  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOP_JSON $GALLERIES_STAGING
+  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOPS_JSON $GALLERIES_STAGING
   python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
 
   python $SCRIPTS_DIR/linkcheck.py $POSTERS_JSON
-  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOP_JSON
+  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOPS_JSON
   python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
 
   # Check changes before commit
