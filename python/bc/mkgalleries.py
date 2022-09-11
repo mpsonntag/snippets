@@ -69,7 +69,7 @@ INDEX_TEXT = {
 # List[int] - use NEW abstract numbers
 WITHDRAWN = []
 # List[int] - WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [21,22,23,24,25,27,30,32,34,36,37,38,39,42,43,44,46,47,48,50,51,52,55,56,58,59,60,62,67,68,70,71,74,75,76,77,78,79,80,83,84,85,86,87,88,90,93,96,98,99,101,102,103,105,106,107,108,109,110,111,112,113,117,118,119,120,121,122,123,127,129,130,131,132,133,134,135,136,137,138,139,140,141,142,144,148,149,151,152,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,171,173,174,175,176,177,179,180,181,186,187,188,189,190,191,193,194,195,196,197,198,203,204,205,206,207,208,209,210,211,213,214,215,216,217,218,219,221,222,223,224,225,226,230,231,232,233,234,235,236,237,238,241,245,246,248,249,250,252,253,254,255,256,257,260,261,263,264,266,267,268,269,270,271,273,274,277,281,285,286,287,288,289,290,291,294,295,296,298,301,302,305,306,307,309,313]
+MISSING_PDF = [21, 22, 24, 25, 27, 32, 39, 42, 43, 44, 46, 48, 50, 51, 56, 60, 67, 68, 70, 78, 79, 80, 85, 86, 87, 88, 93, 98, 101, 103, 105, 112, 118, 120, 122, 127, 132, 135, 138, 140, 144, 149, 152, 156, 158, 159, 161, 163, 165, 166, 167, 168, 169, 171, 174, 181, 187, 188, 190, 194, 195, 205, 207, 209, 211, 214, 217, 218, 219, 224, 225, 233, 238, 245, 248, 249, 254, 256, 257, 263, 264, 268, 270, 273, 274, 281, 287, 288, 289, 290, 295, 296, 301, 305, 306, 307, 313]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
@@ -1083,6 +1083,14 @@ def main():
         print("Done ...\n")
         miss_num = amiss.count("\n")
         print(f"{miss_num} PDFs missing:\n{amiss}")
+        missing_pdfs = []
+        for val in amiss:
+            if " - " in val:
+                missing_pdfs.append(int(val.split(sep=" - ")[1]))
+        print(missing_pdfs)
+        # overrule scripts exclude list with most recent missing PDFs
+        MISSING_PDF.clear()
+        MISSING_PDF.append(missing_pdfs)
 
     # Hack to deal with equations for all posters and talk types
     equation_dirs = {"P": posters_dir, "C": contribtalks_dir, "I": invtalks_dir}
