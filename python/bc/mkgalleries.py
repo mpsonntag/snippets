@@ -69,7 +69,7 @@ INDEX_TEXT = {
 # List[int] - use NEW abstract numbers
 WITHDRAWN = []
 # List[int] - WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [21, 22, 24, 25, 27, 32, 39, 42, 43, 44, 46, 48, 50, 51, 56, 60, 67, 68, 70, 78, 79, 80, 85, 86, 87, 88, 93, 98, 101, 103, 105, 112, 118, 120, 122, 127, 132, 135, 138, 140, 144, 149, 152, 156, 158, 159, 161, 163, 165, 166, 167, 168, 169, 171, 174, 181, 187, 188, 190, 194, 195, 205, 207, 209, 211, 214, 217, 218, 219, 224, 225, 233, 238, 245, 248, 249, 254, 256, 257, 263, 264, 268, 270, 273, 274, 281, 287, 288, 289, 290, 295, 296, 301, 305, 306, 307, 313]
+MISSING_PDF = [21, 22, 24, 25, 43, 48, 50, 51, 56, 68, 70, 80, 86, 88, 101, 103, 120, 122, 127, 132, 138, 140, 144, 152, 158, 159, 165, 169, 174, 181, 190, 194, 195, 207, 209, 214, 217, 218, 224, 225, 256, 257, 270, 273, 274, 287, 289, 290, 295, 296, 305, 307, 313]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
@@ -1083,14 +1083,17 @@ def main():
         print("Done ...\n")
         miss_num = amiss.count("\n")
         print(f"{miss_num} PDFs missing:\n{amiss}")
+
+        # overrule MISSING_PDF exclude list with most recent missing PDFs
         missing_pdfs = []
-        for val in amiss:
+        missing_split = amiss.split("\n")
+        for val in missing_split:
             if " - " in val:
                 missing_pdfs.append(int(val.split(sep=" - ")[1]))
+        print("Overruling global missing PDFs list ...")
         print(missing_pdfs)
-        # overrule scripts exclude list with most recent missing PDFs
         MISSING_PDF.clear()
-        MISSING_PDF.append(missing_pdfs)
+        MISSING_PDF.extend(missing_pdfs)
 
     # Hack to deal with equations for all posters and talk types
     equation_dirs = {"P": posters_dir, "C": contribtalks_dir, "I": invtalks_dir}
