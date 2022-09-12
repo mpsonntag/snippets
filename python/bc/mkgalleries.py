@@ -696,7 +696,10 @@ def make_landing_pages(data: List[Dict[str, str]], target_dir: pl.Path):
         if idx and not idx % 100:
             print(f" {idx}")
         print(".", end="", flush=True)
-        make_landing_page(item, target_dir)
+        if int(item["abstract_number"]) == 311:
+            print("WARNING: skipping abstract #311; remove code for next conference")
+        else:
+            make_landing_page(item, target_dir)
     print()
 
 
