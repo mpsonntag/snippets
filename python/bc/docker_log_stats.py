@@ -86,6 +86,7 @@ def process_data(data: List[Dict[str, str]], details: bool = False):
     con_dat = filter_print(data, "ContributedTalks/wiki/Contributed")
     wor_dat = filter_print(data, "Workshops/wiki/Workshop")
     exh_dat = filter_print(data, "Exhibition/wiki/Exhibition")
+    inf_dat = filter_print(data, "ConferenceInformation/wiki")
 
     if details:
         ordered_print(raw_dat, "/BernsteinConference/Posters/raw/master/")
@@ -95,6 +96,7 @@ def process_data(data: List[Dict[str, str]], details: bool = False):
         ordered_print(con_dat, "/BernsteinConference/ContributedTalks/wiki/")
         ordered_print(wor_dat, "/BernsteinConference/Workshops/wiki/")
         ordered_print(exh_dat, "/BernsteinConference/Exhibition/wiki/")
+        ordered_print(inf_dat, "/BernsteinConference/ConferenceInformation/wiki/")
 
 
 def reduce_raw_dict(data: List[Dict[str, str]]) -> List[Dict[str, str]]:
