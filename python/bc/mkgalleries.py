@@ -66,10 +66,13 @@ INDEX_TEXT = {
                   "exhibitors. They inform about their services and products, "
                   "and supply supplemental material."
 }
+
+# check for [cleanup] tags; leftover last minute hack code from the previous conference
+
 # List[int] - use NEW abstract numbers
 WITHDRAWN = []
 # List[int] - WARNING: these PDF links will not appear on the landing page
-MISSING_PDF = [21, 22, 24, 25, 43, 48, 50, 51, 56, 68, 70, 80, 86, 88, 101, 103, 120, 122, 127, 132, 138, 140, 144, 152, 158, 159, 165, 169, 174, 181, 190, 194, 195, 207, 209, 214, 217, 218, 224, 225, 256, 257, 270, 273, 274, 287, 289, 290, 295, 296, 305, 307, 313]
+MISSING_PDF = [21, 22, 24, 25, 43, 48, 50, 51, 56, 68, 70, 80, 103, 120, 122, 127, 132, 138, 140, 144, 152, 158, 159, 169, 174, 181, 190, 195, 207, 209, 214, 217, 218, 225, 256, 257, 270, 273, 274, 287, 289, 295, 296, 313]
 WORKSHOP_RECORD_MSG = {
     "recording": "Video recording will be available",
     "no recording": "Video recording will not be made available",
@@ -697,7 +700,7 @@ def make_landing_pages(data: List[Dict[str, str]], target_dir: pl.Path):
             print(f" {idx}")
         print(".", end="", flush=True)
         if int(item["abstract_number"]) == 311:
-            print("WARNING: skipping abstract #311; remove code for next conference")
+            print("WARNING: skipping abstract #311; remove code after BC22 conference")
         else:
             make_landing_page(item, target_dir)
     print()
@@ -711,6 +714,17 @@ def make_talks_index(data: List[Dict[str, str]], target_dir: pl.Path):
     """
     home_fname = "Home.md"
     list_content: List[str] = []
+
+    # unwise hack to add Opening Talks to the invited talk index
+    # [cleanup] remove after BC22 conference
+    if data[0]["short"] == "I":
+        print("............WARNING: hacking invited talk index to allow opening statements; "
+              "remove code after BC22 conference")
+        welcome_item = "**[Opening and Welcome](/wiki/Invited314)**  \n"
+        welcome_item += "Geraldine Rauch, Raoul-Martin Memmesheimer, Susanne Schreiber, " \
+                        "Christian Machens  \n"
+        welcome_item += "**Opening Talk**  \n"
+        list_content.append(welcome_item)
 
     for item in data:
         list_content.append(make_list_item(item, omit="session"))
