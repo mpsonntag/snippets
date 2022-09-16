@@ -82,10 +82,11 @@ def process_data(data: List[Dict[str, str]], details: bool = False):
     # Filter for raw pdf access -> happens when the Poster landing page is opened
     # or when the poster is downloaded;
     # The download rate per poster could be approximated by subtracting src access from
-    # raw access.
-    raw_dat = filter_print(pdf_dat, "raw", "Raw PDF")
+    print("-- Total page views and distinct pages accessed")
     # Filter for pdf view on the page
-    src_dat = filter_print(pdf_dat, "src", "View PDF")
+    src_dat = filter_print(pdf_dat, "src", "PDF via web view")
+    # raw access.
+    raw_dat = filter_print(pdf_dat, "raw", "PDF raw repo access")
 
     pos_dat = filter_print(data, "Posters/wiki/Poster")
     inv_dat = filter_print(data, "InvitedTalks/wiki/Invited")
