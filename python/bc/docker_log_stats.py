@@ -31,8 +31,10 @@ def parse_stats(logs: List[Dict[str, str]]) -> Dict[str, int]:
     :param logs: List of docker log dicts; its keys are "log", "stream", "time".
     :return: Dict containing distinct addresses and their occurrence.
     """
+    # dictionary with web addresses as key and number of occurrence as value
     counter_dict = {}
     for item in logs:
+        # extract web address from log string
         curr = item["log"].split(" ")[5]
         if curr not in counter_dict:
             counter_dict[curr] = 1
