@@ -60,7 +60,11 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     fil_dat = list(filter(lambda log_entry: fil_str in log_entry["log"], data))
     parse_dat = parse_stats(fil_dat)
 
-    print(f"{print_msg}:{str(len(parse_dat)).rjust(25-len(print_msg))}")
+    total_views = 0
+    for _, address_views in parse_dat.items():
+        total_views = total_views + address_views
+
+    print(f"{print_msg}:{str(total_views).rjust(25-len(print_msg))} ({str(len(parse_dat))} distinct pages)")
 
     return parse_dat
 
