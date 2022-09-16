@@ -1,5 +1,9 @@
 ## Timetable Bernstein conference
 
+- [BCOS] as a very first thing create a scibo; this is important
+- [G-Node] copy all files (required images, example spreadsheets) to scibo
+- [G-Node] create all required spreadsheets
+
 - [BCOS] create conference entry on abstracts.g-node.org
 - [BCOS] abstract submission opening
     - open abstract submission on abstracts.g-node.org
