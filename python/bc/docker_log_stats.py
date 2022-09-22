@@ -167,16 +167,23 @@ def main():
                         help="Print details for all categories")
     parser.add_argument("--ip", dest="handle_ip", action="store_true",
                         help="Print IP address statistics")
+    parser.add_argument("--day", dest="handle_dates", action="store_true",
+                        help="Split statistics on a day to day basis")
     parser.add_argument("json_file", help="Docker logs JSON file")
     args = parser.parse_args()
 
     details = args.details
     handle_ip = args.handle_ip
+    handle_dates = args.handle_dates
 
     json_file = args.json_file
     with open(json_file, "r", encoding="utf-8") as jfp:
         data_string = jfp.read().replace('}\n{', '},\n{')
         data = json.loads(f"[{data_string}]")
+
+    if handle_dates:
+        print("Implement me please")
+        return
 
     # Reduce raw dictionary and remove interfering log entries
     fil_dat = reduce_raw_dict(data)
