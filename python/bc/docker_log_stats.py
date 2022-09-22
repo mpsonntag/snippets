@@ -69,6 +69,37 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
     return parse_dat
 
 
+def process_day_data(data: List[Dict[str, str]], details: bool = False):
+    pdf_dat = list(filter(lambda log_entry: ".pdf" in log_entry["log"], data))
+
+    # Filter for raw pdf access -> happens when the Poster landing page is opened
+    # or when the poster is downloaded;
+    # The download rate per poster could be approximated by subtracting src access from
+    print("-- Total page views and distinct pages accessed")
+
+    # Filter for pdf view on the page
+    src_dat = list(filter(lambda log_entry: "src" in log_entry["log"], pdf_dat))
+
+    date_list = []
+    lastval = ""
+    for val in src_dat:
+        currval = val["time"].split("T")[0]
+        if currval != lastval:
+            lastval = currval
+            date_list.append(lastval)
+    print(date_list)
+
+    # raw access.
+    raw_dat = list(filter(lambda log_entry: "raw" in log_entry["log"], pdf_dat))
+
+    pos_dat = list(filter(lambda log_entry: "Posters/wiki/Poster" in log_entry["log"], data))
+    inv_dat = list(filter(lambda log_entry: "InvitedTalks/wiki/Invited" in log_entry["log"], data))
+    con_dat = list(filter(lambda log_entry: "ContributedTalks/wiki/Contributed" in log_entry["log"], data))
+    wor_dat = list(filter(lambda log_entry: "Workshops/wiki/Workshop" in log_entry["log"], data))
+    exh_dat = list(filter(lambda log_entry: "Exhibition/wiki/Exhibition" in log_entry["log"], data))
+    inf_dat = list(filter(lambda log_entry: "ConferenceInformation/wiki" in log_entry["log"], data))
+
+
 def process_data(data: List[Dict[str, str]], details: bool = False):
     """
     Process docker log data into different categories of interest and produce
@@ -181,12 +212,13 @@ def main():
         data_string = jfp.read().replace('}\n{', '},\n{')
         data = json.loads(f"[{data_string}]")
 
-    if handle_dates:
-        print("Implement me please")
-        return
-
     # Reduce raw dictionary and remove interfering log entries
     fil_dat = reduce_raw_dict(data)
+
+    if handle_dates:
+        process_day_data(fil_dat, False)
+        return
+
     # Process reduced data and print statistics
     process_data(fil_dat, details)
 
