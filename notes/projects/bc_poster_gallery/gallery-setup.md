@@ -2,12 +2,10 @@
 
 This file describes the setup of the Bernstein conference variant of the GIN service.
 
-Further it documents the workflow required to populate the conference galleries hosted by this service.
-
 
 ## Installation requirements
 
-Adhere to the installation instructions in the server-setup.md file.
+Adhere to the installation instructions in the opsdocs admin/server-setup.md file.
 
 ### Required users and groups
 
@@ -29,12 +27,13 @@ The following domains need to be registered before the services can be deployed 
 - Run certbot for both domains once both configurations have been enabled for apache2.
 - Again, for details check the general installation instructions in server-setup.md.
 
+
 ## Service installation
 
 ### Prepare required directories
 
 ```bash
-PROJ_ROOT=/data/dev/posters
+PROJ_ROOT=[update path as required]/posters
 
 mkdir -vp $PROJ_ROOT/volumes/posterweb
 mkdir -vp $PROJ_ROOT/volumes/uploader
@@ -45,7 +44,10 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
 
 ### Prepare required files
 
-- clone the repo G-Node/BCCN_Conference from gin.g-node.org and copy the contents of `BC-latest/server-resources/config` to the `$PROJ_ROOT` directory on the server.
+- prepare the service config files
+  - clone the repo G-Node/BCCN_Conference from gin.g-node.org
+  - make sure to get the required annex content
+  - copy the contents of `BC-latest/server-resources/config` to the `$PROJ_ROOT` directory on the server.
 - unzip `config/gogs/public.zip` at its location.
 - update the `.env` file content.
 - update the `docker-compose.yml` file.
@@ -53,9 +55,9 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
     - gnode/gin-web:gallerydev
     - gnode/bc20-uploader:latest
 
-  - to match the ids of the local `gnode` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate ids.
+  - to match the IDs of the local `gnode` user and `deploy` group; use `getent passwd` and `getent groups` to find the appropriate IDs.
   - make sure the used IP addresses do not overlap with already running docker containers.
-  - make sure to use ssh ports that do not overlap with any other ssh port in use e.g., -> needs to be adjusted in the gin client later on as well
+  - make sure to use ssh ports that do not overlap with any other ssh port in use e.g., -> needs to be adjusted for git pushes later on as well
     - "141.84.41.217:2424:22"
 
   - make sure the local directories match the local setup
@@ -138,7 +140,8 @@ mkdir -vp $PROJ_ROOT/data/posters-postgresdb
       REQUIRE_SIGNIN_VIEW    = true
     ```
 
-- if this is not already the case from a previous step, copy the gogs images and templates "gin.g-node.org/G-Node/BCCN_Conference:/BC-latest/server-resources/config/gogs" to `$PROJ_ROOT/config/gogs/` on the server; make sure the `config/gogs/public.zip` file has been extracted at its location. Update the file ownership.
+- if this is not already the case from a previous step, copy the gogs images and templates "gin.g-node.org/G-Node/BCCN_Conference:/BC-latest/server-resources/config/gogs" to `$PROJ_ROOT/config/gogs/` on the server
+  - make sure the `config/gogs/public.zip` file has been extracted at its location. Update the file ownership.
 - update the custom templates and images in `$PROJ_ROOT/config/gogs/templates` so links, times and dates match the current conference requirements.
 
 - update the content of the `$PROJ_ROOT/config/uploader` config file to match the current conference requirements.
