@@ -920,3 +920,9 @@ updated server configs to the gin repository.
   gin git annex find --not --in=origin
   # if anything pops up here, make sure the content is uploaded to the gin repository
   ```
+
+### Conference page closing
+
+- add the content of the `static` folder to `/web/static` on the bc.g-node.org machine.
+- update the content of the `index.html` file with respect to year and BCOS requests.
+- update the apache config files for `bc.g-node.org` and `posters.bc.g-node.org` to point to the static page (see `apache-conf` directory for details) and `sytemctl reload apache2` for the changes to take effect.
