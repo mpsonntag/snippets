@@ -15,7 +15,7 @@ These notes require a running service as described in the [server setup notes](.
 To enable registration at the poster gallery, the email address has to be made available 
 via the uploader service. If not set up differently, the uploader URL is https://posters.bc.g-node.org.
 
-The routine is as follows:
+Use the following routine:
 - provide an upload PW on the server in `$PROJ_ROOT/config/uploader/config`
 - add email addresses on the uploader service via route `[uploader URL]/uploademail`
 - this will create an output file containing hashes of the email addresses
@@ -43,20 +43,22 @@ The routine is as follows:
 
 ### Local preparations
 
+- check the readme file for the suggested repository structure.
+
 - clone the GIN G-Node/BCCN_Conference repository. It contains all required configs, templates 
   and assets to populate the required poster gallery wiki pages.
 - Note: a full `gin get-content` is not required for now; PDF files from previous conferences
-  are kept in the annex, but are not necessary.
+  are kept in the annex, but these can be excluded for the time being.
 
   ```bash
   gin get G-Node/BCCN_Conference
   REPO_ROOT=$(pwd)/BCCN_Conference
   ```
 
-- copy `BC-latest` to a new directory in the BCCN_Conference repository. This directory
-  will archive any changes made to the gallery service config files, templates and assets, any
-  changes to the gallery content scripts and provides a staging ground and an archive for 
-  the gallery content.
+- copy `BC-latest` to a new directory in the BCCN_Conference repository. This new directory
+  will archive any changes made to the gallery service config files, templates and assets, 
+  any changes to the gallery content scripts and provides a staging ground and an archive 
+  for the gallery content.
 
   ```bash
   # adjust the CONFERENCE_SHORT value to reflect the current years' conference e.g. BC22
@@ -67,15 +69,17 @@ The routine is as follows:
   cd $REPO_ROOT/$CONFERENCE_SHORT
   ```
 
-- if required, update all passwords, keys, IP addresses and port numbers found in the `$REPO_ROOT/$CONFERENCE_SHORT/server-resources` folder
-  according to the used settings on the running server.
+- if required, update all passwords, keys, IP addresses and port numbers found in the `$REPO_ROOT/$CONFERENCE_SHORT/server-resources` directory according to the used 
+  settings on the running server.
   - `docker-compose.yml`
   - `config/gogs/conf/app.ini`
   - `config/postgres/postgressecrets.env`
-  - `config/uploader/config`
+  - `config/uploader/config`;  
+    note that the `submissioncloseddate` is inclusive, meaning the service will close
+    ON the specified date not at the end of it.
   - the `uploadersalt` string
 
-- commit and upload the changes
+- commit and upload the changes to gin
 
   ```bash
   cd $REPO_ROOT
@@ -84,8 +88,8 @@ The routine is as follows:
   ```
 
 - prepare a wiki staging directory in the BCCN_Conference repository. The directory name
-  should include ".ignore" to make sure these files will not yet become part of the
-  repository for now. Further, prepare `notes` and `rawdata` directories
+  should include ".ignore" to make sure these files will not yet become part of the gin
+  repository for now. Further, prepare `notes` and `rawdata` directories.
 
   ```bash
   GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
@@ -104,11 +108,11 @@ The routine is as follows:
   and add wiki remotes. The following routine describes the general process for all 
   repositories except `G-Node/Info.wiki`. A convenience script can be found further down.
 
-  - all wikis should be initialized first via the web service, if this has not been
-    done yet:
+  - all wikis for the gallery repositories should be initialized first via the web 
+    service; if this has not been done yet:
     - access bc.g-node.org/[owner]/[reponame]/wiki
-    - create a page
-  - clone a repository locally; use the appropriate port number
+    - create a default wiki page
+  - clone the gallery repositories locally; use the appropriate port number
 
     ```bash
     REPO_OWNER=[e.g. BernsteinConference]
@@ -125,9 +129,9 @@ The routine is as follows:
     ```
 
 - the following script should clone and set up all required repositories in the local 
-  staging directory. It will also create all necessary empty folders later holding images
-  and additional materials to ensure the folder structure is prepared for the automated
-  markdown file creation. This script might need to change for future conferences.
+  staging directory. It will also create all necessary empty folders holding images
+  and additional materials later to ensure the folder structure is prepared for the 
+  automated markdown file creation. Keep the script updated to conference requirements.
 
   ```bash
   CONFERENCE_SHORT=[BC2X]
@@ -190,11 +194,20 @@ The routine is as follows:
   - `$GALLERIES_STAGING/main/Home.md`
   - all files in `$GALLERIES_STAGING/Info.wiki`
 
-- commit and upload. Fhe first push to the repository wikis will require a 
+- commit and upload. The first push to the repository wikis will require a 
   force push, since the wikis have been initialized on the server and contain
   content that is not required but locally not in the git history.
 
   ```bash
+  # function to force push to a repository wiki
+  alias galleryupforce='function __galleryupforce() {
+    echo "Handling $1";
+    git -C $1 add --all;
+    git -C $1 commit -m "Inital commit";
+    git -C $1 push origin master;
+    git -C $1 push wiki master -f;
+  }; __galleryupforce'
+
   CONFERENCE_SHORT=[BC2X]
   REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
   CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
@@ -208,14 +221,6 @@ The routine is as follows:
   WORK_DIR=$GALLERIES_STAGING/workshops
   EXHIB_DIR=$GALLERIES_STAGING/exhibition
   INFO_DIR=$GALLERIES_STAGING/conferenceinformation
-
-  alias galleryupforce='function __galleryupforce() {
-    echo "Handling $1";
-    git -C $1 add --all;
-    git -C $1 commit -m "Inital commit";
-    git -C $1 push origin master;
-    git -C $1 push wiki master -f;
-  }; __galleryupforce'
 
   # Handle Info.wiki
   HANDLE_DIR=Info.wiki
@@ -239,10 +244,10 @@ The routine is as follows:
   received from online spreadsheets provided by BCOS and information from the abstracts 
   service.
 - all scripts required to create the poster gallery content are found in the 
-  G-Node/BCCN_Conference repository at $REPO_ROOT/scripts.
+  G-Node/BCCN_Conference repository at `$REPO_ROOT/scripts`.
 - due to certain code features, the Python scripts require Python version 3.8+.
 - the structure of the required spreadsheets can be reviewed in files from the previous
-  conferences e.g. in "BCCN_Conference/BC21/rawdata".
+  conferences e.g. in `BCCN_Conference/BC21/rawdata`.
 
 ### Create initial posters json file from BCOS spreadsheets
 
@@ -266,7 +271,7 @@ The routine is as follows:
   manually filled during the next steps.
 
 - save this spreadsheet to a local file. NOTE: when downloading from a SciBo spreadsheet to
-  a tab separated file, it might happen, that the line breaks are not properly parsed by
+  a tab separated file, it might happen that the line breaks are not properly parsed by
   the conversion script. To avoid this issue, save the file as ".xlsx", open locally with
   libre office and export to a tab separated, UTF-8 CSV file.
   The tell-tale error to look for when running the script is:
@@ -275,7 +280,7 @@ The routine is as follows:
   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 1855: invalid continuation byte
   ```
 
-- the file can automatically be converted to a tab delimited text file using libreoffice.
+- the file can also be automatically converted to a tab delimited text file using libreoffice.
   Check the details for the conversion here: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Options
 
   ```bash
@@ -316,13 +321,23 @@ The routine is as follows:
 
 ### Poster PDF upload key handling
 
+#### Optional upload key shortcut procedure
+An option to the whole following section is to provide BCOS from the start with a CSV file 
+containing the required poster upload keys. To do this, run the 
+`$REPO_ROOT/scripts/abstracts_uploadkey_csv.py` script with a CSV file that has been 
+created with data from the abstracts server and the `$REPO_ROOT/$CONFERENCE_SHORT/server-resources/uploadersalt`
+salt string. This will add the upload keys to the resulting CSV file. When provided to 
+BCOS, the online Posters spreadsheet and the subsequent json file should contain the 
+upload keys from the beginning. If this is not an option, stick to the following procedure.
+
+#### "Traditional" upload key handling
 Poster authors have to upload their PDFs and video URLs via https://posters.bc.g-node.org.
 To do this, they require a poster upload key. The keys are tied to the poster abstract
 UUID from abstracts.g-node.org. The service at posters.bc.g-node.org requires a `posters.json`
 file containing the full poster information, poster abstract and upload key.
 To create this from scratch, a couple of steps are required:
 
-- use the `posters.json` file with the salt hash string from `BCCN_Conference/BC2X/server-resources/uploadersalt` 
+- use the `posters.json` file with the salt hash string from `$REPO_ROOT/$CONFERENCE_SHORT/server-resources/uploadersalt` 
   to create the upload keys tied to the abstracts UUID.
 
   ```bash
@@ -343,11 +358,9 @@ To create this from scratch, a couple of steps are required:
 - paste the output of the `posters-codes.tsv` into the SciBo spreadsheet; the first column
   are the abstract UUIDs, the second column are the upload keys created using these
   UUIDs; copy this data to the "upload_key" column and cross check whether the keys match
-  the appropriate abstract UUID.
+  the appropriate abstract UUID.  
   The next time the SciBo spreadsheet is imported, the upload keys will be part
   of the created `posters.json` file.
-
-- TODO: add the `abstracts_uploadkey_csv.py` script to scripts and add the option here before the initial information is sent to BCOS -> saves the roundabout handling with the `mkuploadcodes.py` script.
 
 
 ### Accepted authors list for the uploader service
@@ -357,7 +370,7 @@ To create this from scratch, a couple of steps are required:
 - locally clone the [GCA-Python](https://github.com/G-Node/GCA-Python) client. Make sure 
   the local `.netrc` credentials are prepared; check the GCA-Python README for details.
 - make sure that all abstracts on the GCA-Web server have been reviewed and are set to 
-  "ACCEPTED". Abstracts in state "InReview" and "InPreparation" are skipped; authors of
+  "ACCEPTED". Abstracts in states "InReview" and "InPreparation" are skipped; authors of
   skipped abstracts will not be able to upload their data.
 - download the abstract texts from the GCA server.
 
@@ -410,7 +423,7 @@ To create this from scratch, a couple of steps are required:
 
 ### Creating the gallery content
 
-- update all relevant information in the `BCCN_Conference/scripts/mkgalleries.py` script
+- update all relevant information in the `$REPO_ROOT/scripts/mkgalleries.py` script
   to accommodate the current conference:
   - URLs, repos
   - topics
@@ -420,6 +433,7 @@ To create this from scratch, a couple of steps are required:
   - withdrawn IDs
   - not available Poster PDF IDs
 - make sure the posters spreadsheet also contains invited and contributed talks
+- make sure "special handling requests" from previous conferences have been removed
 
 - run the following to create poster, contributed and invited talks files.
 
@@ -455,7 +469,7 @@ To create this from scratch, a couple of steps are required:
   - the policy file can be found by running `convert -list policy`
   - edit the policy file to include the active line `<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />`
 
-- run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is, that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
+- run the following to create images for any latex equations in the abstracts texts of the posters. A side note at this point: when running plain `mkgalleries.py` and creating the poster index and landing pages, the latex equations in the abstract texts are already replaced with image links. Only when running the following script, the corresponding images are created. The reason for the split is that rendering the equations takes time, and the equations do not change any longer since the abstracts have already been accepted. Due to this, this script should only be required to be run once. If it is not run, the abstract texts will contain broken links in place of the equations.
 - NOTE that this step requires an existing, FULL installation of `latex`.
 
   ```bash
@@ -495,7 +509,7 @@ To create this from scratch, a couple of steps are required:
 - the exhibition tsv file has to contain "exhibition" in its filename before it will be 
   correctly converted to json by the `tojson.py` script.
 - the exhibition spreadsheet has to contain the following named columns:
-    TBA
+    "company_name", "logo", "website", "headline", "description", "hopin", "material_1", "material_2", ..., "material_10"
 - to create the exhibition pages, run the `mkgalleries.py` script with the `--exhibition` flag
 
   ```bash
@@ -529,11 +543,18 @@ To create this from scratch, a couple of steps are required:
 
 ### Gallery content updates
 
-- when working from multiple machines, always make sure, the local content
+- when working from multiple machines, always make sure that the local content
   is up to date before making any changes to a repository
 
   ```bash
-    CONFERENCE_SHORT=[BC2X]
+  alias galleryfetch='function __galleryfetch() {
+    echo "Handling $1";
+    git -C $1 fetch --all;
+    echo "Rebasing $1"
+    git -C $1 rebase origin/master;
+  }; __galleryfetch'
+
+  CONFERENCE_SHORT=[BC2X]
   REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
 
   GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
@@ -545,13 +566,6 @@ To create this from scratch, a couple of steps are required:
   WORK_DIR=$GALLERIES_STAGING/workshops
   EXHIB_DIR=$GALLERIES_STAGING/exhibition
   INFO_DIR=$GALLERIES_STAGING/conferenceinformation
-
-  alias galleryfetch='function __galleryfetch() {
-    echo "Handling $1";
-    git -C $1 fetch --all;
-    echo "Rebasing $1"
-    git -C $1 rebase origin/master;
-  }; __galleryfetch'
 
   galleryfetch $MAIN_DIR
   galleryfetch $POSTERS_DIR
@@ -575,6 +589,14 @@ To create this from scratch, a couple of steps are required:
 - the following script can be used to automatically commit and upload any current changes:
 
   ```bash
+  alias galleryup='function __galleryup() {
+    echo "Handling $1";
+    git -C $1 add --all;
+    git -C $1 commit -m "Updates";
+    git -C $1 push origin master;
+    git -C $1 push wiki master;
+  }; __galleryup'
+
   CONFERENCE_SHORT=[BC2X]
   REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
 
@@ -587,14 +609,6 @@ To create this from scratch, a couple of steps are required:
   WORK_DIR=$GALLERIES_STAGING/workshops
   EXHIB_DIR=$GALLERIES_STAGING/exhibition
   INFO_DIR=$GALLERIES_STAGING/conferenceinformation
-
-  alias galleryup='function __galleryup() {
-    echo "Handling $1";
-    git -C $1 add --all;
-    git -C $1 commit -m "Updates";
-    git -C $1 push origin master;
-    git -C $1 push wiki master;
-  }; __galleryup'
 
   # Handle all repos; commit and upload changes
   galleryup $MAIN_DIR
@@ -607,96 +621,158 @@ To create this from scratch, a couple of steps are required:
   ```
 
 - whenever new changes come in - either via the shared spreadsheet e.g., 
-  when the hopin links are provided, if any changes in the abstracts texts are done or 
-  if PDFs have been changed, rinse and repeat the following:
-  - download shared spreadsheet as tab separated csv
+  when the hopin links are provided, if any changes in the abstracts texts are done,
+  or if PDFs have been changed, rinse and repeat the following:
+  - download shared spreadsheet and convert to tab separated csv
   - run `tojson.py`
   - fetch abstract texts
   - merge abstract texts with json file
   - update posters-abstracts.json on the uploader service
   - download PDFs and render equations
-  - make galleries
-  - if required update workshops as well: download xy-workshops.tsv, `tojson`, `mkworkshopgallery`
+  - make repository wikis
+  - if required, update workshops as well: download-convert xy-workshops.csv, `tojson`, `mkworkshopgallery`
   - commit and upload changes to the wiki
 
 
 ### Full bash script to fetch, create and upload the poster gallery
 
-- download all spreadsheet data as tab separated csv files; use "workshops" and "exhibition" in the file names.
+- download all spreadsheet data as xlsx file.
 - run the following after adjusting the directories appropriately.
 
-  ```bash
-  CONFERENCE_SHORT=[BC2X]
-  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
-  GCA_CLIENT=[path to gca-client]/GCA-Python/gca-client
+```bash
+alias galleryup='function __galleryup() {
+echo ""
+echo "Handling $1";
+git -C $1 add --all;
+git -C $1 commit -m "Updates";
+git -C $1 push origin master;
+git -C $1 push wiki master;
+}; __galleryup'
 
-  SCRIPTS_DIR=$REPO_ROOT/scripts
+alias galleryfetch='function __galleryfetch() {
+echo "Handling $1";
+git -C $1 fetch --all;
+echo "Rebasing $1"
+git -C $1 rebase origin/master;
+}; __galleryfetch'
 
-  GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
+DOWNLOAD_DIR=/home/$USER/[adjust path to directory containing the downloaded XSLX spreadsheet files]
+FILENAME_BASE=[posters XSLX base name without file extension]
+WORKSHOPS_BASE=[workshops XSLX base name without file extension]
+EXHIBITION_BASE=[exhibition XSLX base name without file extension]
 
-  CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
-  POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
+CONFERENCE_SHORT=[conference short e.g. BC22]
+REPO_ROOT=/home/$USER/[adjust path]/BCCN_Conference
+GCA_CLIENT=/home/$USER/[adjust path]/GCA-Python/gca-client
 
-  POSTERS_JSON=$CONFERENCE_DATA/posters.json
-  ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
-  POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
+cd $REPO_ROOT
+SCRIPTS_DIR=$REPO_ROOT/scripts
 
-  WORKSHOPS_JSON=$CONFERENCE_DATA/workshops.json
-  EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
+GALLERIES_STAGING=$REPO_ROOT/$CONFERENCE_SHORT/staging.ignore
 
-  alias galleryup='function __galleryup() {
-    echo "Handling $1";
-    git -C $1 add --all;
-    git -C $1 commit -m "Updates";
-    git -C $1 push origin master;
-    git -C $1 push wiki master;
-  }; __galleryup'
+CONFERENCE_DATA=$REPO_ROOT/$CONFERENCE_SHORT/rawdata
+POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
 
-  # all staging directories
-  MAIN_DIR=$GALLERIES_STAGING/main
-  POSTERS_DIR=$GALLERIES_STAGING/posters
-  INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
-  CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
-  WORK_DIR=$GALLERIES_STAGING/workshops
-  EXHIB_DIR=$GALLERIES_STAGING/exhibition
-  INFO_DIR=$GALLERIES_STAGING/conferenceinformation
+POSTERS_JSON=$CONFERENCE_DATA/posters.json
+ABSTRACTS_JSON=$CONFERENCE_DATA/abstracts.json
+POSTERS_ABSTRACTS_JSON=$CONFERENCE_DATA/posters-abstracts.json
 
-  # make sure to use Python 3.8+
-  python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
+MAIN_DIR=$GALLERIES_STAGING/main
+POSTERS_DIR=$GALLERIES_STAGING/posters
+INV_TALKS_DIR=$GALLERIES_STAGING/invitedtalks
+CON_TALKS_DIR=$GALLERIES_STAGING/contributedtalks
+WORK_DIR=$GALLERIES_STAGING/workshops
+EXHIB_DIR=$GALLERIES_STAGING/exhibition
+INFO_DIR=$GALLERIES_STAGING/conferenceinformation
 
-  $GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $ABSTRACTS_JSON
+EXPORTED_XLSX_FILE=$DOWNLOAD_DIR/$FILENAME_BASE.xlsx
+EXPORTED_CSV_FILE=$CONFERENCE_DATA/$FILENAME_BASE.csv
 
-  python $SCRIPTS_DIR/mergeabstracts.py $ABSTRACTS_JSON $POSTERS_JSON
+POSTERS_CSV_FILE=$CONFERENCE_DATA/posters.csv
 
-  python $SCRIPTS_DIR/mkgalleries.py $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+WORKSHOPS_JSON=$CONFERENCE_DATA/workshops.json
+WORKSHOPS_CSV=$CONFERENCE_DATA/workshops.csv
 
-  python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
-  python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+EXPORTED_WS_XLSX_FILE=$DOWNLOAD_DIR/$WORKSHOPS_BASE.xlsx
+EXPORTED_WS_CSV_FILE=$CONFERENCE_DATA/$WORKSHOPS_BASE.csv
 
-  python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOPS_JSON $GALLERIES_STAGING
-  python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
+EXHIBITION_JSON=$CONFERENCE_DATA/exhibition.json
+EXHIBITION_CSV=$CONFERENCE_DATA/$EXHIBITION_BASE.csv
 
-  python $SCRIPTS_DIR/linkcheck.py $POSTERS_JSON
-  python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOPS_JSON
-  python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
+EXPORTED_EX_XLSX_FILE=$DOWNLOAD_DIR/$EXHIBITION_BASE.xlsx
+EXPORTED_EX_CSV_FILE=$CONFERENCE_DATA/exhibition.csv
 
-  # Check changes before commit
-  git -C $MAIN_DIR status
-  git -C $POSTERS_DIR status
-  git -C $INV_TALKS_DIR status
-  git -C $CON_TALKS_DIR status
-  git -C $WORK_DIR status
-  git -C $EXHIB_DIR status
+# If required fetch and rebase all local staging repositories e.g. when working from 2 different machines
+galleryfetch $MAIN_DIR
+galleryfetch $POSTERS_DIR
+galleryfetch $INV_TALKS_DIR
+galleryfetch $CON_TALKS_DIR
+galleryfetch $WORK_DIR
+galleryfetch $EXHIB_DIR
+galleryfetch $INFO_DIR
 
-  # Handle all repos; commit and upload changes
-  galleryup $MAIN_DIR
-  galleryup $POSTERS_DIR
-  galleryup $INV_TALKS_DIR
-  galleryup $CON_TALKS_DIR
-  galleryup $WORK_DIR
-  galleryup $EXHIB_DIR
-  galleryup $INFO_DIR
-  ```
+# converts to tab (9) delimited text file, using " (34) as text delimiter and
+# UTF-8 (76) as charset.
+libreoffice --headless  --convert-to "csv:Text - txt - csv (StarCalc):9,34,76,1,1/1" --outdir $CONFERENCE_DATA $EXPORTED_XLSX_FILE
+
+mv $EXPORTED_CSV_FILE $POSTERS_CSV_FILE
+mv $EXPORTED_XLSX_FILE $CONFERENCE_DATA/
+
+# make sure to use Python 3.8+
+python $SCRIPTS_DIR/tojson.py $POSTERS_CSV_FILE
+
+$GCA_CLIENT https://abstracts.g-node.org abstracts $CONFERENCE_SHORT > $ABSTRACTS_JSON
+
+python $SCRIPTS_DIR/mergeabstracts.py $ABSTRACTS_JSON $POSTERS_JSON
+
+python $SCRIPTS_DIR/mkgalleries.py $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+
+python $SCRIPTS_DIR/mkgalleries.py --download $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+python $SCRIPTS_DIR/mkgalleries.py --render-equations $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+
+# if required download single poster PDFs
+# python $SCRIPTS_DIR/mkgalleries.py --single-download [UUID] $POSTERS_ABSTRACTS_JSON $GALLERIES_STAGING
+
+# Handle workshops
+libreoffice --headless  --convert-to "csv:Text - txt - csv (StarCalc):9,34,76,1,1/1" --outdir $CONFERENCE_DATA $EXPORTED_WS_XLSX_FILE
+mv $EXPORTED_WS_CSV_FILE $WORKSHOPS_CSV
+
+python $SCRIPTS_DIR/tojson.py $WORKSHOPS_CSV
+mv $CONFERENCE_DATA/$WORKSHOPS_BASE.json $WORKSHOPS_JSON
+python $SCRIPTS_DIR/mkgalleries.py --workshop $WORKSHOPS_JSON $GALLERIES_STAGING
+git -C $WORK_DIR status
+
+# Handle exhibition
+libreoffice --headless  --convert-to "csv:Text - txt - csv (StarCalc):9,34,76,1,1/1" --outdir $CONFERENCE_DATA $EXPORTED_EX_XLSX_FILE
+mv $EXPORTED_EX_CSV_FILE $EXHIBITION_CSV
+
+python $SCRIPTS_DIR/tojson.py $EXHIBITION_CSV
+mv $CONFERENCE_DATA/$EXHIBITION_BASE.json $EXHIBITION_JSON
+python $SCRIPTS_DIR/mkgalleries.py --exhibition $EXHIBITION_JSON $GALLERIES_STAGING
+git -C $EXHIB_DIR status
+
+python $SCRIPTS_DIR/linkcheck.py $POSTERS_ABSTRACTS_JSON
+python $SCRIPTS_DIR/linkcheck.py --workshops $WORKSHOPS_JSON
+python $SCRIPTS_DIR/linkcheck.py --exhibition $EXHIBITION_JSON
+
+# Check changes before commit
+git -C $MAIN_DIR status
+git -C $INFO_DIR status
+git -C $POSTERS_DIR status
+git -C $INV_TALKS_DIR status
+git -C $CON_TALKS_DIR status
+git -C $WORK_DIR status
+git -C $EXHIB_DIR status
+
+# Handle all repos; commit and upload changes
+galleryup $MAIN_DIR
+galleryup $INFO_DIR
+galleryup $POSTERS_DIR
+galleryup $INV_TALKS_DIR
+galleryup $CON_TALKS_DIR
+galleryup $WORK_DIR
+galleryup $EXHIB_DIR
+```
 
 
 ### Statistics via docker logs
