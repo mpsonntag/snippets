@@ -162,9 +162,11 @@ Kind regards,
     [xyz] Add email text
 
 
+## Required joint conference resources on SciBo
+
 ### Required SciBo Spreadsheets
 
-BC2X_TODO
+BC2X_timetable_checklist
 BC2X_posters_talks
 BC2X_workshops
 BC2X_exhibition
@@ -172,6 +174,7 @@ BC2X_exhibition
 ### Required SciBo Folders
 
 BC2X_resources
+├── Static
 ├── Banners
 ├── Topics
 ├── Exhibition_materials
@@ -179,6 +182,11 @@ BC2X_resources
 └── Conference_Information
 
 ### Required images and banners
+
+In "Resources/Static" provide the following images, named and in the format as requested:
+
+Name                                  format      ideal dimensions          used at
+BC_online_header.jpeg                 jpeg        2362x531 px               https://posters.bc.g-node.org (both static and upload service page)
 
 In Resources/Banners provide the following images, named and in the format as requested:
 
@@ -251,7 +259,7 @@ The latest Topic - color assignment was:
     "Other": "darkblue",
 
 
-## common registration problems
+## Common registration problems
 
 "I cannot register with the repository service"
 - email address not whitelisted yet; check if email address is in whitelist upload list
