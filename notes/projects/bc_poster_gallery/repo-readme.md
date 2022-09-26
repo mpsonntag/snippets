@@ -9,7 +9,7 @@ This repository contains
 - all information to populate and run the Bernstein Conference Poster Gallery
 - all files and statistics from previous conferences
 
-For preparing the server to host the Bernstein Conference poster gallery, check the [gallery setup notes](./gallery.setup.md).
+For preparing the server to host the Bernstein Conference poster gallery, check the [gallery setup notes](./gallery-setup.md).
 For handling the Bernstein Conference poster gallery content before and during a conference, check the [gallery handling notes](./gallery-handling.md).
 For a timetable and a task checklist see the [gallery timetable notes](./gallery-timetable.md).
 
