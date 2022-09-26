@@ -1,12 +1,23 @@
-## Timetable Bernstein conference
+# Timetable Bernstein conference
 
-- [BCOS] as a very first thing create a scibo; this is important
-- [G-Node] copy all files (required images, example spreadsheets) to scibo
-- [G-Node] create all required spreadsheets
+### Beginning of April
 
-- [BCOS] create conference entry on abstracts.g-node.org
+- [BCOS] as the very first thing create a scibo directory; its essential to have this available as early as possible.
+  - It might be a good idea to keep a joint BCOS-G-Node SciBo at all times and prepare a ConferenceYYYY subfolder with write permission
+- [G-Node] prepare conference folder
+  - copy all files (required images, example spreadsheets) from last conference as example to scibo
+  - create all required spreadsheets including the required column headers
+- [BCOS] prepare conference entry on abstracts.g-node.org
+  - Deadlines
+  - Topics
+  - Categories
+  - Description texts
+
+### Beginning of June
 - [BCOS] abstract submission opening
     - open abstract submission on abstracts.g-node.org
+
+### End of July
 - [BCOS] abstract submission deadline
     - close abstracts submission on abstracts.g-node.org
 
@@ -21,7 +32,7 @@
 - [G-Node] prepare services at bc.g-node.org and posters.bc.g-node.org
     - [BCOS] check required categories
       - Main, Invited Talks, Contributed Talks, Posters, Workshops, Exhibition, Conference Information
-    - [BCOS] check banners
+    - [BCOS] check banners and hosted images; see appendix for all images
       - [xyz] define format to exchange used images
       - [xyz] common URLs to check images
     - [BCOS] check texts on login, sign up and poster upload pages
@@ -67,11 +78,8 @@
 - [G-Node] switch repository to static page
 - [G-Node] shut off gallery containers
 
+
 # Addendum
-
-## Repository templates
-
-[xyz] check whether adding these here makes sense
 
 ## Email templates
 
