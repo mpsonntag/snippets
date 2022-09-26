@@ -22,13 +22,15 @@
     - close abstracts submission on abstracts.g-node.org
 
 ### Until last week of July
-- [BCOS] review abstracts
+- [BCOS] abstract handling
   - review abstracts
-  - set states to accepted or rejected?
+  - set all states to accepted or rejected; abstracts in states other than accepted will not be able to upload posters 
 - [G-Node]
   - sort abstracts
   - upload sort order to abstracts.g-node.org
-  - [new step?] provide BCOS with CSV of all abstracts - ideally already with poster upload codes
+  - provide BCOS with CSV of all abstracts
+    - use scripts/abstracts_uploadkey_csv.py on the initial CSV file to create a CSV with the required poster upload keys
+    - use the uploadersalt string
 - [G-Node] prepare services at bc.g-node.org and posters.bc.g-node.org
     - [BCOS] check required categories
       - Main, Invited Talks, Contributed Talks, Posters, Workshops, Exhibition, Conference Information
@@ -37,6 +39,9 @@
       - [xyz] common URLs to check images
     - [BCOS] check texts on login, sign up and poster upload pages
       - [xyz] define format to exchange texts
+    - [BCOS] define poster and video upload dates
+      - do not use weekends for the closing date - if there are any last minute issues its better to have them on a weekday
+      - do not open the repository before the upload closing date - poster uploaders will want to immediately check the repository after an upload if they get the chance putting constant update pressure on us if the option is available. If the repository is open after the submission is closed all of these issues do not occur in the first place.
     - [G-Node] update services according to required content changes
 
 ### Until first week of August
