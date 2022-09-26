@@ -777,16 +777,50 @@ galleryup $EXHIB_DIR
 
 ### Statistics via docker logs
 
-- the script `docker_log_stats.py` can be used to get basic access statistics out of the gogs docker logs.
-  - on the gogs host type `docker ps`; note the container ID
-  - run `ls /var/lib/docker` to identify the full [docker ID]
-  - the log files can be found at `/var/lib/docker/[docker ID]/[docker ID]-json.log`
-  - if there are multiple docker log files, concatenate them before running the `docker_log_stats` script:
-    
+- the script `$REPO_ROOT/scripts/docker_log_stats.py` can be used to get basic access statistics out of the gogs docker logs.
+
+- fetch the docker logs from the host to the local machine
+  - access the server
+  - prepare a staging directory e.g. `/home/$USER/staging/docker-log`
+  - make sure to keep this directory clean of previous log files
+  - run `docker ps` to identify the docker container ID for the running gin web service
+  - copy the docker logs from the docker volume to the staging directory and change the file permissions
+  - the log files can be found at `/var/lib/docker/[docker ID]/[docker ID]-json.log`; there might be multiple
+    docker logs; copy all of them and use "bc-web-YYYYMMDD-HHmm.json" as filename for each of the available
+    logs.
+
+    ```bash
+    cd /home/$USER/staging/docker-log
+    # cleanup previous docker logs before proceeding
+    docker ps
+    sudo ls -lart /data/docker/containers/[container ID]/
+    sudo cp /data/docker/containers/[container ID]/[container ID]-json.log /home/$USER/staging/docker-log/bc-web-YYYYMMDD-HHmm.json
+    # if required; adjust dates accordingly
+    sudo cp /data/docker/containers/[container ID]/[container ID]-json.log.1 /home/$USER/staging/docker-log/bc-web-YYYYMMDD-HHmm.json
+    sudo cp /data/docker/containers/[container ID]/[container ID]-json.log.2 /home/$USER/staging/docker-log/bc-web-YYYYMMDD-HHmm.json
+    sudo chown $USER:$USER *.json
+    ```
+
+  - move to the local machine
+  - cleanup previous docker log files
+  - copy server files to `$REPO_ROOT/$CONFERENCE_SHORT/docker-logs`
+  - concatenate log files
+  - run statistics script
+
   ```bash
-  DOCKER_LOG=[path/to/docker-json.log]
-  python docker_logs_stats.py $DOCKER_LOG
+  CONFERENCE_SHORT=[use conference short e.g. BC22]
+  REPO_ROOT=/home/$USER/[adjust path]/BCCN_Conference
+  SCRIPTS_DIR=$REPO_ROOT/scripts
+  
+  cd $REPO_ROOT/$CONFERENCE_SHORT/docker-logs
+  cp $SCRIPTS_DIR/docker_logs_split.sh .
+  rm *.json
+  scp $USER@[hosting maching]:/home/$USER/staging/docker-log/*.json .
+  bash docker_logs_split.sh
+  python $SCRIPTS_DIR/docker_log_stats.py bc.all.json
+  python $SCRIPTS_DIR/docker_log_stats.py --details --ip bc.all.json > stats.txt
   ```
+
 
 ### After-conference handling
 
