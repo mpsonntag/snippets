@@ -824,19 +824,11 @@ galleryup $EXHIB_DIR
 
 ### After-conference handling
 
-- backup the csv files and galleries to a new folder in the gin.g-node.org/G-Node/BC20data repository.
-- backup the added images and template updates from the server at `$ROOT/config/gogs` to the gin.g-node.org/G-Node/gin-bc20 repository.
-- add the content of the `static` folder to `/web/static` on the bc.g-node.org machine.
-- update the content of the `index.html` file with respect to year and BCOS requests.
-- update the apache config files for `bc.g-node.org` and `posters.bc.g-node.org` to point to the static page (see `apache-conf` directory for details) and `sytemctl reload apache2` for the changes to take effect.
+When the conference is done and no more updates to the gallery content is to be
+expected, add all raw data, docker logs, gallery content, used scripts and
+updated server configs to the gin repository.
 
-- add the initial csv file to the `[BC2X]/rawdata` folder
-
-- add all discussion notes, timetable notes, emails on the subject, email templates, 
-  image or banner zip files to the `[BC2X]/notes` directory for easy review in the next 
-  year.
-
-- archive the poster gallery content
+- prepare the environment; make sure there are no merge conflicts with the gin repo
 
   ```bash
   CONFERENCE_SHORT=[BC2X]
@@ -845,54 +837,86 @@ galleryup $EXHIB_DIR
   GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
   GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
 
-  # Handle Info.wiki
-  HANDLE_DIR=Info.wiki
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_DIR
+  cd $REPO_ROOT
+  gin download
+  ```
 
-  # Handle Main
-  HANDLE_DIR=main
-  HANDLE_ARCHIVE=Main
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+- commit the conference raw data folder
 
-  # Handle Invited Talks
-  HANDLE_DIR=invitedtalks
-  HANDLE_ARCHIVE=InvitedTalks
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+  ```bash
+  gin commit $CONFERENCE_SHORT/rawdata -m "[$CONFERENCE_SHORT/rawdata] Update conference content"
+  gin upload
+  ```
 
-  # Handle Contributed Talks
-  HANDLE_DIR=contributedtalks
-  HANDLE_ARCHIVE=ContributedTalks
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+- commit the conference docker-logs folder
 
-  # Handle workshops
-  HANDLE_DIR=workshops
-  HANDLE_ARCHIVE=Workshops
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+  ```bash
+  gin commit $CONFERENCE_SHORT/docker-logs -m "[$CONFERENCE_SHORT/docker] Update statistics"
+  gin upload
+  ```
 
-  # Handle Exhibition
-  HANDLE_DIR=exhibition
-  HANDLE_ARCHIVE=Exhibition
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+- copy and commit the used scripts
 
-  # Handle Conference Information
-  HANDLE_DIR=conferenceinformation
-  HANDLE_ARCHIVE=ConferenceInformation
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
+  ```bash
+  cp -r scripts $CONFERENCE_SHORT
+  gin commit $CONFERENCE_SHORT/scripts -m "[$CONFERENCE_SHORT] Add used scripts"
+  gin upload
+  ```
+
+- copy and commit all conference content from the staging directory; make sure not to commit too many files at the same time to keep the git history responsive.
+
+  ```bash
+  CONFERENCE_SHORT=[BC2X]
+  REPO_ROOT=/home/$USER/[adjust]/BCCN_Conference
+  CONFERENCE_ROOT=$REPO_ROOT/$CONFERENCE_SHORT
+  GALLERIES_ARCHIVE=$CONFERENCE_ROOT/galleries
+  GALLERIES_STAGING=$CONFERENCE_ROOT/staging.ignore
+  GALLERIES_ARCHIVE_POSTERS=$GALLERIES_ARCHIVE/Posters
 
   # Keep updates of the smaller repos and Posters separate
-  gin commit $GALLERIES_ARCHIVE -m "Update gallery archive"
-  gin upload .
+  cp $GALLERIES_STAGING/Info.wiki -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/Info.wiki/.git -rf
+  cp $GALLERIES_STAGING/main -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/main/.git -rf
+  cp $GALLERIES_STAGING/invitedtalks -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/invitedtalks/.git -rf
+  cp $GALLERIES_STAGING/contributedtalks -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/contributedtalks/.git -rf
+  cp $GALLERIES_STAGING/workshops -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/workshops/.git -rf
+  cp $GALLERIES_STAGING/exhibition -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/exhibition/.git -rf
+  cp $GALLERIES_STAGING/conferenceinformation -r $GALLERIES_ARCHIVE
+  rm $GALLERIES_ARCHIVE/conferenceinformation/.git -rf
 
-  # Handle Posters
-  HANDLE_DIR=posters
-  HANDLE_ARCHIVE=Posters
+  gin commit $GALLERIES_ARCHIVE -m "[$CONFERENCE_SHORT/archive] Add minor repo content"
+  gin upload .
 
   # Posters contains a large number of files. Keep the files per commit at a lower level.
   # Also put PDF content into the annex to keep the initial clone of the repo light and fast.
-  cp $GALLERIES_STAGING/$HANDLE_DIR -r $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE
-  gin commit $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE/*.url -m "Adding poster video urls"
-  gin git annex add $GALLERIES_ARCHIVE/$HANDLE_ARCHIVE/*.pdf
-  gin git commit -m "Adding poster PDFs to annex"
-  gin commit . -m "Add poster resources"
+  cp $GALLERIES_STAGING/posters -r $GALLERIES_ARCHIVE_POSTERS
+  rm $GALLERIES_ARCHIVE_POSTERS/.git -rf
+  gin commit $GALLERIES_ARCHIVE_POSTERS/posters/*.url -m "[$CONFERENCE_SHORT/archive] Adding poster video urls"
+
+  gin git annex add $GALLERIES_ARCHIVE_POSTERS/posters/*.pdf
+  gin git commit -m "[$CONFERENCE_SHORT/archive] Adding poster PDFs to annex"
+  gin commit $GALLERIES_ARCHIVE_POSTERS -m "[$CONFERENCE_SHORT/archive] Add poster resources"
   gin upload .
+  ```
+
+- copy and commit the server config files, if they have changed
+
+- at your own discretion update files in BC-latest where it makes sense to carry changes over to the next conference as well as the documentation.
+
+- cleanup any conference specific changes in any of the `$REPO_ROOT/scripts` script files
+
+- add all discussion notes, timetable notes, emails on the subject, email templates, 
+  image or banner zip files to the `[BC2X]/notes` directory for easy review in the next 
+  year.
+
+- make sure all annex data is available on the server before cleaning up locally
+
+  ```bash
+  gin git annex find --not --in=origin
+  # if anything pops up here, make sure the content is uploaded to the gin repository
   ```
