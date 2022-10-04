@@ -37,3 +37,23 @@
   - png (in and outside of annex)
   - tiff (in and outside of annex)
   - markdown
+
+## what to check before an update
+
+- user number
+- repo number
+
+## what to check after an update
+
+### web functionality
+- search
+
+- registration (captcha) (firefox and chromium)
+- user settings
+- create organization
+- create team
+- delete team
+- delete organization
+- delete account
+
+- login existing user
