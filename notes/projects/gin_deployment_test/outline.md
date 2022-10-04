@@ -57,3 +57,26 @@
 - delete account
 
 - login existing user
+
+### repo functionality
+
+### client functionality
+
+#### previous repos
+
+#### new repos
+
+- existing private repo
+- existing public repo
+- existing unlisted repo
+
+- existing datalad repo
+
+- DOI repo display
+- DOI request
+
+- filetypes display
+
+- download of private repo + annex content
+- download of public repo + annex content
+- download of datalad repo + annex content
