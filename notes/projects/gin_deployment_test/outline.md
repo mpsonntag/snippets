@@ -52,19 +52,26 @@
 - user settings
 - create organization
 - create team
+- add existing read, write and admin user to team
+- create repo as org
+- open issue
+- fork repo to user
+- update readme
+- create Pull Request
+- close PR
+- close issue
+- delete fork
+- delete repo
 - delete team
 - delete organization
 - delete account
 
-- login existing user
-
 ### repo functionality
+- login existing admin user
 
 ### client functionality
 
 #### previous repos
-
-#### new repos
 
 - existing private repo
 - existing public repo
