@@ -80,3 +80,7 @@
 - download of private repo + annex content
 - download of public repo + annex content
 - download of datalad repo + annex content
+
+## cleanup
+- delete created repos
+- delete created accounts
