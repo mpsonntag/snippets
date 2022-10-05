@@ -88,6 +88,16 @@
 - download of public repo + annex content
 - download of datalad repo + annex content
 
+#### new repos
+
+- create repo using org
+- add read, write
+- download repo as admin
+- add git and annex data, upload
+- download repo as write
+- add git and annex data, upload
+- download repo as read
+
 ## cleanup
 - delete created repos
 - delete created accounts
