@@ -62,8 +62,18 @@
 - user settings
 - create organization
 - create team
+  - owner
+    - add user ginadmin
+  - write
+    - add user gin-valid
+  - read
+    - add user doi
 - add existing read, write and admin user to team
-- create repo as org
+- create repos as org
+  - readrepo
+  - writerepo
+    - add team write
+  - ownrepo
 - open issue
 - fork repo to user
 - update readme
@@ -100,8 +110,8 @@
 
 #### new repos
 
-- create repo using org
-- add read, write
+- create repo using org ... 
+- add read user, write user
 - download repo as admin
 - add git and annex data, upload
 - download repo as write
