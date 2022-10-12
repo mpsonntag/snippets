@@ -37,11 +37,21 @@
   - png (in and outside of annex)
   - tiff (in and outside of annex)
   - markdown
+  - ipython notebook
 
 ## what to check before an update
 
+- are there changes in the database
+    if yes then its probably a good idea to stop all running instances of gin-web via the haproxy
+    start up only one instance for the database changes to take effect
+    make prelimiary tests, check database change; update database if required
+    only then ramp up the gin-web containers again
+- make a hardcopy of the database directory before running the upgrade
+
+
 - user number
 - repo number
+
 
 ## what to check after an update
 
