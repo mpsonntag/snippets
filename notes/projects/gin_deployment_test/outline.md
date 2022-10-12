@@ -5,13 +5,13 @@
   - an organization
         deploy
   - teams
-        core
-        private
-        public
+        owner ... ginadmin
+        teamwrite ... ginvalid
+        teamread ... doi
   - at least 3 users (admin, write, read)
-        deployadmin
-        deploywrite
-        deployread
+        deployadmin ... gmail ... create
+        deploywrite ... ginvalid
+        deployread  ... gindoi
 
 - published doi repo (does not need to be within the deploy org)
 - ready to publish doi repo (within the deploy org)
