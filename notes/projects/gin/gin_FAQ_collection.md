@@ -184,6 +184,14 @@ The deleted file will always remain on the server, but if you want to free up th
 - If you have already deleted this file without removing the file content first, you can free up this space by locally removing your gin directory and clone it again from the server. Just make sure you commit and upload any unsaved changes before doing this.
 
 
+## Dropping file content removes content from more than the specified file
+
+Q) I dropped the file content of one file and suddenly the content of multiple files got removed!
+A) git annex references files only once. If a single file exists as multiple, identical copies in 
+several places within the same repository, dropping the file content of one of these files will 
+lead to dropped file content for all of these files.
+
+
 ## Upload not working
 
 ### Q -  "Disconnect reading sideband packet, broken pipe": My upload does not work
