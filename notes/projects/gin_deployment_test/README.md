@@ -26,6 +26,8 @@ The following describes the full rundown of all deployment tests. These tests re
 a full test setup of a GIN server and a GIN CLI set up to work with the GIN instances.
 
 
+Test that the normal client commands are working
+
 ```bash
 mkdir gintest
 cd gintest
@@ -38,6 +40,64 @@ gin repos doi
 gin repos deploy
 gin repos deployadmin
 # additional command checks
+```
+
+```bash
+gin login deployadmin
+gin get msonntag/validtest
+cd validtest/
+gin get-content .
+vim bla
+gin commit .
+gin upload
+cd ..
+gin logout
+```
+
+
+```bash
+gin login gin-valid
+gin repos deploy
+gin get deploy/writerepo
+cd writerepo/
+# test non annex data
+vim test.txt
+gin commit . -m "add text file"
+gin upload
+mkdir data
+mv test.txt data/
+gin commit . -m "Move text file"
+gin upload .
+# file version tests
+gin version data/test.txt
+git log --oneline --graph
+gin version [use previous commit hash]
+gin version data/test.txt
+head -c 11M /dev/urandom > data/sampleA.bin
+gin commit . -m "add annex file"
+gin commit .
+gin upload .
+gin version data/sampleA.bin
+head -c 13M /dev/urandom > data/sampleA.bin
+gin commit . -m "update sampleA file size"
+gin upload .
+gin version data/sampleA.bin
+gin upload .
+gin get-content .
+gin version data/sampleA.bin
+cd ..
+gin logout
+# clone the same repo as a different name to check versions across users and different versions of the repository
+cd writerepo_ginvalid/
+gin login gin-valid
+gin download .
+gin get-content .
+gin version data/sampleA.bin
+gin get-content .
+vim data/addfile.txt
+gin commit . -m "Check add file commit author"
+cd ..
+gin logout
 ```
 
 ### Pre-requisites
