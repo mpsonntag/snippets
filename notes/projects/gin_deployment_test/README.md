@@ -100,5 +100,29 @@ cd ..
 gin logout
 ```
 
+
+```bash
+conda create -n datalad python=3.9 -y
+conda info --envs
+conda activate datalad
+pip install datalad
+conda install -c conda-forge git-annex -y
+datalad create datalad_test
+```
+
+
+```bash
+# login as ginadmin
+gin login ginadmin
+# fetch the gin_deployment repo
+gin get G-Node/gin_deployment_test
+gin logout
+```
+
+```bash
+gin logout
+gin get deploy/readrepo
+```
+
 ### Pre-requisites
 
