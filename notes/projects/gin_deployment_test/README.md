@@ -25,5 +25,20 @@ running GIN instance.
 The following describes the full rundown of all deployment tests. These tests require
 a full test setup of a GIN server and a GIN CLI set up to work with the GIN instances.
 
+
+```bash
+mkdir gintest
+cd gintest
+# use the gin dev server
+gin use-server dev
+gin info
+gin servers
+gin repos
+gin repos doi
+gin repos deploy
+gin repos deployadmin
+# additional command checks
+```
+
 ### Pre-requisites
 
