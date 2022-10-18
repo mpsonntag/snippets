@@ -8,6 +8,9 @@
 - [Do I have to use git-annex?](#do-i-have-to-use-git-annex)
 - [Can I use GIN as a data provider for my research consortium/institute/department/working group with many collaborators and potentially a lot of terabytes of data?](#can-i-use-gin-as-a-data-provider-for-my-research-consortiuminstitutedepartmentworking-group-with-many-collaborators-and-potentially-a-lot-of-terabytes-of-data)
 
+## GIN Web
+- [Find answers to common GIN Web questions](#Common-GIN-Web-questions)
+
 ## GIN Client
 - [Find answers to common GIN client questions](#Common-GIN-Client-questions)
 - [Answers to client setup questions](#GIN-Client-setup-questions)
@@ -79,6 +82,39 @@ Strictly speaking No.  A better answer, however, would probably be: It depends o
 Sure! However, if you need **guaranteed** access to a lot of free storage we expect that you cover the additional costs associated with it. Please [get in touch](wiki/contact) with us about the details. Also, consider that data transfer takes its time. You can of course also set up your own gin server [in-house](wiki/In+House). We are happy to be of assistance, if necessary.
 
 ---
+
+## Common GIN Web questions
+
+### An upload via the webpage shows no progress or has stopped
+
+I have been trying to upload data onto a repository but, it seems to have stopped adding commits. Is there a limit on how much we can upload to a repository?  
+
+*Answer*
+
+Uploads through the website should work without issue, but for large, long running uploads there is always a greater risk of the connection timing out or being interrupted and subsequent uploads will need to start over. To reduce the chance of long running uploads through the web form, we recommend submitting large repositories in small chunks and low file numbers to avoid timeouts.
+
+As an alternative to the web upload the GIN command line client GIN-cli will resume a broken upload and makes it easier to keep track of what has been uploaded and what remains to be sent, which is important when uploading multiple files in multiple directories. To this end we recommend using the GIN client for large uploads instead of the web interface.
+
+### How to delete a branch
+I'm trying to delete a branch I added by mistake to https://gin.g-node.org/[repo] and am unable to do so. Can you please kindly direct me to how I may do this?
+
+*Answer*
+
+Deleting branches on the GIN website is currently not supported.
+
+Deleting a branch is possible using the GIN commandline client to send the git remote branch deletion command.
+
+If you are unfamiliar with git or the gin client you can find installation instructions for the client [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup) and a basic usage tutorial [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Usage+Tutorial).
+
+To delete the branch, you will need to have the repository cloned to a local directory, then from within the repository run the following command:
+
+```bash
+gin git push -d origin branchname
+```
+
+where `branchname` is of course the name of the branch you want to delete.
+
+
 
 ## Common GIN Client questions
 
