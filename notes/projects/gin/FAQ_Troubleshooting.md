@@ -7,6 +7,11 @@
 - [Do I have to use git-annex?](#do-i-have-to-use-git-annex)
 - [Can I use GIN as a data provider for my research consortium/institute/department/working group with many collaborators and potentially a lot of terabytes of data?](#can-i-use-gin-as-a-data-provider-for-my-research-consortiuminstitutedepartmentworking-group-with-many-collaborators-and-potentially-a-lot-of-terabytes-of-data)
 
+## GIN Client
+- [Find answers to common GIN client questions](#Common-GIN-Client-questions)
+- [Answers to client setup questions](#GIN-Client-setup-questions)
+- [Answers to client usage questions](#GIN-Client-usage-questions)
+
 ## Troubleshooting
 - [I found a bug, something is not working, or "I don't know what to do"](#i-found-a-bug-something-is-not-working-or-i-dont-know-what-to-do)
 - [Why do I see files with some strange text like "annex" or "WORM" instead of file content?](#why-do-i-see-files-with-some-strange-text-like-annex-or-worm-instead-of-file-content)
@@ -63,6 +68,10 @@ Strictly speaking No.  A better answer, however, would probably be: It depends o
 Sure! However, if you need **guaranteed** access to a lot of free storage we expect that you cover the additional costs associated with it. Please [get in touch](wiki/contact) with us about the details. Also, consider that data transfer takes its time. You can of course also set up your own gin server [in-house](wiki/In+House). We are happy to be of assistance, if necessary.
 
 ---
+
+## Common GIN Client questions
+
+### GIN Client setup questions
 
 #### GIN CLI says "nothing to do" but there are files missing on the server
 
@@ -142,6 +151,12 @@ The method varies based on operating system and command shell:
 For git to use the proxy server through SSH, the SSH configuration settings need to be edited.
 There is no straightforward, single configuration for setting configuring SSH through a proxy.
 Please consult with your lab or institution administrator for how to configure SSH to work through the proxy.
+
+
+### GIN Client usage questions
+
+
+## Troubleshooting
 
 #### I found a bug, something is not working, or "I don't know what to do"
 
