@@ -1,5 +1,6 @@
 ## FAQ
 - [How can I get a DOI for my data?](#how-can-i-get-a-doi-for-my-data)
+- [How can I modify a dataset published with GIN-DOI](#How-can-I-modify-a-dataset-published with-GIN-DOI)
 - [How can I access the data?](#how-can-i-access-the-data)
 - [Is there a list of all GIN client commands?](#is-there-a-list-of-all-gin-client-commands)
 - [Can I invite other collaborators who are not registered with GIN?](#can-i-invite-other-collaborators-who-are-not-registered-with-gin)
@@ -26,6 +27,16 @@ See details [here](wiki/DOIfile).
 * Create a [DOI request](wiki/DOIfile#structuring-the-doi-request-file) file (`datacite.yml`)
 * Set repository to [public] (https://gin.g-node.org/G-Node/Info/wiki/Web+Interface#repository-settings)
 * Hit doi button
+
+
+#### How can I modify a dataset published with GIN-DOI
+Once a DOI is issued for a dataset, can this dataset be modified in the future? I.e., can new data be added?
+
+*Answer*
+
+The original GIN repository that was used to create the registered dataset can be changed after it has been used for a DOI publication. Further changes in the original GIN repository do not introduce changes in the published DOI dataset.
+Further there is no automatic way to update the published DOI dataset after the DOI has been issued. Simply request a new DOI using the updated data repository if changes need to be published as well.
+
 
 #### How can I access the data?
 At GIN we believe that there should ideally be several ways to achieve the same thing. So to access the data you can:
