@@ -1,17 +1,17 @@
 ## FAQ
 
 ### Overview
-- [Common DOI questions](#Common-DOI-questions)
-- [General GIN questions](#General-GIN-questions)
-- [Find answers to common GIN Web questions](#Common-GIN-Web-questions)
-- [Find answers to common GIN client questions](#Common-GIN-Client-questions)
-- [General Troubleshooting](#Troubleshooting)
+- [Common DOI questions](#common-doi-questions)
+- [General GIN questions](#general-gin-questions)
+- [Find answers to common GIN Web questions](#common-gin-web-questions)
+- [Find answers to common GIN client questions](#common-gin-client-questions)
+- [General Troubleshooting](#troubleshooting)
 
 ### Specific DOI questions
 - [How can I get a DOI for my data?](#how-can-i-get-a-doi-for-my-data)
-- [How can I modify a dataset published with GIN-DOI](#How-can-I-modify-a-dataset-published with-GIN-DOI)
+- [How can I modify a dataset published with GIN-DOI](#how-can-i-modify-a-dataset-published-with-gin-doi)
 
-### General GIN questions 
+### Common GIN questions 
 - [How can I access the data?](#how-can-i-access-the-data)
 - [Is there a list of all GIN client commands?](#is-there-a-list-of-all-gin-client-commands)
 - [Can I invite other collaborators who are not registered with GIN?](#can-i-invite-other-collaborators-who-are-not-registered-with-gin)
@@ -21,30 +21,32 @@
 
 
 ## Specific GIN Web questions
-- [An upload via the webpage shows no progress or has stopped](#An-upload-via-the-webpage-shows-no-progress-or-has-stopped)
-- [How to delete a branch](#How-to-delete-a-branch)
+- [An upload via the webpage shows no progress or has stopped](#an-upload-via-the-webpage-shows-no-progress-or-has-stopped)
+- [How to delete a branch](#how-to-delete-a-branch)
 
 ## Specific GIN Client questions
-- [Answers to client setup questions](#GIN-Client-setup-questions)
-- [Answers to client usage questions](#GIN-Client-usage-questions)
-- [GIN CLI says "nothing to do" but there are files missing on the server](#GIN-CLI-says-nothing-to-do-but-there-are-files-missing-on-the-server)
-- [GIN CLI fails to upload with general error](#GIN-CLI-fails-to-upload-with-general-error)
-- [Using the GIN client behind a proxy](#Using-the-GIN-client-behind-a-proxy)
-- [Slow upload speed](#Slow-upload-speed)
-- [Files with a specific file ending are not uploaded](#Files-with-a-specific-file-ending-are-not-uploaded)
-- [How to Unannex files](#How-to-Unannex-files)
-- [Large local directory size after file deletion](#Large-local-directory-size-after-file-deletion)
-- [Dropping file content removes content from more than the specified file](#Dropping-file-content-removes-content-from-more-than-the-specified-file)
-- [A file upload has failed](#A-file-upload-has-failed)
-- [Broken pipe upload issue](#Broken-pipe-upload-issue)
-- [Unspecified client error message [error] 1 operation failed](#Unspecified-client-error-message-[error]-1-operation-failed)
-- [Disconnect reading sideband packet upload issue](#Disconnect-reading-sideband-packet-upload-issue)
+- [Answers to client setup questions](#gin-client-setup-questions)
+- [Answers to client usage questions](#gin-client-usage-questions)
+- [GIN CLI says "nothing to do" but there are files missing on the server](#gin-cli-says-nothing-to-do-but-there-are-files-missing-on-the-server)
+- [GIN CLI fails to upload with general error](#gin-cli-fails-to-upload-with-general-error)
+- [Using the GIN client behind a proxy](#using-the-gin-client-behind-a-proxy)
+- [Slow upload speed](#slow-upload-speed)
+- [Files with a specific file ending are not uploaded](#files-with-a-specific-file-ending-are-not-uploaded)
+- [How to Unannex files](#how-to-unannex-files)
+- [Large local directory size after file deletion](#large-local-directory-size-after-file-deletion)
+- [Dropping file content removes content from more than the specified file](#dropping-file-content-removes-content-from-more-than-the-specified-file)
+- [A file upload has failed](#a-file-upload-has-failed)
+- [Broken pipe upload issue](#broken-pipe-upload-issue)
+- [Unspecified client error message [error] 1 operation failed](#unspecified-client-error-message-error-1-operation-failed)
+- [Disconnect reading sideband packet upload issue](#disconnect-reading-sideband-packet-upload-issue)
 
-## Troubleshooting
+## General troubleshooting
 - [I found a bug, something is not working, or "I don't know what to do"](#i-found-a-bug-something-is-not-working-or-i-dont-know-what-to-do)
 - [Why do I see files with some strange text like "annex" or "WORM" instead of file content?](#why-do-i-see-files-with-some-strange-text-like-annex-or-worm-instead-of-file-content)
 
 ---
+
+## Anchor test
 
 ### Common DOI questions
 
@@ -53,7 +55,7 @@ See details [here](wiki/DOIfile).
 ##### Short overview:
 * [Create a repository] (https://gin.g-node.org/G-Node/Info/wiki/Web+Interface#creating-a-repository)
 * Upload data (using the [Website](https://gin.g-node.org/G-Node/Info/wiki/Web+Interface#uploading-files), our client, or git{annex})
-* Create a [DOI request](wiki/DOIfile#structuring-the-doi-request-file) file (`datacite.yml`)
+* Create a [DOI request](wiki/DOIfile#structuring-the-datacite-file) file (`datacite.yml`)
 * Set repository to [public] (https://gin.g-node.org/G-Node/Info/wiki/Web+Interface#repository-settings)
 * Hit doi button
 
@@ -127,15 +129,11 @@ As an alternative to the web upload the GIN command line client GIN-cli will res
 
 
 ### How to delete a branch
-I'm trying to delete a branch I added by mistake to https://gin.g-node.org/[repo] and am unable to do so. Can you please kindly direct me to how I may do this?
+I'm trying to delete a branch I added by mistake to `https://gin.g-node.org/[repo]` and am unable to do so. Can you please kindly direct me to how I may do this?
 
 *Answer*
 
-Deleting branches on the GIN website is currently not supported.
-
-Deleting a branch is possible using the GIN commandline client to send the git remote branch deletion command.
-
-If you are unfamiliar with git or the gin client you can find installation instructions for the client [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup) and a basic usage tutorial [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Usage+Tutorial).
+Deleting branches on the GIN website is currently not supported. Deleting a branch is possible using the GIN commandline client to send the git remote branch deletion command. If you are unfamiliar with git or the gin client you can find installation instructions for the client [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup) and a basic usage tutorial [here](https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Usage+Tutorial).
 
 To delete the branch, you will need to have the repository cloned to a local directory, then from within the repository run the following command:
 
@@ -145,6 +143,7 @@ gin git push -d origin branchname
 
 where `branchname` is of course the name of the branch you want to delete.
 
+---
 
 ## Common GIN Client questions
 
@@ -225,6 +224,7 @@ For git to use the proxy server through SSH, the SSH configuration settings need
 There is no straightforward, single configuration for setting configuring SSH through a proxy.
 Please consult with your lab or institution administrator for how to configure SSH to work through the proxy.
 
+---
 
 ### GIN Client usage questions
 
@@ -328,7 +328,7 @@ This error can occur when too many small files (each size < 10 MB) with a total 
 The reason behind this issue is, that only files with size > 10MB are checked into git annex that handles large files well. Files with a smaller size are still checked into git, which does not handle many or large files nearly as well as git annex does. In the described case, git cannot handle the sum size of files any longer and will fail on upload.
 
 
-#### Unspecified client error message [error] 1 operation failed
+#### Unspecified client error message "error 1 operation failed"
 When trying to upload data to the GIN server, the GIN client prompts "[error] 1 operation failed". What went wrong and how do we fix it.
 
 *Answer*
@@ -395,6 +395,7 @@ Check the following threads from users experiencing this or a similar issue on a
 - https://forum.gitlab.com/t/issues-with-cloning-a-repo-from-windows-using-latest-git/59089
 - https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
 
+---
 
 ## Troubleshooting
 
