@@ -202,6 +202,21 @@ Please consult with your lab or institution administrator for how to configure S
 
 ### GIN Client usage questions
 
+#### Slow upload speed
+I experience uploading speed of about 1-2 MiB/s. Can you help increase the upload speed?
+
+*Answer*
+With respect to upload speed, there is not really anything we can do or debug from our end. The service can handle and has handled upload speeds of 20MiB/s-100MiB/s in the past depending on the connection.
+
+
+#### Files with a specific file ending are not uploaded
+I am trying to upload files to a GIN repository, but files with a specific file ending e.g. "tif" or "nii" are not uploaded.
+
+*Answer*
+
+GIN is based on git and will respect if files have been excluded from git. Check if there is a `.gitignore` file at the root of your repository where these files have been excluded.
+
+
 #### Unannex files
 I committed one file too many. How do I get the file out of the annex before uploading?
 
@@ -231,6 +246,128 @@ I dropped the file content of one file and suddenly the content of multiple file
 
 *Answer*
 git annex references files only once. If a single file exists as multiple, identical copies in several places within the same repository, dropping the file content of one of these files will lead to dropped file content for all of these files.
+
+
+#### Files upload has failed
+A `gin upload` of files has failed with an unspecified message, e.g.
+
+```bash
+gin upload data_directory/*
+:: Adding file changes
+"data_directory/file_one.tif" failed
+"data_directory/two.tif" failed
+```
+
+*Answer*
+Run `gin sync` and check if this resolves the current upload issue. 
+This will download changes from the remote repositories and then 
+upload any local changes to the remotes.
+
+If it does not help, run `gin --version` and check the current 
+GIN client version number. If it is below 1.12, it might 
+be helpful to upgrade to the latest version of the client and
+run the upload again. You can also try to update the git binary on 
+the local machine.
+
+Further check the client logfile; it can be found at the 
+following locations depending on the operating system:
+- Windows: `C:\Users\<User>\AppData\Local\g-node\gin\gin.log`
+- macOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
+- Linux: `/home/<User>/.cache/g-node/gin/gin.log`
+
+Before checking the log, try to run the upload command again 
+to make sure that the failure and any pertinent information 
+is included as the last entry in the logfile.
+
+
+#### "Broken pipe" upload issue
+On uploading to GIN, we encounter the following error, what is the issue and how can it be resolved.
+
+```bash
+:: Uploading
+Compressing OK
+Connection to gin.g-node.org closed by remote host.
+fatal: the remote end hung up unexpectedly
+fatal: sha1 file '<stdout>' write error: Broken pipe
+fatal: the remote end hung up unexpectedly
+Pushing to origin failed.
+git-annex: sync: 1 failed
+
+[error] 1 operation failed
+```
+
+*Answer*
+This error can occur when too many small files (each size < 10 MB) with a total sum size of > 4GiB have been committed with a single commit. Try splitting such a commit into multiple smaller ones so that the total sum size of committed files is below 4 GiB.  
+
+The reason behind this issue is, that only files with size > 10MB are checked into git annex that handles large files well. Files with a smaller size are still checked into git, which does not handle many or large files nearly as well as git annex does. In the described case, git cannot handle the sum size of files any longer and will fail on upload.
+
+
+#### Unspecified client error message [error] 1 operation failed
+When trying to upload data to the GIN server, the GIN client prompts "[error] 1 operation failed". What went wrong and how do we fix it.
+
+*Answer*
+This error is displayed when a very unusual circumstance has happened. Usually there is no clear answer to this issue and needs further investigation.
+
+- the error has been linked to trying to upload many small files (individual size < 10MB) with a total size of >4GiB that have been added in one single commit, which is something git does not handle well. If this is the case, please try splitting the commit into a couple of commits with fewer files in each commit and try uploading again.
+
+- if this is not the case, please check the client logfile; the logfile contains more detailed information. Depending on the operating system the logfile can be found at:
+  - Windows: `c:\users\{user}\appdata\local\g-node\gin\gin.log`
+  - Linux: `/home/{user}/.cache/g-node/gin`
+  - MacOS: `/Users/<User>/Library/Caches/g-node/gin/gin.log`
+
+- if the log shows an error after `git annex metadata --json --key=MD5-<hash>` you can try to manually upload again using the command `gin annex copy --to=origin <filename>` with the file that caused the issue.
+
+#### Disconnect reading sideband packet upload issue
+I cannot clone a repository or upload from my machine to the GIN repository. I constantly get lots of error lines ending in:
+
+```bash
+# Example repository clone
+gin get myusername/tmp
+Downloading repository Repository download failed. Internal git command returned: Cloning into 'tmp'...
+remote: Enumerating objects: 516, done.                                                         
+remote: Counting objects: 100% (516/516), done.                                                 
+remote: Compressing objects: 100% (224/224), done.                                              
+client_loop: send disconnect: Broken pipeiB | 1006.00 KiB/s
+fetch-pack: unexpected disconnect while reading sideband packet
+fatal: early EOF
+fatal: index-pack failed
+ 
+[error] 1 operation failed
+```
+
+```bash
+# Example repository upload
+[stderr]
+fatal: There is no merge to abort (MERGE_HEAD missing).
+2022/04/21 20:16:13 The following error occured:
+Connection to gin.g-node.org closed by remote host.
+send-pack: unexpected disconnect while reading sideband packet
+fatal: sha1 file '<stdout>' write error: Broken pipe
+fatal: the remote end hung up unexpectedly
+Connection to gin.g-node.org closed by remote host.send-pack: unexpected disconnect while reading sideband packetfatal: sha1 file '<stdout>' write error: Broken pipefatal: the remote end hung up unexpectedly  Pushing to origin failed.
+git-annex: sync: 1 failed
+2022/04/21 20:16:13 Exiting with ERROR message: 1 operation failed
+```
+
+*Answer*
+This error can occur when the connection cannot handle a large upload. There is no easy option to deal with this issue from the machine the error occurs on.
+- use a wired connection (LAN) if you suspect a WIFI connection can limit upload
+- if this is an option, work from a machine where the upload is not an issue
+- if the suggestions above are not an option, try to limit the amount of data you upload in one go. This also includes adding and uploading data in chunks:
+  - create a clean repository or clone an existing repository from the gin server; at this point it is important to locally start with a repository that does not have a large amount of data waiting to be uploaded.
+  - add only one smaller file to this repository, commit and upload; if the upload succeeds, you can be sure that the issue is the chunk size of the upload. Increase the size of uploaded chunks until you hit the amount of data where an upload ends with the error described above and stay below this limit when uploading data from you machine.
+
+At the core of this issue lies a problem that `git` cannot prepare and provide data that is supposed to be uploaded in a reasonable timeframe; the server ready to receive the content has to wait too long and closes the connection.
+
+Check the following threads from users experiencing this or a similar issue on a multitude of git services and potential solutions
+- https://stackoverflow.com/questions/66366582/github-unexpected-disconnect-while-reading-sideband-packet
+- https://stackoverflow.com/questions/21277806/fatal-early-eof-fatal-index-pack-failed/22317479#22317479
+- https://github.com/git-lfs/git-lfs/issues/2428
+- https://serverfault.com/questions/1056419/git-wsl2-ssh-unexpected-disconnect-while-reading-sideband-packet
+- https://stackoverflow.com/questions/32137388/how-to-check-post-buffer-size-before-clone-git-repository
+- https://forum.gitlab.com/t/issues-with-cloning-a-repo-from-windows-using-latest-git/59089
+- https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
+
 
 
 ## Troubleshooting
