@@ -202,6 +202,36 @@ Please consult with your lab or institution administrator for how to configure S
 
 ### GIN Client usage questions
 
+#### Unannex files
+I committed one file too many. How do I get the file out of the annex before uploading?
+
+*Answer*
+An annexed file can be removed from the annex and from gin tracking using the following command.
+
+```bash
+gin git annex unannex [path/filename]
+```
+
+Note that a commit is required to fully remove a file from gin tracking. Also note that currently if the file content is not locally available, there will be no message at all and the commit will not change the status.
+Make sure to `gin get-content [path/filename]` first, if the content is only available remotely. You can check which files have no local content by running `gin ls`.
+
+
+#### Large local directory size after file deletion
+I removed large files from my project that I did not need any longer. Still my directory requires too much disk space.
+
+*Answer*
+When files are deleted from the project, they still remain in the history. If for example a file got deleted by mistake in the past, you can go back and restore it.  
+The deleted file will always remain on the server, but if you want to free up the space locally, there are two ways to deal with this situation:
+- If you have not deleted a large file yet, first remove the file content from your local gin store by using the `gin remove-content [large_file]` command. Now you can safely delete the file without any leftover space occupied in your local history. You can still checkout an earlier commit and retrieve this file from the server.
+- If you have already deleted this file without removing the file content first, you can free up this space by locally removing your gin directory and clone it again from the server. Just make sure you commit and upload any unsaved changes before doing this.
+
+
+#### Dropping file content removes content from more than the specified file
+I dropped the file content of one file and suddenly the content of multiple files got removed!
+
+*Answer*
+git annex references files only once. If a single file exists as multiple, identical copies in several places within the same repository, dropping the file content of one of these files will lead to dropped file content for all of these files.
+
 
 ## Troubleshooting
 
