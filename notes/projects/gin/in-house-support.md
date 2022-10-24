@@ -3,7 +3,7 @@
 The in-house GIN has gained a lot of traction in the last year, which we are very 
 happy to see and also happy to support as much as we can. With the growing number of
 in-house GIN users, we also receive many requests for service set-up support and 
-maintenance. Often these are simple matters and we try to keep the documentation as
+maintenance. Often these are simple matters, and we try to keep the documentation as
 up-to date and helpful as possible, but since we are a small open-source team, the 
 growing demand for support takes up quite some of our time.
 
