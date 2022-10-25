@@ -72,34 +72,20 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
 
 
 def process_day_data(data: List[Dict[str, str]], details: bool = False):
-    pdf_dat = list(filter(lambda log_entry: ".pdf" in log_entry["log"], data))
+    curr_list = []
+    prev_date = ""
+    for val in data:
+        curr_list.append(val)
+        curr_date = val["time"].split("T")[0]
+        # account for the first run
+        if not prev_date:
+            prev_date = curr_date
+        if curr_date != prev_date:
+            print(f"\n---- Access on date {curr_date}")
+            process_data(curr_list, details)
 
-    # Filter for raw pdf access -> happens when the Poster landing page is opened
-    # or when the poster is downloaded;
-    # The download rate per poster could be approximated by subtracting src access from
-    print("-- Total page views and distinct pages accessed")
-
-    # Filter for pdf view on the page
-    src_dat = list(filter(lambda log_entry: "src" in log_entry["log"], pdf_dat))
-
-    date_list = []
-    lastval = ""
-    for val in src_dat:
-        currval = val["time"].split("T")[0]
-        if currval != lastval:
-            lastval = currval
-            date_list.append(lastval)
-    print(date_list)
-
-    # raw access.
-    raw_dat = list(filter(lambda log_entry: "raw" in log_entry["log"], pdf_dat))
-
-    pos_dat = list(filter(lambda log_entry: "Posters/wiki/Poster" in log_entry["log"], data))
-    inv_dat = list(filter(lambda log_entry: "InvitedTalks/wiki/Invited" in log_entry["log"], data))
-    con_dat = list(filter(lambda log_entry: "ContributedTalks/wiki/Contributed" in log_entry["log"], data))
-    wor_dat = list(filter(lambda log_entry: "Workshops/wiki/Workshop" in log_entry["log"], data))
-    exh_dat = list(filter(lambda log_entry: "Exhibition/wiki/Exhibition" in log_entry["log"], data))
-    inf_dat = list(filter(lambda log_entry: "ConferenceInformation/wiki" in log_entry["log"], data))
+            curr_list = []
+            prev_date = curr_date
 
 
 def process_data(data: List[Dict[str, str]], details: bool = False):
@@ -218,7 +204,7 @@ def main():
     fil_dat = reduce_raw_dict(data)
 
     if handle_dates:
-        process_day_data(fil_dat, False)
+        process_day_data(fil_dat, details)
         return
 
     # Process reduced data and print statistics
