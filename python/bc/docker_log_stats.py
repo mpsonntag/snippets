@@ -13,6 +13,8 @@ def ordered_print(data: Dict[str, int], trim_string: str = ""):
     :param data: Dict containing distinct addresses and their occurrence.
     :param trim_string: String to remove from the first column string.
     """
+    if not data:
+        return
     print()
     print("Individual views ...")
     new_dat = dict(sorted(data.items(), key=lambda ipa: ipa[1]))
