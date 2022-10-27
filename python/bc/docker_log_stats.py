@@ -73,19 +73,17 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
 
 def process_day_data(data: List[Dict[str, str]], details: bool = False):
     curr_list = []
-    prev_date = ""
+    # account for the first run
+    prev_date = data[0]["time"].split("T")[0]
     for val in data:
-        curr_list.append(val)
         curr_date = val["time"].split("T")[0]
-        # account for the first run
-        if not prev_date:
-            prev_date = curr_date
         if curr_date != prev_date:
-            print(f"\n---- Access on date {curr_date}")
+            print(f"\n---- Access on date {prev_date}")
             process_data(curr_list, details)
 
             curr_list = []
             prev_date = curr_date
+        curr_list.append(val)
 
 
 def process_data(data: List[Dict[str, str]], details: bool = False):
