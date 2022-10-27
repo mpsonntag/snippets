@@ -72,6 +72,9 @@ def filter_print(data: List[Dict[str, str]], fil_str: str,
 
 
 def process_day_data(data: List[Dict[str, str]], details: bool = False):
+    if not data:
+        print("-- Empty data, returning")
+        return
     curr_list = []
     # account for the first run
     prev_date = data[0]["time"].split("T")[0]
