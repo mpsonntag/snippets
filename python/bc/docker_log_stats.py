@@ -84,6 +84,10 @@ def process_day_data(data: List[Dict[str, str]], details: bool = False):
             curr_list = []
             prev_date = curr_date
         curr_list.append(val)
+    # account for last date
+    if curr_list:
+        print(f"\n---- Access on date {prev_date}")
+        process_data(curr_list, details)
 
 
 def process_data(data: List[Dict[str, str]], details: bool = False):
