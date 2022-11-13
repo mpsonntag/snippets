@@ -814,11 +814,15 @@ galleryup $EXHIB_DIR
   
   cd $REPO_ROOT/$CONFERENCE_SHORT/docker-logs
   cp $SCRIPTS_DIR/docker_logs_split.sh .
-  rm *.json
+  rm *.access.json
   scp $USER@[hosting maching]:/home/$USER/staging/docker-log/*.json .
   bash docker_logs_split.sh
+  # extract basic statistics
   python $SCRIPTS_DIR/docker_log_stats.py bc.all.json
+  # extract access details
   python $SCRIPTS_DIR/docker_log_stats.py --details --ip bc.all.json > stats.txt
+  # extract detail information on a day to day basis
+  python $SCRIPTS_DIR/docker_log_stats.py --details --day bc.all.json > day_stats.txt
   ```
 
 
