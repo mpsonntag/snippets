@@ -46,3 +46,18 @@ please add the user "curator" to the Owners of the organization and afterwards r
 yourselves from the Owners. This will dissociate your accounts from the organization and 
 we will be able to remove it safely.
 
+
+### I cannot create a new account on GIN due to Captcha issues
+
+(Q)
+I am having trouble registering a new user account on https://gin.g-node.org.
+
+Every time I click "Create New Account" on the sign up page an error appears
+"Captcha didn't match".
+
+(A)
+The currently used Captcha has been known to cause issues with some browser 
+versions. You can either try to use a different browser; the Chrome 
+and Chromium Browsers have caused no issues at all in this respect. If you
+do not want to switch browser, try updating to the latest version.
+
