@@ -32,3 +32,17 @@ https://github.com/G-Node/gogs/issues/85
 
 As a current work-around you can create a dedicated GIN
 user account with the ssh deploy key you want to use.
+
+
+### We moved our data and want to remove all our repositories, can you help
+
+We have moved our data to another location and would like to request your assistance in 
+removing the current GIN repositories. Unfortunately, we have been unable to find a way 
+to batch-remove GIN repositories through the web interface or cli.
+Is it possible on your side to help us remove all the repositories in question?
+
+If you don't need the organization, we can remove it with the repos for you.  To do this, 
+please add the user "curator" to the Owners of the organization and afterwards remove 
+yourselves from the Owners. This will dissociate your accounts from the organization and 
+we will be able to remove it safely.
+
