@@ -61,3 +61,19 @@ versions. You can either try to use a different browser; the Chrome
 and Chromium Browsers have caused no issues at all in this respect. If you
 do not want to switch browser, try updating to the latest version.
 
+
+### Error pushing file content to GIN using DataLad
+
+(Q) When trying to push files to GIN using the DataLad command line client,
+the file content does not show up on the GIN server. What is going wrong?
+
+(A)
+Currently there is an incompatibility with the underlying git-annex version (>8)
+that a default installation of Datalad is using with the current git annex version
+on GIN.
+We advise mainly using the GIN command line client for the time being. If you
+currently need to use DataLad and still want to use it with the GIN server,
+you have to make sure, that DataLad is using a git annex version of 8.
+
+This issue will get resolved in the future, but for now please keep using 
+the GIN command line client or git annex version 8.
