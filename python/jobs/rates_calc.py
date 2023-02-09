@@ -28,11 +28,17 @@ def commission_income(earning=MAX_BASE_EARNING):
     commission = hin + pin + sep + ACCIDENT_INSURANCE
     net_income = earning - commission
 
+    print()
     print(f"Commission for income {earning:.2f}")
     print(f"-- monthly commission: {commission:.2f};\t\t net income: {net_income:.2f}")
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
 
 
-commission_income()
+def run():
+    commission_income()
 
-commission_income(3000)
+    commission_income(3000)
+
+
+if __name__ == "__main__":
+    run()
