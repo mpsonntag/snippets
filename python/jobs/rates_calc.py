@@ -3,6 +3,7 @@ numbers based on https://www.wko.at/service/arbeitsrecht-sozialrecht/Neue_Selbst
 
 NOTE: base earning should be higher since there is no 13th salary...
 """
+import argparse
 
 # absolute
 MAX_BASE_EARNING = 6615
@@ -35,9 +36,14 @@ def commission_income(earning=MAX_BASE_EARNING):
 
 
 def run():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-e", "--earning", type=int, required=False, help="Provide income in euro")
+    args = parser.parse_args()
+
     commission_income()
 
-    commission_income(3000)
+    if args.earning:
+        commission_income(args.earning)
 
 
 if __name__ == "__main__":
