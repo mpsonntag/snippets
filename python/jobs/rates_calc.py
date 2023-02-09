@@ -27,5 +27,8 @@ pin = (earning/100)*PENSION_INSURANCE
 sep = (earning/100)*SELF_EMPLOYED_PROVISION
 
 commission = hin+pin+sep+ACCIDENT_INSURANCE
+net_income = earning-commission
 
-print(f"{commission:.2f}")
+print(f"Commission for income {earning:.2f}")
+print(f"-- monthly commission: {commission:.2f};\t\t net income: {net_income:.2f}")
+print(f"-- commission per annum: {commission*12:.2f};\t net income: {net_income*12:.2f}")
