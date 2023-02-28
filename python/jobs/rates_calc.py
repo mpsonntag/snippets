@@ -2,6 +2,8 @@
 numbers based on https://www.wko.at/service/arbeitsrecht-sozialrecht/Neue_Selbststaendige_einfach.html
 
 NOTE: base earning should be higher since there is no 13th salary...
+
+income_tax still missing
 """
 import argparse
 
