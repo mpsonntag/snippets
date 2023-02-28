@@ -8,7 +8,7 @@ def run():
         greenval = (currval-12)*gogreen
         if greenval < 0:
             greenval = 0
-        print(f"Month {currval}: online {currval*online} gogreen {greenval}")
+        print(f"Month {currval}: online {currval*online:.2f} gogreen {greenval:.2f}")
 
 
 if __name__ == "__main__":
