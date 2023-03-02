@@ -1,6 +1,6 @@
 module github.com/mpsonntag/snippets/cmd/annexcheck
 
-go 1.18
+go 1.20
 
 require (
 	github.com/G-Node/gin-cli v0.0.0-20200213155541-7b8a0596ebb3
