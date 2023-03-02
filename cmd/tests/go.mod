@@ -1,3 +1,3 @@
 module github.com/mpsonntag/snippets/cmd/tests
 
-go 1.16
+go 1.20
