@@ -1,6 +1,6 @@
 module github.com/mpsonntag/snippets/cmd/ginutils
 
-go 1.17
+go 1.20
 
 replace (
 	github.com/docker/docker => github.com/docker/engine v0.0.0-20190717161051-705d9623b7c1
