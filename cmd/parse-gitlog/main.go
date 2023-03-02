@@ -25,9 +25,10 @@ type CommitListItem struct {
 
 func parseCommitList(repoPath string) {
 	// execute log command for repo at repoPath
-	gdir := "--git-dir=" + repoPath
 	usefmt := "--pretty=format:Commit:=%H%nCommitter:=%cn%nAuthor:=%an%nDate-iso:=%ai%nDate-rel:=%ar%nSubject:=%s%nChanges:="
-	cmd := exec.Command("git", gdir, "log", usefmt, "--name-status")
+	cmdStr := fmt.Sprintf("git -C %s log %s --name-status", repoPath, usefmt)
+	fmt.Printf("Running command\n    %s\n", cmdStr)
+	cmd := exec.Command(cmdStr)
 	body, err := cmd.Output()
 	if err != nil {
 		fmt.Printf("Failed running git log: %v\n", err)
@@ -97,6 +98,7 @@ func parseCommitList(repoPath string) {
 }
 
 func main() {
-	repoPath := "/home/msonntag/Chaos/work/spielwiese/gin-repo-test/repos/git/alice/auth.git"
+	repoPath := "/home/msonntag/Chaos/DL/tmp/test_remote_git/bla/"
+	fmt.Printf("Parsing repo %q\n", repoPath)
 	parseCommitList(repoPath)
 }
