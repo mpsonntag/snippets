@@ -37,10 +37,26 @@ def commission_income(earning=MAX_BASE_EARNING):
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
 
 
+def income_table():
+    base_month_sal = 5000
+    base_hours = 8
+    base_days = 40
+    print(f"-- base month salary: {base_month_sal};\t"
+          f"income/day {base_month_sal/base_days:.2f};\t"
+          f"income/hour {base_month_sal/base_days/base_hours:.2f}")
+
+    fixed_hour_rate = 16
+    print(f"-- fixed income/hour {fixed_hour_rate};\t"
+          f"fixed income/day {fixed_hour_rate*base_hours};\t"
+          f"fixed income/mont {fixed_hour_rate*base_hours*base_days}")
+
+
 def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-e", "--earning", type=int, required=False, help="Provide income in euro")
     args = parser.parse_args()
+
+    income_table()
 
     commission_income()
 
