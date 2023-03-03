@@ -37,7 +37,7 @@ def commission_income(earning=MAX_BASE_EARNING):
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
 
 
-def income_table(base_month_sal):
+def income_table(base_month_sal, fixed_hour_rate):
     ref_month_sal = 5000
     if not base_month_sal:
         base_month_sal = ref_month_sal
@@ -49,7 +49,7 @@ def income_table(base_month_sal):
     ref_inc_hour = ref_inc_day/base_hours
     print(f"-- reference income/hour {ref_inc_hour:.2f};\t"
           f"ref income/day {ref_inc_day:.2f};\t"
-          f"ref month salary: {ref_month_sal}")
+          f"ref month salary: {ref_month_sal:.2f}")
 
     base_inc_day = base_month_sal/base_days
     base_inc_hour = base_inc_day/base_hours
@@ -60,23 +60,28 @@ def income_table(base_month_sal):
           f"base month salary: {base_month_sal:.2f};\t"
           f"base income/month+ust {base_month_inc_ust:.2f}({base_month_ust:.2f})")
 
-    fixed_hour_rate = 16
+    if not fixed_hour_rate:
+        fixed_hour_rate = 16
+
     inc_day = fixed_hour_rate*base_hours
     inc_month = inc_day*base_days
     month_ust = inc_month*ust
     inc_month_ust = inc_month + month_ust
-    print(f"-- fixed income/hour {fixed_hour_rate};\t"
-          f"fixed income/day {inc_day};\t"
-          f"fixed income/month {inc_month};\t"
-          f"fixed income/month+ust {inc_month_ust}({month_ust})")
+    print(f"-- fixed income/hour {fixed_hour_rate:.2f};\t"
+          f"fixed income/day {inc_day:.2f};\t"
+          f"fixed income/month {inc_month:.2f};\t"
+          f"fixed income/month+ust {inc_month_ust:.2f}({month_ust:.2f})")
 
 
 def run():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-e", "--earning", type=int, required=False, help="Provide income in euro")
+    parser.add_argument("-e", "--earning", type=int, required=False,
+                        help="Provide monthly income in euro")
+    parser.add_argument("-r", "--rate", type=float, required=False,
+                        help="Provide hourly rates in euro")
     args = parser.parse_args()
 
-    income_table(args.earning)
+    income_table(args.earning, args.rate)
 
     commission_income()
 
