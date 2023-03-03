@@ -42,14 +42,20 @@ def income_table(base_month_sal):
         base_month_sal = 5000
     base_hours = 8
     base_days = 40
+    ust = 0.2
     print(f"-- base month salary: {base_month_sal};\t"
           f"income/day {base_month_sal/base_days:.2f};\t"
           f"income/hour {base_month_sal/base_days/base_hours:.2f}")
 
     fixed_hour_rate = 16
+    inc_day = fixed_hour_rate*base_hours
+    inc_month = inc_day*base_days
+    month_ust = inc_month*ust
+    inc_month_ust = inc_month + month_ust
     print(f"-- fixed income/hour {fixed_hour_rate};\t"
-          f"fixed income/day {fixed_hour_rate*base_hours};\t"
-          f"fixed income/mont {fixed_hour_rate*base_hours*base_days}")
+          f"fixed income/day {inc_day};\t"
+          f"fixed income/month {inc_month};\t"
+          f"fixed income/month+ust {inc_month_ust}({month_ust})")
 
 
 def run():
