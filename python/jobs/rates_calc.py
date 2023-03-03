@@ -38,14 +38,18 @@ def commission_income(earning=MAX_BASE_EARNING):
 
 
 def income_table(base_month_sal):
+    ref_month_sal = 5000
     if not base_month_sal:
-        base_month_sal = 5000
+        base_month_sal = ref_month_sal
     base_hours = 8
     base_days = 40
     ust = 0.2
-    print(f"-- base month salary: {base_month_sal};\t"
-          f"income/day {base_month_sal/base_days:.2f};\t"
-          f"income/hour {base_month_sal/base_days/base_hours:.2f}")
+
+    ref_inc_day = ref_month_sal/base_days
+    ref_inc_hour = ref_inc_day/base_hours
+    print(f"-- reference income/hour {ref_inc_hour:.2f};\t"
+          f"ref income/day {ref_inc_day:.2f};\t"
+          f"ref month salary: {ref_month_sal}")
 
     fixed_hour_rate = 16
     inc_day = fixed_hour_rate*base_hours
