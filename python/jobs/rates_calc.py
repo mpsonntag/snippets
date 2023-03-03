@@ -51,6 +51,15 @@ def income_table(base_month_sal):
           f"ref income/day {ref_inc_day:.2f};\t"
           f"ref month salary: {ref_month_sal}")
 
+    base_inc_day = base_month_sal/base_days
+    base_inc_hour = base_inc_day/base_hours
+    base_month_ust = base_month_sal*ust
+    base_month_inc_ust = base_month_sal + base_month_ust
+    print(f"-- base income/hour {base_inc_hour:.2f};\t"
+          f"base income/day {base_inc_day:.2f};\t"
+          f"base month salary: {base_month_sal:.2f};\t"
+          f"base income/month+ust {base_month_inc_ust:.2f}({base_month_ust:.2f})")
+
     fixed_hour_rate = 16
     inc_day = fixed_hour_rate*base_hours
     inc_month = inc_day*base_days
