@@ -23,6 +23,28 @@ SELF_EMPLOYED_PROVISION = 1.53
 ACCIDENT_INSURANCE = 10.64
 
 
+def inx(earning):
+    print(f"--- earning {earning}")
+
+    inx_cutoff = [11000, 18000, 31000, 60000, 90000, 1000000]
+    inx_lvl = {
+        11000: 0,
+        18000: 20,
+        31000: 35,
+        60000: 42,
+        90000: 48,
+        1000000: 50,
+        100000000: 55
+    }
+    inc = 0
+    tax = 0
+    calc_lvl = inx_cutoff[0]
+    for i in inx_cutoff:
+        if earning > i:
+            calc_lvl = i
+    print(f"using calc lvl {calc_lvl}")
+
+
 def commission_income(earning=MAX_BASE_EARNING):
     hin = (earning / 100) * HEALTH_INSURANCE
     pin = (earning / 100) * PENSION_INSURANCE
@@ -35,6 +57,8 @@ def commission_income(earning=MAX_BASE_EARNING):
     print(f"Commission for income {earning:.2f}")
     print(f"-- monthly commission: {commission:.2f};\t\t net income: {net_income:.2f}")
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
+
+    inx(net_income * 12)
 
 
 def income_table(base_month_sal, fixed_hour_rate):
