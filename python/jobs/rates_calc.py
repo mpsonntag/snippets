@@ -23,9 +23,11 @@ SELF_EMPLOYED_PROVISION = 1.53
 ACCIDENT_INSURANCE = 10.64
 
 
-def inx(earning):
-    print(f"--- earning {earning}")
+def inx(ear):
+    print(f"--- earning {ear}")
 
+    # put these numbers in a json file
+    # get recent numbers; the ones used here are from 2022
     inx_cutoff = [11000, 18000, 31000, 60000, 90000, 1000000]
     inx_lvl = {
         11000: 0,
@@ -40,9 +42,29 @@ def inx(earning):
     tax = 0
     calc_lvl = inx_cutoff[0]
     for i in inx_cutoff:
-        if earning > i:
-            calc_lvl = i
-    print(f"using calc lvl {calc_lvl}")
+        next_idx = inx_cutoff.index(i)+1
+        nextval = i if len(inx_cutoff) == next_idx else inx_cutoff[next_idx]
+        print(f"--- {ear}-{ear>i}({i})-{ear<=nextval}({nextval})")
+        if ear > i and ear <= nextval:
+            calc_lvl = nextval
+
+    print(f"-- using calc lvl {calc_lvl} ({ear})")
+
+    for i in inx_cutoff:
+        if inx_lvl[i] == 0:
+            inc = inc + i
+        elif i <= calc_lvl:
+            curr_tax_perc = inx_lvl[i]
+            curr_idx = inx_cutoff.index(i)
+            lastval = i if curr_idx == 0 else inx_cutoff[curr_idx - 1]
+            curr_val = i if ear > i else ear
+            curr_ear_range = curr_val-lastval
+            tax_perc_val = (curr_ear_range/100)*curr_tax_perc
+            tax = tax + tax_perc_val
+            inc = inc + curr_ear_range - tax_perc_val
+            print(f"--- curr_ear_range {curr_ear_range} - perc_val {tax_perc_val} - inc {inc} - tax {tax}")
+
+    print(f"--- {inc}-{tax}")
 
 
 def commission_income(earning=MAX_BASE_EARNING):
