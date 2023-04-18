@@ -41,7 +41,8 @@ Create distribution from source:
 This creates an archive file containing all source files and all additional files specified via the MANIFEST.in and setup.py specifics.
 
 Naming conventions for upload: probably a good idea to use versioning schemes like 1.3.1.1; 1.3.1.2; 1.3.1.3 etc for testing purposes. This has to be done, since if a bug in this specific release has to be fixed, the bugged release file has to be removed from PyPI and only a fixed file with A DIFFERENT NAME can be uploaded, even if the first file has been removed!
-This version number has to be included in both tar filename and info.json.
+
+NOTE: This version number has to be included in BOTH tar FILENAME and INFO.JSON.
 
 IMPORTANT: use this naming scheme ONLY ON TEST PYPI. Once everything is tested and done, switch the name of the file from e.g. 1.4.2.2 back to 1.4.2 before uploading to PyPI proper! Make sure to revert the changes in info.json and create a new distribution.
 
