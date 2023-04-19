@@ -82,6 +82,42 @@ the GIN command line client or git annex version 8.
 
 ### Upload error / corrupted repository issue when using datalad upload to gin
 
+(Q) We started using GIN to host big git annex repos with neuroimaging data using datalad, 
+and for one of the repos, when pushing to GIN with datalad push, we keep on receiving 
+an error message as reported below. The repos are private and are submodules of other gin
+repositories.
+
+    CommandError: 'git -c diff.ignoreSubmodules=none push --progress --porcelain gin master:master git-annex:git-annex'
+    failed with exitcode 128 under /data/proj_data/proj_data_4a/mriqc
+    Delta compression using up to 64 threads
+    CommandError: 'ssh -o ControlPath=/home/username/.cache/datalad/sockets/53dce49f ... 'git-receive-pack '"'"'/ginuser/proj_data_4a-mriqc.git'"'"''' failed with exitcode 255
+    send-pack: unexpected disconnect while reading sideband packet
+    fatal: the remote end hung up unexpectedly
+
+On the server side the repositories encountering this issue where found to be
+corrupted.
+
+(A) This particular issue can occur when the local git repository has encountered
+issues adding files to git or git annex. When the repository is then pushed
+to gin via datalad, the issue gets propagated to gin, affecting the repository
+on the server side as well.
+
+Check the repository locally for any kinds of issues using `git annex fsck` and fix
+any obvious file problems. Then run the following set of commands to cleanup the
+local git repository, recreate the repository on Gin and upload the repository
+when its in a clean state.
+
+    cd /data/proj_data_4a/mriqc
+    git gc   #garbage collection and cleanup
+    datalad siblings -s gin remove
+    datalad create-sibling-gin ginuser/proj_data_4a-mriqc -s gin —private   #create fresh remote repo
+    datalad push --to gin
+
+You can find the full thread discussing this issue in the neurostars forum: 
+https://neurostars.org/t/datalad-push-to-gin-errors/24051
+
+---- raw text and problem description
+
 > A
 
 We started using GIN to host big git annex repos with neuroimaging data using datalad, 
