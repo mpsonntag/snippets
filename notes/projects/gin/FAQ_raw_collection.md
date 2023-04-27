@@ -380,3 +380,44 @@ solution has worked for several repos now
 
 The repos seem ok now. Great that you found the solution!
 We'll add this to the GIN FAQs.
+
+> A
+
+Same issue again, tried to delete proj_data_4a-firstlevel on
+https://gin.g-node.org/ginuser, timeout, cannot see repo anymore, but
+also cannot create it afresh
+
+    /data/proj_data/proj_data_4a/first level$ datalad create-sibling-gin
+    ginuser/proj_data_4a-firstlevel -s gin --private
+
+    create_sibling_gin(error): [initRepository: initRepository: path
+    already exists: /data/repos/ginuser/proj_data_4a-firstlevel.git]
+
+> B
+
+The repo is corrupted, but should be accessible. Could you try again accessing it?
+
+> A
+
+We managed to recreate it, this is the only one left where I keep on running into that 
+"connection closed" error, probably because .git is really too big for 
+git gc (even with --aggressive) to fix.
+
+We can copy all annexed content using git annex copy though, which allows datalad 
+dropping and getting, which is fine for now, I may try to solve the pushing issue by 
+starting the local repo afresh or something when I have time later.
+
+This error might be caused by too large .git repos, which is in some cases solvable 
+using git gc (--aggressive) but in extreme cases beyond repair without more heavy 
+machinery like git-filter-repo or starting the local repo afresh.
+
+> B
+
+How many files are in this repo? Do you have any large binary files in 
+git instead of git-annex?
+
+> A
+
+In this repo, there are not that many (binary) files in git rather than annex, 
+the .png files for example are in annex, but the .html in git
+
