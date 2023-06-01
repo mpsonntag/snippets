@@ -24,7 +24,7 @@ ACCIDENT_INSURANCE = 10.64
 
 
 def inx(ear):
-    print(f"--- earning {ear}")
+    print(f"--- earning {ear:.2f}")
 
     # put these numbers in a json file
     # get recent numbers; the ones used here are from 2022
@@ -44,11 +44,11 @@ def inx(ear):
     for i in inx_cutoff:
         next_idx = inx_cutoff.index(i)+1
         nextval = i if len(inx_cutoff) == next_idx else inx_cutoff[next_idx]
-        print(f"--- {ear}-{ear>i}({i})-{ear<=nextval}({nextval})")
+        # print(f"--- {ear}-{ear>i}({i})-{ear<=nextval}({nextval})")
         if ear > i and ear <= nextval:
             calc_lvl = nextval
 
-    print(f"-- using calc lvl {calc_lvl} ({ear})")
+    print(f"\n-- using calc lvl {calc_lvl} ({ear:.2f})")
 
     for i in inx_cutoff:
         if inx_lvl[i] == 0:
@@ -62,9 +62,10 @@ def inx(ear):
             tax_perc_val = (curr_ear_range/100)*curr_tax_perc
             tax = tax + tax_perc_val
             inc = inc + curr_ear_range - tax_perc_val
-            print(f"--- curr_ear_range {curr_ear_range} - perc_val {tax_perc_val} - inc {inc} - tax {tax}")
+            print(f"--- curr_ear_range {curr_ear_range:.2f} - perc_val "
+                  f"{tax_perc_val:.2f} - inc {inc:.2f} - tax {tax:.2f}")
 
-    print(f"--- {inc}-{tax}")
+    print(f"--- {inc:.2f}-{tax:.2f} = {inc-tax:.2f} ({(inc-tax)/12:.2f})")
 
 
 def commission_income(earning=MAX_BASE_EARNING):
@@ -76,7 +77,7 @@ def commission_income(earning=MAX_BASE_EARNING):
     net_income = earning - commission
 
     print()
-    print(f"Commission for income {earning:.2f}")
+    print(f"\nCommission for income {earning:.2f}")
     print(f"-- monthly commission: {commission:.2f};\t\t net income: {net_income:.2f}")
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
 
