@@ -14,7 +14,8 @@ def run():
     print("Print Ogham alphabet from unicode code hex points")
     # hexadecimal range and print of code points
     for i in range(hex_start, hex_end):
-        print(f"{hex(i)}: {chr(i)} ({udat.category(chr(i))})")
+        if udat.category(chr(i)) != "Cn":
+            print(f"{hex(i)}: {chr(i)} ({udat.category(chr(i))})")
 
 
 if __name__ == "__main__":
