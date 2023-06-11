@@ -23,6 +23,57 @@ SELF_EMPLOYED_PROVISION = 1.53
 ACCIDENT_INSURANCE = 10.64
 
 
+def inx_gew_free(ear):
+    gew_free_cut = 30000
+    if ear <= gew_free_cut:
+        gew_free_cut = ear
+    gew_free = gew_free_cut*0.15
+    print(f"--- earning-gewinnfreibetrag 15% {ear:.2f}; {gew_free:.2f}")
+
+    ear = ear-(gew_free*0.15)
+
+    # put these numbers in a json file
+    # get recent numbers; the ones used here are from 2022
+    inx_cutoff = [11000, 18000, 31000, 60000, 90000, 1000000]
+    inx_lvl = {
+        11000: 0,
+        18000: 20,
+        31000: 35,
+        60000: 42,
+        90000: 48,
+        1000000: 50,
+        100000000: 55
+    }
+    inc = 0
+    tax = 0
+    calc_lvl = inx_cutoff[0]
+    for i in inx_cutoff:
+        next_idx = inx_cutoff.index(i)+1
+        nextval = i if len(inx_cutoff) == next_idx else inx_cutoff[next_idx]
+        # print(f"--- {ear}-{ear>i}({i})-{ear<=nextval}({nextval})")
+        if ear > i and ear <= nextval:
+            calc_lvl = nextval
+
+    print(f"\n-- using calc lvl {calc_lvl} ({ear:.2f})")
+
+    for i in inx_cutoff:
+        if inx_lvl[i] == 0:
+            inc = inc + i
+        elif i <= calc_lvl:
+            curr_tax_perc = inx_lvl[i]
+            curr_idx = inx_cutoff.index(i)
+            lastval = i if curr_idx == 0 else inx_cutoff[curr_idx - 1]
+            curr_val = i if ear > i else ear
+            curr_ear_range = curr_val-lastval
+            tax_perc_val = (curr_ear_range/100)*curr_tax_perc
+            tax = tax + tax_perc_val
+            inc = inc + curr_ear_range - tax_perc_val
+            print(f"--- curr_ear_range {curr_ear_range:.2f} - perc_val "
+                  f"{tax_perc_val:.2f} - inc {inc:.2f} - tax {tax:.2f}")
+
+    print(f"--- {inc:.2f}-{tax:.2f} = {inc-tax:.2f} ({(inc-tax)/12:.2f})")
+
+
 def inx(ear):
     print(f"--- earning {ear:.2f}")
 
@@ -82,6 +133,7 @@ def commission_income(earning=MAX_BASE_EARNING):
     print(f"-- commission per annum: {commission * 12:.2f};\t net income: {net_income * 12:.2f}")
 
     inx(net_income * 12)
+    inx_gew_free(net_income * 12)
 
 
 def income_table(base_month_sal, fixed_hour_rate):
