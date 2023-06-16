@@ -978,3 +978,15 @@ specific commit. When e.g. checking out branch "master" of a Git repository, Git
 Expandable text
 </details>
 
+
+# Useful internals commands
+
+### git ls-files
+Show information about files in the index and the working tree
+
+Full documentation at
+https://git-scm.com/docs/git-ls-files
+
+- Show file listing
+
+```git ls-files```
