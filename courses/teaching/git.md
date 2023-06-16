@@ -990,3 +990,9 @@ https://git-scm.com/docs/git-ls-files
 - Show file listing
 
 ```git ls-files```
+
+- Show file listing with additional file information; can be used to fast-distinguish 
+  between text and binary files
+
+```git ls-file --eol```
+
