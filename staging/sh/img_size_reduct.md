@@ -9,6 +9,10 @@ FEND="*.jpg"; echo "-- convert jpg in $PWD to 85% quality"; mkdir -v original; m
 # batch rename file extension in case of mixed file ending format
 for f in *.JPG; do mv -v "$f" "${f//.JPG/.jpg}"; done;
 
+# batch replace whitespace with underscore
+# currently only works with files featuring a file ending
+for FILE in *.*; do mv -v "$FILE" ${FILE// /_}; done;
+
 # display complete file information including image metadata
 identify -verbose [image].jpg
 
