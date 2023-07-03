@@ -13,6 +13,9 @@ for f in *.JPG; do mv -v "$f" "${f//.JPG/.jpg}"; done;
 # currently only works with files featuring a file ending
 for FILE in *.*; do mv -v "$FILE" ${FILE// /_}; done;
 
+# batch convert png to jpg
+FEND="*.png"; echo "-- convert png in $PWD to jpg"; mkdir -v pngconv; mv -v $FEND pngconv; for IMG in $(ls pngconv/$FEND); do CURR=`basename ${IMG%.*}`; echo "$IMG to $CURR"; convert $IMG "$CURR.jpg"; done;
+
 # display complete file information including image metadata
 identify -verbose [image].jpg
 
