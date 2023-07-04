@@ -41,4 +41,5 @@ exiv2 -v -a -5:12:11 ad [image].jpg
 ## batch adjust
 exiv2 -v -a [+/-]HH[:MM[:ss]] ad *.jpg
 
-
+## batch prepend datetime to basename
+exiv2 -v -r IMG_%Y%m%d_%H%M%S__:basename: *.jpg
