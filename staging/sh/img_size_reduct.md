@@ -21,3 +21,6 @@ identify -verbose [image].jpg
 
 # display photographic image take
 identify -format "%[EXIF:DateTimeOriginal]\n" [image].jpg
+
+# batch prepend exif datetime image taken to filename
+for IMG in *.jpg; do CBASE=`basename $IMG`; CA=`identify -format "%[EXIF:DateTimeOriginal]\n" $IMG`; CB="${CA//:/}"; CC="${CB// /_}"; CD="IMG_${CC}__${CBASE}"; mv -v $IMG $CD; done;
