@@ -24,3 +24,21 @@ identify -format "%[EXIF:DateTimeOriginal]\n" [image].jpg
 
 # batch prepend exif datetime image taken to filename
 for IMG in *.jpg; do CBASE=`basename $IMG`; CA=`identify -format "%[EXIF:DateTimeOriginal]\n" $IMG`; CB="${CA//:/}"; CC="${CB// /_}"; CD="IMG_${CC}__${CBASE}"; mv -v $IMG $CD; done;
+
+
+# conda env for exiv2
+conda create -n img python=3.10
+conda activate img
+conda install -c conda-forge exiv2
+
+## display exiv data using exiv2
+exiv2 -P E [image].jpg
+## filter exiv tags for datetime information
+exiv2 -g date/i [image].jpg
+
+## adjust all exiv dates by [HH:MM:ss] e.g. subtract 5h 12min 11s
+exiv2 -v -a -5:12:11 ad [image].jpg
+## batch adjust
+exiv2 -v -a [+/-]HH[:MM[:ss]] ad *.jpg
+
+
