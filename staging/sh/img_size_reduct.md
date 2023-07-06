@@ -43,3 +43,6 @@ exiv2 -v -a [+/-]HH[:MM[:ss]] ad *.jpg
 
 ## batch prepend datetime to basename
 exiv2 -v -r IMG_%Y%m%d_%H%M%S__:basename: *.jpg
+
+## note template
+Exif dates and times of images with the ending "__IMG_XXXX.jpg" have been adjusted
