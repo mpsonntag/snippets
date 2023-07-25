@@ -46,3 +46,11 @@ exiv2 -v -r IMG_%Y%m%d_%H%M%S__:basename: *.jpg
 
 ## note template
 Exif dates and times of images with the ending "__IMG_XXXX.jpg" have been adjusted
+
+## test zip archive
+unzip -t *.zip
+zip -T *.zip
+
+## batch check zip files
+for f in *.zip; do zip -T "$f"; done;
+for f in *.zip; do unzip -t "$f" | grep "errors"; done;
