@@ -995,4 +995,3 @@ https://git-scm.com/docs/git-ls-files
   between text and binary files
 
 ```git ls-file --eol```
-
