@@ -30,6 +30,7 @@ for IMG in *.jpg; do CBASE=`basename $IMG`; CA=`identify -format "%[EXIF:DateTim
 conda create -n img python=3.10
 conda activate img
 conda install -c conda-forge exiv2
+conda install -c conda-forge exiftool
 
 ## display exiv data using exiv2
 exiv2 -P E [image].jpg
