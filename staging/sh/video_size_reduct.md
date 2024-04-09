@@ -71,3 +71,7 @@ cat merge.txt
 file '/home/file1.mp4'
 file '/home/file1.mp4'
 ffmpeg -f concat -safe 0 -i merge.txt -c copy out.mp4
+
+### Check for errors
+
+ffmpeg -v error -i [input.ext] -f null -
