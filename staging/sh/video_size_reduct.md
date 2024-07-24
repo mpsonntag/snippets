@@ -1,3 +1,7 @@
+## ffmpeg documentation
+
+https://ffmpeg.org/ffmpeg.html
+
 ## using ffmpeg to convert dvd to mp4
 
 conda create -n movie python=3.10
@@ -58,6 +62,9 @@ separately and then merge both video and audio
 ffmpeg -i [input.ext] -vcodec h264 -crf 24 -map 0:v:0 out_vid_only.mp4
 ffmpeg -i [input.ext] -map 0:a:2 -acodec mp2 out_audio_only.mp2
 ffmpeg -i out_vid_only.mp4 -i out_audio_only.mp2 out.mp4
+or 
+# -c ... -codec ... -c copy = copy input over instead of going through a decode->filter->encode process.
+ffmpeg -i out_vid_only.mp4 -i out_audio_only.mp2 -c copy out.mp4
 
 Test first which audio codecs are available using the ffprobe command:
 
@@ -72,6 +79,14 @@ file '/home/file1.mp4'
 file '/home/file1.mp4'
 ffmpeg -f concat -safe 0 -i merge.txt -c copy out.mp4
 
-### Check for errors
+### Check for errors or warnings
 
+- set loglevel verbosity to errors
 ffmpeg -v error -i [input.ext] -f null -
+
+- set loglevel verbosity to errors and warnings
+ffmpeg -v warning -i [input.ext] -f null -
+
+#!/usr/bin/env bash
+
+ffmpeg -i [input.ext] -vcodec h264 -crf 24 -acodec mp2 output.mp4
