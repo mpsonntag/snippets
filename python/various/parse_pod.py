@@ -1,8 +1,14 @@
 import argparse
 import feedparser
+import requests
 
 
 def handle_feed_url(feed_url):
+    req = requests.get(feed_url)
+    if req.status_code != 200:
+        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
+        return
+
     curr_feed = feedparser.parse(feed_url)
 
     num_episodes = len(curr_feed.entries)
