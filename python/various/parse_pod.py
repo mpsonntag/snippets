@@ -15,7 +15,9 @@ def handle_feed_url(feed_url):
     curr_loop = len(curr_feed.entries)
     print("")
     for en in curr_feed.entries:
-        print(f"#{curr_loop}/{num_episodes}: {en.title}: {en.link}")
+        link_avail = requests.get(en.link)
+        is_avail = f"OK" if link_avail.status_code == 200 else f"NOT AVAILABLE {link_avail.status_code}"
+        print(f"{is_avail}: #{curr_loop}/{num_episodes}: {en.title}: {en.link}")
         curr_loop = curr_loop - 1
     print("")
 
