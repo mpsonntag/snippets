@@ -14,10 +14,10 @@ def handle_feed_url(feed_url):
     num_episodes = len(curr_feed.entries)
     curr_loop = len(curr_feed.entries)
     print("")
-    for en in curr_feed.entries:
-        link_avail = requests.get(en.link)
-        is_avail = f"OK" if link_avail.status_code == 200 else f"NOT AVAILABLE {link_avail.status_code}"
-        print(f"{is_avail}: #{curr_loop}/{num_episodes}: {en.title}: {en.link}")
+    for idx, en in enumerate(curr_feed.entries):
+        stat_code = requests.get(en.link).status_code
+        is_avail = f"OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
+        print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes}: {en.title}: {en.link}")
         curr_loop = curr_loop - 1
     print("")
 
