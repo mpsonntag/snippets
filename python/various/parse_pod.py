@@ -1,5 +1,6 @@
 import argparse
 import feedparser
+import json
 import requests
 
 
@@ -46,13 +47,30 @@ def check_link(feed_url, link_idx):
     print(f"Using file name {fn}: {flink}")
 
 
+def dump_feed_content(feed_url):
+    req = requests.get(feed_url)
+    if req.status_code != 200:
+        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
+        return
+
+    curr_feed = feedparser.parse(feed_url)
+    print(json.dumps(curr_feed, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Parse RSS feed XML")
     parser.add_argument("feed_url", help="RSS feed XML url")
+    parser.add_argument("-r", "--raw", help="Dump feed content",
+                        action=argparse.BooleanOptionalAction)
     parser.add_argument("-i", "--index", help="Item index", type=int)
     args = parser.parse_args()
 
     feed_url = args.feed_url
+
+    handle_raw = args.raw
+    if handle_raw:
+        dump_feed_content(feed_url)
+        return
 
     handle_index = args.index
     if handle_index:
