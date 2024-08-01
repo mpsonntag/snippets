@@ -60,12 +60,31 @@ def dump_feed_content(feed_url):
     print(json.dumps(curr_feed, indent=2))
 
 
+def dump_feed_entry(feed_url, entry_idx):
+    req = requests.get(feed_url)
+    if req.status_code != 200:
+        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
+        return
+
+    curr_feed = feedparser.parse(feed_url)
+    list_len = len(curr_feed.entries)
+
+    if entry_idx >= list_len:
+        print(f"Provided index {entry_idx} larger than available list 0-{list_len-1}")
+        return
+
+    blab = curr_feed.entries[entry_idx]
+    print(json.dumps(blab, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Parse RSS feed XML")
     parser.add_argument("feed_url", help="RSS feed XML url")
     parser.add_argument("-r", "--raw", help="Dump feed content",
                         action=argparse.BooleanOptionalAction)
     parser.add_argument("-i", "--index", help="Item index", type=int)
+    parser.add_argument("-s", "--single_index",
+                        help="Item index to dump single entry", type=int)
     args = parser.parse_args()
 
     feed_url = args.feed_url
@@ -78,6 +97,11 @@ def main():
     handle_index = args.index
     if handle_index:
         check_link(feed_url, handle_index)
+        return
+
+    handle_single_dump = args.single_index
+    if handle_single_dump:
+        dump_feed_entry(feed_url, handle_single_dump)
         return
 
     handle_feed_url(feed_url)
