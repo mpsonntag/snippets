@@ -3,6 +3,8 @@ import feedparser
 import json
 import requests
 
+from dateutil import parser as datparser
+
 
 def handle_feed_url(feed_url):
     req = requests.get(feed_url)
@@ -18,7 +20,8 @@ def handle_feed_url(feed_url):
     for idx, en in enumerate(curr_feed.entries):
         stat_code = requests.get(en.link).status_code
         is_avail = f"OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
-        print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes}: {en.title}: {en.link}")
+        pub_date = '{:%Y-%m-%d %H:%M}'.format(datparser.parse(en.published))
+        print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes} ({pub_date}): {en.title}: {en.link}")
         curr_loop = curr_loop - 1
     print("")
 
