@@ -13,6 +13,7 @@ def handle_feed_url(feed_url):
         return
 
     curr_feed = feedparser.parse(feed_url)
+    print(f"\n{curr_feed.feed.title} -{curr_feed.version}- ({curr_feed.feed.link})")
 
     num_episodes = len(curr_feed.entries)
     curr_loop = len(curr_feed.entries)
@@ -40,14 +41,19 @@ def check_link(feed_url, link_idx):
         return
 
     requested_entry = curr_feed.entries[link_idx]
-    stat_code = requests.get(requested_entry.link).status_code
-    if stat_code != 200:
-        print(f"DL link not available: {stat_code}; {requested_entry.link}")
-        return
 
-    fn = requested_entry.title
-    flink = requested_entry.link
-    print(f"Using file name {fn}: {flink}")
+    audio_link_list = list(filter(lambda d: {"href", "rel"} <= d.keys() and
+                                            d["rel"] == "enclosure", requested_entry.links))
+    if len(audio_link_list) < 1:
+        print(f"\nCould not find audio link in requested entry\n\t{requested_entry}")
+        return
+    elif len(audio_link_list) > 1:
+        print("WARNING: More than one enclosure references found. Using first one.")
+    audio_link = audio_link_list[0].href
+    stat_code = requests.get(audio_link).status_code
+    if stat_code != 200:
+        print(f"DL link not available: {stat_code}; {audio_link}")
+        return
 
 
 def dump_feed_content(feed_url):
