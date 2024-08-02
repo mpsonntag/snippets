@@ -62,6 +62,11 @@ def check_link(feed_url, link_idx):
         print((f"WARNING: Could not identify file extension from audio link; using MP3 as default "
                f"{audio_link}"))
 
+    use_date = '{:%Y%m%d}'.format(datparser.parse(requested_entry.published))
+    use_title = requested_entry.title
+    use_file_name = f"{use_date}_{use_title}{use_ext}"
+    print(f"Using file name {use_file_name}")
+
 
 def dump_feed_content(feed_url):
     req = requests.get(feed_url)
