@@ -4,6 +4,7 @@ import json
 import requests
 
 from dateutil import parser as datparser
+from os.path import splitext
 
 
 def handle_feed_url(feed_url):
@@ -54,6 +55,12 @@ def check_link(feed_url, link_idx):
     if stat_code != 200:
         print(f"DL link not available: {stat_code}; {audio_link}")
         return
+
+    _, use_ext = splitext(audio_link.split("?")[0])
+    if not use_ext:
+        use_ext = ".mp3"
+        print((f"WARNING: Could not identify file extension from audio link; using MP3 as default "
+               f"{audio_link}"))
 
 
 def dump_feed_content(feed_url):
