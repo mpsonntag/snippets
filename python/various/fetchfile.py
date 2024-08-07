@@ -24,9 +24,10 @@ def fetch_files(infile, offset=0, file_name_base=""):
             else:
                 time.sleep(offset % 5)
             _, curr_ext = splitext(line)
-            curr_file_name = f"{file_name_base}{offset:04}{curr_ext}"
-            print(f"Fetching {curr_file_name}: {line}")
-            subprocess.run(["curl", line, "-o", curr_file_name], check=False)
+            curr_file_name = f"{ file_name_base }{ offset:04 }{ curr_ext }"
+            print(f"Fetching { curr_file_name } from { line }")
+            subprocess.run(["curl", line, "-o", curr_file_name], check=False,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def main():
