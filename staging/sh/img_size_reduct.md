@@ -16,6 +16,16 @@ for FILE in *.*; do mv -v "$FILE" ${FILE// /_}; done;
 # batch convert png to jpg
 FEND="*.png"; echo "-- convert png in $PWD to jpg"; mkdir -v pngconv; mv -v $FEND pngconv; for IMG in $(ls pngconv/$FEND); do CURR=`basename ${IMG%.*}`; echo "$IMG to $CURR"; convert $IMG "$CURR.jpg"; done;
 
+# batch reorder numbered files starting from a specified offset
+# pad number with zeroes
+OFFSET=12
+EXTENSION="jpg"
+for i in *.$EXTENSION; do
+  new=$(printf "%04d.$EXTENSION" "$OFFSET") #04 pad to length of 4
+  mv -i -- "$i" "$new"
+  let OFFSET=OFFSET+1
+done
+
 # display complete file information including image metadata
 identify -verbose [image].jpg
 
