@@ -8,16 +8,13 @@ import time
 from os.path import splitext
 
 
-def fetch_files(infile):
+def fetch_files(infile, offset=0, file_name_base=""):
     """
     Open provided input file and try to fetch the content for each
     entry via curl. The file extension is extracted from each URL.
     Files are serially numbered and the numbers are padded with zeroes to
     four digits.
     """
-    offset = 0
-    file_name_base = "11_"
-
     with open(infile, encoding="utf8") as openfile:
         while line := openfile.readline():
             line = line.strip()
@@ -38,11 +35,16 @@ def main():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url_file", help="File containing URLs")
+    parser.add_argument("-o", "--offset",
+                        help="Offset of output file numbers (int)", type=int)
+    parser.add_argument("-n", "--name_base",
+                        help="Prepended base for all output file names")
     args = parser.parse_args()
 
-    #infile = "linklist.md"
     infile = args.url_file
-    fetch_files(infile)
+    offset = args.offset if args.offset else 0
+    file_name_base = args.name_base if args.name_base else ""
+    fetch_files(infile, offset, file_name_base)
 
 
 if __name__ == "__main__":
