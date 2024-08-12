@@ -22,10 +22,13 @@ def check_feed_available(feed_url):
     return True
 
 
-def handle_feed_url(feed_url):
+def fetch_feed(feed_url):
     curr_feed = feedparser.parse(feed_url)
     print(f"\n{curr_feed.feed.title} -{curr_feed.version}- ({curr_feed.feed.link})")
+    return curr_feed
 
+
+def handle_feed_url(curr_feed):
     num_episodes = len(curr_feed.entries)
     curr_loop = len(curr_feed.entries)
     print("")
@@ -38,8 +41,7 @@ def handle_feed_url(feed_url):
     print("")
 
 
-def check_link(feed_url, link_idx):
-    curr_feed = feedparser.parse(feed_url)
+def check_link(curr_feed, link_idx):
     list_len = len(curr_feed.entries)
 
     if link_idx >= list_len:
@@ -73,13 +75,11 @@ def check_link(feed_url, link_idx):
     print(f"Using file name {use_file_name}")
 
 
-def dump_feed_content(feed_url):
-    curr_feed = feedparser.parse(feed_url)
+def dump_feed_content(curr_feed):
     print(json.dumps(curr_feed, indent=2))
 
 
-def dump_feed_entry(feed_url, entry_idx):
-    curr_feed = feedparser.parse(feed_url)
+def dump_feed_entry(curr_feed, entry_idx):
     list_len = len(curr_feed.entries)
 
     if entry_idx >= list_len:
@@ -109,22 +109,23 @@ def main():
         print(f"Please verify feed URL '{feed_url}'")
         return
 
+    curr_feed = fetch_feed(feed_url)
     handle_raw = args.raw
     if handle_raw:
-        dump_feed_content(feed_url)
+        dump_feed_content(curr_feed)
         return
 
     handle_index = args.index
     if handle_index:
-        check_link(feed_url, handle_index)
+        check_link(curr_feed, handle_index)
         return
 
     handle_single_dump = args.single_index
     if handle_single_dump:
-        dump_feed_entry(feed_url, handle_single_dump)
+        dump_feed_entry(curr_feed, handle_single_dump)
         return
 
-    handle_feed_url(feed_url)
+    handle_feed_url(curr_feed)
 
 
 if __name__ == "__main__":
