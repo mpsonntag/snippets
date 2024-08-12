@@ -1,10 +1,12 @@
 import argparse
-import feedparser
 import json
+
+from os.path import splitext
+
+import feedparser
 import requests
 
 from dateutil import parser as datparser
-from os.path import splitext
 
 
 REQ_TIMEOUT=10
