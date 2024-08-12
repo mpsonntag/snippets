@@ -60,7 +60,8 @@ def check_link(curr_feed, link_idx):
     if len(audio_link_list) < 1:
         print(f"\nCould not find audio link in requested entry\n\t{requested_entry}")
         return
-    elif len(audio_link_list) > 1:
+
+    if len(audio_link_list) > 1:
         print("WARNING: More than one enclosure references found. Using first one.")
     audio_link = audio_link_list[0].href
     stat_code = requests.get(audio_link, timeout=REQ_TIMEOUT).status_code
