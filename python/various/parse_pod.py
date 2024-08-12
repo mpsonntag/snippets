@@ -7,6 +7,13 @@ from dateutil import parser as datparser
 from os.path import splitext
 
 
+def check_feed_url(feed_url):
+    # crude URL scheme check
+    if ":" in feed_url and "//" in feed_url:
+        return True
+    return False
+
+
 def handle_feed_url(feed_url):
     req = requests.get(feed_url)
     if req.status_code != 200:
@@ -106,6 +113,10 @@ def main():
     args = parser.parse_args()
 
     feed_url = args.feed_url
+    if not check_feed_url(feed_url):
+        print(f"Please verify feed URL '{feed_url}'")
+        return
+
 
     handle_raw = args.raw
     if handle_raw:
