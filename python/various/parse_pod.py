@@ -39,8 +39,8 @@ def handle_feed_url(curr_feed):
     print("")
     for idx, en in enumerate(curr_feed.entries):
         stat_code = requests.get(en.link, timeout=REQ_TIMEOUT).status_code
-        is_avail = f"OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
-        pub_date = '{:%Y-%m-%d %H:%M}'.format(datparser.parse(en.published))
+        is_avail = "OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
+        pub_date = f"{datparser.parse(en.published):%Y-%m-%d %H:%M}"
         print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes} ({pub_date}): {en.title}: {en.link}")
         curr_loop = curr_loop - 1
     print("")
@@ -74,7 +74,7 @@ def check_link(curr_feed, link_idx):
         print((f"WARNING: Could not identify file extension from audio link; using MP3 as default "
                f"{audio_link}"))
 
-    use_date = '{:%Y%m%d}'.format(datparser.parse(requested_entry.published))
+    use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
     use_title = requested_entry.title
     use_file_name = f"{use_date}_{use_title}{use_ext}"
     print(f"Using file name {use_file_name}")
