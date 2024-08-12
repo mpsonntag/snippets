@@ -14,12 +14,15 @@ def check_feed_url(feed_url):
     return False
 
 
-def handle_feed_url(feed_url):
+def check_feed_available(feed_url):
     req = requests.get(feed_url)
     if req.status_code != 200:
-        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
-        return
+        print(f"Got status code {req.status_code} for URL {feed_url}")
+        return False
+    return True
 
+
+def handle_feed_url(feed_url):
     curr_feed = feedparser.parse(feed_url)
     print(f"\n{curr_feed.feed.title} -{curr_feed.version}- ({curr_feed.feed.link})")
 
@@ -36,11 +39,6 @@ def handle_feed_url(feed_url):
 
 
 def check_link(feed_url, link_idx):
-    req = requests.get(feed_url)
-    if req.status_code != 200:
-        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
-        return
-
     curr_feed = feedparser.parse(feed_url)
     list_len = len(curr_feed.entries)
 
@@ -76,21 +74,11 @@ def check_link(feed_url, link_idx):
 
 
 def dump_feed_content(feed_url):
-    req = requests.get(feed_url)
-    if req.status_code != 200:
-        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
-        return
-
     curr_feed = feedparser.parse(feed_url)
     print(json.dumps(curr_feed, indent=2))
 
 
 def dump_feed_entry(feed_url, entry_idx):
-    req = requests.get(feed_url)
-    if req.status_code != 200:
-        print(f"EXIT: Got status code {req.status_code} for URL {feed_url}")
-        return
-
     curr_feed = feedparser.parse(feed_url)
     list_len = len(curr_feed.entries)
 
@@ -117,6 +105,9 @@ def main():
         print(f"Please verify feed URL '{feed_url}'")
         return
 
+    if not check_feed_available(feed_url):
+        print(f"Please verify feed URL '{feed_url}'")
+        return
 
     handle_raw = args.raw
     if handle_raw:
