@@ -28,7 +28,8 @@ def fetch_files(content, offset=0, file_name_base="", zero_padding=4):
     Files are serially numbered and the numbers are padded with zeroes to
     a provided number of digits (default is four).
     """
-    for line in content:
+    total = len(content)
+    for idx, line in enumerate(content, start=1):
         line = line.strip()
         offset += 1
         if not (offset % 10) % 5:
@@ -40,7 +41,7 @@ def fetch_files(content, offset=0, file_name_base="", zero_padding=4):
         pad_offset = str(offset).zfill(zero_padding)
         curr_file_name = f"{file_name_base}{pad_offset}{curr_ext}"
 
-        print(f"Fetching '{curr_file_name}' from {line}")
+        print(f"Fetching '{curr_file_name}' ({idx}/{total}) from {line}")
         subprocess.run(["curl", line, "-o", curr_file_name], check=False,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
