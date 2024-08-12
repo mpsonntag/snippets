@@ -7,6 +7,9 @@ from dateutil import parser as datparser
 from os.path import splitext
 
 
+REQ_TIMEOUT=10
+
+
 def check_feed_url(feed_url):
     # crude URL scheme check
     if ":" in feed_url and "//" in feed_url:
@@ -15,7 +18,7 @@ def check_feed_url(feed_url):
 
 
 def check_feed_available(feed_url):
-    req = requests.get(feed_url)
+    req = requests.get(feed_url, timeout=REQ_TIMEOUT)
     if req.status_code != 200:
         print(f"Got status code {req.status_code} for URL {feed_url}")
         return False
@@ -33,7 +36,7 @@ def handle_feed_url(curr_feed):
     curr_loop = len(curr_feed.entries)
     print("")
     for idx, en in enumerate(curr_feed.entries):
-        stat_code = requests.get(en.link).status_code
+        stat_code = requests.get(en.link, timeout=REQ_TIMEOUT).status_code
         is_avail = f"OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
         pub_date = '{:%Y-%m-%d %H:%M}'.format(datparser.parse(en.published))
         print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes} ({pub_date}): {en.title}: {en.link}")
@@ -58,7 +61,7 @@ def check_link(curr_feed, link_idx):
     elif len(audio_link_list) > 1:
         print("WARNING: More than one enclosure references found. Using first one.")
     audio_link = audio_link_list[0].href
-    stat_code = requests.get(audio_link).status_code
+    stat_code = requests.get(audio_link, timeout=REQ_TIMEOUT).status_code
     if stat_code != 200:
         print(f"DL link not available: {stat_code}; {audio_link}")
         return
