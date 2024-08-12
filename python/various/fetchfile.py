@@ -21,12 +21,12 @@ def read_file_content(infile):
     return content
 
 
-def fetch_files(content, offset=0, file_name_base=""):
+def fetch_files(content, offset=0, file_name_base="", zero_padding=4):
     """
     Try to fetch the content file for each entry from a provided list using curl.
     The file extension is extracted from each URL.
     Files are serially numbered and the numbers are padded with zeroes to
-    four digits.
+    a provided number of digits (default is four).
     """
     for line in content:
         line = line.strip()
@@ -35,9 +35,12 @@ def fetch_files(content, offset=0, file_name_base=""):
             time.sleep(7)
         else:
             time.sleep(offset % 5)
+
         _, curr_ext = splitext(line)
-        curr_file_name = f"{file_name_base}{offset:04}{curr_ext}"
-        print(f"Fetching {curr_file_name} from {line}")
+        pad_offset = str(offset).zfill(zero_padding)
+        curr_file_name = f"{file_name_base}{pad_offset}{curr_ext}"
+
+        print(f"Fetching '{curr_file_name}' from {line}")
         subprocess.run(["curl", line, "-o", curr_file_name], check=False,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
