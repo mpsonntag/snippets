@@ -46,14 +46,14 @@ def handle_feed_url(curr_feed):
     print("")
 
 
-def check_link(curr_feed, link_idx):
+def check_link(curr_feed, entry_idx):
     list_len = len(curr_feed.entries)
 
-    if link_idx >= list_len:
-        print(f"Provided index {link_idx} larger than available list 0-{list_len-1}")
+    if entry_idx >= list_len:
+        print(f"Provided index {entry_idx} larger than available list 0-{list_len-1}")
         return
 
-    requested_entry = curr_feed.entries[link_idx]
+    requested_entry = curr_feed.entries[entry_idx]
 
     audio_link_list = list(filter(lambda d: {"href", "rel"} <= d.keys() and
                                             d["rel"] == "enclosure", requested_entry.links))
