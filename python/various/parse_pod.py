@@ -1,3 +1,6 @@
+"""
+Facilitates download of podcast files via provided podcast feed URL.
+"""
 import argparse
 import json
 
@@ -13,13 +16,21 @@ REQ_TIMEOUT=10
 
 
 def check_feed_url(feed_url):
-    # crude URL scheme check
+    """
+    Crude check whether a provided string is formatted like a URL.
+    :param feed_url: String providing a URL.
+    """
     if ":" in feed_url and "//" in feed_url:
         return True
     return False
 
 
 def check_feed_available(feed_url):
+    """
+    Check whether a provided URL string is accessible and
+    returns status code 200 (OK).
+    :param feed_url: String providing a URL.
+    """
     req = requests.get(feed_url, timeout=REQ_TIMEOUT)
     if req.status_code != 200:
         print(f"Got status code {req.status_code} for URL {feed_url}")
@@ -28,12 +39,25 @@ def check_feed_available(feed_url):
 
 
 def fetch_feed(feed_url):
+    """
+    Fetch XML file from a provided feed URL and parse the resulting data
+    into a feedparser dict.
+    :param feed_url: String providing a URL.
+    :return: A FeedParserDict.
+    """
     curr_feed = feedparser.parse(feed_url)
     print(f"\n{curr_feed.feed.title} -{curr_feed.version}- ({curr_feed.feed.link})")
     return curr_feed
 
 
 def handle_feed_url(curr_feed):
+    """
+    Print information about episodes available via the provided
+    FeedParserDict to the command line. Also checks whether the
+    provided link to download the episode file is available and
+    returns the status code 200 (OK).
+    :param curr_feed: A FeedParserDict.
+    """
     num_episodes = len(curr_feed.entries)
     curr_loop = len(curr_feed.entries)
     print("")
@@ -47,6 +71,12 @@ def handle_feed_url(curr_feed):
 
 
 def check_link(curr_feed, entry_idx):
+    """
+    Check whether a file is available for a specific entry in a
+    provided ParserFeedDict.
+    :param curr_feed: A FeedParserDict.
+    :param entry_idx: index of the requested item in the provided FeedParserDict.
+    """
     list_len = len(curr_feed.entries)
 
     if entry_idx >= list_len:
@@ -82,21 +112,35 @@ def check_link(curr_feed, entry_idx):
 
 
 def dump_feed_content(curr_feed):
+    """
+    Dump the content of the provided FeedParserDict as json to the command line.
+    :param curr_feed: A FeedParserDict.
+    """
     print(json.dumps(curr_feed, indent=2))
 
 
 def dump_feed_entry(curr_feed, entry_idx):
+    """
+    Dump the content of a specified entry in the provided FeedParserDict
+    as json to the command line.
+    :param curr_feed: A FeedParserDict.
+    :param entry_idx: index of the requested item in the provided FeedParserDict.
+    """
     list_len = len(curr_feed.entries)
 
     if entry_idx >= list_len:
         print(f"Provided index {entry_idx} larger than available list 0-{list_len-1}")
         return
 
-    blab = curr_feed.entries[entry_idx]
-    print(json.dumps(blab, indent=2))
+    curr = curr_feed.entries[entry_idx]
+    print(json.dumps(curr, indent=2))
 
 
 def main():
+    """
+    Parse command line arguments and run the appropriate functions. Checks
+    whether the mandatory feed address is a URL and is accessible.
+    """
     parser = argparse.ArgumentParser(description="Parse RSS feed XML")
     parser.add_argument("feed_url", help="RSS feed XML url")
     parser.add_argument("-r", "--raw", help="Dump feed content",
