@@ -97,6 +97,26 @@ def extract_content_url(curr_feed, entry_idx):
     return audio_link
 
 
+def handle_output_name(audio_link, requested_entry):
+    """
+    Parse construct and return an output filename from a provided URL
+    and FeedParseDict item.
+    :param audio_link: String containing the URL to an audio file.
+    :param requested_entry: Single FeedParseDict item.
+    :return: String containing a file name in the format [YYYYMMDD]_[title].[ext]
+    """
+    _, use_ext = splitext(audio_link.split("?")[0])
+    if not use_ext:
+        use_ext = ".mp3"
+        print((f"WARNING: Could not identify file extension from audio file URL;"
+               f" using MP3 as fallback ({audio_link})"))
+
+    use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
+    use_title = requested_entry.title
+    use_file_name = f"{use_date}_{use_title}{use_ext}"
+    return use_file_name
+
+
 def handle_item(curr_feed, entry_idx):
     """
     Check whether a file is available for a specific entry in a
@@ -112,17 +132,8 @@ def handle_item(curr_feed, entry_idx):
         print(f"Audio file URL not available: {stat_code}; {audio_link}")
         return
 
-    _, use_ext = splitext(audio_link.split("?")[0])
-    if not use_ext:
-        use_ext = ".mp3"
-        print((f"WARNING: Could not identify file extension from audio file URL;"
-               f" using MP3 as default ({audio_link})"))
-
-    requested_entry = curr_feed.entries[entry_idx]
-    use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
-    use_title = requested_entry.title
-    use_file_name = f"{use_date}_{use_title}{use_ext}"
-    print(f"Using file name {use_file_name}")
+    file_name = handle_output_name(audio_link, curr_feed.entries[entry_idx])
+    print(f"Using file name {file_name}")
 
 
 def dump_feed_content(curr_feed):
