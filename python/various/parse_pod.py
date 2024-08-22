@@ -70,18 +70,18 @@ def handle_feed_url(curr_feed):
     print("")
 
 
-def check_link(curr_feed, entry_idx):
+def extract_content_url(curr_feed, entry_idx):
     """
-    Check whether a file is available for a specific entry in a
-    provided ParserFeedDict.
+    Extract and return a URL for a specific item in a provided FeedParserDict.
     :param curr_feed: A FeedParserDict.
     :param entry_idx: index of the requested item in the provided FeedParserDict.
+    :return: String with the URL of interest.
     """
     list_len = len(curr_feed.entries)
 
     if entry_idx >= list_len:
         print(f"Provided index {entry_idx} larger than available list 0-{list_len-1}")
-        return
+        return ""
 
     requested_entry = curr_feed.entries[entry_idx]
 
@@ -89,11 +89,24 @@ def check_link(curr_feed, entry_idx):
                                             d["rel"] == "enclosure", requested_entry.links))
     if len(audio_link_list) < 1:
         print(f"\nNo available audio file URL for requested entry\n\t{requested_entry}")
-        return
+        return ""
 
     if len(audio_link_list) > 1:
         print("WARNING: More than one enclosure references found. Using first one.")
     audio_link = audio_link_list[0].href
+    return audio_link
+
+
+def handle_item(curr_feed, entry_idx):
+    """
+    Check whether a file is available for a specific entry in a
+    provided ParserFeedDict.
+    :param curr_feed: A FeedParserDict.
+    :param entry_idx: index of the requested item in the provided FeedParserDict.
+    """
+    audio_link = extract_content_url(curr_feed, entry_idx)
+    if not audio_link or not is_url(audio_link):
+        return
     stat_code = requests.get(audio_link, timeout=REQ_TIMEOUT).status_code
     if stat_code != 200:
         print(f"Audio file URL not available: {stat_code}; {audio_link}")
@@ -105,6 +118,7 @@ def check_link(curr_feed, entry_idx):
         print((f"WARNING: Could not identify file extension from audio file URL;"
                f" using MP3 as default ({audio_link})"))
 
+    requested_entry = curr_feed.entries[entry_idx]
     use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
     use_title = requested_entry.title
     use_file_name = f"{use_date}_{use_title}{use_ext}"
@@ -163,7 +177,7 @@ def main():
 
     handle_index = args.index
     if handle_index:
-        check_link(curr_feed, handle_index)
+        handle_item(curr_feed, handle_index)
         return
 
     handle_single_dump = args.single_index
