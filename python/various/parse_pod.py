@@ -151,11 +151,7 @@ def main():
     args = parser.parse_args()
 
     feed_url = args.feed_url
-    if not is_url(feed_url):
-        print(f"Please verify feed URL '{feed_url}'")
-        return
-
-    if not is_url_available(feed_url):
+    if not is_url(feed_url) or not is_url_available(feed_url):
         print(f"Please verify feed URL '{feed_url}'")
         return
 
