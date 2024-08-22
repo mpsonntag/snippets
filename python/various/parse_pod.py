@@ -88,7 +88,7 @@ def check_link(curr_feed, entry_idx):
     audio_link_list = list(filter(lambda d: {"href", "rel"} <= d.keys() and
                                             d["rel"] == "enclosure", requested_entry.links))
     if len(audio_link_list) < 1:
-        print(f"\nCould not find audio link in requested entry\n\t{requested_entry}")
+        print(f"\nNo available audio file URL for requested entry\n\t{requested_entry}")
         return
 
     if len(audio_link_list) > 1:
@@ -96,14 +96,14 @@ def check_link(curr_feed, entry_idx):
     audio_link = audio_link_list[0].href
     stat_code = requests.get(audio_link, timeout=REQ_TIMEOUT).status_code
     if stat_code != 200:
-        print(f"DL link not available: {stat_code}; {audio_link}")
+        print(f"Audio file URL not available: {stat_code}; {audio_link}")
         return
 
     _, use_ext = splitext(audio_link.split("?")[0])
     if not use_ext:
         use_ext = ".mp3"
-        print((f"WARNING: Could not identify file extension from audio link; using MP3 as default "
-               f"{audio_link}"))
+        print((f"WARNING: Could not identify file extension from audio file URL;"
+               f" using MP3 as default ({audio_link})"))
 
     use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
     use_title = requested_entry.title
