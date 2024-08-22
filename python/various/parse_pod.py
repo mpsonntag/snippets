@@ -15,7 +15,7 @@ from dateutil import parser as datparser
 REQ_TIMEOUT=10
 
 
-def check_feed_url(feed_url):
+def is_url(feed_url):
     """
     Crude check whether a provided string is formatted like a URL.
     :param feed_url: String providing a URL.
@@ -25,7 +25,7 @@ def check_feed_url(feed_url):
     return False
 
 
-def check_feed_available(feed_url):
+def is_url_available(feed_url):
     """
     Check whether a provided URL string is accessible and
     returns status code 200 (OK).
@@ -151,11 +151,11 @@ def main():
     args = parser.parse_args()
 
     feed_url = args.feed_url
-    if not check_feed_url(feed_url):
+    if not is_url(feed_url):
         print(f"Please verify feed URL '{feed_url}'")
         return
 
-    if not check_feed_available(feed_url):
+    if not is_url_available(feed_url):
         print(f"Please verify feed URL '{feed_url}'")
         return
 
