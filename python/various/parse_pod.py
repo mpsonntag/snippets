@@ -52,10 +52,10 @@ def fetch_feed(feed_url):
 
 def handle_feed_url(curr_feed):
     """
-    Print information about episodes available via the provided
-    FeedParserDict to the command line. Also checks whether the
-    provided link to download the episode file is available and
-    returns the status code 200 (OK).
+    Print information about content files available via the provided
+    FeedParserDict to the command line.
+    Further checks whether the provided link to download the content file
+    is available and returns the status code 200 (OK).
     :param curr_feed: A FeedParserDict.
     """
     num_episodes = len(curr_feed.entries)
@@ -63,7 +63,7 @@ def handle_feed_url(curr_feed):
     print("")
     for idx, en in enumerate(curr_feed.entries):
         stat_code = requests.get(en.link, timeout=REQ_TIMEOUT).status_code
-        is_avail = "OK" if stat_code == 200 else f"NOT AVAILABLE {stat_code}"
+        is_avail = "OK" if stat_code == 200 else f"n/a {stat_code}"
         pub_date = f"{datparser.parse(en.published):%Y-%m-%d %H:%M}"
         print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes} ({pub_date}): {en.title}: {en.link}")
         curr_loop = curr_loop - 1
