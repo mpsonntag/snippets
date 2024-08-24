@@ -1,5 +1,5 @@
 """
-Facilitates download of podcast files via provided podcast feed URL.
+Facilitates download of content files via provided podcast feed URL.
 """
 import argparse
 import json
@@ -9,7 +9,7 @@ from os.path import splitext
 import feedparser
 import requests
 
-from dateutil import parser as datparser
+from dateutil import parser as date_parser
 
 
 REQ_TIMEOUT=10
@@ -64,7 +64,7 @@ def handle_feed_url(curr_feed):
     for idx, en in enumerate(curr_feed.entries):
         stat_code = requests.get(en.link, timeout=REQ_TIMEOUT).status_code
         is_avail = "OK" if stat_code == 200 else f"n/a {stat_code}"
-        pub_date = f"{datparser.parse(en.published):%Y-%m-%d %H:%M}"
+        pub_date = f"{date_parser.parse(en.published):%Y-%m-%d %H:%M}"
         print(f"{idx} {is_avail}: #{curr_loop}/{num_episodes} ({pub_date}): {en.title}: {en.link}")
         curr_loop = curr_loop - 1
     print("")
@@ -108,10 +108,10 @@ def handle_output_name(audio_link, requested_entry):
     _, use_ext = splitext(audio_link.split("?")[0])
     if not use_ext:
         use_ext = ".mp3"
-        print((f"WARNING: Could not identify file extension from audio file URL;"
-               f" using MP3 as fallback ({audio_link})"))
+        print((f"WARNING: Could not identify file extension from audio file URL. "
+               f"Using MP3 as fallback ({audio_link})"))
 
-    use_date = f"{datparser.parse(requested_entry.published):%Y%m%d}"
+    use_date = f"{date_parser.parse(requested_entry.published):%Y%m%d}"
     use_title = requested_entry.title
     use_file_name = f"{use_date}_{use_title}{use_ext}"
     return use_file_name
@@ -129,7 +129,7 @@ def handle_item(curr_feed, entry_idx):
         return
     stat_code = requests.get(audio_link, timeout=REQ_TIMEOUT).status_code
     if stat_code != 200:
-        print(f"Audio file URL not available: {stat_code}; {audio_link}")
+        print(f"Audio file URL not available: {stat_code} ({audio_link})")
         return
 
     file_name = handle_output_name(audio_link, curr_feed.entries[entry_idx])
