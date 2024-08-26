@@ -29,6 +29,24 @@ class CurlHandler:
         self.curl.close()
 
 
+def shrink_newline(text):
+    """
+    All multiple consecutive '\n' in a provided text are reduced
+    to a single newline.
+    :param text: String containing the text of interest.
+    :return: String containing the provided text with all consecutive
+    '\n' characters reduced to a single newline occurrence.
+    """
+    san, prev = "", ""
+    for rune in text:
+        if rune != "\n":
+            san += rune
+        elif rune == "\n" and rune != prev:
+            san += rune
+        prev = rune
+    return san
+
+
 def curl_response_body(get_url):
     """
     Executes curl using the provided URL and prints the response
@@ -41,7 +59,9 @@ def curl_response_body(get_url):
         c.perform()
         print(f"Connection response {c.getinfo(pycurl.HTTP_CODE)}")
 
-    print(buffer.getvalue().decode("UTF-8").strip())
+    body = buffer.getvalue().decode("UTF-8").strip()
+    body = shrink_newline(body)
+    print(body)
 
 
 def main():
