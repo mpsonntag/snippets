@@ -9,23 +9,37 @@ import pycurl
 import certifi
 
 
+class CurlHandler:
+    """Context Manager object to properly open and close a curl object"""
+    def __init__(self, handle_url, use_https=True, verbose=False):
+        print("Running init")
+        self.curl = pycurl.Curl()
+        self.curl.setopt(self.curl.URL, handle_url)
+        if use_https:
+            self.curl.setopt(self.curl.CAINFO, certifi.where())
+        if verbose:
+            self.curl.setopt(self.curl.VERBOSE, True)
+
+    def __enter__(self):
+        print("Running enter")
+        return self.curl
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Running exit")
+        self.curl.close()
+
+
 def curl_response_body(get_url):
     """
     Executes curl using the provided URL and prints the response
     body to the command line.
     """
-    c = pycurl.Curl()
-    c.setopt(c.URL, get_url)
-    c.setopt(c.CAINFO, certifi.where())
-    # c.setopt(c.VERBOSE, True)
+    with CurlHandler(get_url) as c:
+        buffer = BytesIO()
+        c.setopt(c.WRITEFUNCTION, buffer.write)
 
-    buffer = BytesIO()
-    c.setopt(c.WRITEFUNCTION, buffer.write)
-
-    c.perform()
-
-    print(f"Connection response {c.getinfo(pycurl.HTTP_CODE)}")
-    c.close()
+        c.perform()
+        print(f"Connection response {c.getinfo(pycurl.HTTP_CODE)}")
 
     print(buffer.getvalue().decode("UTF-8").strip())
 
