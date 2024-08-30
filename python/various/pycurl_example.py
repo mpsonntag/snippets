@@ -2,6 +2,7 @@
 Script to explore the functionality of pycurl
 """
 import argparse
+import re
 
 from io import BytesIO
 
@@ -66,6 +67,26 @@ def parse_header(header_bytes):
         headers[name] = value
 
     return headers
+
+
+def parse_encoding(headers):
+    """
+    Parses a dict of http request headers and tries to identify the charset via the
+    "content-type" header name. If no encoding charset can be identified, 'UTF-8'
+    is returned as fallback.
+    :param headers: dict containing the headers of an http request where
+    the key provides the header name.
+    :return: string containing the identified encoding or UTF-8 as default if no
+    encoding was identified.
+    """
+    enc = "UTF-8"
+    if "content-type" in headers:
+        content_type = headers['content-type'].lower()
+        print(content_type)
+        match = re.search('charset=(([a-zA-Z0-9-])+)', content_type)
+        if match:
+            enc = match.group(1)
+    return enc
 
 
 def shrink_newline(text):
