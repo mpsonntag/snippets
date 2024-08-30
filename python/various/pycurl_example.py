@@ -13,7 +13,6 @@ import certifi
 class CurlHandler:
     """Context Manager object to properly open and close a curl object"""
     def __init__(self, handle_url, use_https=True, verbose=False):
-        print("Running init")
         self.curl = pycurl.Curl()
         self.curl.setopt(self.curl.URL, handle_url)
         if use_https:
@@ -113,13 +112,20 @@ def curl_response_body(get_url):
     body to the command line.
     """
     with CurlHandler(get_url) as c:
+        header = BytesIO()
         buffer = BytesIO()
+        c.setopt(c.HEADERFUNCTION, header.write)
         c.setopt(c.WRITEFUNCTION, buffer.write)
 
         c.perform()
         print(f"Connection response {c.getinfo(pycurl.HTTP_CODE)}")
 
-    body = buffer.getvalue().decode("UTF-8").strip()
+    headers = parse_header(header.getvalue())
+
+    enc = parse_encoding(headers)
+    if not enc:
+        enc = "UTF-8"
+    body = buffer.getvalue().decode(enc).strip()
     body = shrink_newline(body)
     print(body)
 
