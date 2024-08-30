@@ -21,12 +21,51 @@ class CurlHandler:
             self.curl.setopt(self.curl.VERBOSE, True)
 
     def __enter__(self):
-        print("Running enter")
         return self.curl
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print("Running exit")
         self.curl.close()
+
+
+def parse_header(header_bytes):
+    """
+    Parses the byte string containing the headers of an http requests and
+    returns a dict using the lowercase header name as key.
+    Decoding uses iso-8859-1, header entries are split at the newline rune
+    header entries not conform to the the 'name:body' format are skipped.
+    :param header_bytes: byte string containing the headers of an http request.
+    :return: dict containing the parsed headers using the lowercase header title
+    as key.
+    """
+    headers = {}
+    # HTTP standard specifies that headers are encoded in iso-8859-1.
+    header_bytes = header_bytes.decode('iso-8859-1')
+    for header_line in header_bytes.split("\n"):
+        # Header lines include the first status line (HTTP/1.x ...).
+        # We are going to ignore all lines that don't have a colon in them.
+        # This will botch headers that are split on multiple lines...
+        if ':' not in header_line:
+            print(f"Skipping header {header_line}")
+            continue
+
+        # Break the header line into header name and value.
+        name, value = header_line.split(':', 1)
+
+        # Remove whitespace that may be present.
+        # Header lines include the trailing newline, and there may be whitespace
+        # around the colon.
+        name = name.strip()
+        value = value.strip()
+
+        # Header names are case insensitive.
+        # Lowercase name here.
+        name = name.lower()
+
+        # Now we can actually record the header name and value.
+        # Note: this only works when headers are not duplicated, see below.
+        headers[name] = value
+
+    return headers
 
 
 def shrink_newline(text):
