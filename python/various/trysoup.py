@@ -9,6 +9,18 @@ from io import BytesIO
 import pycurl
 import certifi
 
+from bs4 import BeautifulSoup
+
+
+def soup_filter_div(data):
+    """
+    Prints all 'div' content of a specified class of a provided html page.
+    :param data: string containing an html page.
+    """
+    soup = BeautifulSoup(data, "html.parser")
+    print(soup.title)
+    print(soup.find_all("div", {"class", "c_outer", "krn_editable"}))
+
 
 class CurlHandler:
     """Context Manager object to properly open and close a curl object"""
@@ -148,6 +160,7 @@ def main():
         return
     print(f"Handling URL {get_url}")
     req_data = curl_response_body(get_url)
+    soup_filter_div(req_data)
 
 
 if __name__ == "__main__":
