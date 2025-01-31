@@ -85,6 +85,12 @@ Create a snippet starting at point 00:00:00 for duration one minute
 
     ffmpeg -ss 00:00:00 -t 00:01:00 -i input.mp4 -c copy output.mp4
 
+### Change speed
+
+Change speed e.g. of the audio to 1.2x the normal speed
+
+    ffmpeg -i in.m4a -filter:a "atempo=1.2" out.m4a
+
 ### Check for errors or warnings
 
 - set loglevel verbosity to errors
