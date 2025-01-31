@@ -79,6 +79,12 @@ file '/home/file1.mp4'
 file '/home/file1.mp4'
 ffmpeg -f concat -safe 0 -i merge.txt -c copy out.mp4
 
+### Trim mp4
+
+Create a snippet starting at point 00:00:00 for duration one minute
+
+    ffmpeg -ss 00:00:00 -t 00:01:00 -i input.mp4 -c copy output.mp4
+
 ### Check for errors or warnings
 
 - set loglevel verbosity to errors
