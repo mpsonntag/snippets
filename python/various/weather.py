@@ -41,13 +41,22 @@ def parse_page_content(content):
     return result
 
 
+def save_content(file_name, content):
+    """
+    Save string content to specified file
+    """
+    with open(file_name, "w", encoding="UTF-8") as fn:
+        fn.write(str(content.decode("utf-8")))
+
+
 def main():
     """
     Handle commandline arguments and run main processing routines
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url_str", help="URL to fetch parsable information")
-
+    parser.add_argument("-o", "--out_file",
+                        help="Name and location of the output file")
     args = parser.parse_args()
     url_str = args.url_str
 
@@ -56,7 +65,12 @@ def main():
         print("Could not fetch content from URL")
         return
 
-    _ = parse_page_content(content)
+    result = parse_page_content(content)
+
+    file_name = args.out_file
+    if file_name:
+        print(f"Saving file {file_name}")
+        save_content(file_name, result)
 
 
 if __name__ == "__main__":
